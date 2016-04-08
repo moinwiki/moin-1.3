@@ -4,18 +4,21 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: Page.py,v 1.36 2001/04/04 21:47:08 jhermann Exp $
+    $Id: Page.py,v 1.46 2001/10/24 19:15:32 jhermann Exp $
 """
 
 # Imports
 import cStringIO, os, re, sys, string, time, urllib
 from MoinMoin import caching, config, user, util, wikiutil, webapi
+from MoinMoin.cgimain import request
 
 
 #############################################################################
 ### Page - Manage a page associated with a WikiName
 #############################################################################
 class Page:
+    """ A wiki page """
+
     def __init__(self, page_name, **keywords):
         """ Load page object.
 
@@ -128,12 +131,13 @@ class Page:
                 content_only: 1 to omit page header and footer
         """
 
-        util.clock.start('send_page')
+        request.clock.start('send_page')
 
         # determine modes
         print_mode = form.has_key('action') and form['action'].value == 'print'
         content_only = keywords.get('content_only', 0)
         self.hilite_re = keywords.get('hilite_re', None)
+        if msg is None: msg = ""
 
         # load the text
         body = self.get_raw_body()
@@ -161,7 +165,7 @@ class Page:
                 line = body
                 body = ''
 
-            # skip comments
+            # skip comments (lines with two hash marks)
             if line[1] == '#': continue
 
             # parse the PI
@@ -186,6 +190,23 @@ class Page:
                     wikiutil.quoteWikiname(pi_redirect),
                     urllib.quote_plus(self.page_name, ''),))
                 return
+            elif verb == "deprecated":
+                # deprecated page, append last backup version to current contents
+                # (which should be a short reason why the page is deprecated)
+                msg = '%s<b>%s</b><br>%s' % (
+                    wikiutil.getSmiley('/!\\'),
+                    user.current.text('The backupped content of this page is deprecated and will not be included in search results!'),
+                    msg)
+
+                oldversions = wikiutil.getBackupList(config.backup_dir, self.page_name)
+                if oldversions:
+                    oldfile = oldversions[0]
+                    olddate = os.path.basename(oldfile)[len(wikiutil.quoteFilename(self.page_name))+1:]
+                    oldpage = Page(self.page_name, date=olddate)
+                    body = body + oldpage.get_raw_body()
+                    del oldfile
+                    del olddate
+                    del oldpage
             else:
                 # unknown PI ==> end PI parsing
                 break
@@ -204,7 +225,6 @@ class Page:
                     wikiutil.quoteWikiname(self.page_name),
                     urllib.quote_plus(self.page_name, ''))
                 title = self.split_title()
-                if msg is None: msg = ""
                 if self.prev_date:
                     msg = "<b>%s</b><br>%s" % (
                         user.current.text('Version as of %(date)s') % {'date':
@@ -238,7 +258,7 @@ class Page:
                 user.current.text("Create this page"))
 
             # look for template pages
-            templates = filter(lambda page: page[-8:] == 'Template',
+            templates = filter(lambda page: page[-8:] == config.page_template_ending,
                 wikiutil.getPageList(config.text_dir))
             if templates:
                 print self.formatter.paragraph()
@@ -281,7 +301,7 @@ class Page:
                 links.sort()
                 cache.update(string.join(links, '\n'))
 
-        util.clock.stop('send_page')
+        request.clock.stop('send_page')
 
 
     def _last_modified(self):
@@ -313,8 +333,13 @@ class Page:
 
 
     def send_editor(self, form):
-        import cgi
+        # check edit permissions
+        if not user.current.may.edit:
+            self.send_page(form,
+                msg=user.current.text("""<b>You are not allowed to edit any pages.</b>"""))
+            return
 
+        from cgi import escape
         webapi.http_headers(["Pragma: no-cache"])
 
         if self.prev_date:
@@ -344,7 +369,7 @@ class Page:
             if user.current.valid: text_cols = int(user.current.edit_cols)
 
         print '<form method="post" action="%s/%s">' % (webapi.getScriptname(), wikiutil.quoteWikiname(self.page_name))
-        print '<input type="hidden" name="action" value="savepage">' 
+        print '<input type="hidden" name="action" value="savepage">'
         if os.path.isfile(self._text_filename()):
             mtime = os.path.getmtime(self._text_filename())
         else:
@@ -372,14 +397,14 @@ class Page:
 
         # print the editor textarea and the save button
         print ('<textarea wrap="virtual" name="savetext" rows="%d" cols="%d" style="width:100%%">%s</textarea>'
-            % (text_rows, text_cols, cgi.escape(raw_body)))
+            % (text_rows, text_cols, escape(raw_body)))
         print '''<div style="margin-top:6pt;margin-bottom:6pt;"><input type="submit" value="%s">
 </div>
 <input type="checkbox" name="rstrip">
 <font face="Verdana" size="-1">%s</font>
 ''' % (
-    user.current.text('Save Changes'),
-    user.current.text('Remove trailing whitespace from each line'))
+        user.current.text('Save Changes'),
+        user.current.text('Remove trailing whitespace from each line'))
         ##print Page("UploadFile").link_to()
         ##print "<input type=file name=imagefile>"
         ##print "(not enabled yet)"
@@ -424,6 +449,8 @@ class Page:
 
 
     def _write_file(self, text):
+        is_deprecated = string.lower(text[:11]) == "#deprecated"
+
         # save to tmpfile
         tmp_filename = self._tmp_filename()
         tmp_file = open(tmp_filename, 'wt')
@@ -431,7 +458,8 @@ class Page:
         tmp_file.close()
         text = self._text_filename()
 
-        if os.path.isdir(config.backup_dir) and os.path.isfile(text):
+        if os.path.isdir(config.backup_dir) and os.path.isfile(text) \
+                and not is_deprecated:
             os.rename(text, os.path.join(config.backup_dir,
                 wikiutil.quoteFilename(self.page_name) + '.' + str(os.path.getmtime(text))))
         else:
@@ -444,13 +472,15 @@ class Page:
                     if er.errno <> errno.ENOENT: raise er
 
         # replace old page by tmpfile
-        os.chmod(tmp_filename, 0666)
+        os.chmod(tmp_filename, 0666 & config.umask)
         os.rename(tmp_filename, text)
         return os.path.getmtime(text)
 
 
     def save_text(self, newtext, datestamp, **kw):
         msg = ""
+        if not user.current.may.edit:
+            msg = user.current.text("""<b>You are not allowed to edit any pages.</b>""")
         if not newtext:
             msg = user.current.text("""<b>You cannot save empty pages.</b>""")
         elif datestamp == '0':
@@ -489,8 +519,9 @@ Your attention to detail is appreciated.</b>""")
 
             # write the editlog entry
             from MoinMoin import editlog
+            log = editlog.makeLogStore()
             remote_name = os.environ.get('REMOTE_ADDR', '')
-            editlog.editlog_add(self.page_name, remote_name, mtime)
+            log.addEntry(self.page_name, remote_name, mtime)
 
-        return msg        
+        return msg
 

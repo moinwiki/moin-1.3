@@ -4,11 +4,12 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: version.py,v 1.128 2001/05/07 22:18:18 jhermann Exp $
+    $Id: version.py,v 1.134 2001/10/27 14:31:33 jhermann Exp $
 """
 
-revision = '$Revision: 1.128 $'[11:-2]
-release  = '0.9'
+project = "MoinMoin"
+revision = '$Revision: 1.134 $'[11:-2]
+release  = '0.10'
 
 if __name__ == "__main__":
     # Bump own revision

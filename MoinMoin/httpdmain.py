@@ -4,20 +4,26 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: httpdmain.py,v 1.1 2001/02/02 00:10:52 jhermann Exp $
+    Significant contributions to this module by R. Church <rc@ghostbitch.org>
+
+    $Id: httpdmain.py,v 1.8 2001/07/11 20:23:00 jhermann Exp $
 """
-__version__ = "$Revision: 1.1 $"[11:-2]
+__version__ = "$Revision: 1.8 $"[11:-2]
 
 # Imports
-import os, signal, sys, thread, urllib, string
+import os, signal, sys, time, thread, urllib, string
 import BaseHTTPServer
 import SimpleHTTPServer
+from MoinMoin import config
+
+allowed_extensions = ['.gif', '.jpg', '.png', '.css', '.js']
 
 # Classes
 class MoinServer(BaseHTTPServer.HTTPServer):
-    def __init__(self, server_address):
+    def __init__(self, server_address, htdocs):
         BaseHTTPServer.HTTPServer.__init__(self, server_address, MoinRequestHandler)
-    
+
+        self.htdocs = htdocs
         self._abort = 0
 
     def serve_in_thread(self):
@@ -26,6 +32,7 @@ class MoinServer(BaseHTTPServer.HTTPServer):
 
     def serve_forever(self):
         """Handle one request at a time until we die."""
+        sys.stderr.write("Serving on %s:%d, documents in '%s'\n" % (self.server_address + (self.htdocs,)))
         while not self._abort:
             self.handle_request()
 
@@ -33,13 +40,69 @@ class MoinServer(BaseHTTPServer.HTTPServer):
         """Abort this server instance's serving loop."""
         self._abort = 1
 
+        # make request to self so server wakes up
+        import httplib
+        req = httplib.HTTP('%s:%d' % self.server_address)
+        req.connect()
+        req.putrequest('DIE', '/')
+        req.endheaders()
+        del req
+
 
 class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
     server_version = "MoinMoin/" + __version__
 
+    def __init__(self, request, client_address, server):
+        SimpleHTTPServer.SimpleHTTPRequestHandler.__init__(self, request, client_address, server)
+
+    def do_DIE(self):
+        if self.server._abort:
+            self.log_error("Shutting down")
+
+    def do_POST(self):
+        self.doRequest()
+
     def do_GET(self):
-        """Serve a GET request."""
+        dummy, extension = os.path.splitext(self.path)
+        if extension.lower() in allowed_extensions:
+            SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+        else:
+            self.doRequest()
+
+    def translate_path(self, uri):
+        """ Translate a /-separated PATH to the local filename syntax.
+
+            Components that mean special things to the local file system
+            (e.g. drive or directory names) are ignored.
+
+        """
+        import urllib
+
+        file = urllib.unquote(uri)
+        file.replace('\\', '/')
+        words = file.split('/')
+        words = filter(None, words)
+
+        path = self.server.htdocs
+        bad_uri = 0
+        for word in words:
+            drive, word = os.path.splitdrive(word)
+            if drive:
+                bad_uri = 1
+            head, word = os.path.split(word)
+            if word in (os.curdir, os.pardir):
+                bad_uri = 1
+                continue
+            path = os.path.join(path, word)
+
+        if bad_uri:
+            self.log_error("Detected bad request URI '%s', translated to '%s'" % (uri, path,))
+            
+        return path
+
+    def doRequest(self):
+        """Serve a request."""
         rest = self.path
         i = string.rfind(rest, '?')
         if i >= 0:
@@ -89,20 +152,18 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         save_stdout = sys.stdout
         save_stderr = sys.stderr
 
+        from MoinMoin import cgimain
+
         try:
             try:
                 os.environ.update(env)
                 sys.stdout = self.wfile
                 sys.stdin = self.rfile
                 self.send_response(200)
-                #self.send_header("Content-type", "text/html")
-                #self.end_headers()
 
-                import util
-                util.clock = util.Clock()
-
-                import cgimain
                 cgimain.run()
+
+                sys.stdout.flush()
             finally:
                 os.environ = save_env
                 sys.stdin = save_stdin
@@ -111,7 +172,12 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         except SystemExit, sts:
             self.log_error("CGI script exit status %s", str(sts))
         else:
-            self.log_error("CGI script exited OK")
+            #cgimain.request.clock.stop('total')
+            self.log_error("CGI script exited OK, taking %s secs" %
+                cgimain.request.clock.value('total'))
+
+        sys.stdout.flush()
+        sys.stderr.flush()
 
 
 # Functions
@@ -119,7 +185,7 @@ def quit(signo, stackframe):
     """Signal handler for aborting signals."""
     print "Interrupted!"
     if httpd: httpd.die()
-    sys.exit(0)
+    #sys.exit(0)
 
 def run():
     # set globals (only on first import, save from reloads!)
@@ -131,10 +197,40 @@ def run():
     signal.signal(signal.SIGINT,  quit)
     signal.signal(signal.SIGTERM, quit)
 
-    # start web server
-    server_address = ('', 8080)
-    httpd = MoinServer(server_address)
-    httpd.serve_forever()
+    # create web server
+    filepath = os.path.normpath(os.path.abspath(config.httpd_docs))
+    httpd = MoinServer((config.httpd_host, config.httpd_port), filepath)
+
+    # start it
+    if sys.platform == 'win32':
+        # run threaded server
+        httpd.serve_in_thread()
+
+        # main thread accepts signal
+        i = 0
+        while not httpd._abort:
+            i += 1
+            print "\|/-"[i%4], "\r",
+            time.sleep(1)
+    else:
+        # if run as root, change to configured user
+        if os.getuid() == 0:
+            if not config.httpd_user:
+                print "Won't run as root, set the http_user config variable!"
+                sys.exit(1)
+            
+            import pwd
+            try:
+                pwentry = pwd.getpwnam(config.httpd_user)
+            except KeyError:
+                print "Can't find http_user '%s'!" % (config.httpd_user,)
+                sys.exit(1)
+
+            uid = pwentry[2]
+            os.setreuid(uid, uid)
+
+        httpd.serve_forever()
 
 if __name__ == "__main__":
     run()
+

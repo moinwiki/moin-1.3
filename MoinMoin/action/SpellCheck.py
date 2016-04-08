@@ -18,17 +18,14 @@
     Additionally, all words on the page "LocalSpellingWords" are added to
     the list of valid words, if that page exists.
 
-    $Id: SpellCheck.py,v 1.10 2001/03/30 21:06:52 jhermann Exp $  
-"""     
+    $Id: SpellCheck.py,v 1.14 2001/07/11 20:23:00 jhermann Exp $  
+"""
 
 # Imports
 import cgi, os, re, string, sys
 from MoinMoin import config, user, util, wikiutil
 from MoinMoin.Page import Page
-
-
-# Globals
-_lsw_name = user.current.text('LocalSpellingWords')
+from MoinMoin.cgimain import request
 
 
 # Functions
@@ -53,18 +50,18 @@ def _getWordsFiles():
 
 
 def _loadWordsFile(dict, filename):
-    util.clock.start('spellread')
+    request.clock.start('spellread')
     file = open(filename, 'rt')
     words = string.split(file.read())
     file.close()
-    util.clock.stop('spellread')
+    request.clock.stop('spellread')
 
     for word in words: dict[word] = ''
 
 
 def _addLocalWords(form):
     # get the page contents
-    lsw_page = Page(_lsw_name)
+    lsw_page = Page(config.page_local_spelling_words)
     words = lsw_page.get_raw_body()
 
     # get the new words as a string
@@ -95,10 +92,10 @@ def execute(pagename, form):
     if dbhash and os.path.exists(cachename):
         wordsdict = dbhash.open(cachename, "r")
     else:
-        util.clock.start('dict.cache')
+        request.clock.start('dict.cache')
         wordsfiles = _getWordsFiles()
         if dbhash:
-            wordsdict = dbhash.open(cachename, 'n', 0666)
+            wordsdict = dbhash.open(cachename, 'n', 0666 & config.umask)
         else:
             wordsdict = {}
 
@@ -106,14 +103,14 @@ def execute(pagename, form):
             _loadWordsFile(wordsdict, wordsfile)
 
         if dbhash: wordsdict.sync()
-        util.clock.stop('dict.cache')
+        request.clock.stop('dict.cache')
 
     localwords = {}
-    lsw_page = Page(_lsw_name)
+    lsw_page = Page(config.page_local_spelling_words)
     if lsw_page.exists(): _loadWordsFile(localwords, lsw_page._text_filename())
 
     # init status vars & load page
-    util.clock.start('spellcheck')
+    request.clock.start('spellcheck')
     badwords = {}
     page = Page(pagename)
     text = page.get_raw_body()
@@ -140,7 +137,7 @@ def execute(pagename, form):
         if line == '' or line[0] == '#': continue
         word_re.sub(checkword, line)
 
-    util.clock.stop('spellcheck')
+    request.clock.stop('spellcheck')
 
     if badwords:
         badwords = badwords.keys()

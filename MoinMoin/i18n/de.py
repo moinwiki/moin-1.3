@@ -4,7 +4,7 @@ text = {
 ' (inklusive %(localwords)d %(pagelink)s)',
 
 ' (spanning %d versions)':
-' (über %d Versionen hinweg)',
+' (\374ber %d Versionen hinweg)',
 
 ' Create Profile ':
 ' Benutzer anlegen ',
@@ -17,6 +17,9 @@ text = {
 
 ' Logout ':
 ' Logout ',
+
+' Mail me my account data ':
+' Email mit den Zugangsdaten senden ',
 
 ' Save ':
 ' Speichern ',
@@ -32,6 +35,12 @@ text = {
 
 ' matches':
 ' Treffer',
+
+' time':
+' time',
+
+' times':
+' times',
 
 '%(errortype)s processing error':
 'Verarbeitungsfehler vom Typ "%(errortype)s"',
@@ -57,8 +66,20 @@ text = {
 '4Suite Version':
 '4Suite Version ',
 
+'<b>Cookie deleted!</b>':
+'<b>Der "Cookie" wurde gel\366scht!</b>',
+
 '<b>Differences between version dated %s and %s':
 '<b>Unterschiede zwischen den Versionen vom %s und vom %s',
+
+"<b>Found no account matching the given email address '%(email)s'!</b>":
+"<b>Es wurde kein Benutzerkonto mit der Emailadresse '%(email)s' gefunden!</b>",
+
+'<b>No differences found!</b>':
+'<b>No differences found!</b>',
+
+'<b>Please provide a valid email address!</b>':
+'<b>Bitte eine g\374ltige Email-Adresse angeben!</b>',
 
 '''<b>Sorry, someone else saved the page while you edited it.
 <p>Please do the following: Use the back button of your browser, and cut&paste
@@ -197,6 +218,9 @@ Your attention to detail is appreciated.</b>''':
 'Invalid include arguments "%s"!':
 'Ung\374ltige "Include" Argumente: "%s"!',
 
+'Local Site Map for "%s"':
+'Local Site Map for "%s"',
+
 'LocalSpellingWords':
 'LocalSpellingWords',
 
@@ -278,8 +302,14 @@ Your attention to detail is appreciated.</b>''':
 'Size':
 'Gr\366\337e',
 
+'The backupped content of this page is deprecated and will not be included in search results!':
+'Der Inhalt der letzten Sicherungskopie ist veraltet und wird von der Volltextsuche ignoriert!',
+
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
 'Die nachfolgenden %(badwords)d Worte konnten nicht im W\366rterbuch mit %(totalwords)d Worten%(localwords)s gefunden werden und sind im Text hervorgehoben:',
+
+'The page was saved %(count)d%(times)s, though!':
+'The page was saved %(count)d%(times)s, though!',
 
 'This page is already deleted or was never created!':
 'Diese Seite wurde bereits gel\366scht oder wurde bisher nicht angelegt!',
@@ -314,6 +344,9 @@ kann folgende URL verwendet werden: ''',
 
 'You are not allowed to delete pages in this wiki!':
 'Das L\366schen von Seiten ist in diesem Wiki nicht erlaubt!',
+
+'Your email address':
+'Email-Adresse',
 
 'Your time is':
 'Die lokale Zeit ist',

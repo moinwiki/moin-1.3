@@ -6,7 +6,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: test.cgi,v 1.2 2001/03/10 17:57:08 jhermann Exp $
+    $Id: test.cgi,v 1.3 2001/05/28 23:51:58 jhermann Exp $
 """
 
 import sys, cgi
@@ -19,12 +19,14 @@ def run():
         print
 
     except ImportError:
-        import pprint
-    
+        import pprint, traceback
+
         print 'Can\'t import "MoinMoin" package!'
         print
         print 'Your PYTHONPATH is:'
         print pprint.pformat(sys.path)
+        print
+        apply(traceback.print_exception, sys.exc_info()+(None,sys.stdout))
         return
 
     cgimain.test()

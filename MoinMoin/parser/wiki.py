@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wiki.py,v 1.28 2001/04/19 22:49:38 jhermann Exp $
+    $Id: wiki.py,v 1.34 2001/09/24 19:05:08 jhermann Exp $
 """
 
 # Imports
@@ -46,7 +46,7 @@ class Parser:
 (?P<word>(?:[%(u)s][%(l)s]+){2,})
 (?P<url_bracket>\[(%(url)s)\:[^\s\]]+(\s[^\]]+)?\])
 (?P<url>%(url_guard)s(%(url)s)\:([^\s\<%(punct)s]|([%(punct)s][^\s\<%(punct)s]))+)
-(?P<email>[-\w._+]+\@[\w.-]+)
+(?P<email>[-\w._+]+\@[\w-]+\.[\w.-]+)
 (?P<smiley>\s(%(smiley)s)\s)
 (?P<smileyA>^(%(smiley)s)\s)
 (?P<ent>[<>&])"""  % {
@@ -75,7 +75,7 @@ class Parser:
         self.list_indents = []
         self.list_types = []
 
-    def interwiki(self, url_and_text):
+    def interwiki(self, url_and_text, **kw):
         if len(url_and_text) == 1:
             url = url_and_text[0]
             text = None
@@ -94,18 +94,18 @@ class Parser:
         wikitag, wikiurl, wikitail = wikiutil.resolve_wiki(url)
 
         # check for image URL, and possibly return IMG tag
-        if wikiutil.isPicture(wikitail):
-            return '<img src="%s%s" border="0">' % (wikiurl, wikitail)
+        if not kw.get('pretty_url', 0) and wikiutil.isPicture(wikitail):
+            return '<img src="%s%s" border="0">' % (wikiutil.mapURL(wikiurl), wikitail)
 
         # return InterWiki hyperlink
         return '''<a href="%(wikiurl)s"><img src="%(prefix)s/img/moin-inter.gif"
 width="16" height="16" hspace="2" border="%(badwiki)d"
 alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(text)s</a>''' % {
-            'wikiurl': wikiurl,
+            'wikiurl': wikiutil.mapURL(wikiurl),
             'prefix': config.url_prefix,
             'badwiki': wikitag == "BadWikiTag",
-            'wikitag': wikitag, 
-            'wikitail': wikitail, 
+            'wikitag': wikitag,
+            'wikitail': wikitail,
             'text': self.highlight_text(text),
         }
 
@@ -134,9 +134,14 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
             result = result + self.formatter.rule(min(len(word), 10) - 2)
         return result
 
+
     def _word_repl(self, word):
         """Handle WikiNames."""
         return self.formatter.pagelink(word, self.highlight_text(word))
+
+    def _notword_repl(self, word):
+        """Handle !NotWikiNames."""
+        return self.highlight_text(word[1:])
 
 
     def _interwiki_repl(self, word):
@@ -163,7 +168,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
         if len(words) == 1: words = words * 2
         scheme = string.split(words[0], ":", 1)[0]
 
-        if scheme == "wiki": return self.interwiki(words)
+        if scheme == "wiki": return self.interwiki(words, pretty_url=1)
 
         icon = ("www", 11, 11)
         if scheme == "mailto": icon = ("email", 14, 10)
@@ -191,7 +196,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
         #return {'&': '&amp;',
         #        '<': '&lt;',
         #        '>': '&gt;'}[word]
-    
+
 
     def _li_repl(self, match):
         """Handle bullet lists."""
@@ -225,7 +230,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
                 self.table_rowstart = 0
                 leader = '<tr class="wiki">'
             else:
-                leader = '</td>' 
+                leader = '</td>'
 
             # check for adjacent cell markers
             if len(word) > 2:
@@ -241,12 +246,15 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
 
     def _heading_repl(self, word):
         """Handle section headings."""
+        import sha
+        
         h = string.strip(word)
         level = 1
         while h[level:level+1] == '=': level = level+1
         depth = min(5,level)
-        return self.formatter.anchordef("line%d" % self.lineno) + \
-            self.formatter.heading(depth, self.highlight_text(h[level:-level]))
+        headline = string.strip(h[level:-level])
+        return self.formatter.anchordef("head-"+sha.new(headline).hexdigest()) + \
+            self.formatter.heading(depth, self.highlight_text(headline))
 
 
     def _pre_repl(self, word):
@@ -342,7 +350,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
 
     def highlight_text(self, text):
         if not self.hilite_re: return self.formatter.text(text)
-        
+
         result = []
         lastpos = 0
         match = self.hilite_re.search(text)
@@ -393,7 +401,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
                 + "\n" + pprint.pformat(match.groups()) )
 
         return ""
-        
+
 
     def format(self, formatter, form):
         """ For each line, scan through looking for magic
@@ -407,6 +415,12 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
         rules = string.replace(self.__class__.formatting_rules, '\n', '|')
         if config.allow_extended_names:
             rules = rules + r'|(?P<wikiname_bracket>\[".*?"\])'
+        if config.bang_meta:
+            rules = r'(?P<notword>!(?:[%(u)s][%(l)s]+){2,})|%(rules)s' % {
+                'u': config.upperletters,
+                'l': config.lowerletters,
+                'rules': rules,
+            }
         scan_re = re.compile(rules)
         number_re = re.compile(self.__class__.ol_rule)
         indent_re = re.compile("^\s*")

@@ -1,0 +1,25 @@
+# MoinMoin - Distutils distribution files
+#
+# Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
+# All rights reserved, see COPYING for details.
+#
+# $Id: MANIFEST.in,v 1.5 2001/10/27 14:34:54 jhermann Exp $
+
+include CHANGES COPYING ChangeLog INSTALL INSTALL.IIS README TODO
+include MANIFEST.in moinlogo.bmp setup.cfg
+
+include MoinMoin/wiki-moinmoin/PythonPowered.gif
+include MoinMoin/wiki-moinmoin/default.css
+include MoinMoin/wiki-moinmoin/index.html
+include MoinMoin/wiki-moinmoin/moin.cgi
+include MoinMoin/wiki-moinmoin/moin_config.py
+include MoinMoin/wiki-moinmoin/moinmoin.gif
+include MoinMoin/wiki-moinmoin/test.cgi
+
+include MoinMoin/wiki-moinmoin/data/editlog
+include MoinMoin/wiki-moinmoin/data/intermap.txt
+
+recursive-include MoinMoin/wiki-moinmoin/img *
+recursive-include MoinMoin/wiki-moinmoin/data/text *
+
+global-exclude */CVS/*

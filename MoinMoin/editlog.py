@@ -4,47 +4,105 @@
     Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: editlog.py,v 1.4 2001/03/09 17:26:01 jhermann Exp $
+    Functions to keep track of when people have changed pages, so we
+    can do the recent changes page and so on.
+
+    $Id: editlog.py,v 1.6 2001/10/24 19:15:32 jhermann Exp $
 """
 
 # Imports
-import string, time
+import os, string, time
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
 
 
 #############################################################################
-### Edit Logging
+### Basic Interface
 #############################################################################
 
-# Functions to keep track of when people have changed pages, so we can
-# do the recent changes page and so on.
-# The editlog is stored with one record per line, as tab-separated
-# words: pagename, host, time, hostname, userid
+class LogBase:
+    """ Basic interface for log stores.
+    """
 
-# TODO: Check values written in are reasonable
+    def __init__(self, optstr):
+        self.options = optstr
 
-def editlog_add(pagename, host, mtime):
-    """ Add an entry to the editlog """
-    from MoinMoin import user
-    import socket
+    def sanityCheck(self):
+        """ Perform a self-test, i.e. check for correct config, permissions,
+            etc. Return error message or `false`.
+        """
+        return None
 
-    try:
-        hostname = socket.gethostbyaddr(host)[0]
-    except socket.error:
-        hostname = host
+    def addEntry(pagename, host, mtime):
+        """ Add an entry to the editlog """
+        pass
 
-    logfile = open(config.editlog_name, 'a+')
-    entry = string.join((wikiutil.quoteFilename(pagename), host, `mtime`,
-                         hostname, user.User().id), "\t") + "\n"
-    try: 
-        # fcntl.flock(logfile.fileno(), fcntl.LOCK_EX)
-        logfile.seek(0, 2)                  # to end
-        logfile.write(entry)
-    finally:
-        # fcntl.flock(logfile.fileno(), fcntl.LOCK_UN)
-        logfile.close()
 
+#############################################################################
+### Logging to text file
+#############################################################################
+
+class LogText(LogBase):
+    """ Storage for log entries in a plain text file.
+
+        The editlog is stored with one record per line, as tab-separated
+        words: pagename, host, time, hostname, userid
+
+        TODO: Check values written in are reasonable
+    """
+
+    def __init__(self, optstr):
+        LogBase.__init__(self, optstr)
+        self.filename = os.path.join(config.data_dir, optstr)
+
+    def sanityCheck(self):
+        """ Check for editlog file access.
+        """
+        if not os.access(self.filename, os.W_OK):
+            return "The edit log '%s' is not writable!" % (self.filename,)
+
+    def addEntry(self, pagename, host, mtime):
+        """ Add an entry to the editlog """
+        import socket
+
+        try:
+            hostname = socket.gethostbyaddr(host)[0]
+        except socket.error:
+            hostname = host
+
+        logfile = open(self.filename, 'a+')
+        entry = string.join((wikiutil.quoteFilename(pagename), host, `mtime`,
+                             hostname, user.User().id), "\t") + "\n"
+        try:
+            # fcntl.flock(logfile.fileno(), fcntl.LOCK_EX)
+            logfile.seek(0, 2)                  # to end
+            logfile.write(entry)
+        finally:
+            # fcntl.flock(logfile.fileno(), fcntl.LOCK_UN)
+            logfile.close()
+
+
+#############################################################################
+### Factory
+#############################################################################
+
+def makeLogStore(option=None):
+    """ Creates a storage object that provides an implementation of the
+        storage type given in the `option` parameter; option consists
+        of a `schema:` part, followed by a schema-specific option string.
+
+        Currently supported schemas are: "text".
+    """
+    if option is None: option = config.LogStore
+
+    schema, optstr = string.split(option, ':', 1)
+    if schema == "text":
+        return LogText(optstr)
+
+
+#############################################################################
+### former code!
+#############################################################################
 
 class EditLog:
     """ A read-only form of the editlog. Do NOT access the file
@@ -108,7 +166,7 @@ class EditLog:
                 return 1
 
         self._parse_log_line("")
-        return 0            
+        return 0
 
 
     def getEditor(self):
@@ -143,7 +201,8 @@ class EditLog:
 
     def _editlog_raw_lines(self):
         """ Load a list of raw editlog lines """
-        logfile = open(config.editlog_name, 'rt')
+        editlog_name = os.path.join(config.data_dir, 'editlog') #!!! self.filename
+        logfile = open(editlog_name, 'rt')
         try:
             # fcntl.flock(logfile.fileno(), fcntl.LOCK_SH)
             return logfile.readlines()
@@ -180,3 +239,4 @@ class EditLog:
             expr = "%s and int(x.ed_time) == %s" % (expr, int(kw['ed_time']))
 
         return eval("lambda x: " + expr)
+

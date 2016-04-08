@@ -4,7 +4,7 @@
     Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiutil.py,v 1.27 2001/03/30 21:06:52 jhermann Exp $
+    $Id: wikiutil.py,v 1.35 2001/10/24 17:08:04 jhermann Exp $
 """
 
 # Imports
@@ -93,8 +93,7 @@ def resolve_wiki(wikiurl):
                 _interwiki_list[wikitag] = urlprefix
             except ValueError:
                 pass
-        ##import pprint; print '<pre>'; pprint.pprint(_interwiki_list); print '</pre>'
-        
+
     # split wiki url
     wikitag, tail = split_wiki(wikiurl)
 
@@ -130,7 +129,7 @@ def getPageDict(text_dir):
     pagenames = getPageList(text_dir)
     for name in pagenames:
         pages[name] = Page(name)
-    return pages    
+    return pages
 
 
 def getBackupList(backup_dir, pagename=None):
@@ -145,9 +144,16 @@ def getBackupList(backup_dir, pagename=None):
         else:
             pagename = ".*?"
         backup_re = re.compile(r'^%s\.\d+(\.\d+)?$' % (pagename,))
-        oldversions = filter(backup_re.match, os.listdir(backup_dir))
+        oldversions = []
+        for file in os.listdir(backup_dir):
+            if not backup_re.match(file): continue
+            data = string.split(file, '.', 1)
+            oldversions.append(((data[0], float(data[1])), file))
         oldversions.sort()
         oldversions.reverse()
+
+        #!!!2.0 oldversions = [x[1] for x in oldversions]
+        oldversions = map(lambda x: x[1], oldversions)
     else:
         oldversions = None
 
@@ -195,6 +201,21 @@ def searchPages(needle, **kw):
 #############################################################################
 ### Misc
 #############################################################################
+
+def mapURL(url):
+    """ Map URLs according to 'config.url_mappings'.
+    """
+    # check whether we have to map URLs
+    if config.url_mappings:
+        # check URL for the configured prefixes
+        for prefix in config.url_mappings.keys():
+            if url.startswith(prefix):
+                # substitute prefix with replacement value
+                return config.url_mappings[prefix] + url[len(prefix):]
+
+    # return unchanged url
+    return url
+
 
 def isUnicodeName(name):
     """Try to determine if the quoted wikiname is a special, pure unicode name"""
@@ -254,7 +275,7 @@ def send_title(text, **keywords):
     print '<table width="100%"><tr><td>'
 
     if config.logo_string:
-        print link_tag(quoteWikiname(config.front_page), config.logo_string)
+        print link_tag(quoteWikiname(config.page_front_page), config.logo_string)
     print '</td><td width="99%" valign="middle" class="headline"><font size="+3">&nbsp;<b>'
     if keywords.get('link'):
         print '<a title="%s" href="%s">%s</a>' % (
@@ -309,14 +330,13 @@ def send_footer(pagename, mod_string=None, **keywords):
             **editable** -- true, when page is editable (default: true)
             **showpage** -- true, when link back to page is wanted (default: false)
     """
-    base = webapi.getScriptname()
     print "<hr>"
     if config.page_footer1: print config.page_footer1
 
     if keywords.get('showpage', 0):
         print link_tag(quoteWikiname(pagename), user.current.text("ShowText"))
         print user.current.text('of this page'), '<br>'
-    if keywords.get('editable', 1):
+    if keywords.get('editable', 1) and user.current.may.edit:
         print link_tag(quoteWikiname(pagename)+'?action=edit', user.current.text('EditText'))
         print user.current.text('of this page')
         if mod_string:

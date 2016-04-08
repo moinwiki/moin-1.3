@@ -4,7 +4,7 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: WantedPages.py,v 1.4 2001/03/28 23:03:43 jhermann Exp $
+    $Id: WantedPages.py,v 1.5 2001/05/31 01:02:08 jhermann Exp $
 """
 
 # Imports
@@ -19,7 +19,7 @@ def execute(macro, args):
     # prevent recursive calls
     global _guard
     if _guard: return ''
-    
+
     # build a dict of wanted pages
     _guard = 1
     wanted = {}

@@ -4,11 +4,11 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: TableOfContents.py,v 1.1 2000/11/25 16:41:24 jhermann Exp $
+    $Id: TableOfContents.py,v 1.2 2001/06/27 16:28:38 jhermann Exp $
 """
 
 # Imports
-import re
+import re, sha
 
 
 def execute(macro, args):
@@ -40,7 +40,9 @@ def execute(macro, args):
 
         # Add the heading
         result = result + macro.formatter.listitem(1)
-        result = result + macro.formatter.anchorlink("line%d" % lineno, match.group(2))
+        result = result + macro.formatter.anchorlink(
+            "head-"+sha.new(match.group(2)).hexdigest(),
+            match.group(2))
         result = result + macro.formatter.listitem(0)
 
         # Set new indent level

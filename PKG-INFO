@@ -1,0 +1,16 @@
+Metadata-Version: 1.0
+Name: moin
+Version: 0.10
+Summary: MoinMoin 0.10.1.134 is a Python clone of WikiWiki
+Home-page: http://moin.sf.net/
+Author: Jürgen Hermann
+Author-email: jh@web.de
+License: GNU GPL
+Description: 
+        A WikiWikiWeb is a collaborative hypertext environment, with an
+        emphasis on easy access to and modification of information. MoinMoin
+        is a Python WikiClone that allows you to easily set up your own wiki,
+        only requiring a Web server and a Python installation.
+        
+Keywords: wiki web
+Platform: win32 posix

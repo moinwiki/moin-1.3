@@ -9,7 +9,7 @@
     with the same word as the current pagename. If only one matching
     page is found, that page is displayed directly.
 
-    $Id: LikePages.py,v 1.4 2001/03/30 21:06:52 jhermann Exp $
+    $Id: LikePages.py,v 1.5 2001/05/31 00:56:45 jhermann Exp $
 """
 
 import re
@@ -53,7 +53,7 @@ def execute(pagename, form,
 
     # more than one match, list 'em
     webapi.http_headers()
-    wikiutil.send_title(user.current.text('Multiple matches for "%s...%s"') % (start, end),  
+    wikiutil.send_title(user.current.text('Multiple matches for "%s...%s"') % (start, end),
         pagename=pagename)
 
     keys = matches.keys()

@@ -4,7 +4,7 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: _sync.py,v 1.2 2001/04/04 20:10:49 jhermann Exp $
+    $Id: _sync.py,v 1.3 2001/05/31 01:02:08 jhermann Exp $
 """
 
 # Imports
@@ -26,7 +26,7 @@ def synchronize(slave, master):
         if not slave.has_key(key):
             changes = changes + 1
             slave[key] = key
-        
+
     return changes
 
 

@@ -1,8 +1,9 @@
+FOLDOC http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?query=
 ISBN http://www.amazon.com/exec/obidos/ISBN=
 RFC http://www.ietf.org/rfc/rfc
 FreshMeat http://freshmeat.net/
 BrainBench http://www.brainbench.com/transcript.jsp?pid=
-EfnetCeeWiki http://wiki.rm-f.net/moin.cgi/
+EfnetCeeWiki http://purl.net/wiki/c/
 Thinki http://www.thinkware.se/cgi-bin/thinki.cgi/
 
 Wiki http://c2.com/cgi/wiki?

@@ -4,35 +4,11 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: util.py,v 1.16 2001/03/15 22:20:25 jhermann Exp $
+    $Id: util.py,v 1.20 2001/07/16 21:21:48 jhermann Exp $
 """
 
 # Imports
-import os, re, time, string, sys
-
-
-#############################################################################
-### Timing
-#############################################################################
-
-class Clock:
-    def __init__(self):
-        self.timings = {'total': time.clock()}
-
-    def start(self, timer):
-        self.timings[timer] = time.clock() - self.timings.get(timer, 0)
-    
-    def stop(self, timer):
-        self.timings[timer] = time.clock() - self.timings[timer]
-
-    def value(self, timer):
-        return "%.3f" % (self.timings[timer],)
-
-    def dump(self, file):
-        for timing in self.timings.items():
-            file.write("%s = %.3f\n" % timing)
-
-clock = Clock()
+import os, re, sys
 
 
 #############################################################################
@@ -72,6 +48,30 @@ def TranslateText(text):
 
 
 #############################################################################
+### Mail
+#############################################################################
+
+def sendmail(to, subject, text):
+    """ Send a mail to the address(es) in 'to', with the given subject and
+        mail body 'text'. Return a success or error message.
+    """
+    import smtplib
+    from MoinMoin import config
+
+    try:
+        server = smtplib.SMTP(config.mail_smarthost)
+        #server.set_debuglevel(1)
+        header = "From: %s\r\nTo: %s\r\nSubject: %s\r\n\r\n" %(
+            config.mail_from, ', '.join(to), subject)
+        server.sendmail(config.mail_from, to, header + text)
+        server.quit()
+    except SMTPException, e:
+        return str(e)
+
+    return "Mail sent OK"
+
+
+#############################################################################
 ### Misc
 #############################################################################
 
@@ -103,6 +103,6 @@ def importName(modulename, name):
         module = __import__(modulename, globals(), locals(), [name])
     except ImportError:
         return None
-        
+
     return vars(module)[name]
 

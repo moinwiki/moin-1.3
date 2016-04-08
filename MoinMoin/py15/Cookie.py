@@ -319,7 +319,7 @@ def _quote(str, LegalChars=_LegalChars,
     if "" == translate(str, idmap, LegalChars):
         return str
     else:
-        return '"' + join( map(_Translator.get, str, str), "" ) + '"'    
+        return '"' + join( map(_Translator.get, str, str), "" ) + '"'
 # end _quote
 
 
@@ -505,7 +505,7 @@ class Morsel(UserDict):
 
         # Return the result
         return string.join(result, " ")
-    # end OutputString
+# end OutputString
 # end Morsel class
 
 
@@ -645,7 +645,7 @@ class BaseCookie(UserDict):
                 rval, cval = self.value_decode(V)
                 self.__set(K, rval, cval)
                 M = self[K]
-    # end __ParseString
+# end __ParseString
 # end BaseCookie class
 
 class SimpleCookie(BaseCookie):

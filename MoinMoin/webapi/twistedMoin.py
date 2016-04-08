@@ -1,5 +1,5 @@
 """
-    MoinMoin - HTTP interfacing via CGI
+    MoinMoin - HTTP interfacing via twisted.web
 
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
@@ -8,11 +8,13 @@
 
         from MoinMoin import webapi
 
-    $Id: cgiMoin.py,v 1.6 2001/07/10 20:26:56 jhermann Exp $
+    $Id: twistedMoin.py,v 1.1 2001/10/23 22:04:49 jhermann Exp $
 """
 
 # Imports
-import os, string
+import os, string, sys
+from MoinMoin import cgimain
+
 
 #############################################################################
 ### Accessors
@@ -25,20 +27,15 @@ def isSSL():
 
 def getScriptname():
     """ Return the scriptname part of the URL ("/path/to/my.cgi"). """
-    return os.environ.get('SCRIPT_NAME', '')
+    return "/" + string.join(cgimain.request.twistd.prepath, '/')
 
 
 def getPathinfo():
     """ Return the remaining part of the URL. """
-    pathinfo = os.environ.get('PATH_INFO', '')
-
-    # Fix for bug in IIS/4.0
-    if os.name == 'nt':
-        scriptname = getScriptname()
-        if string.find(pathinfo, scriptname) == 0:
-            pathinfo = pathinfo[len(scriptname):]
-
-    return pathinfo
+    pathinfo = cgimain.request.twistd.postpath
+    if pathinfo:
+        return "/" + string.join(pathinfo, '/')
+    return ''
 
 
 def getQualifiedURL(uri = None):
@@ -46,7 +43,15 @@ def getQualifiedURL(uri = None):
 
         *uri* -- append this server-rooted uri (must start with a slash)
     """
+    result = 'http://' + (cgimain.request.twistd.getHeader('host') or cgimain.request.twistd.getHost())
+
+    if uri: result = result + uri
+
+    return result
+
+    """
     schema, stdport = (('http', '80'), ('https', '443'))[isSSL()]
+
     host = os.environ.get('HTTP_HOST')
     if not host:
         host = os.environ.get('SERVER_NAME', 'localhost')
@@ -57,7 +62,7 @@ def getQualifiedURL(uri = None):
     if uri: result = result + uri
 
     return result
-
+    """
 
 def getBaseURL():
     """ Return a fully qualified URL to this script. """
@@ -70,40 +75,13 @@ def getBaseURL():
 #############################################################################
 
 def setHttpHeader(header):
-    from MoinMoin.cgimain import request
-    request.user_headers.append(header)
-
+    key, value = string.split(header, ':')
+    value = string.lstrip(value)
+    cgimain.request.twistd.setHeader("content-type", self.type)
 
 def http_headers(more_headers=[]):
-    from MoinMoin.cgimain import request
-
-    if request.sent_headers:
-        #print "Headers already sent!!!\n"
-        return
-    request.sent_headers = 1
-    have_ct = 0
-
-    # send http headers
     for header in more_headers:
-        if string.lower(header)[:13] == "content-type:": have_ct = 1
-        print header
-
-    for header in request.user_headers:
-        if string.lower(header)[:13] == "content-type:": have_ct = 1
-        print header
-
-    if not have_ct:
-        print "Content-type: text/html"
-
-    #print "Pragma: no-cache"
-    #print "Cache-control: no-cache"
-    #!!! Better set expiry to some 10 mins or so for normal pages?
-    print
-
-    #from pprint import pformat
-    #sys.stderr.write(pformat(more_headers))
-    #sys.stderr.write(pformat(request.user_headers))
-
+        setHttpHeader(header)
 
 def http_redirect(url):
     """ Redirect to a fully qualified, or server-rooted URL """
@@ -115,3 +93,36 @@ def http_redirect(url):
 
     http_headers(["Location: " + url])
 
+
+#############################################################################
+### Twisted request handling
+#############################################################################
+
+count = 0
+
+class Output:
+    def __init__(self, request):
+        self.request = request
+        self.write = self.request.write
+
+    def flush(self):
+        pass
+
+
+def run(request):
+    oldstdout = sys.stdout
+
+    try:
+        sys.stdout = Output(request)
+
+        global count
+        count = count + 1
+        #print "You called me %d times!\n" % count
+
+        cgimain.run({'twistd': request})
+
+        #print getScriptname()
+        #print getPathinfo()
+    finally:
+        sys.stdout = oldstdout
+    

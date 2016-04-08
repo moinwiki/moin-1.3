@@ -4,7 +4,7 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: OrphanedPages.py,v 1.2 2001/03/28 23:03:43 jhermann Exp $
+    $Id: OrphanedPages.py,v 1.3 2001/05/31 01:02:08 jhermann Exp $
 """
 
 # Imports
@@ -17,7 +17,7 @@ def execute(macro, args):
     # prevent recursive calls
     global _guard
     if _guard: return ''
-    
+
     # delete all linked pages from a dict of all pages
     _guard = 1
     pages = wikiutil.getPageDict(config.text_dir)

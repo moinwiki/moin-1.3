@@ -7,7 +7,7 @@
     This action allows you to delete a page. Note that the standard
     config lists this action as excluded!
 
-    $Id: DeletePage.py,v 1.3 2001/03/30 21:06:52 jhermann Exp $
+    $Id: DeletePage.py,v 1.6 2001/07/03 20:32:47 jhermann Exp $
 """
 
 # Imports
@@ -21,11 +21,11 @@ def execute(pagename, form):
     page = Page(pagename)
 
     # be extra paranoid in dangerous actions
-    if actname in config.excluded_actions:
+    if actname in config.excluded_actions or not user.current.may.edit:
         return page.send_page(form,
             msg='<strong>%s</strong>' %
                 user.current.text('You are not allowed to delete pages in this wiki!'))
-            
+
 
     # check whether page exists at all
     if not page.exists():
@@ -46,7 +46,7 @@ def execute(pagename, form):
         page.delete()
 
         # Redirect to RecentChanges
-        return Page(config.recent_changes).send_page(form,
+        return Page(config.page_recent_changes).send_page(form,
                 msg='<strong>%s</strong>' %
                     (user.current.text('Page "%s" was sucessfully deleted!') % (pagename,)))
 
@@ -77,7 +77,7 @@ def _createTicket(tm = None):
     for var in cfgvars.values():
         if type(var) is types.StringType:
             digest.update(repr(var))
-        
+
     return ticket + '.' + digest.hexdigest()
 
 
@@ -85,5 +85,5 @@ def _checkTicket(ticket):
     """Check validity of a previously created ticket"""
     timestamp = string.split(ticket, '.')[0]
     ourticket = _createTicket(timestamp)
-    return ticket == ourticket    
+    return ticket == ourticket
 

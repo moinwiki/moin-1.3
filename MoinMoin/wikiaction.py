@@ -17,7 +17,7 @@
     Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiaction.py,v 1.17 2001/04/19 22:38:10 jhermann Exp $
+    $Id: wikiaction.py,v 1.21 2001/09/24 12:04:18 jhermann Exp $
 """
 
 # Imports
@@ -56,7 +56,7 @@ def do_fullsearch(pagename, form):
     print "</UL>"
 
     print_search_stats(len(hits), pagecount)
-    
+
 
 def do_titlesearch(pagename, form):
     # TODO: check needle is legal -- but probably we can just accept any RE
@@ -69,7 +69,7 @@ def do_titlesearch(pagename, form):
         needle = ''
 
     wikiutil.send_title(user.current.text('Title search for "%s"') % (needle,))
-    
+
     needle_re = re.compile(needle, re.IGNORECASE)
     all_pages = wikiutil.getPageList(config.text_dir)
     hits = filter(needle_re.search, all_pages)
@@ -157,6 +157,7 @@ def do_diff(pagename, form):
     rc = diff.close()
     ##print "cmd =", cmd, "<br>"
     ##print "rc =", rc, "<br>"
+    del rc
 
     # check for valid diff
     if not lines:
@@ -238,13 +239,13 @@ def do_info(pagename, form):
     print '<th>' + user.current.text('Action') + '</th></tr>\n'
     count = 1
     for file in revisions:
-        try: 
-            st = os.stat(file) 
+        try:
+            st = os.stat(file)
         except OSError:
             continue
 
         try:
-            mtime = int(string.split(file, '.')[1])
+            mtime = int(string.split(os.path.basename(file), '.')[1])
         except IndexError:
             mtime = st[ST_MTIME]
         ##print count, mtime, st[ST_MTIME], "<br>"
@@ -276,7 +277,7 @@ def do_info(pagename, form):
         count = count + 1
         if count > 100: break
     print '</table>\n'
-    
+
     wikiutil.send_footer(pagename, showpage=1)
 
 
@@ -293,7 +294,7 @@ def do_refresh(pagename, form):
         from MoinMoin import caching
         cache = caching.CacheEntry(form["arena"].value, form["key"].value)
         cache.remove()
-        
+
     do_show(pagename, form)
 
 
@@ -324,7 +325,8 @@ def do_savepage(pagename, form):
 
 
 def do_userform(pagename, form):
-    savemsg=user.savedata(pagename, form)
+    from MoinMoin import userform
+    savemsg=userform.savedata(pagename, form)
     Page(pagename).send_page(form, msg=savemsg)
 
 
@@ -348,7 +350,7 @@ def do_bookmark(pagename, form):
 def do_raw(pagename, form):
     webapi.http_headers(["Content-type: text/plain"])
 
-    try: 
+    try:
         page = Page(pagename, date=form['date'].value)
     except KeyError:
         page = Page(pagename)
@@ -366,7 +368,7 @@ def do_format(pagename, form):
 
     # try to load the formatter
     Formatter = util.importName("MoinMoin.formatter." +
-        string.translate(mimetype, string.maketrans('/.', '__')), "Formatter") 
+        string.translate(mimetype, string.maketrans('/.', '__')), "Formatter")
     if Formatter is None:
         # default to plain text formatter
         del Formatter

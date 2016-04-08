@@ -4,13 +4,13 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_html.py,v 1.12 2001/03/10 23:12:11 jhermann Exp $
+    $Id: text_html.py,v 1.15 2001/07/13 20:29:11 jhermann Exp $
 """
 
 # Imports
 import cgi, sys
 from base import FormatterBase
-from MoinMoin import wikiutil
+from MoinMoin import wikiutil, config
 from MoinMoin.Page import Page
 
 
@@ -31,6 +31,8 @@ class Formatter(FormatterBase):
         return Page(pagename).link_to(text)
 
     def url(self, url, text=None, css=None, **kw):
+        url = wikiutil.mapURL(url)
+
         if not kw.get('pretty_url', 0) and wikiutil.isPicture(url):
             return '<img src="%s" border="0">' % (url,)
 
@@ -65,7 +67,7 @@ class Formatter(FormatterBase):
         result = '<ol'
         if type: result = result + ' type="%s"' % (type,)
         if start: result = result + ' start="%d"' % (start,)
-        
+
         return result + '>'
 
     def bullet_list(self, on):
