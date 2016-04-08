@@ -1,0 +1,1906 @@
+2000-12-06 20:09  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoin, MoinMoinTodo,
+	WikiTextFormattingTestPage:
+	
+	Changes for rel. 0.7
+
+2000-12-06 20:05  jhermann
+
+	* wiki-moinmoin/data/text/RecentChanges:
+	
+	Text explaining bookmark hilighting
+
+2000-12-06 20:01  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Current (shortened) editlog
+
+2000-12-06 11:48  jhermann
+
+	* Page.py, action.py, util.py, wikimacro.py:
+	
+	Closing the barn door
+
+2000-12-06 00:47  jhermann
+
+	* user.py:
+	
+	Write timestamp to user file so the mtime changes reliably
+
+2000-12-06 00:36  jhermann
+
+	* action.py:
+	
+	No update msg for the bookmark, now that we display the value
+
+2000-12-06 00:32  jhermann
+
+	* macro/RecentChanges.py:
+	
+	Display current bookmark setting
+
+2000-12-06 00:10  jhermann
+
+	* user.py:
+	
+	Added chmod to bookmark creation
+
+2000-12-06 00:05  jhermann
+
+	* CHANGES, ChangeLog, macro/RecentChanges.py:
+	
+	Minor bugfix for the bookmark code
+
+2000-12-05 23:42  jhermann
+
+	* CHANGES, Page.py, action.py, user.py, macro/RecentChanges.py:
+	
+	Added basic bookmarks
+
+2000-12-05 23:41  jhermann
+
+	* INSTALL:
+	
+	Some words on character sets
+
+2000-12-05 21:10  jhermann
+
+	* version.py:
+	
+	Changed release number to 0.7
+
+2000-12-05 20:43  jhermann
+
+	* INSTALL:
+	
+	Minor changes
+
+2000-12-05 20:34  jhermann
+
+	* parser/wiki.py:
+	
+	Non-greedy extended WikiNames
+
+2000-12-05 01:41  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Sync with latest additions to master interwiki list
+
+2000-12-04 21:39  jhermann
+
+	* CHANGES, ChangeLog:
+	
+	Changes for Release 0.6
+
+2000-12-04 21:34  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-12-04 21:30  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Changes till 2000-12-04
+
+2000-12-04 21:22  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoin, MoinMoinBugs, MoinMoinFaq,
+	MoinMoinIdeas, MoinMoinNotBugs, MoinMoinTests, MoinMoinTodo,
+	UserPreferences, WikiSandBox:
+	
+	Updates till 2000-12-04
+
+2000-12-04 21:15  jhermann
+
+	* wiki-moinmoin/data/text/: HelpContents, HelpOnFormatting,
+	HelpOnMacros:
+	
+	Minor changes
+
+2000-12-03 00:29  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Synched with master list
+
+2000-12-01 01:21  jhermann
+
+	* wiki-moinmoin/data/text/HelpOnLists:
+	
+	Added list types and start values
+
+2000-12-01 01:12  jhermann
+
+	* formatter/base.py, formatter/text_html.py,
+	formatter/text_plain.py, formatter/text_xml.py, parser/wiki.py:
+	
+	Added numbered list type and start offsets
+
+2000-12-01 00:01  jhermann
+
+	* Page.py:
+	
+	Add newline to text if last line has none
+
+2000-11-27 22:33  jhermann
+
+	* user.py:
+	
+	Set timezone in half-hour steps
+
+2000-11-25 20:47  jhermann
+
+	* user.py:
+	
+	Bugfix: catch chmod exception
+
+2000-11-25 20:37  jhermann
+
+	* Page.py, action.py, user.py, macro/RecentChanges.py:
+	
+	User prefs: editor size and time zone
+
+2000-11-25 18:39  jhermann
+
+	* config.py, user.py, wikiutil.py, wiki-moinmoin/moin_config.py:
+	
+	Display current user name
+
+2000-11-25 17:41  jhermann
+
+	* wikimacro.py, macro/RandomPage.py, macro/RecentChanges.py,
+	macro/TableOfContents.py:
+	
+	Moved TableOfContents and RandomPage to macro directory
+
+2000-11-25 17:11  jhermann
+
+	* macro.py, util.py, wikimacro.py, macro/.cvsignore,
+	macro/RecentChanges.py, macro/__init__.py, parser/wiki.py:
+	
+	External (extension) macros
+
+2000-11-25 13:16  jhermann
+
+	* wiki-moinmoin/data/text/: HelpOnFormatting, HelpOnMacros,
+	HelpOnProcessingInstructions:
+	
+	Updated help pages
+
+2000-11-25 11:20  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoin, MoinMoinBugs, MoinMoinIdeas,
+	MoinMoinNotBugs, MoinMoinTodo, MoinMoinWikis, UserPreferences,
+	WikiSandBox:
+	
+	Changes up to 2000-11-25
+
+2000-11-25 11:15  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Changes up to 2000-11-25
+
+2000-11-25 10:48  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-25 10:47  jhermann
+
+	* macro.py:
+	
+	Added baseindent handling
+
+2000-11-25 10:30  jhermann
+
+	* CHANGES, macro.py, formatter/base.py, formatter/text_html.py,
+	parser/wiki.py:
+	
+	Added TableOfContents macro
+
+2000-11-24 00:13  jhermann
+
+	* config.py:
+	
+	Readded default page footer (PythonPowered)
+
+2000-11-23 23:32  jhermann
+
+	* user.py:
+	
+	Show login URL
+
+2000-11-23 23:08  jhermann
+
+	* user.py:
+	
+	chmod the user files to 0666
+
+2000-11-23 23:02  jhermann
+
+	* user.py:
+	
+	chmod the user dir when creating; do not save "valid" attribute
+
+2000-11-23 22:43  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-23 22:42  jhermann
+
+	* CHANGES, ChangeLog, action.py, cgimain.py, user.py, util.py:
+	
+	Bugfix for cookies; some related refactoring regarding HTTP headers
+
+2000-11-22 01:29  jhermann
+
+	* wiki-moinmoin/data/text/: HelpOnSmileys, MoinMoinTodo,
+	UserPreferences:
+	
+	Current changes
+
+2000-11-22 01:00  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-22 00:56  jhermann
+
+	* user.py:
+	
+	Added Login / Logout buttons
+
+2000-11-21 22:08  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-21 22:07  jhermann
+
+	* cgimain.py:
+	
+	Bugfix for search dialogs on the front page
+
+2000-11-21 03:03  jhermann
+
+	* user.py:
+	
+	Set HTTP_COOKIE when first saving user preferences
+
+2000-11-21 02:57  jhermann
+
+	* py15/__init__.py:
+	
+	Added package indicator
+
+2000-11-21 02:55  jhermann
+
+	* user.py, py15/.cvsignore, py15/Cookie.py:
+	
+	Cookies with Python 1.5
+
+2000-11-21 02:48  jhermann
+
+	* Page.py, action.py, cgimain.py, config.py, macro.py, user.py,
+	util.py, wikiutil.py:
+	
+	User preferences
+
+2000-11-18 12:39  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Added Thinki
+
+2000-11-18 01:36  jhermann
+
+	* CHANGES, version.py:
+	
+	Changed release number to 0.6
+
+2000-11-18 00:45  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Edits for rel-0-5
+
+2000-11-18 00:44  jhermann
+
+	* CHANGES, ChangeLog:
+	
+	Changes for rel-0-5
+
+2000-11-17 23:00  jhermann
+
+	* Page.py:
+	
+	Provide a link back to the page we got redirected from
+
+2000-11-17 22:17  jhermann
+
+	* wiki-moinmoin/data/text/: HelpOnProcessingInstructions,
+	MoinMoinBugs, MoinMoinTodo, SandBox, WhyWikiWorks, WikiSandBox:
+	
+	Changes till 2000-11-17
+
+2000-11-17 22:04  jhermann
+
+	* parser/wiki.py:
+	
+	Added "]" to the punctuation chars
+
+2000-11-17 01:12  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-17 00:31  jhermann
+
+	* Page.py:
+	
+	Bugfix for pages that contain only PIs
+
+2000-11-17 00:21  jhermann
+
+	* CHANGES, Page.py, cgimain.py, util.py, wikiutil.py,
+	parser/wiki.py:
+	
+	#redirect PI
+
+2000-11-16 23:25  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-16 23:15  jhermann
+
+	* CHANGES, ChangeLog, config.py, wikiutil.py,
+	wiki-moinmoin/moin_config.py:
+	
+	Configurable footers
+
+2000-11-16 21:14  jhermann
+
+	* parser/wiki.py:
+	
+	Bugfix: end URLs on a "<" char
+
+2000-11-16 01:35  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinDone, MoinMoinIdeas,
+	MoinMoinTodo, MoinMoinWikis:
+	
+	Reflect the work done
+
+2000-11-16 00:17  jhermann
+
+	* ChangeLog:
+	
+	Bumped revision
+
+2000-11-16 00:13  jhermann
+
+	* version.py, CHANGES:
+	
+	Bumped revision
+
+2000-11-16 00:12  jhermann
+
+	* parser/wiki.py:
+	
+	Stirred the wiki regex a whole lot; URLs now stop at ending
+	punctuation
+
+2000-11-15 22:54  jhermann
+
+	* formatter/.cvsignore:
+	
+	Added *.pyc ignore
+
+2000-11-15 22:54  jhermann
+
+	* formatter/text_xml.py:
+	
+	First version of XML formatter
+
+2000-11-15 22:52  jhermann
+
+	* parser/wiki.py:
+	
+	Pass formatter to macro instance
+
+2000-11-15 22:51  jhermann
+
+	* macro.py:
+	
+	Added formatter calls to those macros that might appear on "normal"
+	pages
+
+2000-11-15 22:50  jhermann
+
+	* formatter/text_html.py:
+	
+	Added escaping for href value
+
+2000-11-15 22:48  jhermann
+
+	* cgimain.py:
+	
+	Catch exceptions in special actions
+
+2000-11-15 01:50  jhermann
+
+	* ChangeLog, Page.py, action.py, cgimain.py, formatter/__init__.py,
+	formatter/base.py, formatter/text_html.py, formatter/text_plain.py,
+	formatter/text_xml.py, parser/plain.py, parser/wiki.py:
+	
+	First implementation of output formatters
+
+2000-11-14 22:06  jhermann
+
+	* version.py, CHANGES, ChangeLog:
+	
+	Bumped revision
+
+2000-11-14 22:02  jhermann
+
+	* macro.py, parser/wiki.py, wiki-moinmoin/data/text/HelpOnMacros:
+	
+	RandomPage macro
+
+2000-11-14 21:01  jhermann
+
+	* wiki-moinmoin/data/text/: HelpOnSmileys, MoinMoin, MoinMoinBugs,
+	MoinMoinDone, MoinMoinIdeas, ProcessingInstructions:
+	
+	Some bugfixes; processing instructions
+
+2000-11-14 00:45  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-14 00:45  jhermann
+
+	* CHANGES:
+	
+	"#format" processing instruction
+
+2000-11-14 00:44  jhermann
+
+	* parser/wiki.py:
+	
+	Bugfix: <!> smiley was not recognized; added comments ("##comment")
+
+2000-11-14 00:20  jhermann
+
+	* wiki-moinmoin/data/text/HelpOnEditing:
+	
+	Added HelpOnProcessingInstructions link
+
+2000-11-14 00:18  jhermann
+
+	* wiki-moinmoin/data/text/HelpOnProcessingInstructions:
+	
+	Added new help page
+
+2000-11-14 00:04  jhermann
+
+	* wiki-moinmoin/data/text/HelpForBeginners:
+	
+	Added warning for extended names
+
+2000-11-13 23:53  jhermann
+
+	* cgimain.py:
+	
+	Bugfix: action=raw did not work
+
+2000-11-13 23:48  jhermann
+
+	* parser/plain.py:
+	
+	Replace TABs and spaces by hardspaces
+
+2000-11-13 23:36  jhermann
+
+	* parser/plain.py:
+	
+	Changed formatting (insert <br>, instead of using <pre>)
+
+2000-11-13 23:34  jhermann
+
+	* Page.py:
+	
+	Bugfix: Added missing "errno" import; added "#format" PI
+
+2000-11-10 22:35  jhermann
+
+	* wiki-moinmoin/data/text/: HelpOnEditing, HelpOnSmileys:
+	
+	Smiley help page added
+
+2000-11-10 22:34  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-10 22:33  jhermann
+
+	* parser/wiki.py:
+	
+	Added hspace to smileys
+
+2000-11-10 22:27  jhermann
+
+	* wikiutil.py, parser/wiki.py:
+	
+	Added smiley support
+
+2000-11-10 22:26  jhermann
+
+	* wiki-moinmoin/img/: alert.gif, angry.gif, attention.gif,
+	biggrin.gif, frown.gif, idea.gif, redface.gif, sad.gif, smile.gif,
+	smile2.gif, smile3.gif, smile4.gif:
+	
+	Added smileys
+
+2000-11-10 03:47  jhermann
+
+	* cgimain.py:
+	
+	Bugfix: NameEror for "environ"
+
+2000-11-10 03:37  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinWikis, ProcessingInstructions,
+	StructuredText:
+	
+	Some minor changes
+
+2000-11-10 03:35  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinBugs, MoinMoinRefactoring,
+	MoinMoinTodo:
+	
+	More on the on-going refactoring
+
+2000-11-10 03:23  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-10 03:09  jhermann
+
+	* Page.py, action.py, cgimain.py, macro.py, wikiutil.py,
+	parser/.cvsignore, parser/__init__.py, parser/plain.py,
+	parser/wiki.py:
+	
+	Finally removed all the code from "cgimain" that does not belong
+	there; more finely granulated refactorings still pending
+
+2000-11-09 23:30  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Renamed Python20Info to PythonInfo
+
+2000-11-09 23:09  jhermann
+
+	* wiki-moinmoin/data/text/MoinMoinWikis:
+	
+	Cees' wikis
+
+2000-11-09 23:07  jhermann
+
+	* wiki-moinmoin/data/text/: MagnusLyck_e5, ModularizeForReuse,
+	MoinMoinTodo, ProcessingInstructions:
+	
+	New ideas & todos
+
+2000-11-08 03:17  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-08 03:17  jhermann
+
+	* cgimain.py, config.py, macro.py, wikiutil.py:
+	
+	Moved more wiki util funcs; moved macros to "macro" module; all
+	config variables now live in the "config" module
+
+2000-11-08 02:08  jhermann
+
+	* macro.py:
+	
+	Added macro module
+
+2000-11-08 02:06  jhermann
+
+	* cgimain.py, util.py, wikiutil.py:
+	
+	Moved more util function out of "cgimain"
+
+2000-11-08 00:59  jhermann
+
+	* cgimain.py, util.py:
+	
+	Moved "popen" to "util.py"; added test for diff program
+
+2000-11-07 22:55  jhermann
+
+	* CHANGES:
+	
+	Changes for rev. 1.83
+
+2000-11-07 22:52  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinBugs, MoinMoinDiscussion,
+	MoinMoinIdeas, MoinMoinTodo:
+	
+	Some ideas, bugs, etc.
+
+2000-11-07 22:48  jhermann
+
+	* wiki-moinmoin/data/text/: HelpOnEditing, HelpOnLinking:
+	
+	Minor edits
+
+2000-11-07 21:47  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-11-07 21:42  jhermann
+
+	* INSTALL, wiki-moinmoin/moin.cgi:
+	
+	Extended INSTALL to describe the requirement for MoinMoin to be on
+	the PYTHONPATH
+
+2000-11-07 21:23  jhermann
+
+	* cgimain.py:
+	
+	Fix for bug in IIS/4.0
+
+2000-11-05 00:13  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Added Python20Info
+
+2000-11-03 02:17  jhermann
+
+	* INSTALL:
+	
+	Some more words on the new installation requirements and testing
+	them
+
+2000-11-03 01:45  jhermann
+
+	* version.py:
+	
+	Bumped revision to 1.82
+
+2000-11-03 01:45  jhermann
+
+	* .cvsignore:
+	
+	Added .cvsignore for *.pyc
+
+2000-11-03 01:44  jhermann
+
+	* INSTALL, cgimain.py, version.py, wiki-moinmoin/moin.cgi,
+	wiki-moinmoin/test.cgi:
+	
+	Moved most code from moin.cgi to cgimain.py; first step of
+	refactoring
+
+2000-11-03 00:03  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Changed release number to 0.5
+
+2000-11-02 23:55  jhermann
+
+	* wiki-moinmoin/data/text/: CategoryCategory, MoinMoinIdeas,
+	MoinMoinTodo:
+	
+	Cleaned up the todo/idea pages
+
+2000-11-02 23:35  jhermann
+
+	* wiki-moinmoin/data/text/: CategoryCategory, CategoryEmpty,
+	CategoryHomepage, FrontPage, MoinMoinFaq, MoinMoinIdeas,
+	MoinMoinTodo, WikiCategory, WikiClone, WikiSandBox, WikiWikiWeb:
+	
+	Changes up to 2000-11-02
+
+2000-11-02 23:31  jhermann
+
+	* wiki-moinmoin/data/text/: HelpContents, HelpOnFormatting,
+	HelpOnHeadlines, HelpOnLinking, HelpOnLists, HelpOnMacros,
+	HelpOnRules, HelpOnTables:
+	
+	Some additions to the help system
+
+2000-11-01 18:25  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Fixed the broken "EditingTips" link on the edit page
+
+2000-11-01 16:12  jhermann
+
+	* INSTALL:
+	
+	Last changes for rel 0.4
+
+2000-11-01 15:55  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Shortened edit log
+
+2000-11-01 15:52  jhermann
+
+	* wiki-moinmoin/data/text/: CreateaNewPage, EditingTips, FindPage,
+	HorizontalRules, TipsForBeginners, TopicMap, WikiSandBox:
+	
+	Removed the old help pages
+
+2000-11-01 15:37  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/MoinMoinBugs,
+	text/MoinMoinDiscussion, text/MoinMoinDone, text/MoinMoinNotBugs,
+	text/MoinMoinTodo:
+	
+	Changes for rel 0.4
+
+2000-11-01 02:41  jhermann
+
+	* wiki-moinmoin/data/text/HelpOnLinking:
+	
+	Minor correction
+
+2000-11-01 02:31  jhermann
+
+	* CHANGES:
+	
+	Halloween changes (BOO!)
+
+2000-11-01 02:24  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	PageList macro; URL + }}} fix; max. HR size of 10; new help system
+
+2000-11-01 02:20  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/CreateaNewPage,
+	text/DeleteThisPage, text/EditingTips, text/FrontPage,
+	text/HelpContents, text/HelpForBeginners, text/HelpIndex,
+	text/HelpOnEditing, text/HelpOnFormatting, text/HelpOnHeadlines,
+	text/HelpOnLinking, text/HelpOnLists, text/HelpOnMacros,
+	text/HelpOnNavigation, text/HelpOnPageCreation, text/HelpOnRules,
+	text/HelpOnTables, text/HelpTemplate, text/HorizontalRules,
+	text/SystemPages, text/TipsForBeginners:
+	
+	Added help pages
+
+2000-10-31 22:43  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added [[Icon]] macro and macro arguments
+
+2000-10-31 22:10  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Fixed colspan in RecentChanges
+
+2000-10-31 22:06  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/EditingTips,
+	text/J_fcrgenHermann, text/MoinMoinBugs, text/MoinMoinIdeas,
+	text/MoinMoinNotBugs, text/MoinMoinTodo, text/MoinMoinWikis,
+	text/TipsForBeginners:
+	
+	Changes up to 2000-10-31
+
+2000-10-30 23:27  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	New helper isPicture(), fixes bug with uppercase ".JPG" etc.
+
+2000-10-28 21:11  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Changed headline styles
+
+2000-10-28 20:30  jhermann
+
+	* CHANGES:
+	
+	Last changes before 0.4
+
+2000-10-28 19:55  jhermann
+
+	* CHANGES, INSTALL:
+	
+	Changes since rel 0.3; some additions to the install instructions
+
+2000-10-28 15:53  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinDone, MoinMoinTodo:
+	
+	PageCount macro and headlines
+
+2000-10-28 15:52  jhermann
+
+	* wiki-moinmoin/: default.css, moin.cgi:
+	
+	Headlines
+
+2000-10-28 15:15  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	PageCount macro
+
+2000-10-28 14:53  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Better fix for Python 1.6 "re" problems
+
+2000-10-28 14:49  jhermann
+
+	* wiki-moinmoin/data/text/: AtsuoIshimoto, EditingTips, FrontPage,
+	MoinMoinBugs, MoinMoinDiscussion, MoinMoinDone, MoinMoinRelease,
+	MoinMoinTodo, MoinMoinWikis, StructuredText, TipsForBeginners,
+	WikiSandBox, WikiWikiWeb:
+	
+	2000-10-28
+
+2000-10-28 00:30  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added colspan handling to the table code
+
+2000-10-27 23:32  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Implemented tables
+
+2000-10-27 21:45  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix: Create complete URL for "Clear message" link
+
+2000-10-27 21:38  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix for inline code (needed cgi.escape)
+
+2000-10-26 05:09  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinDone, MoinMoinTodo:
+	
+	Last changes before release
+
+2000-10-26 05:04  jhermann
+
+	* CHANGES, INSTALL:
+	
+	Final changes for release 0.3
+
+2000-10-26 04:50  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Support for "max_macro_size"
+
+2000-10-26 02:41  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Made the <tt> regex non-greedy
+
+2000-10-26 02:03  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Log of 2000-10-25
+
+2000-10-26 02:03  jhermann
+
+	* wiki-moinmoin/data/text/: FrontPage, J_f8rnHansen, J_f8rnsTodo,
+	MoinMoinBugs, MoinMoinDone, MoinMoinIdeas, MoinMoinTodo,
+	MoinMoinWikis, RecentChanges, StructuredText, SystemInfo,
+	SystemPages, WikiSandBox:
+	
+	Changes up to 2000-10-25
+
+2000-10-26 01:41  jhermann
+
+	* wiki-moinmoin/: default.css, moin.cgi:
+	
+	Added inline code ("{{{" and "}}}" on the same line)
+
+2000-10-25 22:26  jhermann
+
+	* CHANGES:
+	
+	Revision 1.65
+
+2000-10-25 22:19  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix: Escape &, <, > when sending the editor
+
+2000-10-25 22:08  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Final(?) fix for japanese wiki names
+
+2000-10-20 00:38  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Added some MeatBall updates and the #c wiki
+
+2000-10-18 01:08  jhermann
+
+	* CHANGES:
+	
+	Changes up to revision 1.63
+
+2000-10-18 01:07  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added "telnet:" scheme to URL recognition
+
+2000-10-18 01:03  jhermann
+
+	* wiki-moinmoin/img/moin-telnet.gif:
+	
+	Fixed -kb option
+
+2000-10-18 01:00  jhermann
+
+	* wiki-moinmoin/img/moin-telnet.gif:
+	
+	Icon for telnet: scheme
+
+2000-10-18 00:27  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix: Filtering of filenames in page_list()
+
+2000-10-18 00:17  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Anchor names get quoted in WordIndex and TitleIndex
+
+2000-10-17 23:30  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	New macro [[SystemInfo]]
+
+2000-10-14 15:56  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinBugs, MoinMoinDone,
+	MoinMoinTodo, MoinMoinWikis,
+	
+	Changes up to 2000-10-14
+	Really_20special_20page_20names_20_e4_f6_fc_c4_d6_dc_df_5c_7b_5b_5d
+	_7d_2f_2c_2e_2d_3b_3a_5f_21_a7_24_25_26_2f_28_29_3d_22_3f_b4_2b_2a_
+	23_27_7e_3c_3e_3c_7c_5e_b0_40:
+
+2000-10-11 22:33  jhermann
+
+	* CHANGES, wiki-moinmoin/moin.cgi:
+	
+	Fixed "SpamSpamSpam" bug (multiple entries in word list)
+
+2000-10-11 22:03  jhermann
+
+	* wiki-moinmoin/moin.cgi, wiki-moinmoin/moin_config.py, CHANGES:
+	
+	New config variable "html_head"
+
+2000-10-11 21:41  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfixes for quoting and title search
+
+2000-10-11 10:56  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix for split_wiki()
+
+2000-10-10 23:19  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Config setting "allow_extended_names" and ["specialnames"] markup;
+	Bugfix for InterWiki links
+
+2000-10-10 23:15  jhermann
+
+	* CHANGES:
+	
+	Config setting "allow_extended_names" and ["specialnames"] markup;
+	Bugfix for InterWiki links
+
+2000-10-10 21:41  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Changes up to 2000-10-10
+
+2000-10-10 21:39  jhermann
+
+	* wiki-moinmoin/data/text/: AnonymousCoward, InterWiki,
+	J_f8rnHansen, J_fcrgenHermann, KeithNaas, MeatBall, MeatballWiki,
+	MoinMoin, MoinMoinBugs, MoinMoinDiscussion, MoinMoinIdeas,
+	MoinMoinRelease, MoinMoinTodo, MoinMoinWikis, SecurityNeeds,
+	SpamSpamSpam, StructuredText, TitleIndex, WikiClone, WikiSandBox:
+	
+	Pages as of 2000-10-10
+
+2000-09-04 19:37  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	FreshMeat added
+
+2000-09-04 15:36  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Don't treat sequences with a double colon (CPP::Namespace) as an
+	InterWiki link
+
+2000-09-04 13:17  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Check for inline images with InterWiki links
+
+2000-08-31 18:34  jhermann
+
+	* INSTALL:
+	
+	First version of Unix install description
+
+2000-08-28 13:06  jhermann
+
+	* moin.sourceforge.net/index.html:
+	
+	Added download link
+
+2000-08-27 17:14  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Added brainbench
+
+2000-08-27 02:38  jhermann
+
+	* CHANGES:
+	
+	Release 0.2
+
+2000-08-27 02:36  jhermann
+
+	* wiki-moinmoin/data/backup/.cvsignore:
+	
+	Better pattern
+
+2000-08-27 02:21  jhermann
+
+	* wiki-moinmoin/data/backup/.cvsignore:
+	
+	Ignore all backup files
+
+2000-08-27 02:19  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Editlog of 2000-08-26
+
+2000-08-27 02:18  jhermann
+
+	* wiki-moinmoin/data/text/: InterWiki, J_fcrgenHermann,
+	MoinMoinBugs, MoinMoinDone, MoinMoinTodo, MoinMoinWikis,
+	SystemPages:
+	
+	Last commit before release
+
+2000-08-27 01:16  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Dynamic ALT attribute
+
+2000-08-27 01:13  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Changed hspace
+
+2000-08-27 01:06  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added icons for the different link types
+
+2000-08-27 01:00  jhermann
+
+	* wiki-moinmoin/img/: moin-ftp.gif, moin-news.gif:
+	
+	New icons
+
+2000-08-27 00:57  jhermann
+
+	* wiki-moinmoin/img/moin-email.gif:
+	
+	Forced commit after adding -kb
+
+2000-08-27 00:48  jhermann
+
+	* wiki-moinmoin/img/moin-email.gif:
+	
+	Added email icon
+
+2000-08-27 00:28  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added "action=raw"
+
+2000-08-27 00:05  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added "Clear message" link
+
+2000-08-26 23:47  jhermann
+
+	* wiki-moinmoin/data/text/: EditingTips, FrontPage,
+	HierarchicalWikiWiki, InterWiki, J_fcrgenHermann, MoinMoin,
+	MoinMoinBugs, MoinMoinDiscussion, MoinMoinDone, MoinMoinI18n,
+	MoinMoinIdeas, MoinMoinRelease, MoinMoinTodo, MoinMoinWikis,
+	OriginalWiki, SunirShah, SystemPages, TopicMap, WikiSandBox,
+	YasushiIwata:
+	
+	Changes until 2000-08-26
+
+2000-08-26 23:44  jhermann
+
+	* wiki-moinmoin/moin.cgi, CHANGES:
+	
+	Added "normal" InterWiki links
+
+2000-08-26 20:09  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Moved the icons to the front of links, so things like "link's" work
+	better
+
+2000-08-26 18:39  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Darker link colors
+
+2000-08-26 17:36  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	RecentChanges links in InterWiki list
+
+2000-08-26 17:22  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added diff links to RecentChanges
+
+2000-08-26 01:50  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Update of the interwiki map
+
+2000-08-26 01:10  jhermann
+
+	* wiki-moinmoin/moin_config.py:
+	
+	Added reload icon
+
+2000-08-26 01:09  jhermann
+
+	* wiki-moinmoin/img/: moin-print.gif, moin-show.gif:
+	
+	New icons
+
+2000-08-25 17:11  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Allow "wiki:WikiServer:WikiName"; broken InterWikiLinks now get a
+	border=1
+
+2000-08-25 07:07  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix: Added missing quoting when building diff command
+
+2000-08-25 06:59  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix: Encode pagename in the url of the save form
+
+2000-08-25 06:54  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Added ISBN name
+
+2000-08-25 06:42  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix: Handling of empty diffs (no differences found)
+
+2000-08-25 06:03  jhermann
+
+	* CHANGES:
+	
+	Added InterWiki support
+
+2000-08-25 06:01  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added interwiki support
+
+2000-08-25 05:58  jhermann
+
+	* wiki-moinmoin/img/moin-inter.gif:
+	
+	Icon for InterWiki links
+
+2000-08-25 04:49  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	InterWiki map
+
+2000-08-25 03:48  jhermann
+
+	* README:
+	
+	Added acknowledgements
+
+2000-08-25 03:45  jhermann
+
+	* CHANGES:
+	
+	"info" and "diff" actions
+
+2000-08-25 03:44  jhermann
+
+	* INSTALL:
+	
+	Added "diff" info
+
+2000-08-25 03:43  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	"diff" link on the info page; better diff formatting
+
+2000-08-25 03:42  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Better diff colors
+
+2000-08-25 02:33  jhermann
+
+	* wiki-moinmoin/: default.css, moin.cgi:
+	
+	Added page diffs
+
+2000-08-19 15:27  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Fixed bug with title search
+
+2000-08-18 01:53  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix for send_title()
+
+2000-08-18 01:48  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added page info (revision history) and viewing of old revisions
+
+2000-08-17 12:15  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Unified URLs to use "action="; some other minor refactorings
+
+2000-08-13 00:22  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Show time diff in hours/minutes up to 24 hours
+
+2000-08-12 13:12  jhermann
+
+	* CHANGES:
+	
+	Changes until 2000-08-11
+
+2000-08-12 12:46  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added comments; minor refactorings
+
+2000-08-12 12:01  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added style to EditText textarea
+
+2000-08-10 21:11  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	non-breakable spaces for time diff display
+
+2000-08-10 21:04  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Show time difference for the current day in RecentChanges
+
+2000-08-07 21:54  jhermann
+
+	* CHANGES:
+	
+	Changes up to 2000-08-07
+
+2000-08-07 21:52  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added handling for numbered lists
+
+2000-08-07 20:05  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added some docstrings
+
+2000-08-06 21:16  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Bugfix for entities in code sections
+
+2000-08-06 16:50  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Grey background for code sections
+
+2000-08-06 16:49  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	No markup in code sections
+
+2000-08-03 23:03  jhermann
+
+	* wiki-moinmoin/data/text/: GermanUmlauts, MoinMoinDiscussion,
+	MoinMoinIdeas, PikiPiki, TopicMap, UserPreferences:
+	
+	Changes up to 2000-08-03
+
+2000-08-03 22:46  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Embed image if an URL ends in .gif/.jpg/.png
+
+2000-08-03 21:56  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Added timing stuff
+
+2000-08-03 21:09  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Added different link colors for visited links
+
+2000-08-03 09:56  jhermann
+
+	* wiki-moinmoin/data/text/GermanUmlauts:
+	
+	Description of umlauts
+
+2000-08-03 02:30  jhermann
+
+	* wiki-moinmoin/data/text/: EditingTips, J_fcrgenHermann, MoinMoin,
+	MoinMoinDiscussion, MoinMoinDone, MoinMoinTodo, PikiPiki:
+	
+	Last changes for this night
+
+2000-08-03 02:21  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added two flush calls
+
+2000-08-03 01:52  jhermann
+
+	* CHANGES:
+	
+	Changes as of 2000-08-02
+
+2000-08-03 01:42  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Added style for external anchors
+
+2000-08-03 01:40  jhermann
+
+	* wiki-moinmoin/img/moin-www.gif:
+	
+	Added icon for external URLs
+
+2000-08-03 01:39  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Nested bold into italic; bracketed URLs; quoted URLs
+
+2000-08-03 00:31  jhermann
+
+	* wiki-moinmoin/data/text/: EditingTips, FindPage, MoinMoinDone,
+	MoinMoinTodo, WikiSandBox:
+	
+	Minor Updates
+
+2000-08-03 00:15  jhermann
+
+	* wiki-moinmoin/img/: moin-diff.gif, moin-edit.gif, moin-help.gif,
+	moin-info.gif, moin-print.gif, moin-search.gif:
+	
+	Added icons
+
+2000-08-03 00:15  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Added icons; added print view
+
+2000-08-02 22:09  jhermann
+
+	* wiki-moinmoin/data/text/: EditingTips, ExtensionGuidelines,
+	MartinPool, MoinMoin, MoinMoinDiscussion, MoinMoinDone,
+	MoinMoinIdeas, MoinMoinTodo, PikiPiki, TitleIndex, WikiSandBox:
+	
+	Changes 2000-08-02
+
+2000-08-02 03:59  jhermann
+
+	* wiki-moinmoin/data/text/: CategoryHomepage, MoinMoin:
+	
+	Fixed links to JürgenHermann
+
+2000-08-02 03:55  jhermann
+
+	* wiki-moinmoin/data/text/: FrontPage, J_fcrgenHermann,
+	JuergenHermann, MoinMoinDiscussion, MoinMoinDone, MoinMoinIdeas,
+	MoinMoinTodo:
+	
+	Latest changes
+
+2000-08-02 03:49  jhermann
+
+	* CHANGES:
+	
+	Improved editor; Latin-1 WikiNames; faster RecentChanges
+
+2000-08-02 03:46  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Speeded up RecentChanges (look up hostnames ONCE while saving)
+
+2000-08-02 03:21  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added international (Latin-1) WikiNames
+
+2000-08-02 03:18  jhermann
+
+	* wiki-moinmoin/moin_config.py:
+	
+	Added upercase and lowercase char sets
+
+2000-08-02 01:02  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added "remove editor size" link; removed "reset" button
+
+2000-08-01 23:51  jhermann
+
+	* CHANGES, wiki-moinmoin/moin.cgi:
+	
+	Added support for "backup" dir
+
+2000-08-01 21:47  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/FrontPage,
+	text/MoinMoinDiscussion, text/WikiSandBox:
+	
+	Updates up to 2000-08-01
+
+2000-07-31 20:47  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Added <pre> style
+
+2000-07-31 04:49  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/MoinMoinIdeas,
+	text/MoinMoinTodo:
+	
+	Some minor changes
+
+2000-07-30 21:34  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/MoinMoinIdeas, text/PikiPiki,
+	text/PikiToDo, text/WikiClone:
+	
+	Moved PikiToDo to MoinMoinIdeas
+
+2000-07-30 14:45  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/FrontPage, text/MoinMoinIdeas,
+	text/MoinMoinWikis:
+	
+	Refactored FrontPage, added wiki list
+
+2000-07-30 12:33  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/FrontPage, text/MoinMoin,
+	text/MoinMoinDiscussion, text/MoinMoinDone, text/MoinMoinIdeas,
+	text/MoinMoinTodo:
+	
+	Better organization of the TODO stuff
+
+2000-07-30 00:47  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/MoinMoinTodo:
+	
+	Some TODO ideas
+
+2000-07-29 20:10  jhermann
+
+	* CHANGES, wiki-moinmoin/moin.cgi:
+	
+	Removed (most of) the possibility for update anomalies
+
+2000-07-29 12:33  jhermann
+
+	* wiki-moinmoin/data/: editlog, text/DeletePages, text/FrontPage,
+	text/MarkoSchulz, text/MoinMoinTodo, text/WikiSandBox:
+	
+	Snapshot as of 2000-07-29
+
+2000-07-29 10:32  jhermann
+
+	* wiki-moinmoin/moin_config.py:
+	
+	Fixed triple's config
+
+2000-07-29 01:03  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Show IP for unresolvable addresses instead of "(unknown)"
+
+2000-07-29 01:02  jhermann
+
+	* README:
+	
+	Added reference to CHANGES
+
+2000-07-29 00:59  jhermann
+
+	* CHANGES:
+	
+	Changes for version 0.1
+
+2000-07-29 00:30  jhermann
+
+	* INSTALL:
+	
+	Added Windows install procedure
+
+2000-07-29 00:25  jhermann
+
+	* wiki-moinmoin/moin_config.py:
+	
+	Made the generic config the default
+
+2000-07-28 22:41  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Added sourceforge.net configuration; added timing comment
+
+2000-07-27 22:07  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added link to python logo
+
+2000-07-27 21:58  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added proper page ending
+
+2000-07-27 21:47  jhermann
+
+	* wiki-moinmoin/: PythonPowered.gif, moin.cgi:
+	
+	Added the PythonPowered logo
+
+2000-07-27 14:22  jhermann
+
+	* wiki-moinmoin/moin_config.py:
+	
+	Added new test machine
+
+2000-07-27 14:03  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Fixed bad formatting of Javadoc comments (lines beginning with * in
+	a source section)
+
+2000-07-25 05:59  jhermann
+
+	* wiki-moinmoin/: default.css, moin.cgi:
+	
+	Changed headline CSS
+
+2000-07-25 05:49  jhermann
+
+	* moin.sourceforge.net/index.html:
+	
+	Added mailing lists
+
+2000-07-25 03:53  jhermann
+
+	* wiki-moinmoin/data/text/PikiToDo:
+	
+	Removed points we have on MoinMoinTodo
+
+2000-07-25 03:43  jhermann
+
+	* wiki-moinmoin/data/text/: ExtensionGuidelines,
+	HierarchicalWikiWiki, MeatBall, MoinMoinTodo, SgmlEntities:
+	
+	Some more ideas
+
+2000-07-24 23:22  jhermann
+
+	* wiki-moinmoin/data/text/MoinMoinTodo:
+	
+	DONE: Do a chmod 666 when saving
+
+2000-07-24 23:18  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Added chmod when writing pages
+
+2000-07-24 23:12  jhermann
+
+	* wiki-moinmoin/data/text/MoinMoinTodo:
+	
+	Minor addition
+
+2000-07-24 23:05  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Changed formatting of header
+
+2000-07-24 22:52  jhermann
+
+	* wiki-moinmoin/moin_config.py:
+	
+	Added "owlglass" config
+
+2000-07-24 22:50  jhermann
+
+	* wiki-moinmoin/.cvsignore:
+	
+	Ignore *.pyc files
+
+2000-07-24 22:24  jhermann
+
+	* wiki-moinmoin/data/text/: FrontPage, HierarchicalWikiWiki,
+	MoinMoinTodo, SgmlEntities, TipsForBeginners, WikiMarkup,
+	WikiSandBox:
+	
+	Update as of 2000-07-24
+
+2000-07-24 22:21  jhermann
+
+	* wiki-moinmoin/moin.cgi:
+	
+	Readded bang path
+
+2000-07-24 22:19  jhermann
+
+	* wiki-moinmoin/: moin.cgi, moin_config.py:
+	
+	Made configuration an external module; remove \r before saving;
+	names of system pages can be changed (FrontPage and RecentChanges
+	for now); RecentChanges formatted with <TABLE>; added a navigation
+	bar
+
+2000-07-24 22:15  jhermann
+
+	* __init__.py:
+	
+	Package Initialization
+
+2000-07-24 21:58  jhermann
+
+	* COPYING, INSTALL, README, _template.py:
+	
+	Added legalese blurb and module template
+
+2000-07-24 20:35  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Formatted the given & added list CSS styles
+
+2000-07-23 02:53  jhermann
+
+	* moin.sourceforge.net/index.html:
+	
+	Fixed wiki links
+
+2000-07-23 02:30  jhermann
+
+	* moin.sourceforge.net/index.html:
+	
+	Date added; fixed font tag
+
+2000-07-23 01:59  jhermann
+
+	* wiki-moinmoin/: moin.cgi, data/editlog:
+	
+	Changed save_text to remove CRs
+
+2000-07-23 01:58  jhermann
+
+	* wiki-moinmoin/data/text/: EditingTips, TipsForBeginners,
+	WikiSandbox:
+	
+	Some minor changes
+
+2000-07-23 01:47  jhermann
+
+	* wiki-moinmoin/: default.css, index.html, moin.cgi, moinmoin.gif,
+	data/editlog:
+	
+	Initial checkin
+
+2000-07-23 01:46  jhermann
+
+	* wiki-moinmoin/data/text/: CategoryEmpty, CategoryHomepage,
+	CreateaNewPage, EditText, EditingTips, FindPage, FrontPage,
+	HorizontalRules, JuergenHermann, MoinMoin, MoinMoinTodo,
+	OriginalWiki, PikiPiki, PikiToDo, PythonLanguage, RecentChanges,
+	SourceForge, TipsForBeginners, TitleIndex, UploadFile,
+	WhyWikiWorks, WikiCategory, WikiClone, WikiHomePage, WikiName,
+	WikiNature, WikiSandBox, WikiSandbox, WikiWiki, WikiWikiNess,
+	WikiWikiWeb, WikiWikiWebFaq, WordIndex:
+	
+	Iinitial checkin of the moinmoin wiki
+
+2000-07-23 00:56  jhermann
+
+	* moin.sourceforge.net/: default.css, index.html, moinmoin.gif,
+	moinmoin.wiki:
+	
+	The project homepage as of 2000-07-22
+

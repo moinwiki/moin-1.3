@@ -1,0 +1,332 @@
+''Note: I added "Wiki:" InterWiki markers where it seemed appropriate, which allows easier copying of the test page w/o losing the links. Wiki:WardsWiki just shows them literally, which is OK.''
+
+This page contains sample marked up text to make a quick visual determination as to which Wiki:TextFormattingRules work for a given wiki.  To use the page, copy the text from the edit window, and paste it in the wiki under test.  Then read it.
+
+And, the next logical thing to do is put a page like this on a public wiki running each Wiki:WikiEngine, and link to it from the appropriate Wiki:WikiReview page.	
+
+The next line (4 dashes) should show up as a horizontal rule.  In a few wikis, the width of the rule is controlled by the number of dashes.  That will be tested in a later section of this test page.
+----
+'''Wiki:WikiOriginalTextFormattingRules'''
+
+This first section will test the Wiki:WikiOriginalTextFormattingRules.
+
+If a wiki properly interprets the Wiki:WikiOriginalTextFormattingRules, the text will appear as described here.
+
+This should appear as plain variable width text, not bold or italic.
+
+The original Wiki:WardsWiki text formatting rules make no provision for headings.  They can be simulated by applying emphasis.  See the next several lines.
+
+'This text, enclosed within in 1 set of single quotes, should appear as normal text surrounded by 1 set of single quotes.'
+
+''This text, enclosed within in 2 sets of single quotes,  should appear in italics.''
+
+'''This text, enclosed within in 3 sets of single quotes,  should appear in bold face type.'''
+
+''''This text, enclosed within in 4 sets of single quotes,  should appear in bold face type surrounded by 1 set of single quotes.''''
+
+'''''This text, enclosed within in 5 sets of single quotes,  should appear in bold face italics.'''''
+
+''''''This text, enclosed within in 6 sets of single quotes,  should appear as normal text.''''''
+
+ This line, prefixed with one or more spaces, should appear as monospaced text.  Monospaced text does not wrap.
+
+
+ 'This text, enclosed within in 1 set of single quotes and preceded by one or more spaces, should appear as monospaced text surrounded by 1 set of single quotes.'
+
+ ''This text, enclosed within in 2 sets of single quotes  and preceded by one or more spaces, should appear in monospaced italics.''
+
+ '''This text, enclosed within in 3 sets of single quotes and preceded by one or more spaces, should appear in monospaced bold face type.'''
+
+ ''''This text, enclosed within in 4 sets of single quotes and preceded by one or more spaces, should appear in monospaced bold face type surrounded by 1 set of single quotes.''''
+
+ '''''This text, enclosed within in 5 sets of single quotes and preceded by one or more spaces, should appear in monospaced bold face italics.'''''
+
+ ''''''This text, enclosed within in 6 sets of single quotes and preceded by one or more spaces, should appear as monospaced normal text.''''''
+
+ This line, prefixed with one or more spaces, should appear as monospaced text.
+
+This
+should
+appear
+as
+a
+single 
+wrapped
+sentence
+/
+paragraph
+even
+though
+each
+word
+is
+on
+a
+separate
+line.
+
+In this sentence, '''bold''' should appear as '''bold''', and ''italic'' should appear as ''italic''.
+
+The next phrase, even though enclosed in triple quotes, '''will not display in bold because
+I've broken the phrase across a line''' boundary by inserting a <return>. 
+
+If I don't break the phrase by inserting a <return>, '''the bold portion can start and end on different lines,''' as this does.
+
+Note that the logic seems to be easily confused.  In the next paragraph I combine the two sentences (with no other changes).  Notice the results.  (The portion between the "innermost" set of triple quotes, and nothing else, is bold.)
+
+The next phrase, even though enclosed in triple quotes, '''will not display in bold because
+I've broken the phrase across a line''' boundary by inserting a <return>.  If I don't break the phrase by inserting a <return>, '''the bold portion can start and end on different lines,''' as this does.
+
+I don't know if Wiki:WardCunningham considers this the desired behavior.
+----
+
+This is a multilevel bulleted list:
+
+	* Top level, preceded by <tab>*<space>, appears indented 4 spaces with a solid circular bullet.
+		* Second level, preceded by <tab><tab>*<space>, appears indented 8 spaces with a hollow circular bullet.
+			* Third level, preceded by <tab><tab><tab>*<space>, appears indented 12 spaces with a solid square bullet.
+				* Fourth level, preceded by <tab><tab><tab><tab>*<space>, appears indented 16 spaces with a solid square bullet.
+					* Fifth level, preceded by <tab><tab><tab><tab><tab>*<space>, appears indented 20 spaces with a solid square bullet.
+						* Sixth level, preceded by <tab><tab><tab><tab><tab><tab>*<space>, appears indented 24 spaces with a solid square bullet.
+							* Seventh level, preceded by <tab><tab><tab><tab><tab><tab><tab>*<space>, appears indented 28 spaces with a solid square bullet.
+								* Eighth level, preceded by <tab><tab><tab><tab><tab><tab><tab><tab>*<space>, appears indented 32 spaces with a solid square bullet.
+									* Ninth level, preceded by <tab><tab><tab><tab><tab><tab><tab><tab><tab>*<space>, appears indented 36 spaces with a solid square bullet.
+										* Tenth level, preceded by <tab><tab><tab><tab><tab><tab><tab><tab><tab><tab>*<space>, appears indented 40 spaces with a solid square bullet.  It is left to the reader to determine whether there is a limit to this progression.
+
+
+This is another bulleted list, formatted the same way but with shortened lines to display the behavior when nested and when separated by blank lines.
+
+
+	* Top level
+		* Second level
+			* Third level
+				* Fourth level
+					* Fifth level
+						* Sixth level
+							* Seventh level
+								* Eighth level
+									* Ninth level
+										* Tenth level
+	* Top level -- these headings should appear with a blank line between them
+
+		* Second level
+
+			* Third level
+
+				* Fourth level
+
+					* Fifth level
+
+						* Sixth level
+
+							* Seventh level
+
+								* Eighth level
+
+									* Ninth level
+
+										* Tenth level
+
+The following nested list is numbered.  Numbers are created by replacing the "*" with "1." 
+
+
+	1. Top level
+		1. Second level
+		1. Second level
+			1. Third level
+			1. Third level
+				1. Fourth level
+					1. Fifth level
+		1. Second level
+			1. Third level
+						1. Sixth level
+							1. Seventh level
+								1. Eighth level
+									1. Ninth level
+										1. Tenth level
+	1. Top level
+		1. Second level
+			1. Third level
+				1. Fourth level
+					1. Fifth level
+						1. Sixth level
+							1. Seventh level
+								1. Eighth level
+									1. Ninth level
+										1. Tenth level
+	1. Top level
+
+View the page in the original Wiki:WardsWiki, note the numbering, and then compare it to what it looks like in the wiki being tested.
+
+Aside: I wonder if any wikis provide multilevel numbering -- I know that Wiki:MicrosoftWord, even back to the Dos 3.0 version, can number an outline with multiple digits, in "legal" or "outline" style numbering.  I forget which is which -- one is like 2.1.2.4, the other is like II.A.3.c.,  and I think there is another one that includes ii.  
+
+----
+
+Definition Lists:
+
+	Wiki:	A very strange wonderland.  (Formatted as <tab>Wiki:<tab>A very strange wonderland.)
+
+	Wiki:	A very strange wonderland.
+
+	Wiki:	A very strange wonderland.
+
+----
+
+Indented Paragraphs (For quotations)
+
+	 :	 Fourscore and seven years ago, our forefathers brought forth upon this continent a new nation, conceived in liberty, ... and I wish I could remember the rest.  Formatted by preceding this paragraph with <tab><space>:<tab>.
+
+	 	 ::	 	 Here I tried some experimentation to see if I could indent a paragraph 8 spaces instead of 4 -- not successful but there might be a way.  Fourscore and seven years ago, our forefathers brought forth upon this continent a new nation, conceived in liberty, ... and I wish I could remember the rest.  Formatted by preceding this paragraph with <tab><tab><space>::<tab><tab>.
+
+----
+
+'''Weighted horizontal lines.'''
+
+The next 10 double spaced lines are a succession of lines with an increasing number of dashes on each line, in other words, the first line is one dash, the second is two, ... until the tenth is 10 dashes.
+
+In at least one wiki (which?), the weight (thickness) of the lines increases based on the number of dashes (starting at 4 dashes).
+
+-
+
+--
+
+---
+
+----
+
+-----
+
+------
+
+-------
+
+--------
+
+---------
+
+----------
+
+(the following line has 80 dashes) 
+
+--------------------------------------------------------------------------------
+
+End of line weight test.
+
+----
+
+Headings
+
+As stated earlier, the original Wiki:WardsWiki does not handle headings except by a workaround using emphasis.  Some other wikis do.
+
+Some use a prefix of exclamation points, others use other methods.  As I find those methods, I will expand this section accordingly.
+
+Here is a test of headings using "!"
+
+This works for:
+	* 
+	* 
+
+!Top level
+
+!!Second level
+
+!!!Third level
+
+!!!!Fourth level
+
+!!!!!Fifth level
+
+Here is a test of headings enclosed in equal signs (=), one for the top level, one more for each lower level. Whitespace is '''not''' allowed outside of the equals signs, while whitespace is ''required'' on the inside (separating the header text and the equals signs).
+
+This works for:
+	* Wiki:MoinMoin (0.4 and up)
+
+= Top level =
+
+== Second level ==
+
+=== Third level ===
+
+==== Fourth level ====
+
+===== Fifth level =====
+
+
+Some use a character sequence like <tab>: something <finish later>
+
+----
+
+WikiNameTest
+
+This area will test WikiName validity.
+
+ThisIsValidInTheOriginalWiki
+
+THisIsNotValidInTheOriginalWiki -- Adjacent caps
+
+This8IsNotValidInTheOriginalWiki -- Numbers
+
+YAGNI -- All caps
+
+This8isNotValidInTheOriginalWiki -- 
+
+T8HisNotValidInTheOriginalWiki --
+
+[This Is Not Valid In The Original Wiki] -- Separated by spaces, enclosed in square brackets.
+
+Some''''''PartOfThisIsValidInTheOriginalWiki -- Attempted to invalidate putting 6 single quotes between the first pair of words.
+
+This''''''Is''''''Intentionally''''''Not''''''Valid''''''In''''''The''''''Original''''''Wiki -- Invalidated by 6 single quotes between every pair of words.
+
+Remote references are created by inserting a number in square brackets, they are not automatically numbered.  To make these links work, you must go to Wiki:EditLinks and fill in URLs.
+
+[1]
+
+[2]
+
+If a remote reference ends in .gif, the image is inlined (?) -- need to find a .gif online, preferably at Wiki:WardsWiki to refer to.  Here is a URL with a .gif to fill in to test this: 
+
+[3]
+
+
+http://c2.com/
+
+ftp://
+
+mailto://rhkramer@fast.net
+
+
+
+ISBN Links (to a bookseller) -- several variations
+
+ISBN:0137483104 -- ISBN followed by colon, followed by 10 digits (Wiki:InterWiki style)
+
+
+ISBN: 0-13-748310-4 -- ISBN followed by optional colon, followed by 10 digits with optional hyphens
+
+
+[ISBN 0-13-748310-4] -- ISBN, no colon, followed by 10 digits with optional hyphens, entire string surrounded by square brackets
+
+
+[ISBN: 0-13-748310-X] -- ISBN, with colon, entire string surrounded by square brackets, followed by 10 digits with optional hyphens, last digit an X ''"X" is the "digit" eleven, which is a possible value for the checksum (last) digit.''
+
+
+
+ToDo: Continue to add formatting rules for other wikis, as identified.  Find a .gif to test an inline image. ''You might have missed that there is an image (http://www.c2.com/sig/wiki.gif) on every wiki page. ;)''
+
+
+| Let's | just | try | a |
+|table | for | kicks | ouch |
+
+or even a table...
+
+|||||||| '''Header''' ||
+|| Let's || just || try || a ||
+||table || for || kicks || ouch ||
+
+
+
+-- Wiki:RandyKramer
+
+----
+Wiki:TopicWikiReview

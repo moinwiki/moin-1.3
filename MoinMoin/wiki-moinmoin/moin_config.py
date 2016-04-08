@@ -4,9 +4,9 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: moin_config.py,v 1.15 2000/10/26 02:50:33 jhermann Exp $
+    $Id: moin_config.py,v 1.19 2000/11/25 17:39:34 jhermann Exp $
 """
-__version__ = "$Revision: 1.15 $"[11:-2]
+__version__ = "$Revision: 1.19 $"[11:-2]
 
 # basic options
 data_dir = './data/'
@@ -36,6 +36,8 @@ html_head="""
 # page names
 front_page      = 'FrontPage'
 recent_changes  = 'RecentChanges'
+page_edit_tips  = 'HelpOnFormatting'
+page_user_prefs = 'UserPreferences'
 
 # char sets (WikiNames)
 upperletters = "A-ZÀÁÂÃÄÅÆÈÉÊËÌÍÎÏÒÓÔÕÖØÙÚÛÜİÇĞÑŞ"
@@ -78,13 +80,7 @@ navi_bar="""
     
     <td valign=top align=center bgcolor="#E8E8E8">
       <font face="Arial,Helvetica" size="-1">
-        &nbsp;<a style="text-decoration:none" href="%(scriptname)s/TipsForBeginners">TipsForBeginners</a>&nbsp;
-      </font>
-    </td>
-
-    <td valign=top align=center bgcolor="#E8E8E8">
-      <font face="Arial,Helvetica" size="-1">
-        &nbsp;<a style="text-decoration:none" href="%(scriptname)s/EditingTips">EditingTips</a>&nbsp;
+        &nbsp;<a style="text-decoration:none" href="%(scriptname)s/HelpContents">Help</a>&nbsp;
       </font>
     </td>
 
@@ -93,7 +89,7 @@ navi_bar="""
 """
 
 page_icons = """
-<a href="%(scriptname)s/EditingTips"><img src="%(url)s/img/moin-help.gif" width="12" height="11" border="0" hspace="2" align="right" alt="Help"></a>
+<a href="%(scriptname)s/HelpContents"><img src="%(url)s/img/moin-help.gif" width="12" height="11" border="0" hspace="2" align="right" alt="Help"></a>
 <a href="%(scriptname)s/FindPage?value=%(pagename)s"><img src="%(url)s/img/moin-search.gif" width="12" height="12" border="0" hspace="2" align="right" alt="Search"></a>
 <a href="%(scriptname)s/%(pagename)s?action=diff"><img src="%(url)s/img/moin-diff.gif" width="15" height="11" border="0" hspace="2" align="right" alt="Diffs"></a>
 <a href="%(scriptname)s/%(pagename)s?action=info"><img src="%(url)s/img/moin-info.gif" width="12" height="11" border="0" hspace="2" align="right" alt="Info"></a>
@@ -101,3 +97,7 @@ page_icons = """
 <a href="%(scriptname)s/%(pagename)s?action=print"><img src="%(url)s/img/moin-print.gif" width="12" height="13" border="0" hspace="2" align="right" alt="Print"></a>
 <a href="%(scriptname)s/%(pagename)s"><img src="%(url)s/img/moin-show.gif" width="12" height="13" border="0" hspace="2" align="right" alt="View"></a>
 """
+
+page_footer1="""<a href="http://www.python.org/"><img align="right" vspace="10"
+src="%s/PythonPowered.gif" width="55" height="22" border="0"
+alt="PythonPowered"></a>""" % (url_prefix,)

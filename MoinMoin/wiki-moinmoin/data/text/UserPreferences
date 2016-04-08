@@ -1,12 +1,7 @@
-UserPreferences stores settings per user. For this to work, the user has to accept a cookie with an userid (his ''crypted'' WikiName).
+[[UserPreferences]]
 
-Access to the preferences is guarded by the cookie. To regain the cookie should it be lost, the user enters a password. The following actions are needed:
- * Create a profile
- * Login (send cookie)
- * Logout (expire cookie)
- * Preference editing
+If you come to this page the first time, you'll see a dialog where you can enter your username (password and email are stored, but currently not used). If you click on '''Create Profile''', a user profile will be created for you. With the response, a HTTP cookie will be sent that contains your user id which enables the system to recognize you. 
 
-Preference settings:
- * User's WikiName (replaces IP in RecentChanges)
- * Size of edit box
- * Other things like color, icons, menu?
+ /!\ ''This "ID", shown in the response page, can be used to send the same cookie to other machines you might use. So jot it down! Or cut&paste the URL shown above, after you created your profile.''
+
+'''Logout''' clears the cookie. As described above, '''Login''' enables you to gain access to your user profile if you somehow lost the cookie or are on another machine. '''Save''' just updates your profile.

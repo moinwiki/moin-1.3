@@ -8,16 +8,21 @@ See also: MbTest:WikiIdeas Wiki:WikiWikiSuggestions [http://c2.com/w2/wiki/Welco
 
 ----
 General:
- * UserPreferences
  * TopicMap''''''s
- * Versioning (via CVS), optional
+ * Versioning (via CVS), optional (not hi-prio, the current versioning works quite nice)
+ * Change control? (checkin-checkout support for files??  This starts to get into the realm of workflow management tools... but it'd sure be nice!)
  * HierarchicalWikiWiki's (grouping of different projects)
  * Possibly make it a webserver (advantage: configuration is kept in memory)
   * Consider Mod Snake: http://modsnake.sourceforge.net/ -- it allows one to write Apache modules in Python.
- * URLs of the form [http://.... text of the link] (like a "normal" anchor), ''including local anchors and links'' (the 2nd part is to be done)
- * Allow Wiki* names to list a set of pages
+  * or use asyncore.py, a select()-based server-module used by Zope.
+ * Local anchors and links on a page
  * Maybe add edit locks with manual breaking & timeouts.
  * At least warn the user if a page was opened for editing within the last ''x'' minutes.
+ * wiki:MeatBall:WantedPages (a list of not yet created WikiName links)
+ * remove the information at the bottom of the page.  I have not seen this on another wiki and it is confusing. example-- config=, total= imports-
+   * this is a testing wiki
+ * Page background images? ''#PRAGMA BACKGROUND maybe.''
+ * tables with lists inside cells?  lists with tables inside listitems?  tablecells that span multiple lines? ''Not very probable, because too hard to implement, and also leaves the "easy wiki markup" realm.''
  * todo.org has  quickhelp on the edit page:{{{
 wikiname == WikiWord and [[nonspaces]] (digit and kanji are available) 
 http://, ftp://, news://, mailto: automatically linked 
@@ -29,13 +34,13 @@ list(3 spaces and +)
 empty line for <p> 
 ---- for <hr> 
 }}}
- * wiki:MeatBall:WantedPages (a list of not yet created WikiName links)
- * Page redirects (#REDIRECT WikiName)
- * remove the information at the bottom of the page.  I have not seen this on another wiki and it is confusing. example-- config=, total= imports-
-   * this is a testing wiki
- * describe the images & the title bar in the tipsforbeginners page.
-   * you are more than welcome to do this: actually, many of the features added on top of PikiPiki are described not at all, or very cursory ('''hint''' ;)
-   * SystemPages contains a sketch about Help pages (Help''''''On''''''''Sometopic'' pages)
+ * ModularizeForReuse - this is happening right now
+ * IdeaForSurveyPolls 
+ * HTML escape - '<html>' tag on a line by itself switches on raw html processing until turned off by '</html>', I know this isn't in the "easy wiki markup" realm but sometimes it's really useful eg converting existing docs, more complex tables etc. I have patches against 0.4 .. will add the feature to 0.5 and post a patch soon. Alexei
+   * Write a parser (see {{{MoinMoin/parser/*.py}}}) for this
+ * Move color management into moin_config.py rather than spread all over default.css.
+ * A way to list pages that have no references to them. Zombies as the [http://www.bluetail.com:5999/ Erlang Wiki] calls it.
+ * A macro that expands to the current date when the page is submitted. So that one easily can insert it in aid to others that follow the conversation. Maybe something like {{{ [[.sig]] }}} that will expand to whatever the UserPreferences is set to.
 
 ----
 Security (against the WikiNature, and possibly not needed when we have versioning):
@@ -52,10 +57,8 @@ This is what is left from Piki-Todo:
  * http://www.c2.com/cgi/wiki?FederatedWiki
  * Show most-often-read pages.
  * Fix atomic-rename and locking of editlog on NT.  
- * Clear up the few inconsistencies between normal and magic pages like RecentChanges.  In OriginalWiki they do this by magic markup tags inside the pages, rather than by trapping the names.  This is nice: amongst other things, it means that people can easily and consistently add documentation/explanation to those pages. ''This seems to be done in Piki 1.62.''
  * Merge implementations of Full-Search and Title-Search
  * Full-Search should also search titles
- * Feature to link to a randomly-selected page.
  * At the top (or bottom), show the last 5-10 pages you visited so you can quickly move around.
    * Sounds like a good idea, depends on UserPreferences though.
 

@@ -1,0 +1,10 @@
+'''Index'''
+[[TableOfContents]]
+
+== Installation & Configuration ==
+
+=== Why is the "diff" feature not working? ===
+
+Diffs need two things to work properly:
+ * The directory "''datadir''{{{/backup}}}" must exist.
+ * You need a GNU diff executable in your webserver's PATH. Note that the PATH of your webserver might be much shorter than the PATH you are used to from your shell.

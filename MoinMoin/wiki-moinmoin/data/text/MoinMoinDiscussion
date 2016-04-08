@@ -1,12 +1,11 @@
 Talk about the things on MoinMoinTodo and MoinMoinIdeas in this space...
 
------
-I'd like some feedback on TopicMap''''''s...
+== Help pages ==
+I'm wondering why not use the [http://www.c2.com/cgi/wiki?AboutCategoriesAndTopics wiki topic method] instead of putting keywords (such as Help''''''On) in page titles?
 
-----
-Try the new [http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/MoinMoin/CHANGES?cvsroot=moin&only_with_tag=HEAD bracketed URL] feature, which solves all (my) issues with URLs. -- JürgenHermann
+''Well, why not. Putting it in the title has the distinct advantage of a faster index generation, and also eases the upgrade of existing MoinMoin wikis ({{{cp Help* mywiki/data/text}}}).''
 
-----
+== Edit / update anomalies ==
 In MoinMoinTodo it says: ''EditText now adds the page's timestamp to the FORM, and refuses the save if the timestamp changed between loading the editpage and saving.''
 
 I don't like this feature. On WikiWiki I'm able to make a small edit, click on Save and look at the result. Then I just push the back button and do additional changes or correct something I did wrong on the previous edit. This isn't possible on MoinMoin. Of course I can always use EditText again, but this is significantly slower. --MarkoSchulz
@@ -24,10 +23,20 @@ The C2 and UseMod wikis check the user in case of a conflict.  If the user is th
 
 It is very likely that cookies will not be available on the majority of internet appliances for a long time, nor will they be available in browsers that do not support them or browsers that block them. I recommend gracefully degrading in the case that cookies aren't supported by the client. -- SunirShah
 
-----
-Some regex for wiki markup are at http://www.c2.com/cgi/wiki?TextFormattingRegularExpressions
+== Misc ==
+ * In MoinMoin, it would be nice for a macro that would allow users to input text, and when they hit submit, it would append their message (along with the date & time) to the end of the file.  You could use this in a News page, etc.  --KeithNaas
 
-''The c2 markup is really very bad from an accessibility point of view. It requires the use of the TAB character (ASCII 009) which is not available in many cases. UseMod/MeatballWiki have more optimal WikiMarkup in most cases, at least with the common cases. It even does indenting in an easy way. See [wiki:MeatBall/TextFormattingRules]. -- SunirShah''
+ * It'd be nice if changes in diffs were marked with <ins> and <del>: browsers that don't understand stylesheets can't display classes "diffnew" and "diffold" differently. --deltab
 
-----
-In MoinMoin, it would be nice for a macro that would allow users to input text, and when they hit submit, it would append their message (along with the date & time) to the end of the file.  You could use this in a News page, etc.  --KeithNaas
+=== I18N ===
+Now that Python 2.0 comes with a gettext module, it shouldn't be a great
+deal of work, to make moinmoin "i18n-ready".  It is a shame that a piece
+of software originating from Germany doesn't include i18n support.  Would
+you accept patches?  Or may be I have missed something obvious and
+translation is already on the way? --PeFu
+
+I ''do'' accept patches (preferably against the current CVS tree), if you want to work on anything, let's discuss it the mailing list (moin-dev) first, so work is not duplicated.
+
+The matter of translation is two-fold: effective & clean inclusion into the source needs the refactoring currently under way, and then there is the matter of the translation itself. If you could translate the Help* pages to German for a start, that would be tremendously helpful.
+
+Regarding Python 2.0: I'm planning to keep 1.5.2 compatibility as long as possible.

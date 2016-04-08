@@ -1,121 +1,64 @@
 Please feel free to experiment here...
-                                                       or here...
+
+'''Tip:''' Shift-click "HelpOnEditing" to open a second window with the help pages.
 ----
-Hey there, little bear. Isn't a nice ''sandbox'' '''nice'''?
 
- * One
- * Two -Buckle My Shoe-
-    * One Two 
-    * Two Two
- * Three
+Testing ending punctuation:  http://www.yahoo.com/  (http://www.yahoo.com/)
 
+ (http://www.yahoo.com/), "http://www.yahoo.com", [Some text in brackets]  [Some text then http://www.yahoo.com/].
 
- * There is something cool here.{{{This is cool}}}
-   I like to be able to continue it here.
-   * sub list
-   * sublist.
-   * {{{ e = mc^2 }}}
-   * sublist.
+Not bad.  Maybe ] should be added to the ending-punctuation list (the last link doesn't work).
 
-MoinMoin
+Smiley handling  :) It's quite nice...
 
-Komisch somehow nothing really works, ''blub'', '''blub'''.
+---
 
-Does it also work with other links?
-Like the DB. http://www.bahn.de
+Never clear to me what the *automagic* HTML bits should be...
 
-Mhmm, so i gotta put the "http://" in front
+Are concurrent changes handled at all by a WikiWiki? ''The second saver(!) gets an error message.''
+abc
 
-'''test'''
+and
 
-''all '''mixed''' up''
+an idea here
+and here
 
-'''all ''mixed'' up'''
+'''''CAPITALS''''' here
 
-'''''Mix'' at the beginning'''
+HyperLink
 
-'''''Mix''' at the beginning''
+Some tounge twisters:
 
-{asda asd ads ads}
+I slit a sheet.  A sheet I slit.  Upon a slitted sheet I sit.
 
-sdfsdfsf {sdfsdf} sdfsdfsdfsdf
-xxx{{{xxx}}}xxx
+I'm not a fig plucker's daughter, nor a fig plucker's son, but I'll 
+pluck fig's 'till the fig plucker comes.
 
-Buick rules OK
-
------
-''italic''
-'''bold'''
-omfd mpo pdsfop dsfopds piosdf pidsf podsfu p 
-oi  uposdu df
-oi p uopu pou lkh fd
-
-li iiuh dsfuip dfsiouh iuiu piudfs
-oi oi u
-osd oiu oi usdf
-
-[so where's rot13 when you need it?] 
-
-iopj df
-disfjoidf j po p
------
-
-It's just that easy?
-
-''Seems so. ;)''
-
-{{{ public static void and surprisingly this has a gray background
-        (looks quite, nice though) {} }}}
-
--------------
-Hello there, I want to link to DjembeUniverse page
------
-I like plastic (with lots of '''polyester''')!
------
-I'm ''not'' so sure that I do, at least not in my food ;-)
 ----
-Is there some kind of revision control on this wiki. I am interested in
-Wikis for project diocumentation use and Version Control is very useful
-in this context.
+Here's my stuff now.
 
-I looked at the info-page of this page and : yes there is a version log,
-_but_ User-Ids would be great.
+Pierre is a disbeliever, so I'm adding this material right in front of him.
+    * you can do unordered lists really easily
+     * and another point...
 
-mailto:Norbert.Klamann@klamann-software.de
+||how about these neat||tables||
+||cell2||cell3||
 
-Cookie-Based user id & prefs will be supported in some later release. No time-frame, though.
+----
+How does it handle editing conflicts? /!\ It just eats the conflicting text :(
 
-krs-one {{{boogie down}}} krs-one
+''No, it gives you a detailed description how to merge your changes with the edit of the person that saved before you. Semi-automatic merging and edit warnings to reduce possible conflicts are on the todo list.''
 
-get down
+----
+:( This wiki does not look that good on NetPositive (BeOS WebBrowser) as it does not support StyleSheets.
 
-would be nice to see some editing instructions right here though.
+''Any things that look especially bad?''
+----
 
-Yeah, EditingTips is such an obscure name for that. :>
+What about characters in ISO-LATIN-2 ? ["z<caron>s<caron>c<caron>"]?
 
-----------
+Abc&#353;def (not by default, obviously; you can configure a wiki to support it as the main character set)
 
-http://www.encrypted.net/~jh/moinmoin/moinmoin.gif
+Tnx, for help, I'll configure it. Btw, I'm '''totaly''' impressed by Wiki idea. Python implementation rocks ! It's something I always needed, without knowing :)
 
-'''Where are the clones?! Send in the clones!!'''
-
-http://www.encrypted.net/~jh/moinmoin/moinmoin.gif
-
----------
-
-{{{just another BoringTest http://www.kalab.com }}}
-This is YetAnotherBoringTest
-
-Testing MoinMoin. Also please visit http://www.kalab.com
-
-{{{test1}}}
-{{{
-test2
-}}}
- {{{test3}}}
-{{{ {{{ test4 }}} }}}
-
-  * a
-      * b
-hello
-          * c
+I'm editing using lynx.  does this work?

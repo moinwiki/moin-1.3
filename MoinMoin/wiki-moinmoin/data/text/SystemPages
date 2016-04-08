@@ -21,9 +21,14 @@ General pages: (that should be seeded into every MoinMoin wiki)
  * WikiWiki 
 
 Help pages: (rename them all to Help* and have this list on HelpContents ?)
- * TipsForBeginners (HelpForBeginners)
- * EditingTips (HelpOnEditing)
- * HorizontalRules (HelpOnRules)
+ * HelpForBeginners
+ * HelpOnEditing
+ * HelpOnRules
+
+Former system pages:
+ * TipsForBeginners
+ * EditingTips 
+ * HorizontalRules
 
 ------
 

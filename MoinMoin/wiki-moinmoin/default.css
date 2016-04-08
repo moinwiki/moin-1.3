@@ -12,6 +12,32 @@ td.headline {
     font-family: Helvetica;
     font-size: 20pt;
 }
+h1,h2,h3,h4,h5 {
+    font-family: Helvetica;
+    background-color: #EECC99;
+    padding-left:3pt;
+    margin-top:2pt;
+    margin-bottom:8pt;
+}
+h1 {
+    font-size: 18pt;
+}
+h2 {
+    font-size: 16pt;
+    padding-left:6pt;
+}
+h3 {
+    font-size: 12pt;
+    padding-left:9pt;
+}
+h4 {
+    font-size: 10pt;
+    padding-left:12pt;
+}
+h5 {
+    font-size: 8pt;
+    padding-left:15pt;
+}
 a:link {
     color: #993306;
 }
@@ -30,22 +56,14 @@ a.nonexistent:visited {
 a.external {
     color: #AA6600;
 }
-dl {
+dl,ul,ol {
     margin-top: 1pt;
 }
-ul {
-    margin-top: 1pt;
-}
-ol {
-    margin-top: 1pt;
-}
-tt {
+tt,pre {
     font-family: Lucida Console,Courier New,Courier,monotype;
     font-size: 10pt;
 }
 pre.code {
-    font-family: Lucida Console,Courier New,Courier,monotype;
-    font-size: 10pt;
     margin-top: 8pt;
     margin-bottom: 8pt;
     background-color: #E0E0E0;

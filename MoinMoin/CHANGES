@@ -4,7 +4,69 @@ MoinMoin Version History
 Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: CHANGES,v 1.17 2000/10/26 03:04:22 jhermann Exp $
+$Id: CHANGES,v 1.34 2000/12/06 19:24:47 jhermann Exp $
+
+-----------------------------------------------------------------------------
+Version 0.7 (2000-12-06)
+
+New features:
+    * RecentChanges bookmarking
+
+Bugfixes:
+    * SECURITY FIX
+    * Non-greedy extended WikiNames
+
+-----------------------------------------------------------------------------
+Version 0.6 (2000-12-04)
+
+New features:
+    * [[UserPreferences]] macro and associated functions
+    * [[TableOfContents]] macro
+    * Mechanism for external macros (user extensions)
+    * Numbered list types and start offsets
+
+Bugfixes:
+    * Search dialogs did not work on the FrontPage
+    * Add newline to text if last line has none (better diffs)
+
+-----------------------------------------------------------------------------
+Version 0.5 (2000-11-17)
+
+New features:
+    * Major refactoring: code is now broken up into modules within the
+      "MoinMoin" package
+    * Diagnosis of installation via a "test.cgi" script
+    * Smileys
+    * "#format" processing instruction
+    * "##comment"
+    * [[RandomPage]] and [[RandomPage(number)]] macro
+    * configurable footer ("page_footer1" and "page_footer2")
+    * "#redirect" processing instruction
+
+Bugfixes:
+    * Bugfix for broken CGI environment of IIS/4.0
+    * URLs and InterWiki links are now less greedy (punctuation at the end
+      is excluded, and "<" ends them, too)
+
+-----------------------------------------------------------------------------
+Version 0.4 (2000-11-01)
+
+New features:
+    * Table markup "||a||b||c||"
+    * Headlines "= H1 =", "== H2 ==", and so on up to H5
+    * [[PageCount]] macro
+    * Added [[Icon(image)]] macro and macro arguments
+    * [[PageList(title-regex)]] macro
+    * New help system (set of help pages describing all features)
+
+Bugfixes:
+    * Create complete URL for "Clear message" link
+    * Inline code spans needed cgi.escape
+    * Better fix for Python 1.6 "re" problems
+    * Fix for uppercase extensions in inline images ("foo.JPG")
+    * Fixed colspan in RecentChanges
+    * HR size is now limited to 8
+    * "}" ends an URL pattern (fixes URLs right at the end of code displays)
 
 -----------------------------------------------------------------------------
 Version 0.3 (2000-10-25)

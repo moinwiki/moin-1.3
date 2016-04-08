@@ -1,7 +1,13 @@
+ISBN http://www.amazon.com/exec/obidos/ISBN=
+FreshMeat http://freshmeat.net/
+BrainBench http://www.brainbench.com/transcript.jsp?pid=
+EfnetCeeWiki http://rm-f.net/~jh/c-wiki/moin.cgi/
+Thinki http://www.thinkware.se/cgi-bin/thinki.cgi/
+
 Wiki http://c2.com/cgi/wiki?
 PPR http://c2.com/cgi/wiki?
 C2find http://c2.com/cgi/wiki?FindPage&value=
-ZWiki http://joyful.com/zwiki/
+ZWiki http://www.zwiki.org/
 OrgPatterns http://www.bell-labs.com/cgi-user/OrgPatterns/OrgPatterns?
 FoxWiki http://fox.wikis.com/wc.dll?Wiki~
 PhpWiki http://phpwiki.sourceforge.net/phpwiki/index.php3?
@@ -28,7 +34,9 @@ BridgesWiki http://c2.com/w2/bridges/
 IMDB http://us.imdb.com/Title?
 JiniWiki http://www.cdegroot.com/cgi-bin/jini?
 Dictionary http://www.dictionary.com/cgi-bin/dict.pl?term=
-ISBN http://www.amazon.com/exec/obidos/ISBN=
-FreshMeat http://freshmeat.net/
-BrainBench http://www.brainbench.com/transcript.jsp?pid=
-EfnetCeeWiki http://rm-f.net/~jh/c-wiki/moin.cgi/
+AndStuff http://andstuff.org/wiki.php?
+PythonInfo http://www.python.org/cgi-bin/moinmoin/
+CreationMatters http://www.ourpla.net/cgi-bin/wiki.pl?
+CmWiki http://www.ourpla.net/cgi-bin/wiki.pl?
+BenefitsWiki http://www.benefitslink.com/cgi-bin/wiki.cgi?
+Why http://clublet.com/c/c/why?

@@ -1,27 +1,46 @@
-http://www.encrypted.net/~jh/img/roach.gif Back to MoinMoinTodo
+http://www.encrypted.net/~jh/img/roach.gif 
+Back to MoinMoinTodo | Things that are MoinMoinNotBugs | MoinMoinTests contains tests for many features
+[[TableOfContents]]
+
+=== Misc ===
 
  * Solve the problem of the Windows filesystem handling a WikiName case-indifferent (i.e. map all deriatives of an existing page to that page).
  * Check whether the passed WikiName is valid when editing pages (so no pages with an invalid WikiName can be created); this could also partly solve the case-insensitive filename problem (do not save pages with a name only differing in case)
 
-----
-I think this is a bug (case of URL followed immediately by preformated text closing brackets):
+=== Unicode issues ===
+With 0.3, TitleIndex is broken if first letter of Japanese WikiName is multibyte character. This patch works well for me but need to be fixed for other charsets.
 
-{{{just another BoringTest http://www.kalab.com}}}
-
-closing brackets above not caught, so one more time...
+{{{
+*** moin.cgi.sav	Sat Oct 28 13:26:26 2000
+--- moin.cgi	Sat Oct 28 13:39:04 2000
+***************
+*** 623,628 ****
+--- 623,630 ----
+          letter = name[0]
+          if isUnicodeName(name):
+              letter = "~"
++         if letter not in (string.letters + string.digits):
++             letter = "~"
+          if letter not in index_letters:
+              index_letters.append(letter)
+          if letter <> current_letter:
 }}}
 
-Maybe this too (case of plain indent where adjacent rows are at the same level):
+AtsuoIshimoto
 
-  a
-  b
-     c
-
-
-''--anonymous bug guy''
-
-The first is definitely a bug (though easily circumvented), the second is debatable, since without any indenting lines are joined, too.
-
-Like
-these
-lines.
+''Differently broken. :) I think we can live with the current situation, the worst edges are removed (before, chopping the first byte out of an unicode string lead to broken HTML markup!). It will stay that way until I buy the [wiki:ISBN:0201616335 Unicode 3.0] book.''
+ 
+=== paragraph bug redux ===
+ 
+''They render identically with IE5. Provide some info on your browser & OS. And the HTML is identical:''
+ 
+{{{
+Some text. <p>
+<b>window</b> <ul>
+ The main, rectangular background, control and data area of an application. <p></ul>
+<b>dialog boxes</b> <ul>
+ A temporary, pop-up window created by the application, where the user can 
+enter information and provide commands. <p></ul>
+}}}
+ 
+Please note that they aren't actually identical: the P that precedes '''dialog boxes''' is interrupted by the closing /UL tag, whereas the P preceding '''windw''' is ''not'' followed by a closing /UL.

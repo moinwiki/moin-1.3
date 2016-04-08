@@ -1,0 +1,28 @@
+[[TableOfContents]]
+
+== This is *NOT* a Browser bug with CSS rendering ==
+
+{{{
+Some text. <p>
+<b>window</b> <ul>
+ The main, rectangular background, control and data area of an application. <p></ul>
+<b>dialog boxes</b> <ul>
+ A temporary, pop-up window created by the application, where the user can 
+enter information and provide commands. <p></ul>
+}}}
+
+'''The HTML being produced is invalid:''' ''Error: start tag for "LI" omitted, but its declaration does not permit this.''  That is, UL on its lonesome isn't permitted: it must contain LI elements.
+
+Also worth noting that ''Error: Missing DOCTYPE declaration at start of document'' comes up at the HEAD tag;  and ''Error: document type does not allow element "FONT" here'' for a FONT tag that's being used inside a PRE element.
+ 
+''Indeed the <ul> should be a <dl> or so for pure indents. I'll add HTML conformity checking as a todo.''
+ 
+Please note also that to be "identical," the second P tag should ''follow'' the /UL, not precede it.  The implication as-is is that the P belongs to the UL block, when it doesn't.  It may be worth using closing paragraph tags, as an aide to future XHTML compatibility, and to make paragraph enclosures wholly explicit.
+ 
+This is not an Opera bug.  The HTML is invalid.  '''The blocks are overlapping, when they are not allowed to:''' P UL P /UL UL P /UL is not a sensible code sequence.  (It should be P UL /UL P UL /UL P... giddyupgiddyup?)
+ 
+I suspect this problem is pervasive, and I also suspect that the solution is almost moot; probably a one-off counting problem, or a mis-ordered "case" sort of sequence.  If the /UL closing tag were to precede the P opening tag, all would be well.
+ 
+Hey!  That ToC thing happening at the top of this page is *really* cool!
+
+''This issue will be resolved in the course of XML formatting -- after all, XML is much more strict than any browser.''
