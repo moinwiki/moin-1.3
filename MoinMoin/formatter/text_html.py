@@ -96,7 +96,7 @@ class Formatter(FormatterBase):
         return str
 
     def anchordef(self, id):
-        return '<a id="%s">' % id
+        return '<a id="%s"></a>' % id
 
     def anchorlink(self, name, text, id = None):
         extra = ''

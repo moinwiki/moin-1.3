@@ -240,7 +240,7 @@ class RequestBase:
         return forbidden
 
 
-    def setup_args(self):
+    def setup_args(self, form=None):
         return {}
 
     def _setup_args_from_cgi_form(self, form=None):
@@ -516,8 +516,8 @@ class RequestCGI(RequestBase):
             sys.stderr = open(os.path.join(config.data_dir, 'error.log'), 'at')
             self.opened_logs = 1
 
-    def setup_args(self):
-        return self._setup_args_from_cgi_form()
+    def setup_args(self, form=None):
+        return self._setup_args_from_cgi_form(form)
         
     def read(self, n=None):
         """ Read from input stream.
@@ -590,7 +590,7 @@ class RequestCGI(RequestBase):
                 # don't send content-type multiple times!
                 if have_ct: continue
                 have_ct = 1
-            self.write(header, '\r\n')
+            self.write("%s\r\n" % header)
 
         if not have_ct:
             self.write("Content-type: text/html;charset=%s\r\n" % config.charset)
@@ -640,7 +640,7 @@ class RequestTwisted(RequestBase):
         RequestBase.__init__(self, properties)
         #print "request.RequestTwisted.__init__: received_headers=\n" + str(self.twistd.received_headers)
 
-    def setup_args(self):
+    def setup_args(self, form=None):
         return self.twistd.args
         
     def read(self, n=None):
@@ -905,12 +905,12 @@ class RequestStandAlone(RequestBase):
             sys.stderr = open(os.path.join(config.data_dir, 'error.log'), 'at')
             self.opened_logs = 1
 
-    def setup_args(self):
+    def setup_args(self, form=None):
         self.env['REQUEST_METHOD'] = self.request_method
         self.env['QUERY_STRING'] = self.query_string
-	ct = self.headers.getheader('content-type')
-	if ct:
-	    self.env['CONTENT_TYPE'] = ct
+        ct = self.headers.getheader('content-type')
+        if ct:
+            self.env['CONTENT_TYPE'] = ct
         cl = self.headers.getheader('content-length')
         if cl:
             self.env['CONTENT_LENGTH'] = cl
@@ -918,7 +918,8 @@ class RequestStandAlone(RequestBase):
         import cgi
         #print "env = ", self.env
         #form = cgi.FieldStorage(self, headers=self.env, environ=self.env)
-        form = cgi.FieldStorage(self, environ=self.env)
+        if form is None:
+            form = cgi.FieldStorage(self, environ=self.env)
         return self._setup_args_from_cgi_form(form)
         
     def read(self, n=None):
@@ -930,13 +931,13 @@ class RequestStandAlone(RequestBase):
             return self.rfile.read(n)
 
     def readline (self):
-	L = ""
-	while 1:
-	    c = self.read(1)
-	    L += c
-	    if c == '\n':
-		break
-	return L
+        L = ""
+        while 1:
+            c = self.read(1)
+            L += c
+            if c == '\n':
+                break
+        return L
 	    
     def write(self, *data):
         """ Write to output stream.
@@ -992,7 +993,7 @@ class RequestStandAlone(RequestBase):
                 # don't send content-type multiple times!
                 if have_ct: continue
                 have_ct = 1
-            self.write(header, '\r\n')
+            self.write("%s\r\n" % header)
 
         if not have_ct:
             self.write("Content-type: text/html;charset=%s\r\n" % config.charset)
@@ -1030,14 +1031,15 @@ class RequestModPy(RequestBase):
         RequestBase.__init__(self)
         
         
-    def setup_args(self):
+    def setup_args(self, form=None):
         """ Sets up args by using mod_python.util.FieldStorage, which
             is different to cgi.FieldStorage. So we need a seperate
             method for this.
         """
         import types
         from mod_python import util
-        form = util.FieldStorage(self.mpyreq)
+        if form is None:
+            form = util.FieldStorage(self.mpyreq)
 
         args = {}
         for key in form.keys():
@@ -1160,17 +1162,6 @@ class RequestModPy(RequestBase):
         # this is for mod_python 2.7.X, for 3.X it's a NOP
         self.mpyreq.send_http_header()
 
-    def http_redirect(self, url):
-        """ Redirect to a fully qualified, or server-rooted URL """
-        # we could do internal redirects (this server) directly using
-        # apache. would speedup things...
-        if url.find("://") == -1:
-            url = self.getQualifiedURL(url)
-
-        self.http_headers(["Status: 302",
-                           "Location: " + url])
-
-
 # FastCGI -----------------------------------------------------------
 
 class RequestFastCGI(RequestBase):
@@ -1190,9 +1181,11 @@ class RequestFastCGI(RequestBase):
         self._setup_vars_from_std_env(env)
         RequestBase.__init__(self, properties)
 
-    def setup_args(self):
+    def setup_args(self, form=None):
         """ Use the FastCGI form to setup arguments. """
-        return self._setup_args_from_cgi_form(self.fcgform)
+        if form is None:
+            form = self.fcgform
+        return self._setup_args_from_cgi_form(form)
 
     def read(self, n=None):
         """ Read from input stream.
@@ -1268,7 +1261,7 @@ class RequestFastCGI(RequestBase):
                 # don't send content-type multiple times!
                 if have_ct: continue
                 have_ct = 1
-            self.write(header, '\r\n')
+            self.write("%s\r\n" % header)
 
         if not have_ct:
             self.write("Content-type: text/html;charset=%s\r\n" % config.charset)

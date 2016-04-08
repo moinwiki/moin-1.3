@@ -29,6 +29,7 @@ def execute(macro, args):
         if event[0] <=  cache_date:
             break
         page = event[2].get('pagename','')
+        if page in ['CVS',]: continue
         if page:
             pagehits[page] = pagehits.get(page,0) + 1
 

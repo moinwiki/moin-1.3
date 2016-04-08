@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"POT-Creation-Date: 2004-07-21 14:15+0200\n"
 "PO-Revision-Date: 2004-01-11 22:09+0100\n"
 "Last-Translator: Lin Zhemin <ljm@ljm.idv.tw>\n"
 "Language-Team: Chinese/Taiwan <moin-devel@lists.sourceforge.net>\n"
@@ -138,6 +138,10 @@ msgstr "[從 %s 載入新頁面的內容]"
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[找不到範本 %s ]"
+
+#, python-format
+msgid "[You may not read %s]"
+msgstr ""
 
 msgid "Reduce editor size"
 msgstr "縮小編輯框"

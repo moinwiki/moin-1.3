@@ -333,7 +333,6 @@ def do_info(pagename, request):
     def general(page, pagename, request):
         _ = request.getText
 
-        request.write('<div id="content">\n') # start content div
         request.write('<h2>%s</h2>\n' % _('General Information'))
         
         # show page size
@@ -373,7 +372,6 @@ def do_info(pagename, request):
             for linkedpage in links:
                 request.write("%s%s " % (Page(linkedpage).link_to(request), ",."[linkedpage == links[-1]]))
             request.write("</p>")
-        request.write('</div>\n') # end content div
 
 
     def history(page, pagename, request):
@@ -381,7 +379,6 @@ def do_info(pagename, request):
         from stat import ST_MTIME, ST_SIZE
         _ = request.getText
 
-        request.write('<div id="content">\n') # start content div
         request.write('<h2>%s</h2>\n' % _('Revision History'))
 
         # generate history list
@@ -515,7 +512,6 @@ def do_info(pagename, request):
         history_table.render()
         request.write('</div>')
         request.write('\n</form>\n')
-        request.write('</div>\n') # end content div
 
 
     _ = request.getText

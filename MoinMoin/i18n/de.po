@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"POT-Creation-Date: 2004-07-21 14:15+0200\n"
 "PO-Revision-Date: 2004-01-13 08:46+0100\n"
 "Last-Translator: Thomas Waldmann <tw-public@gmx.de>\n"
 "Language-Team: German <moin-devel@lists.sourceforge.net>\n"
@@ -144,6 +144,10 @@ msgstr "[Inhalt der neuen Seite auf Basis der Vorlage %s]"
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[Schablone %s nicht gefunden]"
+
+#, python-format
+msgid "[You may not read %s]"
+msgstr "[Sie dürfen %s nicht lesen]"
 
 msgid "Reduce editor size"
 msgstr "Größe des Eingabefelds reduzieren"

@@ -46,7 +46,7 @@ def getUserId(searchName):
         userdictpickle = os.path.join(config.user_dir, "userdict.pickle")
         try:
             _name2id = pickle.load(open(userdictpickle))
-        except (UnpicklingError,IOError,EOFError,ValueError):
+        except (pickle.UnpicklingError,IOError,EOFError,ValueError):
             _name2id = {}
     id = _name2id.get(searchName, None)
     if id is None:
@@ -144,7 +144,7 @@ class User:
         self.trusted = 0
         self.email = ""
         self.edit_rows = config.edit_rows
-        self.edit_cols = 80
+        #self.edit_cols = 80
         self.tz_offset = int(float(config.tz_offset) * 3600)
         self.last_saved = str(time.time())
         self.css_url = ""

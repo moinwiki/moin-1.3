@@ -5,6 +5,35 @@ Copyright (c) 2000-2004 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
 -----------------------------------------------------------------------------
+Version 1.2.3 (2004-07-21, Revision 1.186)
+
+Fixes:
+    * fixed NameError "UnpicklingError" in user.py
+    * fixed version number in moin.spec
+    * reverts done by bots or leechers
+      There was a bad, old bug that triggered if you did not use ACLs. In that
+      case, moin used some simple (but wrong and incomplete) function to
+      determine what a user (or bot) may do or may not do. The function is now
+      fixed to allow only read and write to anon users, and only delete and
+      revert to known users additionally - and disallow everything else.
+    * avoid creation of unneccessary pages/* directories
+    * removed double content divs in general info and history info pages
+    * fixed wiki xmlrpc getPageHTML
+    * fixed rightsidebar logout URL, also fixed top banner to link to FrontPage
+    * use config.page_front_page and .page_title_index for robots meta tag
+      (whether it uses index,follow or index,nofollow), not hardcoded english
+      page names
+    * ACL security fix for PageEditor, thanks to Dr. Pleger for reporting
+    * default options for new users are same as for anon users
+
+Other changes:
+    * do not show excluded actions at bottom of page
+    * i18n updated: ja, de, zh
+    * editor: removed the columns size setting, just using 100% of browser
+      window width (it didn't work because of that anyway). Also removed that
+      "reduce editor size" link at top of editor as you would lose your
+      changes when using it.
+
 
 Version 1.2.2 (2004-06-06, Revision 1.185)
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"POT-Creation-Date: 2004-07-21 14:15+0200\n"
 "PO-Revision-Date: 2004-02-18 15:08+0900\n"
 "Last-Translator: Hye-Shik Chang <perky@i18n.org>\n"
 "Language-Team: Korean <moin-devel@lists.sourceforge.net>\n"
@@ -136,6 +136,10 @@ msgstr "[%s에서 옮겨온 새 글 내용]"
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[템플릿 %s를 찾을 수 없음]"
+
+#, python-format
+msgid "[You may not read %s]"
+msgstr ""
 
 msgid "Reduce editor size"
 msgstr "편집기 크기를 줄임"

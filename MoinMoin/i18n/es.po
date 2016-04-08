@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"POT-Creation-Date: 2004-07-21 14:15+0200\n"
 "PO-Revision-Date: 2004-03-11 02:49+0100\n"
 "Last-Translator: Bernardo Arlandis Mano <berarma@ya.com>\n"
 "Language-Team: Spanish <moin-devel@lists.sourceforge.net>\n"
@@ -141,6 +141,10 @@ msgstr "[Contenido de la nueva página cargada desde %s]"
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[Plantilla %s no encontrada]"
+
+#, python-format
+msgid "[You may not read %s]"
+msgstr ""
 
 msgid "Reduce editor size"
 msgstr "Reducir el tamaño del editor"

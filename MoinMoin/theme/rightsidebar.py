@@ -37,7 +37,7 @@ class Theme(ThemeBase):
         @return: banner html
         """
         # 'banner_html': self.emit_custom_html('<div id="banner">\n<a id="bannertext" href="http://cwhipple.info">cwhipple.info</a>\n<p id="desctext">an evolving repository</p>\n</div>\n')
-        html ='<div id="banner">\n<a id="bannertext" href="%(script_name)s">%(site_name)s</a>\n</div>\n' % d
+        html ='<div id="banner">\n<a id="bannertext" href="%(q_page_front_page)s">%(site_name)s</a>\n</div>\n' % d
         return html
 
     def title(self, d):
@@ -72,12 +72,11 @@ class Theme(ThemeBase):
         html = ['<div class="sidetitle">%s</div>\n' % _("User")]
         if self.request.user.valid:
             html.append('<div class="user">') 
-            if d['page_home_page']:
-                html.append('%s' % wikiutil.link_tag(self.request, wikiutil.quoteWikiname(d['page_home_page'])))
-                html.append('<br />')
+            html.append('%s' % wikiutil.link_tag(self.request, wikiutil.quoteWikiname(self.request.user.name)))
+            html.append('<br />')
             html.append('%s' % wikiutil.link_tag(self.request, wikiutil.quoteWikiname(d['page_user_prefs'])))
             html.append('<br /><br />')
-            html.append('<form action="/UserPreferences" method="POST">')
+            html.append('<form action="%s/%s" method="POST">' % (d['script_name'], d['q_page_user_prefs']))
             html.append('<input type="hidden" name="action" value="userform">')
             html.append('<input type="hidden" name="logout" value="Logout">')
             #html.append('<input type="image" name="Submit" value="Submit" src="http://cwhipple.info/crwiki/crw/img/logout.png" height="15" width="80" border="0">')

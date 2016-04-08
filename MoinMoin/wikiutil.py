@@ -889,8 +889,9 @@ def send_title(request, text, **keywords):
     # if it is an action or edit/search, send query headers (noindex,nofollow):
     if request.query_string or request.request_method == 'POST':
         user_head += '''<meta name="robots" content="noindex,nofollow">\n'''
-    # if it is a special page, index it and follow the links:
-    elif pagename in ['FrontPage', 'TitleIndex',]:
+    # if it is a special page, index it and follow the links - we do it for
+    # the original, english pages as well as for (the possible modified) frontpage:
+    elif pagename in [page_front_page, config.page_front_page, page_title_index, ]:
         user_head += '''<meta name="robots" content="index,follow">\n'''
     # if it is a normal page, index it, but do not follow the links, because
     # there are a lot of illegal links (like actions) or duplicates:
@@ -1034,6 +1035,7 @@ def send_title(request, text, **keywords):
          
         for action in actions:
             if action[0] != action[0].upper(): continue
+            if action in config.excluded_actions: continue
             available_actions.append(action)
 
     form = keywords.get('form', None)

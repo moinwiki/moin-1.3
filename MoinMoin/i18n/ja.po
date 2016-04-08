@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
-"PO-Revision-Date: 2004-05-07 11:24+0900\n"
+"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"PO-Revision-Date: 2004-07-21 22:58+0900\n"
 "Last-Translator: Fujio Nobori <toh@fuji-climb.org>\n"
 "Language-Team: Japanese <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -138,6 +138,10 @@ msgstr "[新しいページの内容が%sからロードされました]"
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[ひな型%sが見つかりません]"
+
+#, python-format
+msgid "[You may not read %s]"
+msgstr "[%sを読む権限がありません]"
 
 msgid "Reduce editor size"
 msgstr "エディタを縮小"
@@ -969,7 +973,7 @@ msgstr ""
 
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
-msgstr "添付ファイル\"%(filename)s\"を削除しました。"
+msgstr "添付ファイル'%(filename)s'を削除。"
 
 #, python-format
 msgid "Attachment '%(filename)s'"
@@ -1112,11 +1116,11 @@ msgstr "%(pagename)sにquoteはありません。"
 
 #, python-format
 msgid "Upload of attachment '%(filename)s'."
-msgstr "添付ファイル'%(filename)s'のアップロード"
+msgstr "添付ファイル'%(filename)s'をアップロード。"
 
 #, python-format
 msgid "Drawing '%(filename)s' saved."
-msgstr "drawing '%(filename)s'の保存"
+msgstr "drawing '%(filename)s'を保存。"
 
 #, python-format
 msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"

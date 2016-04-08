@@ -76,6 +76,8 @@ Schauen Sie sich auch die Differenz von %(difflink)s an, um zu sehen, was geände
 '''[Inhalt der neuen Seite auf Basis der Vorlage %s]''',
 '''[Template %s not found]''':
 '''[Schablone %s nicht gefunden]''',
+'''[You may not read %s]''':
+'''[Sie dürfen %s nicht lesen]''',
 '''Reduce editor size''':
 '''Größe des Eingabefelds reduzieren''',
 '''Skip to preview''':

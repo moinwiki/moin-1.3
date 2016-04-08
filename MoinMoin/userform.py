@@ -141,7 +141,7 @@ class UserSettingsHandler:
     
             # editor size
             theuser.edit_rows = util.web.getIntegerInput(self.request, 'edit_rows', theuser.edit_rows, 10, 60)
-            theuser.edit_cols = util.web.getIntegerInput(self.request, 'edit_cols', theuser.edit_cols, 30, 100)
+            #theuser.edit_cols = util.web.getIntegerInput(self.request, 'edit_cols', theuser.edit_cols, 30, 100)
     
             # time zone
             theuser.tz_offset = util.web.getIntegerInput(self.request, 'tz_offset', theuser.tz_offset, -84600, 84600)
@@ -162,14 +162,15 @@ class UserSettingsHandler:
             theuser.language = form.get('language', [''])[0]
 
             # checkbox options
-            for key, label in user.User._checkbox_fields:
-                value = form.get(key, [0])[0]
-                try:
-                    value = int(value)
-                except ValueError:
-                    pass
-                else:
-                    setattr(theuser, key, value)
+            if not newuser:
+                for key, label in user.User._checkbox_fields:
+                    value = form.get(key, [0])[0]
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        pass
+                    else:
+                        setattr(theuser, key, value)
     
             # quicklinks for header
             quicklinks = form.get('quicklinks', [''])[0]
@@ -396,9 +397,9 @@ class UserSettings:
             ])
 
             self.make_row(_('Editor size'), [
-                html.INPUT(type="text", size=3, maxlength=3,
-                    name="edit_cols", value=self.request.user.edit_cols),
-                ' x ',
+                #html.INPUT(type="text", size=3, maxlength=3,
+                #    name="edit_cols", value=self.request.user.edit_cols),
+                #' x ',
                 html.INPUT(type="text", size=3, maxlength=3,
                     name="edit_rows", value=self.request.user.edit_rows),
             ])

@@ -74,6 +74,8 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[新しいページの内容が%sからロードされました]''',
 '''[Template %s not found]''':
 '''[ひな型%sが見つかりません]''',
+'''[You may not read %s]''':
+'''[%sを読む権限がありません]''',
 '''Reduce editor size''':
 '''エディタを縮小''',
 '''Skip to preview''':
@@ -570,7 +572,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Attachment \'%(target)s\' (remote name \'%(filename)s\') with %(bytes)d bytes saved.''':
 '''添付ファイル\'%(target)s\'(サーバでのファイル名\'%(filename)s\'、%(bytes)d)を保存しました。''',
 '''Attachment \'%(filename)s\' deleted.''':
-'''添付ファイル"%(filename)s"を削除しました。''',
+'''添付ファイル\'%(filename)s\'を削除。''',
 '''Attachment \'%(filename)s\'''':
 '''添付ファイル \'%(filename)s\'''',
 '''Unknown file type, cannot display this attachment inline.''':
@@ -650,9 +652,9 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''No quotes on %(pagename)s.''':
 '''%(pagename)sにquoteはありません。''',
 '''Upload of attachment \'%(filename)s\'.''':
-'''添付ファイル\'%(filename)s\'のアップロード''',
+'''添付ファイル\'%(filename)s\'をアップロード。''',
 '''Drawing \'%(filename)s\' saved.''':
-'''drawing \'%(filename)s\'の保存''',
+'''drawing \'%(filename)s\'を保存。''',
 '''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
 '''[%(hours)d時間&nbsp;%(mins)d分&nbsp;前]''',
 '''(no bookmark set)''':

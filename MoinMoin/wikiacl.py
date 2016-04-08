@@ -157,11 +157,15 @@ class AccessControlList:
            Returns boolean answer.
         """
         if not config.acl_enabled:
-            # Preserve default behavior of allowing only valid
-            # users to delete.
-            if dowhat == "delete" and not request.user.valid:
-                return 0
-            return 1
+            # everybody may read and write:
+            if dowhat in ["read", "write",]:
+                return 1
+            # only known users may do some more dangerous things:
+            if request.user.valid:
+                if dowhat in ["delete", "revert",]:
+                    return 1
+            # in any other case, we better disallow it:
+            return 0
 
         is_group_member = request.dicts.has_member
         allowed = None

@@ -259,14 +259,14 @@ class XmlRpcBase:
         pagename = self._instr(pagename)
         if not self.request.user.may.read(pagename):
             return xmlrpclib.Fault(1, "You are not allowed to read this page")
-
-        import cStringIO
+        
+        import StringIO
         if version != None:
             page = Page(pagename, date=version)
         else:
             page = Page(pagename)
 
-        out = cStringIO.StringIO()
+        out = StringIO.StringIO()
         self.request.redirect(out)
         self.request.form = self.request.args = self.request.setup_args({})
         page.send_page(self.request, content_only=1)
@@ -332,8 +332,8 @@ class XmlRpcBase:
             sys.stderr.write("Msg: %s\n" % msg)
 
         #we need this to update pagelinks cache:
-        import cStringIO
-        out = cStringIO.StringIO()
+        import StringIO
+        out = StringIO.StringIO()
         self.request.redirect(out)
         self.request.args = self.request.form = self.request.setup_args({})
         page.send_page(self.request, content_only=1)

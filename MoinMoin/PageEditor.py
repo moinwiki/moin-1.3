@@ -207,11 +207,11 @@ class PageEditor(Page):
         except StandardError:
             text_rows = config.edit_rows
             if self.request.user.valid: text_rows = int(self.request.user.edit_rows)
-        try:
-            text_cols = int(form['cols'][0])
-        except StandardError:
-            text_cols = 80
-            if self.request.user.valid: text_cols = int(self.request.user.edit_cols)
+        #try:
+        #    text_cols = int(form['cols'][0])
+        #except StandardError:
+        #    text_cols = 80
+        #    if self.request.user.valid: text_cols = int(self.request.user.edit_cols)
 
         # check datestamp (version) of the page our edit is based on
         if preview is not None:
@@ -263,11 +263,15 @@ Have a look at the diff of %(difflink)s to see what has been changed."""
         if form.has_key('template'):
             # "template" parameter contains the name of the template page
             template_page = wikiutil.unquoteWikiname(form['template'][0])
-            raw_body = Page(template_page).get_raw_body()
-            if raw_body:
-                self.request.write(_("[Content of new page loaded from %s]") % (template_page,), '<br>')
+            if self.request.user.may.read(template_page):
+                raw_body = Page(template_page).get_raw_body()
+                if raw_body:
+                    self.request.write(_("[Content of new page loaded from %s]") % (template_page,), '<br>')
+                else:
+                    self.request.write(_("[Template %s not found]") % (template_page,), '<br>')
             else:
-                self.request.write(_("[Template %s not found]") % (template_page,), '<br>')
+                raw_body = ''
+                self.request.write(_("[You may not read %s]") % (template_page,), '<br>')
         else:
             raw_body = self.get_raw_body()
 
@@ -276,9 +280,9 @@ Have a look at the diff of %(difflink)s to see what has been changed."""
         if form.has_key('template'):
             template_param = '&amp;template=' + form['template'][0]
         self.request.write('<p>')
-        self.request.write('<a href="%s&amp;rows=10&amp;cols=60%s">%s</a>' % (
-            base_uri, template_param, _('Reduce editor size')))
-        self.request.write(" | ", wikiutil.getSysPage(self.request, 'HelpOnFormatting').link_to(self.request))
+        #self.request.write('<a href="%s&amp;rows=10&amp;cols=60%s">%s</a> | ' % (
+        #    base_uri, template_param, _('Reduce editor size')))
+        self.request.write(wikiutil.getSysPage(self.request, 'HelpOnFormatting').link_to(self.request))
         self.request.write(" | ", wikiutil.getSysPage(self.request, 'InterWiki').link_to(self.request))
         if preview is not None and emit_anchor:
             self.request.write(' | <a href="#preview">%s</a>' % _('Skip to preview'))
@@ -313,13 +317,18 @@ Have a look at the diff of %(difflink)s to see what has been changed."""
         self.request.write('<input type="hidden" name="datestamp" value="%d">' % (mtime,))
 
         # Print the editor textarea and the save button
-        self.request.write('<textarea name="savetext" rows="%d" cols="%d" style="width:100%%">%s</textarea>'
-            % (text_rows, text_cols, wikiutil.escape(raw_body)))
+        #self.request.write('<textarea name="savetext" rows="%d" cols="%d" style="width:100%%">%s</textarea>'
+        #   % (text_rows, text_cols, wikiutil.escape(raw_body)))
+        self.request.write('<textarea name="savetext" rows="%d" style="width:100%%">%s</textarea>'
+            % (text_rows, wikiutil.escape(raw_body)))
         self.request.write('</p>')
 
+        #self.request.write("<p>", _("Optional comment about this change"),
+        #    '<br><input type="text" name="comment" value="%s" size="%d" maxlength="80" style="width:100%%"></p>' % (
+        #        wikiutil.escape(kw.get('comment', ''), 1), text_cols,))
         self.request.write("<p>", _("Optional comment about this change"),
-            '<br><input type="text" name="comment" value="%s" size="%d" maxlength="80" style="width:100%%"></p>' % (
-                wikiutil.escape(kw.get('comment', ''), 1), text_cols,))
+            '<br><input type="text" name="comment" value="%s" maxlength="80" style="width:100%%"></p>' % (
+                wikiutil.escape(kw.get('comment', ''), 1), ))
 
         # category selection
         cat_pages = wikiutil.filterCategoryPages(wikiutil.getPageList(config.text_dir))

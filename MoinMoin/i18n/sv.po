@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"POT-Creation-Date: 2004-07-21 14:15+0200\n"
 "PO-Revision-Date: 2004-01-11 22:09+0100\n"
 "Last-Translator: Christian Sunesson <noss@rm-f.net>\n"
 "Language-Team: Swedish <moin-devel@lists.sourceforge.net>\n"
@@ -137,6 +137,10 @@ msgstr "[Den nya sidans innehåll laddad från %s]"
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[Mall %s ej funnen]"
+
+#, python-format
+msgid "[You may not read %s]"
+msgstr ""
 
 msgid "Reduce editor size"
 msgstr "Minska editorns storlek"

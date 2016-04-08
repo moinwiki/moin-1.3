@@ -9,7 +9,7 @@ meta = {
 }
 text = {
 '''(last edited %(time)s by %(editor)s)''':
-'''(上次由%(editor)s编辑了%(time)s次)''',
+'''(上次由%(editor)s在%(time)s编辑)''',
 '''(last modified %s)''':
 '''(上次修改时间: %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
@@ -52,6 +52,8 @@ macro call.</small></p>
 '''不能编辑旧版页面''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
 '''编辑锁定超时, 多人同时编辑时可能会发生冲突''',
+'''Edit "%(pagename)s"''':
+'''编辑"%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
 '''"%(pagename)s"的预览''',
 '''Your edit lock on %(lock_page)s has expired!''':
@@ -199,7 +201,7 @@ delete the changes of the other person, which is excessively rude!</em></p>
 然后重新加入您改动的页面内容.</p>
 <p><em>切记不要只是将编辑框里的内容
 替换为您刚修改过的版本, 因为这样会
-删除其它人修改的内容, 这样很没礼貌!</em></p>
+删除其它人修改的内容, 这样做很没有涵养!</em></p>
 ''',
 '''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
 '''您所作修改的备份存在<a href="%(backup_url)s">这里</a>.''',
@@ -216,7 +218,7 @@ delete the changes of the other person, which is excessively rude!</em></p>
 '''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
 '''其他用户在%(bumptime)s之前, 系统会<em>提示他</em>您正在修改本页.''',
 '''Use the Preview button to extend the locking period.''':
-'''如果要延长锁定期间, 请按编辑框下面的"预览"键.''',
+'''如果要延长锁定期间, 请按编辑框下面的"预览"按钮.''',
 '''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
 '''本页目前<em>锁定中</em>. %(owner)s正在编辑本页, 并将编辑到%(timestamp)s,也就是%(mins_valid)d分钟后.''',
 '''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
@@ -225,7 +227,7 @@ to avoid editing conflicts.</strong><br>
 To leave the editor, press the Cancel button.''':
 '''%(owner)s 从 %(timestamp)s 开始编辑或预览本页.
 <strong class="highlight">为了避免编辑冲突, <em>请避免</em>在%(mins_valid)d 分钟内编辑本页</strong>.<br>
-请按"取消"键离开编辑器.''',
+请按"取消"按钮离开编辑器.''',
 '''<unknown>''':
 '''不明''',
 '''Diffs''':
@@ -251,7 +253,7 @@ To leave the editor, press the Cancel button.''':
 '''Up''':
 '''上层''',
 '''Unknown action''':
-'''不明动作''',
+'''未定义功能''',
 '''Can\'t work out query''':
 '''无法完成查询''',
 '''Open editor on double click''':
@@ -294,8 +296,12 @@ To leave the editor, press the Cancel button.''':
 '''用户名已存在!''',
 '''Passwords don\'t match!''':
 '''两次输入的密码不符!''',
+'''Please specify a password!''':
+'''请输入一个密码!''',
 '''Please enter your name like that: FirstnameLastname''':
 '''请输入像这样的用户名: XingMing''',
+'''You must not use a group name as your user name.''':
+'''这个名称已被用作用户组名, 请另选用户名.''',
 '''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
 '''请输入你的电子邮件地址. 要不然您忘记名称或密码的时候, 就不能用电子邮件取回了.''',
 '''This user name already belongs to somebody else.''':
@@ -357,7 +363,7 @@ To leave the editor, press the Cancel button.''':
 '''Subscribed wiki pages (one regex per line)''':
 '''订阅的wiki页面(每行一个正规表达式)''',
 '''Action''':
-'''动作''',
+'''功能''',
 '''Please use a more selective search term instead of \'%(needle)s\'!''':
 '''用\'%(needle)s\'找到太多东西, 请输入更精确的关键字!!''',
 '''Full text search for "%s"''':
@@ -562,7 +568,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''You are not allowed to view attachments of this page.''':
 '''你不能观看本页附件''',
 '''Unsupported upload action: %s''':
-'''不支持的上载动作: %s''',
+'''不支持的上载功能: %s''',
 '''Attachments for "%(pagename)s"''':
 '''页面"%(pagename)s"的附件''',
 '''Attachment \'%(target)s\' (remote name \'%(filename)s\') already exists.''':
@@ -659,6 +665,10 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''(未设置书签)''',
 '''(currently set to %s)''':
 '''(目前设为%s)''',
+'''Delete Bookmark''':
+'''设置书签''',
+'''Really delete bookmark?''':
+'''真的要删除书签?''',
 '''Update my bookmark timestamp''':
 '''把书签设到现在''',
 '''set bookmark''':
@@ -736,11 +746,23 @@ red=edit''':
 '''FindPage''':
 '''查找页面''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
-''', 寻找标题 %(titlesearch)s, 全文检索 %(textsearch)s 或''',
+'''或搜索标题 %(titlesearch)s, 检索全文 %(textsearch)s或''',
 '''Or try one of these actions:''':
 '''或使用下列功能: ''',
 '''Show all changes in the last %s days.''':
 '''显示%s天以内的所有改动.''',
+'''User''':
+'''用户''',
+'''Site''':
+'''大小''',
+'''Page''':
+'''页面''',
+'''Search''':
+'''搜索''',
+'''Title: %(titlesearch)s<br/>Text: %(textsearch)s''':
+'''标题搜索: %(titlesearch)s<br/>全文检索: %(textsearch)s''',
+'''Actions''':
+'''功能''',
 '''Line''':
 '''行号''',
 '''Deletions are marked like this.''':

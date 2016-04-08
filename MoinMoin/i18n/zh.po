@@ -1,3 +1,4 @@
+#FORMAT python
 # MoinMoin translation
 #
 # Former translators:
@@ -17,9 +18,10 @@ msgstr ""
 "X-Language: Chinese\n"
 "X-Language-in-English: Chinese\n"
 
+
 #, python-format
 msgid "(last edited %(time)s by %(editor)s)"
-msgstr "(上次由%(editor)s编辑了%(time)s次)"
+msgstr "(上次由%(editor)s在%(time)s编辑)"
 
 #, python-format
 msgid "(last modified %s)"
@@ -95,7 +97,7 @@ msgstr "不能编辑旧版页面"
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "编辑锁定超时, 多人同时编辑时可能会发生冲突"
 
-#, fuzzy, python-format
+# python-format
 msgid "Edit \"%(pagename)s\""
 msgstr "编辑\"%(pagename)s\""
 
@@ -314,7 +316,7 @@ msgstr ""
 "然后重新加入您改动的页面内容.</p>\n"
 "<p><em>切记不要只是将编辑框里的内容\n"
 "替换为您刚修改过的版本, 因为这样会\n"
-"删除其它人修改的内容, 这样很没礼貌!</em></p>\n"
+"删除其它人修改的内容, 这样做很没有涵养!</em></p>\n"
 
 #, python-format
 msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
@@ -351,7 +353,7 @@ msgid ""
 msgstr "其他用户在%(bumptime)s之前, 系统会<em>提示他</em>您正在修改本页."
 
 msgid "Use the Preview button to extend the locking period."
-msgstr "如果要延长锁定期间, 请按编辑框下面的\"预览\"键."
+msgstr "如果要延长锁定期间, 请按编辑框下面的\"预览\"按钮."
 
 #, python-format
 msgid ""
@@ -373,7 +375,7 @@ msgstr ""
 "%(owner)s 从 %(timestamp)s 开始编辑或预览本页.\n"
 "<strong class=\"highlight\">为了避免编辑冲突, <em>请避免</em>在%(mins_valid)"
 "d 分钟内编辑本页</strong>.<br>\n"
-"请按\"取消\"键离开编辑器."
+"请按\"取消\"按钮离开编辑器."
 
 msgid "<unknown>"
 msgstr "不明"
@@ -412,7 +414,7 @@ msgid "Up"
 msgstr "上层"
 
 msgid "Unknown action"
-msgstr "不明动作"
+msgstr "未定义功能"
 
 msgid "Can't work out query"
 msgstr "无法完成查询"
@@ -483,13 +485,13 @@ msgid "Passwords don't match!"
 msgstr "两次输入的密码不符!"
 
 msgid "Please specify a password!"
-msgstr ""
+msgstr "请输入一个密码!"
 
 msgid "Please enter your name like that: FirstnameLastname"
 msgstr "请输入像这样的用户名: XingMing"
 
 msgid "You must not use a group name as your user name."
-msgstr ""
+msgstr "这个名称已被用作用户组名, 请另选用户名."
 
 msgid ""
 "Please provide your email address - without that you could not get your "
@@ -585,7 +587,7 @@ msgid "Subscribed wiki pages (one regex per line)"
 msgstr "订阅的wiki页面(每行一个正规表达式)"
 
 msgid "Action"
-msgstr "动作"
+msgstr "功能"
 
 #, python-format
 msgid "Please use a more selective search term instead of '%(needle)s'!"
@@ -933,7 +935,7 @@ msgstr "你不能观看本页附件"
 
 #, python-format
 msgid "Unsupported upload action: %s"
-msgstr "不支持的上载动作: %s"
+msgstr "不支持的上载功能: %s"
 
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
@@ -1111,13 +1113,11 @@ msgstr "(未设置书签)"
 msgid "(currently set to %s)"
 msgstr "(目前设为%s)"
 
-#, fuzzy
 msgid "Delete Bookmark"
 msgstr "设置书签"
 
-#, fuzzy
 msgid "Really delete bookmark?"
-msgstr "真的要删除本页?"
+msgstr "真的要删除书签?"
 
 msgid "Update my bookmark timestamp"
 msgstr "把书签设到现在"
@@ -1246,7 +1246,7 @@ msgstr "查找页面"
 
 #, python-format
 msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
-msgstr ", 寻找标题 %(titlesearch)s, 全文检索 %(textsearch)s 或"
+msgstr "或搜索标题 %(titlesearch)s, 检索全文 %(textsearch)s或"
 
 msgid "Or try one of these actions:"
 msgstr "或使用下列功能: "
@@ -1256,26 +1256,23 @@ msgid "Show all changes in the last %s days."
 msgstr "显示%s天以内的所有改动."
 
 msgid "User"
-msgstr ""
+msgstr "用户"
 
-#, fuzzy
 msgid "Site"
 msgstr "大小"
 
-#, fuzzy
 msgid "Page"
-msgstr "查找页面"
+msgstr "页面"
 
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
-msgstr ", 寻找标题 %(titlesearch)s, 全文检索 %(textsearch)s 或"
+msgstr "标题搜索: %(titlesearch)s<br/>全文检索: %(textsearch)s"
 
-#, fuzzy
 msgid "Actions"
-msgstr "动作"
+msgstr "功能"
 
 msgid "Line"
 msgstr "行号"
@@ -1341,6 +1338,5 @@ msgstr "星期六"
 msgid "Sun"
 msgstr "星期日"
 
-#, fuzzy
-#~ msgid "Account"
-#~ msgstr "动作"
+
+

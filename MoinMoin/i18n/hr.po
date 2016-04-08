@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"POT-Creation-Date: 2004-07-21 14:15+0200\n"
 "PO-Revision-Date: 2004-02-15 23:19+0100\n"
 "Last-Translator: Davor Cengija <dcengija@yahoo.com>\n"
 "Language-Team: Croatian <moin-devel@lists.sourceforge.net>\n"
@@ -139,6 +139,10 @@ msgstr "[Sadr¾aj nove strnanice uèitan s %s]"
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[Predlo¾ak %s nije pronaðen]"
+
+#, python-format
+msgid "[You may not read %s]"
+msgstr ""
 
 msgid "Reduce editor size"
 msgstr "Smanji velièinu editora"
