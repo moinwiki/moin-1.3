@@ -2,8 +2,6 @@ Names of pages have to LookLikeThis.
 It's called a WikiName.
 If you write a word that LookLikeThis, it will be automatically turned into a link.
 
-Be aware that PikiPiki does not lock pages during editing, so if you pause for a long time on the edit screen you may overwrite somebody else's changes.
-
 Leave blank lines between paragraphs.
 
 You can also write ''italics'' and '''bold'''.
@@ -25,6 +23,17 @@ And if you put asterisks at the start of the line
     * which can also be indented
       * to several levels
 
+A numbered list, mixed with bullets:
+  1. one
+  1. two
+     1. one
+        * bullet 1
+        * bullet 2
+     1. two
+  1. three
+     * bullet
+        1. one
+
 To insert program source without reformatting in a monospace font, use three curly braces:
 
 {{{
@@ -36,3 +45,12 @@ To insert program source without reformatting in a monospace font, use three cur
 Just like that.
 
 Now click EditText in the footer to see the markup for this page, and try it yourself in WikiSandBox.
+
+----
+'''''Mix''' at the beginning''  --- Source: ' ' ' ' 'Mix' ' ' at the beginning' '
+
+'''''Mix'' at the beginning'''  --- Source: ' ' ' ' 'Mix' ' at the beginning' ' '
+
+'''Mix at the ''end'''''
+
+''Mix at the '''end'''''

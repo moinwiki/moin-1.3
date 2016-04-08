@@ -1,0 +1,55 @@
+If you miss a feature, have a neat idea or any other suggestion, please put it here. 
+To discuss the merit of the planned extensions from MoinMoinTodo or ideas presented here, please use MoinMoinDiscussion.
+See ExtensionGuidelines for a set of rules that should govern MoinMoin development. 
+
+Other InterWiki think-tanks:
+ * MbText:WikiIdeas
+
+----
+''Your ideas always welcome here...''
+
+----
+General:
+ * UserPreferences
+ * TopicMap''''''s
+ * Versioning (via CVS), optional
+ * HierarchicalWikiWiki's (grouping of different projects)
+ * Possibly make it a webserver (advantage: configuration is kept in memory)
+ * URLs of the form [http://.... text of the link] (like a "normal" anchor), ''including local anchors and links'' (the 2nd part is to be done)
+ * Allow Wiki* names to list a set of pages
+ * Maybe add edit locks with manual breaking & timeouts.
+ * At least warn the user if a page was opened for editing within the last ''x'' minutes.
+ * todo.org has  quickhelp on the edit page:{{{
+wikiname == WikiWord and [[nonspaces]] (digit and kanji are available) 
+http://, ftp://, news://, mailto: automatically linked 
+list(3 spaces and *) 
+list(3 spaces and +) 
+'' italic 
+''' bold 
+{ { {, } } } for <pre> 
+empty line for <p> 
+---- for <hr> 
+}}}
+
+----
+Security (against the WikiNature, and possibly not needed when we have versioning):
+ * Some kind of access authorization, via pages with a special WikiName
+ * Lockout-Lists, like IRC channel bans
+ * A grant/revoke scheme, much like advogato (different right levels/checkboxes, can pass own rights on to others), with the wiki admin as the root and full rights.
+ * Page approval, see Meatball's ideas page.
+
+''Some idiot just proved that security (or at least extended versioning) is necessary for Wikis advertized on IRC.''
+
+----
+This is what is left from Piki-Todo:
+ * Should have a way to attach images to uploaded pages.
+ * Implement Edit-Copy as in OriginalWiki.  http://c2.com/cgi/wiki?MoreAboutBackupCopies
+ * http://www.c2.com/cgi/wiki?FederatedWiki
+ * Show most-often-read pages.
+ * Fix atomic-rename and locking of editlog on NT.  
+ * Clear up the few inconsistencies between normal and magic pages like RecentChanges.  In OriginalWiki they do this by magic markup tags inside the pages, rather than by trapping the names.  This is nice: amongst other things, it means that people can easily and consistently add documentation/explanation to those pages. ''This seems to be done in Piki 1.62.''
+ * Merge implementations of Full-Search and Title-Search
+ * Full-Search should also search titles
+ * Feature to link to a randomly-selected page.
+
+Also check out the patches in http://linuxcare.com.au/mbp/piki/patches/

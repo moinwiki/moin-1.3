@@ -1,0 +1,27 @@
+TopicMap''''''s are pages that contain markup similar to ['''include'''] (maybe ['''refer'''] or ['''toc''']), but the normal page layout and the ''print layout'' differ: expansion of the includes only happens in the print view. The net result is that one can extract nice papers from a Wiki, without breaking its hyper-linked nature.
+
+''Nice idea. But i would just make it the normal behavior for external links. That way you don't clutter MoinMoin with too many different features. --MarkoSchulz''
+
+I plan to use [ ] with a consistent syntax for such things. How do you mean the external link thing? Including other web pages, or "only" other Wiki pages?
+
+OK, for the simple stuff (i.e. local links), how about this:
+ * [ include:WikiName] always includes the referred page
+ * [ map:WikiName] for print inclusion (better names than ''map''?)
+
+----
+Could you provide a more involved example markup and its corresponding rendering? As far as I understand it, you want to serialize a wiki, correct? You should ask yourself what you want to do with circular references. You could either disallow them or limit the recursion. What does "map" do? See also wiki:MeatBall:TransClusion''''''. -- SunirShah
+
+----
+OK, concrete example. Consider this:
+
+'''Moin Moin Manual'''
+
+ 1. Wiki Introduction
+    1. WikiMarkup
+    1. EditingTips
+    1. InterWiki
+ 1. Appendix
+    1. MoinMoinBugs
+    1. InterWiki list
+
+This is useable for navigation in the '''normal''' view. Now imagine that if this is marked as a TopicMap, the ''content'' of the WikiName''''''s that appear is included ''after'' this table of contents, in the '''print''' view.

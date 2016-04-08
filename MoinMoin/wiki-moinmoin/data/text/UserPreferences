@@ -1,0 +1,12 @@
+UserPreferences stores settings per user. For this to work, the user has to accept a cookie with an userid (his ''crypted'' WikiName).
+
+Access to the preferences is guarded by the cookie. To regain the cookie should it be lost, the user enters a password. The following actions are needed:
+ * Create a profile
+ * Login (send cookie)
+ * Logout (expire cookie)
+ * Preference editing
+
+Preference settings:
+ * User's WikiName (replaces IP in RecentChanges)
+ * Size of edit box
+ * Other things like color, icons, menu?

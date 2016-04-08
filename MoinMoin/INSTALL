@@ -4,7 +4,7 @@ MoinMoin Installation Instructions
 Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: INSTALL,v 1.2 2000/07/28 22:30:58 jhermann Exp $
+$Id: INSTALL,v 1.3 2000/08/25 01:44:07 jhermann Exp $
 
 
 ###########################
@@ -58,6 +58,28 @@ You should now look at the "FrontPage" of the MoinMoin Wiki. Rejoice! To
 further test your new Wiki, "EditText" the "FrontPage", save it and click
 on "RecentChanges". If your edit action shows there, you have a fully
 functional Wiki.
+
+
+DIFF FEATURE
+------------
+
+For the "diff" button to work, you need a diff utility available on your
+path, for example by installing the cygwin package available from
+http://sources.redhat.com/cygwin/download.html
+
+It also helps to have the Python Win32 Extensions installed, available from
+http://www.python.org/download/download_windows.html
+
+
+VARIATIONS ON THE ABOVE
+-----------------------
+
+Instead of adding an alias to "httpd.conf", you can also copy the files
+"PythonPowered.gif", "default.css", "moinmoin.gif" and "img/*" (i.e. the
+whole "img" directory) to a newly created "<htdocs>/wiki-moinmoin"
+directory (with "<htdocs>" referring to your global document directory).
+Doing so, you do not allow access to the "data" directory (but the data
+in there is public anyway).
 
 
 ########################

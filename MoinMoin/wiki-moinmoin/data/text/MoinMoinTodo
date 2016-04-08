@@ -1,29 +1,44 @@
-See ExtensionGuidelines for a set of rules that should govern MoinMoin development.
+This is a list of things that are to be implemented. If you miss a feature, have a neat idea or any other suggestion, please put it on MoinMoinIdeas. 
+To discuss the merit of the planned extensions, or new features from MoinMoinIdeas, please use MoinMoinDiscussion.
+A list of things that are added to the current source in CVS are on MoinMoinDone.
+MoinMoinRelease describes how to build a release from the SourceForge repository.
 
-First things first, some kind of edit locking, with manual breaking & timeouts. The first version should add the page's timestamp to the FORM, and refuse the save if the timestamp changed between loading the editpage and saving.
+------
+'''CURRENT''' (what to do before a 1.0 release)
 
-Write timings to a log file (cgi_log) when configured accordingly, so we can check for necessary optimizations.
+ * Inline code sections (triple-brace open and close on the same line)
+ * Add ISBN links
+    * IsbnInfo page and ISBN macro
+    * Link icon to IsbnInfo page, and the ISBN number itself to the main URL
+ * Add a means to add meta tags to the page header, like: {{{
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=euc-jp">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=x-euc-jp">
+<META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
+}}}
+ * Create MoinMoinI18n master sets (and while doing that, document all the new features)
+ * Document unix installation (any volunteers?)
+ * Document all MoinMoinUrlSchemes (i.e. action=whatever)
 
-Also, make a backup of the page before saving (data/backup/pagename.yyymmddhhmmss).
+----
+'''BUGS'''
 
-After editing, do a redirect so that a reload does work as expected (i.e. does not submit the form again).
+ See MoinMoinBugs
 
-Other things:
+----
+'''FEATURES'''
+
+ * Page info: links to / from page.
+ * System Info: number of pages, edits, views, whatever.
+ * Add hidden field to editor, for two purposes:
+    * recognize saves from the same author
+    * prevent direct saves from outside (i.e. simple attacks), that did not load and parse the edittext page before saving
+    * needs a way to save meta-info for a page
+ * Add change counter to RecentChanges
+ * Add PyUnit tests (refactor to modules first?).
+ * WikiName|s instead of the obsessive WikiName' ' ' ' ' 's (or use " " for escaping)
  * Support &''''''uuml; SgmlEntities
- * Configuration ''outside'' the script proper
+ * Configuration ''outside'' the script proper (config file instead of moin_config.py)
  * Make it a package, with a small cgi driver (see configuration)
- * Versioning (via CVS), optional
- * Solve the problem of the Windows filesystem handling a WikiName case-indifferent (i.e. map all deriatives of an existing page to that page).
- * HierarchicalWikiWiki's (grouping of different projects)
- * Support for I18N, especially German WikiName's (JürgenHermann ;)
- * Possibly make it a webserver (advantage: configuration is kept in memory)
- * WikiName|s instead of the obsessive WikiName''''''s
- * URLs of the form [http://.... text of the link] (like a "normal" anchor)
- * [include WikiName] (textually include another page)
-
-Security (against the WikiNature, and possibly not needed when we have versioning):
- * Some kind of access authorization, via pages with a special WikiName
- * LockOutList''''''s, like IRC channel bans
-
-DONE:
- * Do a '''chmod 666''' when saving (otherwise, it gets hard to edit, remove, and cvs checkin the pages).
+ * After editing, do a redirect so that a reload does work as expected (i.e. does not submit the form again).
+ * When a save is in conflict with another update, use the rcs/cvs merge process to create the new page, so the conflicts can be refactored. Warn the user of this!
+ * Write timings to a log file (cgi_log) when configured accordingly, so we can check for necessary optimizations.

@@ -4,8 +4,46 @@ MoinMoin Version History
 Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: CHANGES,v 1.1 2000/07/28 22:59:46 jhermann Exp $
+$Id: CHANGES,v 1.11 2000/08/27 00:38:09 jhermann Exp $
 
+
+-----------------------------------------------------------------------------
+Version 0.2 (2000-08-26)
+
+New features:
+    * When saving, a datestamp saved in the form and that of the file are
+      compared now; so, accidently saving over changes of other people is
+      not possible anymore (saving still needs file locking though, for
+      race conditions)
+    * if the directory "backup" exists in the data dir, pages are saved
+      there before a new version is written to disk
+    * Removed the "Reset" button from EditPage
+    * Added "Reduce editor size" link
+    * Added Latin-1 WikiNames (JürgenHermann ;)
+    * Speeded up RecentChanges by looking up hostnames ONCE while saving
+    * Show at most 14 (distinct) days in RecentChanges
+    * Added icons for common functions, at the top of the page
+    * Added a printing preview (no icons, etc.)
+    * Added bracketed (external) URLs
+    * Added support for quoted URLs ("http://...")
+    * Added styles for :visited links to CSS
+    * Embed image if an URL ends in .gif/.jpg/.png
+    * No markup detection in code sections
+    * Grey background for code sections
+    * Added handling for numbered lists
+    * the edit textarea now grows in width with the browser window
+      (thanks to Sebastian Dauß for that idea)
+    * Added page info (revision history) and viewing of old revisions
+    * Added page diff, and diff links on page info
+    * Added InterWiki support (use "wiki:WikiServer/theirlocalname"; the list
+      of WikiServers is read from "data/intermap.txt")
+    * Added "normal" InterWiki links
+    * Added "action=raw" to send the raw wiki markup as text/plain (e.g. for
+      backup purposes via wget) 
+
+Bugfixes:
+    * Removed an exception when saving empty pages
+    * Fixed bold nested into emphasis ('''''Bold''' Italic'')
 
 -----------------------------------------------------------------------------
 Version 0.1 (2000-07-29)

@@ -1,7 +1,7 @@
-It would be nice for PikiPiki to allow people to upload files and embed them into the page.  We can do this using HTTP/HTML file upload in a form.  This could be either a picture to be inserted directly, or some other document to be linked.
-
-The KmWiki WikiClone supports in-place editing of diagrams using a JavaHotDraw-derived widget, and objects in the diagram can link to pages.  This is pretty cool, but quite complicated and not necessarily terribly useful.
-
-OriginalWiki just supports links to documents, but doesn't give people a way to upload: they have to have their own web server, which makes things difficult in some environments.
-
+It would be nice for PikiPiki to allow people to upload files and embed them into the page.  We can do this using HTTP/HTML file upload in a form.  This could be either a picture to be inserted directly, or some other document to be linked.
+
+The KmWiki WikiClone supports in-place editing of diagrams using a JavaHotDraw-derived widget, and objects in the diagram can link to pages.  This is pretty cool, but quite complicated and not necessarily terribly useful.
+
+OriginalWiki just supports links to documents, but doesn't give people a way to upload: they have to have their own web server, which makes things difficult in some environments.
+
 It would be nice to let people upload multiple files and replace them later.

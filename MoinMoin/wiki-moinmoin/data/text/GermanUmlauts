@@ -1,0 +1,12 @@
+Umlauts are vowels with the little dot-dot things on top, like this: JürgenHermann.
+
+In German, if you're on a system which can't manage umlauts, it's OK to remove the diaresis(sp?) and add an "e".  So it's OK to write JürgenHermann's name as Juergen''''''Hermann.  This doesn't apply in all languages, so in English/French one converts naïve to naive, not naieve.
+
+So, this is the translation table:
+ * ä ==> ae
+ * ö ==> oe
+ * ü ==> ue
+ * Ä ==> Ae
+ * Ö ==> Oe
+ * Ü ==> Ue
+ * ß ==> ss (sz in Switzerland)

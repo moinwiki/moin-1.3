@@ -1,0 +1,62 @@
+This is a list of all the SystemPages in a MoinMoin wiki.
+
+Special features:
+ * FindPage
+ * FrontPage
+ * InterWiki
+ * IsbnInfo
+ * RecentChanges
+ * TitleIndex
+ * WordIndex
+
+General pages: (that should be seeded into every MoinMoin wiki)
+ * CategoryEmpty 
+ * CategoryHomepage 
+ * JürgenHermann
+ * MoinMoin
+ * SystemPages
+ * WikiName 
+ * WikiSandBox 
+ * WikiWiki 
+
+Help pages: (rename them all to Help* and have this list on HelpContents ?)
+ * TipsForBeginners (HelpForBeginners)
+ * EditingTips (HelpOnEditing)
+ * HorizontalRules (HelpOnRules)
+
+------
+
+C
+CreateaNewPage 
+
+D
+DeletePages 
+
+E
+EditText 
+
+G
+GermanUmlauts 
+
+O
+OriginalWiki 
+
+P
+PikiPiki 
+PythonLanguage 
+
+S
+SgmlEntities 
+SourceForge 
+
+W
+WhyWikiWorks 
+WikiCategory 
+WikiClone 
+WikiHomePage 
+WikiMarkup 
+WikiNature 
+WikiWikiNess 
+WikiWikiWeb 
+WikiWikiWebFaq 
+WordIndex 

@@ -1,0 +1,11 @@
+To support better internationalization (I18N) of MoinMoin wikis, create wikis of the SystemPages of MoinMoin as their own wikis, hosted on SourceForge. This allows easy setup of new wikis without having to remove the unwanted baggage of the MoinMoin specific pages every time.
+
+The SystemPages can refer to the current version via an InterWiki link to their SourceForge version, like so:
+  You might find more current information about this topic on the [wiki:MoinMoin:SystemsPages master copy] of this page.
+
+Languages:
+ * English (copy of these pages, condensed to the SystemPages)
+ * German (obviously :)
+ * Japanese (I guess YasushiIwata will volunteer)
+
+Back to MoinMoinTodo

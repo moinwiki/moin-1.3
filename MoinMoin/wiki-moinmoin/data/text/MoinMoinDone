@@ -1,0 +1,15 @@
+Things from MoinMoinTodo that got implemented.
+
+ * Added "action=raw" to send the raw wiki markup as text/plain
+ * Added InterWiki links (and now also "normal" MeatBall:InterWiki links)
+ * Do a '''chmod 666''' when saving (otherwise, it gets hard to edit, remove, and cvs checkin the pages).
+ * '''Bug''': when saving an empty page, we get an exception.
+ * EditText now adds the page's timestamp to the FORM, and refuses the save if the timestamp changed between loading the editpage and saving.
+ * Make a backup of the page before saving (data/backup/pagename.''timestamp'').
+ * Removed the "Reset" button right next to the save button -- a little slip could mean a lot of lost work.  In the rare case one wants to undo all of one's edits, one can just reload the page.
+ * Support for I18N, especially German WikiName's (JürgenHermann ;)
+ * Add icons for editing, printing view, searching and help ''at the top''.
+ * First change regarding URLs is to remove " from the URL pattern. Then you can put URLs into quotes, which makes nice reading.
+ * Numbered lists (PikiPiki seems to have omitted those)
+
+Also look at the [http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/MoinMoin/CHANGES?cvsroot=moin&only_with_tag=HEAD CHANGES file] (click on "download").

@@ -1,0 +1,4 @@
+http://www.encrypted.net/~jh/img/roach.gif Back to MoinMoinTodo
+
+ * Solve the problem of the Windows filesystem handling a WikiName case-indifferent (i.e. map all deriatives of an existing page to that page).
+ * Check whether the passed WikiName is valid when editing pages (so no pages with an invalid WikiName can be created); this could also partly solve the case-insensitive filename problem (do not save pages with a name only differing in case)

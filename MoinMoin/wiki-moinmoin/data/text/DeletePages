@@ -1,0 +1,17 @@
+How does one DeletePages? I tried it, by just removing all the text in the textbox, but this gave me an error message:
+
+{{{   '''Traceback (innermost last):'''
+
+     File "/home/jh/public_html/moinmoin/moin.cgi", line 567, in ?
+       apply(handlers[cmd], (form[cmd].value,))
+     File "/home/jh/public_html/moinmoin/moin.cgi", line 167, in do_savepage
+       pg.save_text(form['savetext'].value)
+     File "/usr/local/lib/python1.5/cgi.py", line 907, in __getitem__
+       raise Key''''''Error, key
+   '''Key''''''Error: savetext'''}}}
+
+''Interesting, must try this.''
+
+One Page on RecentChanges is deleted (TestTest). Was this done manually by the admin?
+
+''Indeed.''

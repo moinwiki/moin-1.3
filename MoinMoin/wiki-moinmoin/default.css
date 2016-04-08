@@ -4,28 +4,51 @@
 */
 body {
     background-color: #FFFFFF;
-    color:#000000;
-    font-family:Times New;
-    font-size:12pt;
+    color: #000000;
+    font-family: Times New;
+    font-size: 12pt;
 }
 td.headline {
-    font-family:Helvetica;
-    font-size:20pt;
+    font-family: Helvetica;
+    font-size: 20pt;
 }
-a {
-    color: #CC7706
+a:link {
+    color: #993306;
+}
+a:visited {
+    color: #BB7733;
 }
 a.nonexistent {
     font-weight: bold;
     background-color: #F8F8F8;
-    color: #FF2222
+    color: #FF2222;
+}
+a.nonexistent:visited {
+    background-color: #F8F8F8;
+    color: #FF2222;
+}
+a.external {
+    color: #AA6600;
 }
 dl {
-    margin-top: 1pt
+    margin-top: 1pt;
 }
 ul {
-    margin-top: 1pt
+    margin-top: 1pt;
 }
 ol {
-    margin-top: 1pt
+    margin-top: 1pt;
+}
+pre.code {
+    font-family: Lucida Console,Courier New,Courier,monotype;
+    font-size: 10pt;
+    margin-top: 8pt;
+    margin-bottom: 8pt;
+    background-color: #E0E0E0;
+}
+div.diffold {
+    background-color: #FFFF80;
+}
+div.diffnew {
+    background-color: #80FF80;
 }
