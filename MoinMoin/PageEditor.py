@@ -662,6 +662,7 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
         # save to tmpfile
         tmp_filename = self._tmp_filename()
         tmp_file = open(tmp_filename, 'wb')
+        # XXX UNICODE fix needed
         tmp_file.write(text)
         tmp_file.close()
         page_filename = self._text_filename()
@@ -771,6 +772,16 @@ delete the changes of the other person, which is excessively rude!</em></p>
             log = editlog.EditLog()
             log.add(self.request, self.page_name, None, mtime,
                 kw.get('comment', ''), action=action)
+
+            # write last-edited file
+            lastedited = wikiutil.getPagePath(self.page_name, 'last-edited')
+            try:
+                os.remove(lastedited)
+            except OSError:
+                pass
+            log = editlog.EditLog(lastedited)
+            log.add(self.request, self.page_name, None, mtime,
+                    kw.get('comment', ''), action=action)
 
             # add event log entry
             eventlog.EventLog().add(self.request, 'SAVEPAGE',

@@ -20,6 +20,7 @@ logo_html = '<img src="linuxwiki.png">'
 
 HTML_SUFFIX = ".html"
 
+# XXX UNICODE add encoding with config.charset
 page_template = '''<html>
 <head>
 <title>%(pagename)s</title>
@@ -101,7 +102,10 @@ class MoinDump(_util.Script):
 
         # fix some values so we get relative paths in output html
         config.url_prefix = url_prefix
+
+        # XXX check this, does this still exist?
         config.css_url    = css_url
+        
         # avoid spoiling the cache with url_prefix == "."
         # we do not use nor update the cache because of that
         config.caching_formats = []

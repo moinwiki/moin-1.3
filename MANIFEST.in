@@ -6,6 +6,10 @@
 # additional files not known by setup.py
 include README CHANGES COPYING INSTALL.html UPDATE.html
 include MANIFEST.in moinlogo.bmp setup.cfg LICENSE.Python
+include moin.spec
+
+# include stuff for translators
+recursive-include   MoinMoin/i18n README Makefile *.txt *_py *.py *.py_ POTFILES.in *.po*
 
 # "wiki" directory
 recursive-include   wiki/cgi-bin *
@@ -15,15 +19,18 @@ recursive-include   wiki/data/plugin __init__.py
 include             wiki/data/user/README
 include             wiki/htdocs/index.html
 recursive-include   wiki/htdocs/classic/css *.css
-recursive-include   wiki/htdocs/classic/img *.gif *.png
+recursive-include   wiki/htdocs/classic/img *.png
 recursive-include   wiki/htdocs/starshine/css *.css
-recursive-include   wiki/htdocs/starshine/img *.gif *.png
+recursive-include   wiki/htdocs/starshine/img *.png
+recursive-include   wiki/htdocs/viewonly/css *.css
+#recursive-include   wiki/htdocs/viewonly/img *.png - nothing there yet!
 recursive-include   wiki/htdocs/applets *.jar
 
 # contributions
 recursive-include contributions *
 
-# omit CVS directories
+# omit CVS / arch directories
 global-exclude */CVS/*
 global-exclude */.cvsignore
+global-exclude */.arch-ids/*
 

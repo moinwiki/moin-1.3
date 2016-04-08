@@ -49,6 +49,8 @@ def _getWordsFiles():
 
 def _loadWordsFile(request, dict, filename):
     request.clock.start('spellread')
+    # XXX UNICODE fix needed. the dictionaries should be encoded in config.charset.
+    # if they are not, we can recode them before use.
     file = open(filename, 'rt')
     try:
         while 1:
@@ -162,6 +164,7 @@ def checkSpelling(page, request, own_form=1):
         # build regex recognizing the bad words
         badwords_re = r'(^|(?<!\w))(%s)(?!\w)'
         badwords_re = badwords_re % ("|".join(map(re.escape, badwords)),)
+        # XXX UNICODE re.UNICODE !?
         badwords_re = re.compile(badwords_re)
 
         lsw_msg = ''

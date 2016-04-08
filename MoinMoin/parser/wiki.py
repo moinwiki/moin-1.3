@@ -756,12 +756,9 @@ class Parser:
             self.in_pre = 3
             return  self.formatter.preformatted(1)
         elif s_word[:2] == '#!':
-            from MoinMoin.processor import processors
             processor_name = s_word[2:].split()[0]
-            if processor_name in processors:
-                self.processor = wikiutil.importPlugin("processor",
-                    processor_name, "process")
-            elif s_word.find('python') > 0:
+            self.processor = wikiutil.importPlugin("processor", processor_name, "process")
+            if not self.processor and s_word.find('python') > 0:
                 from MoinMoin.processor.Colorize import process
                 self.processor = process
                 self.processor_name = "Colorize"
@@ -774,7 +771,7 @@ class Parser:
         elif  s_word:
             self.in_pre = 3
             return self.formatter.preformatted(1) + \
-                   self.formatter.text('XX' + s_word + 'XXX')
+                   self.formatter.text(s_word + ' (-)')
         else:
             self.in_pre = 1
             return ''
@@ -941,9 +938,7 @@ class Parser:
                     if (line.strip()[:2] == "#!"):
                         from MoinMoin.processor import processors
                         processor_name = line.strip()[2:].split()[0]
-                        if processor_name in processors:
-                            self.processor = wikiutil.importPlugin("processor",
-                                   processor_name, "process")
+                        self.processor = wikiutil.importPlugin("processor", processor_name, "process")
                         if not self.processor and (line.find('python') > 0):
                             from MoinMoin.processor.Colorize import process
                             self.processor = process

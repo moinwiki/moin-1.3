@@ -393,7 +393,11 @@ def do_info(pagename, request):
         log = editlog.EditLog()
         log.set_filter(pagename=pagename)
         log.to_end()
-        line = log.previous()
+        try:
+            line = log.previous()
+        except StopIteration:
+            # page has no history (system page)
+            return
         
         history = TupleDataset()
         history.columns = [

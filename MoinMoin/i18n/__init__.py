@@ -8,7 +8,6 @@
     values. Other supporting modules start with an underscore.
 
     Public attributes:
-    western_charsets -- ?
     languages -- languages that MoinMoin knows about
     NAME, ENCODING, DIRECTION, MAINTAINER -- named indexes
 
@@ -23,7 +22,6 @@
     getText(str, request) -- return str translation
     canRecode(input, output, strict) -- check recode ability
     recode(text, input, output, errors) -- change text encoding
-    adaptCharset(lang) -- possibly adapt to different charset
     
     @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
@@ -36,9 +34,6 @@ NAME, ENCODING, DIRECTION, MAINTAINER = range(0,4)
 # we do not generate this on the fly due to performance reasons -
 # importing N languages would be slow for CGI...
 from meta import languages
-
-# Globals
-western_charsets = ['usascii', 'iso-8859-1']
 
 # This is a global for a reason: in persistent environments all
 # languages in use will be cached; Note: you have to restart if you
@@ -77,6 +72,7 @@ def loadLanguage(request, lang):
     from MoinMoin.util import pysupport
     lang_module = "MoinMoin.i18n." + filename(lang)
     texts = pysupport.importName(lang_module, "text") 
+    meta = pysupport.importName(lang_module, "meta") 
 
     # FIXME this doesnt work, leads to &amp;amp;amp;...
     # maybe parser.wiki._do_ent_repl is the problem?
@@ -142,6 +138,12 @@ def loadLanguage(request, lang):
         
     # TODO caching for CGI or performance will suck
     # pickle texts dict to caching area
+
+    # XXX UNICODE
+    # convert to unicode
+    #encoding = meta['encoding']
+    #for t in texts:
+    #    texts[t] = texts[t].decode(encoding)
     return texts
 
 
@@ -195,12 +197,12 @@ def wikiLanguages():
     Since the wiki has only one charset set by the admin, and the user
     interface files could have another charset, not all languages are
     available on every wiki - unless we move to Unicode for all
-    languages translations. Even than, Python still can't recode some
+    languages translations. Even then, Python still can't recode some
     charsets.
 
     !!! Note: we use strict = 1 to choose only language that we can
     recode strictly from the language encodings to the wiki
-    encoding. This preferece could be left to the wiki admin instead.
+    encoding. This preference could be left to the wiki admin instead.
 
     Return a dict containing a subset of MoinMoin languages ISO codes.
     """
@@ -236,7 +238,7 @@ def browserLanguages(request):
         accepted = accepted.split(',')
         accepted = map(lambda x: x.split(';')[0], accepted)
     
-        # Add base lagnuage for each sub language If the user specify
+        # Add base language for each sub language. If the user specified
         # a sub language like "en-us", we will try to to provide it or
         # a least the base language "en" in this case.
         for lang in accepted:
@@ -262,7 +264,6 @@ def getText(str, request, lang):
     should be a language instance.
     
     """
-
     # quick handling for english texts - no recoding needed!
     if lang == "en": return str
     
@@ -275,6 +276,8 @@ def getText(str, request, lang):
             # ??? Do we really need to recode from ascii? we don't need
             # this for utf-8 wikis, but what about chinese wiki? 
             return recode(str, 'ascii', config.charset) or str
+            # XXX UNICODE fix needed, we want to use unicode internally, not
+            # config.charset or utf-8
             
         _text_cache[lang] = texts
 
@@ -282,15 +285,17 @@ def getText(str, request, lang):
     translation = _text_cache[lang].get(str, None)
     if translation is None:
         return recode(str, 'ascii', config.charset) or str
+        # XXX UNICODE fix needed, we want to use unicode internally, not
+        # config.charset or utf-8
 
     encoding = languages[lang][ENCODING]
     return recode(translation, encoding, config.charset) or translation
-
+    # XXX UNICODE fix needed. We dont want utf-8 internally, we want unicode strings!
+    # Later (on output), we will encode it again to whatever needed (including utf-8).
 
 ########################################################################
 # Encoding
 ########################################################################
-
 
 def canRecode(input, output, strict=1):
     """
@@ -317,14 +322,14 @@ def canRecode(input, output, strict=1):
         encoder = codecs.getencoder(output)
         decoder = codecs.getdecoder(input)          
     except LookupError:
-        # Uknown encoding - forget about it!
+        # Unknown encoding - forget about it!
         return 0
     
     # We assume that any charset that Python knows about, can be recoded
     # into any Unicode charset. Because codecs have many aliases, we
     # check the codec name itself
     if encoder.__name__.startswith('utf'):
-        # This is a unicode encoding, so input could be anyting.
+        # This is a unicode encoding, so input could be anything.
         return 1
 
     # We know both encodings but we don't know if we can actually recode
@@ -336,11 +341,12 @@ def canRecode(input, output, strict=1):
         # We are not sure, so NO
         return 0
     else:
-        # Probablly you can recode using 'replace' or 'ignore' or other
+        # Probably you can recode using 'replace' or 'ignore' or other
         # encodings error level and be happy with the results, so YES
         return 1
     
-
+# XXX UNICODE this is maybe not needed if we use unicode strings internally.
+# TODO check that...
 def recode(text, input, output, errors='strict'):
     """
     Recode string from input to output encoding
@@ -363,19 +369,3 @@ def recode(text, input, output, errors='strict'):
         return None
             
 
-def adaptCharset(lang):
-    """
-    Possibly adapt to different charset.
-
-    !!! Possibly we don't need this
-    
-    """
-    if (languages.has_key(lang) and
-        config.charset in western_charsets and
-        languages[lang][ENCODING] not in western_charsets):
-        config.html_head = config.html_head.replace(
-            ";charset=%s" % config.charset,
-            ";charset=%s" % languages[lang][ENCODING])
-        config.charset = languages[lang][ENCODING]
-
-    

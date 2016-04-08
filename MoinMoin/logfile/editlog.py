@@ -49,6 +49,8 @@ class EditLogLine:
             return '<span title="%s">%s</span>' % (wikiutil.escape(self.hostname), editor.link_to(request))
         elif kind == 'ip':
             idx = editor.find('.')
+            if idx==-1:
+                idx = len(editor)
             return '<span title="%s">%s</span>' % (wikiutil.escape("%s=%s" % (self.addr,editor)), wikiutil.escape(editor[:idx]))
         else:
             return '<span title="%s">%s</span>' % (wikiutil.escape(self.hostname), wikiutil.escape(editor))

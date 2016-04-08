@@ -1,0 +1,1617 @@
+# MoinMoin translation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MoinMoin 1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-18 22:57+0100\n"
+"PO-Revision-Date: 2004-01-11 22:08+0100\n"
+"Last-Translator: ***vacant***\n"
+"Language-Team: Finnish <moin-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Direction: ltr\n"
+"X-Language: Suomi\n"
+
+#: Page.py:153
+#, python-format
+msgid "(last edited %(time)s by %(editor)s)"
+msgstr ""
+
+#: Page.py:159
+#, python-format
+msgid "(last modified %s)"
+msgstr ""
+
+#: Page.py:485
+msgid ""
+"The backupped content of this page is deprecated and will not be included in "
+"search results!"
+msgstr ""
+
+#: Page.py:544
+#, python-format
+msgid "Version as of %(date)s"
+msgstr ""
+
+#: Page.py:554
+#, python-format
+msgid "Redirected from page \"%(page)s\""
+msgstr ""
+
+#: Page.py:560
+#, python-format
+msgid "This page redirects to page \"%(page)s\""
+msgstr ""
+
+#: Page.py:581
+#, python-format
+msgid ""
+"<p><small>If you submit this form, the submitted values will be displayed.\n"
+"To use this form on other pages, insert a\n"
+"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
+"strong><br><br>\n"
+"macro call.</small></p>\n"
+msgstr ""
+
+#: Page.py:606 action/AttachFile.py:296
+#, fuzzy
+msgid "You are not allowed to view this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: Page.py:707 parser/xslt.py:146
+msgid "RefreshCache"
+msgstr ""
+
+#: Page.py:708 parser/xslt.py:147
+#, fuzzy, python-format
+msgid "for this page (cached %(date)s)"
+msgstr " tälle sivulle (välimuistissa %(date)s)"
+
+#: Page.py:726
+msgid "Create this page"
+msgstr "Luo tämä sivu"
+
+#: Page.py:736
+msgid "Alternatively, use one of these templates:"
+msgstr ""
+
+#: Page.py:751
+#, python-format
+msgid ""
+"To create your own templates, add a page with a name matching the regex \"%"
+"(page_template_regex)s\"."
+msgstr ""
+
+#: Page.py:759
+msgid "The following pages with similar names already exist..."
+msgstr ""
+
+#: PageEditor.py:149 wikiaction.py:579 wikiaction.py:613
+#, fuzzy
+msgid "You are not allowed to edit this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: PageEditor.py:151 PageEditor.py:724
+msgid "Page is immutable!"
+msgstr ""
+
+#: PageEditor.py:155
+msgid "Cannot edit old revisions!"
+msgstr ""
+
+#: PageEditor.py:162
+msgid "The lock you held timed out, be prepared for editing conflicts!"
+msgstr ""
+
+#: PageEditor.py:178
+#, python-format
+msgid "Edit \"%(pagename)s\""
+msgstr "Muokkaa \"%(pagename)s\""
+
+#: PageEditor.py:180
+#, fuzzy, python-format
+msgid "Preview of \"%(pagename)s\""
+msgstr "Muokkaa \"%(pagename)s\""
+
+#: PageEditor.py:186
+#, python-format
+msgid "Your edit lock on %(lock_page)s has expired!"
+msgstr ""
+
+#: PageEditor.py:187
+#, python-format
+msgid "Your edit lock on %(lock_page)s will expire in # minutes."
+msgstr ""
+
+#: PageEditor.py:188
+#, python-format
+msgid "Your edit lock on %(lock_page)s will expire in # seconds."
+msgstr ""
+
+#: PageEditor.py:224
+msgid "Someone else deleted this page while you were editing!"
+msgstr ""
+
+#: PageEditor.py:226
+msgid "Someone else changed this page while you were editing!"
+msgstr ""
+
+#: PageEditor.py:239 wikiaction.py:674
+#, python-format
+msgid ""
+"Someone else saved this page while you were editing!\n"
+"Please review the page and save then. Do not save this page as it is!\n"
+"Have a look at the diff of %(difflink)s to see what has been changed."
+msgstr ""
+
+#: PageEditor.py:266
+#, python-format
+msgid "[Content of new page loaded from %s]"
+msgstr ""
+
+#: PageEditor.py:268
+#, python-format
+msgid "[Template %s not found]"
+msgstr ""
+
+#: PageEditor.py:278
+msgid "Reduce editor size"
+msgstr "Pienennä editointi ikkunan kokoa"
+
+#: PageEditor.py:282
+msgid "Skip to preview"
+msgstr ""
+
+#: PageEditor.py:284
+#, python-format
+msgid "[current page size <strong>%(size)d</strong> bytes]"
+msgstr ""
+
+#: PageEditor.py:300
+#, python-format
+msgid "Describe %s here."
+msgstr "Kuvaile %s tässä."
+
+#: PageEditor.py:318
+msgid "Optional comment about this change"
+msgstr ""
+
+#: PageEditor.py:325
+msgid "<No addition>"
+msgstr ""
+
+#: PageEditor.py:326
+#, python-format
+msgid "Make this page belong to category %(category)s"
+msgstr ""
+
+#: PageEditor.py:333
+msgid "Check Spelling"
+msgstr "Oikolue"
+
+#: PageEditor.py:335
+msgid "Save Changes"
+msgstr "Talleta muutokset"
+
+#: PageEditor.py:336
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: PageEditor.py:342
+#, python-format
+msgid ""
+"By hitting <strong>%(save_button_text)s</strong> you put your changes under "
+"the %(license_link)s.\n"
+"If you don't want that, hit <strong>%(cancel_button_text)s</strong> to "
+"cancel your changes."
+msgstr ""
+
+#: PageEditor.py:356
+msgid "Preview"
+msgstr "Esikatsele"
+
+#: PageEditor.py:361
+msgid "Send mail notification"
+msgstr ""
+
+#: PageEditor.py:369
+msgid "Remove trailing whitespace from each line"
+msgstr ""
+
+#: PageEditor.py:382
+msgid ""
+"<dt>Emphasis:</dt>\n"
+"<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
+"italics</em></strong>''''';\n"
+"    ''<em>mixed '''<strong>bold</strong>''' and italics</em>''; ---- "
+"horizontal rule.</dd>\n"
+"<dt>Headings:</dt>\n"
+"<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;\n"
+"    ==== Title 4 ====; ===== Title 5 =====.</dd>\n"
+"<dt>Lists:</dt>\n"
+"<dd>space and one of * bullets; 1., a., A., i., I. numbered items;\n"
+"    1.#n start numbering at n; space alone indents.</dd>\n"
+"<dt>Links:</dt>\n"
+"<dd>JoinCapitalizedWords; [\"brackets and double quotes\"];\n"
+"    url; [url]; [url label].</dd>\n"
+"<dt>Tables:</dt>\n"
+"<dd>|| cell text |||| cell text spanning two columns ||;\n"
+"    no trailing white space allowed after tables or titles.</dd>\n"
+msgstr ""
+
+#: PageEditor.py:422
+msgid "Edit was cancelled."
+msgstr "Muokkaus peruttu."
+
+#: PageEditor.py:467
+#, python-format
+msgid ""
+"Dear Wiki user,\n"
+"\n"
+"You have subscribed to a wiki page or wiki category on \"%(sitename)s\" for "
+"change notification.\n"
+"\n"
+"The following page has been changed by %(editor)s:\n"
+"%(pagelink)s\n"
+"\n"
+msgstr ""
+
+#: PageEditor.py:478
+#, python-format
+msgid ""
+"The comment on the change is:\n"
+"%(comment)s\n"
+"\n"
+msgstr ""
+
+#: PageEditor.py:483
+msgid "No older revisions of the page stored, diff not available."
+msgstr ""
+
+#: PageEditor.py:493
+msgid "No differences found!\n"
+msgstr ""
+
+#: PageEditor.py:496
+#, python-format
+msgid "The diff function returned with error code %(rc)s!"
+msgstr ""
+
+#: PageEditor.py:499
+#, fuzzy, python-format
+msgid "[%(sitename)s] Update of \"%(pagename)s\""
+msgstr "liite:%(filename)s / %(pagename)s"
+
+#: PageEditor.py:518
+msgid "You will not be notified of your own changes!"
+msgstr ""
+
+#: PageEditor.py:525
+msgid "Status of sending notification mails:"
+msgstr ""
+
+#: PageEditor.py:531
+#, python-format
+msgid "[%(lang)s] %(recipients)s: %(status)s"
+msgstr ""
+
+#: PageEditor.py:536
+msgid "Nobody subscribed to this page, no mail sent."
+msgstr ""
+
+#: PageEditor.py:647
+#, python-format
+msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
+msgstr ""
+
+#: PageEditor.py:721
+#, fuzzy
+msgid "You are not allowed to edit this page!"
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: PageEditor.py:727
+msgid "You cannot save empty pages."
+msgstr ""
+
+#: PageEditor.py:730
+msgid ""
+"Sorry, someone else saved the page while you edited it.\n"
+"<p>Please do the following: Use the back button of your browser, and "
+"cut&paste\n"
+"your changes from there. Then go forward to here, and click EditText again.\n"
+"Now re-add your changes to the current page contents.</p>\n"
+"<p><em>Do not just replace\n"
+"the content editbox with your version of the page, because that would\n"
+"delete the changes of the other person, which is excessively rude!</em></p>\n"
+msgstr ""
+
+#: PageEditor.py:741
+#, python-format
+msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
+msgstr ""
+
+#: PageEditor.py:744
+msgid "You did not change the page content, not saved!"
+msgstr ""
+
+#: PageEditor.py:751
+msgid ""
+"You can't change ACLs on this page since you have no admin rights on it!"
+msgstr ""
+
+#: PageEditor.py:757
+#, fuzzy
+msgid "Thank you for your changes. Your attention to detail is appreciated."
+msgstr ""
+"<b>Kiitos muutoksistasi.\n"
+"Huolellisuttasi arvostetaan.</b>"
+
+#: PageEditor.py:853
+#, python-format
+msgid ""
+"The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
+"granted the lock for this page."
+msgstr ""
+
+#: PageEditor.py:859
+#, python-format
+msgid ""
+"Other users will be <em>blocked</em> from editing this page until %(bumptime)"
+"s."
+msgstr ""
+
+#: PageEditor.py:863
+#, python-format
+msgid ""
+"Other users will be <em>warned</em> until %(bumptime)s that you are editing "
+"this page."
+msgstr ""
+
+#: PageEditor.py:866
+msgid "Use the Preview button to extend the locking period."
+msgstr ""
+
+#: PageEditor.py:874
+#, python-format
+msgid ""
+"This page is currently <em>locked</em> for editing by %(owner)s until %"
+"(timestamp)s, i.e. for %(mins_valid)d minute(s)."
+msgstr ""
+
+#: PageEditor.py:880
+#, python-format
+msgid ""
+"This page was opened for editing or last previewed at %(timestamp)s by %"
+"(owner)s.<br>\n"
+"<strong class=\"highlight\">You should <em>refrain from editing</em> this "
+"page for at least another %(mins_valid)d minute(s),\n"
+"to avoid editing conflicts.</strong><br>\n"
+"To leave the editor, press the Cancel button."
+msgstr ""
+
+#: PageEditor.py:914 user.py:77
+msgid "<unknown>"
+msgstr ""
+
+#: config.py:131
+msgid "Diffs"
+msgstr ""
+
+#: config.py:132
+msgid "Info"
+msgstr ""
+
+#: config.py:133 macro/Navigation.py:164
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: config.py:134
+msgid "UnSubscribe"
+msgstr ""
+
+#: config.py:135
+msgid "Subscribe"
+msgstr ""
+
+#: config.py:136
+msgid "Raw"
+msgstr ""
+
+#: config.py:137
+msgid "XML"
+msgstr ""
+
+#: config.py:138
+msgid "Print"
+msgstr ""
+
+#: config.py:139
+#, fuzzy
+msgid "View"
+msgstr "näytä"
+
+#: config.py:140
+msgid "Home"
+msgstr ""
+
+#: config.py:141
+msgid "Up"
+msgstr ""
+
+#: request.py:394
+msgid "Unknown action"
+msgstr ""
+
+#: request.py:415
+msgid "Can't work out query"
+msgstr ""
+
+#: user.py:100
+msgid "Open editor on double click"
+msgstr ""
+
+#: user.py:101
+msgid "Remember last page visited"
+msgstr ""
+
+#: user.py:102
+msgid "Show emoticons"
+msgstr ""
+
+#: user.py:103
+msgid "Show fancy links"
+msgstr ""
+
+#: user.py:104
+msgid "Show question mark for non-existing pagelinks"
+msgstr ""
+
+#: user.py:105
+msgid "Show page trail"
+msgstr ""
+
+#: user.py:106
+msgid "Show icon toolbar"
+msgstr ""
+
+#: user.py:107
+msgid "Show top/bottom links in headings"
+msgstr ""
+
+#: user.py:108
+msgid "Show fancy diffs"
+msgstr ""
+
+#: user.py:109
+msgid "Add spaces to displayed wiki names"
+msgstr ""
+
+#: user.py:110
+msgid "Remember login information forever"
+msgstr ""
+
+#: user.py:111
+msgid "Disable this account forever"
+msgstr ""
+
+#: userform.py:59
+msgid "Cookie deleted. You are now logged out."
+msgstr ""
+
+#: userform.py:63 wikiaction.py:705 util/mail.py:43
+msgid ""
+"This wiki is not enabled for mail processing. Contact the owner of the wiki, "
+"who can either enable email, or remove the \"Subscribe\" icon."
+msgstr ""
+
+#: userform.py:68
+msgid "Please provide a valid email address!"
+msgstr ""
+
+#: userform.py:79
+#, python-format
+msgid "Found no account matching the given email address '%(email)s'!"
+msgstr ""
+
+#: userform.py:104
+msgid "Unknown user name or password."
+msgstr ""
+
+#: userform.py:117
+msgid "Please enter a user name!"
+msgstr ""
+
+#: userform.py:123
+msgid "User name already exists!"
+msgstr ""
+
+#: userform.py:133
+msgid "Passwords don't match!"
+msgstr ""
+
+#: userform.py:192
+msgid "Please enter your name like that: FirstnameLastname"
+msgstr ""
+
+#: userform.py:194
+msgid ""
+"Please provide your email address - without that you could not get your "
+"login data via email just in case you lose it."
+msgstr ""
+
+#: userform.py:202
+msgid "This user name already belongs to somebody else."
+msgstr ""
+
+#: userform.py:204
+msgid "This email already belongs to somebody else."
+msgstr ""
+
+#: userform.py:211
+msgid "User preferences saved!"
+msgstr ""
+
+#: userform.py:273
+msgid "Default"
+msgstr "Oletusarvo"
+
+#: userform.py:286
+msgid "<Browser setting>"
+msgstr ""
+
+#: userform.py:339
+#, fuzzy
+msgid "Save"
+msgstr " Talleta "
+
+#: userform.py:340
+#, fuzzy
+msgid "Logout"
+msgstr " Kirjoittaudu ulos "
+
+#: userform.py:344
+#, fuzzy
+msgid "Login"
+msgstr " Kirjoittaudu sisään "
+
+#: userform.py:345
+#, fuzzy
+msgid "Create Profile"
+msgstr " Luo Profiili "
+
+#: userform.py:348
+msgid "Mail me my account data"
+msgstr ""
+
+#: userform.py:352
+msgid "Name"
+msgstr "Nimi"
+
+#: userform.py:356
+msgid "(Use FirstnameLastname)"
+msgstr ""
+
+#: userform.py:359
+msgid "Password"
+msgstr "Tunnussana"
+
+#: userform.py:365
+#, fuzzy
+msgid "Password repeat"
+msgstr "Tunnussana"
+
+#: userform.py:369
+msgid "(Only when changing passwords)"
+msgstr ""
+
+#: userform.py:372
+msgid "Email"
+msgstr "Sähköposti"
+
+#: userform.py:383
+msgid "Preferred theme"
+msgstr ""
+
+#: userform.py:385
+msgid "User CSS URL"
+msgstr ""
+
+#: userform.py:389
+msgid "(Leave it empty for disabling user CSS)"
+msgstr ""
+
+#: userform.py:392
+msgid "Editor size"
+msgstr "Editointikentän koko"
+
+#: userform.py:400
+msgid "Time zone"
+msgstr "Aikavyöhyke"
+
+#: userform.py:401
+msgid "Your time is"
+msgstr "Aikasi on"
+
+#: userform.py:404
+msgid "Server time is"
+msgstr "Palvelimen aika on"
+
+#: userform.py:409
+msgid "Date format"
+msgstr "Päivämäärän muoto"
+
+#: userform.py:411
+msgid "Preferred language"
+msgstr ""
+
+#: userform.py:424
+msgid "General options"
+msgstr "Yleiset Asetukset"
+
+#: userform.py:426
+msgid "Quick links"
+msgstr ""
+
+#: userform.py:441
+msgid "This list does not work, unless you have entered a valid email address!"
+msgstr ""
+
+#: userform.py:446
+msgid "Subscribed wiki pages (one regex per line)"
+msgstr ""
+
+#: userform.py:485 wikiaction.py:407 action/AttachFile.py:593
+msgid "Action"
+msgstr ""
+
+#: wikiaction.py:57 wikiaction.py:108
+#, python-format
+msgid "Please use a more selective search term instead of '%(needle)s'!"
+msgstr ""
+
+#: wikiaction.py:61
+#, python-format
+msgid "Full text search for \"%s\""
+msgstr ""
+
+#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
+msgid "match"
+msgstr ""
+
+#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
+#, fuzzy
+msgid "matches"
+msgstr "Muut"
+
+#: wikiaction.py:111
+#, python-format
+msgid "Title search for \"%s\""
+msgstr ""
+
+#: wikiaction.py:155
+#, python-format
+msgid "%(hits)d hits out of %(pages)d pages searched."
+msgstr ""
+
+#: wikiaction.py:156
+#, python-format
+msgid "Needed %(timer).1f seconds."
+msgstr ""
+
+#: wikiaction.py:227
+msgid "No older revisions available!"
+msgstr ""
+
+#: wikiaction.py:231
+#, python-format
+msgid "Diff for \"%s\""
+msgstr ""
+
+#: wikiaction.py:283
+#, python-format
+msgid "Differences between versions dated %s and %s"
+msgstr ""
+
+#: wikiaction.py:286
+#, python-format
+msgid "(spanning %d versions)"
+msgstr ""
+
+#: wikiaction.py:296 util/diff.py:41
+msgid "No differences found!"
+msgstr ""
+
+#: wikiaction.py:298
+#, python-format
+msgid "The page was saved %(count)d times, though!"
+msgstr ""
+
+#: wikiaction.py:309
+msgid "Ignore changes in the amount of whitespace"
+msgstr ""
+
+#: wikiaction.py:330
+msgid "General Information"
+msgstr "Yleiset Tiedot"
+
+#: wikiaction.py:333
+#, python-format
+msgid "Page size: %d"
+msgstr ""
+
+#: wikiaction.py:339
+msgid "SHA digest of this page's content is:"
+msgstr ""
+
+#: wikiaction.py:350
+msgid "The following users subscribed to this page:"
+msgstr ""
+
+#: wikiaction.py:365
+msgid "This page links to the following pages:"
+msgstr ""
+
+#: wikiaction.py:376 wikiaction.py:515
+msgid "Revision History"
+msgstr "Versiohistoria"
+
+#: wikiaction.py:401
+msgid "Date"
+msgstr "Päivämäärä"
+
+#: wikiaction.py:402 action/AttachFile.py:592
+msgid "Size"
+msgstr "Koko"
+
+#: wikiaction.py:403
+msgid "Diff"
+msgstr ""
+
+#: wikiaction.py:405
+msgid "Editor"
+msgstr "Editori"
+
+#: wikiaction.py:406
+msgid "Comment"
+msgstr "Huomautus"
+
+#: wikiaction.py:445 wikiaction.py:456 action/AttachFile.py:188
+msgid "view"
+msgstr "näytä"
+
+#: wikiaction.py:448 wikiaction.py:459
+msgid "raw"
+msgstr ""
+
+#: wikiaction.py:451 wikiaction.py:462
+msgid "print"
+msgstr ""
+
+#: wikiaction.py:466
+msgid "revert"
+msgstr "palauta"
+
+#: wikiaction.py:477 macro/RecentChanges.py:41
+#, python-format
+msgid "Revert to version dated %(datestamp)s."
+msgstr ""
+
+#: wikiaction.py:484
+msgid "N/A"
+msgstr ""
+
+#: wikiaction.py:512
+#, python-format
+msgid "Info for \"%s\""
+msgstr ""
+
+#: wikiaction.py:515 wikiaction.py:517
+#, python-format
+msgid "Show \"%(title)s\""
+msgstr "Näytä \"%(title)s\""
+
+#: wikiaction.py:517
+#, fuzzy
+msgid "General Page Infos"
+msgstr "Yleiset Tiedot"
+
+#: wikiaction.py:519
+#, fuzzy, python-format
+msgid "Show chart \"%(title)s\""
+msgstr "Näytä \"%(title)s\""
+
+#: wikiaction.py:519 stats/hitcounts.py:154
+msgid "Page hits and edits"
+msgstr ""
+
+#: wikiaction.py:591
+msgid "You are not allowed to revert this page!"
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: wikiaction.py:601
+msgid "An error occurred while reverting the page."
+msgstr ""
+
+#: wikiaction.py:701
+#, fuzzy
+msgid "You are not allowed to subscribe to a page you can't read."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: wikiaction.py:710
+msgid ""
+"You didn't create a user profile yet. Select UserPreferences in the upper "
+"right corner to create a profile."
+msgstr ""
+
+#: wikiaction.py:715
+msgid ""
+"You didn't enter an email address in your profile. Select your name "
+"(UserPreferences) in the upper right corner and enter a valid email address."
+msgstr ""
+
+#: wikiaction.py:720
+#, fuzzy
+msgid "You are already subscribed to this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: wikiaction.py:721 wikiaction.py:728
+msgid ""
+"To unsubscribe, go to your profile and delete this page from the "
+"subscription list."
+msgstr ""
+
+#: wikiaction.py:727
+#, fuzzy
+msgid "You have been subscribed to this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: wikiform.py:31
+#, python-format
+msgid "Required attribute \"%(attrname)s\" missing"
+msgstr ""
+
+#: wikiform.py:95
+msgid "Submitted form data:"
+msgstr ""
+
+#: wikimacro.py:150
+msgid "Display context of search results"
+msgstr ""
+
+#: wikimacro.py:152
+msgid "Case-sensitive searching"
+msgstr ""
+
+#: wikimacro.py:159 wikimacro.py:165
+msgid "Go"
+msgstr ""
+
+#: wikimacro.py:257
+msgid "Include system pages"
+msgstr ""
+
+#: wikimacro.py:257
+msgid "Exclude system pages"
+msgstr ""
+
+#: wikimacro.py:258
+msgid "Plain title index"
+msgstr ""
+
+#: wikimacro.py:259
+msgid "XML title index"
+msgstr ""
+
+#: wikimacro.py:309
+msgid "Python Version"
+msgstr "Python Versio"
+
+#: wikimacro.py:310
+msgid "MoinMoin Version"
+msgstr "MoinMoin Versio"
+
+#: wikimacro.py:310
+#, python-format
+msgid "Release %s [Revision %s]"
+msgstr ""
+
+#: wikimacro.py:312
+msgid "4Suite Version"
+msgstr "4Suite Versio"
+
+#: wikimacro.py:313
+msgid "Number of pages"
+msgstr ""
+
+#: wikimacro.py:314
+msgid "Number of system pages"
+msgstr ""
+
+#: wikimacro.py:315
+msgid "Number of backup versions"
+msgstr ""
+
+#: wikimacro.py:316
+msgid "Accumulated page sizes"
+msgstr ""
+
+#: wikimacro.py:319
+msgid "Entries in edit log"
+msgstr ""
+
+#: wikimacro.py:320
+#, python-format
+msgid "%(logcount)s (%(logsize)s bytes)"
+msgstr ""
+
+#: wikimacro.py:326
+msgid "NONE"
+msgstr ""
+
+#: wikimacro.py:329
+msgid "Global extension macros"
+msgstr ""
+
+#: wikimacro.py:331
+msgid "Local extension macros"
+msgstr ""
+
+#: wikimacro.py:333
+msgid "Global extension actions"
+msgstr ""
+
+#: wikimacro.py:335
+msgid "Local extension actions"
+msgstr ""
+
+#: wikimacro.py:337
+msgid "Installed processors"
+msgstr ""
+
+#: wikimacro.py:358
+#, python-format
+msgid "ERROR in regex '%s'"
+msgstr ""
+
+#: wikimacro.py:395 wikimacro.py:405
+#, python-format
+msgid "Bad timestamp '%s'"
+msgstr ""
+
+#: wikiutil.py:600 util/wikiext.py:61
+#, python-format
+msgid "Expected \"=\" to follow \"%(token)s\""
+msgstr ""
+
+#: wikiutil.py:605 util/wikiext.py:66
+#, python-format
+msgid "Expected a value for key \"%(token)s\""
+msgstr ""
+
+#: wikiutil.py:908
+msgid "Wiki Markup"
+msgstr ""
+
+#: wikiutil.py:910
+msgid "Print View"
+msgstr ""
+
+#: action/AttachFile.py:102
+#, python-format
+msgid "[%d attachments]"
+msgstr ""
+
+#: action/AttachFile.py:120
+#, python-format
+msgid ""
+"There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
+"page."
+msgstr ""
+
+#: action/AttachFile.py:152 action/AttachFile.py:417
+msgid "Filename of attachment not specified!"
+msgstr ""
+
+#: action/AttachFile.py:159
+#, fuzzy, python-format
+msgid "Attachment '%(filename)s' does not exist!"
+msgstr "liite:%(filename)s / %(pagename)s"
+
+#: action/AttachFile.py:177
+msgid ""
+"<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
+"tt></strong>, \n"
+"as shown below in the list of files. \n"
+"Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
+"since this is subject to change and can break easily.</p>"
+msgstr ""
+
+#: action/AttachFile.py:185
+msgid "del"
+msgstr "poista"
+
+#: action/AttachFile.py:186
+msgid "get"
+msgstr "hae"
+
+#: action/AttachFile.py:187
+msgid "edit"
+msgstr "muokkaa"
+
+#: action/AttachFile.py:225
+#, python-format
+msgid "No attachments stored for %(pagename)s"
+msgstr "Sivulla %(pagename)s ei ole liitteitä"
+
+#: action/AttachFile.py:267
+#, fuzzy
+msgid "Edit drawing"
+msgstr "<h2>Muokkaa piirrosta</h2>"
+
+#: action/AttachFile.py:299
+#, fuzzy
+msgid "Attached Files"
+msgstr "<h2>Liitetiedostot</h2>"
+
+#: action/AttachFile.py:303 action/AttachFile.py:367
+#, fuzzy
+msgid "You are not allowed to attach a file to this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: action/AttachFile.py:310
+msgid "New Attachment"
+msgstr ""
+
+#: action/AttachFile.py:311
+msgid ""
+"An upload will never overwrite an existing file. If there is a name\n"
+"conflict, you have to rename the file that you want to upload.\n"
+"Otherwise, if \"Rename to\" is left blank, the original filename will be "
+"used."
+msgstr ""
+
+#: action/AttachFile.py:334
+msgid "File to upload"
+msgstr ""
+
+#: action/AttachFile.py:335
+msgid "MIME Type (optional)"
+msgstr ""
+
+#: action/AttachFile.py:336
+#, fuzzy
+msgid "Save as"
+msgstr " Talleta "
+
+#: action/AttachFile.py:338
+msgid "Upload"
+msgstr ""
+
+#: action/AttachFile.py:353
+#, fuzzy
+msgid "File attachments are not allowed in this wiki!"
+msgstr "Sinulla ei ole oikeutta postaa sivuja tässä wikissä!"
+
+#: action/AttachFile.py:360
+#, fuzzy
+msgid "You are not allowed to save a drawing on this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: action/AttachFile.py:372
+#, fuzzy
+msgid "You are not allowed to delete attachments on this page."
+msgstr "Sinulla ei ole oikeutta postaa sivuja tässä wikissä!"
+
+#: action/AttachFile.py:377
+#, fuzzy
+msgid "You are not allowed to get attachments from this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: action/AttachFile.py:382
+#, fuzzy
+msgid "You are not allowed to view attachments of this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: action/AttachFile.py:384
+#, python-format
+msgid "Unsupported upload action: %s"
+msgstr ""
+
+#: action/AttachFile.py:394
+#, fuzzy, python-format
+msgid "Attachments for \"%(pagename)s\""
+msgstr "Sivulla %(pagename)s ei ole liitteitä"
+
+#: action/AttachFile.py:444
+#, python-format
+msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
+msgstr ""
+
+#: action/AttachFile.py:455
+#, python-format
+msgid ""
+"Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
+"saved."
+msgstr ""
+
+#: action/AttachFile.py:506 macro/RecentChanges.py:36
+#, fuzzy, python-format
+msgid "Attachment '%(filename)s' deleted."
+msgstr "<h2>Liite '%(filename)s'</h2>"
+
+#: action/AttachFile.py:539
+#, fuzzy, python-format
+msgid "Attachment '%(filename)s'"
+msgstr "<h2>Liite '%(filename)s'</h2>"
+
+#: action/AttachFile.py:554
+msgid "Unknown file type, cannot display this attachment inline."
+msgstr ""
+
+#: action/AttachFile.py:567
+#, python-format
+msgid "attachment:%(filename)s of %(pagename)s"
+msgstr "liite:%(filename)s / %(pagename)s"
+
+#: action/DeletePage.py:27
+#, fuzzy
+msgid "You are not allowed to delete this page."
+msgstr "Sinulla ei ole oikeutta palauttaa tätä sivua!"
+
+#: action/DeletePage.py:33 action/RenamePage.py:29
+msgid "This page is already deleted or was never created!"
+msgstr ""
+
+#: action/DeletePage.py:41
+msgid "Please use the interactive user interface to delete pages!"
+msgstr ""
+
+#: action/DeletePage.py:48
+#, python-format
+msgid "Page \"%s\" was successfully deleted!"
+msgstr "Sivu \"%s\" poistettiin onnistuneesti!"
+
+#: action/DeletePage.py:53
+msgid "Really delete this page?"
+msgstr "Haluatko varmasti poistaa tämän sivun?"
+
+#: action/DeletePage.py:54
+#, fuzzy
+msgid "Delete"
+msgstr " Poista "
+
+#: action/DeletePage.py:55
+msgid "Optional reason for the deletion"
+msgstr ""
+
+#: action/LikePages.py:31
+#, python-format
+msgid "No pages match \"%s\"!"
+msgstr ""
+
+#: action/LikePages.py:37
+#, python-format
+msgid "Exactly one matching page for \"%s\" found!"
+msgstr ""
+
+#: action/LikePages.py:42
+#, python-format
+msgid "Multiple matches for \"%s...%s\""
+msgstr ""
+
+#: action/LikePages.py:65
+msgid "You cannot use LikePages on an extended pagename!"
+msgstr ""
+
+#: action/LikePages.py:121
+#, python-format
+msgid "%(matchcount)d %(matches)s for \"%(title)s\""
+msgstr ""
+
+#: action/LocalSiteMap.py:38
+#, python-format
+msgid "Local Site Map for \"%s\""
+msgstr ""
+
+#: action/RenamePage.py:25
+#, fuzzy
+msgid "You are not allowed to rename pages in this wiki!"
+msgstr "Sinulla ei ole oikeutta postaa sivuja tässä wikissä!"
+
+#: action/RenamePage.py:37
+msgid "Please use the interactive user interface to rename pages!"
+msgstr ""
+
+#: action/RenamePage.py:45
+#, python-format
+msgid "A page with the name \"%s\" already exists!"
+msgstr ""
+
+#: action/RenamePage.py:55
+#, fuzzy, python-format
+msgid "Page \"%s\" was successfully renamed to \"%s\"!"
+msgstr "Sivu \"%s\" poistettiin onnistuneesti!"
+
+#: action/RenamePage.py:61
+msgid "Rename"
+msgstr ""
+
+#: action/RenamePage.py:62
+#, fuzzy
+msgid "New name"
+msgstr "Nimi"
+
+#: action/RenamePage.py:63
+msgid "Optional reason for the renaming"
+msgstr ""
+
+#: action/SpellCheck.py:169
+#, python-format
+msgid "(including %(localwords)d %(pagelink)s)"
+msgstr ""
+
+#: action/SpellCheck.py:171
+#, python-format
+msgid ""
+"The following %(badwords)d words could not be found in the dictionary of %"
+"(totalwords)d words%(localwords)s and are highlighted below:"
+msgstr ""
+
+#: action/SpellCheck.py:190
+msgid "Add checked words to dictionary"
+msgstr ""
+
+#: action/SpellCheck.py:196
+msgid "No spelling errors found!"
+msgstr ""
+
+#: action/SpellCheck.py:210
+msgid "You can't check spelling on a page you can't read."
+msgstr ""
+
+#: action/links.py:28
+#, python-format
+msgid "Full Link List for \"%s\""
+msgstr ""
+
+#: macro/Include.py:58
+#, python-format
+msgid "Invalid include arguments \"%s\"!"
+msgstr ""
+
+#: macro/Include.py:120 macro/Include.py:130
+#, python-format
+msgid "Nothing found for \"%s\"!"
+msgstr ""
+
+#: macro/Navigation.py:103
+#, python-format
+msgid "Unsupported navigation scheme '%(scheme)s'!"
+msgstr ""
+
+#: macro/Navigation.py:120 macro/Navigation.py:191
+msgid "No parent page found!"
+msgstr ""
+
+#: macro/Navigation.py:162
+msgid "Wiki"
+msgstr ""
+
+#: macro/Navigation.py:168
+msgid "Slideshow"
+msgstr ""
+
+#: macro/Navigation.py:180
+msgid "Start"
+msgstr ""
+
+#: macro/Navigation.py:214
+#, python-format
+msgid "Slide %(pos)d of %(size)d"
+msgstr ""
+
+#: macro/OrphanedPages.py:43
+#, fuzzy
+msgid "No orphaned pages in this wiki."
+msgstr "Sinulla ei ole oikeutta postaa sivuja tässä wikissä!"
+
+#: macro/RandomQuote.py:44
+#, fuzzy, python-format
+msgid "No quotes on %(pagename)s."
+msgstr "Sivulla %(pagename)s ei ole liitteitä"
+
+#: macro/RecentChanges.py:34
+#, fuzzy, python-format
+msgid "Upload of attachment '%(filename)s'."
+msgstr "<h2>Liite '%(filename)s'</h2>"
+
+#: macro/RecentChanges.py:38
+#, python-format
+msgid "Drawing '%(filename)s' saved."
+msgstr "Piirrustus '%(filename)s' talletettu."
+
+#: macro/RecentChanges.py:89
+#, python-format
+msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
+msgstr ""
+
+#: macro/RecentChanges.py:239
+msgid "(no bookmark set)"
+msgstr ""
+
+#: macro/RecentChanges.py:241
+#, python-format
+msgid "(currently set to %s)"
+msgstr ""
+
+#: macro/RecentChanges.py:248
+msgid "Update my bookmark timestamp"
+msgstr ""
+
+#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
+msgid "set bookmark"
+msgstr ""
+
+#: macro/RecentChanges.py:327
+msgid "[Bookmark reached]"
+msgstr ""
+
+#: macro/ShowSmileys.py:31
+msgid "Markup"
+msgstr ""
+
+#: macro/ShowSmileys.py:32
+msgid "Display"
+msgstr ""
+
+#: macro/ShowSmileys.py:33
+msgid "Filename"
+msgstr ""
+
+#: macro/StatsChart.py:19
+msgid "You need to provide a chart type!"
+msgstr ""
+
+#: macro/StatsChart.py:23
+#, python-format
+msgid "Bad chart type \"%s\"!"
+msgstr ""
+
+#: macro/SystemAdmin.py:39
+msgid "Download XML export of this wiki"
+msgstr ""
+
+#: macro/WantedPages.py:48
+#, fuzzy
+msgid "No wanted pages in this wiki."
+msgstr "Sinulla ei ole oikeutta postaa sivuja tässä wikissä!"
+
+#: parser/wiki.py:225
+#, python-format
+msgid "Create new drawing \"%(filename)s\""
+msgstr "Luo uusi piirrustus \"%(filename)s\""
+
+#: parser/wiki.py:227
+#, fuzzy, python-format
+msgid "Upload new attachment \"%(filename)s\""
+msgstr "Luo uusi piirrustus \"%(filename)s\""
+
+#: parser/wiki.py:258 parser/wiki.py:268
+#, fuzzy, python-format
+msgid "Edit drawing %(filename)s"
+msgstr "Luo uusi piirrustus \"%(filename)s\""
+
+#: parser/wiki.py:624
+#, python-format
+msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
+msgstr ""
+
+#: parser/wiki.py:630
+#, python-format
+msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
+msgstr ""
+
+#: parser/wiki.py:639 parser/wiki.py:648
+#, python-format
+msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
+msgstr ""
+
+#: parser/wiki.py:668
+#, python-format
+msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
+msgstr ""
+
+#: parser/xslt.py:39
+msgid "XSLT option disabled!"
+msgstr ""
+
+#: parser/xslt.py:56
+msgid "XSLT processing is not available!"
+msgstr ""
+
+#: parser/xslt.py:134
+#, python-format
+msgid "%(errortype)s processing error"
+msgstr ""
+
+#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
+msgid "Charts are not available!"
+msgstr ""
+
+#: stats/hitcounts.py:155
+#, python-format
+msgid "%(chart_title)s for %(filterpage)s"
+msgstr ""
+
+#: stats/hitcounts.py:157
+msgid ""
+"green=view\n"
+"red=edit"
+msgstr ""
+
+#: stats/hitcounts.py:160
+msgid "date"
+msgstr "päivämäärä"
+
+#: stats/hitcounts.py:161
+msgid "# of hits"
+msgstr ""
+
+#: stats/pagesize.py:93
+msgid "Page Size Distribution"
+msgstr ""
+
+#: stats/pagesize.py:97
+msgid "page size upper bound [bytes]"
+msgstr ""
+
+#: stats/pagesize.py:98
+msgid "# of pages of this size"
+msgstr ""
+
+#: stats/useragents.py:88
+msgid "Others"
+msgstr "Muut"
+
+#: stats/useragents.py:109
+msgid "Distribution of User-Agent Types"
+msgstr ""
+
+#: theme/classic.py:154
+msgid "Click here to do a full-text search for this title"
+msgstr ""
+
+#: theme/classic.py:294
+msgid "Clear message"
+msgstr "Tyhjennä viesti"
+
+#: theme/classic.py:429
+msgid "ShowText"
+msgstr ""
+
+#: theme/classic.py:430 theme/classic.py:450
+#, fuzzy
+msgid "of this page"
+msgstr "Luo tämä sivu"
+
+#: theme/classic.py:449
+#, fuzzy
+msgid "EditText"
+msgstr "Muokkaa"
+
+#: theme/classic.py:453
+msgid "Immutable page"
+msgstr ""
+
+#: theme/classic.py:481 i18n/dummy.py:14
+msgid "FindPage"
+msgstr ""
+
+#: theme/classic.py:482 i18n/dummy.py:15
+msgid "SiteNavigation"
+msgstr ""
+
+#: theme/classic.py:483
+#, python-format
+msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
+msgstr ""
+
+#: theme/classic.py:513
+msgid "Or try one of these actions:"
+msgstr ""
+
+#: theme/classic.py:666
+#, python-format
+msgid "Show all changes in the last %s days."
+msgstr ""
+
+#: util/diff.py:31
+#, fuzzy
+msgid "Line"
+msgstr " Kirjoittaudu sisään "
+
+#: util/diff.py:60
+msgid "Deletions are marked like this."
+msgstr ""
+
+#: util/diff.py:60
+msgid "Additions are marked like this."
+msgstr ""
+
+#: util/mail.py:71
+#, python-format
+msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
+msgstr ""
+
+#: util/mail.py:76
+msgid "Mail sent OK"
+msgstr "Sähköposti lähetetty onnistuneesti"
+
+#: i18n/dummy.py:10
+msgid "FrontPage"
+msgstr ""
+
+#: i18n/dummy.py:11
+#, fuzzy
+msgid "RecentChanges"
+msgstr "Talleta muutokset"
+
+#: i18n/dummy.py:12
+msgid "TitleIndex"
+msgstr ""
+
+#: i18n/dummy.py:13
+msgid "WordIndex"
+msgstr ""
+
+#: i18n/dummy.py:16
+msgid "HelpContents"
+msgstr ""
+
+#: i18n/dummy.py:17
+msgid "HelpOnFormatting"
+msgstr ""
+
+#: i18n/dummy.py:18
+msgid "UserPreferences"
+msgstr ""
+
+#: i18n/dummy.py:19
+msgid "WikiLicense"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Mon"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Tue"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Wed"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Thu"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Fri"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Sat"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Sun"
+msgstr ""
+
+#~ msgid "Your email address"
+#~ msgstr "Sähköpostisi on"
+
+#~ msgid "Detailed Information"
+#~ msgstr "Yksityiskohtaiset Tiedot"

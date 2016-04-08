@@ -7,10 +7,12 @@
 """
 
 from MoinMoin import config
-from MoinMoin.theme.classic import Theme as ThemeBase
+from classic import Theme as ThemeBase
 
 class Theme(ThemeBase):
     """ This is the starshine theme. """
+
+    name = 'starshine'
 
     icons = {
         # key         alt                        filename of icon    w   h   
@@ -51,8 +53,6 @@ class Theme(ThemeBase):
         'searchbutton': ("[?]",                  "moin-search.png", 12, 12),
         'interwiki':  ("[%(wikitag)s]",          "moin-inter.png",  16, 16),
     }
-
-    name = 'starshine'
 
     stylesheets = ThemeBase.stylesheets + (
         # theme charset         media       basename

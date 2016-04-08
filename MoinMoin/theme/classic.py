@@ -21,6 +21,8 @@ class Theme:
         the look and feel of your wiki site
     """
 
+    name = "classic"
+
     icons = {
         # key         alt                        icon filename      w   h
         # ------------------------------------------------------------------
@@ -59,8 +61,6 @@ class Theme:
         'searchbutton': ("[?]",                  "moin-search.png", 12, 12),
         'interwiki':  ("[%(wikitag)s]",          "moin-inter.png",  16, 16),
     }
-
-    name = "classic"
 
     # ??? Why do we need stylesheet_print? the standard stylesheets
     # provide a print version?
@@ -292,7 +292,7 @@ class Theme:
         if d['msg']:
             _ = self.request.getText
             d.update({'link_text': _('Clear message'),})
-            clear_msg_link = '<a href="%(script_name)s/%(page_name)s?action=show">%(link_text)s</a>' % d
+            clear_msg_link = '<a href="%(script_name)s/%(q_page_name)s?action=show">%(link_text)s</a>' % d
             d.update({'clear_msg_link': clear_msg_link,})
             html = ('\n<div id="message">\n'
                     '<p>%(msg)s</p><p>%(clear_msg_link)s</p></div>') % d
@@ -477,9 +477,10 @@ class Theme:
         @return: search form html
         """
         _ = self.request.getText
+        sitenav_pagename = wikiutil.getSysPage(self.request, 'SiteNavigation').page_name
         dict = {
             'find_page_html': wikiutil.link_tag(self.request, d['page_find_page']+'?value='+urllib.quote_plus(d['page_name'], ''), _('FindPage')),
-            'navi_page_html': wikiutil.link_tag(self.request, _('SiteNavigation'), _('SiteNavigation')),
+            'navi_page_html': wikiutil.link_tag(self.request, sitenav_pagename, sitenav_pagename),
             'search_html': _("or search titles %(titlesearch)s, full text %(textsearch)s or") % d,
         }
         dict.update(d)

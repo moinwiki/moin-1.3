@@ -224,8 +224,8 @@ Schließlich die Änderungen zum aktuellen Stand der Seite wieder hinzufügen.</p>
 <strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
 to avoid editing conflicts.</strong><br>
 To leave the editor, press the Cancel button.''':
-'''Diese Seite wurde zum letzen Mal um %(timestamp)s durch %(owner)s zum Editieren geöffnet
-oder in der Vorschau angezeigt.<br> 
+'''Diese Seite wurde zum letzten Mal um %(timestamp)s durch %(owner)s zum Editieren geöffnet
+oder in der Vorschau angezeigt.<br>
 <strong class="highlight">Sie sollten diese Seite für mindestens weitere %(mins_valid)d Minute(n) <em>nicht editieren</em>, um Konflikte auszuschließen.</strong><br>
 Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''<unknown>''':

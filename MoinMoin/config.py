@@ -81,6 +81,7 @@ _cfg_defaults = {
     'httpd_docs': './wiki-moinmoin',
     'interwikiname': None,
     'logo_string': '<img src="/wiki/classic/img/moinmoin.png" alt="MoinMoin">',
+    # XXX UNICODE fix
     'lowerletters': '0-9a-z\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf2\xf3\xf4\xf5\xf6\xf8\xf9\xfa\xfb\xfc\xfd\xff\xb5\xdf\xe7\xf0\xf1\xfe',
     'mail_login': None, # or "user pwd" if you need to use SMTP AUTH
     'mail_smarthost': None,
@@ -157,6 +158,7 @@ _cfg_defaults = {
     'ua_spiders': 'archiver|crawler|google|htdig|httrack|jeeves|larbin|leech|linkbot' +
                   '|linkmap|linkwalk|mercator|mirror|robot|scooter|search|sitecheck|spider|wget',
     'umask': 0770, # with 0777 ACLs are rather pointless!
+    # XXX UNICODE fix
     'upperletters': 'A-Z\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd2\xd3\xd4\xd5\xd6\xd8\xd9\xda\xdb\xdc\xdd\xc7\xd0\xd1\xde',
     'url_prefix': '/wiki',
     'url_schemas': [],

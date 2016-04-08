@@ -1,0 +1,1665 @@
+# MoinMoin translation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MoinMoin 1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-31 22:43+0100\n"
+"PO-Revision-Date: 2004-03-03 17:40+0900\n"
+"Last-Translator: Fujio Nobori <toh@fuji-climb.org>\n"
+"Language-Team: Japanese <moin-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Direction: ltr\n"
+"X-Language: Japanese\n"
+
+#: Page.py:153
+#, python-format
+msgid "(last edited %(time)s by %(editor)s)"
+msgstr "(最終更新日時 %(time)s 更新者 %(editor)s)"
+
+#: Page.py:159
+#, python-format
+msgid "(last modified %s)"
+msgstr "(最終更新日時 %s)"
+
+#: Page.py:485
+msgid ""
+"The backupped content of this page is deprecated and will not be included in "
+"search results!"
+msgstr ""
+"このページは\"deprecated\"であるため、検索結果には含まれません。"
+
+#: Page.py:544
+#, python-format
+msgid "Version as of %(date)s"
+msgstr "%(date)s時点のバージョン"
+
+#: Page.py:554
+#, python-format
+msgid "Redirected from page \"%(page)s\""
+msgstr "\"%(page)s\"からリダイレクトされました。"
+
+#: Page.py:560
+#, python-format
+msgid "This page redirects to page \"%(page)s\""
+msgstr "このページは\"%(page)s\"にリダイレクトします。"
+
+#: Page.py:581
+#, python-format
+msgid ""
+"<p><small>If you submit this form, the submitted values will be displayed.\n"
+"To use this form on other pages, insert a\n"
+"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
+"strong><br><br>\n"
+"macro call.</small></p>\n"
+msgstr ""
+"<p><small>このフォームを提出すると、提出された値が表示されます。\n"
+"このフォームを別のページで使うには、\n"
+"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
+"strong><br><br>\n"
+"マクロを埋め込んでください。</small></p>\n"
+
+#: Page.py:604 action/AttachFile.py:296
+msgid "You are not allowed to view this page."
+msgstr "このページを読む権限がありません。"
+
+#: Page.py:705 parser/xslt.py:146
+msgid "RefreshCache"
+msgstr "キャッシュの更新"
+
+#: Page.py:706 parser/xslt.py:147
+#, python-format
+msgid "for this page (cached %(date)s)"
+msgstr "このページのキャッシュ(%(date)s)"
+
+#: Page.py:724
+msgid "Create this page"
+msgstr "このページを作成"
+
+#: Page.py:734
+msgid "Alternatively, use one of these templates:"
+msgstr "次のひな型を利用することもできます。"
+
+#: Page.py:749
+#, python-format
+msgid ""
+"To create your own templates, add a page with a name matching the regex \"%"
+"(page_template_regex)s\"."
+msgstr ""
+"オリジナルのひな型を作るには\"%(page_template_regex)s\"にマッチする名前のページを追加してください。"
+
+#: Page.py:757
+msgid "The following pages with similar names already exist..."
+msgstr "似た名前のページ一覧:"
+
+#: PageEditor.py:149 wikiaction.py:576 wikiaction.py:610
+msgid "You are not allowed to edit this page."
+msgstr "このページを編集する権限がありません。"
+
+#: PageEditor.py:151 PageEditor.py:724
+msgid "Page is immutable!"
+msgstr "このページは編集できません。"
+
+#: PageEditor.py:155
+msgid "Cannot edit old revisions!"
+msgstr "古いリビジョンを編集することはできません。"
+
+#: PageEditor.py:162
+msgid "The lock you held timed out, be prepared for editing conflicts!"
+msgstr "ファイルのロックが期限切れになりました。他のユーザが行った編集と衝突する可能性があります。"
+
+#: PageEditor.py:178
+#, python-format
+msgid "Edit \"%(pagename)s\""
+msgstr "\"%(pagename)s\"を編集"
+
+#: PageEditor.py:180
+#, python-format
+msgid "Preview of \"%(pagename)s\""
+msgstr "\"%(pagename)s\"のプレビュー"
+
+#: PageEditor.py:186
+#, python-format
+msgid "Your edit lock on %(lock_page)s has expired!"
+msgstr "%(lock_page)sに対するロックが期間切れになりました。"
+
+#: PageEditor.py:187
+#, python-format
+msgid "Your edit lock on %(lock_page)s will expire in # minutes."
+msgstr "%(lock_page)sに対するロックは#分で期限切れになります。"
+
+#: PageEditor.py:188
+#, python-format
+msgid "Your edit lock on %(lock_page)s will expire in # seconds."
+msgstr "%(lock_page)sに対するロックは#秒で期限切れになります。"
+
+#: PageEditor.py:224
+msgid "Someone else deleted this page while you were editing!"
+msgstr "編集中に他のユーザがこのページを削除してしまいました。"
+
+#: PageEditor.py:226
+msgid "Someone else changed this page while you were editing!"
+msgstr "編集中に他のユーザがこのページを変更しました。"
+
+#: PageEditor.py:239 wikiaction.py:671
+#, python-format
+msgid ""
+"Someone else saved this page while you were editing!\n"
+"Please review the page and save then. Do not save this page as it is!\n"
+"Have a look at the diff of %(difflink)s to see what has been changed."
+msgstr "編集中に他のユーザがこのページを変更しました。"
+"このページはこのままの状態では保存しないでください。"
+"%(difflink)sにて変更された内容を確認し、問題を解決してから保存してください。"
+
+#: PageEditor.py:266
+#, python-format
+msgid "[Content of new page loaded from %s]"
+msgstr "[新しいページの内容が%sからロードされました]"
+
+#: PageEditor.py:268
+#, python-format
+msgid "[Template %s not found]"
+msgstr "[ひな型%sが見つかりません]"
+
+#: PageEditor.py:278
+msgid "Reduce editor size"
+msgstr "エディタを縮小"
+
+#: PageEditor.py:282
+msgid "Skip to preview"
+msgstr "プレビューへ移動"
+
+#: PageEditor.py:284
+#, python-format
+msgid "[current page size <strong>%(size)d</strong> bytes]"
+msgstr "[現在のページサイズ: <strong>%(size)d</strong>バイト]"
+
+#: PageEditor.py:300
+#, python-format
+msgid "Describe %s here."
+msgstr "%sについてここに記述してください。"
+
+#: PageEditor.py:318
+msgid "Optional comment about this change"
+msgstr "この修正についてのコメント(省略可)"
+
+#: PageEditor.py:325
+msgid "<No addition>"
+msgstr "<追加無し>"
+
+#: PageEditor.py:326
+#, python-format
+msgid "Make this page belong to category %(category)s"
+msgstr "このページを%(category)sに分類"
+
+#: PageEditor.py:333
+msgid "Check Spelling"
+msgstr "スペルチェック"
+
+#: PageEditor.py:335
+msgid "Save Changes"
+msgstr "編集内容の保存"
+
+#: PageEditor.py:336
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: PageEditor.py:342
+#, python-format
+msgid ""
+"By hitting <strong>%(save_button_text)s</strong> you put your changes under "
+"the %(license_link)s.\n"
+"If you don't want that, hit <strong>%(cancel_button_text)s</strong> to "
+"cancel your changes."
+msgstr "<strong>%(save_button_text)s</strong>をクリックすると%(license_link)sに編集内容が保存されます。編集をキャンセルする場合には<strong>%(cancel_button_text)s</strong>をクリックしてください。"
+
+#: PageEditor.py:356
+msgid "Preview"
+msgstr "プレビュー"
+
+#: PageEditor.py:361
+msgid "Send mail notification"
+msgstr "メールで通知"
+
+#: PageEditor.py:369
+msgid "Remove trailing whitespace from each line"
+msgstr "行末の空白を削除"
+
+#: PageEditor.py:382
+msgid ""
+"<dt>Emphasis:</dt>\n"
+"<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
+"italics</em></strong>''''';\n"
+"    ''<em>mixed '''<strong>bold</strong>''' and italics</em>''; ---- "
+"horizontal rule.</dd>\n"
+"<dt>Headings:</dt>\n"
+"<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;\n"
+"    ==== Title 4 ====; ===== Title 5 =====.</dd>\n"
+"<dt>Lists:</dt>\n"
+"<dd>space and one of * bullets; 1., a., A., i., I. numbered items;\n"
+"    1.#n start numbering at n; space alone indents.</dd>\n"
+"<dt>Links:</dt>\n"
+"<dd>JoinCapitalizedWords; [\"brackets and double quotes\"];\n"
+"    url; [url]; [url label].</dd>\n"
+"<dt>Tables:</dt>\n"
+"<dd>|| cell text |||| cell text spanning two columns ||;\n"
+"    no trailing white space allowed after tables or titles.</dd>\n"
+msgstr ""
+"<dt>強調:</dt>\n"
+"<dd>''<em>イタリック体</em>''; '''<strong>ボールド体</strong>'''; '''''"
+"<strong><em>ボールドイタリック体</em></strong>''''';\n"
+"    ''<em>'''<strong>ボールド体</strong>'''とイタリック体</em>の混合''; ---- "
+"水平線</dd>\n"
+"<dt>表題:</dt>\n"
+"<dd>= 表題1 =; == 表題2 ==; === 表題3 ===;\n"
+"    ==== 表題4 ====; ===== 表題5 =====</dd>\n"
+"<dt>リスト:</dt>\n"
+"<dd>\" \"に続けて「\"* \"」でビュレット、"
+"「\"1. \", \"a. \", \"A. \", \"i. \", \"I. \"」のいずれかで番号付きアイテム;\n"
+"    「\"1.#n \"」でnから番号付け; \" \"のみでインデント</dd>\n"
+"<dt>リンク:</dt>\n"
+"<dd>JoinCapitalizedWords; [\"大括弧とダブルクォート\"];\n"
+"    url; [url]; [url ラベル]</dd>\n"
+"<dt>表:</dt>\n"
+"<dd>|| セルのテキスト |||| 2列にわたるセルのテキスト ||;\n"
+"    表や表題の後に空白を入力しないでください</dd>\n"
+
+#: PageEditor.py:422
+msgid "Edit was cancelled."
+msgstr "編集はキャンセルされました。"
+
+#: PageEditor.py:467
+#, python-format
+msgid ""
+"Dear Wiki user,\n"
+"\n"
+"You have subscribed to a wiki page or wiki category on \"%(sitename)s\" for "
+"change notification.\n"
+"\n"
+"The following page has been changed by %(editor)s:\n"
+"%(pagelink)s\n"
+"\n"
+msgstr ""
+"このメールは、\n"
+"\"%(sitename)s\"\n"
+"におけるwikiページまたはwikiカテゴリーに対する\n"
+"変更通知を希望したユーザにお送りしています。\n"
+"\n"
+"以下のページが%(editor)sさんによって変更されました。\n"
+"%(pagelink)s\n"
+"\n"
+
+#: PageEditor.py:478
+#, python-format
+msgid ""
+"The comment on the change is:\n"
+"%(comment)s\n"
+"\n"
+msgstr ""
+"この変更には以下のコメントが付けられています。\n"
+"%(comment)s\n"
+"\n"
+
+#: PageEditor.py:483
+msgid "No older revisions of the page stored, diff not available."
+msgstr "このページの古いリビジョンはありません。"
+
+#: PageEditor.py:493
+msgid "No differences found!\n"
+msgstr "違いは見つかりませんでした。\n"
+
+#: PageEditor.py:496
+#, python-format
+msgid "The diff function returned with error code %(rc)s!"
+msgstr "diffが異常終了しました。エラーコード: %(rc)s"
+
+#: PageEditor.py:499
+#, python-format
+msgid "[%(sitename)s] Update of \"%(pagename)s\""
+msgstr "[%(sitename)s] \"%(pagename)s\"の更新"
+
+#: PageEditor.py:518
+msgid "You will not be notified of your own changes!"
+msgstr "自分で行った変更は通知されません。"
+
+#: PageEditor.py:525
+msgid "Status of sending notification mails:"
+msgstr "メール通知のステータス:"
+
+#: PageEditor.py:531
+#, python-format
+msgid "[%(lang)s] %(recipients)s: %(status)s"
+msgstr "[%(lang)s] %(recipients)s: %(status)s"
+
+#: PageEditor.py:536
+msgid "Nobody subscribed to this page, no mail sent."
+msgstr "このページを購読しているユーザはいないので、"
+"メールでの通知は行われませんでした。"
+
+#: PageEditor.py:647
+#, python-format
+msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
+msgstr "\"%(pagename)s\"のバックアップが%(date)sに作成されました。"
+
+#: PageEditor.py:721
+msgid "You are not allowed to edit this page!"
+msgstr "このページを削除する権限がありません。"
+
+#: PageEditor.py:727
+msgid "You cannot save empty pages."
+msgstr "空のページは保存できません。"
+
+#: PageEditor.py:730
+msgid ""
+"Sorry, someone else saved the page while you edited it.\n"
+"<p>Please do the following: Use the back button of your browser, and "
+"cut&paste\n"
+"your changes from there. Then go forward to here, and click EditText again.\n"
+"Now re-add your changes to the current page contents.</p>\n"
+"<p><em>Do not just replace\n"
+"the content editbox with your version of the page, because that would\n"
+"delete the changes of the other person, which is excessively rude!</em></p>\n"
+msgstr ""
+"編集中に他のユーザがページを変更しました。\n"
+"<p>次の手順で対所してください。\n"
+"<ul>"
+"<li>ブラウザの「戻る」ボタンを使って編集ページに戻る</li>"
+"<li>編集した箇所をカットする</li>"
+"<li>ブラウザの「進む」ボタンでこのページにりEditTextをクリックする</li>"
+"<li>現在のページにあらためて編集を行う</li>"
+"</ul>"
+"<p><em>絶対にこのままの状態で保存しないでください。\n"
+"他のユーザが行った変更が消えてしまいます。</em></b>\n"
+
+#: PageEditor.py:741
+#, python-format
+msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
+msgstr "この変更に対するバックアップは"
+"<a href=\"%(backup_url)s\">こちら</a>です。"
+
+#: PageEditor.py:744
+msgid "You did not change the page content, not saved!"
+msgstr "このページに対する変更は行われませんでした。"
+
+#: PageEditor.py:751
+msgid ""
+"You can't change ACLs on this page since you have no admin rights on it!"
+msgstr "このページのACL(アクセスコントロールリスト)を"
+"変更する権限がありません。"
+
+#: PageEditor.py:757
+msgid "Thank you for your changes. Your attention to detail is appreciated."
+msgstr ""
+"ページが更新されました。Thank you!"
+
+#: PageEditor.py:853
+#, python-format
+msgid ""
+"The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
+"granted the lock for this page."
+msgstr ""
+"このページに対する%(owner)sのロックは%(mins_ago)dに期限切れになりました。"
+"現在、あなたがこのページをロックしています。"
+
+#: PageEditor.py:859
+#, python-format
+msgid ""
+"Other users will be <em>blocked</em> from editing this page until %(bumptime)"
+"s."
+msgstr ""
+"他のユーザは%(bumptime)sまで<em>このページを編集することはできません</em>。"
+
+#: PageEditor.py:863
+#, python-format
+msgid ""
+"Other users will be <em>warned</em> until %(bumptime)s that you are editing "
+"this page."
+msgstr ""
+"他のユーザは%(bumptime)sまであなたがこのページを編集していると"
+"<em>警告されます</em>。"
+
+#: PageEditor.py:866
+msgid "Use the Preview button to extend the locking period."
+msgstr "ロックの期限を延長するには、プレビューボタンを"
+"クリックしてください。"
+
+#: PageEditor.py:874
+#, python-format
+msgid ""
+"This page is currently <em>locked</em> for editing by %(owner)s until %"
+"(timestamp)s, i.e. for %(mins_valid)d minute(s)."
+msgstr ""
+"このページは%(timestamp)sまで(あと%(mins_valid)d分)%(owner)sによって<em>ロックされれている</em>ため、編集できません。"
+
+#: PageEditor.py:880
+#, python-format
+msgid ""
+"This page was opened for editing or last previewed at %(timestamp)s by %"
+"(owner)s.<br>\n"
+"<strong class=\"highlight\">You should <em>refrain from editing</em> this "
+"page for at least another %(mins_valid)d minute(s),\n"
+"to avoid editing conflicts.</strong><br>\n"
+"To leave the editor, press the Cancel button."
+msgstr ""
+"このページは%(timestamp)sに%(owner)sによって編集が開始されています。<br>\n"
+"<strong class=\"highlight\">編集の衝突を避けるため、あと%(mins_valid)d分は"
+"<em>編集を行わないでください</em>。</strong><br>\n"
+"キャンセルボタンで編集を中断できます。"
+
+#: PageEditor.py:914 user.py:77
+msgid "<unknown>"
+msgstr "<unknown>"
+
+#: config.py:130
+msgid "Diffs"
+msgstr "差分"
+
+#: config.py:131
+msgid "Info"
+msgstr "情報"
+
+#: config.py:132 macro/Navigation.py:164
+msgid "Edit"
+msgstr "編集"
+
+#: config.py:133
+msgid "UnSubscribe"
+msgstr "購読中止"
+
+#: config.py:134
+msgid "Subscribe"
+msgstr "購読"
+
+#: config.py:135
+msgid "Raw"
+msgstr "生データ"
+
+#: config.py:136
+msgid "XML"
+msgstr "XML"
+
+#: config.py:137
+msgid "Print"
+msgstr "印刷"
+
+#: config.py:138
+msgid "View"
+msgstr "見る"
+
+#: config.py:139
+msgid "Home"
+msgstr "ホーム"
+
+#: config.py:140
+msgid "Up"
+msgstr "上へ"
+
+#: request.py:390
+msgid "Unknown action"
+msgstr "未定義のアクション"
+
+#: request.py:411
+msgid "Can't work out query"
+msgstr "問い合わせの形式が間違っています。"
+
+#: user.py:100
+msgid "Open editor on double click"
+msgstr "ダブルクリックでエディタを開く"
+
+#: user.py:101
+msgid "Remember last page visited"
+msgstr "最後に訪れたページを記憶する"
+
+#: user.py:102
+msgid "Show emoticons"
+msgstr "emoticonを表示する"
+
+#: user.py:103
+msgid "Show fancy links"
+msgstr "リンクを飾り付きで表示する"
+
+#: user.py:104
+msgid "Show question mark for non-existing pagelinks"
+msgstr "存在しないページへのリンクには\"?\"を表示する"
+
+#: user.py:105
+msgid "Show page trail"
+msgstr "訪れたページの履歴を表示する"
+
+#: user.py:106
+msgid "Show icon toolbar"
+msgstr "アイコンツールバーを表示する"
+
+#: user.py:107
+msgid "Show top/bottom links in headings"
+msgstr "表題に先頭/末尾へのリンクを表示する"
+
+#: user.py:108
+msgid "Show fancy diffs"
+msgstr "差分を飾り付きで表示する"
+
+#: user.py:109
+msgid "Add spaces to displayed wiki names"
+msgstr "wiki nameを空白付きで表示する"
+
+#: user.py:110
+msgid "Remember login information forever"
+msgstr "ログインの情報を保持"
+
+#: user.py:111
+msgid "Disable this account forever"
+msgstr "このアカウントを無効にする"
+
+#: userform.py:59
+msgid "Cookie deleted. You are now logged out."
+msgstr "クッキーが削除されました。ログアウト完了。"
+
+#: userform.py:63 wikiaction.py:702 util/mail.py:43
+msgid ""
+"This wiki is not enabled for mail processing. Contact the owner of the wiki, "
+"who can either enable email, or remove the \"Subscribe\" icon."
+msgstr "このwikiではメールが利用できません。管理者に問い合わせてください。"
+
+#: userform.py:68
+msgid "Please provide a valid email address!"
+msgstr "正しいメールアドレスを入力してください。"
+
+#: userform.py:79
+#, python-format
+msgid "Found no account matching the given email address '%(email)s'!"
+msgstr ""
+"メールアドレス\"'%(email)s'\"に該当するアカウントが見つかりません。"
+
+#: userform.py:104
+msgid "Unknown user name or password."
+msgstr "ユーザ名またはパスワードが違います。"
+
+#: userform.py:117
+msgid "Please enter a user name!"
+msgstr "ユーザ名を入力してください。"
+
+#: userform.py:123
+msgid "User name already exists!"
+msgstr "指定されたユーザ名はすでに存在します。"
+
+#: userform.py:133
+msgid "Passwords don't match!"
+msgstr "パスワードが一致していません。"
+
+#: userform.py:192
+msgid "Please enter your name like that: FirstnameLastname"
+msgstr "名前は\"FirstnameLastname\"のように入力してください。"
+
+#: userform.py:194
+msgid ""
+"Please provide your email address - without that you could not get your "
+"login data via email just in case you lose it."
+msgstr ""
+"メールアドレスを入力してください。ログイン情報を忘れてしまった際、"
+"メールにてお知らせするために必要となります。"
+
+#: userform.py:202
+msgid "This user name already belongs to somebody else."
+msgstr "このユーザ名はすでに利用されています。"
+
+#: userform.py:204
+msgid "This email already belongs to somebody else."
+msgstr "このメールアドレスはすでに利用されています。"
+
+#: userform.py:211
+msgid "User preferences saved!"
+msgstr "User preferencesを保存しました。"
+
+#: userform.py:273
+msgid "Default"
+msgstr "デフォルト"
+
+#: userform.py:286
+msgid "<Browser setting>"
+msgstr "<ブラウザの設定>"
+
+#: userform.py:336
+msgid "Save"
+msgstr "保存"
+
+#: userform.py:337
+msgid "Logout"
+msgstr "ログアウト"
+
+#: userform.py:341
+msgid "Login"
+msgstr "ログイン"
+
+#: userform.py:342
+msgid "Create Profile"
+msgstr "プロファイル作成"
+
+#: userform.py:345
+msgid "Mail me my account data"
+msgstr "アカウント情報をメールする"
+
+#: userform.py:349
+msgid "Name"
+msgstr "名前"
+
+#: userform.py:353
+msgid "(Use FirstnameLastname)"
+msgstr "(\"FirstnameLastname\"形式)"
+
+#: userform.py:356
+msgid "Password"
+msgstr "パスワード"
+
+#: userform.py:362
+msgid "Password repeat"
+msgstr "パスワード(もう一度)"
+
+#: userform.py:366
+msgid "(Only when changing passwords)"
+msgstr "(パスワード変更時のみ)"
+
+#: userform.py:369
+msgid "Email"
+msgstr "メールアドレス"
+
+#: userform.py:380
+msgid "Preferred theme"
+msgstr "テーマ"
+
+#: userform.py:382
+msgid "User CSS URL"
+msgstr "CSSのURL"
+
+#: userform.py:386
+msgid "(Leave it empty for disabling user CSS)"
+msgstr "(CSSを無効にするには空にする)"
+
+#: userform.py:389
+msgid "Editor size"
+msgstr "エディタのサイズ"
+
+#: userform.py:397
+msgid "Time zone"
+msgstr "タイムゾーン"
+
+#: userform.py:398
+msgid "Your time is"
+msgstr "あなたの時間"
+
+#: userform.py:401
+msgid "Server time is"
+msgstr "サーバの時間"
+
+#: userform.py:406
+msgid "Date format"
+msgstr "日付の形式"
+
+#: userform.py:408
+msgid "Preferred language"
+msgstr "言語"
+
+#: userform.py:421
+msgid "General options"
+msgstr "一般的なオプション"
+
+#: userform.py:423
+msgid "Quick links"
+msgstr "クイックリンク"
+
+#: userform.py:438
+msgid "This list does not work, unless you have entered a valid email address!"
+msgstr "このリストは、有効なメールアドレスを入力しなければ利用できません。"
+
+#: userform.py:443
+msgid "Subscribed wiki pages (one regex per line)"
+msgstr "購読中のwikiページ<br>(1行あたりひとつの正規表現)"
+
+#: userform.py:481 wikiaction.py:404 action/AttachFile.py:587
+msgid "Action"
+msgstr "アクション"
+
+#: wikiaction.py:57 wikiaction.py:108
+#, python-format
+msgid "Please use a more selective search term instead of '%(needle)s'!"
+msgstr "検索キーワード\"(%(needle)s\"が適切ではありません。他のキーワードでやり直してください。"
+
+#: wikiaction.py:61
+#, python-format
+msgid "Full text search for \"%s\""
+msgstr "\"%s\" の全文検索結果"
+
+#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
+msgid "match"
+msgstr "箇所一致"
+
+#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
+msgid "matches"
+msgstr "箇所一致"
+
+#: wikiaction.py:111
+#, python-format
+msgid "Title search for \"%s\""
+msgstr "\"%s\"のタイトル検索結果"
+
+#: wikiaction.py:155
+#, python-format
+msgid "%(hits)d hits out of %(pages)d pages searched."
+msgstr "%(pages)dページ中%(hits)d箇所一致しました。"
+
+#: wikiaction.py:156
+#, python-format
+msgid "Needed %(timer).1f seconds."
+msgstr "検索所要時間: %(timer).1f秒"
+
+#: wikiaction.py:227
+msgid "No older revisions available!"
+msgstr "古いリビジョンはありません。"
+
+#: wikiaction.py:231
+#, python-format
+msgid "Diff for \"%s\""
+msgstr "\"%s\"の差分"
+
+#: wikiaction.py:283
+#, python-format
+msgid "Differences between versions dated %s and %s"
+msgstr "%sと%sのバージョン間の差分"
+
+#: wikiaction.py:286
+#, python-format
+msgid "(spanning %d versions)"
+msgstr "(その間の編集: %d回)"
+
+#: wikiaction.py:296 util/diff.py:41
+msgid "No differences found!"
+msgstr "違いが見つかりませんでした。"
+
+#: wikiaction.py:298
+#, python-format
+msgid "The page was saved %(count)d times, though!"
+msgstr "その間の保存: %(count)d回"
+
+#: wikiaction.py:309
+msgid "Ignore changes in the amount of whitespace"
+msgstr "空白文字数の違いを無視"
+
+#: wikiaction.py:330
+msgid "General Information"
+msgstr "一般的な情報"
+
+#: wikiaction.py:333
+#, python-format
+msgid "Page size: %d"
+msgstr "ページサイズ: %d"
+
+#: wikiaction.py:338
+msgid "SHA digest of this page's content is:"
+msgstr "このページのSHAダイジェスト:"
+
+#: wikiaction.py:347
+msgid "The following users subscribed to this page:"
+msgstr "このページを購読中のユーザ:"
+
+#: wikiaction.py:362
+msgid "This page links to the following pages:"
+msgstr "このページは以下のページへリンクしています:"
+
+#: wikiaction.py:373 wikiaction.py:512
+msgid "Revision History"
+msgstr "更新履歴"
+
+#: wikiaction.py:398
+msgid "Date"
+msgstr "日付"
+
+#: wikiaction.py:399 action/AttachFile.py:586
+msgid "Size"
+msgstr "サイズ"
+
+#: wikiaction.py:400
+msgid "Diff"
+msgstr "差分"
+
+#: wikiaction.py:402
+msgid "Editor"
+msgstr "編集者"
+
+#: wikiaction.py:403
+msgid "Comment"
+msgstr "コメント"
+
+#: wikiaction.py:442 wikiaction.py:453 action/AttachFile.py:188
+msgid "view"
+msgstr "見る"
+
+#: wikiaction.py:445 wikiaction.py:456
+msgid "raw"
+msgstr "生データ"
+
+#: wikiaction.py:448 wikiaction.py:459
+msgid "print"
+msgstr "印刷"
+
+#: wikiaction.py:463
+msgid "revert"
+msgstr "前のバージョンに戻す"
+
+#: wikiaction.py:474 macro/RecentChanges.py:41
+#, python-format
+msgid "Revert to version dated %(datestamp)s."
+msgstr "%(datestamp)sのバージョンに戻す"
+
+#: wikiaction.py:481
+msgid "N/A"
+msgstr "該当せず"
+
+#: wikiaction.py:509
+#, python-format
+msgid "Info for \"%s\""
+msgstr "\"%s\"の情報"
+
+#: wikiaction.py:512 wikiaction.py:514
+#, python-format
+msgid "Show \"%(title)s\""
+msgstr "\"%(title)s\"を表示"
+
+#: wikiaction.py:514
+msgid "General Page Infos"
+msgstr "一般的な情報"
+
+#: wikiaction.py:516
+#, python-format
+msgid "Show chart \"%(title)s\""
+msgstr "\"%(title)s\"のチャートを表示"
+
+#: wikiaction.py:516 stats/hitcounts.py:154
+msgid "Page hits and edits"
+msgstr "ページの参照と更新"
+
+#: wikiaction.py:588
+msgid "You are not allowed to revert this page!"
+msgstr "このページを前のバージョンに戻す権限がありません。"
+
+#: wikiaction.py:598
+msgid "An error occurred while reverting the page."
+msgstr "前のバージョンに戻せませんでした。"
+
+#: wikiaction.py:698
+msgid "You are not allowed to subscribe to a page you can't read."
+msgstr "読む権限がないページを購読することはできません。"
+
+#: wikiaction.py:707
+msgid ""
+"You didn't create a user profile yet. Select UserPreferences in the upper "
+"right corner to create a profile."
+msgstr ""
+"ユーザプロファイルをまだ作成していません。"
+"右上のUserPreferencesをクリックし、プロファイルを作成してください。"
+
+#: wikiaction.py:712
+msgid ""
+"You didn't enter an email address in your profile. Select your name "
+"(UserPreferences) in the upper right corner and enter a valid email address."
+msgstr ""
+"プロファイルにメールアドレスが存在しません。"
+"UserPreferencesのページにてメールアドレスを登録してください。"
+
+#: wikiaction.py:717
+msgid "You are already subscribed to this page."
+msgstr "既にこのページを購読中です。"
+
+#: wikiaction.py:718 wikiaction.py:725
+msgid ""
+"To unsubscribe, go to your profile and delete this page from the "
+"subscription list."
+msgstr ""
+"購読を中止するには、UserPreferencesのページにて購読リストからこのページを"
+"削除してください。"
+
+#: wikiaction.py:724
+msgid "You have been subscribed to this page."
+msgstr "このページの購読を開始しました。"
+
+#: wikiform.py:31
+#, python-format
+msgid "Required attribute \"%(attrname)s\" missing"
+msgstr "必須項目\"%(attrname)s\"を入力してください。"
+
+#: wikiform.py:95
+msgid "Submitted form data:"
+msgstr "提出されたフォームデータ:"
+
+#: wikimacro.py:150
+msgid "Display context of search results"
+msgstr "検索結果のコンテキストを表示"
+
+#: wikimacro.py:152
+msgid "Case-sensitive searching"
+msgstr "大文字/小文字を区別して検索"
+
+#: wikimacro.py:159 wikimacro.py:165
+msgid "Go"
+msgstr "検索"
+
+#: wikimacro.py:257
+msgid "Include system pages"
+msgstr "システムページを含める"
+
+#: wikimacro.py:257
+msgid "Exclude system pages"
+msgstr "システムページを含めない"
+
+#: wikimacro.py:258
+msgid "Plain title index"
+msgstr "タイトルインデックス"
+
+#: wikimacro.py:259
+msgid "XML title index"
+msgstr "タイトルインデックス(XML)"
+
+#: wikimacro.py:309
+msgid "Python Version"
+msgstr "Pythonのバージョン"
+
+#: wikimacro.py:310
+msgid "MoinMoin Version"
+msgstr "MoinMoinのバージョン"
+
+#: wikimacro.py:310
+#, python-format
+msgid "Release %s [Revision %s]"
+msgstr "リリース %s [リビジョン %s]"
+
+#: wikimacro.py:312
+msgid "4Suite Version"
+msgstr "4Suiteのバージョン"
+
+#: wikimacro.py:313
+msgid "Number of pages"
+msgstr "ページ数"
+
+#: wikimacro.py:314
+msgid "Number of system pages"
+msgstr "システムページ数"
+
+#: wikimacro.py:315
+msgid "Number of backup versions"
+msgstr "バックアップバージョン数"
+
+#: wikimacro.py:316
+msgid "Accumulated page sizes"
+msgstr "ページサイズの合計"
+
+#: wikimacro.py:319
+msgid "Entries in edit log"
+msgstr "編集ログ中のエントリー数"
+
+#: wikimacro.py:320
+#, python-format
+msgid "%(logcount)s (%(logsize)s bytes)"
+msgstr "%(logcount)s (%(logsize)sバイト)"
+
+#: wikimacro.py:326
+msgid "NONE"
+msgstr "なし"
+
+#: wikimacro.py:329
+msgid "Global extension macros"
+msgstr "グローバル拡張マクロ"
+
+#: wikimacro.py:331
+msgid "Local extension macros"
+msgstr "ローカル拡張マクロ"
+
+#: wikimacro.py:333
+msgid "Global extension actions"
+msgstr "グローバル拡張アクション"
+
+#: wikimacro.py:335
+msgid "Local extension actions"
+msgstr "ローカル拡張アクション"
+
+#: wikimacro.py:337
+msgid "Installed processors"
+msgstr "プロセッサ"
+
+#: wikimacro.py:358
+#, python-format
+msgid "ERROR in regex '%s'"
+msgstr "正規表現'%s'に誤りがあります。"
+
+#: wikimacro.py:395 wikimacro.py:405
+#, python-format
+msgid "Bad timestamp '%s'"
+msgstr "不正なタイムスタンプ '%s'"
+
+#: wikiutil.py:600 util/wikiext.py:61
+#, python-format
+msgid "Expected \"=\" to follow \"%(token)s\""
+msgstr "\"%(token)s\"の後に\"=\"がありません。"
+
+#: wikiutil.py:605 util/wikiext.py:66
+#, python-format
+msgid "Expected a value for key \"%(token)s\""
+msgstr "\"%(token)s\"キーに値がありません。"
+
+#: wikiutil.py:908
+msgid "Wiki Markup"
+msgstr "Wikiマークアップ"
+
+#: wikiutil.py:910
+msgid "Print View"
+msgstr "印刷ビュー"
+
+#: action/AttachFile.py:102
+#, python-format
+msgid "[%d attachments]"
+msgstr "[添付ファイル数: %d]"
+
+#: action/AttachFile.py:120
+#, python-format
+msgid ""
+"There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
+"page."
+msgstr ""
+"このページには<a href=\"%(link)s\">%(count)s個の添付ファイル</a>が"
+"あります。"
+
+#: action/AttachFile.py:152 action/AttachFile.py:417
+msgid "Filename of attachment not specified!"
+msgstr " 添付ファイル名が指定されていません。"
+
+#: action/AttachFile.py:159
+#, python-format
+msgid "Attachment '%(filename)s' does not exist!"
+msgstr "添付するファイル'%(filename)s'は存在しません。"
+
+#: action/AttachFile.py:177
+msgid ""
+"<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
+"tt></strong>, \n"
+"as shown below in the list of files. \n"
+"Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
+"since this is subject to change and can break easily.</p>"
+msgstr ""
+"添付ファイルを参照するには、(下のファイル一覧にあるように)"
+"\"<strong><tt>attachment:filename</tt></strong>\"と記述します。"
+
+#: action/AttachFile.py:185
+msgid "del"
+msgstr "削除"
+
+#: action/AttachFile.py:186
+msgid "get"
+msgstr "ダウンロード"
+
+#: action/AttachFile.py:187
+msgid "edit"
+msgstr "編集"
+
+#: action/AttachFile.py:225
+#, python-format
+msgid "No attachments stored for %(pagename)s"
+msgstr "%(pagename)sに添付ファイルはありません。"
+
+#: action/AttachFile.py:267
+msgid "Edit drawing"
+msgstr "drawingを編集"
+
+#: action/AttachFile.py:299
+msgid "Attached Files"
+msgstr "添付ファイル"
+
+#: action/AttachFile.py:303 action/AttachFile.py:367
+msgid "You are not allowed to attach a file to this page."
+msgstr "ファイルを添付する権限がありません。"
+
+#: action/AttachFile.py:310
+msgid "New Attachment"
+msgstr "ファイルの新規添付"
+
+#: action/AttachFile.py:311
+msgid ""
+"An upload will never overwrite an existing file. If there is a name\n"
+"conflict, you have to rename the file that you want to upload.\n"
+"Otherwise, if \"Rename to\" is left blank, the original filename will be "
+"used."
+msgstr ""
+"アップロードでは既存のファイルを上書きしません。"
+"同じファイル名が存在する場合には、アップロードするファイルの名前を"
+"変更してください。"
+"\"名前を変更\"が空白の場合、オリジナルのファイル名が使われます。"
+
+#: action/AttachFile.py:334
+msgid "File to upload"
+msgstr "アップロードするファイル"
+
+#: action/AttachFile.py:335
+msgid "MIME Type (optional)"
+msgstr "MIMEタイプ (任意)"
+
+#: action/AttachFile.py:336
+msgid "Save as"
+msgstr "ファイル名を指定して保存"
+
+#: action/AttachFile.py:338
+msgid "Upload"
+msgstr "アップロード"
+
+#: action/AttachFile.py:353
+msgid "File attachments are not allowed in this wiki!"
+msgstr "このwikiではファイルの添付はできません。"
+
+#: action/AttachFile.py:360
+msgid "You are not allowed to save a drawing on this page."
+msgstr "drawingを保存する権限がありません。"
+
+#: action/AttachFile.py:372
+msgid "You are not allowed to delete attachments on this page."
+msgstr "添付ファイルを削除する権限がありません。"
+
+#: action/AttachFile.py:377
+msgid "You are not allowed to get attachments from this page."
+msgstr "添付ファイルをダウンロードする権限がありません。"
+
+#: action/AttachFile.py:382
+msgid "You are not allowed to view attachments of this page."
+msgstr "添付ファイルを見る権限がありません。"
+
+#: action/AttachFile.py:384
+#, python-format
+msgid "Unsupported upload action: %s"
+msgstr "サポートされていないアップロードアクション: %s"
+
+#: action/AttachFile.py:394
+#, python-format
+msgid "Attachments for \"%(pagename)s\""
+msgstr "\"%(pagename)s の添付ファイル\""
+
+#: action/AttachFile.py:444
+#, python-format
+msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
+msgstr "添付ファイル'%(target)s'(サーバでのファイル名'%(filename)s')は"
+"すでに存在します。"
+
+#: action/AttachFile.py:455
+#, python-format
+msgid ""
+"Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
+"saved."
+msgstr ""
+"添付ファイル'%(target)s'(サーバでのファイル名'%(filename)s'、%(bytes)d)"
+"を保存しました。"
+
+#: action/AttachFile.py:500 macro/RecentChanges.py:36
+#, python-format
+msgid "Attachment '%(filename)s' deleted."
+msgstr "添付ファイル\"%(filename)s\"を削除しました。"
+
+#: action/AttachFile.py:533
+#, python-format
+msgid "Attachment '%(filename)s'"
+msgstr "添付ファイル '%(filename)s'"
+
+#: action/AttachFile.py:548
+msgid "Unknown file type, cannot display this attachment inline."
+msgstr "ファイルタイプが不明なため、添付ファイルを表示できません。"
+
+#: action/AttachFile.py:561
+#, python-format
+msgid "attachment:%(filename)s of %(pagename)s"
+msgstr "%(pagename)sの添付ファイル:%(filename)s"
+
+#: action/DeletePage.py:27
+msgid "You are not allowed to delete this page."
+msgstr "このページを削除する権限がありません。"
+
+#: action/DeletePage.py:33 action/RenamePage.py:29
+msgid "This page is already deleted or was never created!"
+msgstr "このページは既に削除された、またはまだ作られていません。"
+
+#: action/DeletePage.py:41
+msgid "Please use the interactive user interface to delete pages!"
+msgstr "対話的なユーザインターフェースからページを削除してください。"
+
+#: action/DeletePage.py:48
+#, python-format
+msgid "Page \"%s\" was successfully deleted!"
+msgstr "ページ\"%s\"を削除しました。"
+
+#: action/DeletePage.py:53
+msgid "Really delete this page?"
+msgstr "このページを本当に削除しますか？"
+
+#: action/DeletePage.py:54
+msgid "Delete"
+msgstr "削除"
+
+#: action/DeletePage.py:55
+msgid "Optional reason for the deletion"
+msgstr "削除についてのコメント(省略可)"
+
+#: action/LikePages.py:31
+#, python-format
+msgid "No pages match \"%s\"!"
+msgstr "\"%s\"に一致するページはありません。"
+
+#: action/LikePages.py:37
+#, python-format
+msgid "Exactly one matching page for \"%s\" found!"
+msgstr "\"%s\"に一致するページがひとつ見つかりました。"
+
+#: action/LikePages.py:42
+#, python-format
+msgid "Multiple matches for \"%s...%s\""
+msgstr "\"%s...%s\"に一致する箇所が複数見つかりました。"
+
+#: action/LikePages.py:65
+msgid "You cannot use LikePages on an extended pagename!"
+msgstr "拡張ページ名では、LikePagesを利用できません。"
+
+#: action/LikePages.py:121
+#, python-format
+msgid "%(matchcount)d %(matches)s for \"%(title)s\""
+msgstr "%(matchcount)d %(matches)s for \"%(title)s\""
+
+#: action/LocalSiteMap.py:38
+#, python-format
+msgid "Local Site Map for \"%s\""
+msgstr "\"%s\"のローカルサイトマップ"
+
+#: action/RenamePage.py:25
+msgid "You are not allowed to rename pages in this wiki!"
+msgstr "ページ名を変更する権限がありません。"
+
+#: action/RenamePage.py:37
+msgid "Please use the interactive user interface to rename pages!"
+msgstr "対話的なユーザインターフェースからページ名を変更してください。"
+
+#: action/RenamePage.py:45
+#, python-format
+msgid "A page with the name \"%s\" already exists!"
+msgstr "ページ名\"%s\"のページがすでに存在します。"
+
+#: action/RenamePage.py:55
+#, python-format
+msgid "Page \"%s\" was successfully renamed to \"%s\"!"
+msgstr "ページ\"%s\"の名前を\"%s\"に変更しました。"
+
+#: action/RenamePage.py:61
+msgid "Rename"
+msgstr "名前の変更"
+
+#: action/RenamePage.py:62
+msgid "New name"
+msgstr "新しい名前"
+
+#: action/RenamePage.py:63
+msgid "Optional reason for the renaming"
+msgstr "名前の変更についてのコメント(省略可)"
+
+#: action/SpellCheck.py:169
+#, python-format
+msgid "(including %(localwords)d %(pagelink)s)"
+msgstr "%(localwords)d語の%(pagelink)sを含む)"
+
+#: action/SpellCheck.py:171
+#, python-format
+msgid ""
+"The following %(badwords)d words could not be found in the dictionary of %"
+"(totalwords)d words%(localwords)s and are highlighted below:"
+msgstr ""
+"次の%(badwords)d語(ハイライト表示)は、%(totalwords)d語の"
+"辞書%(localwords)s中に見つかりませんでした。"
+
+#: action/SpellCheck.py:190
+msgid "Add checked words to dictionary"
+msgstr "チェックした単語を辞書に追加"
+
+#: action/SpellCheck.py:196
+msgid "No spelling errors found!"
+msgstr "スペルの誤りは見つかりませんでした。"
+
+#: action/SpellCheck.py:210
+msgid "You can't check spelling on a page you can't read."
+msgstr "読む権限がないページのスペルチェックはできません。"
+
+#: action/links.py:28
+#, python-format
+msgid "Full Link List for \"%s\""
+msgstr "\"%s\"の全リンクリスト"
+
+#: macro/Include.py:58
+#, python-format
+msgid "Invalid include arguments \"%s\"!"
+msgstr "引数\"%s\"が不正です。"
+
+#: macro/Include.py:120 macro/Include.py:130
+#, python-format
+msgid "Nothing found for \"%s\"!"
+msgstr "\"%s\"に対しては、何も見つかりませんでした。"
+
+#: macro/Navigation.py:103
+#, python-format
+msgid "Unsupported navigation scheme '%(scheme)s'!"
+msgstr "サポートされていないナビゲーションスキーム'%(scheme)s'です。"
+
+#: macro/Navigation.py:120 macro/Navigation.py:191
+msgid "No parent page found!"
+msgstr "親ページが存在しません。"
+
+#: macro/Navigation.py:162
+msgid "Wiki"
+msgstr "Wiki"
+
+#: macro/Navigation.py:168
+msgid "Slideshow"
+msgstr "スライドショー"
+
+#: macro/Navigation.py:180
+msgid "Start"
+msgstr "開始"
+
+#: macro/Navigation.py:214
+#, python-format
+msgid "Slide %(pos)d of %(size)d"
+msgstr "スライド番号 %(pos)d/%(size)d"
+
+#: macro/OrphanedPages.py:43
+msgid "No orphaned pages in this wiki."
+msgstr "このwikiに参照元がないページはありません。"
+
+#: macro/RandomQuote.py:44
+#, python-format
+msgid "No quotes on %(pagename)s."
+msgstr "%(pagename)sにquoteはありません。"
+
+#: macro/RecentChanges.py:34
+#, python-format
+msgid "Upload of attachment '%(filename)s'."
+msgstr "添付ファイル'%(filename)s'のアップロード"
+
+#: macro/RecentChanges.py:38
+#, python-format
+msgid "Drawing '%(filename)s' saved."
+msgstr "drawing '%(filename)s'の保存"
+
+#: macro/RecentChanges.py:89
+#, python-format
+msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
+msgstr "[%(hours)d時間&nbsp;%(mins)d分&nbsp;前]"
+
+#: macro/RecentChanges.py:239
+msgid "(no bookmark set)"
+msgstr "(ブックマークなし)"
+
+#: macro/RecentChanges.py:241
+#, python-format
+msgid "(currently set to %s)"
+msgstr "(%sにセットされています)"
+
+#: macro/RecentChanges.py:248
+msgid "Update my bookmark timestamp"
+msgstr "ブックマークのタイムスタンプを更新"
+
+#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
+msgid "set bookmark"
+msgstr "ブックマークをセット"
+
+#: macro/RecentChanges.py:327
+msgid "[Bookmark reached]"
+msgstr "[以下、ブックマークのタイムスタンプ以前の更新のため非表示]"
+
+#: macro/ShowSmileys.py:31
+msgid "Markup"
+msgstr "マークアップ"
+
+#: macro/ShowSmileys.py:32
+msgid "Display"
+msgstr "表示"
+
+#: macro/ShowSmileys.py:33
+msgid "Filename"
+msgstr "ファイル名"
+
+#: macro/StatsChart.py:19
+msgid "You need to provide a chart type!"
+msgstr "チャートタイプを指定してください。"
+
+#: macro/StatsChart.py:23
+#, python-format
+msgid "Bad chart type \"%s\"!"
+msgstr "チャートタイプ\"%s\"が不正です。"
+
+#: macro/SystemAdmin.py:39
+msgid "Download XML export of this wiki"
+msgstr "このwikiのXML exportをダウンロード"
+
+#: macro/WantedPages.py:48
+msgid "No wanted pages in this wiki."
+msgstr "このwikiに参照先がないページはありません。"
+
+#: parser/wiki.py:225
+#, python-format
+msgid "Create new drawing \"%(filename)s\""
+msgstr "drawing\"%(filename)s\"の新規作成"
+
+#: parser/wiki.py:227
+#, python-format
+msgid "Upload new attachment \"%(filename)s\""
+msgstr "添付ファイル\"%(filename)s\"のアップロード"
+
+#: parser/wiki.py:258 parser/wiki.py:268
+#, python-format
+msgid "Edit drawing %(filename)s"
+msgstr "drawing\"%(filename)s\"を編集"
+
+#: parser/wiki.py:621
+#, python-format
+msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
+msgstr "\"%(key)s\"の後には\"%(wanted)s\"が必要です"
+"(\"%(token)s\"が指定されました)。"
+
+#: parser/wiki.py:627
+#, python-format
+msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
+msgstr "\"%(key)s\"の後には整数値が必要です"
+"(\"%(token)s\"が指定されました)。"
+
+#: parser/wiki.py:636 parser/wiki.py:645
+#, python-format
+msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
+msgstr "\"%(key)s\"の後には整数値\"%(arg)s\"が必要です。"
+
+#: parser/wiki.py:665
+#, python-format
+msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
+msgstr "\"%(key)s\"の後には色の値\"%(arg)s\"が必要です。"
+
+#: parser/xslt.py:39
+msgid "XSLT option disabled!"
+msgstr "XSLTオプションは無効になっています。"
+
+#: parser/xslt.py:56
+msgid "XSLT processing is not available!"
+msgstr "XSLT processingは利用できません。"
+
+#: parser/xslt.py:134
+#, python-format
+msgid "%(errortype)s processing error"
+msgstr "processingエラー: %(errortype)s"
+
+#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
+msgid "Charts are not available!"
+msgstr "チャートは利用できません。"
+
+#: stats/hitcounts.py:155
+#, python-format
+msgid "%(chart_title)s for %(filterpage)s"
+msgstr "%(chart_title)s for %(filterpage)s"
+
+#: stats/hitcounts.py:157
+msgid ""
+"green=view\n"
+"red=edit"
+msgstr ""
+"緑: ビュー\n"
+"赤: 編集"
+
+#: stats/hitcounts.py:160
+msgid "date"
+msgstr "日付"
+
+#: stats/hitcounts.py:161
+msgid "# of hits"
+msgstr "ヒットカウント"
+
+#: stats/pagesize.py:93
+msgid "Page Size Distribution"
+msgstr "ページサイズの分布"
+
+#: stats/pagesize.py:97
+msgid "page size upper bound [bytes]"
+msgstr "ページサイズの上限[バイト]"
+
+#: stats/pagesize.py:98
+msgid "# of pages of this size"
+msgstr "このサイズのページ数"
+
+#: stats/useragents.py:88
+msgid "Others"
+msgstr "その他"
+
+#: stats/useragents.py:109
+msgid "Distribution of User-Agent Types"
+msgstr "User-Agentタイプの分布"
+
+#: theme/classic.py:154
+msgid "Click here to do a full-text search for this title"
+msgstr "このタイトルで全文検索するには、ここをクリックして下さい"
+
+#: theme/classic.py:294
+msgid "Clear message"
+msgstr "メッセージを消去"
+
+#: theme/classic.py:430
+msgid "ShowText"
+msgstr "テキストを表示"
+
+#: theme/classic.py:431 theme/classic.py:451
+msgid "of this page"
+msgstr " "
+
+#: theme/classic.py:450
+msgid "EditText"
+msgstr "テキストを編集"
+
+#: theme/classic.py:454
+msgid "Immutable page"
+msgstr "編集不可のページ"
+
+#: theme/classic.py:482 i18n/dummy.py:14
+msgid "FindPage"
+msgstr "ページを検索"
+
+#: theme/classic.py:483 i18n/dummy.py:15
+msgid "SiteNavigation"
+msgstr ""
+
+#: theme/classic.py:484
+#, python-format
+msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
+msgstr ""
+"タイトル検索%(titlesearch)s 全文検索%(textsearch)s"
+
+#: theme/classic.py:514
+msgid "Or try one of these actions:"
+msgstr "アクション一覧:"
+
+#: theme/classic.py:666
+#, python-format
+msgid "Show all changes in the last %s days."
+msgstr "%s日以内の変更をすべて表示"
+
+#: util/diff.py:31
+msgid "Line"
+msgstr "行"
+
+#: util/diff.py:60
+msgid "Deletions are marked like this."
+msgstr "削除された箇所はこのように表示されます。"
+
+#: util/diff.py:60
+msgid "Additions are marked like this."
+msgstr "追加された箇所はこのように表示されます。"
+
+#: util/mail.py:71
+#, python-format
+msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
+msgstr "メールサーバ'%(server)s'への接続に失敗しました(理由: %(reason)s)。"
+
+#: util/mail.py:76
+msgid "Mail sent OK"
+msgstr "メール送信完了。"
+
+#: i18n/dummy.py:10
+msgid "FrontPage"
+msgstr ""
+
+#: i18n/dummy.py:11
+msgid "RecentChanges"
+msgstr ""
+
+#: i18n/dummy.py:12
+msgid "TitleIndex"
+msgstr ""
+
+#: i18n/dummy.py:13
+msgid "WordIndex"
+msgstr ""
+
+#: i18n/dummy.py:16
+msgid "HelpContents"
+msgstr ""
+
+#: i18n/dummy.py:17
+msgid "HelpOnFormatting"
+msgstr ""
+
+#: i18n/dummy.py:18
+msgid "UserPreferences"
+msgstr ""
+
+#: i18n/dummy.py:19
+msgid "WikiLicense"
+msgstr ""
+
+#: i18n/dummy.py:21
+msgid "Mon"
+msgstr "月"
+
+#: i18n/dummy.py:21
+msgid "Tue"
+msgstr "火"
+
+#: i18n/dummy.py:21
+msgid "Wed"
+msgstr "水"
+
+#: i18n/dummy.py:21
+msgid "Thu"
+msgstr "木"
+
+#: i18n/dummy.py:21
+msgid "Fri"
+msgstr "金"
+
+#: i18n/dummy.py:21
+msgid "Sat"
+msgstr "土"
+
+#: i18n/dummy.py:21
+msgid "Sun"
+msgstr "日"

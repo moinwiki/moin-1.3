@@ -6,7 +6,7 @@
     @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.29 $"[11:-2]
+__version__ = "$Revision: 1.32 $"[11:-2]
 
 # Imports
 import glob, os, string, sys
@@ -22,7 +22,7 @@ from MoinMoin.version import release, revision
 ### Helper
 #############################################################################
 
-def pagefile_filter(f):
+def trash_filter(f):
     file = os.path.basename(f)
     return file != 'CVS' and file[0] != '.'
 
@@ -143,6 +143,8 @@ only requiring a Python installation.
         'MoinMoin.parser',
         'MoinMoin.processor',
         'MoinMoin.scripts',
+        'MoinMoin.scripts.accounts',
+        'MoinMoin.scripts.xmlrpc-tools',
         'MoinMoin.stats',
         'MoinMoin.support',
         'MoinMoin.support.optik',
@@ -165,12 +167,10 @@ only requiring a Python installation.
     'scripts': moin_scripts,
 
     'data_files': [
-        ('share/moin/cgi-bin',
-            glob.glob('wiki/cgi-bin/*') ),
-        ('share/moin/data',
-            ['wiki/data/intermap.txt']),
-        ('share/moin/data/text',
-            filter(pagefile_filter, glob.glob('wiki/data/text/*'))),
+        ('share/moin/cgi-bin', filter(trash_filter, glob.glob('wiki/cgi-bin/*'))),
+        ('share/moin/data', ['wiki/data/intermap.txt']),
+        ('share/moin/data/text', filter(trash_filter, glob.glob('wiki/data/text/*'))),
+        ('share/moin/data/plugin', ['wiki/data/plugin/__init__.py']),
         ('share/moin/data/plugin/action', ['wiki/data/plugin/action/__init__.py']),
         ('share/moin/data/plugin/macro', ['wiki/data/plugin/macro/__init__.py']),
         ('share/moin/data/plugin/formatter', ['wiki/data/plugin/formatter/__init__.py']),
@@ -179,20 +179,14 @@ only requiring a Python installation.
         ('share/moin/data/plugin/theme', ['wiki/data/plugin/theme/__init__.py']),
         ('share/moin/data/plugin/xmlrpc', ['wiki/data/plugin/xmlrpc/__init__.py']),
         ('share/moin/data/user', ['wiki/data/user/README']),
-        ('share/moin/htdocs',
-            glob.glob('wiki/htdocs/*.html')),
-        ('share/moin/htdocs/classic/css',
-            glob.glob('wiki/htdocs/classic/css/*.css')),
-        ('share/moin/htdocs/classic/img',
-            glob.glob('wiki/htdocs/classic/img/*.gif') +
-            glob.glob('wiki/htdocs/classic/img/*.png')),
-        ('share/moin/htdocs/starshine/css',
-            glob.glob('wiki/htdocs/starshine/css/*.css')),
-        ('share/moin/htdocs/starshine/img',
-            glob.glob('wiki/htdocs/starshine/img/*.gif') +
-            glob.glob('wiki/htdocs/starshine/img/*.png')),
-        ('share/moin/htdocs/applets/TWikiDrawPlugin',
-            glob.glob('wiki/htdocs/applets/TWikiDrawPlugin/*.jar')),
+        ('share/moin/htdocs', glob.glob('wiki/htdocs/*.html')),
+        ('share/moin/htdocs/applets/TWikiDrawPlugin', glob.glob('wiki/htdocs/applets/TWikiDrawPlugin/*.jar')),
+        ('share/moin/htdocs/classic/css', glob.glob('wiki/htdocs/classic/css/*.css')),
+        ('share/moin/htdocs/classic/img', glob.glob('wiki/htdocs/classic/img/*.png')),
+        ('share/moin/htdocs/starshine/css', glob.glob('wiki/htdocs/starshine/css/*.css')),
+        ('share/moin/htdocs/starshine/img', glob.glob('wiki/htdocs/starshine/img/*.png')),
+        ('share/moin/htdocs/viewonly/css',  glob.glob('wiki/htdocs/viewonly/css/*.css')),
+        # viewonly has no own img/ yet
     ],
 }
 

@@ -103,7 +103,7 @@ class RequestBase:
 
             @param env: the environment to use
         """
-        self.http_accept_language = env.get('HTTP_ACCEPT_LANGUAGE')
+        self.http_accept_language = env.get('HTTP_ACCEPT_LANGUAGE', 'en')
         self.server_name = env.get('SERVER_NAME', 'localhost')
         self.server_port = env.get('SERVER_PORT', '80')
         self.http_host = env.get('HTTP_HOST','localhost')
@@ -276,7 +276,7 @@ class RequestBase:
     def recodePageName(self, pagename):
         # check for non-URI characters and then handle them according to
         # http://www.w3.org/TR/REC-html40/appendix/notes.html#h-B.2.1
-        if pagename and sys.version[:2] != '1.':
+        if pagename:
             try:
                 dummy = unicode(pagename, 'ascii')
             except UnicodeError:
@@ -285,7 +285,7 @@ class RequestBase:
                 # up and use URI value literally and see what happens
                 pagename = self.i18n.recode(pagename, 'utf-8', config.charset) or pagename
         return pagename
-
+        # XXX UNICODE - use unicode for pagenames internally?
 
     def getBaseURL(self):
         """ Return a fully qualified URL to this script. """
@@ -585,14 +585,7 @@ class RequestCGI(RequestBase):
         have_ct = 0
 
         # send http headers
-        for header in more_headers:
-            if header.lower().startswith("content-type:"):
-                # don't send content-type multiple times!
-                if have_ct: continue
-                have_ct = 1
-            self.write(header, '\r\n')
-
-        for header in self.user_headers:
+        for header in more_headers + self.user_headers:
             if header.lower().startswith("content-type:"):
                 # don't send content-type multiple times!
                 if have_ct: continue
@@ -670,6 +663,8 @@ class RequestTwisted(RequestBase):
         """ Write to output stream.
         """
         wd = ''.join(data)
+        # XXX UNICODE - encode to config.charset
+        #wd = u''.join(data).encode(config.charset)
         #print "request.RequestTwisted.write: data=\n" + wd
         self.reactor.callFromThread(self.twistd.write, wd)
 
@@ -709,14 +704,32 @@ class RequestTwisted(RequestBase):
     #############################################################################
 
     def setHttpHeader(self, header):
+        self.user_headers.append(header)
+
+    def __setHttpHeader(self, header):
         key, value = header.split(':',1)
         value = value.lstrip()
         self.twistd.setHeader(key, value)
         #print "request.RequestTwisted.setHttpHeader: %s" % header
 
     def http_headers(self, more_headers=[]):
-        for header in more_headers:
-            self.setHttpHeader(header)
+        if self.sent_headers:
+            #self.write("Headers already sent!!!\n")
+            return
+        self.sent_headers = 1
+        have_ct = 0
+
+        # set http headers
+        for header in more_headers + self.user_headers:
+            if header.lower().startswith("content-type:"):
+                # don't send content-type multiple times!
+                if have_ct: continue
+                have_ct = 1
+            self.__setHttpHeader(header)
+
+        if not have_ct:
+            self.__setHttpHeader("Content-type: text/html;charset=%s" % config.charset)
+
 
     def http_redirect(self, url):
         """ Redirect to a fully qualified, or server-rooted URL """
@@ -958,7 +971,6 @@ class RequestStandAlone(RequestBase):
     def setHttpHeader(self, header):
         self.user_headers.append(header)
 
-
     def http_headers(self, more_headers=[]):
         if self.sent_headers:
             #self.write("Headers already sent!!!\n")
@@ -967,14 +979,7 @@ class RequestStandAlone(RequestBase):
         have_ct = 0
 
         # send http headers
-        for header in more_headers:
-            if header.lower().startswith("content-type:"):
-                # don't send content-type multiple times!
-                if have_ct: continue
-                have_ct = 1
-            self.write(header, '\r\n')
-
-        for header in self.user_headers:
+        for header in more_headers + self.user_headers:
             if header.lower().startswith("content-type:"):
                 # don't send content-type multiple times!
                 if have_ct: continue
@@ -1004,7 +1009,13 @@ class RequestModPy(RequestBase):
         """
         req.add_common_vars()
         self.mpyreq = req
-        self._setup_vars_from_std_env(req.subprocess_env)
+        # some mod_python 2.7.X has no get method for table objects,
+        # so we make a real dict out of it first.
+        if not hasattr(req.subprocess_env,'get'):
+            env=dict(req.subprocess_env)
+        else:
+            env=req.subprocess_env
+        self._setup_vars_from_std_env(env)
         # flags if headers sent out contained content-type or status
         self._have_ct = 0
         self._have_status = 0
@@ -1027,13 +1038,16 @@ class RequestModPy(RequestBase):
                 values = [values]
             fixedResult = []
             for i in values:
-                if isinstance(i, util.Field):
+                ## mod_python 2.7 might return strings instead
+                ## of Field objects
+                if hasattr(i,'value'):
                     fixedResult.append(i.value)
-                    if i.filename:
-                        args[key+'__filename__']=i.filename
-                elif isinstance(i, util.StringField):
-                    fixedResult.append(i.value)
-                        
+                else:
+                    fixedResult.append(i)
+                ## if object has a filename attribute, remember it
+                ## with a name hack
+                if hasattr(i,'filename') and i.filename:
+                    args[key+'__filename__']=i.filename
             args[key] = fixedResult
         return args
 
@@ -1135,6 +1149,8 @@ class RequestModPy(RequestBase):
         # if we don't had a status header, set 200
         if self._have_status == 0:
             self.mpyreq.status = 200
+        # this is for mod_python 2.7.X, for 3.X it's a NOP
+        self.mpyreq.send_http_header()
 
     def http_redirect(self, url):
         """ Redirect to a fully qualified, or server-rooted URL """
@@ -1239,14 +1255,7 @@ class RequestFastCGI(RequestBase):
         have_ct = 0
 
         # send http headers
-        for header in more_headers:
-            if header.lower().startswith("content-type:"):
-                # don't send content-type multiple times!
-                if have_ct: continue
-                have_ct = 1
-            self.write(header, '\r\n')
-
-        for header in self.user_headers:
+        for header in more_headers + self.user_headers:
             if header.lower().startswith("content-type:"):
                 # don't send content-type multiple times!
                 if have_ct: continue

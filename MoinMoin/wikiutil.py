@@ -46,6 +46,7 @@ def getSmiley(text, formatter):
 ### Quoting
 #############################################################################
 
+# XXX UNICODE - if we have 16bit unicode chars, %02x aren't enough !?
 def quoteFilename(filename):
     """
     Return a simple encoding of filename in plain ascii.
@@ -74,6 +75,7 @@ def unquoteFilename(filename):
     return urllib.unquote(filename.replace('_', '%'))
 
 
+# XXX UNICODE - see above
 quoteWikiname = quoteFilename
 unquoteWikiname = unquoteFilename
 
@@ -277,7 +279,6 @@ def getPageList(text_dir):
         result.append(file)
     return map(unquoteFilename, result)
 
-
 def getPageDict(text_dir):
     """
     Return a dictionary of page objects for all pages,
@@ -311,6 +312,7 @@ def getBackupList(backup_dir, pagename=None):
             pagename = quoteFilename(pagename)
         else:
             pagename = ".*?"
+        # XXX UNICODE - do we match pagenames in unicode?
         backup_re = re.compile(r'^%s\.\d+(\.\d+)?$' % (pagename,))
         oldversions = []
         for file in os.listdir(backup_dir):
@@ -684,7 +686,7 @@ def isUnicodeName(name):
 
     # check if every character is escaped
     return len(text.replace('_','')) == len(text) * 2/3
-
+    # XXX UNICODE 
 
 def isStrictWikiname(name, word_re=re.compile(r"^(?:[%(u)s][%(l)s]+){2,}$" % {'u':config.upperletters, 'l':config.lowerletters})):
     """
@@ -817,6 +819,7 @@ def pagediff(page1, page2, **kw):
     """
     lines1 = None
     lines2 = None
+    # XXX UNICODE fix needed, decode from config.charset
     try:
         fd = open(page1)
         lines1 = fd.readlines()

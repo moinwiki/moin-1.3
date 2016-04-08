@@ -287,6 +287,7 @@ class UserSettings:
         for lang in langs:
             # i18n source might be encoded so we recode language names
             name = lang[1][NAME]
+            # XXX UNICODE fix needed?
             name = i18n.recode(name, i18n.charset(), config.charset) or name
             options.append((lang[0], name))
                 

@@ -251,6 +251,7 @@ class User:
         """
         if not self.exists(): return
 
+        # XXX UNICODE fix needed, we want to read utf-8 and decode to unicode
         data = open(self.__filename(), "r").readlines()
         user_data = {'enc_password': ''}
         for line in data:
@@ -319,6 +320,8 @@ class User:
 
         # !!! should write to a temp file here to avoid race conditions,
         # or even better, use locking
+        
+        # XXX UNICODE fix needed, we want to write that file as utf-8
         data = open(self.__filename(), "w")
         data.write("# Data saved '%s' for id '%s'\n" % (
             time.strftime(config.datetime_fmt, time.localtime(time.time())),
@@ -563,6 +566,7 @@ class User:
             self._trail.append(pagename)
 
             # save new trail
+            # XXX UNICODE fix needed, encode as utf-8
             trailfile = open(self.__filename() + ".trail", "w")
             trailfile.write('\n'.join(self._trail))
             trailfile.close()
@@ -583,6 +587,7 @@ class User:
                 and not self._trail \
                 and os.path.exists(self.__filename() + ".trail"):
             try:
+                # XXX UNICODE fix needed, decode from utf-8
                 self._trail = open(self.__filename() + ".trail", 'r').readlines()
             except (OSError, ValueError):
                 self._trail = []

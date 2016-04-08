@@ -52,6 +52,8 @@
 <a href="#head-aebe0ed007174f53947b5cc077294c6b536f56d0">Version 1.1</a></li>
 <li>
 <a href="#head-b7238b18233914a27637a58322ad1e229a7760ee">Version 1.2</a></li>
+<li>
+<a href="#head-15119df63931db715d6b476cf60568e46323d11c">Version 1.2.1</a></li>
 </ol>
 
 </ol>
@@ -220,12 +222,12 @@ WordIndex
 XsltVersion
 </pre>If you want to do German visitors a favour, also copy the new German system and help pages, they will be automatically activated as long as you use the default <tt>page_icons</tt> and <tt>navi_bar</tt> settings: 
 <pre>Hilfe*
-AktuelleÄnderungen (Aktuelle_c4nderungen)
+AktuelleÃ„nderungen (Aktuelle_c4nderungen)
 AufgegebeneSeiten
 BenutzerEinstellungen
 GesuchteSeiten
 SeiteFinden
-SeitenGröße (SeitenGr_f6_dfe)
+SeitenGrÃ¶ÃŸe (SeitenGr_f6_dfe)
 StartSeite
 TitelIndex
 VerwaisteSeiten
@@ -327,7 +329,7 @@ The next version (1.2) will require Python 2.2.2 or newer.
 
 </p>
 <p>
-<strong>Version 1.2 requires Python 2.2 or higher</strong>, we recommend to use Python &gt;=2.3.2 (with 2.3.x, <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> runs about 20-30% faster) or &gt;= 2.2.2. 
+<strong>Version 1.2 requires Python 2.2.2 or higher</strong>, we recommend to use Python &gt;=2.3.2 (with 2.3.x, <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> runs about 20-30% faster). 
 </p>
     <ul>
     <li>
@@ -467,7 +469,7 @@ done
 
     <li class="gap">
 <p>
- new config variables (see <a class="interwiki" title="MoinMaster" href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration"><img src="wiki/htdocs/classic/img/moin-inter.png" alt="[MoinMaster]" height="16" width="16">HelpOnConfiguration</a>): 
+ new config variables (see <a class="interwiki" title="MoinMaster" href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration"><img src="wiki/htdocs/classic/img/moin-inter.png" alt="[MoinMaster]" width="16" height="16">HelpOnConfiguration</a>): 
 </p>
 </li>
         <ul>
@@ -536,10 +538,23 @@ done
  tz_offset  
 </p>
 </li>
-</ul>
+        </ul>
 
-</ul>
+    </ul>
 
+<p>
+<a id="update-1-2-1"> <h4 id="head-15119df63931db715d6b476cf60568e46323d11c">Version 1.2.1</h4>
+As 1.2.1 is primarily a bug-fix release for 1.2, there is not much special if you run 1.2 and want to update to 1.2.1. 
+</p>
+<p>
+If you run a version previous to 1.2, please read above about upgrading to 1.2 first. 
+</p>
+<p>
+In any case, read the <tt>CHANGES</tt> file in the toplevel directory of your moin archive - all fixes are described there and also some few new features. 
+</p>
+<p>
+Be aware that except code fixes, there were also fixes in the data and htdocs directory - so please selectively copy them over to your running wiki installation. 
+</p>
 </div>
 </body>
 </html>

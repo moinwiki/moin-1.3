@@ -10,13 +10,14 @@
 ## wiki instance:
 ##
 ## <Files wiki>
-##   SetHandler mod_python
+##   SetHandler python-program
 ##   PythonPath "['/path/to/moin/share/moin/cgi-bin']+sys.path"
 ##   PythonHandler moin_modpy
 ## </Files>
 ##
-## Note: this is a wrapper needed because of a bug in mod_python
-## 2.7.10, 3.0.4 and 3.1.2b.
+## Note: this is a wrapper needed because of a bug in
+##       mod_python < 3.1.3
+## 
 ##
 ## mod_python.apache.resolve_object fails to parse a object with dots.
 ##

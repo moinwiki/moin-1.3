@@ -8,7 +8,7 @@ html {
 	color: white;
 }
 
-h2, h3, h4, h5 {
+h2, h3, h4, h5, h6 {
 	background-color: #113366;
 	color: white;
 }	
@@ -24,6 +24,10 @@ textarea, input[type="text"], input[type="password"], select, option {
 	color: #DFEFF7;
 }
 
+li.gap {
+    margin-top: 8pt;
+}
+    
 a:link {
 	background-color: inherit;            
 	color: #66ccf9;
@@ -93,6 +97,10 @@ td {
     background-color: #444444;
 }
 
+.diff {
+    width:99%;
+}
+    
 .diff-title {
 	background-color: #444444;
 }

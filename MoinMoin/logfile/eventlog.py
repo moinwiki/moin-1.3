@@ -26,11 +26,12 @@ class EventLog(LogFile):
         if add_http_info:
             for key in ['remote_addr', 'http_user_agent', 'http_referer']:
                 val = request.__dict__.get(key, '')
-                if val: kvlist.append((key, val))
+                if val:
+                    kvlist.append((key.upper(), val)) # HTTP stuff is UPPERCASE
         kvpairs = ""
         for key, val in kvlist:
             if kvpairs: kvpairs = kvpairs + "&"
-        kvpairs = "%s%s=%s" % (kvpairs, urllib.quote(key), urllib.quote(val))
+            kvpairs = "%s%s=%s" % (kvpairs, urllib.quote(key), urllib.quote(val))
         self._add("%s\t%s\t%s\n" % (time.time(), eventtype, kvpairs))
 
     def parser(self, line):

@@ -19,7 +19,7 @@ def execute(pagename, request):
     import os 
 
     if not wikixml.ok:
-        #XXXX sen error message
+        #XXXX send error message
         pass
 
     # get params
@@ -160,8 +160,8 @@ def execute(pagename, request):
                     continue
                 if date <= item.ed_time:
                     if idx+1 < len(oldversions):
-                        file1 = page._text_filename()
-                        file2 = os.path.join(config.backup_dir, oldversions[idx+1])
+                        file1 = os.path.join(config.backup_dir, oldversions[idx+1])
+                        file2 = page._text_filename()
                         rc, page_file, backup_file, lines = wikiutil.pagediff(file1, file2, ignorews=1)
                         if len(lines) > 20: lines = lines[20:] + ['...\n']
                         desc_text = desc_text + '<pre>\n' + ''.join(lines) + '</pre>'
@@ -179,8 +179,9 @@ def execute(pagename, request):
         else:
             edname = item.editor
             ##edattr[(None, 'link')] = link + "?action=info"
+            # XXX having commented that out leaves edattr=={} when show_hosts=0
         handler.startNode(('dc', 'contributor'))
-        handler.startNode(('rdf', 'Description'), attr=edattr)
+        handler.startNode(('rdf', 'Description'), attr=edattr) # XXX is it OK to have {} here?
         handler.simpleNode(('rdf', 'value'), edname)
         handler.endNode(('rdf', 'Description'))
         handler.endNode(('dc', 'contributor'))

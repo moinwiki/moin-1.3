@@ -56,12 +56,12 @@ def _make_index_key(index_letters, additional_html=""):
 class Macro:
     """ Macro handler 
     
-        There are three kinds of macros: 
-            **Builtin Macros** -- implemented in this file and named _macro_[name]
-            **Language Psaudo Macros** -- any lang the wiki knows can be use as macro
-                and is implemented here by _m_lang() 
-            **External macros** -- implemented in either MoinMoin.macro package, or
-                in the specific wiki instance in the plugin/macro directory
+    There are three kinds of macros: 
+     * Builtin Macros - implemented in this file and named _macro_[name]
+     * Language Pseudo Macros - any lang the wiki knows can be used as
+       macro and is implemented here by _m_lang() 
+     * External macros - implemented in either MoinMoin.macro package, or
+       in the specific wiki instance in the plugin/macro directory
     """
 
     Dependencies = {
@@ -72,7 +72,7 @@ class Macro:
         "InterWiki"   : ["pages"],  # if interwikimap is editable
         "SystemInfo"  : ["pages"],
         "PageCount"   : ["namespace"],
-        "Icon"        : [],
+        "Icon"        : ["user"], # users have different themes and user prefs
         "PageList"    : ["namespace"],
         "Date"        : ["time"],
         "DateTime"    : ["time"],
@@ -115,13 +115,12 @@ class Macro:
         """ Set the current language for page content.
         
             Language macro are used in two ways:
-                **[lang]** -- set the current language untill next lang macro
-                **[lang(text)]** -- insert text with specific lang inside page
+             * [lang] - set the current language until next lang macro
+             * [lang(text)] - insert text with specific lang inside page
         """
-
         if text:
             return self.formatter.lang(lang_name, text)
-
+        
         self.request.current_lang = lang_name
         return ''
   
@@ -170,6 +169,7 @@ class Macro:
         pages = list(wikiutil.getPageList(config.text_dir))
         pages = filter(self.request.user.may.read, pages)
         map = {}
+        # XXX UNICODE re.UNICODE ?
         word_re = re.compile('[%s][%s]+' % (config.upperletters, config.lowerletters))
         for name in pages:
             for word in word_re.findall(name):
@@ -184,6 +184,7 @@ class Macro:
         last_letter = None
         html = []
         for word in all_words:
+            # XXX UNICODE - sense????
             if wikiutil.isUnicodeName(word): continue
 
             letter = word[0]
@@ -211,7 +212,6 @@ class Macro:
 
 
     def _macro_TitleIndex(self, args):
-        from MoinMoin import wikixml
         _ = self._
         html = []
         index_letters = []
@@ -224,6 +224,7 @@ class Macro:
         current_letter = None
         for name in pages:
             letter = name[0]
+            # XXX UNICODE - fix here, too?
             if wikiutil.isUnicodeName(letter):
                 try:
                     letter = wikiutil.getUnicodeIndexGroup(unicode(name, config.charset))
@@ -243,7 +244,8 @@ class Macro:
 
         # add rss link
         index = ''
-        if 0 and wikixml.ok: # !!! currently switched off (not implemented)
+        if 0: # if wikixml.ok: # XXX currently switched off (not implemented)
+            from MoinMoin import wikixml
             img = self.request.theme.make_icon("rss")
             index = index + self.formatter.url(
                 wikiutil.quoteWikiname(self.formatter.page.page_name) + "?action=rss_ti",

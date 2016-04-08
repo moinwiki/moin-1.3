@@ -6,10 +6,57 @@ All rights reserved, see COPYING for details.
 
 -----------------------------------------------------------------------------
 
+Version 1.2.1 (2004-03-08, Revision 1.184)
+
+Fixes:
+    * minimum requirement to run moin 1.2/1.2.1 is python 2.2.2
+     * not: 2.2(.0), as this does not have True/False
+     * not: 2.2.1, as this does not have email.Header. You maybe can work
+       around that one by:
+      * getting the python 2.2.x (x>=2) /usr/lib/python2.2/email directory
+      * putting it into directory 'x' (whereever you like)
+      * doing a sys.path[0:0] = ['x'] in moin.cgi [or other appropriate place]
+      No guarantee, this is untested.
+    * twisted: the http headers missed the charset data, fixed
+    * mod_python: fixes for mod_python 2.7
+    * wiki/data/plugin/__init__.py added - fixes not working plugin modules
+    * plugin processors work now, too
+    * fixed displaying non-existant translations of SiteNavigation in footer
+    * fixed zh-tw iso name (wrong zh_tw -> correct zh-tw)
+    * fixed reversed diffs in RecentChanges RSS
+    * fixed "last change" info in footer (wasn't updated)
+    * fixed event.log missing pagename (and other) information
+    * fixed horizontal line thickness >1
+    * fixed setup.py running from CVS workdir
+    * fixed crash when doing action=info on first revision of a page
+    * fixed hostname truncation in footer
+    * minor css fixes
+    * fixed clear msg links (they missed quoting, leading to strange page
+      names when you click on some of them)
+    * fixed python colorizer processor
+    * fixed quoting of stats cache filenames
+    * catched "bad marshal data" error when switching python versions
+
+Other changes:
+    * updated danish (da) i18n
+    * updated japanese (ja) i18n
+    * added serbian (sr) i18n
+    * added chinese (zh) i18n
+    * added a simple "viewonly" theme based on classic theme - you can use
+      this as default theme, so anonymous users won't get the usual wiki stuff,
+      but a far simpler (and less powerful) user interface.
+      It also displays the navibar at the left side.
+    * added moin.spec for building RPMs
+    * included MoinMoin/i18n/* into distribution archive (nice for translators)
+    * included some stuff under MoinMoin/scripts - xmlrpc-tools and account
+      checking stuff. removed some version control clutter from the dist
+      archive, too.
+
+
 Version 1.2 (2004-02-20, Revision 1.183)
 
 New features:
-    * MoinMoin now requires Python 2.2! We recommend using >=2.2.2.
+    * MoinMoin now requires Python >=2.2.2.
       You get even better results with Python2.3 (20-30% more speed,
       sometimes even much more).
     * by refactoring request processing, we made it possible to run moin under

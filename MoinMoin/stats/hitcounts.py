@@ -54,7 +54,7 @@ def draw(pagename, request):
 
     # get results from cache
     if filterpage:
-        key = 'hitcounts-' + filterpage
+        key = 'hitcounts-' + wikiutil.quoteFilename(filterpage)
     else:
         key = 'hitcounts'
     

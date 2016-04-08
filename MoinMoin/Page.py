@@ -248,7 +248,9 @@ class Page:
 
             # read file content and make sure it is closed properly
             try:
-                self.set_raw_body(file.read())
+                # XXX UNICODE fix needed
+                text = file.read() # .decode(config.charset)
+                self.set_raw_body(text)
             finally:
                 file.close()
 
@@ -634,6 +636,7 @@ class Page:
             if cache.needsUpdate(self._text_filename()):
                 links = self.formatter.pagelinks
                 links.sort()
+                # XXX UNICODE fix needed?? store as utf-8
                 cache.update('\n'.join(links))
 
         request.clock.stop('send_page')
@@ -668,9 +671,21 @@ class Page:
         cache = caching.CacheEntry(arena, key)
         code = None
 
-        # render page
         if cache.needsUpdate(self._text_filename(),
-                wikiutil.getPagePath(self.page_name, 'attachments', check_create=0)) or needsupdate:
+           wikiutil.getPagePath(self.page_name, 'attachments',
+                                check_create=0)):
+            needsupdate = 1
+
+        # load cache
+        if not needsupdate:
+            try:
+                import marshal
+                code = marshal.loads(cache.content())
+            except ValueError: #bad marshal data
+                needsupdate = 1
+
+        # render page
+        if needsupdate:
             from MoinMoin.formatter.text_python import Formatter
             formatter = Formatter(request, ["page"], self.formatter)
 
@@ -692,9 +707,6 @@ class Page:
         parser = Parser(body, request)
         macro_obj = wikimacro.Macro(parser)
 
-        if not code:
-            import marshal
-            code = marshal.loads(cache.content())
         try:
             exec code
         except 'CacheNeedsUpdate': # if something goes wrong, try without caching
@@ -793,7 +805,7 @@ class Page:
                 request.redirect()
                 if hasattr(request, '_fmt_hd_counters'):
                     del request._fmt_hd_counters
-
+        # XXX UNICODE fix needed? decode from utf-8
         return filter(None, cache.content().split('\n'))
 
 

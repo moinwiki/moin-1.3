@@ -17,7 +17,7 @@ from MoinMoin.widget.browser import DataBrowserWidget
 
 COLUMNS = 3
 
-Dependencies = []
+Dependencies = ['user'] # different users have different themes and different user prefs (text/gfx)
 
 def execute(macro, args):
     _ = macro.request.getText

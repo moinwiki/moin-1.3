@@ -7,8 +7,8 @@
 """
 
 project = "MoinMoin"
-revision = '$Revision: 1.183 $'[11:-2]
-release  = '1.2'
+revision = '$Revision: 1.184 $'[11:-2]
+release  = '1.2.1'
 
 if __name__ == "__main__":
     # Bump own revision

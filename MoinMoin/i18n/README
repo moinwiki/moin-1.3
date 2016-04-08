@@ -1,0 +1,106 @@
+Translators and Developers,
+
+The data flow for i18n stuff has completely changed, so please read this.
+
+Translators need to deal with the *.po files ONLY - do not touch anything else,
+especially do not update <lang>.py files as you used to in previous versions.
+
+And please use utf-8 or iso-8859-1 whereever possible, following these rules:
+ * if your language can be encoded in iso-8859-1, then use this, NOT utf-8
+   (this has internal reasons in moin and will change as soon as we move to
+   utf-8 completely, but NOT NOW!)
+ * if your language can not be encoded in iso-8859-1 then please use utf-8
+   (as we will move to using utf-8 in the future)
+   please use iso-8859-1 (or rather ASCII) for the X-Language header (just
+   simply write your language's name in english for now), as this gets
+   written to a file that still uses iso8859-1.
+   if you think it makes sense having 2 po files, one in utf-8 and one in
+   another encoding (like big5 e.g.), the non-utf-8 one will be placed in
+   the deprecated/ subdirectory so people still needing it can copy it from
+   there.
+ * do not use anything else, if possible. Recode it to utf-8. Especially
+   far-east character sets like big5, euc-jp, gb2312 make lots of trouble on
+   developer machines not having these codecs (you can't even import these
+   modules then).
+
+For using the i18n build system, one needs to have "gettext" (e.g. from Debian
+unstable) installed. For simply translating text, you do not need it, you can
+use a text editor. Further, for successfully processing ja, zh and zh_tw, you
+need to have cjkcodecs installed (at least as long they do not use utf-8).
+
+Translators should search their *.po file for "fuzzy" - this marks places
+needing work. If you have reviewed these places, remove the "fuzzy" marker.
+
+In the source code, there is original english text marked with
+_("english string") - xgettext can extract these strings automatically from
+the files listed in POTFILES.in.
+
+As not all strings appear in the source code, there is an additional
+file i18n/dummy.py that contains strings that need to be translated, but
+do not appear in src otherwise or are not found by gettext.
+
+
+
+Files
+=====
+
+Makefile: a GNU-Makefile
+
+POTFILES.in: a list of files with translatable strings
+
+MoinMoin.pot: Master translation file.
+
+*.po: Translations
+
+*.py: Translations automatically converted from *.po
+
+build_lang_py: converts the po files into old-style MoinMoin translations,
+               like de.py.
+
+meta.py: meta data, automatically built from *.py lang files
+
+build_meta_py: collects and converts the meta infos from the py files to meta.py.
+
+
+New Translation (no .po file exists yet)
+========================================
+- copy MoinMoin.pot to <langcode>.po
+- edit the header of <langcode>.po (this is the first entry in the file, it
+  starts with Project-Id-Version)
+  - Project-Id-Version: MoinMoin 1.2
+  - Content-Type: text/plain; charset=utf-8
+  - Language-Team: LANGUAGE mailinglist
+    LANGUAGE should be your language in english, in long form - e.g.:
+    German, French, ...
+  - X-Language: LANGUAGE
+    LANGUAGE should be your language expressed in your language, e.g.:
+    Deutsch, Francais (with c-cedille), ...
+
+Update Translation
+==================
+- run "make <langcode>.po"
+- change the translation
+- update the PO-Revision-Date and Last-Translator entries
+- run "make <langcode>.py"
+
+Change of translatable strings
+==============================
+If you change any translatable string, please call "make update-po" before
+commit.
+
+Regenerating all
+================
+- run "make" to re-generate everything needed, like:
+  - all *.py language files
+  - meta.py file with language meta data
+
+
+You have some xx.py file and want to make a xx.po out of it
+===========================================================
+
+Copy it to i18n/xx.py and run:
+
+python py-to-po xx
+
+Then continue like described above.
+

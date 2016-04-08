@@ -1,0 +1,1747 @@
+# MoinMoin translation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MoinMoin 1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-18 22:57+0100\n"
+"PO-Revision-Date: 2004-01-25 18:57+0800\n"
+"Last-Translator: Nam T. Nguyen <nnt@nntsoft.com>\n"
+"Language-Team: Vietnamese <moin-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Direction: ltr\n"
+"X-Language: Vietnamese\n"
+
+# "X-Language: Tiếng Việt\n"
+#: Page.py:153
+#, python-format
+msgid "(last edited %(time)s by %(editor)s)"
+msgstr "(chỉnh sửa lần cuối lúc %(time)s bởi %(editor)s)"
+
+#: Page.py:159
+#, python-format
+msgid "(last modified %s)"
+msgstr "(thay đổi cuối lúc %s)"
+
+#: Page.py:485
+msgid ""
+"The backupped content of this page is deprecated and will not be included in "
+"search results!"
+msgstr ""
+"Nội dung lưu của trang này đã lạc hậu và sẽ không được hiển thị trong kết "
+"quả tìm kiếm!"
+
+#: Page.py:544
+#, python-format
+msgid "Version as of %(date)s"
+msgstr "Phiên bản ngày %(date)s"
+
+#: Page.py:554
+#, python-format
+msgid "Redirected from page \"%(page)s\""
+msgstr "Được chuyển từ trang \"%(page)s\""
+
+#: Page.py:560
+#, python-format
+msgid "This page redirects to page \"%(page)s\""
+msgstr "Trang này sẽ chuyển tới trang \"%(page)s\""
+
+#: Page.py:581
+#, python-format
+msgid ""
+"<p><small>If you submit this form, the submitted values will be displayed.\n"
+"To use this form on other pages, insert a\n"
+"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
+"strong><br><br>\n"
+"macro call.</small></p>\n"
+msgstr ""
+"<p><small>Nếu bạn gửi form này, những gì bạn gửi sẽ được hiển thị.\n"
+"Để dùng form này ở trang khác, bạn cần chèn vào lệnh\n"
+"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
+"strong><br><br>.\n"
+"</small></p>\n"
+
+#: Page.py:606 action/AttachFile.py:296
+msgid "You are not allowed to view this page."
+msgstr "Bạn không xem trang này được."
+
+#: Page.py:707 parser/xslt.py:146
+msgid "RefreshCache"
+msgstr "Làm mới cache"
+
+#: Page.py:708 parser/xslt.py:147
+#, python-format
+msgid "for this page (cached %(date)s)"
+msgstr "cho trang này (cached vào ngày %(date)s)"
+
+#: Page.py:726
+msgid "Create this page"
+msgstr "Tạo trang này"
+
+#: Page.py:736
+msgid "Alternatively, use one of these templates:"
+msgstr "Ngoài ra, có thể dùng một trong những mẫu này:"
+
+#: Page.py:751
+#, python-format
+msgid ""
+"To create your own templates, add a page with a name matching the regex \"%"
+"(page_template_regex)s\"."
+msgstr ""
+"Để tự tạo mẫu riêng, thêm một trang có tên phù hợp với regex \"%"
+"(page_template_regex)s\"."
+
+#: Page.py:759
+msgid "The following pages with similar names already exist..."
+msgstr "Các trang hiện tại có tên gần giống..."
+
+#: PageEditor.py:149 wikiaction.py:579 wikiaction.py:613
+msgid "You are not allowed to edit this page."
+msgstr "Bạn không thể sửa trang này."
+
+#: PageEditor.py:151 PageEditor.py:724
+msgid "Page is immutable!"
+msgstr "Trang này không thể được thay đổi!"
+
+#: PageEditor.py:155
+msgid "Cannot edit old revisions!"
+msgstr "Không thể sửa phiên bản cũ!"
+
+#: PageEditor.py:162
+msgid "The lock you held timed out, be prepared for editing conflicts!"
+msgstr ""
+"Thời gian chính thức đã hết, bạn có thể sẽ gặp sự cố trong việc chỉnh sửa "
+"trang!"
+
+#: PageEditor.py:178
+#, python-format
+msgid "Edit \"%(pagename)s\""
+msgstr "Sửa trang \"%(pagename)s\""
+
+#: PageEditor.py:180
+#, python-format
+msgid "Preview of \"%(pagename)s\""
+msgstr "Xem qua trang \"%(pagename)s\""
+
+#: PageEditor.py:186
+#, python-format
+msgid "Your edit lock on %(lock_page)s has expired!"
+msgstr "Thời gian để bạn sửa trang %(lock_page)s đã hết!"
+
+#: PageEditor.py:187
+#, python-format
+msgid "Your edit lock on %(lock_page)s will expire in # minutes."
+msgstr "Thời gian để bạn sửa trang %(lock_page)s sẽ hết trong # phút."
+
+#: PageEditor.py:188
+#, python-format
+msgid "Your edit lock on %(lock_page)s will expire in # seconds."
+msgstr "Thời gian để bạn sửa trang %(lock_page)s sẽ hết trong # giây."
+
+#: PageEditor.py:224
+msgid "Someone else deleted this page while you were editing!"
+msgstr "Người khác đã xoá trang này trong khi bạn đang sửa!"
+
+#: PageEditor.py:226
+msgid "Someone else changed this page while you were editing!"
+msgstr "Người khác đã thay đổi trang này trong khi bạn đang sửa!"
+
+#: PageEditor.py:239 wikiaction.py:674
+#, python-format
+msgid ""
+"Someone else saved this page while you were editing!\n"
+"Please review the page and save then. Do not save this page as it is!\n"
+"Have a look at the diff of %(difflink)s to see what has been changed."
+msgstr ""
+"Người khác đã lưu trang này trong khi bạn đang sửa!\n"
+"Vui lòng xem phần diff của trang tại %(difflink)s để biết họ đã thay đổi "
+"những gì.\n"
+"Sau đó bạn có thể thêm vào những thay đổi của bạn."
+
+#: PageEditor.py:266
+#, python-format
+msgid "[Content of new page loaded from %s]"
+msgstr "[Nội dung trang được đọc trong %s]"
+
+#: PageEditor.py:268
+#, python-format
+msgid "[Template %s not found]"
+msgstr "[Không tìm thấy mẫu %s]"
+
+#: PageEditor.py:278
+msgid "Reduce editor size"
+msgstr "Giảm kích thước khung soạn thảo"
+
+#: PageEditor.py:282
+msgid "Skip to preview"
+msgstr "Xem qua"
+
+#: PageEditor.py:284
+#, python-format
+msgid "[current page size <strong>%(size)d</strong> bytes]"
+msgstr "[kích thước trang hiện tại <strong>%(size)d</strong> bytes]"
+
+#: PageEditor.py:300
+#, python-format
+msgid "Describe %s here."
+msgstr "Diễn giải %s ở đây."
+
+#: PageEditor.py:318
+msgid "Optional comment about this change"
+msgstr "Chú thích (nếu có)"
+
+#: PageEditor.py:325
+msgid "<No addition>"
+msgstr "<Không thêm>"
+
+#: PageEditor.py:326
+#, python-format
+msgid "Make this page belong to category %(category)s"
+msgstr "Đưa trang này vào mục %(category)s"
+
+#: PageEditor.py:333
+msgid "Check Spelling"
+msgstr "Kiểm tra chính tả"
+
+#: PageEditor.py:335
+msgid "Save Changes"
+msgstr "Lưu các thay đổi"
+
+#: PageEditor.py:336
+msgid "Cancel"
+msgstr "Huỷ bỏ"
+
+#: PageEditor.py:342
+#, python-format
+msgid ""
+"By hitting <strong>%(save_button_text)s</strong> you put your changes under "
+"the %(license_link)s.\n"
+"If you don't want that, hit <strong>%(cancel_button_text)s</strong> to "
+"cancel your changes."
+msgstr ""
+"Thông qua việc nhấn nút <strong>%(save_button_text)s</strong>, bạn đồng ý "
+"phân phối các thay đổi của bạn theo giấy phép %(license_link)s.\n"
+"Nếu bạn không muốn vậy, nhấn <strong>%(cancel_button_text)s</strong> để huỷ "
+"bỏ các thay đổi."
+
+#: PageEditor.py:356
+msgid "Preview"
+msgstr "Xem qua"
+
+#: PageEditor.py:361
+msgid "Send mail notification"
+msgstr "Gửi thư thông báo"
+
+#: PageEditor.py:369
+msgid "Remove trailing whitespace from each line"
+msgstr "Xoá khoảng trắng ở cuối dòng"
+
+#: PageEditor.py:382
+msgid ""
+"<dt>Emphasis:</dt>\n"
+"<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
+"italics</em></strong>''''';\n"
+"    ''<em>mixed '''<strong>bold</strong>''' and italics</em>''; ---- "
+"horizontal rule.</dd>\n"
+"<dt>Headings:</dt>\n"
+"<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;\n"
+"    ==== Title 4 ====; ===== Title 5 =====.</dd>\n"
+"<dt>Lists:</dt>\n"
+"<dd>space and one of * bullets; 1., a., A., i., I. numbered items;\n"
+"    1.#n start numbering at n; space alone indents.</dd>\n"
+"<dt>Links:</dt>\n"
+"<dd>JoinCapitalizedWords; [\"brackets and double quotes\"];\n"
+"    url; [url]; [url label].</dd>\n"
+"<dt>Tables:</dt>\n"
+"<dd>|| cell text |||| cell text spanning two columns ||;\n"
+"    no trailing white space allowed after tables or titles.</dd>\n"
+msgstr ""
+"<dt>Nhấn mạnh:</dt>\n"
+"<dd>''<em>nghiêng</em>''; '''<strong>đậm</strong>'''; '''''<strong><em>đậm "
+"nghiêng</em></strong>''''';\n"
+"    ''<em>pha trộn giữa '''<strong>đậm</strong>''' và nghiêng</em>''; ---- "
+"thanh ngang.</dd>\n"
+"<dt>Tiêu đề:</dt>\n"
+"<dd>= Tiêu đề 1 =; == Tiêu đề 2 ==; === Tiêu đề 3 ===;\n"
+"    ==== Tiêu đề 4 ====; ===== Tiêu đề 5 =====.</dd>\n"
+"<dt>Danh sách:</dt>\n"
+"<dd>khoảng trắng và một trong những điểm (bullet) *; 1., a., A., i., I. đánh "
+"số thứ tự;\n"
+"    1.#n bắt đầu đánh số từ n; khoảng trắng không thôi thụt vào.</dd>\n"
+"<dt>Liên kết:</dt>\n"
+"<dd>JoinCapitalizedWords (chỉ dùng cho tiếng Anh); [\"brackets and double "
+"quotes\"] (dùng cho cả tiếng Việt);\n"
+"    url; [url]; [url nhãn].</dd>\n"
+"<dt>Bảng biểu</dt>\n"
+"<dd>|| nội dung của ô |||| nội dung trải qua 2 ô ||;\n"
+"    không được có khoảng trắng sau bảng biểu hoặc tiêu đề.</dd>\n"
+
+#: PageEditor.py:422
+msgid "Edit was cancelled."
+msgstr "Các chỉnh sửa đã bị huỷ."
+
+#: PageEditor.py:467
+#, python-format
+msgid ""
+"Dear Wiki user,\n"
+"\n"
+"You have subscribed to a wiki page or wiki category on \"%(sitename)s\" for "
+"change notification.\n"
+"\n"
+"The following page has been changed by %(editor)s:\n"
+"%(pagelink)s\n"
+"\n"
+msgstr ""
+"Chào bạn,\n"
+"\n"
+"Bạn đã đãng ký vào một trang hoặc một nhóm trang tại \"%(sitename)s\" để "
+"nhận các thông báo thay đổi.\n"
+"\n"
+"Trang sau đã được thay đổi bởi %(editor)s:\n"
+"%(pagelink)s\n"
+"\n"
+
+#: PageEditor.py:478
+#, python-format
+msgid ""
+"The comment on the change is:\n"
+"%(comment)s\n"
+"\n"
+msgstr ""
+"Ghi chú về sự thay đổi:\n"
+"%(comment)s\n"
+"\n"
+
+#: PageEditor.py:483
+msgid "No older revisions of the page stored, diff not available."
+msgstr ""
+"Không có phiên bản cũ hơn của trang này, diff không thể được thực hiện."
+
+#: PageEditor.py:493
+msgid "No differences found!\n"
+msgstr "Không có sự khác biệt!\n"
+
+#: PageEditor.py:496
+#, python-format
+msgid "The diff function returned with error code %(rc)s!"
+msgstr "Lệnh diff trả về mã lỗi %(rc)s!"
+
+#: PageEditor.py:499
+#, python-format
+msgid "[%(sitename)s] Update of \"%(pagename)s\""
+msgstr "[%(sitename)s] Các thay đổi ở trang \"%(pagename)s\""
+
+#: PageEditor.py:518
+msgid "You will not be notified of your own changes!"
+msgstr "Bạn sẽ không được thông báo về những thay đổi của chính bạn!"
+
+#: PageEditor.py:525
+msgid "Status of sending notification mails:"
+msgstr "Tình trạng của các thư thông báo:"
+
+#: PageEditor.py:531
+#, python-format
+msgid "[%(lang)s] %(recipients)s: %(status)s"
+msgstr "[%(lang)s] %(recipients)s: %(status)s"
+
+#: PageEditor.py:536
+msgid "Nobody subscribed to this page, no mail sent."
+msgstr "Không ai đăng ký vào trang này, chưa có thư được gửi."
+
+#: PageEditor.py:647
+#, python-format
+msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
+msgstr "## bản lưu của trang \"%(pagename)s\" được cập nhật vào ngày %(date)s"
+
+#: PageEditor.py:721
+msgid "You are not allowed to edit this page!"
+msgstr "Bạn không thể sửa trang này!"
+
+#: PageEditor.py:727
+msgid "You cannot save empty pages."
+msgstr "Bạn không thể lưu trang trắng."
+
+#: PageEditor.py:730
+msgid ""
+"Sorry, someone else saved the page while you edited it.\n"
+"<p>Please do the following: Use the back button of your browser, and "
+"cut&paste\n"
+"your changes from there. Then go forward to here, and click EditText again.\n"
+"Now re-add your changes to the current page contents.</p>\n"
+"<p><em>Do not just replace\n"
+"the content editbox with your version of the page, because that would\n"
+"delete the changes of the other person, which is excessively rude!</em></p>\n"
+msgstr ""
+"Xin lỗi bạn, người khác đã lưu trang này trong khi bạn đang chỉnh sửa.\n"
+"<p>Xin vui lòng thực hiện các bước sau: Nhấn vào nút Back trên trình duyệt, "
+"và\n"
+"cắt đoạn văn bản ở đó. Sau đó bạn quay trở lại đây, rồi nhấn EditText lần "
+"nữa.\n"
+"Bây giờ bạn có thể thêm vào những chỉnh sửa bạn đã thực hiện.</p>\n"
+"<p><em>Mong bạn đừng thay đổi toàn bộ nội dung trang này với những gì\n"
+"bạn đã cắt ở trang cũ bởi vì việc đó sẽ xoá toàn bộ những thay đổi\n"
+"của người khác, và được coi là một việc làm cực kỳ khiếm nhã!</em></p>\n"
+
+#: PageEditor.py:741
+#, python-format
+msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
+msgstr "Các thay đổi của bạn được lưu <a href=\"%(backup_url)s\">ở đây</a>."
+
+#: PageEditor.py:744
+msgid "You did not change the page content, not saved!"
+msgstr "Bạn chưa thay đổi nội dung trang nên không cần lưu lại!"
+
+#: PageEditor.py:751
+msgid ""
+"You can't change ACLs on this page since you have no admin rights on it!"
+msgstr "Bạn không thể thay đổi ACL của trang này vì bạn không có quyền admin!"
+
+#: PageEditor.py:757
+msgid "Thank you for your changes. Your attention to detail is appreciated."
+msgstr "Cám ơn bạn vì những sửa đổi. Sự quan tâm của bạn rất được cảm kích."
+
+#: PageEditor.py:853
+#, python-format
+msgid ""
+"The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
+"granted the lock for this page."
+msgstr ""
+"Thời gian dành riêng cho %(owner)s đã hết %(mins_ago)d phút trước đây và bạn "
+"được dành riêng một khoảng thời gian mới."
+
+#: PageEditor.py:859
+#, python-format
+msgid ""
+"Other users will be <em>blocked</em> from editing this page until %(bumptime)"
+"s."
+msgstr ""
+"Người dùng khác sẽ <em>không</em> sửa trang này được cho đến lúc %(bumptime)"
+"s."
+
+#: PageEditor.py:863
+#, python-format
+msgid ""
+"Other users will be <em>warned</em> until %(bumptime)s that you are editing "
+"this page."
+msgstr ""
+"Cho đến lúc %(bumptime)s, người dùng khác sẽ được <em>thông báo</em> rằng "
+"bạn đang sửa trang này."
+
+#: PageEditor.py:866
+msgid "Use the Preview button to extend the locking period."
+msgstr "Dùng nút Xem qua để gia hạn thời gian dành cho bạn."
+
+#: PageEditor.py:874
+#, python-format
+msgid ""
+"This page is currently <em>locked</em> for editing by %(owner)s until %"
+"(timestamp)s, i.e. for %(mins_valid)d minute(s)."
+msgstr ""
+"Trang này đang được <em>dành riêng</em> cho %(owner)s cho đến lúc %"
+"(timestamp)s, hay trong vòng %(mins_valid)d phút."
+
+#: PageEditor.py:880
+#, python-format
+msgid ""
+"This page was opened for editing or last previewed at %(timestamp)s by %"
+"(owner)s.<br>\n"
+"<strong class=\"highlight\">You should <em>refrain from editing</em> this "
+"page for at least another %(mins_valid)d minute(s),\n"
+"to avoid editing conflicts.</strong><br>\n"
+"To leave the editor, press the Cancel button."
+msgstr ""
+"Trang này đang được thay đổi, lần cuối cùng lúc %(timestamp)s bởi %(owner)s."
+"<br>\n"
+"<strong class=\"highlight\">Để tránh sự cố, bạn nên <em>chờ</em> ít nhất %"
+"(mins_valid)d phút nữa.</strong><br>\n"
+"Để thoát khung soạn thảo, nhấn nút Huỷ bỏ."
+
+#: PageEditor.py:914 user.py:77
+msgid "<unknown>"
+msgstr "<không rõ>"
+
+#: config.py:131
+msgid "Diffs"
+msgstr "Các bản diff"
+
+#: config.py:132
+msgid "Info"
+msgstr "Thông tin"
+
+#: config.py:133 macro/Navigation.py:164
+msgid "Edit"
+msgstr "Sửa"
+
+#: config.py:134
+msgid "UnSubscribe"
+msgstr "Huỷ đăng ký"
+
+#: config.py:135
+msgid "Subscribe"
+msgstr "Đăng ký"
+
+#: config.py:136
+msgid "Raw"
+msgstr "Thô"
+
+#: config.py:137
+msgid "XML"
+msgstr "XML"
+
+#: config.py:138
+msgid "Print"
+msgstr "In"
+
+#: config.py:139
+msgid "View"
+msgstr "Xem"
+
+#: config.py:140
+msgid "Home"
+msgstr "Trang nhà"
+
+#: config.py:141
+msgid "Up"
+msgstr "Trên"
+
+#: request.py:394
+msgid "Unknown action"
+msgstr "Việc không rõ"
+
+#: request.py:415
+msgid "Can't work out query"
+msgstr "Không thể thực hiện việc tìm kiếm"
+
+#: user.py:100
+msgid "Open editor on double click"
+msgstr "Mở khung soạn thảo khi nhấp chuột 2 lần"
+
+#: user.py:101
+msgid "Remember last page visited"
+msgstr "Nhớ trang cuối"
+
+#: user.py:102
+msgid "Show emoticons"
+msgstr "Hiện các emoticons"
+
+#: user.py:103
+msgid "Show fancy links"
+msgstr "Hiện liên kết đẹp"
+
+#: user.py:104
+msgid "Show question mark for non-existing pagelinks"
+msgstr "Hiện dấu chấm hỏi cho các trang không tồn tại"
+
+#: user.py:105
+msgid "Show page trail"
+msgstr "Hiện vệt trang (page trail)"
+
+#: user.py:106
+msgid "Show icon toolbar"
+msgstr "Hiện thanh công cụ"
+
+#: user.py:107
+msgid "Show top/bottom links in headings"
+msgstr "Hiện các liên kết về đầu và về cuối trang ở các tiêu đề"
+
+#: user.py:108
+msgid "Show fancy diffs"
+msgstr "Hiện diff đẹp"
+
+#: user.py:109
+msgid "Add spaces to displayed wiki names"
+msgstr "Thêm khoảng trống để hiển thị các tên wiki (Wiki Names)"
+
+#: user.py:110
+msgid "Remember login information forever"
+msgstr "Nhớ thông tin đăng nhập"
+
+#: user.py:111
+msgid "Disable this account forever"
+msgstr "Huỷ bỏ account này"
+
+#: userform.py:59
+msgid "Cookie deleted. You are now logged out."
+msgstr "Cookie đã được xoá. Bạn đã thoát ra khỏi hệ thống."
+
+#: userform.py:63 wikiaction.py:705 util/mail.py:43
+msgid ""
+"This wiki is not enabled for mail processing. Contact the owner of the wiki, "
+"who can either enable email, or remove the \"Subscribe\" icon."
+msgstr ""
+"Wiki này không hỗ trợ việc soạn thư. Mong bạn thông báo cho chủ wiki, người "
+"mà có thể bật chức năng này lên, hay là bỏ đi biểu tượng \"Đăng ký\"."
+
+#: userform.py:68
+msgid "Please provide a valid email address!"
+msgstr "Vui lòng cho biết địa chỉ thư điện tử hợp lệ!"
+
+#: userform.py:79
+#, python-format
+msgid "Found no account matching the given email address '%(email)s'!"
+msgstr "Không tìm thấy account có địa chỉ thư điện tử '%(email)s'!"
+
+#: userform.py:104
+msgid "Unknown user name or password."
+msgstr "Không rõ tên người dùng hay mật khẩu."
+
+#: userform.py:117
+msgid "Please enter a user name!"
+msgstr "Vui lòng nhập vào tên người dùng!"
+
+#: userform.py:123
+msgid "User name already exists!"
+msgstr "Tên người dùng đã có rồi!"
+
+#: userform.py:133
+msgid "Passwords don't match!"
+msgstr "Mật khẩu không đúng!"
+
+#: userform.py:192
+msgid "Please enter your name like that: FirstnameLastname"
+msgstr ""
+"Vui lòng nhập tên bạn theo FirstnameLastname (tên tiếng Anh), hoặc HoDemTen "
+"(tên tiếng Việt)"
+
+#: userform.py:194
+msgid ""
+"Please provide your email address - without that you could not get your "
+"login data via email just in case you lose it."
+msgstr ""
+"Vui lòng cho biết địa chỉ thư điện tử - không có nó, bạn không thể lấy thông "
+"tin đăng nhập nếu bạn lỡ quên."
+
+#: userform.py:202
+msgid "This user name already belongs to somebody else."
+msgstr "Tên người dùng này đã được đăng ký."
+
+#: userform.py:204
+msgid "This email already belongs to somebody else."
+msgstr "Địa chỉ thư điện tử này đã được đăng ký."
+
+#: userform.py:211
+msgid "User preferences saved!"
+msgstr "Sở thích của bạn đã được lưu!"
+
+#: userform.py:273
+msgid "Default"
+msgstr "Mặc định"
+
+#: userform.py:286
+msgid "<Browser setting>"
+msgstr "<Theo trình duyệt>"
+
+#: userform.py:339
+msgid "Save"
+msgstr "Lưu"
+
+#: userform.py:340
+msgid "Logout"
+msgstr "Thoát"
+
+#: userform.py:344
+msgid "Login"
+msgstr "Đăng nhập"
+
+#: userform.py:345
+msgid "Create Profile"
+msgstr "Tạo Profile"
+
+#: userform.py:348
+msgid "Mail me my account data"
+msgstr "Gửi cho tôi thông tin về account cá nhân"
+
+#: userform.py:352
+msgid "Name"
+msgstr "Tên"
+
+#: userform.py:356
+msgid "(Use FirstnameLastname)"
+msgstr ""
+"(Dùng HọĐệmTên, và khong bo dau, hoặc dùng FirstnameLastname với tên tiếng "
+"Anh)"
+
+#: userform.py:359
+msgid "Password"
+msgstr "Mật khẩu"
+
+#: userform.py:365
+msgid "Password repeat"
+msgstr "Lập lại mật khẩu"
+
+#: userform.py:369
+msgid "(Only when changing passwords)"
+msgstr "(Chỉ khi nào đổi mật khẩu)"
+
+#: userform.py:372
+msgid "Email"
+msgstr "Thư điện tử"
+
+#: userform.py:383
+msgid "Preferred theme"
+msgstr "Theme mặc định"
+
+#: userform.py:385
+msgid "User CSS URL"
+msgstr "CSS URL riêng"
+
+#: userform.py:389
+msgid "(Leave it empty for disabling user CSS)"
+msgstr "(để trống nếu không dùng CSS)"
+
+#: userform.py:392
+msgid "Editor size"
+msgstr "Kích thước khung soạn thảo"
+
+#: userform.py:400
+msgid "Time zone"
+msgstr "Múi giờ"
+
+#: userform.py:401
+msgid "Your time is"
+msgstr "Giờ hiện tại"
+
+#: userform.py:404
+msgid "Server time is"
+msgstr "Giờ ở máy chủ"
+
+#: userform.py:409
+msgid "Date format"
+msgstr "Định dạng ngày"
+
+#: userform.py:411
+msgid "Preferred language"
+msgstr "Ngôn ngữ mặc định"
+
+#: userform.py:424
+msgid "General options"
+msgstr "Các lựa chọn chung"
+
+#: userform.py:426
+msgid "Quick links"
+msgstr "Các liên kết thường dùng"
+
+#: userform.py:441
+msgid "This list does not work, unless you have entered a valid email address!"
+msgstr ""
+"Danh sách này không hoạt động cho đến khi bạn nhập vào địa chỉ thư hợp lệ!"
+
+#: userform.py:446
+msgid "Subscribed wiki pages (one regex per line)"
+msgstr "Các trang đã đăng ký (một regex trong một dòng)"
+
+#: userform.py:485 wikiaction.py:407 action/AttachFile.py:593
+msgid "Action"
+msgstr "Công việc"
+
+#: wikiaction.py:57 wikiaction.py:108
+#, python-format
+msgid "Please use a more selective search term instead of '%(needle)s'!"
+msgstr "Vui lòng dùng từ khoá tìm kiếm khác thay cho '%(needle)s'!"
+
+#: wikiaction.py:61
+#, python-format
+msgid "Full text search for \"%s\""
+msgstr "Kết quả tìm kiếm cho chuỗi \"%s\""
+
+#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
+msgid "match"
+msgstr "phù hợp"
+
+#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
+msgid "matches"
+msgstr "phù hợp"
+
+#: wikiaction.py:111
+#, python-format
+msgid "Title search for \"%s\""
+msgstr "Tìm theo đầu đề \"%s\""
+
+#: wikiaction.py:155
+#, python-format
+msgid "%(hits)d hits out of %(pages)d pages searched."
+msgstr "Tìm thấy %(hits)d trang trong tổng số %(pages)d trang."
+
+#: wikiaction.py:156
+#, python-format
+msgid "Needed %(timer).1f seconds."
+msgstr "Tốn %(timer).1f giây."
+
+#: wikiaction.py:227
+msgid "No older revisions available!"
+msgstr "Không có phiên bản cũ hơn!"
+
+#: wikiaction.py:231
+#, python-format
+msgid "Diff for \"%s\""
+msgstr "diff của \"%s\""
+
+#: wikiaction.py:283
+#, python-format
+msgid "Differences between versions dated %s and %s"
+msgstr "Sự khác nhau giữa phiên bản ngày %s và ngày %s"
+
+#: wikiaction.py:286
+#, python-format
+msgid "(spanning %d versions)"
+msgstr "(trải qua %d phiên bản)"
+
+#: wikiaction.py:296 util/diff.py:41
+msgid "No differences found!"
+msgstr "Không có sự khác biệt!"
+
+#: wikiaction.py:298
+#, python-format
+msgid "The page was saved %(count)d times, though!"
+msgstr "Trang này đã được lưu %(count)d lần!"
+
+#: wikiaction.py:309
+msgid "Ignore changes in the amount of whitespace"
+msgstr "Bỏ qua các thay đổi về số lượng khoảng trắng"
+
+#: wikiaction.py:330
+msgid "General Information"
+msgstr "Thông tin chung"
+
+#: wikiaction.py:333
+#, python-format
+msgid "Page size: %d"
+msgstr "Kích thước trang: %d"
+
+#: wikiaction.py:339
+msgid "SHA digest of this page's content is:"
+msgstr "Mã SHA của trang này là:"
+
+#: wikiaction.py:350
+msgid "The following users subscribed to this page:"
+msgstr "Những người dùng sau đã đăng ký vào trang này:"
+
+#: wikiaction.py:365
+msgid "This page links to the following pages:"
+msgstr "Trang này liên kết tới các trang sau:"
+
+#: wikiaction.py:376 wikiaction.py:515
+msgid "Revision History"
+msgstr "Danh sách các thay đổi"
+
+#: wikiaction.py:401
+msgid "Date"
+msgstr "Ngày"
+
+#: wikiaction.py:402 action/AttachFile.py:592
+msgid "Size"
+msgstr "Kích thước"
+
+#: wikiaction.py:403
+msgid "Diff"
+msgstr "diff"
+
+#: wikiaction.py:405
+msgid "Editor"
+msgstr "Tác giả"
+
+#: wikiaction.py:406
+msgid "Comment"
+msgstr "Chú thích"
+
+#: wikiaction.py:445 wikiaction.py:456 action/AttachFile.py:188
+msgid "view"
+msgstr "xem"
+
+#: wikiaction.py:448 wikiaction.py:459
+msgid "raw"
+msgstr "thô"
+
+#: wikiaction.py:451 wikiaction.py:462
+msgid "print"
+msgstr "in"
+
+#: wikiaction.py:466
+msgid "revert"
+msgstr "hoàn nguyên"
+
+#: wikiaction.py:477 macro/RecentChanges.py:41
+#, python-format
+msgid "Revert to version dated %(datestamp)s."
+msgstr "Hoàn nguyên phiên bản ngày %(datestamp)s."
+
+#: wikiaction.py:484
+msgid "N/A"
+msgstr "không"
+
+#: wikiaction.py:512
+#, python-format
+msgid "Info for \"%s\""
+msgstr "Thông tin về \"%s\""
+
+#: wikiaction.py:515 wikiaction.py:517
+#, python-format
+msgid "Show \"%(title)s\""
+msgstr "Hiển thị \"%(title)s\""
+
+#: wikiaction.py:517
+msgid "General Page Infos"
+msgstr "Thông tin chung"
+
+#: wikiaction.py:519
+#, python-format
+msgid "Show chart \"%(title)s\""
+msgstr "Hiển thị biểu đồ \"%(title)s\""
+
+#: wikiaction.py:519 stats/hitcounts.py:154
+msgid "Page hits and edits"
+msgstr "Số lần xem và sửa"
+
+#: wikiaction.py:591
+msgid "You are not allowed to revert this page!"
+msgstr "Bạn không thể hoàn nguyên phiên bản cũ của trang này!"
+
+#: wikiaction.py:601
+msgid "An error occurred while reverting the page."
+msgstr "Xảy ra lỗi trong khi hoàn lại trang."
+
+#: wikiaction.py:701
+msgid "You are not allowed to subscribe to a page you can't read."
+msgstr "Bạn không thể đăng ký vào trang mà bạn không thể xem."
+
+#: wikiaction.py:710
+msgid ""
+"You didn't create a user profile yet. Select UserPreferences in the upper "
+"right corner to create a profile."
+msgstr ""
+"Bạn chưa có profile. Nhấn vào Sở thích cá nhân ở góc phải trên để tạo một "
+"profile."
+
+#: wikiaction.py:715
+msgid ""
+"You didn't enter an email address in your profile. Select your name "
+"(UserPreferences) in the upper right corner and enter a valid email address."
+msgstr ""
+"Bạn chưa nhập địa chỉ thư điện tử. Nhấn vào tên bạn (Sở thích cá nhân) ở góc "
+"phải trên để nhập vào một địa chỉ thư điện tử hợp lệ."
+
+#: wikiaction.py:720
+msgid "You are already subscribed to this page."
+msgstr "Bạn đã đăng ký vào trang này rồi."
+
+#: wikiaction.py:721 wikiaction.py:728
+msgid ""
+"To unsubscribe, go to your profile and delete this page from the "
+"subscription list."
+msgstr ""
+"Để huỷ đăng ký, bạn nhấn vào Sở thích cá nhân và xoá trang này khỏi danh "
+"sách đăng ký."
+
+#: wikiaction.py:727
+msgid "You have been subscribed to this page."
+msgstr "Bạn vừa đăng ký vào trang này."
+
+#: wikiform.py:31
+#, python-format
+msgid "Required attribute \"%(attrname)s\" missing"
+msgstr "Không tìm thấy thuộc tính \"%(attrname)s\""
+
+#: wikiform.py:95
+msgid "Submitted form data:"
+msgstr "Dữ liệu đã được nhập:"
+
+#: wikimacro.py:150
+msgid "Display context of search results"
+msgstr "Hiển thị kết quả tìm kiếm"
+
+#: wikimacro.py:152
+msgid "Case-sensitive searching"
+msgstr "Tìm kiếm phân biệt chữ hoa và chữ thường"
+
+#: wikimacro.py:159 wikimacro.py:165
+msgid "Go"
+msgstr "Chuyển"
+
+#: wikimacro.py:257
+msgid "Include system pages"
+msgstr "Bao gồm các trang hệ thống"
+
+#: wikimacro.py:257
+msgid "Exclude system pages"
+msgstr "Bỏ các trang hệ thống"
+
+#: wikimacro.py:258
+msgid "Plain title index"
+msgstr "Chỉ mục đơn giản"
+
+#: wikimacro.py:259
+msgid "XML title index"
+msgstr "Chỉ mục dạng XML"
+
+#: wikimacro.py:309
+msgid "Python Version"
+msgstr "Phiên bản Python"
+
+#: wikimacro.py:310
+msgid "MoinMoin Version"
+msgstr "Phiên bản MoinMoin"
+
+#: wikimacro.py:310
+#, python-format
+msgid "Release %s [Revision %s]"
+msgstr "Phiên bản %s [bản sửa %s]"
+
+#: wikimacro.py:312
+msgid "4Suite Version"
+msgstr "Phiên bản 4Suite"
+
+#: wikimacro.py:313
+msgid "Number of pages"
+msgstr "Tổng số trang"
+
+#: wikimacro.py:314
+msgid "Number of system pages"
+msgstr "Số trang hệ thống"
+
+#: wikimacro.py:315
+msgid "Number of backup versions"
+msgstr "Số bản lưu"
+
+#: wikimacro.py:316
+msgid "Accumulated page sizes"
+msgstr "Tổng kích thước"
+
+#: wikimacro.py:319
+msgid "Entries in edit log"
+msgstr "Các mục trong edit log"
+
+#: wikimacro.py:320
+#, python-format
+msgid "%(logcount)s (%(logsize)s bytes)"
+msgstr "%(logcount)s (%(logsize)s bytes)"
+
+#: wikimacro.py:326
+msgid "NONE"
+msgstr "NONE"
+
+#: wikimacro.py:329
+msgid "Global extension macros"
+msgstr "Macro bổ trợ toàn cục"
+
+#: wikimacro.py:331
+msgid "Local extension macros"
+msgstr "Macro bổ trợ nội bộ"
+
+#: wikimacro.py:333
+msgid "Global extension actions"
+msgstr "Action bổ trợ toàn cục"
+
+#: wikimacro.py:335
+msgid "Local extension actions"
+msgstr "Action bổ trợ nội bộ"
+
+#: wikimacro.py:337
+msgid "Installed processors"
+msgstr "Processor đã cài"
+
+#: wikimacro.py:358
+#, python-format
+msgid "ERROR in regex '%s'"
+msgstr "Có lỗi trong regex '%s'"
+
+#: wikimacro.py:395 wikimacro.py:405
+#, python-format
+msgid "Bad timestamp '%s'"
+msgstr "Không hiểu timestamp '%s'"
+
+#: wikiutil.py:600 util/wikiext.py:61
+#, python-format
+msgid "Expected \"=\" to follow \"%(token)s\""
+msgstr "Dự đoán \"=\" sẽ theo sau \"%(token)s\""
+
+#: wikiutil.py:605 util/wikiext.py:66
+#, python-format
+msgid "Expected a value for key \"%(token)s\""
+msgstr "Dự đoán \"%(token)s\" sẽ chứa giá trị nào đó"
+
+#: wikiutil.py:908
+msgid "Wiki Markup"
+msgstr "Đánh dấu kiểu wiki"
+
+#: wikiutil.py:910
+msgid "Print View"
+msgstr "Xem bản in"
+
+#: action/AttachFile.py:102
+#, python-format
+msgid "[%d attachments]"
+msgstr "[%d attachments]"
+
+#: action/AttachFile.py:120
+#, python-format
+msgid ""
+"There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
+"page."
+msgstr ""
+"Có tổng cộng <a href=\"%(link)s\">%(count)s file gửi kèm</a> trong trang này."
+
+#: action/AttachFile.py:152 action/AttachFile.py:417
+msgid "Filename of attachment not specified!"
+msgstr "Tên file gửi kèm không được định rõ!"
+
+#: action/AttachFile.py:159
+#, python-format
+msgid "Attachment '%(filename)s' does not exist!"
+msgstr "File gửi kèm '%(filename)s' không tồn tại!"
+
+#: action/AttachFile.py:177
+msgid ""
+"<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
+"tt></strong>, \n"
+"as shown below in the list of files. \n"
+"Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
+"since this is subject to change and can break easily.</p>"
+msgstr ""
+"<p>Để chỉ tới file gửi kèm trong một trang, dùng <strong><tt>attachment:tên</"
+"tt></strong>,\n"
+"như xuất hiện bên dưới trong phần danh sách các file.\n"
+"Vui lòng <strong>KHÔNG</strong> sử dụng URL của liên kết <tt>[get]</tt>,\n"
+"vì rất có thể URL đó sẽ bị thay đổi.</p>"
+
+#: action/AttachFile.py:185
+msgid "del"
+msgstr "xoá"
+
+#: action/AttachFile.py:186
+msgid "get"
+msgstr "lấy"
+
+#: action/AttachFile.py:187
+msgid "edit"
+msgstr "sửa"
+
+#: action/AttachFile.py:225
+#, python-format
+msgid "No attachments stored for %(pagename)s"
+msgstr "Không có file gửi kèm trong trang %(pagename)s"
+
+#: action/AttachFile.py:267
+msgid "Edit drawing"
+msgstr "Sửa bản vẽ"
+
+#: action/AttachFile.py:299
+msgid "Attached Files"
+msgstr "File gửi kèm"
+
+#: action/AttachFile.py:303 action/AttachFile.py:367
+msgid "You are not allowed to attach a file to this page."
+msgstr "Bạn không thể kèm file vào trang này."
+
+#: action/AttachFile.py:310
+msgid "New Attachment"
+msgstr "Gửi kèm file mới"
+
+#: action/AttachFile.py:311
+msgid ""
+"An upload will never overwrite an existing file. If there is a name\n"
+"conflict, you have to rename the file that you want to upload.\n"
+"Otherwise, if \"Rename to\" is left blank, the original filename will be "
+"used."
+msgstr ""
+"File gửi kèm sẽ không chép đè lên file cũ. Nếu có sự trùng tên, bạn\n"
+"cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô \"Đổi tên thành\"\n"
+"để trống thì tên file gốc sẽ được dùng."
+
+#: action/AttachFile.py:334
+msgid "File to upload"
+msgstr "File để tải lên"
+
+#: action/AttachFile.py:335
+msgid "MIME Type (optional)"
+msgstr "Loại file (MIME) (không bắt buộc)"
+
+#: action/AttachFile.py:336
+msgid "Save as"
+msgstr "Lưu với tên khác"
+
+#: action/AttachFile.py:338
+msgid "Upload"
+msgstr "Tải lên"
+
+#: action/AttachFile.py:353
+msgid "File attachments are not allowed in this wiki!"
+msgstr "Wiki này không cho phép gửi kèm file!"
+
+#: action/AttachFile.py:360
+msgid "You are not allowed to save a drawing on this page."
+msgstr "Bạn không thể tạo một bản vẽ ở trang này."
+
+#: action/AttachFile.py:372
+msgid "You are not allowed to delete attachments on this page."
+msgstr "Bạn không thể xoá file gửi kèm."
+
+#: action/AttachFile.py:377
+msgid "You are not allowed to get attachments from this page."
+msgstr "Bạn không thể lấy file gửi kèm từ trang này."
+
+#: action/AttachFile.py:382
+msgid "You are not allowed to view attachments of this page."
+msgstr "Bạn không thể xem các file gửi kèm trong trang này."
+
+#: action/AttachFile.py:384
+#, python-format
+msgid "Unsupported upload action: %s"
+msgstr "Không thể thực hiện việc tải lên: %s"
+
+#: action/AttachFile.py:394
+#, python-format
+msgid "Attachments for \"%(pagename)s\""
+msgstr "File gửi kèm trong trang \"%(pagename)s\""
+
+#: action/AttachFile.py:444
+#, python-format
+msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
+msgstr "File gửi kèm '%(target)s' (tên ở máy chủ '%(filename)s') đã tồn tại."
+
+#: action/AttachFile.py:455
+#, python-format
+msgid ""
+"Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
+"saved."
+msgstr ""
+"File gửi kèm '%(target)s' (tên ở máy chủ '%(filename)s') kích thước %(bytes)"
+"d bytes đã được lưu."
+
+#: action/AttachFile.py:506 macro/RecentChanges.py:36
+#, python-format
+msgid "Attachment '%(filename)s' deleted."
+msgstr "File gửi kèm '%(filename)s' đã được xoá."
+
+#: action/AttachFile.py:539
+#, python-format
+msgid "Attachment '%(filename)s'"
+msgstr "Gửi kèm '%(filename)s'"
+
+#: action/AttachFile.py:554
+msgid "Unknown file type, cannot display this attachment inline."
+msgstr "Không hiểu kiểu file, không thể hiện file gửi kèm này trong văn bản."
+
+#: action/AttachFile.py:567
+#, python-format
+msgid "attachment:%(filename)s of %(pagename)s"
+msgstr "attachment:%(filename)s trong trang %(pagename)s"
+
+#: action/DeletePage.py:27
+msgid "You are not allowed to delete this page."
+msgstr "Bạn không thể xoá trang này."
+
+#: action/DeletePage.py:33 action/RenamePage.py:29
+msgid "This page is already deleted or was never created!"
+msgstr "Trang này đã bị xoá hoặc chưa bao giờ tồn tại!"
+
+#: action/DeletePage.py:41
+msgid "Please use the interactive user interface to delete pages!"
+msgstr "Vui lòng sử dụng giao diện người dùng để xoá trang!"
+
+#: action/DeletePage.py:48
+#, python-format
+msgid "Page \"%s\" was successfully deleted!"
+msgstr "Trang \"%s\" đã được xoá!"
+
+#: action/DeletePage.py:53
+msgid "Really delete this page?"
+msgstr "Thật sự xoá trang này?"
+
+#: action/DeletePage.py:54
+msgid "Delete"
+msgstr "Xóa"
+
+#: action/DeletePage.py:55
+msgid "Optional reason for the deletion"
+msgstr "Lý do xoá trang (nếu có)"
+
+#: action/LikePages.py:31
+#, python-format
+msgid "No pages match \"%s\"!"
+msgstr "Không tìm thấy \"%s\"!"
+
+#: action/LikePages.py:37
+#, python-format
+msgid "Exactly one matching page for \"%s\" found!"
+msgstr "Chỉ tìm thấy duy nhất một trang có chứa \"%s\"!"
+
+#: action/LikePages.py:42
+#, python-format
+msgid "Multiple matches for \"%s...%s\""
+msgstr "Nhiều phù hợp cho \"%s...%s\""
+
+#: action/LikePages.py:65
+msgid "You cannot use LikePages on an extended pagename!"
+msgstr "Bạn không thể dùng LikePages với tên trang mở rộng!"
+
+#: action/LikePages.py:121
+#, python-format
+msgid "%(matchcount)d %(matches)s for \"%(title)s\""
+msgstr "%(matchcount)d %(matches)s ở trang \"%(title)s\""
+
+#: action/LocalSiteMap.py:38
+#, python-format
+msgid "Local Site Map for \"%s\""
+msgstr "Bản đồ liên kết nội bộ cho \"%s\""
+
+#: action/RenamePage.py:25
+msgid "You are not allowed to rename pages in this wiki!"
+msgstr "Bạn không thể đổi tên trang trong wiki này!"
+
+#: action/RenamePage.py:37
+msgid "Please use the interactive user interface to rename pages!"
+msgstr "Vui lòng sử dụng giao diện người dùng để đổi tên trang!"
+
+#: action/RenamePage.py:45
+#, python-format
+msgid "A page with the name \"%s\" already exists!"
+msgstr "Đã có trang \"%s\"!"
+
+#: action/RenamePage.py:55
+#, python-format
+msgid "Page \"%s\" was successfully renamed to \"%s\"!"
+msgstr "Trang \"%s\" đã được đổi tên thành \"%s\"!"
+
+#: action/RenamePage.py:61
+msgid "Rename"
+msgstr "Đổi tên"
+
+#: action/RenamePage.py:62
+msgid "New name"
+msgstr "Tên mới"
+
+#: action/RenamePage.py:63
+msgid "Optional reason for the renaming"
+msgstr "Lý do đổi tên (nếu có)"
+
+#: action/SpellCheck.py:169
+#, python-format
+msgid "(including %(localwords)d %(pagelink)s)"
+msgstr "(bao gồm cả %(localwords)d %(pagelink)s)"
+
+#: action/SpellCheck.py:171
+#, python-format
+msgid ""
+"The following %(badwords)d words could not be found in the dictionary of %"
+"(totalwords)d words%(localwords)s and are highlighted below:"
+msgstr ""
+"%(badwords)d từ không có trong từ điển (%(totalwords)d từ)%(localwords)s và "
+"được đánh dấu bên dưới:"
+
+#: action/SpellCheck.py:190
+msgid "Add checked words to dictionary"
+msgstr "Thêm các từ đã kiểm tra vào từ điển"
+
+#: action/SpellCheck.py:196
+msgid "No spelling errors found!"
+msgstr "Không có lỗi chính tả!"
+
+#: action/SpellCheck.py:210
+msgid "You can't check spelling on a page you can't read."
+msgstr ""
+"Bạn không thể kiểm tra lỗi chính tả trong một trang mà bạn không thể xem."
+
+#: action/links.py:28
+#, python-format
+msgid "Full Link List for \"%s\""
+msgstr "Danh sách liên kết đầy đủ trong \"%s\""
+
+#: macro/Include.py:58
+#, python-format
+msgid "Invalid include arguments \"%s\"!"
+msgstr "Không hiểu tham số \"%s\"!"
+
+#: macro/Include.py:120 macro/Include.py:130
+#, python-format
+msgid "Nothing found for \"%s\"!"
+msgstr "Không tìm thấy \"%s\""
+
+#: macro/Navigation.py:103
+#, python-format
+msgid "Unsupported navigation scheme '%(scheme)s'!"
+msgstr "Không hiểu cách hoạt động '%(scheme)s'!"
+
+#: macro/Navigation.py:120 macro/Navigation.py:191
+msgid "No parent page found!"
+msgstr "Không tìm thấy trang trên!"
+
+#: macro/Navigation.py:162
+msgid "Wiki"
+msgstr "Wiki"
+
+#: macro/Navigation.py:168
+msgid "Slideshow"
+msgstr "Slideshow"
+
+#: macro/Navigation.py:180
+msgid "Start"
+msgstr "Bắt đầu"
+
+#: macro/Navigation.py:214
+#, python-format
+msgid "Slide %(pos)d of %(size)d"
+msgstr "Slide %(pos)d kích thước %(size)d"
+
+#: macro/OrphanedPages.py:43
+msgid "No orphaned pages in this wiki."
+msgstr "Không có trang lẻ trong wiki này."
+
+#: macro/RandomQuote.py:44
+#, python-format
+msgid "No quotes on %(pagename)s."
+msgstr "Không có lời trích trong trang %(pagename)s."
+
+#: macro/RecentChanges.py:34
+#, python-format
+msgid "Upload of attachment '%(filename)s'."
+msgstr "Tải lên file '%(filename)s'."
+
+#: macro/RecentChanges.py:38
+#, python-format
+msgid "Drawing '%(filename)s' saved."
+msgstr "Bản vẽ '%(filename)s' đã được lưu."
+
+#: macro/RecentChanges.py:89
+#, python-format
+msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
+msgstr "[cách nay %(hours)d giờ %(mins)d phút]"
+
+#: macro/RecentChanges.py:239
+msgid "(no bookmark set)"
+msgstr "(không có bookmark)"
+
+#: macro/RecentChanges.py:241
+#, python-format
+msgid "(currently set to %s)"
+msgstr "(hiện tại đang là %s)"
+
+#: macro/RecentChanges.py:248
+msgid "Update my bookmark timestamp"
+msgstr "Cập nhập lại bookmark timestamp"
+
+#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
+msgid "set bookmark"
+msgstr "đưa vào bookmark"
+
+#: macro/RecentChanges.py:327
+msgid "[Bookmark reached]"
+msgstr "[Đã tới bookmark]"
+
+#: macro/ShowSmileys.py:31
+msgid "Markup"
+msgstr "Đánh dấu"
+
+#: macro/ShowSmileys.py:32
+msgid "Display"
+msgstr "Hiển thị"
+
+#: macro/ShowSmileys.py:33
+msgid "Filename"
+msgstr "Tên file"
+
+#: macro/StatsChart.py:19
+msgid "You need to provide a chart type!"
+msgstr "Bạn cần nhập vào loại biểu đồ!"
+
+#: macro/StatsChart.py:23
+#, python-format
+msgid "Bad chart type \"%s\"!"
+msgstr "Không hiểu loại biểu đồ \"%s\"!"
+
+#: macro/SystemAdmin.py:39
+msgid "Download XML export of this wiki"
+msgstr "Tải về theo dạng XML của trang này"
+
+#: macro/WantedPages.py:48
+msgid "No wanted pages in this wiki."
+msgstr "Không có trang cần tạo trong wiki này."
+
+#: parser/wiki.py:225
+#, python-format
+msgid "Create new drawing \"%(filename)s\""
+msgstr "Tạo bản vẽ \"%(filename)s\" mới"
+
+#: parser/wiki.py:227
+#, python-format
+msgid "Upload new attachment \"%(filename)s\""
+msgstr "Tải lên file \"%(filename)s\""
+
+#: parser/wiki.py:258 parser/wiki.py:268
+#, python-format
+msgid "Edit drawing %(filename)s"
+msgstr "Sửa bản vẽ \"%(filename)s\""
+
+#: parser/wiki.py:624
+#, python-format
+msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
+msgstr ""
+"Dự đoán \"%(wanted)s\" theo sau \"%(key)s\", nhưng lại là \"%(token)s\""
+
+#: parser/wiki.py:630
+#, python-format
+msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
+msgstr "Dự đoán một số nguyên \"%(key)s\" đứng trước \"%(token)s\""
+
+#: parser/wiki.py:639 parser/wiki.py:648
+#, python-format
+msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
+msgstr "Dự đoán một số nguyên \"%(arg)s\" đứng sau \"%(key)s\""
+
+#: parser/wiki.py:668
+#, python-format
+msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
+msgstr "Dự đoán một giá trị màu \"%(arg)s\" đứng sau \"%(key)s\""
+
+#: parser/xslt.py:39
+msgid "XSLT option disabled!"
+msgstr "Tuỳ chọn XSLT đã bị tắt!"
+
+#: parser/xslt.py:56
+msgid "XSLT processing is not available!"
+msgstr "XSLT không thể được thực hiện!"
+
+#: parser/xslt.py:134
+#, python-format
+msgid "%(errortype)s processing error"
+msgstr "lỗi xử lý %(errortype)s"
+
+#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
+msgid "Charts are not available!"
+msgstr "Biểu đồ không thể được thực hiện!"
+
+#: stats/hitcounts.py:155
+#, python-format
+msgid "%(chart_title)s for %(filterpage)s"
+msgstr "%(chart_title)s ở trang %(filterpage)s"
+
+#: stats/hitcounts.py:157
+msgid ""
+"green=view\n"
+"red=edit"
+msgstr ""
+"xanh lá=xem\n"
+"đỏ=sửa"
+
+#: stats/hitcounts.py:160
+msgid "date"
+msgstr "ngày"
+
+#: stats/hitcounts.py:161
+msgid "# of hits"
+msgstr "số lần xem"
+
+#: stats/pagesize.py:93
+msgid "Page Size Distribution"
+msgstr "Thống kê theo kích thước trang"
+
+#: stats/pagesize.py:97
+msgid "page size upper bound [bytes]"
+msgstr "kích thước giới hạn của trang [bytes]"
+
+#: stats/pagesize.py:98
+msgid "# of pages of this size"
+msgstr "số trang cùng dung lượng"
+
+#: stats/useragents.py:88
+msgid "Others"
+msgstr "Các thứ khác"
+
+#: stats/useragents.py:109
+msgid "Distribution of User-Agent Types"
+msgstr "Thống kê theo User-Agent"
+
+#: theme/classic.py:154
+msgid "Click here to do a full-text search for this title"
+msgstr "Nhấn vào đây để thực hiện tìm kiếm theo nội dung"
+
+#: theme/classic.py:294
+msgid "Clear message"
+msgstr "Xoá thông báo"
+
+#: theme/classic.py:429
+msgid "ShowText"
+msgstr "Hiện nội dung"
+
+#: theme/classic.py:430 theme/classic.py:450
+msgid "of this page"
+msgstr "của trang này"
+
+#: theme/classic.py:449
+msgid "EditText"
+msgstr "Sửa nội dung"
+
+#: theme/classic.py:453
+msgid "Immutable page"
+msgstr "Trang này không thể được thay đổi"
+
+#: theme/classic.py:481 i18n/dummy.py:14
+msgid "FindPage"
+msgstr "Tìm trang"
+
+#: theme/classic.py:482 i18n/dummy.py:15
+msgid "SiteNavigation"
+msgstr "SiteNavigation"
+
+#: theme/classic.py:483
+#, python-format
+msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
+msgstr "hoặc tìm theo đầu đề %(titlesearch)s, tìm nội dung %(textsearch)s hoặc"
+
+#: theme/classic.py:513
+msgid "Or try one of these actions:"
+msgstr "Hoặc sử dụng các công cụ:"
+
+#: theme/classic.py:666
+#, python-format
+msgid "Show all changes in the last %s days."
+msgstr "Hiển thị tất cả các thay đổi trong %s ngày gần đây."
+
+#: util/diff.py:31
+msgid "Line"
+msgstr "Dòng"
+
+#: util/diff.py:60
+msgid "Deletions are marked like this."
+msgstr "Các phần bị xoá được đánh dấu như thế này."
+
+#: util/diff.py:60
+msgid "Additions are marked like this."
+msgstr "Các phần thêm vào được đánh dấu như thế này."
+
+#: util/mail.py:71
+#, python-format
+msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
+msgstr "Kết nối tới mailserver '%(server)s' bị ngắt quảng vì lý do: %(reason)s"
+
+#: util/mail.py:76
+msgid "Mail sent OK"
+msgstr "Thư đã được gửi"
+
+#: i18n/dummy.py:10
+msgid "FrontPage"
+msgstr "Trang đầu"
+
+#: i18n/dummy.py:11
+msgid "RecentChanges"
+msgstr "Các thay đổi gần đây"
+
+#: i18n/dummy.py:12
+msgid "TitleIndex"
+msgstr "Tựa chỉ mục"
+
+#: i18n/dummy.py:13
+msgid "WordIndex"
+msgstr "Từ chỉ mục"
+
+#: i18n/dummy.py:16
+msgid "HelpContents"
+msgstr "Trang chỉ dẫn"
+
+#: i18n/dummy.py:17
+msgid "HelpOnFormatting"
+msgstr "Chỉ dẫn cách định dạng"
+
+#: i18n/dummy.py:18
+msgid "UserPreferences"
+msgstr "Sở thích cá nhân"
+
+#: i18n/dummy.py:19
+msgid "WikiLicense"
+msgstr "Wiki License"
+
+#: i18n/dummy.py:21
+msgid "Mon"
+msgstr "Thứ Hai"
+
+#: i18n/dummy.py:21
+msgid "Tue"
+msgstr "Thứ Ba"
+
+#: i18n/dummy.py:21
+msgid "Wed"
+msgstr "Thứ Tư"
+
+#: i18n/dummy.py:21
+msgid "Thu"
+msgstr "Thứ Năm"
+
+#: i18n/dummy.py:21
+msgid "Fri"
+msgstr "Thứ Sáu"
+
+#: i18n/dummy.py:21
+msgid "Sat"
+msgstr "Thứ Bảy"
+
+#: i18n/dummy.py:21
+msgid "Sun"
+msgstr "Chủ Nhật"
+
+#, fuzzy
+#~ msgid "time"
+#~ msgstr "lúc"
+
+#, fuzzy
+#~ msgid "times"
+#~ msgstr "lần"
+
+#~ msgid "[Size limited to %dK]"
+#~ msgstr "[Kích thước giới hạn %dK]"
+
+#~ msgid "<small>[goto %s]</small>"
+#~ msgstr "<small>[đi đến %s]</small>"
+
+#~ msgid "<div class=\"message\"><b>Charts are not available!</b></div>"
+#~ msgstr "<div class=\"message\"><b>Không thể vẽ biểu đồ!</b></div>"
+
+#~ msgid "Your email address"
+#~ msgstr "Địa chỉ thư điện tử"
+
+#~ msgid "<b>Cookie deleted!</b>"
+#~ msgstr "<b>Cookie đã bị xoá!</b>"
+
+#~ msgid "Rename to (optional)"
+#~ msgstr "Đổi tên thành (không bắt buộc)"
+
+#~ msgid "<h2>Attachment '%(filename)s'</h2>"
+#~ msgstr "<h2>File gửi kèm '%(filename)s'</h2>"
+
+#~ msgid "%(changecount)s changes"
+#~ msgstr "%(changecount)s lần thay đổi"
+
+#~ msgid "Add \"Open in new window\" icon to pretty links"
+#~ msgstr "Thêm icon \"Mở ở cửa sổ mới\" để làm đẹp các liên kết"
+
+#~ msgid "[New window]"
+#~ msgstr "[Cửa sổ mới]"
+
+#~ msgid "<div class=\"message\"><b>Bad chart type \"%s\"!</b></div>"
+#~ msgstr "<div class=\"message\"><b>Không hiểu loại biểu đồ \"%s\"!</b></div>"
+
+#~ msgid "To login from a different machine, use this URL: "
+#~ msgstr "Để đăng nhập từ máy tính khác bạn dùng URL: "
+
+#~ msgid "Return to general page information"
+#~ msgstr "Trở về thông tin chung của trang"
+
+#~ msgid "<b>No differences found!</b>"
+#~ msgstr "<b>Không có sự khác biệt!</b>"
+
+#~ msgid "<Default>"
+#~ msgstr "<Mặc định>"
+
+#~ msgid "<b>You are not allowed to upload files.</b>"
+#~ msgstr "<b>Bạn không thể tải lên.</b>"
+
+#~ msgid "Entries in event log"
+#~ msgstr "Các mục trong event log"
+
+#~ msgid ""
+#~ "To create your own templates, add a page with a name ending in Template."
+#~ msgstr ""
+#~ "Để tự tạo mẫu riêng, bạn cần tạo một trang với tên có đuôi là Template."
+
+#~ msgid "Detailed Information"
+#~ msgstr "Thông tin chi tiết"

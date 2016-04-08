@@ -68,6 +68,8 @@ __underline__
         '<em>Mix at <strong>end</strong></em>',
     ]
 
+# If this fails, it is likely a problem in your python / libc, not in moin.
+# See also: http://sourceforge.net/tracker/index.php?func=detail&aid=902172&group_id=5470&atid=105470
 class WikiMacroTestCase(ExpectTest):
     BODY = """
 1#[[DateTime(1970-01-06T00:00:00)]]#1
