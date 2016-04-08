@@ -1,18 +1,18 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - "text/html" Formatter
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_html.py,v 1.42 2002/05/10 11:39:01 jhermann Exp $
+    $Id: text_html.py,v 1.57 2003/11/09 21:00:56 thomaswaldmann Exp $
 """
 
 # Imports
 import cgi, string, sys, time
 from MoinMoin.formatter.base import FormatterBase
-from MoinMoin import wikiutil, config, user
+from MoinMoin import wikiutil, config, user, i18n
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
 #############################################################################
@@ -48,16 +48,36 @@ class Formatter(FormatterBase):
         if not hasattr(request, '_fmt_hd_counters'):
             request._fmt_hd_counters = []
 
+    def _langAttr(self):
+        result = ''
+        lang = self.request.current_lang
+        if lang != config.default_lang:
+            result += ' lang="%s" dir="%s"' % (
+                lang, i18n.getDirection(self.request, lang))
+
+        return result
+
     def sysmsg(self, text, **kw):
         return '<div class="message"><b>%s</b></div>' % cgi.escape(text)
 
     def pagelink(self, pagename, text=None, **kw):
+        """ Link to a page.
+
+            See wikiutil.link_tag() for possible keyword parameters.
+        """
         apply(FormatterBase.pagelink, (self, pagename, text), kw)
-        return Page(pagename).link_to(text)
+        return Page(pagename).link_to(text, **kw)
 
     def url(self, url, text=None, css=None, **kw):
+        """
+            Keyword params:
+                title - title attribute
+                target - target attribute
+                ... some more (!!! TODO) 
+        """
         url = wikiutil.mapURL(url)
         pretty = kw.get('pretty_url', 0)
+        target = kw.get('target', None)
 
         if not pretty and wikiutil.isPicture(url):
             return '<img src="%s" border="0">' % (url,)
@@ -65,17 +85,20 @@ class Formatter(FormatterBase):
         if text is None: text = url
         str = ''
 
-        # add popup icon if user asked for it
-        if pretty and self.request.user.external_target:
+        # add popup icon if user asked for it or a target is set
+        if pretty and (self.request.user.external_target or target is not None):
             str = ('%s<a target="_blank" href="%s"><img src="%s/img/moin-popup.gif"'
-                ' border="0" width="15" height="9" alt="%s"></a>') % (
-                str, cgi.escape(url, 1), config.url_prefix, _('[New window]'))
+                ' border="0" width="15" height="9" alt="%s" title="%s"></a>') % (
+                str, cgi.escape(url, 1), config.url_prefix, self._('[New window]'), self._('[New window]'))
 
         # create link
         str = str + '<a'
         if css: str = '%s class="%s"' % (str, css)
+
         title = kw.get('title', None)
         if title: str = '%s title="%s"' % (str, title)
+        if target: str = '%s target="%s"' % (str, target)
+
         str = '%s href="%s">%s</a>' % (str, cgi.escape(url, 1), text)
 
         return str
@@ -105,19 +128,25 @@ class Formatter(FormatterBase):
 
         result = '<ol'
         if type: result = result + ' type="%s"' % (type,)
-        if start: result = result + ' start="%d"' % (start,)
+        if start is not None: result = result + ' start="%d"' % (start,)
 
         return result + '>'
 
     def bullet_list(self, on):
         return ['<ul>', '</ul>'][not on]
 
-    def listitem(self, on):
+    def listitem(self, on, **kw):
         self._in_li = on != 0
-        return ['<li>', '</li>'][not on]
+        css = ''
+        css_class = kw.get('css_class', None)
+        if css_class: css += ' class="%s"' % css_class
+        return ['<li%s%s>' % (css, self._langAttr()), '</li>'][not on]
 
     def sup(self, on):
         return ['<sup>', '</sup>'][not on]
+
+    def sub(self, on):
+        return ['<sub>', '</sub>'][not on]
 
     def code(self, on):
         self._in_code = on
@@ -131,18 +160,18 @@ class Formatter(FormatterBase):
         FormatterBase.paragraph(self, on)
         if self._in_li:
             self._in_li = self._in_li + 1
-            return ['', '<p>'][on and self._in_li > 2]
+            return ['', '<p%s>' % self._langAttr()][on and self._in_li > 2]
         else:
-            return ['<p>', ''][not on]
+            return ['<p%s>' % self._langAttr(), ''][not on]
 
     def linebreak(self, preformatted=1):
         return ['\n', '<br>'][not preformatted]
 
     def heading(self, depth, title, **kw):
-        # remember depth of first heading, and adapt current depth accordingly
+        # remember depth of first heading, and adapt counting depth accordingly
         if not self._base_depth:
             self._base_depth = depth
-        depth = max(depth - (self._base_depth - 1), 1)
+        count_depth = max(depth - (self._base_depth - 1), 1)
 
         # check numbering, possibly changing the default
         if self._show_section_numbers is None:
@@ -152,19 +181,30 @@ class Formatter(FormatterBase):
                 self._show_section_numbers = 0
             elif numbering in ['1', 'on']:
                 self._show_section_numbers = 1
+            elif numbering in ['2', '3', '4', '5', '6']:
+                # explicit base level for section number display
+                self._show_section_numbers = int(numbering)
 
         # create section number
         number = ''
         if self._show_section_numbers:
             # count headings on all levels
-            self.request._fmt_hd_counters = self.request._fmt_hd_counters[:depth]
-            while len(self.request._fmt_hd_counters) < depth:
+            self.request._fmt_hd_counters = self.request._fmt_hd_counters[:count_depth]
+            while len(self.request._fmt_hd_counters) < count_depth:
                 self.request._fmt_hd_counters.append(0)
             self.request._fmt_hd_counters[-1] = self.request._fmt_hd_counters[-1] + 1
-            number = string.join(map(str, self.request._fmt_hd_counters), ".") + " "
+            number = '.'.join(map(str, self.request._fmt_hd_counters[self._show_section_numbers-1:]))
+            # CNC:2003-05-30
+            if number: number += ". "
 
-        return '<H%d>%s%s%s</H%d>\n' % (
-            depth, kw.get('icons', ''), number, title, depth)
+        if kw.has_key('on'):
+            if kw['on']:
+                return '<H%d>' % depth
+            else:
+                return '</H%d>' % depth
+        else:
+            return '<H%d%s>%s%s%s</H%d>\n' % (
+                depth, self._langAttr(), kw.get('icons', ''), number, title, depth)
 
     def _checkTableAttr(self, attrs, prefix):
         if not attrs: return ''
@@ -193,7 +233,9 @@ class Formatter(FormatterBase):
 
     def table_cell(self, on, attrs={}):
         if on:
-            on = '<td class="wiki"%s>' % self._checkTableAttr(attrs, '')
+            on = '<td class="wiki"%s%s>' % (
+                self._langAttr(),
+                self._checkTableAttr(attrs, ''))
         return [on, '</td>'][not on]
 
     def anchordef(self, name):
@@ -212,8 +254,8 @@ class Formatter(FormatterBase):
         extra = ''
         if compact:
             extra = ' compact'
-        return ['<dt%s><b>' % (extra,), '</b></dt>'][not on]
+        return ['<dt%s%s><b>' % (extra, self._langAttr()), '</b></dt>'][not on]
 
     def definition_desc(self, on):
-        return ['<dd>', '</dd>'][not on]
+        return ['<dd%s>' % self._langAttr(), '</dd>'][not on]
 

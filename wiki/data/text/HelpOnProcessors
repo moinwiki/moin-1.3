@@ -1,3 +1,4 @@
+##language:en
 [[TableOfContents]]
 
 == Processors ==
@@ -17,6 +18,7 @@ if lines[0].contains("python"):
     print "colors!"
 }}}
 
+[[Anchor(csvprocessor)]]
 === CSV ===
 
 The CSV processor works on so-called ''comma separated values'', though the comma is now usually a semicolon. 
@@ -38,4 +40,5 @@ Version;Date;HIDDEN!
 0.4;2000-11-01;
 0.3;2000-10-25;
 0.2;2000-08-26;
-0.1;2000-07-29;}}}
+0.1;2000-07-29;
+}}}

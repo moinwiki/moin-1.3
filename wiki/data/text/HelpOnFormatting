@@ -1,3 +1,4 @@
+##language:en
 == Text Formatting Rules ==
 
 Leave blank lines between paragraphs. Use {{{[[BR]]}}} to insert linebreaks into paragraphs.
@@ -5,7 +6,9 @@ Leave blank lines between paragraphs. Use {{{[[BR]]}}} to insert linebreaks into
 You can render text in ''italics'' or '''bold'''.
 To write italics, enclose the text in double single quotes.
 To write bold, enclose the text in triple single quotes.
-You get ^superscripted text^ by enclosing it into caret characters.
+__Underlined text__ needs a double underscore on each side.
+You get ^superscripted text^ by enclosing it into caret characters,
+and ,,subscripts,, have to be embedded into double commas.
 
 To insert program source without reformatting in a {{{monospace font}}}, use three curly braces:
 {{{
@@ -19,13 +22,13 @@ For more information on the possible markup, see HelpOnEditing.
 
 === Example ===
 {{{
-Mixing ''italics'' and '''bold''':
+__Mixing__ ''italics'' and '''bold''':
  * '''''Mix''' at the beginning''
  * '''''Mix'' at the beginning'''
  * '''Mix at the ''end'''''
  * ''Mix at the '''end'''''
 
-You might recall ''a''^2^ `+` ''b''^2^ `=` ''c''^2^ from your math lessons.
+You might recall ''a''^2^ `+` ''b''^2^ `=` ''c''^2^ from your math lessons, unless you head is filled with H,,2,,O.
 
 An { { {inline code sequence} } } has the start and end markers on the same line. Or you use `backticks`.
 
@@ -36,13 +39,13 @@ A code display has them on different lines: { { {
 /!\ In the above example, we "escaped" the markers for source code sequences by inserting spaces between the curly braces.
 
 === Display ===
-Mixing ''italics'' and '''bold''':
+__Mixing__ ''italics'' and '''bold''':
  * '''''Mix''' at the beginning''
  * '''''Mix'' at the beginning'''
  * '''Mix at the ''end'''''
  * ''Mix at the '''end'''''
 
-You might recall ''a''^2^ `+` ''b''^2^ `=` ''c''^2^ from your math lessons.
+You might recall ''a''^2^ `+` ''b''^2^ `=` ''c''^2^ from your math lessons, unless you head is filled with H,,2,,O.
 
 An {{{inline code sequence}}} has the start and end markers on the same line. Or you use `backticks`.
 

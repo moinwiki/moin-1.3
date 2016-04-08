@@ -1,0 +1,21 @@
+##master-page:SiteNavigation
+##master-date:2002-03-04 22:00:44
+##language:da
+SiteNavigering er det centrale sted til at udforske denne Wiki. MoinMoin understøtter disse MeatBall:IndexingScheme''''''s:
+ * SenesteRettelser
+ * TitelListe
+ * OrdListe
+ * FindSide
+ * ØnskedeSider
+ * EfterladteSider
+ * TilfældigSide
+ * SideStørrelse
+
+I bunden af hver side er der rutiner til at navigere til andre sider med tilknytning til den nuværende side:
+ * Like''''''Pages
+ * Local''''''Site''''''Map
+
+Desuden er der makroerne
+{{{[[PageList]]}}}, {{{[[FullSearch('text')]]}}}
+og {{{[[TableOfContents]]}}},
+som giver dig mulighed for automatisk at danne oversigter over sammenhængende dele af en Wiki.

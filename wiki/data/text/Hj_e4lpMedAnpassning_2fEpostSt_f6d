@@ -1,0 +1,24 @@
+##language:sv
+##master-page:HelpOnConfiguration_2fEmailSupport
+##master-date:2002-03-16 10:00:38
+##translated-by:Karolina Lindqvist, Shakti Wiki
+== Aktivering av E-post-stöd ==
+
+Sätt "`mail_smarthost`" och "`mail_from`" i konfigurationen aktiverar funktioner som förklaras nedan. Dessa funktioner är annars inte tillgängliga, eftersom de inte har några förinställda värden.
+
+ mail_from:: Detta värde används i"`From:`"-huvudet i e-post som sänds iväg.
+ mail_smarthost:: Detta är den IP- eller domän-namnet på en FOLDOC:SMTP-server. På en Unix-värd, kan du försöka  `localhost`. På en Windows-maskin är detta normalt en maskin i ditt LAN, eller någon värd hos din internetförsörjare (ISP).
+
+Se också HjälpMedAnpassning
+
+== E-post-funktioner ==
+
+MoinMoin tillåter för närvarande två e-post-baserade tjänster, som förklaras nedan.
+
+=== Sändandet av Login-Data ===
+
+Om e-post finns tillgänglig läggs till en extra funktion i AnvändarInställningar-dialogen. Det är fältet "[[GetText(Your email address)]]" och knappen "[[GetText( Mail me my account data )]]". Användaren kan skriva in sin e-post-adress, som gavs vid registrering och klicka på knappen för att få sig tillsänt till det ID-nummer som krävs för återinloggning.
+
+=== Ändringsunderrättelse ===
+
+En användare kan prenumerera på ändringar av wiki-sidor genom att antingen klicka på kuvert-ikonen [[Icon(moin-email.gif)]], eller genom att lägga till ett reguljärt uttryck i fältet "Prenumererade wikisidor" i AnvändarInställningar. När en prenumererad sida ändras skickas automatiskt ett e-brev till prenumeranten, om inte den som gör ändringen väljer att inte göra det genom att klicka bort rutan "[[GetText(Send mail notification)]]". E-brevet som sänds innehåller information om vem som ändrade sidan, en länk till sidan och en diff med ändringen.

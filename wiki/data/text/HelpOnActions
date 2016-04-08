@@ -1,3 +1,4 @@
+##language:en
 == Actions ==
 
 Actions are tools that work on a page or the whole wiki, but unlike macros do not add ''to'' the page content when viewing a page, but work ''on'' that page content. They either produce some output based on page contents (navigational actions like searching) or implement functions that are not related to viewing a page (like deleting or renaming a page).
@@ -5,9 +6,9 @@ Actions are tools that work on a page or the whole wiki, but unlike macros do no
 There is a set of system-defined actions, which includes page editing; you can extend the set of known actions by your own ones. See HelpForDevelopers for more on that.
 
 The following actions are added to the list of user-defined extension actions at the bottom of each page. This happens to any mixed-case extension, for other actions (all lower-case) see the list further down this page. Some of these action might not be available for your wiki site.
+ * `AttachFile`: attach files to a page, see /AttachFile for more details.
  * `DeletePage`: Delete a page, after you confirmed it; deletion means a final backup copy is created and only then the page is deleted, i.e. you can ''revive'' the page later on (as long as the backups are not physically deleted).
  * `LikePages`: list pages whose title starts or ends with the same MeatBall:WikiWord as the current page title.
- * `AttachFile`: attach files to a page, see /AttachFile for more details.
  * `LocalSiteMap`: show nearby links of the current page, i.e. list all referred-to pages, and in turn their references, to a certain limited depth.
  * `SpellCheck`: call the spell checker for the current page; see HelpOnSpellCheck for more.
 
@@ -38,3 +39,5 @@ The following is a list of ''internal'' actions that are used to implement the v
  * content: for transclusion into static web pages, this action emits the pure page content, without any <html>, <head>, or <body> tags. ''[1.0]''
  * links: generates a list of all pages and the links on them, just like MeatBall:LinkDatabase. ''[1.0]''
  * xmlrpc: Wiki XML-RPC interface, see MeatBall:XmlRpcToWiki. ''[1.0]''
+ * revert: revert to an older version of the page.  ''[1.1]''
+ * macro: execute a helper action in an external macro.  ''[1.1]''

@@ -1,5 +1,5 @@
 # MoinMoin master InterWiki list
-# $Id: intermap.txt,v 1.13 2002/05/10 12:08:24 jhermann Exp $
+# $Id: intermap.txt,v 1.24 2003/07/12 09:07:59 jhermann Exp $
 
 # MoinMoin additions
 MoinMaster http://purl.net/wiki/moinmaster/
@@ -12,6 +12,13 @@ Thinki http://www.thinkware.se/cgi-bin/thinki.cgi/
 PythonFaq http://www.python.org/cgi-bin/faqw.py?req=show&file=faq$PAGE.htp
 DseWiki http://www.wikiservice.at/dse/wiki.cgi?
 DocBook http://docbook.org/wiki/moin.cgi/
+AwarenessWiki http://taoriver.net/aware/
+PythonWiki http://www.pythonwiki.de/
+TamTam http://boo.mi2.hr:10000/TamTamDev/
+JuraWiki http://jurawiki.de/
+SpackOrg http://www.spack.org/index.cgi/
+ESW http://esw.w3.org/topic/
+OSPedia http://ospedia.osdir.com/
 
 # Updated 2002-05-10 from http://www.usemod.com/cgi-bin/mb.pl?InterMapTxt
 ALife http://news.alife.org/wiki/index.php?
@@ -54,7 +61,7 @@ JspWiki http://www.ecyrd.com/JSPWiki/Wiki.jsp?page=
 KmWiki http://www.voght.com/cgi-bin/pywiki?
 KnowHow http://www2.iro.umontreal.ca/~paquetse/cgi-bin/wiki.cgi?
 LegoWiki http://www.object-arts.com/wiki/html/Lego-Robotics/
-LinuxWiki http://linuxwiki.de/
+LinuxWiki http://linuxwiki.org/
 MathSongsWiki http://SeedWiki.com/page.cfm?wikiid=237&doc=
 MbTest http://www.usemod.com/cgi-bin/mbtest.pl?
 MeatBall http://www.usemod.com/cgi-bin/mb.pl?

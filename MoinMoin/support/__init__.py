@@ -1,7 +1,8 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Support Package
 
-    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2001, 2002, 2003 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     This package collects small third party utilities in order
@@ -23,5 +24,12 @@
         from the Python 2.2 distribution; see LICENSE.Python for
         licensing information applying to this module
 
-    $Id: __init__.py,v 1.6 2002/05/09 01:54:40 jhermann Exp $
+    optik
+        powerful, flexible, extensible, easy-to-use command-line
+        parsing library for Python, by Greg Ward <gward@python.net>,
+        see http://optik.sourceforge.net/.
+        2003-01-30: imported version 1.4
+
+
+    $Id: __init__.py,v 1.8 2003/11/09 21:01:10 thomaswaldmann Exp $
 """

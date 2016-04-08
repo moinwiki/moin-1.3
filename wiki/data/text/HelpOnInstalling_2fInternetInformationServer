@@ -1,9 +1,10 @@
+##language:en
 '''Index'''
 [[TableOfContents]]
 
 == Requirements ==
 
-Before you install MoinMoin:MoinMoin, make sure you have the necessary infra-structure in place, namely the ''Internet Information Services'' webserver (any version should be OK), and a ''Python'' installation (version 2.0 or higher is recommended, don't run 1.5.2 without a compelling reason).
+Before you install MoinMoin:MoinMoin, make sure you have the necessary infra-structure in place, namely the ''Internet Information Services'' webserver (any version should be OK), and a ''Python'' installation (version 2.3 or higher is recommended, don't run 2.0/2.1 without a compelling reason).
 
 In the following description, we assume that you have installed or will install things to these locations:
  * IIS to its default location
@@ -32,7 +33,9 @@ Make sure that your webserver runs without problems before you start to install 
 
 === Installing Python ===
 
-Download [http://www.python.org/ftp/python/2.1.2/Python-2.1.2.exe Python 2.1.2] and install it. Python installation is done via a standard Windows installer program.
+Download [http://www.python.org/ftp/python/2.3.2/Python-2.3.2-1.exe Python 2.3.2] and install it. Python installation is done via a standard Windows installer program.
+
+For file locking, you will also need to download and install the [http://starship.python.net/crew/mhammond/win32/Downloads.html Win32 extensions for Python] (aka `win32all`). Choose the version matching the Python version you are using.
 
 === Installing MoinMoin ===
 
@@ -42,8 +45,8 @@ Open a console window and enter the following commands:
 {{{
 C:
 cd \temp
-unzip moin-0.11.zip
-cd moin-0.11
+unzip moin-1.1.zip
+cd moin-1.1
 python setup.py install --prefix=C:\Moin --record=install.log
 }}}
 
@@ -75,11 +78,9 @@ You can change the first two lines of code in moin.cgi to something like this:
 {{{
 #!python
 import sys
-sys.path.append(r'C:\Moin')
+sys.path.append(r'C:\Moin\Lib\site-packages')
 }}}
 Notice that we're pointing to the directory which contains the Moin``Moin directory, not the directory itself.
-
- /!\ '''Python 2.2''': Python 2.2 changed the installation layout. Because of this, you have to change the line of code given above to "{{{sys.path.append(r'C:\Moin\Lib\site-packages')}}}". 
 
 Next, you'll need to create two virtual directories in IIS. One for the shared data, and one for this specific wiki instance. 
 
@@ -105,8 +106,19 @@ For a personal or intranet installation, you'll normally also add the line {{{
 allowed_actions = ['DeletePage', 'AttachFile']
 }}}
 
+=== IIS 6.0 (Windows.NET Server 2003) ===
+
+The instructions below also apply to IIS 6.0 but the more aggressive security settings in newer version of IIS disallow the usage of ''unknown CGI extensions''.  That means you will always get a 404 error unless you do this:
+
+ 1. Open "Internet Information Services (IIS)" in the control panel.
+ 1. Go the the "Web Service Extensions" folder.
+ 1. There you will see "All Unknown CGI Extensions" is probably set to "Prohibited".  Make it "Allowed" and MoinMoin should now work.
+
+''At the time I'm writing this, I'm running Windows.NET Standard Server 2003 _RC1_.  It may be different in later version.  But if you get a 404 error on moin.cgi after following the regular steps, double-check that setting. -- MoinMoin:FrancoisDenisGonthier''
+
+''Enabling "All Unknown CGI Extensions" can be a security hole. To just enable Python CGI scripts, add and enable a new web service extension where the 'required files' exactly match the path plus arguments as described above (e.g. {{{C:\Python22\python.exe -u %s %s}}}). You cannot have any spaces in the path to python.exe. There are also permission issues related to the user executing the moinmoin code (access to cmd.exe) which I have not yet sorted through. -- mb''
+
 === Troubleshooting ===
 
 If you see an error like "{{{ImportError: No module named MoinMoin}}}", it means that python cannot find Moin``Moin. See above for how to set your `PYTHONPATH` or add to `sys.path`.
-
 

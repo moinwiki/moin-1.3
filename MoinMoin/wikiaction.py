@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Action Handlers
 
@@ -17,14 +18,14 @@
     together with a user macro; those actions a likely to work only if
     invoked BY that macro, and are thus hidden from the user interface.
 
-    $Id: wikiaction.py,v 1.73 2002/05/02 19:13:07 jhermann Exp $
+    $Id: wikiaction.py,v 1.106 2003/11/09 21:00:52 thomaswaldmann Exp $
 """
 
 # Imports
 import cgi, os, re, string, sys, time, urllib
 from MoinMoin import config, user, util, wikiutil, webapi
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
+from MoinMoin.util import pysupport
 
 
 #############################################################################
@@ -32,6 +33,7 @@ from MoinMoin.i18n import _
 #############################################################################
 
 def do_fullsearch(pagename, request, fieldname='value'):
+    _ = request.getText
     start = time.clock()
 
     # send http headers
@@ -52,8 +54,14 @@ def do_fullsearch(pagename, request, fieldname='value'):
         context = 0
     max_context = 10 # only show first `max_context` contexts
 
+    # check for sensible search term
+    if len(needle) < 1:
+        Page(pagename).send_page(request,
+             msg=_("<b>Please use a more selective search term instead of '%(needle)s'!</b>") % locals())
+        return
+
     # send title
-    wikiutil.send_title(_('Full text search for "%s"') % (needle,))
+    wikiutil.send_title(request, _('Full text search for "%s"') % (needle,))
 
     # search the pages
     pagecount, hits = wikiutil.searchPages(needle,
@@ -62,7 +70,11 @@ def do_fullsearch(pagename, request, fieldname='value'):
 
     # print the result
     print "<UL>"
+    hiddenhits = 0
     for (count, page_name, fragments) in hits:
+        if not request.user.may.read(page_name):
+            hiddenhits += 1
+            continue
         print '<LI>' + Page(page_name).link_to(querystr=
             'action=highlight&value=%s' % urllib.quote_plus(needle))
         print ' . . . . ' + `count`
@@ -75,11 +87,12 @@ def do_fullsearch(pagename, request, fieldname='value'):
                 print '<br>', '&nbsp;'*8, '<font color="#808080">...</font>'
     print "</UL>"
 
-    print_search_stats(len(hits), pagecount, start)
+    print_search_stats(request, len(hits)-hiddenhits, pagecount, start)
     wikiutil.send_footer(request, pagename, editable=0, showactions=0, form=request.form)
 
 
 def do_titlesearch(pagename, request, fieldname='value'):
+    _ = request.getText
     start = time.clock()
 
     webapi.http_headers(request)
@@ -89,7 +102,7 @@ def do_titlesearch(pagename, request, fieldname='value'):
     else:
         needle = ''
 
-    wikiutil.send_title(_('Title search for "%s"') % (needle,))
+    wikiutil.send_title(request, _('Title search for "%s"') % (needle,))
 
     try:
         needle_re = re.compile(needle, re.IGNORECASE)
@@ -99,12 +112,14 @@ def do_titlesearch(pagename, request, fieldname='value'):
     hits = filter(needle_re.search, all_pages)
     hits.sort()
 
+    hits = filter(request.user.may.read, hits)
+
     print "<UL>"
     for filename in hits:
         print '<LI>' + Page(filename).link_to()
     print "</UL>"
 
-    print_search_stats(len(hits), len(all_pages), start)
+    print_search_stats(request, len(hits), len(all_pages), start)
     wikiutil.send_footer(request, pagename, editable=0, showactions=0, form=request.form)
 
 
@@ -126,7 +141,8 @@ def do_inlinesearch(pagename, request):
     globals()["do_%ssearch" % search](pagename, request, fieldname = "text_" + search)
 
 
-def print_search_stats(hits, pages, start):
+def print_search_stats(request, hits, pages, start):
+    _ = request.getText
     print "<p>" + _("%(hits)d hits out of %(pages)d pages searched.") % locals()
     print _("Needed %(timer).1f seconds.") % {'timer': time.clock() - start + 0.05}
 
@@ -152,6 +168,11 @@ def do_highlight(pagename, request):
 
 def do_diff(pagename, request):
     """ Handle "action=diff", checking for a "date=backupdate" parameter """
+    if not request.user.may.read(pagename):
+        Page(pagename).send_page(request)
+        return
+
+    _ = request.getText
     webapi.http_headers(request)
 
     # try to get a specific date to compare to, or None for one-before-current
@@ -180,19 +201,45 @@ def do_diff(pagename, request):
     # get the filename of the version to compare to
     edit_count = 0
     if diff_date:
-        for oldpage in oldversions:
+        for oldpagename in oldversions:
             edit_count = edit_count + 1
             try:
-                date = os.path.getmtime(os.path.join(config.backup_dir, oldpage))
+                date = os.path.getmtime(os.path.join(config.backup_dir, oldpagename))
             except EnvironmentError:
                 continue
             if date <= diff_date: break
     else:
         # get the version before the current one
         edit_count = 1
-        oldpage = oldversions[0]
+        oldpagename = oldversions[0]
 
-    rc, page_file, backup_file, lines = wikiutil.pagediff(pagename, oldpage, ignorews=ignorews)
+    if request.user.show_fancy_diff:
+        from MoinMoin.util.diff import diff
+
+        olddate = oldpagename.split('.', 1)[1]
+        oldpage = Page(pagename, date=olddate)
+        newpage = Page(pagename)
+        new_date = newpage.exists() and os.path.getmtime(newpage._text_filename()) or time.time()
+
+        # send page title
+        wikiutil.send_title(request, _('Diff for "%s"') % (pagename,), pagename=pagename)
+
+        # Show date info
+        print _('<b>Differences between version dated %s and %s') % (
+            request.user.getFormattedDateTime(os.path.getmtime(oldpage._text_filename())),
+            request.user.getFormattedDateTime(new_date), )
+        if edit_count != 1:
+            print _(' (spanning %d versions)') % (edit_count,)
+        print '</b><br>'
+
+        request.write(diff(request, oldpage.get_raw_body(), newpage.get_raw_body()))
+        newpage.send_page(request, count_hit=0, content_only=1)
+        wikiutil.send_footer(request, pagename, showpage=1)
+
+        return
+
+    # call external diff command
+    rc, page_file, backup_file, lines = wikiutil.pagediff(pagename, oldpagename, ignorews=ignorews)
 
     # check for valid diff
     if not lines:
@@ -207,7 +254,7 @@ def do_diff(pagename, request):
         return
 
     # send page title
-    wikiutil.send_title(_('Diff for "%s"') % (pagename,), pagename=pagename)
+    wikiutil.send_title(request, _('Diff for "%s"') % (pagename,), pagename=pagename)
 
     # options
     if not ignorews:
@@ -232,8 +279,8 @@ def do_diff(pagename, request):
         del lines[0]
 
     if request.user.show_fancy_diff:
-        print '<div class="diffold">' + _('Deletions are marked like this.') + '</div>'
-        print '<div class="diffnew">' + _('Additions are marked like this.') + '</div>'
+        print '<div class="diff-removed">' + _('Deletions are marked like this.') + '</div>'
+        print '<div class="diff-added">' + _('Additions are marked like this.') + '</div>'
 
         # Show diff
         for line in lines:
@@ -253,9 +300,9 @@ def do_diff(pagename, request):
                 if stripped == "No newline at end of file\n": continue
                 print '<div><font size="1" face="Verdana">%s&nbsp;</font></div>' % (line,)
             elif marker == "+":
-                print '<div class="diffnew">%s</div>' % (line,)
+                print '<div class="diff-added">%s</div>' % (line,)
             elif marker == "-":
-                print '<div class="diffold">%s</div>' % (line,)
+                print '<div class="diff-removed">%s</div>' % (line,)
             else:
                 print '<div>%s</div>' % (line,)
     else:
@@ -264,107 +311,175 @@ def do_diff(pagename, request):
             marker = line[0]
             if marker == "@":
                 print '<hr>'
-            sys.stdout.write(cgi.escape(line))
+            request.write(cgi.escape(line))
         print '</pre>'
 
     wikiutil.send_footer(request, pagename, showpage=1)
 
 
 def do_info(pagename, request):
-    from stat import ST_MTIME, ST_SIZE
-    from MoinMoin.stats import hitcounts
+    if not request.user.may.read(pagename):
+        Page(pagename).send_page(request)
+        return
 
+    def history(page, pagename, request):
+        from stat import ST_MTIME, ST_SIZE
+        _ = request.getText
+
+        # generate history list
+        currentpage = os.path.join(config.text_dir, wikiutil.quoteFilename(pagename))
+        revisions = [currentpage]
+
+        oldversions = wikiutil.getBackupList(config.backup_dir, pagename)
+        if oldversions:
+            for file in oldversions:
+                revisions.append(os.path.join(config.backup_dir, file))
+        # open log for this page
+        from MoinMoin import editlog
+        from MoinMoin.util.dataset import TupleDataset, Column
+
+        log = editlog.EditLog(request)
+        log.filter(pagename=pagename)
+
+        history = TupleDataset()
+        history.columns = [
+            Column('count', label='#', align='right'),
+            Column('mtime', label=_('Date'), align='right'),
+            Column('size',  label=_('Size'), align='right'),
+            Column('editor', label=_('Editor'), hidden=not config.show_hosts),
+            Column('comment', label=_('Comment')),
+            Column('action', label=_('Action')),
+            ]
+
+        may_revert = request.user.may.revert(pagename)
+
+        count = 1
+        for file in revisions:
+            try:
+                st = os.stat(file)
+            except OSError:
+                continue
+
+            try:
+                mtime = int(string.split(os.path.basename(file), '.')[1])
+            except IndexError:
+                mtime = st[ST_MTIME]
+            ##print count, mtime, st[ST_MTIME], "<br>"
+
+            log.find(ed_time=mtime)
+
+            actions = ""
+            if file != currentpage:
+                actions = '%s&nbsp;%s' % (actions, page.link_to(
+                    text=_('view'),
+                    querystr='action=recall&date=%d' % mtime))
+                if may_revert:
+                    actions = '%s&nbsp;%s' % (actions, page.link_to(
+                        text=_('revert'),
+                        querystr='action=revert&date=%d' % mtime))
+                actions = '%s&nbsp;%s' % (actions, page.link_to(
+                    text=_('diff'),
+                    querystr='action=diff&date=%d' % mtime))
+
+            comment = log.comment
+            if log.action.find('/REVERT') != -1:
+                datestamp = request.user.getFormattedDateTime(float(comment))
+                comment = _("Revert to version dated %(datestamp)s.") % locals()
+
+            history.addRow((
+                count,
+                '&nbsp;' + request.user.getFormattedDateTime(st[ST_MTIME]),
+                '&nbsp;' + str(st[ST_SIZE]),
+                log.getEditor() or _("N/A"),
+                cgi.escape(comment) or '&nbsp;',
+                actions,
+                ))
+            count = count + 1
+            if count > 100: break
+
+        # print version history
+        from MoinMoin.widget.browser import DataBrowserWidget
+        from MoinMoin.formatter.text_html import Formatter
+
+        request.formatter = Formatter(request)
+        history_table = DataBrowserWidget(request)
+        history_table.setData(history)
+        history_table.render()
+
+    _ = request.getText
     page = Page(pagename)
+    qpagename = wikiutil.quoteWikiname(pagename)
+
+    default_view = ('<p>%s</p>' %
+        wikiutil.link_tag('%s?action=info' % qpagename,
+             _('Return to general page information')))
 
     webapi.http_headers(request)
-    wikiutil.send_title(_('Info for "%s"') % (pagename,), pagename=pagename)
-    print '<h2>' + _('General Information') + '</h2>\n'
+    wikiutil.send_title(request, _('Info for "%s"') % (pagename,), pagename=pagename)
 
-    # show SHA digest fingerprint
-    import sha
-    digest = string.upper(sha.new(page.get_raw_body()).hexdigest())
-    print _("<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>") % locals()
+    # info generated at a cost is only displayed on demand
+    show_hitcounts = int(request.form.getvalue('hitcounts', 0)) != 0
+    show_history = int(request.form.getvalue('history', 0)) != 0
 
-    # show attachments (if allowed)
-    attachment_info = getHandler('AttachFile', 'info')
-    if attachment_info: attachment_info(pagename, request.form)
+    if show_hitcounts:
+        from MoinMoin.stats import hitcounts
+        request.write(default_view)
+        request.write(hitcounts.linkto(pagename, request, 'page=' + urllib.quote_plus(pagename)))
+    elif show_history:
+        print '<h2>' + _('Revision History') + '</h2>\n'
+        request.write(default_view)
+        history(page, pagename, request)
+    else:
+        print '<h2>' + _('General Information') + '</h2>\n'
 
-    # show links
-    links = page.getPageLinks(request)
-    if links:
-        print _('This page links to the following pages:<br>')
-        for linkedpage in links:
-            print "%s%s" % (Page(linkedpage).link_to(), ",."[linkedpage == links[-1]])
-        print "<p>"
+        # show SHA digest fingerprint
+        import sha
+        digest = string.upper(sha.new(page.get_raw_body()).hexdigest())
+        print _("<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>") % locals()
 
-    # show hitcounts
-    print hitcounts.linkto(pagename, 'page=' + urllib.quote_plus(pagename))
+        # show attachments (if allowed)
+        attachment_info = getHandler('AttachFile', 'info')
+        if attachment_info: attachment_info(pagename, request)
 
-    # generate history list
-    currentpage = os.path.join(config.text_dir, wikiutil.quoteFilename(pagename))
-    revisions = [currentpage]
+        # show subscribers
+        subscribers = page.getSubscribers(request,  include_self=1, return_users=1)
+        if subscribers:
+            request.write('<p>', _('The following users subscribed to this page:'))
+            for lang in subscribers.keys():
+                request.write('<br>[%s] ' % lang)
+                for user in subscribers[lang]:
+                    # do NOT disclose email addr, only WikiName
+                    userhomepage = Page(user.name)
+                    if userhomepage.exists():
+                        request.write(userhomepage.link_to() + ' ')
+                    else:
+                        request.write(user.name + ' ')
+            request.write('</p>')
 
-    oldversions = wikiutil.getBackupList(config.backup_dir, pagename)
-    if oldversions:
-        for file in oldversions:
-            revisions.append(os.path.join(config.backup_dir, file))
+        # show links
+        links = page.getPageLinks(request)
+        if links:
+            print _('This page links to the following pages:<br>')
+            for linkedpage in links:
+                print "%s%s" % (Page(linkedpage).link_to(), ",."[linkedpage == links[-1]])
+            print "<p>"
 
-    # open log for this page
-    from MoinMoin import editlog
-    log = editlog.EditLog()
-    log.filter(pagename=pagename)
-
-    print '<h2>' + _('Revision History') + '</h2>\n'
-    print '<table border="1" cellpadding="3" cellspacing="0">\n'
-    print '<tr><th>#</th>'
-    print '<th>' + _('Date') + '</th>'
-    print '<th>' + _('Size') + '</th>'
-    if config.show_hosts:
-        print '<th>' + _('Editor') + '</th>'
-    print '<th>' + _('Comment') + '</th>'
-    print '<th>' + _('Action') + '</th></tr>\n'
-    count = 1
-    for file in revisions:
-        try:
-            st = os.stat(file)
-        except OSError:
-            continue
-
-        try:
-            mtime = int(string.split(os.path.basename(file), '.')[1])
-        except IndexError:
-            mtime = st[ST_MTIME]
-        ##print count, mtime, st[ST_MTIME], "<br>"
-
-        log.find(ed_time=mtime)
-
-        actions = ""
-        if file != currentpage:
-            actions = '%s&nbsp;%s' % (actions, page.link_to(
-                text=_('view'),
-                querystr='action=recall&date=%d' % mtime))
-            actions = '%s&nbsp;%s' % (actions, page.link_to(
-                text=_('diff'),
-                querystr='action=diff&date=%d' % mtime))
-        print '<tr><td align="right">%d</td><td align="right">&nbsp;%s</td><td align="right">&nbsp;%d</td>' % (
-            count,
-            request.user.getFormattedDateTime(st[ST_MTIME]),
-            st[ST_SIZE])
-
-        if config.show_hosts:
-            print '<td>%s</td>' % (log.getEditor() or _("N/A"),)
-
-        print '<td>%s</td>' % (cgi.escape(log.comment) or '&nbsp;')
-
-        print '<td>&nbsp;%s</td></tr>\n' % (actions,)
-        count = count + 1
-        if count > 100: break
-    print '</table>\n'
+        # links to detailed info
+        historylink =  wikiutil.link_tag('%s?action=info&history=1' % qpagename,
+            _('Show "%(title)s"') % {'title': _('Revision History')})
+        hitcountlink = wikiutil.link_tag('%s?action=info&hitcounts=1' % qpagename,
+            _('Show chart "%(title)s"') % {'title': _('Page hits and edits')})
+        request.write("<h2>%s</h2>\n<p>%s<br />%s<br /></p>" % (
+            _('Detailed Information'), historylink, hitcountlink))
 
     wikiutil.send_footer(request, pagename, showpage=1)
 
 
 def do_recall(pagename, request):
+    # We must check if the current page has different ACLs.
+    if not request.user.may.read(pagename):
+        Page(pagename).send_page(request)
+        return
     Page(pagename, date=request.form['date'].value).send_page(request)
 
 
@@ -394,22 +509,49 @@ def do_content(pagename, request):
 
 
 def do_edit(pagename, request):
+    if not request.user.may.edit(pagename):
+        _ = request.getText
+        Page(pagename).send_page(request,
+            msg=_('<b>You are not allowed to edit this page.</b>'))
+        return
     from MoinMoin.PageEditor import PageEditor
-    PageEditor(pagename).send_editor(request)
+    PageEditor(pagename, request).sendEditor()
+
+
+def do_revert(pagename, request):
+    from MoinMoin.PageEditor import PageEditor
+    _ = request.getText
+
+    if not request.user.may.revert(pagename):
+        return Page(pagename).send_page(request,
+            msg='<strong>%s</strong>' %
+                _('You are not allowed to revert this page!'))
+
+    date = request.form['date'].value
+    oldpg = Page(pagename, date=date)
+    pg = PageEditor(pagename, request)
+
+    savemsg = pg.saveText(oldpg.get_raw_body(), '0',
+        stripspaces=0, notify=1, comment=date, action="SAVE/REVERT")
+    request.reset()
+    pg.send_page(request, msg=savemsg)
 
 
 def do_savepage(pagename, request):
     from MoinMoin.PageEditor import PageEditor
 
-    pg = PageEditor(pagename)
-    try:
-        savetext = request.form['savetext'].value
-    except KeyError:
-        savetext = ""
-    try:
-        datestamp = request.form['datestamp'].value
-    except KeyError:
-        datestamp = ""
+    _ = request.getText
+
+    if not request.user.may.edit(pagename):
+        Page(pagename).send_page(request,
+            msg=_('<b>You are not allowed to edit this page.</b>'))
+        return
+
+    pg = PageEditor(pagename, request)
+    savetext = request.form.getvalue('savetext', '')
+    datestamp = request.form.getvalue('datestamp', '')
+    comment = request.form.getvalue('comment', '')
+    category = request.form.getvalue('category', None)
     try:
         rstrip = int(request.form['rstrip'].value)
     except (KeyError, ValueError):
@@ -418,10 +560,22 @@ def do_savepage(pagename, request):
         notify = int(request.form['notify'].value)
     except (KeyError, ValueError):
         notify = 0
-    try:
-        comment = request.form['comment'].value
-    except KeyError:
-        comment = ""
+
+    if category:
+        # strip trailing whitespace
+        savetext = savetext.rstrip()
+
+        # add category splitter if last non-empty line contains non-categories
+        lines = filter(None, savetext.splitlines())
+        if lines:
+            categories = lines[-1].split()
+            if categories and len(wikiutil.filterCategoryPages(categories)) < len(categories):
+                savetext += '\n----\n'
+
+        # add new category
+        if savetext and savetext[-1] != '\n':
+            savetext += ' '
+        savetext += category
 
     # delete any unwanted stuff, replace CR, LF, TAB by whitespace
     control_chars = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x0b\x0c\x0e\x0f' \
@@ -431,21 +585,32 @@ def do_savepage(pagename, request):
 
     if request.form.has_key('button_preview') or request.form.has_key('button_spellcheck') \
             or request.form.has_key('button_newwords'):
-        pg.send_editor(request, preview=1, comment=comment)
+        pg.sendEditor(preview=savetext, comment=comment)
     elif request.form.has_key('button_cancel'):
-        pg.send_page(request, msg=_('Edit was cancelled.'))
+        pg.sendCancel(savetext, datestamp)
     else:
-        savemsg = pg.save_text(request, savetext, datestamp,
+        savemsg = pg.saveText(savetext, datestamp,
             stripspaces=rstrip, notify=notify, comment=comment)
+        request.reset()
+        backto = request.form.getvalue('backto', None)
+        if backto:
+            pg = Page(backto)
         pg.send_page(request, msg=savemsg)
+        ## webapi.http_redirect(request, pg.url())
 
 
 def do_subscribe(pagename, request):
     """ Add the current wiki page to the subscribed_page property in
         current user profile.
     """
+    _ = request.getText
+
+    if not request.user.may.read(pagename):
+        msg = _("<b>You are not allowed to subscribe to "
+                "a page you can't read.</b>")
+
     # check config
-    if not config.mail_smarthost:
+    elif not config.mail_smarthost:
         msg = _('''
 <b>This wiki is not enabled for mail processing.<br>
 Contact the owner of the wiki, who can either enable email,
@@ -513,11 +678,26 @@ def do_formtest(pagename, request):
     wikiform.do_formtest(pagename, request)
 
 
+def do_macro(pagename, request):
+    """ Execute a helper action within a macro.
+    """
+    from MoinMoin import wikimacro
+
+    macro_name = request.form["macro"].value
+    function = 'do_' + request.form["do"].value
+
+    wikimacro.execute_external_macro(macro_name, function, (pagename, request))
+
+
 #############################################################################
 ### Special Actions
 #############################################################################
 
 def do_raw(pagename, request):
+    if not request.user.may.read(pagename):
+        Page(pagename).send_page(request)
+        return
+
     webapi.http_headers(request, ["Content-type: text/plain"])
 
     try:
@@ -525,7 +705,7 @@ def do_raw(pagename, request):
     except KeyError:
         page = Page(pagename)
 
-    sys.stdout.write(page.get_raw_body())
+    request.write(page.get_raw_body())
     sys.exit(0)
 
 
@@ -537,7 +717,7 @@ def do_format(pagename, request):
         mimetype = "text/plain"
 
     # try to load the formatter
-    Formatter = util.importName("MoinMoin.formatter." +
+    Formatter = pysupport.importName("MoinMoin.formatter." +
         string.translate(mimetype, string.maketrans('/.', '__')), "Formatter")
     if Formatter is None:
         # default to plain text formatter
@@ -554,13 +734,16 @@ def do_format(pagename, request):
 
 def do_rss_rc(pagename, request):
     from MoinMoin.macro import RecentChanges
-    RecentChanges.rss(pagename, request)
+    RecentChanges.do_rss_rc(pagename, request)
 
 
 def do_chart(pagename, request):
+    if not request.user.may.read(pagename):
+        sys.exit(0)
+
     chart_type = request.form['type'].value
-    func = util.importName("MoinMoin.stats." + chart_type, "draw")
-    apply(func, (pagename, request))
+    func = pysupport.importName("MoinMoin.stats." + chart_type, "draw")
+    func(pagename, request)
     sys.exit(0)
 
 
@@ -578,11 +761,13 @@ def do_export(pagename, request):
     import shutil, cStringIO
     from MoinMoin.wikixml import wikiexport
 
+    # Protect this with ACLs, when ready!
+
     # get parameters
     compression = request.form.getvalue('compression', None)
 
     # prepare output stream
-    fileid = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+    fileid = time.strftime("%Y-%m-%d", request.user.getTime())
     filename = "wiki-export-%s.xml" % fileid 
     outbuff = cStringIO.StringIO()
     mimetype, out = 'text/xml', outbuff
@@ -603,7 +788,7 @@ def do_export(pagename, request):
     ]
     if mimetype != 'text/xml':
         headers.append("Content-Disposition: attachment; filename=%s" % filename)
-    webapi.http_headers(headers)
+    webapi.http_headers(request, headers)
 
     # copy the body
     outbuff.reset()
@@ -619,7 +804,7 @@ def getPlugins():
     dir = os.path.join(config.plugin_dir, 'action')
     plugins = []
     if os.path.isdir(dir):
-        plugins = util.getPackageModules(os.path.join(dir, 'dummy'))
+        plugins = pysupport.getPackageModules(os.path.join(dir, 'dummy'))
     return dir, plugins
 
 
@@ -636,13 +821,13 @@ def getHandler(action, identifier="execute"):
     from MoinMoin.action import extension_actions
     if action in extension_actions:
         # load extension action
-        return util.importName("MoinMoin.action." + action, identifier)
+        return pysupport.importName("MoinMoin.action." + action, identifier)
 
     # try plugins
     dir, plugins = getPlugins()
     if action in plugins:
         # load plugin action
-        return util.importPlugin(dir, "MoinMoin.plugin.action", action, identifier)
+        return pysupport.importPlugin(dir, "MoinMoin.plugin.action", action, identifier)
 
     # unknown action
     return None

@@ -1,3 +1,4 @@
+##language:en
 == WikiWikiWeb ==
 A WikiWikiWeb is a collaborative hypertext environment, with an emphasis on easy access to and modification of information. 
 
@@ -29,9 +30,3 @@ A question mark before a link, or a different rendering in bold red, means that 
 To ''escape'' a WikiName, i.e. if you want to write the word Wiki''''''Name without linking it, use an "empty" bold sequence (a sequence of six single quotes) like this: {{{Wiki''''''Name}}}. Alternatively, you can use the shorter sequence "{{{``}}}" (two backticks), i.e. {{{Wiki``Name}}}.
 
 To learn more about wiki markup, see HelpOnEditing.
-
-== Arbitrary Page Names ==
-If you enclose a sequence of characters in square brackets and double quotes {{{["like this"]}}}, that makes it a page name. That can be used for specific uses of MoinMoin (like organizing a list of items, e.g. your CD collection, by their "natural" name), or if you want to create a wiki with a non-western character encoding.
-
-/!\ '''This is a configurable feature enabled by `allow_extended_names`, so it might not work!'''
-

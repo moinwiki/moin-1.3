@@ -1,5 +1,6 @@
+##language:de
 ##master-page:HelpOnUpdating
-##master-date:2002-03-07 14:34:55
+##master-date:2003-11-18 21:08:10
 HilfeInhalt > HilfeZurAdministration > HilfeZumUpdaten
 
 '''Index'''
@@ -11,7 +12,7 @@ HilfeInhalt > HilfeZurAdministration > HilfeZumUpdaten
 
 === Konfigurations-Update ===
 
-Nach dem Upgrade sollte Ihr existierendes Wiki weiterhin funktionsfähig sein (das Ziel ist, vernünftige Default-Werte für neue Konfigurations-Variablen zu haben, aber Fehler kann es immer mal geben). Prüfen Sie also, ob dem wirklich so ist und dann nehmen Sie sich die Zeit, die Datei CHANGES in der Distribution zu lesen. Oft sind neue Eigenschaften nicht sichtbar, es sei denn Sie erweitern Ihre Konfigurationsdatei "moin.config.py".
+Nach dem Upgrade sollte Ihr existierendes Wiki weiterhin funktionsfähig sein (das Ziel ist, vernünftige Default-Werte für neue Konfigurations-Variablen zu haben, aber Fehler kann es immer mal geben). Prüfen Sie also, ob dem wirklich so ist und dann nehmen Sie sich die Zeit, die Datei CHANGES in der Distribution zu lesen. Oft sind neue Eigenschaften nicht sichtbar, es sei denn Sie erweitern Ihre Konfigurationsdatei "moin_config.py".
 
 Insbesondere trifft dies zu auf:
  * in gewisser Weise gefährliche Macros, die nicht standardmäßig aktiviert sind, weil sie für öffentliche Wikis nicht ratsam sind. Sie müssen diese explizit aktivieren, indem Sie eine {{{allowed_actions}}}-Liste zu der Konfiguration hinzufügen. Derzeit werden die Aktionen {{{DeletePage}}} und {{{AttachFile}}} als unsicher betrachtet.
@@ -115,5 +116,41 @@ ZufallsSeite
 }}}
 
 Die nächste Version wird eine Admin-Schnittstelle beinhalten, die interaktive Upgrades erlauben wird.
+
+[[Anchor(update-1-0)]]
+=== Version 1.0 ===
+
+Version 1.0 ist die letzte, die Python 1.5.2 unterstützt - allerdings benötigen einige optionale Eigenschaften (wie Statistiken) bereits Python 2.0.
+
+
+[[Anchor(update-1-1)]]
+=== Version 1.1 ===
+
+Lesen Sie auf jeden Fall den obigen Abschnitt ''Allgemeine Vorgehensweise'' bevor Sie los legen.
+
+'''Version 1.1 benötigt Python 2.0 oder höher''', wir empfehlen, Python 2.2 zu benutzen (Version 2.2.2, falls diese auf Ihrem Rechner verfügbar ist) oder noch besser 2.3.2 (mit 2.3.x läuft MoinMoin ungefähr 20-30% schneller).
+
+Die nächste Version (1.2) wird Python 2.2.2 oder neuer benötigen.
+
+
+HelpContents > HelpOnAdministration
+
+
+'''Aktualisieren Ihrer Konfiguration'''
+
+ * Falls Sie den Standardwert von `page_template_ending` geändert haben: dies heißt jetzt `page_template_regex` und muss einen regulären Ausdruck enthalten (Standardwert ist '[a-z]Template$').
+ * Das gleiche gilt für `page_form_ending`, das nun `page_form_regex` heißt (Standardwert: '[a-z]Form$')
+ * Keine neue Eigenschaft, aber jetzt konfigurierbar: `page_category_regex` (Standardwert: '^Category[A-Z]')
+ * Wenn Sie Ihre eigene `SecurityPolicy` konfiguriert haben: das Klassen-Interface hat sich geändert (siehe `security.py`)
+
+'''Aktivierung neuer Features'''
+
+ * `default_lang` (Standardwert: 'en') - dies wird benutzt, wenn der Benutzer keine Sprache in seinen BenutzerEinstellungen einstellt
+ * `edit_locking` (Standardwert: `'warn 10'`) - Sperrverfahren des Editors: None, 'warn <Timeout in Minuten>', oder 'lock <Timeout in Minuten>'.
+ * `hosts_deny` (Standardwert: `[]`) - eine Liste abgewiesener IPs; wenn eine IP mit einem Punkt endet, wird ein ganzes Subnet abgewiesen (class A, B or C).
+ * `html_pagetitle` (Standardwert: `None`) -  ermöglicht es, einen bestimmten HTML-Seitentitel zu setzen (wenn nicht gesetzt, wird als Standard der Wert von sitename benutzt).
+ * `mail_login` (Standardwert: `None`) - Dies wird nur benötigt wenn Sie SMTP AUTH benutzen, um Mails zu senden; in diesem Fall, setzen Sie den Usernamen und das Passwort - durch ein Leerzeichen getrennt, auf z.B. "user pwd".
+ * `smileys` (Standardwert: `{}`) -  Benutzerdefinierte Smileys (ein dict mit dem Markup als Schlüssel und einem Tupel aus Breite, Höhe, Rand, Bildname als Wert).
+ * vergessen Sie nicht, die Datei CHANGES im Distributionsarchiv zu lesen
 
 [[FootNote]]

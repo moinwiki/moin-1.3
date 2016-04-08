@@ -1,0 +1,36 @@
+##language:sv
+##master-page:HelpOnActions_2fAttachFile
+##master-date:2002-03-06 10:00:56
+##translated-by:Karolina Lindqvist, Shakti Wiki
+== Aktivering av BifogaFil åtgärden ==
+
+Åtgärden `BifogaFil` tillåter att en sida har multipla bifogade filer. 
+Eftersom filuppladdning kan bli missbrukat av DoS-attacker (Denial of Service) är `BifogaFil` en åtgärd som normalt är avstängd och funktionen måste slås på av wiki-administratören. Se [wiki:Self:HjälpMedAnpassning#filbifogningar anpassning av MoinMoin] för detaljer.
+
+== Hur man skapar filbifogningar ==
+
+För att skapa en ny filbifogning kan man antingen bifoga en länk till en fil, till en sida (se nedan hur man gör det) eller kan man klicka på `BifogaFil`-länken i sidfoten. I första fallet ses en länk med `Ladda up en ny filbifogning` efter att sidan sparats. Klickar man på den så kommer man till uppladdningssidan, precis som om man klickat direkt på `UploadFil`-länken.
+
+Uppladdningsformuläret har tre fält. Förutom fältet för filen som ska laddas upp finns två valfria fält, en för att ge MIME-typen för fältet (annars detekteras den automatiskt), det andra för att ge ett alternativt namn för att spara filen med.
+
+En filuppladdning skriver aldrig över en redan befintlig fil. Om det redan finns en fil med samma namn måste du först byta namn på filen som du vill ladda upp. Annars, om "Byt namn till"-fältet är tomt, används orginalfilnamnet.
+
+Varje uppladdning eller radering av filbifogningar reflekteras i [[GetText(LatestChanges)]] och kan därför undersökas av andra. I motsats till ändring av sidor, finns det däremot ingen ändringshistorik så spara en lokal säkerhetskopia av filen, för att kunna återställa vid eventuell vandalism.
+
+== Att länka till filbifogningar ==
+
+För att länka till filuppladdningar på en sida, använd `attachment:filnamn.ext`. En länk av det här slaget följer alla normala regler för länkar, t.ex. bilder blir inte automatiskt infogade etc.
+Använd '''inte''' `URL:en` av `[get]`-länken som du kan se på filbifogningsuppladdningssidan eftersom dessa länkar kan ändra sig och blir lätt förvanskade vid omkonfigureringar av `wiki:n`.
+För att referera till filer som är bifogade till en sida, använd `attachment:WikiName/filename.ext`.
+
+Istället för `attachment:` kan också `inline:` användas, vilken om möjligt gör att filbifogningens innehåll infogas när sidan visas, istället för länken själv. För bilder är det ingen skillna. För Python-källkod (filbifogningar med en filtyp av `.py`) gäller att den visas som syntax-färglagd källkodsfil. För alla andra filtyper uppför sig `attachment:` likadant som `inline:`.
+
+Den tredje typens länk `drawing:` förklaras i nästa avdelning.
+
+== Redigering av linjegrafik ==
+
+En länk som ser ut som `drawing:picturename` tillåter att man ''interaktivit'' kan redigera vektorgrafik genom det inbyggda Java-programmet. Det programmet sparar sedan två filbifogningar, "`bildnamn.draw`" och "`bildnamn.gif`". Efter att du första gången har sparat en sådan linjegrafikbild så visas den genererade GIF-filen med `drawing:`-länken. Detta betyder att Java bara behöver vara påslagen vid själva redigeringen av bilden, inte när den senare visas.
+
+För att senare redigera en linjegrafikbild, klicka på `AttachFile` och använd `[edit]`-länken som visas, istället för `[view]` fär `.draw`-filbifogningen. Sparandet av en linjegrafikbild kan ses i [[GetText(LatestChanges)]].
+
+För mer detaljer gällande ritprogrammet, se TWiki:Plugins/TWikiDrawPlugin.

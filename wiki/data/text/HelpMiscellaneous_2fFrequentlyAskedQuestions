@@ -1,3 +1,4 @@
+##language:en
 '''Index'''
 [[TableOfContents]]
 
@@ -47,7 +48,7 @@ Here are some important wiki features:
 A Wiki can accomplish certain things very easily, but there are
 some things it cannot do. The biggest missing
 feature is some kind of access control, to allow only certain groups
-to see and manipulate informatin.
+to see and manipulate information.
 
 === What about Wiki security?  Isn't a Wiki subject to complete wipeout or nastiness from a saboteur? ===
 

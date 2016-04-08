@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - LocalSiteMap action
 
@@ -24,7 +25,7 @@
     TODO:
         - add missing docs (docstrings, inline comments)
 
-    $Id: LocalSiteMap.py,v 1.7 2002/04/24 19:36:54 jhermann Exp $
+    $Id: LocalSiteMap.py,v 1.12 2003/11/09 21:00:55 thomaswaldmann Exp $
 """
     
 
@@ -32,12 +33,12 @@
 import string
 from MoinMoin import config, wikiutil, webapi, user
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
 def execute(pagename, request):
+    _ = request.getText
     webapi.http_headers(request)
-    wikiutil.send_title(_('Local Site Map for "%s"') % (pagename),  
+    wikiutil.send_title(request, _('Local Site Map for "%s"') % (pagename),  
         pagename=pagename)
 
     """
@@ -94,6 +95,9 @@ class PageTreeBuilder:
 
     def is_ok(self, child):
         if not self.child_marked(child):
+            # CNC:2003-05-30
+            if not self.request.user.may.read(child):
+                return 0
             if Page(child).exists():
                 self.mark_child(child)
                 return 1
@@ -130,7 +134,7 @@ class PageTreeBuilder:
                 tree.append(newTree)
                 self.new_node()
                 all_kids.append(newTree)
-        if len(kids):
+        if len(all_kids):
             self.recurse_build(all_kids, depth+1)
 
 class Tree:

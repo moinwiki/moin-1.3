@@ -1,0 +1,36 @@
+##language:fr
+== WikiWikiWeb (définition) ==
+Un WikiWikiWeb est un environnement collaboratif hypertexte, qui met l'accent sur la facilité d'accès à l'information et la facilité de modification de l'information.
+
+N'importe quelle page peut être éditée en cliquant sur le lien en bas de page (Edit page ou équivalent).
+Des mots commençant par une majuscule, collés les uns aux autres, forment un WikiNom, qui constitue un hyperlien vers une autre page. Le titre surligné est une recherche de toutes les pages qui mènent à la page courante. Les pages qui n'existent pas encore sont un lien précédé d'un point d'interrogation (ou sont en rouge et gras) : il suffit de suivre le lien et d'ajouter sa propre définition. C'est aussi comme cela que l'on crée une nouvelle page : on ajoute un nouveau WikiName sur une page existante, on enregistre ses modifications, on clique sur le lien nouvellement créé, et on crée la page (plus de détails sur HelpOnPageCreation).
+
+Pour s'entraîner, il est recommandé d'aller modifier le WikiSandBox (bac à sable), librement. Merci de ne pas modifier d'autres pages avant de s'être familiarisé avec le fonctionnement d'un wiki! 
+
+Pour en savoir plus sur ce qu'est un Wiki:WikiWikiWeb, lire Wiki:WhyWikiWorks et Wiki:WikiNature. ''traduction à venir?''
+Ègalement consultables : Wiki:WikiWikiWebFaq et Wiki:OneMinuteWiki. 
+Ce wiki fait parti de l'espace InterWiki, ce qui signifie qu'une grande quantité d'informations est disponible sur d'autres sites wiki publics.
+
+Quelques points de départ pour explorer un wiki
+ * ChangementsRécents : on peut voir à quoi travaillent les gens en ce moment
+ * TrouvePage : recherche sur la base de données
+ * IndexTitre : une liste de toutes les pages existant dans le wiki
+ * IndexMot : une liste de tous les mots composant les titres de pages (donc une liste des concepts du wiki)
+ * SiteNavigation : une page qui indique les différent types d'indexation du wiki
+ * WikiSandBox : page à éditer librement pour s'entraîner à la modification et à la mise en page wiki
+
+Pour d'avantage d'aide, voir les pages SommaireAide et HelpIndex.
+
+== Noms Wiki ==
+
+Un WikiNom (nom wiki) est un mot qui utilise des mots à majuscule. Les WikiNoms''''''s deviennent automagiquement des hyperliens vers la page dont le titre est le WikiNom. La détermination des lettres en majuscule ou minuscule est faite par la configuration. La configuration par défaut fonctionne pour les caractères Latin-1 (ISO-8859-1). Voir plus loin pour les caractères asiatiques, hébreux et autres encodages non-occidentaux.
+
+En cliquant sur le titre de la page (souligné, gras), exemple AideAuxDébutants pour cette page, on fait afficher la liste des pages qui pointent vers la page courante. Cela marche même pour les pages non encore créées.
+
+Un point d'interrogation devant un lien, ou des caractères rouges gras, indiquent que la page n'est pas encore définie. On peut cliquer sur le point d'interrogation pour proposer une définition (exemple, NoSuchPageForReal). En cliquant sur un de ces liens, on affiche une page par défaut qu'il est possible d'éditer. C'est seulement après enregistrement (save) que la page est créée pour de vrai.
+
+Une liste de toutes les pages non encore créées mais déjà appelées par certaines pages est affichée sur WantedPages.
+
+Pour ''éviter'' un WikiNom, c'est-à-dire si on veut écrire le mot Wiki''''''Nom sans créer de lien, il vous faut utiliser une séquence en gras, vide, c'est-à-dire une suite de six apostrophes, comme ceci:  {{{Wiki''''''Nom}}}. Autre solution, deux apostrophes inversées."{{{``}}}", donc {{{Wiki``Nom}}}.
+
+Pour en savoir plus sur les règles de formatage, voir AideÉdition.

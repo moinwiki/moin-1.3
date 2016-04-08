@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Stand-alone HTTP Server
 
@@ -8,9 +9,9 @@
 
     RUN THIS AT YOUR OWN RISK, IT HAS BUGS AND IS UNTESTED!
 
-    $Id: httpdmain.py,v 1.14 2002/04/24 19:22:12 jhermann Exp $
+    $Id: httpdmain.py,v 1.17 2003/11/09 21:00:50 thomaswaldmann Exp $
 """
-__version__ = "$Revision: 1.14 $"[11:-2]
+__version__ = "$Revision: 1.17 $"[11:-2]
 
 # Imports
 import os, signal, sys, time, thread, urllib, string
@@ -135,6 +136,12 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             env['CONTENT_TYPE'] = self.headers.typeheader
         length = self.headers.getheader('content-length')
         env['CONTENT_LENGTH'] = length or ''
+
+        # HTTP headers
+        for hline in self.headers.headers:
+            key = self.headers.isheader(hline)
+            if key:
+                env['HTTP_'+key.replace('-', '_')] = self.headers.getheader(key)
         accept = []
         for line in self.headers.getallmatchingheaders('accept'):
             if line[:1] in string.whitespace:
@@ -157,11 +164,17 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         try:
             try:
                 os.environ.update(env)
-                sys.stdout = self.wfile
+                sys.__stdout__ = sys.stdout = self.wfile
                 sys.stdin = self.rfile
                 self.send_response(200)
 
-                request = cgimain.run(properties={'standalone': 1})
+                properties = {'standalone': 1}
+
+                if env.get('QUERY_STRING') == 'test':
+                    print "Content-Type: text/plain\n\nMoinMoin CGI Diagnosis\n======================\n"
+                    request = cgimain.test(properties)
+                else:
+                    request = cgimain.run(properties)
 
                 sys.stdout.flush()
             finally:

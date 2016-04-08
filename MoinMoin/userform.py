@@ -1,397 +1,505 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - User Account Maintenance
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: userform.py,v 1.17 2002/04/24 20:11:21 jhermann Exp $
+    $Id: userform.py,v 1.54 2003/11/09 21:00:51 thomaswaldmann Exp $
 """
 
 # Imports
-import os, string, time
+import os, string, time, cgi, re, sha, Cookie
 from MoinMoin import config, user, util, webapi, wikiutil
-from MoinMoin.i18n import _, languages
-
-try:
-    import Cookie
-except ImportError:
-    from MoinMoin.py15 import Cookie
+import MoinMoin.util.web
+import MoinMoin.util.mail
+import MoinMoin.util.datetime
+from MoinMoin.widget import html
 
 _debug = 0
 
 
 #############################################################################
-### Form Handling
+### Form POST Handling
 #############################################################################
 
-_date_formats = {
-    'iso':  '%Y-%m-%d %H:%M:%S',
-    'us':   '%m/%d/%Y %I:%M:%S %p',
-    'euro': '%d.%m.%Y %H:%M:%S',
-    'rfc':  '%a %b %d %H:%M:%S %Y',
-}
-
 def savedata(pagename, request):
-    """ Handle POST request of the user preferences form
+    """ Handle POST request of the user preferences form.
 
-        Return error msg or None
+        Return error msg or None.
     """
-    form = request.form
+    return UserSettingsHandler(request).handleData()
 
-    if form.has_key('logout'):
-        # clear the cookie in the browser and locally
-        cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
-        if cookie.has_key('MOIN_ID'):
-            uid = cookie['MOIN_ID'].value
-            webapi.setHttpHeader(request, 'Set-Cookie: MOIN_ID=%s; expires=Tuesday, 01-Jan-1999 12:00:00 GMT; Path=%s' % (
-                cookie['MOIN_ID'].value, webapi.getScriptname(),))
+
+class UserSettingsHandler:
+
+    def __init__(self, request):
+        """ Initialize user settings form.
+        """
+        self.request = request
+        self._ = request.getText
+
+
+    def handleData(self):
+        _ = self._
+        form = self.request.form
+    
+        if form.has_key('logout'):
+            # clear the cookie in the browser and locally
+            try:
+                cookie = Cookie.SimpleCookie(os.environ.get('HTTP_COOKIE', ''))
+            except Cookie.CookieError:
+                # ignore invalid cookies
+                cookie = None
+            else:
+                if cookie.has_key('MOIN_ID'):
+                    uid = cookie['MOIN_ID'].value
+                    webapi.setHttpHeader(self.request, 'Set-Cookie: MOIN_ID=%s; expires=Tuesday, 01-Jan-1999 12:00:00 GMT; Path=%s' % (
+                        cookie['MOIN_ID'].value, webapi.getScriptname(),))
             os.environ['HTTP_COOKIE'] = ''
-        request.user = user.User()
-        user.current = request.user
-        return _("<b>Cookie deleted!</b>")
-
-    if form.has_key('login_sendmail'):
-        import cgi
-
-        try:
-            email = form['login_email'].value
-        except KeyError:
-            return _("<b>Please provide a valid email address!</b>")
-
-        text = ''
-        users = user.getUserList()
-        for uid in users:
-            theuser = user.User(uid)
-            if theuser.email == email:
-                text = "%s\n\nID: %s\nName: %s\nLogin URL: %s?action=userform&uid=%s" % (
-                    text, theuser.id, theuser.name, webapi.getBaseURL(), theuser.id)
-
-        if not text:
-            return _("<b>Found no account matching the given "
-                "email address '%(email)s'!</b>") % {'email': email}
-
-        msg = util.sendmail([email], 'Your wiki account data', text)
-        return "<b>%s</b>" % cgi.escape(msg)
-
-    if form.has_key('login') or form.has_key('uid'):
-        # try to get the id
-        try:
-            uid = form['loginid'].value
-        except KeyError:
+            self.request.auth_username = ''
+            self.request.user = user.User(self.request)
+            user.current = self.request.user
+            return _("<b>Cookie deleted. You are now logged out.</b>")
+    
+        if form.has_key('login_sendmail'):
+            try:
+                email = form['login_email'].value
+            except KeyError:
+                return _("<b>Please provide a valid email address!</b>")
+    
+            text = ''
+            users = user.getUserList()
+            for uid in users:
+                theuser = user.User(self.request, uid)
+                if theuser.valid and theuser.email == email:
+                    text = "%s\n\nID: %s\nName: %s\nPassword: %s\nLogin URL: %s?action=userform&uid=%s" % (
+                        text, theuser.id, theuser.name, theuser.enc_password, webapi.getBaseURL(), theuser.id)
+   
+            if not text:
+                return _("<b>Found no account matching the given "
+                    "email address '%(email)s'!</b>") % {'email': email}
+    
+            mailok, msg = util.mail.sendmail(self.request, [email], 
+                'Your wiki account data', text, mail_from=email)
+            return "<b>%s</b>" % cgi.escape(msg)
+    
+        if form.has_key('login') or form.has_key('uid'):
             # check for "uid" value that we use in the relogin URL
             try:
-                uid = form['uid'].value
+                 uid = form['uid'].value
             except KeyError:
-                uid = None
+                 uid = None
 
-        # if id is empty or missing, return an error msg
-        if not uid:
-            return _("<b>Please enter a non-empty user id!</b>")
-
-        # load the user data and check for validness
-        theuser = user.User(uid)
-        if not theuser.valid:
-            return _("<b>Please enter a valid user id!</b>")
-
-        # send the cookie
-        theuser.sendCookie(request)
-        request.user = theuser
-        user.current = theuser
-    else:
-        # save user's profile, first get user instance
-        theuser = user.User()
-
-        # try to get the name, if name is empty or missing, return an error msg
-        try:
-            theuser.name = string.replace(form['username'].value, '\t', ' ')
-        except KeyError:
-            return _("<b>Please enter a user name!</b>")
-
-        # try to get the (optional) password
-        try:
-            theuser.password = form['password'].value
-        except KeyError:
-            theuser.password = ''
-
-        # try to get the (optional) email
-        try:
-            theuser.email = form['email'].value
-        except KeyError:
-            theuser.email = ''
-
-        # editor size
-        try:
-            theuser.edit_rows = int(form['edit_rows'].value)
-            theuser.edit_rows = max(theuser.edit_rows, 10)
-            theuser.edit_rows = min(theuser.edit_rows, 60)
-        except KeyError:
-            pass
-        except ValueError:
-            pass
-        try:
-            theuser.edit_cols = int(form['edit_cols'].value)
-            theuser.edit_cols = max(theuser.edit_cols, 30)
-            theuser.edit_cols = min(theuser.edit_cols, 100)
-        except KeyError:
-            pass
-        except ValueError:
-            pass
-
-        # time zone
-        try:
-            theuser.tz_offset = int(form['tz_offset'].value)
-        except KeyError:
-            pass
-        except ValueError:
-            pass
-
-        # date format
-        try:
-            theuser.datetime_fmt = _date_formats.get(form['datetime_fmt'].value, '')
-        except KeyError:
-            pass
-        except ValueError:
-            pass
-
-        # CSS URL
-        try:
-            theuser.css_url = form['css_url'].value
-        except KeyError:
-            theuser.css_url = config.css_url
-        except ValueError:
-            pass
-        if theuser.css_url == config.css_url:
-            theuser.css_url = ''
-
-        # try to get the (optional) preferred language
-        theuser.language = form.getvalue('language', '')
-
-        # checkbox options
-        for key, label in user.User._checkbox_fields:
-            value = form.getvalue(key, 0)
+            # try to get the user name
             try:
-                value = int(value)
-            except ValueError:
-                pass
-            else:
-                setattr(theuser, key, value)
+                name = form['username'].value.replace('\t', ' ').strip()
+            except KeyError:
+                name = ''
 
-        # quicklinks for header
-        try:
-            quicklinks = form['quicklinks'].value
-            quicklinks = string.replace(quicklinks, '\r', '')
-            quicklinks = string.split(quicklinks, '\n')
+            # try to get the password
+            password = form.getvalue('password','')
+  
+            # load the user data and check for validness
+            theuser = user.User(self.request, uid, name=name, password=password)
+            if not theuser.valid:
+                return _("<b>Unknown user name or password.</b>")
+
+            # send the cookie
+            theuser.sendCookie(self.request)
+            self.request.user = theuser
+            user.current = theuser
+        else:
+            # save user's profile, first get user instance
+            theuser = user.User(self.request)
+    
+            # try to get the name, if name is empty or missing, return an error msg
+            try:
+                theuser.name = form['username'].value.replace('\t', ' ').strip()
+            except KeyError:
+                return _("<b>Please enter a user name!</b>")
+    
+            # Is this an existing user trying to change password, or a new user?
+            newuser = 1
+            if user.getUserId(theuser.name):
+	        if theuser.name != user.current.name:
+                    return _("<b>User name already exists!</b>")
+                else:
+                    newuser = 0
+
+            # try to get the (optional) password and pw repeat
+            password = form.getvalue('password', '')
+            password2 = form.getvalue('password2','')
+
+            # Check if password and password repeat match
+            if password != password2:
+                return _("<b>Passwords don't match!</b>")
+            elif password and not password.startswith('{SHA}'):
+                theuser.enc_password = user.encodePassword(password)
+
+            # try to get the (optional) email
+            theuser.email = form.getvalue('email', '')
+    
+            # editor size
+            theuser.edit_rows = util.web.getIntegerInput(self.request, 'edit_rows', theuser.edit_rows, 10, 60)
+            theuser.edit_cols = util.web.getIntegerInput(self.request, 'edit_cols', theuser.edit_cols, 30, 100)
+    
+            # time zone
+            theuser.tz_offset = util.web.getIntegerInput(self.request, 'tz_offset', theuser.tz_offset, -84600, 84600)
+    
+            # date format
+            try:
+                theuser.datetime_fmt = UserSettings._date_formats.get(form['datetime_fmt'].value, '')
+            except (KeyError, ValueError):
+                pass
+    
+            # CSS URL
+            theuser.css_url = form.getvalue('css_url', '')
+            if theuser.css_url == config.css_url:
+                theuser.css_url = ''
+    
+            # try to get the (optional) preferred language
+            theuser.language = form.getvalue('language', '')
+    
+            # checkbox options
+            for key, label in user.User._checkbox_fields:
+                value = form.getvalue(key, 0)
+                try:
+                    value = int(value)
+                except ValueError:
+                    pass
+                else:
+                    setattr(theuser, key, value)
+    
+            # quicklinks for header
+            quicklinks = form.getvalue('quicklinks', '')
+            quicklinks = quicklinks.replace('\r', '')
+            quicklinks = quicklinks.split('\n')
             quicklinks = map(string.strip, quicklinks)
             quicklinks = filter(None, quicklinks)
             quicklinks = map(wikiutil.quoteWikiname, quicklinks)
-            theuser.quicklinks = string.join(quicklinks, ',')
-        except KeyError:
-            theuser.quicklinks = ''
-        except ValueError:
-            pass
-        
-        # subscription for page change notification
-        try:
-            theuser.subscribed_pages = form['subscribed_pages'].value
-            theuser.subscribed_pages = string.replace(theuser.subscribed_pages, '\r', '')
-            theuser.subscribed_pages = string.replace(theuser.subscribed_pages, '\n', ',')
-        except KeyError:
-            theuser.subscribed_pages = ''
-        except ValueError:
-            pass
-        
-        # save data and send cookie
-        theuser.save()
-        theuser.sendCookie(request)
-        request.user = theuser
-        user.current = theuser
-
-        result = _("<b>User preferences saved!</b>")
-        if _debug:
-            result = result + util.dumpFormData(form)
-        return result
-
-
-def _tz_select(theuser):
-    html = '<select name="tz_offset">\n'
-
-    tz = 0
-    if theuser.valid: tz = int(theuser.tz_offset)
-
-    now = time.time()
-    for halfhour in range(-47, 48):
-        offset = halfhour * 1800
-        t = now + offset
-
-        html = html + '<option value="%d"%s>%s [%s%s:%s]\n' % (
-            offset,
-            ('', ' selected')[offset == tz],
-            time.strftime(config.datetime_fmt, time.localtime(t)),
-            "+-"[offset < 0],
-            string.zfill("%d" % (abs(offset) / 3600), 2),
-            string.zfill("%d" % (abs(offset) % 3600 / 60), 2),
-            )
-    html = html + '</select>'
-
-    return html
+            theuser.quicklinks = ','.join(quicklinks)
+            
+            # subscription for page change notification
+            theuser.subscribed_pages = form.getvalue('subscribed_pages', '')
+            theuser.subscribed_pages = theuser.subscribed_pages.replace('\r', '')
+            theuser.subscribed_pages = theuser.subscribed_pages.replace('\n', ',')
+            
+            # if we use ACLs, name and email are required to be unique
+            # further, name is required to be a WikiName (CamelCase!)
+            # see also MoinMoin/scripts/moin_usercheck.py
+            if config.acl_enabled:
+                theuser.name = theuser.name.replace(' ','') # strip spaces, we don't allow them anyway
+                if not re.match("(?:[%(u)s][%(l)s]+){2,}" % {'u': config.upperletters, 'l': config.lowerletters}, theuser.name):
+                    return _("<b>Please enter your name like that: FirstnameLastname</b>")
+                if not theuser.email or not re.match(".+@.+\..{2,}", theuser.email):
+		    return _("<b>Please provide your email address - without that you could not get your login data via email just in case you lose it.</b>")
+                users = user.getUserList()
+                for uid in users:
+                    if uid == theuser.id:
+                        continue
+                    thisuser = user.User(self.request, uid)
+                    if thisuser.name == theuser.name:
+                        return _("<b>This user name already belongs to somebody else.</b>")
+                    if theuser.email and thisuser.email == theuser.email:
+                        return _("<b>This email already belongs to somebody else.</b>")
 
 
-def _lang_select(theuser):
-    cur_lang = theuser.valid and theuser.language or ''
-    langs = languages.items()
-    langs.append(('', ('&lt;Default&gt;', config.charset, '')))
-    langs.sort(lambda x,y: cmp(x[1][0], y[1][0]))
+            # save data and send cookie
+            theuser.save()
+            theuser.sendCookie(self.request)
+            self.request.user = theuser
+            user.current = theuser
+    
+            result = _("<b>User preferences saved!</b>")
+            if _debug:
+                result = result + util.dumpFormData(form)
+            return result
 
-    html = '<select name="language">\n'
-    for lang in langs:
-        # !!! If we add charset recoding, this restriction can be lifted
-        if lang[0] in ['', 'en'] or lang[1][1] == config.charset:
-            html = html + '<option value="%s"%s>%s\n' % (
-                lang[0], lang[0] == cur_lang and ' selected' or '', lang[1][0])
-    html = html + '</select>'
+
+#############################################################################
+### Form Generation
+#############################################################################
+
+class UserSettings:
+    """ User login and settings management.
+    """
+
+    _date_formats = {
+        'iso':  '%Y-%m-%d %H:%M:%S',
+        'us':   '%m/%d/%Y %I:%M:%S %p',
+        'euro': '%d.%m.%Y %H:%M:%S',
+        'rfc':  '%a %b %d %H:%M:%S %Y',
+    }
+
+
+    def __init__(self, request):
+        """ Initialize user settings form.
+        """
+        self.request = request
+        self._ = request.getText
+
+
+    def _tz_select(self):
+        """ Create time zone selection.
+        """
+        tz = 0
+        if self.request.user.valid:
+            tz = int(self.request.user.tz_offset)
+
+        options = []
+        now = time.time()
+        for halfhour in range(-47, 48):
+            offset = halfhour * 1800
+            t = now + offset
+
+            options.append((
+                offset,
+                '%s [%s%s:%s]' % (
+                    time.strftime(config.datetime_fmt, util.datetime.tmtuple(t)),
+                    "+-"[offset < 0],
+                    string.zfill("%d" % (abs(offset) / 3600), 2),
+                    string.zfill("%d" % (abs(offset) % 3600 / 60), 2),
+                ),
+            ))
  
-    return html
-        
+        return util.web.makeSelection('tz_offset', options, tz)
+
+
+    def _dtfmt_select(self):
+        """ Create date format selection.
+        """
+        try:
+            selected = [
+                k for k, v in self._date_formats.items()
+                    if v == self.request.user.datetime_fmt][0]
+        except IndexError:
+            selected = ''
+        options = [('', self._('Default'))] + self._date_formats.items()
+
+        return util.web.makeSelection('datetime_fmt', options, selected)
+
+
+    def _lang_select(self):
+        """ Create language selection.
+        """
+        from MoinMoin.i18n import languages, NAME, ENCODING
+
+        cur_lang = self.request.user.valid and self.request.user.language or ''
+        langs = languages.items()
+        langs.sort(lambda x,y,NAME=NAME: cmp(x[1][NAME], y[1][NAME]))
+
+        options = [('', self._('<Browser setting>'))]
+        for lang in langs:
+            if config.charset.upper() == 'UTF-8' or \
+                    lang[0] in ['', 'en'] or \
+                    lang[1][ENCODING] == config.charset:
+                options.append((lang[0], lang[1][NAME]))
+ 
+        return util.web.makeSelection('language', options, cur_lang)
+
+
+    def make_form(self):
+        """ Create the FORM, and the TABLE with the input fields
+        """
+        self._form = html.FORM(action=webapi.getScriptname()+webapi.getPathinfo())
+        self._table = html.TABLE(border=0)
+
+        self._form.append(html.INPUT(type="hidden", name="action", value="userform"))
+        self._form.append(self._table)
+
+
+    def make_row(self, label, cell, **kw):
+        """ Create a row in the form table.
+        """
+        self._table.append(html.TR().extend([
+            html.TD(**kw).extend([html.B().append(label), '\xA0']),
+            html.TD().extend(cell),
+        ]))
+
+
+    def asHTML(self):
+        """ Create the complete HTML form code.
+        """
+        self.make_form()
+
+        # check user data
+        if not self.request.user.css_url:
+            self.request.user.css_url = config.css_url
+
+        # different form elements depending on login state
+        html_uid = ''
+        if self.request.user.valid:
+            html_uid = '<tr><td><b>ID</b>&nbsp;</td><td>%s</td></tr>' % (self.request.user.id,)
+            buttons = [
+                ('save', self._(' Save ')),
+                ('logout', self._(' Logout ')),
+            ]
+#            url = "%s?action=userform&uid=%s" % (webapi.getBaseURL(), self.request.user.id)
+#            html_relogin = self._('To login from a different machine, use this URL: ') + \
+#                '<a href="%s">%s</a><br>' % (url, url)
+        else:
+            buttons = [
+	        ("save", self._(' Create Profile ')),
+                ('login', self._(' Login ')),
+            ]
+#           html_relogin = ""
+
+            if config.mail_smarthost:
+                html_uid = """
+                    <tr><td><b>%s</b>&nbsp;</td><td><input type="text" size="40" name="login_email"></td></tr>
+                    <tr><td></td><td><input type="submit" name="login_sendmail" value="%s"></td></tr>
+                """ % (self._('Your email address'),
+                       self._(' Mail me my account data '))
+
+        self._table.append(html.Raw(html_uid))
+
+        self.make_row(self._('Name'), [
+	    html.INPUT(
+                type="text", size=32, name="username", value=self.request.user.name
+            ),
+	    ' \xA0 ', self._('(Use FirstnameLastname)'),
+	])
+
+        self.make_row(self._('Password'), [
+	    html.INPUT(
+	        type="password", size=32, name="password", value=self.request.user.enc_password
+	    )
+	])
+
+        self.make_row(self._('Password repeat'), [
+	    html.INPUT(
+	        type="password", size=32, name="password2", value=self.request.user.enc_password
+            ),
+            ' \xA0 ', self._('(Only when changing passwords)'),
+	])
+
+        self.make_row(self._('Email'), [html.INPUT(
+            type="text", size=40, name="email", value=self.request.user.email
+        )])
+
+        self.make_row(self._('CSS URL'), [
+            html.INPUT(
+                type="text", size=40, name="css_url", value=self.request.user.css_url
+            ),
+            ' \xA0 ', self._('("None" for disabling CSS)'),
+        ])
+
+        self.make_row(self._('Editor size'), [
+            html.INPUT(type="text", size=3, maxlength=3,
+                name="edit_cols", value=self.request.user.edit_cols),
+            ' \xA0x\xA0 ',
+            html.INPUT(type="text", size=3, maxlength=3,
+                name="edit_rows", value=self.request.user.edit_rows),
+        ])
+
+        self.make_row(self._('Time zone'), [
+            self._('Your time is'), ' ',
+            self._tz_select(),
+            html.BR(),
+            self._('Server time is'), ' ',
+            time.strftime(config.datetime_fmt, util.datetime.tmtuple()),
+            ' (UTC)',
+        ])
+
+        self.make_row(self._('Date format'), [self._dtfmt_select()])
+
+        self.make_row(self._('Preferred language'), [self._lang_select()])
+
+        # boolean user options
+        bool_options = []
+        checkbox_fields = user.User._checkbox_fields
+        checkbox_fields.sort(lambda a, b: cmp(a[1](), b[1]()))
+        for key, label in checkbox_fields:
+            bool_options.extend([
+                html.INPUT(type="checkbox", name=key, value=1,
+                    checked=getattr(self.request.user, key, 0)),
+                '\xA0', label(), html.BR(),
+            ])
+        self.make_row(self._('General options'), bool_options)
+
+        self.make_row(self._('Quick links'), valign="top", cell=[
+            html.TEXTAREA(name="quicklinks", rows=6, cols=50)
+                .append('\n'.join(self.request.user.getQuickLinks())),
+        ])
+
+        # subscribed pages
+        if config.mail_smarthost:
+            notifylist = self.request.user.getSubscriptionList()
+            notifylist.sort()
+
+            warning = []
+            if not self.request.user.email:
+                warning = [
+                    html.BR(),
+                    html.SMALL(Class="warning").append(
+                        self._("This list does not work, unless you have"
+                          " entered a valid email address!")
+                    )]
+            
+            self.make_row(
+                html.Raw(self._('Subscribed wiki pages<br>(one regex per line)')),
+                valign="top",
+                cell=[
+                    html.TEXTAREA(name="subscribed_pages", rows=6, cols=50)
+                        .append('\n'.join(notifylist)),
+                ] + warning
+            )
+
+        # add buttons
+        button_cell = []
+        for name, label in buttons:
+            button_cell.extend([
+                html.INPUT(type="submit", name=name, value=label),
+                ' \xA0 ',
+            ])
+        self.make_row('', button_cell)
+
+        return str(self._form)
+# + html_relogin
+
 
 def getUserForm(request):
-    form = request.form
+    """ Return HTML code for the user settings.
+    """
+    return UserSettings(request).asHTML()
 
-    # Note that this form is NOT designed for security, just to have a cookie
-    # with name & email; do not base security measures on this!
-    htmlform = """
-<form method="POST" action="%(scriptname)s%(pathinfo)s">
-  <input type="hidden" name="action" value="userform">
-  <table border="0">
-    %(html_uid)s
-    <tr><td><b>%(label_name)s</b>&nbsp;</td><td><input type="text" size="40" name="username" value="%(name)s"></td></tr>
-    <tr><td><b>%(label_password)s</b>&nbsp;</td><td><input type="password" size="40" name="password" value="%(password)s"></td></tr>
-    <tr><td><b>%(label_email)s</b>&nbsp;</td><td><input type="text" size="60" name="email" value="%(email)s"></td></tr>
-    <tr><td><b>%(label_css_url)s</b>&nbsp;</td><td><input type="text" size="60" name="css_url" value="%(css_url)s"> %(label_css_help)s</td></tr>
-    <tr><td><b>%(label_editor_size)s</b>&nbsp;</td><td>
-      <input type="text" size="3" maxlength="3" name="edit_cols" value="%(edit_cols)s"> &nbsp;x&nbsp;
-      <input type="text" size="3" maxlength="3" name="edit_rows" value="%(edit_rows)s">
-    </td></tr>
-    <tr><td><b>%(label_tz)s</b>&nbsp;</td><td>
-      %(label_your_time)s %(tz_select)s  
-      <br>%(label_server_time)s %(now)s
-    </td></tr>
-    <tr><td><b>%(label_date_format)s</b>&nbsp;</td><td>
-      <select name="datetime_fmt">%(dtfmt_select)s</select>
-    </td></tr>
-    <tr><td><b>%(label_language)s</b>&nbsp;</td><td>
-      %(language_select)s
-    </td></tr>
-    <tr><td><b>%(label_general_opts)s</b>&nbsp;</td><td>
-      %(checkbox_fields)s
-    </td></tr>
-    <tr><td valign="top"><b>%(label_quicklinks)s</b>&nbsp;</td><td>
-      <textarea name="quicklinks" rows="6" cols="50">%(quicklinklist)s</textarea>
-    </td></tr>
-    %(notify)s
-    <tr><td></td><td>
-      %(button)s
-    </td></tr>
-  </table>
-</form>
-%(relogin)s
-"""
-    formtext = {
-        'label_name':           _('Name'),
-        'label_password':       _('Password'),
-        'label_email':          _('Email'),
-        'label_css_url':        _('CSS URL'),
-        'label_css_help':       _('("None" for disabling CSS)'),
-        'label_editor_size':    _('Editor size'),
-        'label_tz':             _('Time zone'),
-        'label_your_time':      _('Your time is'),
-        'label_server_time':    _('Server time is'),
-        'label_date_format':    _('Date format'),
-        'label_language':       _('Preferred language'),
-        'label_quicklinks':     _('Quick links'),
-        'label_general_opts':   _('General options'),
-    }
 
-    dtfmt_select = '<option value="">' + _('Default')
-    for option, text in _date_formats.items():
-        dtfmt_select = dtfmt_select + '<option value="%s"%s>%s' % (
-            option, ('', ' selected')[request.user.datetime_fmt == text], text)
+#############################################################################
+### User account administration
+#############################################################################
 
-    if request.user.valid:
-        html_uid = '<tr><td><b>ID</b>&nbsp;</td><td>%s</td></tr>' % (request.user.id,)
-        html_button = """
-            <input type="submit" name="save" value="%s"> &nbsp;
-            <input type="submit" name="logout" value="%s"> &nbsp;
-        """ % (_(' Save '), _(' Logout '))
-        url = "%s?action=userform&uid=%s" % (webapi.getBaseURL(), request.user.id)
-        html_relogin = _('To login on a different machine, use this URL: ') + \
-            '<a href="%s">%s</a><br>' % (url, url)
-    else:
-        html_uid = """
-            <tr><td><b>ID</b>&nbsp;</td><td><input type="text" size="40" name="loginid"></td></tr>
-            <tr><td></td><td><input type="submit" name="login" value="%s"></td></tr>
-        """ % (_(' Login '),)
-        html_button = """
-            <input type="submit" name="save" value="%s"> &nbsp;
-        """ % (_(' Create Profile '),)
-        html_relogin = ""
+def do_user_browser(request):
+    """ Browser for SystemAdmin macro.
+    """
+    from MoinMoin.util.dataset import TupleDataset, Column
+    _ = request.getText
 
-        if config.mail_smarthost:
-            html_uid = """
-                <tr><td><b>%s</b>&nbsp;</td><td><input type="text" size="40" name="login_email"></td></tr>
-                <tr><td></td><td><input type="submit" name="login_sendmail" value="%s"></td></tr>%s
-            """ % (_('Your email address'),
-                   _(' Mail me my account data '),
-                   html_uid)
+    data = TupleDataset()
+    data.columns = [
+        Column('id', label=('ID'), align='right'),
+        Column('name', label=('Username')),
+        Column('email', label=('Email')),
+        Column('action', label=_('Action')),
+    ]
 
-    notify = ""
-    if config.mail_smarthost:
-        notifylist = request.user.getSubscriptionList()
-        notifylist.sort()
+    # iterate over users
+    for uid in user.getUserList():
+        account = user.User(request, uid)
+        data.addRow((
+            request.formatter.code(1) + uid + request.formatter.code(0),
+            request.formatter.text(account.name),
+            request.formatter.text(account.email),
+            '',
+        ))
 
-        warning = ""
-        if not request.user.email:
-            warning = '<br/><font color="#FF4040"><small>' + \
-                _("This list does not work, unless you have entered a valid email address!") + \
-                '</small></font>'
+    if data:
+        from MoinMoin.widget.browser import DataBrowserWidget
 
-        notify = """
-<tr>
-  <td valign="top"><b>%(label_notification)s</b>&nbsp;</td>
-  <td><textarea name="subscribed_pages" rows="6" cols="50">%(notification)s</textarea>%(warning)s</td>
-</tr>""" % {
-            'label_notification': _('Subscribed wiki pages<br>(one regex per line)'),
-            'notification': string.join(notifylist, '\n'),
-            'warning': warning,
-        }
+        browser = DataBrowserWidget(request)
+        browser.setData(data)
+        return browser.toHTML()
 
-    data = {
-        'scriptname': webapi.getScriptname(),
-        'pathinfo': webapi.getPathinfo(),
-        'html_uid': html_uid,
-        'button': html_button,
-        'relogin': html_relogin,
-        'now': time.strftime(config.datetime_fmt, time.localtime(time.time())),
-        'tz_select': _tz_select(request.user),
-        'dtfmt_select': dtfmt_select,
-        'language_select': _lang_select(request.user),
-        'notify': notify,
-        'quicklinklist': string.join(request.user.getQuickLinks(), '\n'),
-    }
-
-    if not request.user.css_url:
-        request.user.css_url = config.css_url
-
-    data['checkbox_fields'] = ''
-    checkbox_fields = user.User._checkbox_fields
-    checkbox_fields.sort(lambda a, b: cmp(a[1](), b[1]()))
-    for key, label in checkbox_fields:
-        data['checkbox_fields'] = data['checkbox_fields'] + \
-            '<input type="checkbox" name="%s" value="1"%s>&nbsp;%s<br>' % (
-                key, ('', ' checked')[getattr(request.user, key, 0)], label())
-
-    data.update(formtext)
-    data.update(vars(request.user))
-    result = htmlform % data
-
-    return result
+    # no data
+    return ''
 

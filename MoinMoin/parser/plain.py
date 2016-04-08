@@ -1,10 +1,11 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Plain Text Parser
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: plain.py,v 1.7 2002/04/17 19:24:58 jhermann Exp $
+    $Id: plain.py,v 1.10 2003/11/09 21:01:05 thomaswaldmann Exp $
 """
 
 # Imports
@@ -22,8 +23,11 @@ class Parser:
 
     def __init__(self, raw, request, **kw):
         self.raw = raw
+        self.request = request
+        self.form = request.form
+        self._ = request.getText
 
-    def format(self, formatter, form):
+    def format(self, formatter):
         """ Send the text.
         """
 

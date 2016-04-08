@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - FullSearch Macro
 
@@ -16,18 +17,19 @@
         embeds a search result into a page, as if you entered
         "HelpContents" into the search dialog
 
-    $Id: FullSearch.py,v 1.7 2002/03/27 22:41:14 jhermann Exp $
+    $Id: FullSearch.py,v 1.10 2003/11/09 21:01:02 thomaswaldmann Exp $
 """
 
 # Imports
 import re, urllib
 from MoinMoin import config, user, wikiutil
-from MoinMoin.i18n import _
 
 _args_re_pattern = r'((?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))|'
 
 
 def execute(macro, text, args_re=re.compile(_args_re_pattern)):
+    _ = macro.request.getText
+
     # if no args given, invoke "classic" behavior
     if text is None:
         return macro._m_search("fullsearch")
@@ -51,6 +53,9 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     # generate the result
     result = macro.formatter.number_list(1)
     for (count, pagename, dummy) in hits:
+        # CNC:2003-05-30
+        if not macro.request.user.may.read(pagename):
+            continue
         result = result + macro.formatter.listitem(1)
         result = result + wikiutil.link_tag('%s?action=highlight&value=%s' %
             (wikiutil.quoteWikiname(pagename), urllib.quote_plus(needle)),

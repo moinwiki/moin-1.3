@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Edit log management
 
@@ -7,7 +8,7 @@
     Functions to keep track of when people have changed pages, so we
     can do the recent changes page and so on.
 
-    $Id: editlog.py,v 1.16 2002/03/27 22:41:14 jhermann Exp $
+    $Id: editlog.py,v 1.28 2003/11/09 21:00:49 thomaswaldmann Exp $
 """
 
 # Imports
@@ -24,7 +25,8 @@ class LogBase:
     """ Basic interface for log stores.
     """
 
-    def __init__(self, optstr):
+    def __init__(self, request, optstr):
+        self.request = request
         self.options = optstr
 
     def sanityCheck(self):
@@ -42,6 +44,43 @@ class LogBase:
 ### Logging to text file
 #############################################################################
 
+def makeLogEntry(request, pagename, host, mtime, comment, action="SAVE"):
+    """ Generate a line for the editlog.
+    
+        If `host` is None, it's read from the CGI environment.
+    """
+    import socket
+
+    if not host:
+        host = os.environ.get('REMOTE_ADDR', '')
+
+    try:
+        hostname = socket.gethostbyaddr(host)[0]
+    except socket.error:
+        hostname = host
+
+    remap_chars = string.maketrans('\t\r\n', '   ')
+    comment = string.translate(comment, remap_chars)
+
+    return string.join((wikiutil.quoteFilename(pagename), host, repr(mtime),
+        hostname, request.user.valid and request.user.id or '', comment, action), "\t") + "\n"
+
+
+def loadLogEntry(request, filepath):
+    """ Load a single log entry from a file, used for last-edited indicator
+        and lock files.
+        
+        Return None or EditLog instance.
+    """
+    if os.path.exists(filepath):
+        log = EditLog(request, filename=filepath)
+        if log.next():
+            return log
+        del log
+
+    return None
+
+
 class LogText(LogBase):
     """ Storage for log entries in a plain text file.
 
@@ -51,8 +90,8 @@ class LogText(LogBase):
         TODO: Check values written in are reasonable
     """
 
-    def __init__(self, optstr):
-        LogBase.__init__(self, optstr)
+    def __init__(self, request, optstr):
+        LogBase.__init__(self, request, optstr)
         self.filename = os.path.join(config.data_dir, optstr)
 
     def sanityCheck(self):
@@ -62,21 +101,12 @@ class LogText(LogBase):
             return "The edit log '%s' is not writable!" % (self.filename,)
         return None
 
+
     def addEntry(self, pagename, host, mtime, comment, action="SAVE"):
         """ Add an entry to the editlog """
-        import socket
-
-        try:
-            hostname = socket.gethostbyaddr(host)[0]
-        except socket.error:
-            hostname = host
-
-        remap_chars = string.maketrans('\t\r\n', '   ')
-        comment = string.translate(comment, remap_chars)
+        entry = makeLogEntry(self.request, pagename, host, mtime, comment, action)
 
         logfile = open(self.filename, 'a+')
-        entry = string.join((wikiutil.quoteFilename(pagename), host, `mtime`,
-                             hostname, user.User().id, comment, action), "\t") + "\n"
         try:
             # fcntl.flock(logfile.fileno(), fcntl.LOCK_EX)
             logfile.seek(0, 2)                  # to end
@@ -85,12 +115,20 @@ class LogText(LogBase):
             # fcntl.flock(logfile.fileno(), fcntl.LOCK_UN)
             logfile.close()
 
+        if action[:4] == "SAVE":
+            # write entry to last-edited file
+            lastedited = open(wikiutil.getPagePath(pagename, 'last-edited'), 'w')
+            try:
+                lastedited.write(entry)
+            finally:
+                lastedited.close()
+
 
 #############################################################################
 ### Factory
 #############################################################################
 
-def makeLogStore(option=None):
+def makeLogStore(request, option=None):
     """ Creates a storage object that provides an implementation of the
         storage type given in the `option` parameter; option consists
         of a `schema:` part, followed by a schema-specific option string.
@@ -101,7 +139,7 @@ def makeLogStore(option=None):
 
     schema, optstr = string.split(option, ':', 1)
     if schema == "text":
-        return LogText(optstr)
+        return LogText(request, optstr)
     return None
 
 
@@ -120,10 +158,12 @@ class EditLog:
 
     _NUM_FIELDS = 7
 
-    def __init__(self, **kw):
+    def __init__(self, request, **kw):
+        self.request = request
+
         self._index = 0
         self._usercache = {}
-        self._filename = os.path.join(config.data_dir, 'editlog')
+        self._filename = kw.get('filename', os.path.join(config.data_dir, 'editlog'))
 
         self._lines = self._editlog_raw_lines()
         if not kw.get('reverse', 0):
@@ -146,13 +186,14 @@ class EditLog:
 
     def peek(self, offset):
         """ Peek `offset` entries ahead (or behind), return false after last entry """
-        idx = self._index + offset
-        if idx < 0 or len(self._lines) <= idx:
-            self._parse_log_line("")
-            return 0
-        self._parse_log_line(self._lines[idx])
-        return 1
-
+        try:
+            line = self._lines[self._index + offset]
+            ok = 1
+        except IndexError:
+            line = ""
+            ok = 0
+        self._parse_log_line(line)
+        return ok
 
     def reset(self):
         """ Reset for a new iteration """
@@ -188,19 +229,23 @@ class EditLog:
 
 
     def getEditorData(self):
-        """ Return a string or Page object representing the user that did the edit.
+        """ Return a tuple of type id and string or Page object
+            representing the user that did the edit.
+
+            The type id is one of 'ip' (DNS or numeric IP), 'user' (user name)
+            or 'homepage' (Page instance of user's homepage).
         """
-        result = self.hostname
+        result = ('ip', self.hostname)
         if self.userid:
             if not self._usercache.has_key(self.userid):
-                self._usercache[self.userid] = user.User(self.userid)
+                self._usercache[self.userid] = user.User(self.request, self.userid)
             userdata = self._usercache[self.userid]
             if userdata.name:
-                pg = Page(userdata.name)
-                if pg.exists():
-                    result = pg
+                pg = wikiutil.getHomePage(self.request, username=userdata.name)
+                if pg:
+                    result = ('homepage', pg)
                 else:
-                    result = userdata.name or self.hostname
+                    result = ('user', userdata.name)
 
         return result
 
@@ -208,10 +253,13 @@ class EditLog:
     def getEditor(self):
         """ Return a HTML-safe string representing the user that did the edit.
         """
-        result = self.getEditorData()
-        if isinstance(result, Page):
-            return result.link_to()
-        return cgi.escape(result)
+        kind, editor = self.getEditorData()
+        if kind == 'homepage':
+            return '<span title="%s">%s</span>' % (cgi.escape(self.hostname), editor.link_to())
+        elif kind == 'ip':
+            return '<span title="%s">%s</span>' % (cgi.escape(self.addr), cgi.escape(editor))
+        else:
+            return '<span title="%s">%s</span>' % (cgi.escape(self.hostname), cgi.escape(editor))
 
 
     def size(self):
@@ -259,7 +307,7 @@ class EditLog:
         """ Parse a log line to member variables:
             pagename, addr, ed_time, hostname, userid
         """
-        fields = string.split(string.strip(line), '\t')
+        fields = line.strip().split('\t')
         while len(fields) < self._NUM_FIELDS: fields.append('')
 
         self.pagename, self.addr, self.ed_time, self.hostname, \

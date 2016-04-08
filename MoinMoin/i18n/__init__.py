@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Internationalization
 
@@ -9,7 +10,7 @@
     storing the original texts as keys and their translation in the
     values. Other supporting modules start with an underscore.
 
-    $Id: __init__.py,v 1.23 2002/04/25 19:44:01 jhermann Exp $
+    $Id: __init__.py,v 1.38 2003/11/09 21:00:57 thomaswaldmann Exp $
 """
 
 # Imports
@@ -21,18 +22,24 @@ western_charsets = ['usascii', 'iso-8859-1']
 master_language = 'de'
 
 # "pt" is really "pt-br", so if someone wants to adapt that to "pt", you're welcome
+NAME, ENCODING, DIRECTION, MAINTAINER = range(0,4)
 languages = {
-    'de': ('Deutsch',    'iso-8859-1',  '"Jürgen Hermann" <jh@web.de>'),
-    'en': ('English',    'iso-8859-1',  '"Jürgen Hermann" <jh@web.de>'),
-    'fi': ('Suomi',      'iso-8859-1',  '***vacant***'),
-    'fr': ('Français',   'iso-8859-1',  '"Lucas Bruand" <Lucas.Bruand@ecl2002.ec-lyon.fr>'),
-    'it': ('Italian',    'iso-8859-1',  'Lele Gaifax <lele@seldati.it>'),
-    'ja': ('Japanese',   'euc-jp',      '"Jyunji Kondo" <j-kondo@pst.fujitsu.com>'),
-    'ko': ('Korean',     'euc-kr',      '"Hye-Shik Chang" <perky@fallin.lv>'),
-    'nl': ('Nederlands', 'iso-8859-1',  '***vacant***'),
-    'pt': ('Português',  'iso-8859-1',  'Jorge Godoy <godoy@conectiva.com>'),
-    'sv': ('Svenska',    'iso-8859-1',  '"Christian Sunesson" <noss@rm-f.net>'),
-    'zh': ('Chinese',    'gb2312',      '"Changzhe Han" <hancz@brovic.com>'),
+    'da': ('Dansk',      'iso-8859-1', 0, '"Jonas Smedegaard" <dr@jones.dk>'),
+    'de': ('Deutsch',    'iso-8859-1', 0, '"Jürgen Hermann" <jh@web.de>'),
+    'en': ('English',    'iso-8859-1', 0, '"Jürgen Hermann" <jh@web.de>'),
+    'es': ('Spanish',    'iso-8859-1', 0, '"Jaime Robles" <jaime@robles.nu>'),
+    'fi': ('Suomi',      'iso-8859-1', 0, '***vacant***'),
+    'fr': ('Français',   'iso-8859-1', 0, '"Lucas Bruand" <Lucas.Bruand@ecl2002.ec-lyon.fr>'),
+    'he': ('Hebrew',     'utf-8',      1, 'Nir Soffer <nirs@freeshell.org>'),
+    'hr': ('Hrvatski',   'iso-8859-2', 0, 'Davor Cengija <dcengija@yahoo.com>'),
+    'it': ('Italian',    'iso-8859-1', 0, 'Lele Gaifax <lele@seldati.it>'),
+    'ja': ('Japanese',   'euc-jp',     0, '"Jyunji Kondo" <j-kondo@pst.fujitsu.com>'),
+    'ko': ('Korean',     'utf-8',      0, '"Hye-Shik Chang" <perky@fallin.lv>'),
+    'nl': ('Nederlands', 'iso-8859-1', 0, '"Bart Koppers" <bart@opencare.net>'),
+    'pt': ('Português',  'iso-8859-1', 0, 'Jorge Godoy <godoy@conectiva.com>'),
+    'sv': ('Svenska',    'iso-8859-1', 0, '"Christian Sunesson" <noss@rm-f.net>'),
+    'zh': ('Chinese',    'gb2312',     0, '"Changzhe Han" <hancz@brovic.com>'),
+    'zh-tw': ('Chinese/Taiwan', 'big5', 0, '"Chen Jian-ding" <dwight@ccns.ncku.edu.tw>'),
 }
 
 _text_lang = None
@@ -73,29 +80,32 @@ def adaptCharset(lang):
     # possibly adapt to different charset
     if languages.has_key(lang) and \
             config.charset in western_charsets and \
-            languages[lang][1] not in western_charsets:
+            languages[lang][ENCODING] not in western_charsets:
         config.html_head = string.replace(config.html_head,
             ";charset=%s" % config.charset,
-            ";charset=%s" % languages[lang][1])
-        config.charset = languages[lang][1]
+            ";charset=%s" % languages[lang][ENCODING])
+        config.charset = languages[lang][ENCODING]
 
 
 def loadLanguage(lang):
     """Load text dictionary for a specific language"""
-    from MoinMoin import util
-    texts = util.importName("MoinMoin.i18n." + lang, "text") 
+    from MoinMoin.util import pysupport
+    texts = pysupport.importName("MoinMoin.i18n." + lang.replace('-', '_'), "text") 
 
     return texts
 
 
 def saveLanguage(lang, textdict):
     """Save a changed text dictionary for a specific language"""
-    filename = os.path.join(os.path.dirname(__file__), lang + '.py')
+    filename = os.path.join(os.path.dirname(__file__), lang.replace('-', '_') + '.py')
     file = open(filename, 'wt')
     file.write("# Text translations for %s (%s)\n"
                "# Maintained by: %s\n"
-               "# Encoding: %s\n" % (
-        lang, languages[lang][0], languages[lang][2], languages[lang][1]))
+               "# Encoding: %s\n"
+               "# Direction: %s\n" % (
+        lang, languages[lang][NAME], languages[lang][MAINTAINER],
+        languages[lang][ENCODING], getDirection(None, lang),
+    ))
     file.write("text = {\n")
     keys = textdict.keys()
     keys.sort()
@@ -132,18 +142,25 @@ def getLang():
                 # does the wiki's charset and that of the lang fit?
                 # !!! note that it'd be nice if we could recode the
                 # strings, but that requires Python 2.0, and some thought
-                if languages[lang][1] == config.charset:
+                if languages[lang][ENCODING] == config.charset:
                     _text_lang = lang
                     break
 
     # make sure there is a language set
     if not _text_lang:
-        _text_lang = 'en'
+        _text_lang = config.default_lang or 'en'
 
     return _text_lang
 
 
-def getText(str, lang=None):
+def getDirection(request, lang=None):
+    """ Get text direction for a language, either 'ltr' or 'rtl'.
+    """
+    if not lang: lang = getLang()
+    return ('ltr', 'rtl')[languages[lang][DIRECTION]]
+
+
+def getText(str, lang=None, check_i18n=1):
     """Load a text in the user's language, or the given one"""
     if not lang: lang = getLang()
 
@@ -161,13 +178,40 @@ def getText(str, lang=None):
 
     # check for text additions for the master language,
     # if configured (only active in development setups)
-    if config.check_i18n and lang == master_language \
+    if config.check_i18n and check_i18n and lang == master_language \
             and not _text_cache[lang].has_key(str):
         _text_cache[lang][str] = str
-        saveLanguage(lang, _text_cache[lang])
+        try:
+            saveLanguage(lang, _text_cache[lang])
+        except IOError:
+            # ignore write errors
+            pass
 
-    # return the matching entry in the mapping table
-    return _text_cache[lang].get(str, str)
+    # get the matching entry in the mapping table
+    result = _text_cache[lang].get(str, None)
+    encoding = languages[lang][ENCODING]
+
+    # untranslated string?
+    if result is None:
+        result = str
+        encoding = 'ASCII'
+
+    # is the translated text a unicode string?
+    if isinstance(result, type(u'')):
+        try:
+            return result.encode(config.charset, 'replace')
+        except (ValueError, UnicodeError):
+            return str
+
+    # is the translated text already in the main encoding?
+    if encoding == config.charset:
+        return result
+
+    # else, try to recode into that encoding
+    try:
+        return unicode(result, encoding).encode(config.charset, 'replace')
+    except (ValueError, UnicodeError):
+        return str
 
 
 # define gettext-like "_" function 

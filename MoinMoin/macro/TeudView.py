@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Teud Macro
 
@@ -10,7 +11,7 @@
     Teud: http://purl.net/wiki/python/TeudProject
     4XSLT: http://4suite.org/
 
-    $Id: TeudView.py,v 1.3 2001/10/22 23:08:34 jhermann Exp $
+    $Id: TeudView.py,v 1.4 2003/11/09 21:01:04 thomaswaldmann Exp $
 """
 
 _imperr = None

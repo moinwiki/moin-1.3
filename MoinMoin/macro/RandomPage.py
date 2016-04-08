@@ -1,10 +1,11 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - RandomPage Macro
 
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: RandomPage.py,v 1.4 2002/03/20 23:57:07 jhermann Exp $
+    $Id: RandomPage.py,v 1.7 2003/11/09 21:01:03 thomaswaldmann Exp $
 """
 
 # Imports
@@ -24,7 +25,8 @@ def execute(macro, args):
     pages = []
     while len(pages) < links and all_pages:
         page = whrandom.choice(all_pages)
-        pages.append(page)
+        if macro.request.user.may.read(page):
+            pages.append(page)
         all_pages.remove(page)
 
     # return a single page link

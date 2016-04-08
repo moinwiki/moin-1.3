@@ -3,9 +3,10 @@
 # Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
 # All rights reserved, see COPYING for details.
 #
-# $Id: MANIFEST.in,v 1.11 2002/02/27 21:02:53 jhermann Exp $
+# $Id: MANIFEST.in,v 1.12 2003/03/30 16:09:48 jhermann Exp $
 
-include CHANGES COPYING INSTALL.html README TODO
+# additional files not known by setup.py
+include CHANGES COPYING INSTALL.html UPDATE.html README TODO
 include MANIFEST.in moinlogo.bmp setup.cfg
 
 # "wiki" directory
@@ -15,12 +16,16 @@ recursive-include   wiki/data/text *
 include             wiki/htdocs/index.html
 recursive-include   wiki/htdocs/css *.css
 recursive-include   wiki/htdocs/img *.gif *.png
+recursive-include   wiki/htdocs/applets *.jar
 
 # include MoinMoin/wiki-moinmoin/default.css
 # include MoinMoin/wiki-moinmoin/data/editlog
 # recursive-include MoinMoin/wiki-moinmoin/img *
 # recursive-include MoinMoin/wiki-moinmoin/data/text *
 
+# contributions
 recursive-include contributions *
 
+# omit CVS directories
 global-exclude */CVS/*
+

@@ -1,10 +1,11 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Processor for CSV data
 
     Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: CSV.py,v 1.2 2002/04/17 19:24:58 jhermann Exp $
+    $Id: CSV.py,v 1.4 2003/11/09 21:01:06 thomaswaldmann Exp $
 """
 
 import string, sys
@@ -48,5 +49,5 @@ def process(request, formatter, lines):
         first = 0
     output.append(formatter.table(0))
 
-    sys.stdout.write(string.join(output, ''))
+    request.write(string.join(output, ''))
 

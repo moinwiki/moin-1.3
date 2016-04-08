@@ -1,22 +1,24 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - WantedPages Macro
 
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: WantedPages.py,v 1.9 2002/04/17 20:33:33 jhermann Exp $
+    $Id: WantedPages.py,v 1.13 2003/11/09 21:01:04 thomaswaldmann Exp $
 """
 
 # Imports
 import string, urllib
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 _guard = 0
 
 
 def execute(macro, args):
+    _ = macro.request.getText
+
     # prevent recursive calls
     global _guard
     if _guard: return ''
@@ -26,6 +28,13 @@ def execute(macro, args):
     wanted = {}
     pages = wikiutil.getPageDict(config.text_dir)
     for page in pages.values():
+        if not macro.request.user.may.read(page.page_name):
+            continue
+        # Regular users won't get /MoinEditorBackup pages shown anyway, but
+        # WikiAdmin(s)  would - because they have global read rights.
+        # Further, pages wanted from editor backup pages are irrelevant.
+        if page.page_name.endswith('/MoinEditorBackup'):
+            continue
         links = page.getPageLinks(macro.request)
         for link in links:
             if not pages.has_key(link):

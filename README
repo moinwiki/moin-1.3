@@ -1,7 +1,7 @@
 MoinMoin Readme
 ===============
 
-Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000, 2001, 2002, 2003 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
 This program is free software; you can redistribute it and/or modify
@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-$Id: README,v 1.7 2002/04/17 19:54:35 jhermann Exp $
+$Id: README,v 1.9 2003/08/14 06:32:00 thomaswaldmann Exp $
 
 -----------------------------------------------------------------------------
 
@@ -79,7 +79,9 @@ contributions:
     http://twiki.org/cgi-bin/view/TWiki/TWikiDrawPlugin
 
     Thomas Waldmann for the major effort of translating all the help and
-    system pages to German.
+    system pages to German, and increasing volumes of code.
+
+    Bernhard Rosenkraenzer and Andrew Bennetts for password login patches.
 
     And all the people I forgot or that are mentioned in the code.
 
@@ -143,4 +145,14 @@ Modifications Copyright (C) 2001 Motorola. All Rights Reserved.
 PeterThoeny created TWikiDraw based on above software 
 
 CrawfordCurrie made a number of improvements. 
+
+
+-----------------------------------------------------------------------------
+
+The slides in wiki\data\text\WikiSchulung* were written at WEB.DE AG and
+licensed to MoinMoin users under the terms of "IFL-Text v1.0".
+
+Copyright (c) 2003 by WEB.DE AG, Karlsruhe, Germany.
+
+IFL-Text v1.0: see http://www.ifross.de/ifross_html/ifl.html
 

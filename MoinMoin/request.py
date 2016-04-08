@@ -1,13 +1,14 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Data associated with a single Request
 
     Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: request.py,v 1.9 2002/04/25 19:33:56 jhermann Exp $
+    $Id: request.py,v 1.22 2003/11/09 21:00:50 thomaswaldmann Exp $
 """
 
-import os, string, time
+import os, string, time, sys
 
 #############################################################################
 ### Timing
@@ -41,13 +42,25 @@ class Request:
     """ A collection for all data associated with ONE request. """
 
     def __init__(self, properties={}):
+        # order is important here!
+        from MoinMoin import user
+        self.auth_username = properties.get('auth_username','')
+        self.user = user.User(self)
+        # !!! if all refs to user.current are removed, kill this assign
+        user.current = self.user
+
+        # CNC:2003-03-30
+        from MoinMoin import wikigroup
+        self.groups = wikigroup.GroupDict()
+        self.groups.scangroups()
+
         from MoinMoin import i18n
 
-        self.user = None
         self.form = None
         self.logger = None
         self.pragma = {}
         self.saved_cookie = os.environ.get('HTTP_COOKIE', None)
+        self.mode_getpagelinks = 0
 
         self.clock = Clock()
 
@@ -57,10 +70,27 @@ class Request:
 
         self.__dict__.update(properties)
 
+        self.i18n = i18n
         self.lang = i18n.getLang()
+        self.getText = lambda text, i18n=self.i18n, lang=self.lang: i18n.getText(text, lang)
         i18n.adaptCharset(self.lang)
 
+        self.reset()
+
+
+    def reset(self):
+        """ Called after saving a page, before serving the updated page;
+            solves some practical problems with request state modified
+            during saving.
+        """
+        from MoinMoin import config
+
+        self.current_lang = config.default_lang
         self._footer_fragments = {}
+        self._all_pages = None
+
+        if hasattr(self, "_fmt_hd_counters"):
+            del self._fmt_hd_counters
 
 
     def add2footer(self, key, htmlcode):
@@ -76,12 +106,26 @@ class Request:
         """
         return self.pragma.get(string.lower(key), defval)
 
+
     def setPragma(self, key, value):
         """ Set a pragma value (#pragma processing instruction)
 
             Keys are not case-sensitive.
         """
         self.pragma[string.lower(key)] = value
+
+
+    def getPageList(self):
+        """ A cached version of wikiutil.getPageList().
+            Also, this list is always sorted.
+        """
+        if self._all_pages is None:
+            from MoinMoin import config, wikiutil
+            self._all_pages = wikiutil.getPageList(config.text_dir)
+            self._all_pages.sort()
+
+        return self._all_pages
+
 
     def getEventLogger(self):
         """ Return a (the) event logger instance.
@@ -91,4 +135,11 @@ class Request:
             self.logger = EventLogger()
 
         return self.logger
+
+
+    def write(self, *data):
+        """ Write to output stream.
+        """
+        for piece in data:
+            sys.stdout.write(piece)
 

@@ -1,6 +1,7 @@
 # Text translations for ko (Korean)
 # Maintained by: "Hye-Shik Chang" <perky@fallin.lv>
-# Encoding: euc-kr
+# Encoding: utf-8
+# Direction: ltr
 text = {
 '''
 <b>This wiki is not enabled for mail processing.<br>
@@ -8,9 +9,9 @@ Contact the owner of the wiki, who can either enable email,
 or remove the "Subscribe" icon.</b>
 ''':
 '''
-<b>ÀÌ À§Å°´Â ¸ŞÀÏ Ã³¸®¸¦ ÇÒ ¼ö ¾øµµ·Ï µÇ¾îÀÖ½À´Ï´Ù.<br>
-À§Å° °ü¸®ÀÚ¿¡°Ô ¿¬¶ôÇÏ¿© ¸ŞÀÏÀ» ¾µ ¼ö ÀÖµµ·Ï ÇÏ°Å³ª,
-"Subscribe" ¾ÆÀÌÄÜÀ» Áö¿ö´Ş¶ó°í ÇÏ¼¼¿ä.</b>
+<b>ì´ ìœ„í‚¤ëŠ” ë©”ì¼ ì²˜ë¦¬ë¥¼ í•  ìˆ˜ ì—†ë„ë¡ ë˜ì–´ìˆìŠµë‹ˆë‹¤.<br>
+ìœ„í‚¤ ê´€ë¦¬ìì—ê²Œ ì—°ë½í•˜ì—¬ ë©”ì¼ì„ ì“¸ ìˆ˜ ìˆë„ë¡ í•˜ê±°ë‚˜,
+"Subscribe" ì•„ì´ì½˜ì„ ì§€ì›Œë‹¬ë¼ê³  í•˜ì„¸ìš”.</b>
 ''',
 
 '''
@@ -20,63 +21,66 @@ conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.</p>
 ''':
 '''
-<h2>»õ Ã·ºÎÆÄÀÏ</h2>
-<p>¾÷·Îµå·Î´Â ¿ø·¡ ÆÄÀÏÀ» µ¤¾î ¾µ ¼ö ¾ø½À´Ï´Ù. ÆÄÀÏÀÌ¸§ÀÌ Ãæµ¹ÇÏ¸é,
-¾÷·ÎµåÇÏ°íÀÚ ÇÏ´Â ÆÄÀÏÀÇ ÀÌ¸§À» ¹Ù²Ù¾î¾ß ÇÕ´Ï´Ù.
-"ÀÌ¸§ ¹Ù²Ş"Ä­À» ºñ¿ö³õÀ¸¸é ¿ø·¡ÀÇ ÆÄÀÏ ÀÌ¸§ÀÌ »ç¿ëµË´Ï´Ù.</p>
+<h2>ìƒˆ ì²¨ë¶€íŒŒì¼</h2>
+<p>ì—…ë¡œë“œë¡œëŠ” ì›ë˜ íŒŒì¼ì„ ë®ì–´ ì“¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. íŒŒì¼ì´ë¦„ì´ ì¶©ëŒí•˜ë©´,
+ì—…ë¡œë“œí•˜ê³ ì í•˜ëŠ” íŒŒì¼ì˜ ì´ë¦„ì„ ë°”ê¾¸ì–´ì•¼ í•©ë‹ˆë‹¤.
+"ì´ë¦„ ë°”ê¿ˆ"ì¹¸ì„ ë¹„ì›Œë†“ìœ¼ë©´ ì›ë˜ì˜ íŒŒì¼ ì´ë¦„ì´ ì‚¬ìš©ë©ë‹ˆë‹¤.</p>
 ''',
 
 '''
 Sent a mail notification to these addresses: %s
 <br>Result was: ''':
 '''
-ÀÌ ÁÖ¼Òµé¿¡ ´ëÇØ ¸ŞÀÏ ¾Ë¸²ÀÌ º¸³»Á³½À´Ï´Ù: %s
-<br>°á°ú: ''',
+ì´ ì£¼ì†Œë“¤ì— ëŒ€í•´ ë©”ì¼ ì•Œë¦¼ì´ ë³´ë‚´ì¡ŒìŠµë‹ˆë‹¤: %s
+<br>ê²°ê³¼: ''',
 
 ' (including %(localwords)d %(pagelink)s)':
-' (%(pagelink)s¸¦ %(localwords)d°³ Æ÷ÇÔ)',
+' (%(pagelink)së¥¼ %(localwords)dê°œ í¬í•¨)',
 
 ' (spanning %d versions)':
-' (%d¹øÀÇ º¯°æ»çÇ×À» ÆîÄ§)',
+' (%dë²ˆì˜ ë³€ê²½ì‚¬í•­ì„ í¼ì¹¨)',
 
 ' Create Profile ':
-' »õ »ç¿ëÀÚ ¸¸µê ',
+' ìƒˆ ì‚¬ìš©ì ë§Œë“¦ ',
 
 ' Delete ':
-' Áö¿ò ',
+' ì§€ì›€ ',
 
 ' Login ':
-' ·Î±×ÀÎ ',
+' ë¡œê·¸ì¸ ',
 
 ' Logout ':
-' ·Î±×¾Æ¿ô ',
+' ë¡œê·¸ì•„ì›ƒ ',
 
 ' Mail me my account data ':
-' °èÁ¤Á¤º¸¿¡ ´ëÇØ¼­ ¸ŞÀÏ·Î ¾Ë·ÁÁÖ¼¼¿ä ',
+' ê³„ì •ì •ë³´ì— ëŒ€í•´ì„œ ë©”ì¼ë¡œ ì•Œë ¤ì£¼ì„¸ìš” ',
 
 ' Save ':
-' ÀúÀå ',
+' ì €ì¥ ',
+
+' Slide %(pos)d of %(size)d ':
+' ìŠ¬ë¼ì´ë“œ ì´ %(size)d ì¤‘ %(pos)d ',
 
 ' Upload ':
-' ¾÷·Îµå ',
+' ì—…ë¡œë“œ ',
 
 ' by browsing, title search %(titlesearch)s, text search %(textsearch)s or an index<br>':
-' : Á¦¸ñÀ¸·Î %(titlesearch)s, º»¹®¿¡¼­ %(textsearch)s, ¶Ç´Â »öÀÎÀ» º¸¼¼¿ä<br>',
+' : ì œëª©ìœ¼ë¡œ %(titlesearch)s, ë³¸ë¬¸ì—ì„œ %(textsearch)s, ë˜ëŠ” ìƒ‰ì¸ì„ ë³´ì„¸ìš”<br>',
 
 ' for this page (cached %(date)s)':
-' ÀÌ ÆäÀÌÁö¿¡ ´ëÇÑ (%(date)s¿¡ Ä³½¬µÊ)',
+' ì´ í˜ì´ì§€ì— ëŒ€í•œ (%(date)sì— ìºì‰¬ë¨)',
 
 ' match':
-' °³ Æ÷ÇÔ',
+' ê°œ í¬í•¨',
 
 ' matches':
-' °³ Æ÷ÇÔ',
+' ê°œ í¬í•¨',
 
 ' time':
-' ¹ø',
+' ë²ˆ',
 
 ' times':
-' ¹ø',
+' ë²ˆ',
 
 '# of hits':
 '# of hits',
@@ -84,65 +88,94 @@ Sent a mail notification to these addresses: %s
 '# of pages of this size':
 '# of pages of this size',
 
+'''## backup of page "%(pagename)s" submitted %(date)s
+''':
+'''## í˜ì´ì§€ "%(pagename)s"ì˜ %(date)s ë°±ì—…
+''',
+
 '%(changecount)s changes':
-'%(changecount)s¹ø º¯°æµÊ',
+'%(changecount)së²ˆ ë³€ê²½ë¨',
 
 '%(chart_title)s for %(filterpage)s':
 '%(chart_title)s for %(filterpage)s',
 
 '%(errortype)s processing error':
-'Ã³¸®Áß ¿¡·¯: "%(errortype)s"',
+'ì²˜ë¦¬ì¤‘ ì—ëŸ¬: "%(errortype)s"',
 
 '%(hits)d hits out of %(pages)d pages searched.':
-'ÀüÃ¼ %(pages)d ÆäÀÌÁö Áß¿¡ Á¶°Ç¿¡ ¸Â´Â °ÍÀÌ %(hits)d°³ ¹ß°ßµÇ¾ú½À´Ï´Ù.',
+'ì „ì²´ %(pages)d í˜ì´ì§€ ì¤‘ì— ì¡°ê±´ì— ë§ëŠ” ê²ƒì´ %(hits)dê°œ ë°œê²¬ë˜ì—ˆìŠµë‹ˆë‹¤.',
+
+'%(logcount)s (%(logsize)s bytes)':
+'%(logcount)s (%(logsize)s ë°”ì´íŠ¸)',
 
 '%(matchcount)d %(matches)s for "%(title)s"':
-'Á¦¸ñ¿¡ "%(title)s"¸¦ Æ÷ÇÔÇÏ´Â °ÍÀÌ %(matchcount)d %(matches)s°³ ¹ß°ßµÇ¾ú½À´Ï´Ù.',
+'ì œëª©ì— "%(title)s"ë¥¼ í¬í•¨í•˜ëŠ” ê²ƒì´ %(matchcount)d %(matches)sê°œ ë°œê²¬ë˜ì—ˆìŠµë‹ˆë‹¤.',
+
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]':
+'&nbsp;&nbsp; [í˜„ì¬ í˜ì´ì§€ í¬ê¸° <b>%(size)d</b> ë°”ì´íŠ¸]',
 
 '("None" for disabling CSS)':
-'(CSS¸¦ »ç¿ëÇÏÁö ¾ÊÀ¸·Á¸é "None")',
+'(CSSë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šìœ¼ë ¤ë©´ "None")',
 
 '(currently set to %s)':
-'(ÇöÀç°ªÀº %s)',
+'(í˜„ì¬ê°’ì€ %s)',
+
+'(last edited %(time)s by %(editor)s)':
+'(%(time)sì— %(editor)sê°€ ë§ˆì§€ë§‰ ìˆ˜ì •)',
 
 '(last modified %s)':
-'(¸¶Áö¸· º¯°æ %s)',
+'(ë§ˆì§€ë§‰ ë³€ê²½ %s)',
 
 '(no bookmark set)':
-'(Ã¥°¥ÇÇ°¡ ¾øÀ½)',
+'(ì±…ê°ˆí”¼ê°€ ì—†ìŒ)',
 
 '4Suite Version':
-'4Suite ¹öÁ¯',
+'4Suite ë²„ì ¼',
+
+'<Browser setting>':
+'<ë¸Œë¼ìš°ì € ì„¤ì •>',
+
+'<Default>':
+'<ê¸°ë³¸ê°’>',
+
+'<No addition>':
+'<ì¶”ê°€ ì•ŠìŒ>',
 
 "<b>Attachment '%(filename)s' does not exist!</b>":
-"<b>Ã·ºÎ '%(filename)s'°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!</b>",
+"<b>ì²¨ë¶€ '%(filename)s'ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!</b>",
 
 '<b>Cookie deleted!</b>':
-'<b>ÄíÅ°°¡ Áö¿öÁ³½À´Ï´Ù</b>',
+'<b>ì¿ í‚¤ê°€ ì§€ì›Œì¡ŒìŠµë‹ˆë‹¤</b>',
 
 '<b>Differences between version dated %s and %s':
-'<b>%sÀÇ ¹öÁ¯°ú %sÀÇ ¹öÁ¯ÀÇ Â÷ÀÌÁ¡ ',
+'<b>%sì˜ ë²„ì ¼ê³¼ %sì˜ ë²„ì ¼ì˜ ì°¨ì´ì  ',
 
 '<b>Filename of attachment not specified!</b>':
-'<b>Ã·ºÎ ÆÄÀÏ ÀÌ¸§ÀÌ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!</b>',
+'<b>ì²¨ë¶€ íŒŒì¼ ì´ë¦„ì´ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!</b>',
 
 "<b>Found no account matching the given email address '%(email)s'!</b>":
-"<b>¸ŞÀÏ ÁÖ¼Ò°¡ '%(email)s'·Î µÇ¾îÀÖ´Â °èÁ¤ÀÌ ¾ø½À´Ï´Ù!</b>",
+"<b>ë©”ì¼ ì£¼ì†Œê°€ '%(email)s'ë¡œ ë˜ì–´ìˆëŠ” ê³„ì •ì´ ì—†ìŠµë‹ˆë‹¤!</b>",
 
 '<b>NONE</b>':
-'<b>¾øÀ½</b>',
+'<b>ì—†ìŒ</b>',
 
 '<b>No differences found!</b>':
-'<b>¾Æ¹«·± Â÷ÀÌÁ¡ÀÌ ¾ø½À´Ï´Ù!</b>',
+'<b>ì•„ë¬´ëŸ° ì°¨ì´ì ì´ ì—†ìŠµë‹ˆë‹¤!</b>',
 
 '<b>No older revisions available!</b>':
-'<b>¿¾ ¹öÁ¯ÀÌ ÀúÀåµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù!</b>',
+'<b>ì˜› ë²„ì ¼ì´ ì €ì¥ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤!</b>',
 
 '<b>No spelling errors found!</b>':
-'<b>Ã¶ÀÚ ¿À·ù°¡ ¹ß°ßµÇÁö ¾Ê¾Ò½À´Ï´Ù!</b>',
+'<b>ì² ì ì˜¤ë¥˜ê°€ ë°œê²¬ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!</b>',
+
+'<b>Page is immutable!</b>':
+'<b>í˜ì´ì§€ ë³€ê²½ì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤!</b>',
 
 '<b>Please provide a valid email address!</b>':
-'<b>»ç¿ë°¡´ÉÇÑ ¸ŞÀÏ ÁÖ¼Ò¸¦ ½á ÁÖ¼¼¿ä!</b>',
+'<b>ì‚¬ìš©ê°€ëŠ¥í•œ ë©”ì¼ ì£¼ì†Œë¥¼ ì¨ ì£¼ì„¸ìš”!</b>',
+
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>":
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>",
 
 '''<b>Sorry, someone else saved the page while you edited it.
 <p>Please do the following: Use the back button of your browser, and cut&paste
@@ -152,69 +185,72 @@ Now re-add your changes to the current page contents.
 the content editbox with your version of the page, because that would
 delete the changes of the other person, which is excessively rude!</em></b>
 ''':
-'''<b>´©±º°¡ ´ç½ÅÀÌ ¼öÁ¤ÇÏ´Â µ¿¾È¿¡ ÆäÀÌÁö¸¦ ÀúÀåÇß½À´Ï´Ù.
-<p>´ÙÀ½ »çÇ×À» µû¶óÁÖ¼¼¿ä: ºê¶ó¿ìÀúÀÇ Back ¹öÆ°À» ´­·¯¼­, ¼öÁ¤ÇÑ ºÎºĞÀ»
-º¹»çÇØ ¿Â ÈÄ, ´Ù½Ã ÆäÀÌÁö¼öÁ¤À¸·Î °¡¼­ ´Ù¸¥ »ç¶÷ÀÌ °íÄ£ ³»¿ëÀ» ÇÇÇØ
-¹æ±İ ¼öÁ¤ÇÏ·Á°í Çß´ø ³»¿ëÀ» ´Ù½Ã ¼öÁ¤ÇØ¼­ ÀúÀåÇØ ÁÖ¼¼¿ä.
-<p><em>Àı´ë ÀüÃ¼ ³»¿ëÀ» º¹»çÇØ¼­ ³»¿ë ÀüÃ¼¸¦ µ¤¾î¾²±â ÇÏÁö ¸¶¼¼¿ä.
-±×·¯¸é, Àü¿¡ ¼öÁ¤ÇÑ »ç¶÷ÀÌ ÇÏ°í ½Í¾ú´ø °ÍÀÌ ¸ğµÎ Ãë¼ÒµÇ¸ç,
-ÀÌ ÇàÀ§´Â »ó´çÈ÷ ¹«·ÊÇÑ °ÍÀÔ´Ï´Ù.</em></b>
+'''<b>ëˆ„êµ°ê°€ ë‹¹ì‹ ì´ ìˆ˜ì •í•˜ëŠ” ë™ì•ˆì— í˜ì´ì§€ë¥¼ ì €ì¥í–ˆìŠµë‹ˆë‹¤.
+<p>ë‹¤ìŒ ì‚¬í•­ì„ ë”°ë¼ì£¼ì„¸ìš”: ë¸Œë¼ìš°ì €ì˜ Back ë²„íŠ¼ì„ ëˆŒëŸ¬ì„œ, ìˆ˜ì •í•œ ë¶€ë¶„ì„
+ë³µì‚¬í•´ ì˜¨ í›„, ë‹¤ì‹œ í˜ì´ì§€ìˆ˜ì •ìœ¼ë¡œ ê°€ì„œ ë‹¤ë¥¸ ì‚¬ëŒì´ ê³ ì¹œ ë‚´ìš©ì„ í”¼í•´
+ë°©ê¸ˆ ìˆ˜ì •í•˜ë ¤ê³  í–ˆë˜ ë‚´ìš©ì„ ë‹¤ì‹œ ìˆ˜ì •í•´ì„œ ì €ì¥í•´ ì£¼ì„¸ìš”.
+<p><em>ì ˆëŒ€ ì „ì²´ ë‚´ìš©ì„ ë³µì‚¬í•´ì„œ ë‚´ìš© ì „ì²´ë¥¼ ë®ì–´ì“°ê¸° í•˜ì§€ ë§ˆì„¸ìš”.
+ê·¸ëŸ¬ë©´, ì „ì— ìˆ˜ì •í•œ ì‚¬ëŒì´ í•˜ê³  ì‹¶ì—ˆë˜ ê²ƒì´ ëª¨ë‘ ì·¨ì†Œë˜ë©°,
+ì´ í–‰ìœ„ëŠ” ìƒë‹¹íˆ ë¬´ë¡€í•œ ê²ƒì…ë‹ˆë‹¤.</em></b>
 ''',
 
 '''<b>Thank you for your changes.
 Your attention to detail is appreciated.</b>''':
-'<b>ÆäÀÌÁö°¡ °íÃÄÁ³½À´Ï´Ù.</b>',
+'<b>í˜ì´ì§€ê°€ ê³ ì³ì¡ŒìŠµë‹ˆë‹¤.</b>',
 
 '<b>Unsupported upload action: %s</b>':
-'<b>Áö¿øµÇÁö ¾Ê´Â ¾÷·Îµå ¾×¼Ç: %s</b>',
+'<b>ì§€ì›ë˜ì§€ ì•ŠëŠ” ì—…ë¡œë“œ ì•¡ì…˜: %s</b>',
 
 '<b>User preferences saved!</b>':
-'<b>°èÁ¤ È¯°æ¼³Á¤ÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù!</b>',
+'<b>ê³„ì • í™˜ê²½ì„¤ì •ì´ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤!</b>',
 
 '<b>You are already subscribed to this page.</b>':
-'<b>ÀÌ¹Ì ÀÌ ÆäÀÌÁö¿¡ ¸ŞÀÏ ¾Ë¸²À» ¹Ş°í ÀÖ½À´Ï´Ù.</b>',
+'<b>ì´ë¯¸ ì´ í˜ì´ì§€ì— ë©”ì¼ ì•Œë¦¼ì„ ë°›ê³  ìˆìŠµë‹ˆë‹¤.</b>',
 
 '<b>You are not allowed to delete attachments.</b>':
-'<b>Ã·ºÎ¸¦ Áö¿ï ±ÇÇÑÀÌ ¾ø½À´Ï´Ù!</b>',
+'<b>ì²¨ë¶€ë¥¼ ì§€ìš¸ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤!</b>',
 
 '<b>You are not allowed to upload files.</b>':
-'<b>¾÷·ÎµåÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù!</b>',
+'<b>ì—…ë¡œë“œí•  ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤!</b>',
 
 '<b>You cannot save empty pages.</b>':
-'<b>ºó ÆäÀÌÁö¸¦ ÀúÀåÇÒ ¼ö ¾ø½À´Ï´Ù.</b>',
+'<b>ë¹ˆ í˜ì´ì§€ë¥¼ ì €ì¥í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.</b>',
 
 '<b>You cannot use LikePages on an extended pagename!</b>':
-'<b>"LikePages"´Â ÆäÀÌÁö ÀÌ¸§À¸·Î »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù!</b>',
+'<b>"LikePages"ëŠ” í˜ì´ì§€ ì´ë¦„ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.</b>',
+
+'<b>You did not change the page content, not saved!</b>':
+'<b>í˜ì´ì§€ ë‚´ìš©ì„ ìˆ˜ì •í•˜ì§€ ì•Šì•˜ìœ¼ë¯€ë¡œ ì €ì¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.</b>',
 
 '<b>You have been subscribed to this page.</b>':
-'<b>ÀÌÁ¦ ÀÌ ÆäÀÌÁö¿¡ ´ëÇÑ ¸ŞÀÏ ¾Ë¸²À» ¹Ş½À´Ï´Ù.</b>',
+'<b>ì´ì œ ì´ í˜ì´ì§€ì— ëŒ€í•œ ë©”ì¼ ì•Œë¦¼ì„ ë°›ìŠµë‹ˆë‹¤.</b>',
 
 '''<br>
 <b>To unsubscribe, go to your profile and delete this page
 from the subscription list.</b>
 ''':
 '''<br>
-<b>¸ŞÀÏ ¾Ë¸²À» ÇØÁöÇÏ°í ½ÍÀ¸¸é °èÁ¤ È¯°æ¼³Á¤À¸·Î °¡¼­ ¾Ë¸² ¸ñ·Ï¿¡¼­
-ÀÌ ÆäÀÌÁö¸¦ Áö¿ö ÁÖ¼¼¿ä.</b>
+<b>ë©”ì¼ ì•Œë¦¼ì„ í•´ì§€í•˜ê³  ì‹¶ìœ¼ë©´ ê³„ì • í™˜ê²½ì„¤ì •ìœ¼ë¡œ ê°€ì„œ ì•Œë¦¼ ëª©ë¡ì—ì„œ
+ì´ í˜ì´ì§€ë¥¼ ì§€ì›Œ ì£¼ì„¸ìš”.</b>
 ''',
 
 '<div class="message"><b>Bad chart type "%s"!</b></div>':
-'<div class="message"><b>Àß¸øµÈ Â÷Æ® Å¸ÀÔ "%s"!</b></div>',
+'<div class="message"><b>ì˜ëª»ëœ ì°¨íŠ¸ íƒ€ì… "%s"!</b></div>',
 
 '<div class="message"><b>Charts are not available!</b></div>':
-'<div class="message"><b>Â÷Æ®¸¦ ¸¸µé ÀÚ·á°¡ ÃæºĞÇÏÁö ¾Ê½À´Ï´Ù!</b></div>',
+'<div class="message"><b>ì´ ì‚¬ì´íŠ¸ì—ì„œëŠ” ì°¨íŠ¸ë¥¼ ë³¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!</b></div>',
 
 '<div class="message"><b>You need to provide a chart type!</b></div>':
-'<div class="message"><b>Â÷Æ® Å¸ÀÔÀ» ÁöÁ¤ÇÏ¿©¾ß ÇÕ´Ï´Ù!</b></div>',
+'<div class="message"><b>ì°¨íŠ¸ íƒ€ì…ì„ ì§€ì •í•˜ì—¬ì•¼ í•©ë‹ˆë‹¤!</b></div>',
 
 '<h2>Attached Files</h2>':
-'<h2>Ã·ºÎ ÆÄÀÏµé</h2>',
+'<h2>ì²¨ë¶€ íŒŒì¼ë“¤</h2>',
 
 "<h2>Attachment '%(filename)s'</h2>":
-"<h2>Ã·ºÎ '%(filename)s'</h2>",
+"<h2>ì²¨ë¶€ '%(filename)s'</h2>",
 
 '<h2>Edit drawing</h2>':
-'<h2>±×¸² °íÄ§</h2>',
+'<h2>ê·¸ë¦¼ ê³ ì¹¨</h2>',
 
 """<hr>
 <font face=\"Verdana\" size=\"-1\">
@@ -233,279 +269,379 @@ from the subscription list.</b>
 """:
 """<hr>
 <font face=\"Verdana\" size=\"-1\">
-<b>°­Á¶:</b> ''<i>ÀÌÅÅ¸¯</i>''; '''<b>±½°Ô</b>'''; '''''<b><i>±½Àº ÀÌÅÅ¸¯</i></b>''''';
-    ''<i>ÀÌÅÅ¸¯ '''<b>±½°Ô</b>''' ¼¯¾î¾²±â</i>''; ---- ¼öÆò¼± ±×À½.<br>
-<b>Ç¥Á¦</b> = Á¦¸ñ 1 =; == Á¦¸ñ 2 ==; === Á¦¸ñ 3 ===;
-    ==== Á¦¸ñ 4 ====; ===== Á¦¸ñ 5 =====.<br>
-<b>¸ñ·Ï:</b> °ø¹é ¶Ç´Â * ÇÑ°³; 1., a., A., i., I. ¹øÈ£ ¸Å°ÜÁø ¸®½ºÆ®;
-    1.#n \"n\"À¸·Î ¹øÈ£ ½ÃÀÛ; ½ºÆäÀÌ½º¸¸ ¾²¸é µé¿©¾²±â.<br>
-<b>¸µÅ©:</b> CapitalizedWords Ã³·³ ´ë¼Ò¹®ÀÚ ¼¯¾î¾²±â; 
-    [\"Áß°ıÈ£¿Í Å«µû¿ÈÇ¥·Î °¨½Î±â\"];
-    URL; [URL]; [URL ÀÌ¸§].<br>
-<b>Å×ÀÌºí</b>: || ¼¿ ³»¿ë |||| µÎ Ä­¿¡ °ÉÄ£ ¼¿ ||;
-    Á¦¸ñÀÌ³ª Å×ÀÌºí µÚ¿¡ °ø¹éÀÌ ¿À¸é ¾ÈµÊ.<br>
+<b>ê°•ì¡°:</b> ''<i>ì´íƒ¤ë¦­</i>''; '''<b>êµµê²Œ</b>'''; '''''<b><i>êµµì€ ì´íƒ¤ë¦­</i></b>''''';
+    ''<i>ì´íƒ¤ë¦­ '''<b>êµµê²Œ</b>''' ì„ì–´ì“°ê¸°</i>''; ---- ìˆ˜í‰ì„  ê·¸ìŒ.<br>
+<b>í‘œì œ</b> = ì œëª© 1 =; == ì œëª© 2 ==; === ì œëª© 3 ===;
+    ==== ì œëª© 4 ====; ===== ì œëª© 5 =====.<br>
+<b>ëª©ë¡:</b> ê³µë°± ë˜ëŠ” * í•œê°œ; 1., a., A., i., I. ë²ˆí˜¸ ë§¤ê²¨ì§„ ë¦¬ìŠ¤íŠ¸;
+    1.#n \"n\"ìœ¼ë¡œ ë²ˆí˜¸ ì‹œì‘; ìŠ¤í˜ì´ìŠ¤ë§Œ ì“°ë©´ ë“¤ì—¬ì“°ê¸°.<br>
+<b>ë§í¬:</b> CapitalizedWords ì²˜ëŸ¼ ëŒ€ì†Œë¬¸ì ì„ì–´ì“°ê¸°; 
+    [\"ì¤‘ê´„í˜¸ì™€ í°ë”°ì˜´í‘œë¡œ ê°ì‹¸ê¸°\"];
+    URL; [URL]; [URL ì´ë¦„].<br>
+<b>í…Œì´ë¸”</b>: || ì…€ ë‚´ìš© |||| ë‘ ì¹¸ì— ê±¸ì¹œ ì…€ ||;
+    ì œëª©ì´ë‚˜ í…Œì´ë¸” ë’¤ì— ê³µë°±ì´ ì˜¤ë©´ ì•ˆ ë¨.<br>
 </font>
 <hr>
 """,
+
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>':
+'<p><b>ì´ ë³€ê²½ì— ëŒ€í•œ ë°±ì—…ì€ <a href="%(backup_url)s">ì—¬ê¸°</a>ì— ìˆìŠµë‹ˆë‹¤.</b></p>',
+
+'<p><b>You will not be notified of your own changes!</b></p>':
+'<p><b>ë³¸ì¸ì´ ë³€ê²½í•œ ê²ƒì— ëŒ€í•´ì„œëŠ” ì•Œë¦¼ì„ ë°›ì§€ ì•ŠìŠµë‹ˆë‹¤.</b></p>',
 
 '''<p><small>If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
 <br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
 macro call.</b></small></p>
 ''':
-'''<p><small>ÀÌ ÆûÀ» º¸³»¸é, °ªµéÀÌ È­¸é¿¡ Ç¥½ÃµË´Ï´Ù.
-ÀÌ ÆûÀ» ´Ù¸¥ ÆäÀÌÁö¿¡¼­ »ç¿ëÇÏ·Á¸é,
+'''<p><small>ì´ í¼ì„ ë³´ë‚´ë©´, ê°’ë“¤ì´ í™”ë©´ì— í‘œì‹œë©ë‹ˆë‹¤.
+ì´ í¼ì„ ë‹¤ë¥¸ í˜ì´ì§€ì—ì„œ ì‚¬ìš©í•˜ë ¤ë©´,
 <br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
-¸ÅÅ©·Î È£ÃâÀ» ³ÖÀ¸¼¼¿ä</b></small></p>
+ë§¤í¬ë¡œ í˜¸ì¶œì„ ë„£ìœ¼ì„¸ìš”</b></small></p>
 ''',
 
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>":
-'<p>ÀÌ ÆäÀÌÁö ³»¿ëÀÇ SHA ÇØ½¬ ´ÙÀÌÁ¦½ºÆ®´Â: <tt>%(digest)s</tt></p>',
+'<p>ì´ í˜ì´ì§€ ë‚´ìš©ì˜ SHA í•´ì‰¬ ë‹¤ì´ì œìŠ¤íŠ¸ëŠ”: <tt>%(digest)s</tt></p>',
+
+'<p>The following pages with similar names already exist...</p>':
+'<p>ë‹¤ìŒê³¼ ê°™ì€ ë¹„ìŠ·í•œ ì´ë¦„ì„ ê°€ì§„ í˜ì´ì§€ë“¤ì´ ìˆìŠµë‹ˆë‹¤...</p>',
 
 '''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
 as shown below in the list of files. 
 Do <b>NOT</b> use the URL of the <tt>[get]</tt> link, 
 since this is subject to change and can break easily.</p>''':
-'''<p>ÀÌ ÆäÀÌÁöÀÇ Ã·ºÎ¸¦ ¸µÅ©ÇÏ·Á¸é, ¾Æ·¡ÀÇ ÆÄÀÏ ¸ñ·Ï ¿·¿¡ ÀÖ´Â °Í Ã³·³
-<b><tt>attachment:ÆÄÀÏÀÌ¸§</tt></b> Çü½ÄÀ¸·Î ¾²½Ê½Ã¿À.
-URLÀº ÀÚÁÖ ¹Ù²ğ ¼ö ÀÖÀ¸¹Ç·Î <tt>[get]</tt> ¸µÅ©ÀÇ URLÀ» Á÷Á¢ »ç¿ëÇÏÁö ¸¶¼¼¿ä.''',
+'''<p>ì´ í˜ì´ì§€ì˜ ì²¨ë¶€ë¥¼ ë§í¬í•˜ë ¤ë©´, ì•„ë˜ì˜ íŒŒì¼ ëª©ë¡ ì˜†ì— ìˆëŠ” ê²ƒ ì²˜ëŸ¼
+<b><tt>attachment:íŒŒì¼ì´ë¦„</tt></b> í˜•ì‹ìœ¼ë¡œ ì“°ì‹­ì‹œì˜¤.
+URLì€ ìì£¼ ë°”ë€” ìˆ˜ ìˆìœ¼ë¯€ë¡œ <tt>[ë°›ê¸°]</tt> ë§í¬ì˜ URLì„ ì§ì ‘ ì‚¬ìš©í•˜ì§€ ë§ˆì„¸ìš”.''',
 
 '<p>Unknown file type, cannot display this attachment inline.</p>':
-'<p>¾Ë ¼ö ¾ø´Â ÆÄÀÏ Å¸ÀÔÀÔ´Ï´Ù, ÀÌ Ã·ºÎ¸¦ ³»¿ë ¾È¿¡ °°ÀÌ º¸¿©ÁÙ ¼ö ¾ø½À´Ï´Ù.</p>',
+'<p>ì•Œ ìˆ˜ ì—†ëŠ” íŒŒì¼ íƒ€ì…ì…ë‹ˆë‹¤, ì´ ì²¨ë¶€ë¥¼ ë‚´ìš© ì•ˆì— ê°™ì´ ë³´ì—¬ì¤„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.</p>',
 
 '<small>[goto %s]</small>':
-'<small>[%s·Î]</small>',
+'<small>[%së¡œ]</small>',
+
+'<unknown>':
+'<ì•Œ ìˆ˜ ì—†ìŒ>',
+
+'Accumulated page sizes':
+'í˜ì´ì§€ í¬ê¸° ì´í•©',
 
 'Action':
-'¾×¼Ç',
+'ì•¡ì…˜',
 
 'Add "Open in new window" icon to pretty links':
-'"»õ Ã¢À¸·Î ¿­±â" ¾ÆÀÌÄÜÀ» Ãß°¡',
+'"ìƒˆ ì°½ìœ¼ë¡œ ì—´ê¸°" ì•„ì´ì½˜ì„ ì¶”ê°€',
 
 'Add checked words to dictionary':
-'»çÀü¿¡ Ã¼Å©µÈ ´Ü¾îµéÀ» Ãß°¡',
+'ì‚¬ì „ì— ì²´í¬ëœ ë‹¨ì–´ë“¤ì„ ì¶”ê°€',
 
 'Add spaces to displayed wiki names':
-'À§Å°³×ÀÓ¿¡ ½ºÆäÀÌ½º¸¦ ³Ö¾î¼­ Ç¥½Ã',
+'ìœ„í‚¤ë„¤ì„ì— ìŠ¤í˜ì´ìŠ¤ë¥¼ ë„£ì–´ì„œ í‘œì‹œ',
 
 'Additions are marked like this.':
-'Ãß°¡µÈ ÁÙÀº ÀÌ·¸°Ô Ç¥½ÃµË´Ï´Ù.',
+'ì¶”ê°€ëœ ì¤„ì€ ì´ë ‡ê²Œ í‘œì‹œë©ë‹ˆë‹¤.',
 
 'Alternatively, use one of these templates:':
-'¾Æ´Ï¸é, ÀÌµé ÅÛÇÃ¸´À» »ç¿ëÇÒ ¼öµµ ÀÖ½À´Ï´Ù:',
+'ì•„ë‹ˆë©´, ì´ë“¤ í…œí”Œë¦¿ì„ ì‚¬ìš©í•  ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤:',
 
 "Attachment '%(filename)s' deleted.":
-"Ã·ºÎ '%(filename)s'¸¦ Áö¿ò",
+"ì²¨ë¶€ '%(filename)s'ë¥¼ ì§€ì›€",
 
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes saved.":
-"Ã·ºÎ '%(target)s' (ÇÏµåµğ½ºÅ©¿¡¼­ÀÇ ÀÌ¸§ '%(filename)s', Å©±â %(bytes)d ¹ÙÀÌÆ®) °¡ ÀúÀåµÇ¾ú½À´Ï´Ù.",
+"ì²¨ë¶€ '%(target)s' (í•˜ë“œë””ìŠ¤í¬ì—ì„œì˜ ì´ë¦„ '%(filename)s', í¬ê¸° %(bytes)d ë°”ì´íŠ¸) ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.",
 
 'Attachments for "%(pagename)s"':
-'"%(pagename)s"ÀÇ Ã·ºÎÆÄÀÏµé',
+'"%(pagename)s"ì˜ ì²¨ë¶€íŒŒì¼ë“¤',
 
 "Bad timestamp '%s'":
-"Àß¸øµÈ Ã¥°¥ÇÇ ½Ã°£ '%s'",
+"ì˜ëª»ëœ ì±…ê°ˆí”¼ ì‹œê°„ '%s'",
 
 'CSS URL':
 'CSS URL ',
 
 "Can't work out query":
-'Äõ¸®¸¦ ¾µ ¼ö ¾ø½À´Ï´Ù',
+'ì¿¼ë¦¬ë¥¼ ì“¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤',
 
 'Cancel':
-'Ãë¼Ò',
+'ì·¨ì†Œ',
+
+'Case-sensitive searching':
+'ëŒ€ì†Œë¬¸ì êµ¬ë³„',
 
 'Check Spelling':
-'Ã¶ÀÚ °Ë»ç',
+'ì² ì ê²€ì‚¬',
 
 'Clear message':
-'¸Ş½ÃÁö Áö¿ò',
+'ë©”ì‹œì§€ ì§€ì›€',
 
 'Click here to do a full-text search for this title':
-'ÀÌ Á¦¸ñÀ¸·Î ÀüÃ¼ º»¹®¿¡¼­ Ã£¾Æº¸·Á¸é ¿©±â¸¦ Å¬¸¯ÇÏ¼¼¿ä',
+'ì´ ì œëª©ìœ¼ë¡œ ì „ì²´ ë³¸ë¬¸ì—ì„œ ì°¾ì•„ë³´ë ¤ë©´ ì—¬ê¸°ë¥¼ í´ë¦­í•˜ì„¸ìš”',
 
 'Comment':
-'ÄÚ¸àÆ®',
+'ì½”ë©˜íŠ¸',
+
+"Connection to mailserver '%(server)s' failed: %(reason)s":
+"ë©”ì¼ ì„œë²„ '%(server)s'ì— ì ‘ì† ì‹¤íŒ¨: %(reason)s",
 
 'Create new drawing "%(filename)s"':
-'»õ ±×¸² "%(filename)s" ±×¸®±â',
+'ìƒˆ ê·¸ë¦¼ "%(filename)s" ê·¸ë¦¬ê¸°',
 
 'Create this page':
-'»õ ÆäÀÌÁö ¸¸µé±â',
+'ìƒˆ í˜ì´ì§€ ë§Œë“¤ê¸°',
 
 'Date':
-'³¯Â¥',
+'ë‚ ì§œ',
 
 'Date format':
-'³¯Â¥ Çü½Ä',
+'ë‚ ì§œ í˜•ì‹',
+
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''':
+'''ìœ„í‚¤ì‚¬ìš©ìë‹˜,
+
+"%(sitename)s" ì‚¬ì´íŠ¸ì˜ ì–´ëŠ ìœ„í‚¤ í˜ì´ì§€ë‚˜ ìœ„í‚¤ ì¹´í…Œê³ ë¦¬ì˜ ë³€ê²½ì‚¬í•­ ë©”ì¼ ì•Œë¦¼ì„ êµ¬ë…í•˜ê³  ê³„ì‹­ë‹ˆë‹¤.
+
+%(editor)së‹˜ê»˜ì„œ ë‹¤ìŒ í˜ì´ì§€ë“¤ì„ ê³ ì¹˜ì…¨ìŠµë‹ˆë‹¤:
+%(pagelink)s
+
+''',
 
 'Default':
-'±âº»°ª',
+'ê¸°ë³¸ê°’',
 
 'Deletions are marked like this.':
-'Áö¿öÁø ÁÙÀº ÀÌ·¸°Ô Ç¥½ÃµË´Ï´Ù.',
+'ì§€ì›Œì§„ ì¤„ì€ ì´ë ‡ê²Œ í‘œì‹œë©ë‹ˆë‹¤.',
 
 'Describe %s here.':
-'%s¿¡ ´ëÇØ ½áÁÖ¼¼¿ä.',
+'%sì— ëŒ€í•´ ì¨ì£¼ì„¸ìš”.',
+
+'Detailed Information':
+'ìì„¸í•œ ì •ë³´',
 
 'Diff for "%s"':
-'"%s" ÆäÀÌÁö º¯°æ»çÇ×',
+'"%s" í˜ì´ì§€ ë³€ê²½ì‚¬í•­',
+
+'Display context of search results':
+'ê²€ìƒ‰ ê²°ê³¼ì˜ ë³¸ë¬¸ì„ ë³´ê¸°',
 
 'Distribution of User-Agent Types':
 'Distribution of User-Agent Types',
 
 'Download XML export of this wiki':
-'ÀÌ À§Å° ÀüÃ¼¸¦ XML·Î ¹İÃâ',
+'ì´ ìœ„í‚¤ ì „ì²´ë¥¼ XMLë¡œ ë°˜ì¶œ',
 
 "Drawing '%(filename)s' saved.":
-"±×¸² '%(filename)s'°¡ ÀúÀåµÇ¾ú½À´Ï´Ù.",
+"ê·¸ë¦¼ '%(filename)s'ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.",
 
 "ERROR in regex '%s'":
-"Á¤±Ô½Ä '%s'ÀÇ ¿¡·¯",
+"ì •ê·œì‹ '%s'ì˜ ì—ëŸ¬",
+
+'Edit':
+'ê³ ì¹¨',
 
 'Edit "%(pagename)s"':
-'"%(pagename)s"ÆäÀÌÁö °íÄ§',
+'"%(pagename)s"í˜ì´ì§€ ê³ ì¹¨',
 
 'Edit was cancelled.':
-'ÆäÀÌÁö°íÄ§À» Ãë¼ÒÇß½À´Ï´Ù.',
+'í˜ì´ì§€ê³ ì¹¨ì„ ì·¨ì†Œí–ˆìŠµë‹ˆë‹¤.',
 
 'EditText':
-'ÆäÀÌÁö°íÄ¡±â',
+'í˜ì´ì§€ê³ ì¹˜ê¸°',
 
 'Editor':
-'¼öÁ¤ÇÑ »ç¶÷',
+'ìˆ˜ì •í•œ ì‚¬ëŒ',
 
 'Editor size':
-'ÆíÁı±â Å©±â',
+'í¸ì§‘ê¸° í¬ê¸°',
 
 'Email':
-'¸ŞÀÏ',
+'ë©”ì¼',
 
 'Entries in edit log':
-'¼öÁ¤»çÇ× ·Î±× ±æÀÌ',
+'ìˆ˜ì •ì‚¬í•­ ë¡œê·¸ ê¸¸ì´',
+
+'Entries in event log':
+'ì´ë²¤íŠ¸ ë¡œê·¸ì˜ ì—”íŠ¸ë¦¬ìˆ˜',
+
+'Exactly one matching page for "%s" found!':
+'ì •í™•íˆ í•œ í˜ì´ì§€ "%s"ê°€ ë°œê²¬ë˜ì—ˆìŠµë‹ˆë‹¤!',
+
+'Exclude system pages':
+'ì‹œìŠ¤í…œ í˜ì´ì§€ë¥¼ ì œì™¸í•¨',
 
 'Expected "=" to follow "%(token)s"':
-'"%(token)s"µÚ¿¡´Â "="ÀÌ ¿Í¾ß ÇÕ´Ï´Ù',
+'"%(token)s"ë’¤ì—ëŠ” "="ì´ ì™€ì•¼ í•©ë‹ˆë‹¤',
 
 'Expected a value for key "%(token)s"':
-'"%(token)s"µÚ¿¡´Â °ªÀÌ ÇÊ¿äÇÕ´Ï´Ù.',
+'"%(token)s"ë’¤ì—ëŠ” ê°’ì´ í•„ìš”í•©ë‹ˆë‹¤.',
 
 'File "%(filename)s for page "%(pagename)s':
-'"%(pagename)s ÆäÀÌÁöÀÇ "%(filename)s ÆÄÀÏ',
+'"%(pagename)s í˜ì´ì§€ì˜ "%(filename)s íŒŒì¼',
 
 'File to upload':
-'¾÷·ÎµåÇÒ ÆÄÀÏ',
+'ì—…ë¡œë“œí•  íŒŒì¼',
 
 'FindPage':
-'ÆäÀÌÁöÃ£±â',
+'í˜ì´ì§€ì°¾ê¸°',
 
 'Fri':
-'±İ¿äÀÏ',
+'ê¸ˆìš”ì¼',
+
+'FrontPage':
+'ëŒ€ë¬¸',
+
+'Full Link List for "%s"':
+'"%s"ì— ì—°ê²°ëœ ëª¨ë“  í˜ì´ì§€ ëª©ë¡',
 
 'Full text search for "%s"':
-'ÀüÃ¼ º»¹®¿¡¼­ Ã£À½ : "%s"',
+'ì „ì²´ ë³¸ë¬¸ì—ì„œ ì°¾ìŒ : "%s"',
 
 'General Information':
-'ÀÏ¹İ Á¤º¸',
+'ì¼ë°˜ ì •ë³´',
 
 'General options':
-'ÀÏ¹İ ¿É¼Ç',
+'ì¼ë°˜ ì˜µì…˜',
 
 'Global extension actions':
-'ÀÏ¹İ È®Àå ¾×¼Ç',
+'ì¼ë°˜ í™•ì¥ ì•¡ì…˜',
 
 'Global extension macros':
-'ÀÏ¹İ È®Àå ¸ÅÅ©·Î',
+'ì¼ë°˜ í™•ì¥ ë§¤í¬ë¡œ',
 
 'Go':
 'Go',
 
 'HelpContents':
-'µµ¿ò¸»',
+'ë„ì›€ë§',
 
 'HelpOnFormatting':
-'HelpOnFormatting',
+'í¬ë§¤íŒ…ë„ì›€ë§',
 
 'Ignore changes in the amount of whitespace':
-'ºñ±³ÇÒ ¶§ °ø¹éÀº ¹«½Ã',
+'ë¹„êµí•  ë•Œ ê³µë°±ì€ ë¬´ì‹œ',
+
+'Immutable page':
+'ê³ ì • í˜ì´ì§€',
+
+'Include system pages':
+'ì‹œìŠ¤í…œ í˜ì´ì§€ë„ í¬í•¨',
 
 'Info for "%s"':
-'"%s"ÆäÀÌÁö¿¡ ´ëÇÑ Á¤º¸',
+'"%s"í˜ì´ì§€ì— ëŒ€í•œ ì •ë³´',
+
+'Installed processors':
+'ì¸ìŠ¤í†¨ëœ í”„ë¡œì„¸ì„œë“¤',
+
+'InterWiki':
+'ì¸í„°ìœ„í‚¤',
 
 'Invalid include arguments "%s"!':
-'"%s"´Â Àß¸øµÈ ÀÎÀÚÀÔ´Ï´Ù!',
+'"%s"ëŠ” ì˜ëª»ëœ ì¸ìì…ë‹ˆë‹¤!',
+
+'Line':
+'ì¤„',
 
 'Local Site Map for "%s"':
-'"%s"ÀÇ »çÀÌÆ® ¸Ê',
+'"%s"ì˜ ì‚¬ì´íŠ¸ ë§µ',
 
 'Local extension actions':
-'·ÎÄÃ È®Àå ¾×¼Ç',
+'ë¡œì»¬ í™•ì¥ ì•¡ì…˜',
 
 'Local extension macros':
-'·ÎÄÃ È®Àå ¸ÅÅ©·Î',
+'ë¡œì»¬ í™•ì¥ ë§¤í¬ë¡œ',
 
 'LocalSpellingWords':
-'¸ÂÃã¹ı »çÀü',
+'ë§ì¶¤ë²• ì‚¬ì „',
 
 'MIME Type (optional)':
-'MIME Å¸ÀÔ (¼±ÅÃ»çÇ×)',
+'MIME íƒ€ì… (ì„ íƒì‚¬í•­)',
 
 'Mail sent OK':
-'¸ŞÀÏÀÌ º¸³»Á³½À´Ï´Ù',
+'ë©”ì¼ì´ ë³´ë‚´ì¡ŒìŠµë‹ˆë‹¤',
+
+'Make this page belong to category %(category)s':
+'ì¹´í…Œê³ ë¦¬ %(category)sì— ë¶„ë¥˜',
 
 'MoinMoin Version':
-'¸ğÀÎ¸ğÀÎ ¹öÁ¯',
+'ëª¨ì¸ëª¨ì¸ ë²„ì ¼',
 
 'Mon':
-'¿ù¿äÀÏ',
+'ì›”ìš”ì¼',
 
 'Multiple matches for "%s...%s"':
-'"%s...%s"¿¡ ´ëÇÑ ¿©·¯ °³ÀÇ °Ë»ö°á°ú',
+'"%s...%s"ì— ëŒ€í•œ ì—¬ëŸ¬ ê°œì˜ ê²€ìƒ‰ê²°ê³¼',
 
 'N/A':
-'¾øÀ½',
+'ì—†ìŒ',
 
 'Name':
-'ÀÌ¸§',
+'ì´ë¦„',
 
 'Needed %(timer).1f seconds.':
-'%(timer).1fÃÊ °É¸².',
+'%(timer).1fì´ˆ ê±¸ë¦¼.',
 
 'No attachments stored for %(pagename)s':
-'%(pagename)s ÆäÀÌÁö¿¡´Â Ã·ºÎ°¡ ¾øÀ½.',
+'%(pagename)s í˜ì´ì§€ì—ëŠ” ì²¨ë¶€ê°€ ì—†ìŒ.',
+
+'''No differences found!
+''':
+'''ì°¨ì´ì ì´ ì—†ìŠµë‹ˆë‹¤!
+''',
+
+'No older revisions of the page stored, diff not available.':
+'ì˜ˆì „ ë²„ì ¼ì˜ í˜ì´ì§€ê°€ ì €ì¥ë˜ì–´ìˆì§€ ì•Šì•„ì„œ, ë¹„êµí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.',
 
 'No orphaned pages in this wiki.':
-'ÀÌ À§Å°¿¡´Â ¿ÜÅçÀÌ ÆäÀÌÁö°¡ ¾ø½À´Ï´Ù.',
+'ì´ ìœ„í‚¤ì—ëŠ” ì™¸í†¨ì´ í˜ì´ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.',
 
 'No pages match "%s"!':
-'"%s"¸¦ Æ÷ÇÔÇÑ ÆäÀÌÁö°¡ ¾ø½À´Ï´Ù!',
+'"%s"ë¥¼ í¬í•¨í•œ í˜ì´ì§€ê°€ ì—†ìŠµë‹ˆë‹¤!',
+
+'No parent page found!':
+'ìƒìœ„ í˜ì´ì§€ê°€ ì—†ìŠµë‹ˆë‹¤!',
+
+'No quotes on %(pagename)s.':
+'%(pagename)sì— ì¸ìš©í•  ë¬¸êµ¬ê°€ ì—†ìŒ.',
 
 'No wanted pages in this wiki.':
-'ÀÌ À§Å°¿¡´Â ´ë±âÁßÀÎ ÆäÀÌÁö°¡ ¾ø½À´Ï´Ù.',
+'ì´ ìœ„í‚¤ì—ëŠ” ìˆ˜ë°°ì¤‘ì¸ í˜ì´ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.',
 
 'Nobody subscribed to this page, no mail sent.':
-'ÀÌ ÆäÀÌÁö¿¡ ´ëÇØ¼­´Â ¾Ë¸²À» ¿øÇÏ´Â »ç¶÷ÀÌ ¾ø½À´Ï´Ù.',
+'ì´ í˜ì´ì§€ì— ëŒ€í•´ì„œëŠ” ì•Œë¦¼ì„ ì›í•˜ëŠ” ì‚¬ëŒì´ ì—†ìŠµë‹ˆë‹¤.',
 
 'Number of backup versions':
-'¹é¾÷µÈ ¹öÁ¯ °³¼ö',
+'ë°±ì—…ëœ ë²„ì ¼ ê°œìˆ˜',
 
 'Number of pages':
-'ÆäÀÌÁö °³¼ö',
+'í˜ì´ì§€ ê°œìˆ˜',
+
+'Number of system pages':
+'ì‹œìŠ¤í…œ í˜ì´ì§€ ê°œìˆ˜',
 
 'Open editor on double click':
-'´õºí Å¬¸¯ÀÌ µÇ¸é ÆäÀÌÁö°íÄ¡±â·Î µé¾î°¨',
+'ë”ë¸” í´ë¦­ì´ ë˜ë©´ í˜ì´ì§€ê³ ì¹˜ê¸°ë¡œ ë“¤ì–´ê°',
 
 'Optional comment about this change':
-'ÀÌ¹ø º¯°æ »çÇ×¿¡ ´ëÇÑ ÄÚ¸àÆ®',
+'ì´ë²ˆ ë³€ê²½ ì‚¬í•­ì— ëŒ€í•œ ì½”ë©˜íŠ¸',
+
+'Optional reason for the deletion':
+'ì‚­ì œí•˜ëŠ” ì´ìœ ',
 
 'Or try one of these actions: ':
-'±× ¿Ü¿¡ ´ÙÀ½ ¾×¼Çµµ ÀÖ½À´Ï´Ù : ',
+'ê·¸ ì™¸ì— ë‹¤ìŒ ì•¡ì…˜ë„ ìˆìŠµë‹ˆë‹¤ : ',
 
 'Others':
-'´Ù¸¥ °Íµé',
+'ë‹¤ë¥¸ ê²ƒë“¤',
 
-'Page "%s" was sucessfully deleted!':
-'ÆäÀÌÁö "%s"°¡ Áö¿öÁ³½À´Ï´Ù!',
+'Page "%s" was successfully deleted!':
+'í˜ì´ì§€ "%s"ê°€ ì§€ì›Œì¡ŒìŠµë‹ˆë‹¤!',
 
 'Page Size Distribution':
 'Page Size Distribution',
@@ -514,208 +650,292 @@ URLÀº ÀÚÁÖ ¹Ù²ğ ¼ö ÀÖÀ¸¹Ç·Î <tt>[get]</tt> ¸µÅ©ÀÇ URLÀ» Á÷Á¢ »ç¿ëÇÏÁö ¸¶¼¼¿ä.'''
 'Page hits and edits',
 
 'Password':
-'ÆĞ½º¿öµå',
+'íŒ¨ìŠ¤ì›Œë“œ',
 
 'Plain title index':
-'ÅØ½ºÆ® Á¦¸ñ »öÀÎ',
+'í…ìŠ¤íŠ¸ ì œëª© ìƒ‰ì¸',
 
 'Please use the interactive user interface to delete pages!':
-'ÆäÀÌÁö¸¦ Áö¿ì±â À§ÇØ¼­´Â ÀÎÅÍ·¢Æ¼ºê ÀÎÅÍÆäÀÌ½º¸¦ »ç¿ëÇØ ÁÖ¼¼¿ä!',
+'í˜ì´ì§€ë¥¼ ì§€ìš°ê¸° ìœ„í•´ì„œëŠ” ì¸í„°ë™í‹°ë¸Œ ì¸í„°í˜ì´ìŠ¤ë¥¼ ì‚¬ìš©í•´ ì£¼ì„¸ìš”!',
+
+'Preferred language':
+'ì„ í˜¸í•˜ëŠ” ì–¸ì–´',
 
 'Preview':
-'¹Ì¸®º¸±â',
+'ë¯¸ë¦¬ë³´ê¸°',
 
 'Preview of "%(pagename)s"':
-'"%(pagename)s" ÆäÀÌÁöÀÇ ¹Ì¸®º¸±â',
+'"%(pagename)s" í˜ì´ì§€ì˜ ë¯¸ë¦¬ë³´ê¸°',
+
+'Print View':
+'ì¸ì‡„ìš© í™”ë©´',
 
 'Python Version':
-'ÆÄÀÌ½ã ¹öÁ¯',
+'íŒŒì´ì¬ ë²„ì ¼',
+
+'Quick links':
+'ë¹¨ë¦¬ê°€ê¸°ë©”ë‰´',
 
 'Really delete this page?':
-'Á¤¸»·Î ÀÌ ÆäÀÌÁö¸¦ Áö¿ì°Ú½À´Ï±î?',
+'ì •ë§ë¡œ ì´ í˜ì´ì§€ë¥¼ ì§€ìš°ê² ìŠµë‹ˆê¹Œ?',
 
 'RecentChanges':
-'RecentChanges',
+'ë°”ë€ê¸€',
 
 'Redirected from page "%(page)s"':
-'"%(page)s"·Î ºÎÅÍ ¸®´ÙÀÌ·ºÆ® µÊ',
+'"%(page)s"ë¡œ ë¶€í„° ë¦¬ë‹¤ì´ë ‰íŠ¸ ë¨',
 
 'Reduce editor size':
-'ÆíÁı±â Å©±â¸¦ ÁÙÀÓ',
+'í¸ì§‘ê¸° í¬ê¸°ë¥¼ ì¤„ì„',
 
 'RefreshCache':
-'Ä³½¬ ¸®ÇÁ·¹½¬',
+'ìºì‰¬ ë¦¬í”„ë ˆì‰¬',
 
 'Release %s [Revision %s]':
-'¹öÁ¯ %s [¸®ºñÁ¯ %s]',
+'ë²„ì ¼ %s [ë¦¬ë¹„ì ¼ %s]',
 
 'Remember last page visited':
-'¸¶Áö¸· ¹æ¹®À» ±â¾ïÇØµÒ',
+'ë§ˆì§€ë§‰ ë°©ë¬¸ì„ ê¸°ì–µí•´ë‘ ',
 
 'Remove trailing whitespace from each line':
-'³¡¿¡ ºÙÀº °ø¹éÀ» Áö¿ò',
+'ëì— ë¶™ì€ ê³µë°±ì„ ì§€ì›€',
 
 'Rename to (optional)':
-'ÀÌ¸§ ¹Ù²Ş (¹Ù²Ù°í ½ÍÀ» ¶§¸¸)',
+'ì´ë¦„ ë°”ê¿ˆ (ë°”ê¾¸ê³  ì‹¶ì„ ë•Œë§Œ)',
+
+'Return to general page information':
+'ì¼ë°˜ í˜ì´ì§€ ì •ë³´ë¡œ ëŒì•„ê°',
+
+'Revert to version dated %(datestamp)s.':
+'%(datestamp)sì˜ ë²„ì ¼ìœ¼ë¡œ ëŒì•„ê°.',
 
 'Revision History':
-'¸®ºñÁ¯ ±â·Ï',
+'ë¦¬ë¹„ì ¼ ê¸°ë¡',
 
 'Sat':
-'Åä¿äÀÏ',
+'í† ìš”ì¼',
 
 'Save Changes':
-'º¯°æ »çÇ× ÀúÀå',
+'ë³€ê²½ ì‚¬í•­ ì €ì¥',
 
 'Send mail notification':
-'¸ŞÀÏ ¾Ë¸²À» º¸³¿',
+'ë©”ì¼ ì•Œë¦¼ì„ ë³´ëƒ„',
 
 'Server time is':
-'¼­¹ö ½Ã°£Àº',
+'ì„œë²„ ì‹œê°„ì€',
+
+'Show "%(title)s"':
+'"%(title)s" ë³´ê¸°',
+
+'Show all changes in the last %(days)s days<br>':
+'ìµœê·¼ %(days)sì¼ ë™ì•ˆì˜ ë³€ê²½ì‚¬í•­ ë³´ê¸°<br>',
+
+'Show chart "%(title)s"':
+'"%(title)s" ì°¨íŠ¸ ë³´ê¸°',
 
 'Show emoticons':
-'ÀÌ¸ğÆ¼ÄÜ »ç¿ë',
+'ì´ëª¨í‹°ì½˜ ì‚¬ìš©',
 
 'Show fancy diffs':
-'²Ù¸çÁø diff Ç¥½Ã',
+'ê¾¸ë©°ì§„ diff í‘œì‹œ',
 
 'Show fancy links':
-'²Ù¸çÁø ¸µÅ© Ç¥½Ã',
+'ê¾¸ë©°ì§„ ë§í¬ í‘œì‹œ',
 
 'Show icon toolbar':
-'¾ÆÀÌÄÜ Åø¹Ù Ç¥½Ã',
+'ì•„ì´ì½˜ íˆ´ë°” í‘œì‹œ',
 
 'Show page trail':
-'ÆäÀÌÁö ¹ßÀÚ±¹ Ç¥½Ã',
+'í˜ì´ì§€ ë°œìêµ­ í‘œì‹œ',
 
 'Show question mark for non-existing pagelinks':
-'Á¸ÀçÇÏÁö ¾Ê´Â ÆäÀÌÁö¸µÅ© ¿·¿¡ ¹°À½Ç¥ Ç¥½Ã',
+'ì¡´ì¬í•˜ì§€ ì•ŠëŠ” í˜ì´ì§€ë§í¬ ì˜†ì— ë¬¼ìŒí‘œ í‘œì‹œ',
 
 'Show top/bottom links in headings':
-'Ç¥Á¦µé ¿·¿¡ ¸ÇÀ§/¸Ç¾Æ·¡ ¸µÅ© Ç¥½Ã',
+'í‘œì œë“¤ ì˜†ì— ë§¨ìœ„/ë§¨ì•„ë˜ ë§í¬ í‘œì‹œ',
 
 'ShowText':
-'º»¹®º¸±â',
+'ë³¸ë¬¸ë³´ê¸°',
 
 'SiteNavigation':
-'SiteNavigation',
+'ì‚¬ì´íŠ¸íƒìƒ‰',
 
 'Size':
-'Å©±â',
+'í¬ê¸°',
 
 'Skip to preview':
-'¹Ì¸®º¸±â·Î °Ç³Ê ¶ê',
+'ë¯¸ë¦¬ë³´ê¸°ë¡œ ê±´ë„ˆëœ€',
+
+'Slideshow':
+'ìŠ¬ë¼ì´ë“œ ì‡¼',
+
+'Start':
+'ì‹œì‘',
+
+'Status of sending notification mails:':
+'ì•Œë¦¼ í¸ì§€ ì†¡ì‹  ìƒíƒœ:',
 
 'Submitted form data:':
-'Æû µ¥ÀÌÅÍ ÀÔ·Â:',
+'í¼ ë°ì´í„° ì…ë ¥:',
 
 'Subscribed wiki pages<br>(one regex per line)':
-'¸ŞÀÏ ¾Ë¸²À» ¹Ş´Â ÆäÀÌÁöµé<br>(ÇÑ ÁÙ¿¡ Á¤±Ô½Ä ÇÏ³ª¾¿)',
+'ë©”ì¼ ì•Œë¦¼ì„ ë°›ëŠ” í˜ì´ì§€ë“¤<br>(í•œ ì¤„ì— ì •ê·œì‹ í•˜ë‚˜ì”©)',
 
 'Sun':
-'ÀÏ¿äÀÏ',
+'ì¼ìš”ì¼',
 
 'The backupped content of this page is deprecated and will not be included in search results!':
-'ÀÌ ÆäÀÌÁöÀÇ ¹é¾÷µÈ º»¹®Àº »ç¿ëµÇÁö ¾ÊÀ¸¸ç °Ë»ö °á°ú¿¡ Æ÷ÇÔµÇÁö ¾Ê½À´Ï´Ù!',
+'ì´ í˜ì´ì§€ì˜ ë°±ì—…ëœ ë³¸ë¬¸ì€ ì‚¬ìš©ë˜ì§€ ì•Šìœ¼ë©° ê²€ìƒ‰ ê²°ê³¼ì— í¬í•¨ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤!',
+
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''ì´ ë³€ê²½ì— ëŒ€í•œ ì½”ë©˜íŠ¸ëŠ”:
+%(comment)s
+
+''',
+
+'The external diff utility returned with error code %(rc)s!':
+'ì™¸ë¶€ diff ìœ í‹¸ë¦¬í‹°ê°€ ì—ëŸ¬ì½”ë“œ %(rc)së¥¼ ë°˜í™˜í•˜ì˜€ìŠµë‹ˆë‹¤!',
 
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
-'´ÙÀ½ %(badwords)d °³ÀÇ ´Ü¾î´Â »çÀü¿¡ ÀÖ´Â ÀüÃ¼ %(totalwords)d °³ÀÇ ´Ü¾î %(localwords)s Áß¿¡¼­ Ã£À» ¼ö ¾ø¾úÀ¸¸ç, º»¹®¿¡µµ Ç¥½ÃµÇ¾ú½À´Ï´Ù.:',
+'ë‹¤ìŒ %(badwords)d ê°œì˜ ë‹¨ì–´ëŠ” ì‚¬ì „ì— ìˆëŠ” ì „ì²´ %(totalwords)d ê°œì˜ ë‹¨ì–´ %(localwords)s ì¤‘ì—ì„œ ì°¾ì„ ìˆ˜ ì—†ì—ˆìœ¼ë©°, ë³¸ë¬¸ì—ë„ í‘œì‹œë˜ì—ˆìŠµë‹ˆë‹¤.:',
+
+'The following users subscribed to this page:':
+'ë‹¤ìŒ ì‚¬ìš©ìë“¤ì´ ì´ í˜ì´ì§€ë¥¼ êµ¬ë…í•©ë‹ˆë‹¤:',
 
 'The page was saved %(count)d%(times)s, though!':
-'ÀÌ ÆäÀÌÁö´Â %(count)d¹ø º¯°æµÇ¾ú½À´Ï´Ù!',
+'ì´ í˜ì´ì§€ëŠ” %(count)dë²ˆ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤!',
 
 'There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.':
-'ÀÌ ÆäÀÌÁö¿¡ <a href="%(link)s">%(count)s°³ÀÇ Ã·ºÎ</a>°¡ ÀÖ½À´Ï´Ù.',
+'ì´ í˜ì´ì§€ì— <a href="%(link)s">%(count)sê°œì˜ ì²¨ë¶€</a>ê°€ ìˆìŠµë‹ˆë‹¤.',
 
 'This list does not work, unless you have entered a valid email address!':
-'¸ŞÀÏ ¾Ë¸²Àº ¿Ã¹Ù¸¥ ¿Ã¹Ù¸¥ ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é µ¿ÀÛÇÏÁö ¾Ê½À´Ï´Ù!',
+'ë©”ì¼ ì•Œë¦¼ì€ ì˜¬ë°”ë¥¸ ì˜¬ë°”ë¥¸ ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´ ë™ì‘í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!',
 
 'This page is already deleted or was never created!':
-'ÀÌ ÆäÀÌÁö´Â ÀÌ¹Ì Áö¿öÁ³°Å³ª ¾ø´Â ÆäÀÌÁöÀÔ´Ï´Ù.',
+'ì´ í˜ì´ì§€ëŠ” ì´ë¯¸ ì§€ì›Œì¡Œê±°ë‚˜ ì—†ëŠ” í˜ì´ì§€ì…ë‹ˆë‹¤.',
 
 'This page links to the following pages:<br>':
-'ÀÌ ÆäÀÌÁö´Â ´ÙÀ½ ÆäÀÌÁöµé¿¡ ¸µÅ©µÇ¾î ÀÖ½À´Ï´Ù.:<br>',
+'ì´ í˜ì´ì§€ëŠ” ë‹¤ìŒ í˜ì´ì§€ë“¤ì— ë§í¬ë˜ì–´ ìˆìŠµë‹ˆë‹¤.:<br>',
 
 'This page redirects to page "%(page)s"':
-'ÀÌ ÆäÀÌÁö´Â "%(page)s"·Î ¸®´ÙÀÌ·ºÆ® µË´Ï´Ù',
+'ì´ í˜ì´ì§€ëŠ” "%(page)s"ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸ ë©ë‹ˆë‹¤',
 
 'Thu':
-'¸ñ¿äÀÏ',
+'ëª©ìš”ì¼',
 
 'Time zone':
-'½Ã°£´ë',
+'ì‹œê°„ëŒ€',
 
 'Title search for "%s"':
-'Á¦¸ñ "%s" Ã£±â',
+'ì œëª© "%s" ì°¾ê¸°',
 
 'TitleIndex':
-'TitleIndex',
+'ì œëª©ìƒ‰ì¸',
 
-'To create you own templates, add a page with a name ending in Template.':
-'ÅÛÇÃ¸´À» »õ·Î ¸¸µé·Á¸é, "Template"·Î ³¡³ª´Â ÀÌ¸§À¸·Î ÆäÀÌÁö¸¦ ¸¸µé¸é µË´Ï´Ù.',
+'To create your own templates, add a page with a name ending in Template.':
+'í…œí”Œë¦¿ì„ ìƒˆë¡œ ë§Œë“¤ë ¤ë©´, "Template"ë¡œ ëë‚˜ëŠ” ì´ë¦„ìœ¼ë¡œ í˜ì´ì§€ë¥¼ ë§Œë“¤ë©´ ë©ë‹ˆë‹¤.',
 
-'To login on a different machine, use this URL: ':
-'´Ù¸¥ ÄÄÇ»ÅÍ¿¡¼­ ·Î±×ÀÎÇÏ·Á¸é ÀÌ URLÀ» »ç¿ëÇÏ¼¼¿ä: ',
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".':
+'ìê¸° í…œí”Œë¦¿ì„ ë§Œë“¤ë ¤ë©´, ì •ê·œì‹ "%(page_template_regex)s"ì— ë§ëŠ” ì´ë¦„ìœ¼ë¡œ í˜ì´ì§€ë¥¼ ë§Œë“œì„¸ìš”.',
+
+'To login from a different machine, use this URL: ':
+'ë‹¤ë¥¸ ì»´í“¨í„°ì—ì„œ ë¡œê·¸ì¸í•˜ë ¤ë©´ ì´ URLì„ ì‚¬ìš©í•˜ì„¸ìš”: ',
 
 'Tue':
-'È­¿äÀÏ',
+'í™”ìš”ì¼',
 
 'Unknown action':
-'¾Ë ¼ö ¾ø´Â ¾×¼Ç',
+'ì•Œ ìˆ˜ ì—†ëŠ” ì•¡ì…˜',
 
 'Update my bookmark timestamp':
-'³» Ã¥°¥ÇÇ °»½Å',
+'ë‚´ ì±…ê°ˆí”¼ ê°±ì‹ ',
 
 'Upload new attachment "%(filename)s"':
-'»õ Ã·ºÎ "%(filename)s"¸¦ ¾÷·Îµå',
+'ìƒˆ ì²¨ë¶€ "%(filename)s"ë¥¼ ì—…ë¡œë“œ',
 
 "Upload of attachment '%(filename)s'.":
-"Ã·ºÎ '%(filename)s'¸¦ ¾÷·Îµå",
+"ì²¨ë¶€ '%(filename)s'ë¥¼ ì—…ë¡œë“œ",
 
 'UserPreferences':
-'UserPreferences',
+'í™˜ê²½ì„¤ì •',
 
 'Version as of %(date)s':
-'%(date)sÀÏÀÚ ¹öÁ¯',
+'%(date)sì¼ì ë²„ì ¼',
 
 'Wed':
-'¼ö¿äÀÏ',
+'ìˆ˜ìš”ì¼',
+
+'Wiki':
+'ìœ„í‚¤',
+
+'Wiki Markup':
+'ìœ„í‚¤ ë¶€í˜¸',
 
 'WordIndex':
-'WordIndex',
+'ë‹¨ì–´ìƒ‰ì¸',
 
 'XML title index':
-'XML Á¦¸ñ »öÀÎ',
+'XML ì œëª© ìƒ‰ì¸',
+
+'XSLT option disabled!':
+'XSLT ì˜µì…˜ì´ êº¼ì ¸ìˆìŠµë‹ˆë‹¤!',
 
 'You are not allowed to delete pages in this wiki!':
-'ÀÌ À§Å°¿¡¼­´Â ÆäÀÌÁö¸¦ Áö¿ï ¼ö ¾ø½À´Ï´Ù!',
+'ì´ ìœ„í‚¤ì—ì„œëŠ” í˜ì´ì§€ë¥¼ ì§€ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!',
+
+'You are not allowed to revert this page!':
+'ì´ í˜ì´ì§€ë¥¼ ë˜ëŒë¦´ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤!',
 
 'Your email address':
-'¸ŞÀÏ ÁÖ¼Ò',
+'ë©”ì¼ ì£¼ì†Œ',
 
 'Your time is':
-'±âÁØ ½Ã°£',
+'ê¸°ì¤€ ì‹œê°„',
 
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]':
-'[%(hours)02d½Ã°£ %(mins)02dºĞ]',
+'[%(hours)02dì‹œê°„ %(mins)02dë¶„]',
+
+'[%(lang)s] %(recipients)s: %(status)s':
+'[%(lang)s] %(recipients)s: %(status)s',
+
+'[%(sitename)s] Update of "%(pagename)s"':
+'[%(sitename)s] "%(pagename)s"ë¥¼ ìˆ˜ì •',
+
+'[Bookmark reached]':
+'[ì—¬ê¸°ê¹Œì§€ ì±…ê°ˆí”¼]',
 
 '[Content of new page loaded from %s]':
-'[%s¿¡¼­ ¿Å°Ü¿Â »õ ÆäÀÌÁö ³»¿ë]',
+'[%sì—ì„œ ì˜®ê²¨ì˜¨ ìƒˆ í˜ì´ì§€ ë‚´ìš©]',
 
 '[New window]':
-'[»õ Ã¢]',
+'[ìƒˆ ì°½]',
+
+'[Size limited to %dK]':
+'[í¬ê¸°ê°€ %dKìœ¼ë¡œ ì œí•œë˜ì–´ ìˆìŒ]',
 
 '[Template %s not found]':
-'[ÅÛÇÃ¸´ %s¸¦ Ã£À» ¼ö ¾øÀ½]',
+'[í…œí”Œë¦¿ %së¥¼ ì°¾ì„ ìˆ˜ ì—†ìŒ]',
 
 'attachment:%(filename)s of %(pagename)s':
-'%(pagename)sÀÇ attachment:%(filename)s',
+'%(pagename)sì˜ attachment:%(filename)s',
 
 'date':
 'date',
 
+'del':
+'ì§€ì›€',
+
 'diff':
-'diff',
+'ì°¨ì´ì  ë¹„êµ',
+
+'edit':
+'ìˆ˜ì •',
+
+'get':
+'ë°›ê¸°',
 
 '''green=view
 red=edit''':
@@ -726,12 +946,15 @@ red=edit''',
 ' ',
 
 'page size upper bound [bytes]':
-'page size upper bound [bytes]',
+'í˜ì´ì§€ í¬ê¸° ìµœëŒ€ [ë°”ì´íŠ¸]',
+
+'revert':
+'ë˜ëŒë¦¼',
 
 'set bookmark':
-'¿©±â¿¡ Ã¥°¥ÇÇ µÎ±â',
+'ì—¬ê¸°ì— ì±…ê°ˆí”¼ ë‘ê¸°',
 
 'view':
-'º¸±â',
+'ë³´ê¸°',
 
 }

@@ -1,13 +1,18 @@
+# -*- coding: iso-8859-1 -*-
 #
 # This module was written by Ka-Ping Yee, <ping@lfw.org>.
 # 
-# $Id: cgitb.py,v 1.3 2001/11/24 17:24:54 jhermann Exp $
+# $Id: cgitb.py,v 1.9 2003/11/09 21:01:12 thomaswaldmann Exp $
+
+# TODO: as soon as we require python 2.2, use a copy of the newer cgitb
+# included there and update it with the local changes (see XXX).
 
 __doc__ = """
 Extended CGI traceback handler by Ka-Ping Yee, <ping@lfw.org>.
 """
 
 import sys, os, types, string, keyword, linecache, tokenize, inspect, pydoc
+from MoinMoin import version
 
 def breaker():
     return ('<body bgcolor="#f0f0ff">' +
@@ -15,13 +20,23 @@ def breaker():
             '</table>' * 5)
 
 def html(context=5):
-    etype, evalue = sys.exc_type, sys.exc_value
+    etype, evalue, etb = sys.exc_info()
     if type(etype) is types.ClassType:
         etype = etype.__name__
-    pyver = 'Python ' + string.split(sys.version)[0] + '<br>' + sys.executable
+
+    # XXX stuff added locally:
+    try:
+        osinfo = " ".join(os.uname()) # only on UNIX
+    except: # TODO: which error does this raise on Win/Mac?
+        osinfo = "Platform: %s (%s)" % (sys.platform, os.name)
+    versinfo = "<b>Please include this information in your bug reports!:</b><br>" + \
+               "Python %s - %s<br>" % (sys.version, sys.executable) + \
+               osinfo + '<br>' + \
+               'MoinMoin Release %s [Revision %s]' % (version.release, version.revision)
     head = pydoc.html.heading(
         '<font size=+1><strong>%s</strong>: %s</font>'%(str(etype), str(evalue)),
-        '#ffffff', '#aa55cc', pyver)
+        '#ffffff', '#aa55cc', versinfo)
+    # XXX end of local changes
 
     head = head + ('<p>A problem occurred while running a Python script. '
                    'Here is the sequence of function calls leading up to '
@@ -30,7 +45,7 @@ def html(context=5):
 
     indent = '<tt><small>%s</small>&nbsp;</tt>' % ('&nbsp;' * 5)
     traceback = []
-    for frame, file, lnum, func, lines, index in inspect.trace(context):
+    for frame, file, lnum, func, lines, index in inspect.getinnerframes(etb, context):
         if file is None:
             link = '&lt;file is None - probably inside <tt>eval</tt> or <tt>exec</tt>&gt;'
         else:

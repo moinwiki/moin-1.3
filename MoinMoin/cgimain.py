@@ -1,10 +1,11 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Main CGI Module
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: cgimain.py,v 1.54 2002/05/09 01:54:40 jhermann Exp $
+    $Id: cgimain.py,v 1.65 2003/11/09 21:00:48 thomaswaldmann Exp $
 """
 
 opened_logs = 0
@@ -20,66 +21,11 @@ def createRequest(properties={}):
     return Request(properties)
 
 
-#############################################################################
-### Test code
-#############################################################################
-
-def test():
-    """ This is used by test.cgi to test the configuration, after MoinMoin
-        is sucessfully imported. It should print a plain text diagnosis
-        to stdout.
-    """
-    createRequest()
-
-    import os, string
-    from MoinMoin import config, util, version, editlog
-
-    print 'Release ', version.release
-    print 'Revision', version.revision
-    print
-
-    # check if the request is a local one
-    import socket
-    local_request = socket.getfqdn(os.environ.get('SERVER_NAME')) == \
-        socket.getfqdn(os.environ.get('REMOTE_ADDR'))
-
-    # check directories
-    print "Checking directories..."
-    dirs = [('data', config.data_dir),
-            ('text', config.text_dir),
-            ('user', config.user_dir),
-            ('backup', config.backup_dir)]
-    for name, path in dirs:
-        if os.path.isdir(path):
-            path = os.path.abspath(path)
-            print "    %s directory tests OK (set to '%s')" % (name, path)
-        else:
-            print "*** %s directory NOT FOUND (set to '%s')" % (name, path)
-    print
-
-    # check editlog access
-    log = editlog.makeLogStore()
-    msg = log.sanityCheck()
-    if msg: print "***", msg
-
-    # check for "diff" command
-    diff = util.popen(config.external_diff + " --version", "r")
-    lines = diff.readlines()
-    rc = diff.close()
-    if rc or not lines:
-        print "*** Could not find external diff utility '%s'!" % config.external_diff
-    else:
-        print 'Found an external diff: "%s"' % (string.strip(lines[0]),)
-
-    # keep some values to ourselves
-    print "\nServer Environment:"
-    if local_request:
-        # print the environment, in case people use exotic servers with broken
-        # CGI APIs (say, M$ IIS), to help debugging those
-        for key in os.environ.keys():
-            print "    %s = %s" % (key, repr(os.environ[key]))
-    else:
-        print "    ONLY AVAILABLE FOR LOCAL REQUESTS ON THIS HOST!"
+def test(properties={}):
+    from MoinMoin.wikitest import runTest
+    request = createRequest(properties)
+    runTest(request)
+    return request
 
 
 #############################################################################
@@ -99,29 +45,60 @@ def run(properties={}):
     from MoinMoin import config
     global opened_logs
     if not opened_logs:
-        cgi.logfile = os.path.join(config.data_dir, 'cgi_log')
-        sys.stderr = open(os.path.join(config.data_dir, 'err_log'), 'at')
+        cgi.logfile = os.path.join(config.data_dir, 'cgi.log')
+        sys.stderr = open(os.path.join(config.data_dir, 'error.log'), 'at')
         opened_logs = 1
 
+    if os.environ.get('AUTH_TYPE','') == 'Basic':
+        auth_username = os.environ.get('REMOTE_USER','')
+        properties.update({'auth_username': auth_username})
+
+    # create request object, including default user
     request = createRequest(properties)
 
     # Imports
-    request.clock.start('imports')
-    from MoinMoin import version, wikiutil, user, webapi
+    from MoinMoin import version, wikiutil, webapi
     from MoinMoin.Page import Page
     from MoinMoin.i18n import _
-    request.clock.stop('imports')
 
-    # !!! if all refs to user.current are removed, create the user together with the request instance
-    request.user = user.current
+    # check for web spiders very early, and refuse anything except viewing
+    forbidden = 0
+    if os.environ.get('QUERY_STRING') != '' or os.environ.get('REQUEST_METHOD') != 'GET':
+        from MoinMoin.util import web
+        forbidden = web.isSpiderAgent()
+
+    if not forbidden and config.hosts_deny:
+        ip = os.environ.get('REMOTE_ADDR')
+        for host in config.hosts_deny:
+            if ip == host or host[-1] == '.' and ip.startswith(host):
+                forbidden = 1
+                break
+
+    if forbidden:
+        webapi.http_headers(request, [
+            'Status: 403 FORBIDDEN',
+            'Content-Type: text/plain'
+        ])
+        request.write('You are not allowed to access this!\n')
+        sys.exit(0)
+
+    # install stdout guard if available
+    if hasattr(webapi, 'StdoutGuard'):
+        sys.stdout = webapi.StdoutGuard(request)
 
     # sys.stderr.write("----\n")
     # for key in os.environ.keys():    
     #     sys.stderr.write("    %s = '%s'\n" % (key, os.environ[key]))
 
-    if os.environ.get('QUERY_STRING') == 'action=xmlrpc':
+    query_string = os.environ.get('QUERY_STRING')
+    if query_string == 'action=xmlrpc':
         from MoinMoin.wikirpc import xmlrpc
         xmlrpc(request)
+        return request
+
+    if query_string == 'action=xmlrpc2':
+        from MoinMoin.wikirpc2 import xmlrpc2
+        xmlrpc2(request)
         return request
 
     # parse request data
@@ -229,16 +206,22 @@ def run(properties={}):
             from MoinMoin.support import cgitb
         except:
             # no cgitb, for whatever reason
-            apply(cgi.print_exception, saved_exc)
+            cgi.print_exception(*saved_exc)
         else:
             try:
                 cgitb.handler()
             except:
-                apply(cgi.print_exception, saved_exc)
+                cgi.print_exception(*saved_exc)
                 print "\n\n<hr><p><b>Additionally, cgitb raised this exception:</b></p>"
                 cgi.print_exception()
         del saved_exc
 
-    sys.stdout.flush()
+    # flush the output, ignore errors caused by the user closing the socket
+    try:
+        sys.stdout.flush()
+    except IOError, ex:
+        import errno
+        if ex.errno != errno.EPIPE: raise
+
     return request
 

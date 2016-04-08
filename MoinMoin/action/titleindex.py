@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - "titleindex" action
 
@@ -8,7 +9,7 @@
     can implement http://www.usemod.com/cgi-bin/mb.pl?MetaWiki more
     easily.
 
-    $Id: titleindex.py,v 1.5 2002/04/17 21:58:17 jhermann Exp $
+    $Id: titleindex.py,v 1.8 2003/11/09 21:00:56 thomaswaldmann Exp $
 """
 
 import sys
@@ -25,10 +26,12 @@ def execute(pagename, request):
         mimetype = "text/plain"
 
     webapi.http_headers(request, ["Content-Type: " + mimetype])
-    print
 
     pages = list(wikiutil.getPageList(config.text_dir))
     pages.sort()
+
+    # CNC:2003-05-30
+    pages = filter(request.user.may.read, pages)
 
     if mimetype == "text/xml":
         print '<?xml version="1.0" encoding="%s"?>' % (config.charset,)

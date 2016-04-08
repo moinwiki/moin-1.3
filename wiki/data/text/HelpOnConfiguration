@@ -1,8 +1,10 @@
+##language:en
 HelpContents > HelpOnAdministration > HelpOnConfiguration
 
 '''Subtopics'''
- * /SecurityPolicy
+ * /CascadingStyleSheets
  * /EmailSupport
+ * /SecurityPolicy
 
 '''Index'''
 [[TableOfContents]]
@@ -18,6 +20,7 @@ The following table contains default values and a short description for all conf
 ||<rowbgcolor="#FFFFE8"> '''Variable name''' || '''Default''' || '''Description''' ||
 || Log''''''Store || 'text:editlog' || ''Experimental, keep the default'' ||
 || Security''''''Policy || None || class object hook for implementing security restrictions ||
+|| acl_enabled (& acl_...) || 0 || ''true'' to enable Access Control Lists - fine grained page access rights settings (see HelpOnAccessControlLists) ||
 || allow_extended_names || 1 || ''true'' to enable {{{["non-standard wikiname"]}}} markup ||
 || allow_subpages || 1 || ''true'' to enable hierarchical wiki features (see HelpOnEditing/SubPages) ||
 || allow_numeric_entities || 1 || if ''true'', numeric entities like `&#8364;` for &#8364; are not escaped, but &amp; and stuff still is ||
@@ -29,45 +32,53 @@ The following table contains default values and a short description for all conf
 || changed_time_fmt || '&nbsp; [%H:%M]' || Time format used on RecentChanges  for page edits within the last 24 hours ||
 || charset || 'iso-8859-1' || The encoding / character set your system uses ||
 || check_i18n || 0 || Set to 1 only in development systems, or on a translator's system ||
-|| css_url || '/wiki-moinmoin/default.css' || URL for the default CSS definitions, make this a server-relative URL (start with a slash) ||
+|| css_url || "''<url_prefix>''/css/moinmoin.css" || URL for the default CSS definitions, make this a server-relative URL (start with a slash) ||
 || data_dir || './data/' || Path to the data directory, the default is OK if you place the data directory right besides your `moin.cgi` ||
 || date_fmt || '%Y-%m-%d' || System date format, used mostly in RecentChanges ||
 || datetime_fmt || '%Y-%m-%d %H:%M:%S' || Default format for dates and times (when the user has no preferences or chose the "default" date format) ||
+|| default_lang || 'en' || default language for page contents, and also the default user language if not set by other means ||
+|| default_markup || 'wiki' || Default page parser / format (name of module in `MoinMoin.parser`)  ||
+|| edit_locking || 'warn 10' || Editor locking policy: `None`, `'warn <timeout in minutes>'`, or `'lock <timeout in minutes>'` ||
 || edit_rows || 30 || Default height of the edit box ||
 || external_diff || 'diff' || Allows you to set an exact path to the command, or change the name to for example "gdiff" if GNU diff is not a native command in your UNIX flavour ||
+|| hosts_deny || `[]` || List of denied IPs; if an IP ends with a dot, it denies a whole subnet (class A, B or C) ||
 || html_head || ''META-Tag with Content-Type'' || Additional <HEAD> tags for all pages (see HelpOnSkins) ||
 || html_head_queries || ''META-Tag with "NOINDEX,NOFOLLOW" for robots'' || Additional <HEAD> tags for edit and action pages (`html_head` is sent, too; see HelpOnSkins) ||
+|| html_pagetitle || None || Allows you to set a specific HTML page title (if not set, it defaults to the value of `sitename`) ||
 || httpd_docs || './wiki-moinmoin' || directory with public files, when using the stand-alone server ||
 || httpd_host || 'localhost' || hostname of the stand-alone server ||
 || httpd_port || 8080 || port of the stand-alone server ||
-|| httpd_user || 'nobody' || user to run the the stand-alone server under (UNIX only) ||
+|| httpd_user || 'nobody' || user to run the stand-alone server under (UNIX only) ||
 || interwikiname || None || InterWiki name (prefix, moniker) of the site, or None ||
-|| logo_string || ''MoinMoin logo'' || URL path to the logo display in the upper-left corner of a page and used in RSS documents ||
+|| logo_string || '<img src="%s" border="0" alt="%s">' % (logo_url, sitename) || The '''img''' tag used to format the logo display in the upper-left corner of a page and used in RSS documents ||
+|| logo_url || ''MoinMoin logo'' || The URL path to the logo used by `logo_string` above ||
 || lowerletters || ''Latin 1 alphabetic characters and digits'' || Lowercase letters, used to define what is a WikiName ||
 || mail_from || None || `From:` header used in sent mails ||
 || mail_smarthost || None || IP or domain name of an SMTP-enabled server; note that email features (notification, mailing of login data) works only if this variable is set ||
 || max_macro_size || 50 || Maximum size of some macro pages in KB, especially used to limits the size of RecentChanges; use `0` to disable that feature ||
-|| navi_bar || ''large HTML fragment'' || Most important links in text form (/!\ this is a deprecated feature that will enventually disappear and be replaced by the bookmarks of OpenWiki:UserPreferences) ||
+|| navi_bar || list of default quick links || Most important links in text form (these links can be over-ridden by the user's quick links); to link to any URL, use a free-form link of the form "`[url text]`" ||
 || nonexist_qm || 0 || Default for displaying WantedPages with a question mark, like in the original wiki (changeable by the user) ||
+|| page_category_regex || '^Category[A-Z]' || Pages matching this regex are regarded as Wiki categories ||
 || page_footer1 || ''Python Powered logo'' || Custom HTML markup sent ''before'' the system footer (see HelpOnSkins) ||
 || page_footer2 || "" || Custom HTML markup sent ''after'' the system footer (see HelpOnSkins) ||
-|| page_form_ending || 'Form' || Ending name part of pages containing form definitions ||
+|| page_form_regex || '[a-z]Form$' || Pages matching this regex are regarded as containing form definitions ||
 || page_front_page || 'FrontPage' || Name of the front page ||
 || page_icons || ''large HTML fragment'' || The top-right icons on each page ||
 || page_icons_up || ''icon for link to parent'' || This icon is shown on subpages and links to the parent page ||
 || page_local_spelling_words || 'LocalSpellingWords' || Name of the page containing user-provided spellchecker words ||
-|| page_template_ending || 'Template' || Ending name part of pages containing templates for new pages ||
-|| shared_intermap || None || path to a file containing global InterWiki definitions ||
-|| shared_metadb || None || path to a file containing a global InterWiki pagelist ||
+|| page_template_regex || '[a-z]Template$' || Pages matching this regex are regarded as templates for new pages ||
+|| shared_intermap || None || path to a file containing global InterWiki definitions (or a list of such filenames) ||
+|| shared_metadb || None || path to a file containing a global InterWiki pagelist (''not yet implemented'') ||
 || show_hosts || 1 || ''true'' to show hostname in RecentChanges ||
 || show_section_numbers || 1 || ''true'' to show section numbers in headings by default ||
 || show_timings || 0 || used for development ||
 || show_version || 0 || show MoinMoin's version at the bottom of each page ||
 || sitename || 'An Unnamed MoinMoin Wiki' || Short description of your wiki site, displayed below the logo on each page, and used in RSS documents as the channel title ||
+|| smileys || {} || User-defined smileys (a dict with the markup as the key and a tuple of width, height, border, image name as the value) ||
 || title1 || None || HTML fragment before title area (see HelpOnSkins) ||
 || title2 || '<hr>' || HTML fragment after title area (see HelpOnSkins) ||
 || trail_size || 5 || Number of pages in the trail of visited pages ||
-|| ua_spiders || htdig || A regex of HTTP_USER_AGENTs that should be excluded from logging ||
+|| ua_spiders || ...|google|wget|... || A regex of HTTP_USER_AGENTs that should be excluded from logging ||
 || umask || 0777 || umask used on all open(), mkdir() and similar calls ||
 || upperletters || ''Latin 1 alphabetic characters'' || Uppercase letters, used to define what is a WikiName ||
 || url_mappings || {} || lookup table to remap URL prefixes (dict of {{{'prefix': 'replacement'}}}); especially useful in intranets, when whole trees of externally hosted documents move around ||
@@ -92,30 +103,38 @@ with characters outside the core latin alphabet.
 [[Anchor(file-attachments)]]
 === File attachments ===
 
-The [wiki:Self:HelpOnActions/AttachFile AttachFile action] lets a page have multiple attached files.
-Since file uploads could be abused for DoS (Denial of Service) attacks, `AttachFile` is an action that has to be enabled by the wiki administrator. To do this, add "`allowed_actions = ['AttachFile']`" to your configuration file.
+The [wiki:Self:HelpOnActions/AttachFile AttachFile action] enables a page to have multiple attached files.
+Since file uploads could be abused for DoS (Denial of Service) attacks, `AttachFile` is an action that may be enabled by the wiki administrator. To do this, add "`allowed_actions = ['AttachFile']`" to your configuration file.
 
-There are also two storage/retrieval models for file attachments:
- 1. attachments are stored "privately" and can only be retrieved via a CGI GET (via URLs like `http://wiki.net/moin/SomePage?action=AttachFile&do=get&target=filename.ext`).
- 1. attachments are stored into a directory directly accessible by the web server, and can thus be served directly by the webserver, without any invocation of MoinMoin (leading to URLs like `http://wiki.net/wiki/mywiki/SomePage/attachments/filename.ext`).
+If you wiki has (or is expected to have) many file attachments, there is an option which will eliminate the CGI overhead associated with each retrieval of an attachment file. 
 
-Generally, the second option is preferable[[FootNote(Such a configuration will lead to lower server loads, since you avoid the overhead of a CGI process for every attachment download.)]], but it also requires additional configuration steps, and possibly more rights on the host machine. Because of that, the first option is the default; attachments are stored in the "data" directory, with paths like "`<data>/pages/<pagename>/attachments/<filename>`".
+There are two storage/retrieval models for file attachments:
+ 1. Attachments are stored "privately" and can only be retrieved via a CGI GET (via URLs like `http://myorg.org/mywiki/<SomePage>?action=AttachFile&do=get&target=filename.ext`).
+ 1. Attachments are stored into a directory directly accessible by the web server, and can thus be served directly by the webserver, without any invocation of MoinMoin (leading to URLs like `http://myorg.org/mywikiattach/<Somepage>/attachments/filename.ext`).
 
-For the second option, you need to add an `attachments` option to your configuration, which is a dictionary of two values: {{{
+If the efficiency of serving file attachments is a concern, the second option is preferable, but it also requires additional configuration steps and possibly more rights on the host machine. Because of this, the first option is the default; attachments are stored in the "...mywiki/data/pages/" directory, with paths like "`...mywiki/data/pages/<pagename>/attachments/<filename>`".
+
+The MoinMoin ''attachments'' configuration option allows you to move the directory structure used to store attachments to another location.  Unless you have a reason for doing so, there is no need to use a different location. Using a different location may be more work and more risk, as all the existing attachments must be copied to the new location. The following instructions are for Apache servers and assume you intend to leave the attachment files in their existing location and your original installation used the name "mywiki".
+
+The first step is to tell Apache that it has another Alias directory from which it can serve files. Review the changes you made to the httpd.conf (or commonhttpd.conf) file during the Moin``Moin installation and find the Script``Alias statement similar to the following:
+{{{
+    ScriptAlias /mywiki           ".../mywiki/moin.cgi" 
+}}}
+Create an Alias statement similar to the Script``Alias statement above, replacing the ''/mywiki'' URI with ''/mywikiattach/'' and replacing ''moin.cgi'' with ''data/pages/''.
+{{{
+    Alias       /mywikiattach/    ".../mywiki/data/pages/"
+}}}
+Be sure to note the differences in the trailing slashes between the two statements, they must be entered exactly as shown above. If you are making this change to a running system, you must restart Apache to have the change take effect.
+
+The second step is to tell MoinMoin to let Apache do the work of fetching file attachments. To do this,
+you need to add an `attachments` option to .../mywiki/moin_config.py. The 'attachment' option is a dictionary of two values: {{{
 attachments = {
-    'dir': 'C:/Moin/share/moin/htdocs/mywiki',
-    'url': '/wiki/mywiki',
+    'dir': '.../mywiki/data/pages',
+    'url': '/mywikiattach',
 }
 }}}
+Moin``Moin must still do the work of uploading file attachments. The ''dir'' value above tells Moin``Moin where to store attachments; note this is the same as the path in the new Apache Alias statement but without the trailing "/". The ''url'' value tells Moin``Moin how to retrieve the attachments; this matches the URI in the Alias statement but again without the trailing "/".
 
-`dir` is the file system path to the attachment storage, and `url` is the matching URI to get access to that directory. That directory has to exist and be writable for the webserver, so it can create the necessary directories and files for new attachments. Note that you have to ''manually'' create this directory, MoinMoin will ''not'' create it for you.
+After you have completed the configuration changes, test by uploading an attachment for WikiSandBox. Then modify the WikiSandBox page to display the uploaded image or download the file. If there were existing attachments before this change, verify the old attachments are still available.  Finally, review the Apache ''access.log'' file to verify you have a log entry showing the expected file access:
 
-The above example shows a typical configuration for Windows that works for an installation according to the default setup procedure (see HelpOnInstalling/ApacheOnWin32).
-For UNIX, if you followed HelpOnInstalling/ApacheOnUnix, the necessary configuration will look like this: {{{
-attachments = {
-    'dir': '/usr/local/share/moin/htdocs/mywiki',
-    'url': '/wiki/mywiki',
-}
-}}}
-
-After you have completed the configuration changes, try to create an attachment for WikiSandBox to check for any errors. If you have any permission problems, you will likely see a Python traceback or some error message.
+  * ''"...GET /drawikiattach/Wiki``Sand``Box/attachments/mypix.jpg HTTP/1.1..."''.

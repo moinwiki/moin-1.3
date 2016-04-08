@@ -1,6 +1,7 @@
+# -*- coding: iso-8859-1 -*-
 #
 # XML-RPC CLIENT LIBRARY
-# $Id: xmlrpclib.py,v 1.1 2002/05/09 01:54:40 jhermann Exp $
+# $Id: xmlrpclib.py,v 1.2 2003/11/09 21:01:13 thomaswaldmann Exp $
 #
 # an XML-RPC client interface for Python.
 #

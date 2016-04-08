@@ -1,0 +1,40 @@
+##language:it
+== Faccine sorridenti o arrabbiate ==
+
+Per inserire una di queste faccine, usa uno dei codici mostrati
+nella tabella qui sotto. Verranno convertiti nell'iconetta solo quando
+sono ''separati con uno spazio'' dalla parola che li precede e da quella
+che li segue.
+
+Per ulteriori informazioni sulla formattazione, consulta AiutoSuModificaPagina.
+
+=== Esempi ===
+|| '''Simbolo''' || '''Immagine''' || '''Icona''' ||
+|| {{{ :) }}} || :) || smile.gif ||
+|| {{{ B) }}} || B) || smile2.gif ||
+|| {{{ :)) }}} || :)) || smile3.gif ||
+|| {{{ ;) }}} || ;) || smile4.gif ||
+|| {{{ :D }}} || :D || biggrin.gif ||
+|| {{{ <:( }}} || <:( || frown.gif ||
+|| {{{ X-( }}} || X-( || angry.gif ||
+|| {{{ :o }}} || :o || redface.gif ||
+|| {{{ :( }}} || :( || sad.gif ||
+|| {{{ /!\ }}} || /!\ || alert.gif ||
+|| {{{ <!> }}} || <!> || attention.gif ||
+|| {{{ (!) }}} || (!) || idea.gif ||
+|||||| ''Aggiunte con la versione 0.11'' ||
+|| {{{ :-? }}} || :-? || tongue.gif ||
+|| {{{ :\  }}} || :\  || ohwell.gif ||
+|| {{{ >:> }}} || >:> || devil.gif  ||
+|| {{{ %)  }}} || %)  || eyes.gif   ||
+|| {{{ @)  }}} || @)  || eek.gif    ||
+|| {{{ |)  }}} || |)  || tired.gif  ||
+|| {{{ ;)) }}} || ;)) || lol.gif    ||
+|||||| ''Aggiunte con la versione 1.0'' ||
+|| {{{ (./) }}} || (./) || checkmark.gif ||
+|| {{{ {OK} }}} || {OK} || thumbs-up.gif ||
+|| {{{ {X} }}} || {X} || icon-error.gif ||
+|| {{{ {i} }}} || {i} || icon-info.gif ||
+|| {{{ {1} }}} || {1} || prio1.gif ||
+|| {{{ {2} }}} || {2} || prio2.gif ||
+|| {{{ {3} }}} || {3} || prio3.gif ||

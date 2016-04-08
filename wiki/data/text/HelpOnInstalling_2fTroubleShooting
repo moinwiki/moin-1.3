@@ -1,3 +1,4 @@
+##language:en
 === Built-in test ===
 
 There's a built-in diagnostic mode that's useful when doing an install; just append "`?test`" to the URL of your wiki: {{{

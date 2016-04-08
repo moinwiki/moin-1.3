@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - FootNote Macro
 
@@ -7,12 +8,11 @@
     Collect and emit footnotes. Note that currently footnote
     text cannot contain wiki markup.
 
-    $Id: FootNote.py,v 1.2 2002/01/24 23:25:22 jhermann Exp $
+    $Id: FootNote.py,v 1.5 2003/11/09 21:01:02 thomaswaldmann Exp $
 """
 
 # Imports
-import string
-#from MoinMoin.i18n import _
+import sha
 
 
 def execute(macro, args):
@@ -26,9 +26,11 @@ def execute(macro, args):
         # store footnote and emit number
         macro.request.footnotes.append(args)
         idx = str(len(macro.request.footnotes))
-        return "%s%s%s" % (
+        fn_id = "-%s-%s" % (sha.new(args).hexdigest(), idx)
+        return "%s%s%s%s" % (
             macro.formatter.sup(1),
-            macro.formatter.anchorlink('moin_footnote' + idx, idx),
+            macro.formatter.anchordef('fnref' + fn_id),
+            macro.formatter.anchorlink('fndef' + fn_id, idx),
             macro.formatter.sup(0),)
 
     # nothing to do or emit
@@ -40,16 +42,20 @@ def emit_footnotes(request, formatter):
     if request.footnotes:
         result = ['____']
         for idx in range(len(request.footnotes)):
+            fn_id = "-%s-%d" % (sha.new(request.footnotes[idx]).hexdigest(), idx+1)
+            fn_no = formatter.anchorlink('fnref' + fn_id, str(idx+1))
+            indent = 4 - len(('%4d' % (idx+1)).strip())
+
             result.append(formatter.linebreak(0))
-            result.append(formatter.anchordef('moin_footnote%d' % (idx+1)))
+            result.append(formatter.anchordef('fndef' + fn_id))
             result.append(formatter.code(1))
             result.append(formatter.sup(1))
-            result.append(string.replace('%4d ' % (idx+1), ' ', formatter.hardspace))
+            result.append(formatter.hardspace * indent + fn_no + formatter.hardspace)
             result.append(formatter.sup(0))
             result.append(formatter.code(0))
-            result.append(request.footnotes[idx])
+            result.append(formatter.text(request.footnotes[idx]))
         request.footnotes = []
-        return string.join(result, '')
+        return ''.join(result)
 
     return ''
 

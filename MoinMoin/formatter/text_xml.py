@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - "text/xml" Formatter
 
@@ -7,7 +8,7 @@
     Note that this formatter needs either PyXML installed for
     Python 1.5.2, or Python 2.0 or higher.
 
-    $Id: text_xml.py,v 1.28 2002/05/10 11:39:01 jhermann Exp $
+    $Id: text_xml.py,v 1.31 2003/11/09 21:00:57 thomaswaldmann Exp $
 """
 
 # Imports
@@ -105,7 +106,7 @@ class Formatter(FormatterBase):
         if self.in_p: result = self.paragraph(0)
         return result + ['<ul>', '</ul>'][not on]
 
-    def listitem(self, on):
+    def listitem(self, on, **kw):
         return ['<li>', '</li>'][not on]
 
     def code(self, on):
@@ -113,6 +114,9 @@ class Formatter(FormatterBase):
 
     def sup(self, on):
         return ['<sup>', '</sup>'][not on]
+
+    def sub(self, on):
+        return ['<sub>', '</sub>'][not on]
 
     def preformatted(self, on):
         FormatterBase.preformatted(self, on)

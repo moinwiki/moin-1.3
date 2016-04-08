@@ -1,0 +1,20 @@
+##language:de
+#pragma section-numbers off 
+[[Navigation(slides)]] 
+
+= Tabellen =
+
+Tabellen entstehen, wenn man die Inhalte von Tabellenfeldern durch &#160;`||` getrennt aufschreibt. Alle Felder einer Tabellenzeile müssen dabei  auch auf einer Zeile im Editor stehen.
+
+Auszeichnung:
+ {{{
+||<rowbgcolor="#FFFFE0"> '''Spalte 1'''  |||| '''Spalten 2 & 3''' ||
+||<)> 1  ||<:> 2 ||<(> 3 ||
+}}}
+
+Darstellung:
+ ||<rowbgcolor="#FFFFE0"> '''Spalte 1'''  |||| '''Spalten 2 & 3''' ||
+ ||<)> 1  ||<:> 2 ||<(> 3 ||
+
+----
+Details auf HilfeZuTabellen.

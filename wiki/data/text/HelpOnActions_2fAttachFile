@@ -1,3 +1,4 @@
+##language:en
 == Enabling the AttachFile action ==
 
 The `AttachFile` action lets a page have multiple attached files.

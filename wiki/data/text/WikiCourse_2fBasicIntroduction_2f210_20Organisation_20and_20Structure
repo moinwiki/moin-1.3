@@ -1,0 +1,15 @@
+##language:en
+#pragma section-numbers off 
+[[Navigation(slides)]] 
+
+= Organisation and Structure =
+
+ * Naming
+    * don't create arbitrary wikinames (`OracleDatabase`, ''not'' `OraCle`)
+    * common prefixes (topical correlation)
+    * common postfixes (same page ''type'', e.g. ...Index)
+ * Index pages
+ * Categories (see CategoryCategory)
+ * Templates 
+ * /SubPages (allow shorter links, automatic correlation: HelpOnEditing/SubPages)
+ * Follow the guidance of the Wiki used about how to name pages etc.

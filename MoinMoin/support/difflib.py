@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-
+# -*- coding: iso-8859-1 -*-
 """
 Module difflib -- helpers for computing deltas between objects.
 
@@ -679,7 +679,10 @@ class SequenceMatcher:
 
         matches = reduce(lambda sum, triple: sum + triple[-1],
                          self.get_matching_blocks(), 0)
-        return 2.0 * matches / (len(self.a) + len(self.b))
+        try:
+            return 2.0 * matches / (len(self.a) + len(self.b))
+        except ZeroDivisionError:
+            return 0.0
 
     def quick_ratio(self):
         """Return an upper bound on ratio() relatively quickly.

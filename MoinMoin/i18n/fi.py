@@ -1,6 +1,8 @@
+# -*- coding: iso-8859-1 -*-
 # Text translations for fi (Suomi)
 # Maintained by: ***vacant***
 # Encoding: iso-8859-1
+# Direction: ltr
 text = {
 '''
 <h2>New Attachment</h2>
@@ -46,6 +48,9 @@ Sent a mail notification to these addresses: %s
 ' Save ':
 ' Save ',
 
+' Slide %(pos)d of %(size)d ':
+' Slide %(pos)d of %(size)d ',
+
 ' Upload ':
 ' Upload ',
 
@@ -76,6 +81,11 @@ Sent a mail notification to these addresses: %s
 '# of pages of this size':
 '# of pages of this size',
 
+'''## backup of page "%(pagename)s" submitted %(date)s
+''':
+'''## backup of page "%(pagename)s" submitted %(date)s
+''',
+
 '%(changecount)s changes':
 '%(changecount)s changes',
 
@@ -88,14 +98,23 @@ Sent a mail notification to these addresses: %s
 '%(hits)d hits out of %(pages)d pages searched.':
 '%(hits)d hits out of %(pages)d pages searched.',
 
+'%(logcount)s (%(logsize)s bytes)':
+'%(logcount)s (%(logsize)s bytes)',
+
 '%(matchcount)d %(matches)s for "%(title)s"':
 '%(matchcount)d %(matches)s for "%(title)s"',
+
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]':
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]',
 
 '("None" for disabling CSS)':
 '("None" for disabling CSS)',
 
 '(currently set to %s)':
 '(currently set to %s)',
+
+'(last edited %(time)s by %(editor)s)':
+'(last edited %(time)s by %(editor)s)',
 
 '(last modified %s)':
 '(last modified %s)',
@@ -105,6 +124,15 @@ Sent a mail notification to these addresses: %s
 
 '4Suite Version':
 '4Suite Version',
+
+'<Browser setting>':
+'<Browser setting>',
+
+'<Default>':
+'<Default>',
+
+'<No addition>':
+'<No addition>',
 
 "<b>Attachment '%(filename)s' does not exist!</b>":
 "<b>Attachment '%(filename)s' does not exist!</b>",
@@ -133,8 +161,14 @@ Sent a mail notification to these addresses: %s
 '<b>No spelling errors found!</b>':
 '<b>No spelling errors found!</b>',
 
+'<b>Page is immutable!</b>':
+'<b>Page is immutable!</b>',
+
 '<b>Please provide a valid email address!</b>':
 '<b>Please provide a valid email address!</b>',
+
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>":
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>",
 
 '''<b>Sorry, someone else saved the page while you edited it.
 <p>Please do the following: Use the back button of your browser, and cut&paste
@@ -178,6 +212,9 @@ Your attention to detail is appreciated.</b>''',
 
 '<b>You cannot use LikePages on an extended pagename!</b>':
 '<b>You cannot use LikePages on an extended pagename!</b>',
+
+'<b>You did not change the page content, not saved!</b>':
+'<b>You did not change the page content, not saved!</b>',
 
 '<b>You have been subscribed to this page.</b>':
 '<b>You have been subscribed to this page.</b>',
@@ -240,6 +277,12 @@ from the subscription list.</b>
 <hr>
 """,
 
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>':
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>',
+
+'<p><b>You will not be notified of your own changes!</b></p>':
+'<p><b>You will not be notified of your own changes!</b></p>',
+
 '''<p><small>If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
 <br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
@@ -253,6 +296,9 @@ macro call.</b></small></p>
 
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>":
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>",
+
+'<p>The following pages with similar names already exist...</p>':
+'<p>The following pages with similar names already exist...</p>',
 
 '''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
 as shown below in the list of files. 
@@ -268,6 +314,12 @@ since this is subject to change and can break easily.</p>''',
 
 '<small>[goto %s]</small>':
 '<small>[goto %s]</small>',
+
+'<unknown>':
+'<unknown>',
+
+'Accumulated page sizes':
+'Accumulated page sizes',
 
 'Action':
 'Action',
@@ -308,6 +360,9 @@ since this is subject to change and can break easily.</p>''',
 'Cancel':
 'Cancel',
 
+'Case-sensitive searching':
+'Case-sensitive searching',
+
 'Check Spelling':
 'Check Spelling',
 
@@ -319,6 +374,9 @@ since this is subject to change and can break easily.</p>''',
 
 'Comment':
 'Comment',
+
+"Connection to mailserver '%(server)s' failed: %(reason)s":
+"Connection to mailserver '%(server)s' failed: %(reason)s",
 
 'Create new drawing "%(filename)s"':
 'Create new drawing "%(filename)s"',
@@ -332,6 +390,23 @@ since this is subject to change and can break easily.</p>''',
 'Date format':
 'Date format',
 
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''':
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''',
+
 'Default':
 'Default',
 
@@ -341,8 +416,14 @@ since this is subject to change and can break easily.</p>''',
 'Describe %s here.':
 'Describe %s here.',
 
+'Detailed Information':
+'Detailed Information',
+
 'Diff for "%s"':
 'Diff for "%s"',
+
+'Display context of search results':
+'Display context of search results',
 
 'Distribution of User-Agent Types':
 'Distribution of User-Agent Types',
@@ -355,6 +436,9 @@ since this is subject to change and can break easily.</p>''',
 
 "ERROR in regex '%s'":
 "ERROR in regex '%s'",
+
+'Edit':
+'Edit',
 
 'Edit "%(pagename)s"':
 'Edit "%(pagename)s"',
@@ -377,6 +461,15 @@ since this is subject to change and can break easily.</p>''',
 'Entries in edit log':
 'Entries in edit log',
 
+'Entries in event log':
+'Entries in event log',
+
+'Exactly one matching page for "%s" found!':
+'Exactly one matching page for "%s" found!',
+
+'Exclude system pages':
+'Exclude system pages',
+
 'Expected "=" to follow "%(token)s"':
 'Expected "=" to follow "%(token)s"',
 
@@ -394,6 +487,12 @@ since this is subject to change and can break easily.</p>''',
 
 'Fri':
 'Fri',
+
+'FrontPage':
+'FrontPage',
+
+'Full Link List for "%s"':
+'Full Link List for "%s"',
 
 'Full text search for "%s"':
 'Full text search for "%s"',
@@ -422,6 +521,12 @@ since this is subject to change and can break easily.</p>''',
 'Ignore changes in the amount of whitespace':
 'Ignore changes in the amount of whitespace',
 
+'Immutable page':
+'Immutable page',
+
+'Include system pages':
+'Include system pages',
+
 'Info for "%s"':
 'Info for "%s"',
 
@@ -431,8 +536,17 @@ since this is subject to change and can break easily.</p>''',
 'Installed extension macros':
 'Installed extension macros',
 
+'Installed processors':
+'Installed processors',
+
+'InterWiki':
+'InterWiki',
+
 'Invalid include arguments "%s"!':
 'Invalid include arguments "%s"!',
+
+'Line':
+'Line',
 
 'Local Site Map for "%s"':
 'Local Site Map for "%s"',
@@ -451,6 +565,9 @@ since this is subject to change and can break easily.</p>''',
 
 'Mail sent OK':
 'Mail sent OK',
+
+'Make this page belong to category %(category)s':
+'Make this page belong to category %(category)s',
 
 'MoinMoin Version':
 'MoinMoin Version',
@@ -473,11 +590,25 @@ since this is subject to change and can break easily.</p>''',
 'No attachments stored for %(pagename)s':
 'No attachments stored for %(pagename)s',
 
+'''No differences found!
+''':
+'''No differences found!
+''',
+
+'No older revisions of the page stored, diff not available.':
+'No older revisions of the page stored, diff not available.',
+
 'No orphaned pages in this wiki.':
 'No orphaned pages in this wiki.',
 
 'No pages match "%s"!':
 'No pages match "%s"!',
+
+'No parent page found!':
+'No parent page found!',
+
+'No quotes on %(pagename)s.':
+'No quotes on %(pagename)s.',
 
 'No wanted pages in this wiki.':
 'No wanted pages in this wiki.',
@@ -491,11 +622,17 @@ since this is subject to change and can break easily.</p>''',
 'Number of pages':
 'Number of pages',
 
+'Number of system pages':
+'Number of system pages',
+
 'Open editor on double click':
 'Open editor on double click',
 
 'Optional comment about this change':
 'Optional comment about this change',
+
+'Optional reason for the deletion':
+'Optional reason for the deletion',
 
 'Or try one of these actions: ':
 'Or try one of these actions: ',
@@ -503,8 +640,8 @@ since this is subject to change and can break easily.</p>''',
 'Others':
 'Others',
 
-'Page "%s" was sucessfully deleted!':
-'Page "%s" was sucessfully deleted!',
+'Page "%s" was successfully deleted!':
+'Page "%s" was successfully deleted!',
 
 'Page Size Distribution':
 'Page Size Distribution',
@@ -521,14 +658,23 @@ since this is subject to change and can break easily.</p>''',
 'Please use the interactive user interface to delete pages!':
 'Please use the interactive user interface to delete pages!',
 
+'Preferred language':
+'Preferred language',
+
 'Preview':
 'Preview',
 
 'Preview of "%(pagename)s"':
 'Preview of "%(pagename)s"',
 
+'Print View':
+'Print View',
+
 'Python Version':
 'Python Version',
+
+'Quick links':
+'Quick links',
 
 'Really delete this page?':
 'Really delete this page?',
@@ -557,6 +703,12 @@ since this is subject to change and can break easily.</p>''',
 'Rename to (optional)':
 'Rename to (optional)',
 
+'Return to general page information':
+'Return to general page information',
+
+'Revert to version dated %(datestamp)s.':
+'Revert to version dated %(datestamp)s.',
+
 'Revision History':
 'Revision History',
 
@@ -571,6 +723,15 @@ since this is subject to change and can break easily.</p>''',
 
 'Server time is':
 'Server time is',
+
+'Show "%(title)s"':
+'Show "%(title)s"',
+
+'Show all changes in the last %(days)s days<br>':
+'Show all changes in the last %(days)s days<br>',
+
+'Show chart "%(title)s"':
+'Show chart "%(title)s"',
 
 'Show emoticons':
 'Show emoticons',
@@ -605,6 +766,15 @@ since this is subject to change and can break easily.</p>''',
 'Skip to preview':
 'Skip to preview',
 
+'Slideshow':
+'Slideshow',
+
+'Start':
+'Start',
+
+'Status of sending notification mails:':
+'Status of sending notification mails:',
+
 'Submitted form data:':
 'Submitted form data:',
 
@@ -617,8 +787,23 @@ since this is subject to change and can break easily.</p>''',
 'The backupped content of this page is deprecated and will not be included in search results!':
 'The backupped content of this page is deprecated and will not be included in search results!',
 
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''The comment on the change is:
+%(comment)s
+
+''',
+
+'The external diff utility returned with error code %(rc)s!':
+'The external diff utility returned with error code %(rc)s!',
+
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:',
+
+'The following users subscribed to this page:':
+'The following users subscribed to this page:',
 
 'The page was saved %(count)d%(times)s, though!':
 'The page was saved %(count)d%(times)s, though!',
@@ -650,11 +835,14 @@ since this is subject to change and can break easily.</p>''',
 'TitleIndex':
 'TitleIndex',
 
-'To create you own templates, add a page with a name ending in Template.':
-'To create you own templates, add a page with a name ending in Template.',
+'To create your own templates, add a page with a name ending in Template.':
+'To create your own templates, add a page with a name ending in Template.',
 
-'To login on a different machine, use this URL: ':
-'To login on a different machine, use this URL: ',
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".':
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".',
+
+'To login from a different machine, use this URL: ':
+'To login from a different machine, use this URL: ',
 
 'Tue':
 'Tue',
@@ -680,14 +868,26 @@ since this is subject to change and can break easily.</p>''',
 'Wed':
 'Wed',
 
+'Wiki':
+'Wiki',
+
+'Wiki Markup':
+'Wiki Markup',
+
 'WordIndex':
 'WordIndex',
 
 'XML title index':
 'XML title index',
 
+'XSLT option disabled!':
+'XSLT option disabled!',
+
 'You are not allowed to delete pages in this wiki!':
 'You are not allowed to delete pages in this wiki!',
+
+'You are not allowed to revert this page!':
+'You are not allowed to revert this page!',
 
 'Your email address':
 'Your email address',
@@ -698,11 +898,23 @@ since this is subject to change and can break easily.</p>''',
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]':
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]',
 
+'[%(lang)s] %(recipients)s: %(status)s':
+'[%(lang)s] %(recipients)s: %(status)s',
+
+'[%(sitename)s] Update of "%(pagename)s"':
+'[%(sitename)s] Update of "%(pagename)s"',
+
+'[Bookmark reached]':
+'[Bookmark reached]',
+
 '[Content of new page loaded from %s]':
 '[Content of new page loaded from %s]',
 
 '[New window]':
 '[New window]',
+
+'[Size limited to %dK]':
+'[Size limited to %dK]',
 
 '[Template %s not found]':
 '[Template %s not found]',
@@ -713,8 +925,17 @@ since this is subject to change and can break easily.</p>''',
 'date':
 'date',
 
+'del':
+'del',
+
 'diff':
 'diff',
+
+'edit':
+'edit',
+
+'get':
+'get',
 
 '''green=view
 red=edit''':
@@ -726,6 +947,9 @@ red=edit''',
 
 'page size upper bound [bytes]':
 'page size upper bound [bytes]',
+
+'revert':
+'revert',
 
 'set bookmark':
 'set bookmark',

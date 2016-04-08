@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - "links" action
 
@@ -6,15 +7,15 @@
 
     Generate a link database like MeatBall:LinkDatabase.
 
-    $Id: links.py,v 1.6 2002/04/24 19:36:54 jhermann Exp $
+    $Id: links.py,v 1.11 2003/11/09 21:00:56 thomaswaldmann Exp $
 """
 
 import string, sys
 from MoinMoin import config, wikiutil, webapi
-from MoinMoin.i18n import _
 
 
 def execute(pagename, request):
+    _ = request.getText
     form = request.form
 
     # get the MIME type
@@ -26,12 +27,14 @@ def execute(pagename, request):
     webapi.http_headers(request, ["Content-Type: " + mimetype])
 
     if mimetype == "text/html":
-        wikiutil.send_title(_('Full Link List for "%s"') % config.sitename)
+        wikiutil.send_title(request, _('Full Link List for "%s"') % config.sitename)
         print '<pre>'
 
     pages = wikiutil.getPageDict(config.text_dir)
+
     pagelist = pages.keys()
     pagelist.sort()
+    pagelist = filter(request.user.may.read, pagelist)
 
     for name in pagelist:
         if mimetype == "text/html":

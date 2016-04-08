@@ -1,3 +1,4 @@
+##language:en
 == Basic Installation ==
 
 Before you can integrate Moin``Moin into your web environment,
@@ -15,15 +16,16 @@ If you read this on the web, the distribution comes in a versioned
 ZIP or TAR archive, which you can unpack in the usual ways, into a
 temporary directory (`/tmp` on UNIX, `C:\TEMP` on Windows). The
 distribution archive will always unpack into a directory named
-`moin-<version>`, for example `moin-0.11`.
+`moin-<version>`, for example `moin-1.1`. 
+To download the distribution archive, go to the [http://sourceforge.net/project/showfiles.php?group_id=8482 download area].
 
 After unpacking, to install into a specific directory (`C:\moin`
 in our example), call `setup.py` after changing your current
 directory to the distribution directory. The following commands
 can be used to complete theses steps:
     {{{
-    unzip moin-0.11.zip
-    cd moin-0.11
+    unzip moin-1.1.zip
+    cd moin-1.1
     python setup.py --quiet install --prefix=C:\moin
 }}}
 
@@ -37,7 +39,6 @@ different):
     MoinMoin/i18n
     MoinMoin/macro
     MoinMoin/parser
-    MoinMoin/py15
     MoinMoin/scripts
     MoinMoin/support
     MoinMoin/twisted

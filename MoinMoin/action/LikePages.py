@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - LikePages action
 
@@ -9,49 +10,22 @@
     with the same word as the current pagename. If only one matching
     page is found, that page is displayed directly.
 
-    $Id: LikePages.py,v 1.14 2002/04/24 19:36:54 jhermann Exp $
+    $Id: LikePages.py,v 1.22 2003/11/09 21:00:55 thomaswaldmann Exp $
 """
 
-import re
+import re, cgi
 from MoinMoin import config, user, util, wikiutil, webapi
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
-def execute(pagename, request,
-        s_re=re.compile('([%s][%s]+)' % (config.upperletters, config.lowerletters)),
-        e_re=re.compile('([%s][%s]+)$' % (config.upperletters, config.lowerletters))):
+def execute(pagename, request):
+    _ = request.getText
+    start, end, matches = findMatches(pagename, request)
 
-    # figure the start and end words
-    s_match = s_re.match(pagename)
-    e_match = e_re.search(pagename)
-    if not (s_match and e_match):
-        Page(pagename).send_page(request,
-            msg=_('<b>You cannot use LikePages on an extended pagename!</b>'))
+    # error?
+    if isinstance(matches, type('')):
+        Page(pagename).send_page(request, msg=matches)
         return
-
-    # extract the words
-    start = s_match.group(1)
-    s_len = len(start)
-    end = e_match.group(1)
-    e_len = len(end)
-    subpage = pagename + '/'
-    sp_len = len(subpage)
-
-    # find any matching pages
-    matches = {}
-    for anypage in wikiutil.getPageList(config.text_dir):
-        # skip current page
-        if anypage == pagename:
-            continue
-        p_len = len(anypage)
-        if p_len > sp_len and anypage[:sp_len] == subpage:
-            matches[anypage] = 4
-        else:
-            if p_len > s_len and anypage[:s_len] == start:
-                matches[anypage] = 1
-            if p_len > e_len and anypage[-e_len:] == end:
-                matches[anypage] = matches.get(anypage, 0) + 2
 
     # no matches :(
     if not matches:
@@ -67,32 +41,96 @@ def execute(pagename, request,
 
     # more than one match, list 'em
     webapi.http_headers(request)
-    wikiutil.send_title(_('Multiple matches for "%s...%s"') % (start, end),
+    wikiutil.send_title(request, _('Multiple matches for "%s...%s"') % (start, end),
         pagename=pagename)
 
-    keys = matches.keys()
-    keys.sort()
-    showMatches(matches, keys, 4, "%s/..." % pagename)
-    showMatches(matches, keys, 3, "%s...%s" % (start, end))
-    showMatches(matches, keys, 1, "%s..." % (start,))
-    showMatches(matches, keys, 2, "...%s" % (end,))
+    showMatches(pagename, request, start, end, matches)
 
     wikiutil.send_footer(request, pagename)
 
 
-def showMatches(matches, keys, match, title):
+def findMatches(pagename, request,
+        s_re=re.compile('([%s][%s]+)' % (config.upperletters, config.lowerletters)),
+        e_re=re.compile('([%s][%s]+)$' % (config.upperletters, config.lowerletters))):
+    from MoinMoin.support import difflib
+    _ = request.getText
+
+    # get page lists
+    pagelist = wikiutil.getPageList(config.text_dir)
+    lowerpages = [p.lower() for p in pagelist]
+    similar = difflib.get_close_matches(pagename.lower(), lowerpages, 10) 
+
+    # figure the start and end words
+    s_match = s_re.match(pagename)
+    e_match = e_re.search(pagename)
+    if not (s_match and e_match or similar):
+        return None, None, _('<b>You cannot use LikePages on an extended pagename!</b>')
+
+    start = None
+    end = None
+    matches = {}
+    if s_match and e_match:
+        # extract the words
+        start = s_match.group(1)
+        end = e_match.group(1)
+        subpage = pagename + '/'
+
+        # find any matching pages
+        for anypage in pagelist:
+            # skip current page
+            if anypage == pagename:
+                continue
+            if anypage.startswith(subpage):
+                matches[anypage] = 4
+            else:
+                if anypage.startswith(start):
+                    matches[anypage] = 1
+                if anypage.endswith(end):
+                    matches[anypage] = matches.get(anypage, 0) + 2
+
+    if similar:
+        pagemap = {}
+        for anypage in pagelist:
+            pagemap[anypage.lower()] = anypage
+
+        for anypage in similar:
+            if pagemap[anypage] == pagename:
+                continue
+            matches[pagemap[anypage]] = 8
+
+    # CNC:2003-05-30
+    for pagename in matches.keys():
+        if not request.user.may.read(pagename):
+            del matches[pagename]
+
+    return start, end, matches
+
+
+def showMatches(pagename, request, start, end, matches):
+    keys = matches.keys()
+    keys.sort()
+    _showMatchGroup(request, matches, keys, 8, pagename)
+    _showMatchGroup(request, matches, keys, 4, "%s/..." % pagename)
+    _showMatchGroup(request, matches, keys, 3, "%s...%s" % (start, end))
+    _showMatchGroup(request, matches, keys, 1, "%s..." % (start,))
+    _showMatchGroup(request, matches, keys, 2, "...%s" % (end,))
+
+
+def _showMatchGroup(request, matches, keys, match, title):
+    _ = request.getText
     matchcount = matches.values().count(match)
 
     if matchcount:
         print '<b>' + _('%(matchcount)d %(matches)s for "%(title)s"') % {
             'matchcount': matchcount,
             'matches': (_(' match'), _(' matches'))[matchcount != 1],
-            'title': title} + '</b>'
+            'title': cgi.escape(title)} + '</b>'
         print "<ul>"
         for key in keys:
             if matches[key] == match:
                 page = Page(key)
-                print '<li><a href="%s">%s</a>' % (
+                print '<li><a href="%s/%s">%s</a>' % (
+                    webapi.getScriptname(),
                     wikiutil.quoteWikiname(page.page_name),
                     page.split_title())
         print "</ul>"

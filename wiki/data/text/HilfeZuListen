@@ -1,3 +1,4 @@
+##language:de
 ##master-page:HelpOnLists
 ##master-date:2001-11-30 21:30:20
 == Listen und Einrückungen ==
@@ -5,7 +6,7 @@ Sie können Punktelisten und Nummerierungen auf eine sehr naheliegende Weise eing
 
 Um Listen verschiedener Tiefe zu schachteln, benutzen Sie verschiedene Einrückungstiefen. Alle Punkte derselben Einrückungstiefe gehören zur gleichen (Unter-)Liste. Das bedeutet aber auch, dass Sie nicht die Art einer Liste ändern können, nachdem Sie sie begonnen haben.
 
-Definitions-Listen können dadurch erzeugt werden, dass sie Punkte der Form  {{{<Leerzeichen/whitespace>Begriff:: Definition}}} anlegen; beachten Sie, dass der ''Begriff'' derzeit keine Wiki-Notation enthalten darf.
+Definitions-Listen können dadurch erzeugt werden, dass Sie Punkte der Form  {{{<Leerzeichen/whitespace>Begriff:: Definition}}} anlegen; beachten Sie, dass der ''Begriff'' derzeit keine Wiki-Notation enthalten darf.
 
 Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEditieren.
 

@@ -1,20 +1,22 @@
 #! /usr/bin/env python
-
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Package installer
 
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: setup.py,v 1.19 2002/05/09 18:53:45 jhermann Exp $
+    $Id: setup.py,v 1.25 2003/11/09 21:00:45 thomaswaldmann Exp $
 """
-__version__ = "$Revision: 1.19 $"[11:-2]
+__version__ = "$Revision: 1.25 $"[11:-2]
 
 # Imports
 import glob, os, string, sys
+
 import distutils
 from distutils.core import setup
 from distutils.command.build_scripts import build_scripts
+
 from MoinMoin.version import release, revision
 
 
@@ -141,15 +143,18 @@ only requiring a Web server and a Python installation.
         'MoinMoin.macro',
         'MoinMoin.parser',
         'MoinMoin.processor',
-        'MoinMoin.py15',
         'MoinMoin.scripts',
         'MoinMoin.stats',
         'MoinMoin.support',
+        'MoinMoin.support.optik',
         'MoinMoin.twisted',
         'MoinMoin.util',
         'MoinMoin.webapi',
         'MoinMoin.widget',
         'MoinMoin.wikixml',
+
+        # if we get *massive* amounts of test, this should probably be left out
+        'MoinMoin._tests',
     ],
 
     # Override certain command classes with our own ones
@@ -192,5 +197,20 @@ if hasattr(distutils.dist.DistributionMetadata, 'get_keywords'):
 if hasattr(distutils.dist.DistributionMetadata, 'get_platforms'):
     setup_args['platforms'] = "win32 posix"
 
-apply(setup, (), setup_args)
 
+try:
+    apply(setup, (), setup_args)
+except distutils.errors.DistutilsPlatformError, ex:
+    print
+    print str(ex)
+    
+    print """
+POSSIBLE CAUSE
+
+"distutils" often needs developer support installed to work
+correctly, which is usually located in a separate package 
+called "python%d.%d-dev(el)".
+
+Please contact the system administrator to have it installed.
+""" % sys.version_info[:2]
+    sys.exit(1)

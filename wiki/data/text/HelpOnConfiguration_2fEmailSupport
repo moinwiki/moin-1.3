@@ -1,9 +1,11 @@
+##language:en
 == Enabling Email Support ==
 
 Setting "`mail_smarthost`" and "`mail_from`" in the configuration activates features that are explained below. These features are otherwise not available, since there are no general defaults.
 
- mail_from:: This value is used for the "`From:`" header in the emails sent.
+ mail_from:: This value is used for the "`From:`" header in the emails sent, if no better value is known.
  mail_smarthost:: This is the IP or domain name of an FOLDOC:SMTP enabled server. On a Unix host, you can try to use `localhost`; on a Windows machine this will normally be a machine in your LAN or some host of your ISP.
+ mail_login:: This is only needed when you use SMTP AUTH to send mail; in that case, set this to the username and password separated by a space, i.e. `"user pwd"`.
 
 See also HelpOnConfiguration.
 

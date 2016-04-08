@@ -1,22 +1,20 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - User Accounts
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: user.py,v 1.59 2002/04/17 21:58:16 jhermann Exp $
+    $Id: user.py,v 1.79 2003/11/22 21:15:28 thomaswaldmann Exp $
 """
 
 # Imports
-import os, string, time
+import os, string, time, Cookie, sha, locale, pickle
 from MoinMoin import config, webapi
+from MoinMoin.util import datetime
 from MoinMoin.i18n import _
 
-try:
-    import Cookie
-except ImportError:
-    from MoinMoin.py15 import Cookie
-
+#import sys
 
 #############################################################################
 ### Helpers
@@ -29,6 +27,44 @@ def getUserList():
 
     user_re = re.compile(r'^\d+\.\d+(\.\d+)?$')
     return filter(user_re.match, os.listdir(config.user_dir))
+
+_name2id = None
+
+def getUserId(searchName):
+    global _name2id
+    if _name2id:
+        id = _name2id.get(searchName, None)
+    else:
+        userdictpickle = os.path.join(config.user_dir, "userdict.pickle")
+        try:
+            _name2id = pickle.load(open(userdictpickle))
+            id = _name2id[searchName]
+        except (IOError, KeyError):
+            _name2id = {}
+            for userid in getUserList():
+                name = User(None, id=userid).name
+                _name2id[name] = userid
+            pickle.dump(_name2id, open(userdictpickle,'w'))
+            id = _name2id.get(searchName, None)
+    return id
+
+def getUserIdentification(request, username=None):
+    """ Return user name or IP or '<unknown>' indicator.
+    """
+    _ = request.getText
+
+    if username is None:
+        username = request.user.name
+
+    return username or os.environ.get('REMOTE_ADDR', _("<unknown>"))
+
+
+def encodePassword(pwd):
+    """ Encode a cleartext password, compatible to Apache htpasswd
+        SHA encoding.
+    """
+    import base64
+    return '{SHA}' + base64.encodestring(sha.new(pwd).digest()).rstrip()
 
 
 #############################################################################
@@ -50,16 +86,31 @@ class User:
         ('show_fancy_diff', lambda _=_: _('Show fancy diffs')),
         ('external_target', lambda _=_: _('Add "Open in new window" icon to pretty links')),
         ('wikiname_add_spaces', lambda _=_: _('Add spaces to displayed wiki names')),
+        ('remember_me', lambda _=_: _('Remember login information forever')),
+        ('disabled', lambda _=_: _('Disable this account forever')),
     ]
-    _transient_fields =  ['id', 'valid', 'may']
+    _transient_fields =  ['id', 'valid', 'may', 'auth_username', 'trusted']
     _MAX_TRAIL = config.trail_size
 
-    def __init__(self, id=None):
+    def __init__(self, request, id=None, name="", password=None, auth_username=""):
         """Init user with id"""
         self.valid      = 0
         self.id         = id
-        self.name       = ""
-        self.password   = ""
+        if auth_username:
+            self.auth_username = auth_username
+        elif request:
+            self.auth_username = request.auth_username
+        else:
+	    self.auth_username = ""
+        self.name = name
+        if not password:
+            self.enc_password = ""
+        else:
+	    if password.startswith('{SHA}'):
+                self.enc_password = password
+            else:
+	        self.enc_password = encodePassword(password)
+        self.trusted    = 0
         self.email      = ""
         self.edit_rows  = config.edit_rows
         self.edit_cols  = 80
@@ -71,7 +122,14 @@ class User:
         self.datetime_fmt = ""
         self.subscribed_pages = ""
 
+        # if an account is disabled, it may be used for looking up
+        # id -> username for page info and recent changes, but it
+        # is not usabled for the user any more:
+        # self.disabled   = 0
+        # is handled by checkbox now.
+	
         # attrs not saved to profile
+        self._request = request
         self._trail = []
 
         # create checkbox fields (with default 0)
@@ -83,28 +141,43 @@ class User:
         self.show_toolbar = 1
         self.show_nonexist_qm = config.nonexist_qm
         self.show_fancy_diff = 1
+        self.remember_me = 1
 
-        if not self.id:
+        if not self.id and not self.auth_username:
             try:
-                cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
+                cookie = Cookie.SimpleCookie(os.environ.get('HTTP_COOKIE', ''))
             except Cookie.CookieError:
                 # ignore invalid cookies, else user can't relogin
                 cookie = None
             if cookie and cookie.has_key('MOIN_ID'):
                 self.id = cookie['MOIN_ID'].value
 
-        if self.id:
-            self.load()
-        else:
-            self.id = str(time.time()) + "." + str(os.getpid())
+        # we got an already authenticated username:
+        if not self.id and self.auth_username:
+            self.id = getUserId(self.auth_username)
 
-        # "may" so we can say "if user.may.edit:"
+        if self.id:
+            self.load_from_id()
+	    if self.name == self.auth_username:
+                self.trusted = 1
+        else:
+            #!!! this should probably be a hash of REMOTE_ADDR, HTTP_USER_AGENT
+            # and some other things identifying remote users, then we could also
+            # use it reliably in edit locking
+            # CNC:2003-05-30
+            self.id = str(time.time()) + "." + str(os.getpid())
+            #from random import randint
+            #self.id = hex(randint(0,1999999999))[2:]+hex(int(time.time()))[2:]+hex(os.getpid())[2:]
+
+        if not self.valid and self.name:
+            self.load()
+
+        # "may" so we can say "if user.may.edit(pagename):"
         if config.SecurityPolicy:
             self.may = config.SecurityPolicy(self)
         else:
             from security import Default
             self.may = Default(self)
-
 
     def __filename(self):
         """Name of the user's file on disk"""
@@ -119,24 +192,57 @@ class User:
     def load(self):
         """ Load user data from disk
 
+            Can load user data if the user name is known, but only
+            if the password is set correctly.
+        """
+        self.id = getUserId(self.name)
+        if self.id:
+            self.load_from_id(1)
+        #print >>sys.stderr, "self.id: %s, self.name: %s" % (self.id, self.name)
+	
+    def load_from_id(self, check_pass=0):
+        """ Load user data from disk
+
+            Can only load user data if the id number is already known.
+
             This loads all member variables, except "id" and "valid" and
-            those starting with an underscore.
+            those starting with an underscore.  If check_pass is set then
+            self.enc_password must match the password in the file.
         """
         if not self.exists(): return
 
         data = open(self.__filename(), "r").readlines()
+        user_data = {'enc_password': ''}
         for line in data:
             if line[0] == '#': continue
 
             try:
-                key, val = string.split(string.strip(line), '=', 1)
+                key, val = line.strip().split('=', 1)
                 if key not in self._transient_fields and key[0] != '_':
-                    vars(self)[key] = val
+                    user_data[key] = val
             except ValueError:
                 pass
 
-        self.valid = 1
+	if check_pass:
+            # If we have no password set, we don't accept login with username
+	    if not user_data['enc_password']:
+	        return
+            # Check for a valid password
+            elif user_data['enc_password'] != self.enc_password:
+	        # print >>sys.stderr, "File:%s Form:%s" % (user_data['enc_password'], self.enc_password)
+                return
+	    else:
+	        self.trusted = 1
+
+        # Copy user data into user object
+        for key, val in user_data.items():
+            vars(self)[key] = val
+
         self.tz_offset = int(self.tz_offset)
+
+        # old passwords are untrusted
+        if hasattr(self, 'password'): del self.password
+        if hasattr(self, 'passwd'): del self.passwd
 
         # make sure checkboxes are boolean
         for key, label in self._checkbox_fields:
@@ -156,6 +262,9 @@ class User:
         # clear trail
         self._trail = []
 
+        if not self.disabled:
+            self.valid = 1
+
 
     def save(self):
         """ Save user data to disk
@@ -171,6 +280,8 @@ class User:
 
         self.last_saved = str(time.time())
 
+        # !!! should write to a temp file here to avoid race conditions,
+        # or even better, use locking
         data = open(self.__filename(), "w")
         data.write("# Data saved '%s' for id '%s'\n" % (
             time.strftime(config.datetime_fmt, time.localtime(time.time())),
@@ -187,14 +298,21 @@ class User:
         except OSError:
             pass
 
-        self.valid = 1
+        if not self.disabled:
+            self.valid = 1
 
 
     def getCookie(self):
         """Get the Set-Cookie header for this user"""
         cookie = Cookie.SimpleCookie()
         cookie['MOIN_ID'] = self.id
-        return cookie.output() + ' expires=Tuesday, 31-Dec-2013 12:00:00 GMT; Path=%s' % (webapi.getScriptname(),)
+        if self.remember_me:
+            ret=cookie.output() + ' expires=Tuesday, 31-Dec-2013 12:00:00 GMT; Path=%s' % (webapi.getScriptname(),)
+        else:
+            loc=locale.setlocale(locale.LC_TIME, 'C')
+            ret=cookie.output() + ' expires='+time.strftime("%A, %d-%b-%Y 23:59:59 GMT")+'; Path=%s' % (webapi.getScriptname(),)
+            locale.setlocale(locale.LC_TIME, loc)
+        return ret
 
 
     def sendCookie(self, request):
@@ -204,14 +322,19 @@ class User:
 
         # create a "fake" cookie variable so the rest of the
         # code works as expected
-        cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
-        if not cookie.has_key('MOIN_ID'):
+        try:
+            cookie = Cookie.SimpleCookie(os.environ.get('HTTP_COOKIE', ''))
+        except Cookie.CookieError:
+            # ignore invalid cookies, else user can't relogin
             os.environ['HTTP_COOKIE'] = self.getCookie()
+        else:
+            if not cookie.has_key('MOIN_ID'):
+                os.environ['HTTP_COOKIE'] = self.getCookie()
 
 
     def getTime(self, tm):
         """Get time in user's timezone"""
-        return time.localtime(tm + self.tz_offset)
+        return datetime.tmtuple(tm + self.tz_offset)
 
 
     def getFormattedDate(self, tm):
@@ -257,7 +380,7 @@ class User:
         if not self.quicklinks: return []
 
         from MoinMoin import wikiutil
-        quicklinks = string.split(self.quicklinks, ',')
+        quicklinks = self.quicklinks.split(',')
         quicklinks = map(string.strip, quicklinks)
         quicklinks = filter(None, quicklinks)
         quicklinks = map(wikiutil.unquoteWikiname, quicklinks)
@@ -267,7 +390,7 @@ class User:
     def getSubscriptionList(self):
         """ Get list of pages this user has subscribed to.
         """
-        subscrPages = string.split(self.subscribed_pages, ",")
+        subscrPages = self.subscribed_pages.split(",")
         subscrPages = map(string.strip, subscrPages)
         subscrPages = filter(None, subscrPages)
         return subscrPages
@@ -278,14 +401,14 @@ class User:
         """
         import re
 
-        pagelist_lines = string.join(pagelist, '\n')
+        pagelist_lines = '\n'.join(pagelist)
         matched = 0
         for pattern in self.getSubscriptionList():
             # check if pattern matches one of the pages in pagelist
             matched = pattern in pagelist
             if matched: break
             try:
-                rexp = re.compile(pattern, re.M)
+                rexp = re.compile("^"+pattern+"$", re.M)
             except re.error:
                 # skip bad regex
                 continue
@@ -305,7 +428,7 @@ class User:
         # add page to subscribed pages property
         if pagename not in subscrPages: 
             subscrPages.append(pagename)
-            self.subscribed_pages = string.join(subscrPages, ",")
+            self.subscribed_pages = ','.join(subscrPages)
             return 1
 
         return 0
@@ -327,7 +450,7 @@ class User:
 
             # save new trail
             trailfile = open(self.__filename() + ".trail", "w")
-            trailfile.write(string.join(self._trail, '\n'))
+            trailfile.write('\n'.join(self._trail))
             trailfile.close()
             try:
                 os.chmod(self.__filename() + ".trail", 0666 & config.umask)
@@ -349,7 +472,4 @@ class User:
                 self._trail = self._trail[-self._MAX_TRAIL:]
         return self._trail
 
-
-# current user
-current = User()
 

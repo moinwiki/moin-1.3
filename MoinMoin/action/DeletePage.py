@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - DeletePage action
 
@@ -7,27 +8,27 @@
     This action allows you to delete a page. Note that the standard
     config lists this action as excluded!
 
-    $Id: DeletePage.py,v 1.15 2002/05/07 17:05:22 jhermann Exp $
+    $Id: DeletePage.py,v 1.23 2003/11/09 21:00:54 thomaswaldmann Exp $
 """
 
 # Imports
 import string
 from MoinMoin import config, user, webapi, wikiutil
 from MoinMoin.PageEditor import PageEditor
-from MoinMoin.i18n import _
 
 
 def execute(pagename, request):
+    _ = request.getText
     actname = string.split(__name__, '.')[-1]
-    page = PageEditor(pagename)
+    page = PageEditor(pagename, request)
 
     # be extra paranoid in dangerous actions
     if actname in config.excluded_actions \
-            or not request.user.may.edit \
-            or not request.user.may.delete:
+            or not request.user.may.edit(pagename) \
+            or not request.user.may.delete(pagename):
         return page.send_page(request,
-            msg='<strong>%s</strong>' %
-                _('You are not allowed to delete pages in this wiki!'))
+            # CNC:2003-06-03
+            msg=_('<b>You are not allowed to delete this page.</b>'))
 
 
     # check whether page exists at all
@@ -46,12 +47,12 @@ def execute(pagename, request):
                     _('Please use the interactive user interface to delete pages!'))
 
         # Delete the page
-        page.deletePage(request, request.form.getvalue('comment'))
+        page.deletePage(request.form.getvalue('comment'))
 
         # Redirect to RecentChanges
-        return wikiutil.getSysPage('RecentChanges').send_page(request,
+        return page.send_page(request,
                 msg='<strong>%s</strong>' %
-                    (_('Page "%s" was sucessfully deleted!') % (pagename,)))
+                    (_('Page "%s" was successfully deleted!') % (pagename,)))
 
     # send deletion form
     wikiname = wikiutil.quoteWikiname(pagename)
@@ -67,7 +68,7 @@ def execute(pagename, request):
 <input type="submit" name="button" value="%(button)s">
 <p>
 %(comment_label)s<br>
-<input type="text" name="comment" size="60" maxlength="60">
+<input type="text" name="comment" size="60" maxlength="80">
 </form>""" % locals()
 
     return page.send_page(request, msg=formhtml)

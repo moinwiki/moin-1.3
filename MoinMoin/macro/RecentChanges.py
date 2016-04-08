@@ -1,19 +1,20 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - RecentChanges Macro
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: RecentChanges.py,v 1.59 2002/05/02 19:13:07 jhermann Exp $
+    $Id: RecentChanges.py,v 1.76 2003/11/09 21:01:03 thomaswaldmann Exp $
 """
 
 # Imports
 import cgi, re, string, sys, time, cStringIO
 from MoinMoin import config, editlog, user, util, wikiutil, wikixml
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
-_MAX_DAYS = 14
+_DAYS_SELECTION = [1, 2, 3, 7, 14, 30, 90]
+_MAX_DAYS = 7
 _MAX_PAGENAME_LENGTH = 35
 
 #############################################################################
@@ -21,8 +22,22 @@ _MAX_PAGENAME_LENGTH = 35
 #############################################################################
 
 def execute(macro, args, **kw):
+    _ = macro.request.getText
+    pagename = macro.formatter.page.page_name
+    qpagename = wikiutil.quoteWikiname(pagename)
+
     abandoned = kw.get('abandoned', 0)
     log = LogIterator(macro.request, reverse=abandoned)
+
+    # set max size in bytes and days
+    max_size = config.max_macro_size*1024
+    max_days = min(int(macro.request.form.getvalue('max_days', 0)), _DAYS_SELECTION[-1])
+    if max_days:
+        # make byte size unlimited when max_days is explicit
+        max_size = 0
+    else:
+        # set to default
+        max_days = _MAX_DAYS
 
     tnow = time.time()
     msg = ""
@@ -33,7 +48,7 @@ def execute(macro, args, **kw):
         img = macro.formatter.image(width=36, height=14, hspace=2, align="right",
             border=0, src=config.url_prefix+"/img/moin-rss.gif", alt="[RSS]")
         buf.write(macro.formatter.url(
-            wikiutil.quoteWikiname(macro.formatter.page.page_name) + "?action=rss_rc",
+            wikiutil.quoteWikiname(macro.formatter.page.page_name) + "?action=macro&macro=RecentChanges&do=rss_rc",
             img, unescaped=1))
 
     # add bookmark link if valid user
@@ -56,6 +71,20 @@ def execute(macro, args, **kw):
                 bm_display,
             ))
 
+        # give known user the option to extend the normal display
+        if macro.request.user.valid:
+            days = []
+            for day in _DAYS_SELECTION:
+                if not max_size and day == max_days:
+                    days.append('<b>%d</b>' % day)
+                else:
+                    days.append(wikiutil.link_tag(
+                        '%s?max_days=%d' % (qpagename, day), str(day)
+                    ))
+            days = ' | '.join(days)
+            buf.write(_("Show all changes in the last %(days)s days<br>") % locals())
+            del day, days
+
     oldversions = wikiutil.getBackupList(config.backup_dir, None)
 
     # get the most recent date each page was edited
@@ -71,13 +100,26 @@ def execute(macro, args, **kw):
         if abandoned and log.ed_time < last_edit[log.pagename]:
             continue
 
+        # CNC:2003-03-30
+        if not macro.request.user.may.read(log.pagename):
+            continue
+
         # check for configured max size
-        if config.max_macro_size and buf.tell() > config.max_macro_size*1024:
-            msg = "<br><font size='-1'>[Size limited to %dK]</font>" % (config.max_macro_size,)
+        if max_size and buf.tell() > max_size:
+            msg = "<br><font size='-1'>%s</font>" % _('[Size limited to %dK]') % (max_size/1024)
             break
 
+        # check whether this page is newer than the user's bookmark
+        hilite = log.ed_time > (bookmark or log.ed_time)
+
+        # end listing by default if user has a bookmark and we reached it
+        if max_size and bookmark and not hilite:
+            msg = "<br><font size='-1'>%s</font>" % _('[Bookmark reached]')
+            break
+
+        # new day?
         if log.dayChanged():
-            if log.daycount > _MAX_DAYS: break
+            if log.daycount > max_days: break
 
             set_bm = ''
             if macro.request.user.valid and not abandoned:
@@ -89,9 +131,6 @@ def execute(macro, args, **kw):
 
             buf.write('<tr><td colspan="%d"><br/><font size="+1"><b>%s</b></font>%s</td></tr>\n'
                 % (4+config.show_hosts, macro.request.user.getFormattedDate(log.ed_time), set_bm))
-
-        # check whether this page is newer than the user's bookmark
-        hilite = log.ed_time > (bookmark or log.ed_time)
 
         # check whether this is a new (no backup) page
         # !!! the backup dir needs to be reorganized, one subdir per page, and the versions
@@ -195,7 +234,7 @@ def execute(macro, args, **kw):
 class LogIterator(editlog.EditLog):
 
     def __init__(self, request, **kw):
-        apply(editlog.EditLog.__init__, (self,), kw)
+        editlog.EditLog.__init__(self, request, **kw)
         self.request = request
         self.changes = {}
         self.daycount = 0
@@ -205,6 +244,8 @@ class LogIterator(editlog.EditLog):
     def getNextChange(self):
         if not self.next(): return 0
         if not self.unique: return 1
+
+        _ = self.request.getText
 
         # skip already processed pages
         while self.changes.has_key(self.pagename):
@@ -233,6 +274,10 @@ class LogIterator(editlog.EditLog):
                         comment = _("Attachment '%(filename)s' deleted.") % locals()
                     elif self.action == 'ATTDRW':
                         comment = _("Drawing '%(filename)s' saved.") % locals()
+                elif self.action.find('/REVERT') != -1:
+                    datestamp = self.request.user.getFormattedDateTime(float(comment))
+                    comment = _("Revert to version dated %(datestamp)s.") % locals()
+
                 self.changes[thispage].append((self.getEditor(), comment))
             # peek for the next one
             if not self.peek(offset): break
@@ -258,7 +303,7 @@ if wikixml.ok:
 
     from MoinMoin.wikixml.util import RssGenerator
 
-    def rss(pagename, request):
+    def do_rss_rc(pagename, request):
         """ Send recent changes as an RSS document
         """
         from MoinMoin import webapi
@@ -297,14 +342,17 @@ if wikixml.ok:
         counter = 0
         Bag = new.classobj('Bag', (), {})
         while log.getNextChange():
+            # CNC:2003-03-30
+            if not request.user.may.read(log.pagename):
+                continue
             if log.dayChanged() and log.daycount > _MAX_DAYS: break
-            if log.action != 'SAVE': continue
+            if log.action[:4] != 'SAVE': continue
             logdata.append(new.instance(Bag, {
                 'ed_time': log.ed_time,
                 'time': log.time_tuple,
                 'pagename': log.pagename,
                 'hostname': log.hostname,
-                'editor': log.getEditorData(),
+                'editor': log.getEditorData()[1],
                 'comment': log.comment,
             }))
 
@@ -431,7 +479,7 @@ if wikixml.ok:
 
         # send the generated XML document
         webapi.http_headers(request, ["Content-Type: " + 'text/xml'] + webapi.nocache)
-        sys.stdout.write(out.getvalue())
+        request.write(out.getvalue())
 
         sys.exit(0)
 

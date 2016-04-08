@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - HTTP interfacing for command line
 
@@ -8,7 +9,7 @@
 
         from MoinMoin import webapi
 
-    $Id: cliMoin.py,v 1.2 2002/04/17 21:58:17 jhermann Exp $
+    $Id: cliMoin.py,v 1.4 2003/11/09 21:01:16 thomaswaldmann Exp $
 """
 
 
@@ -23,6 +24,12 @@ def isSSL():
 def getScriptname():
     """ Return the scriptname part of the URL ("/path/to/my.cgi"). """
     return '.'
+
+
+def getUserAgent():
+    """ Get the user agent
+    """
+    return ''
 
 
 def getPathinfo():

@@ -1,5 +1,7 @@
+##language:de
 ##master-page:HelpContents
-##master-date:2002-02-24 19:16:47
+##master-date:2002-12-16 15:13:06
+##master-sha:A541814DACB06CD5F8C4F50669A2FB18D3B11DB8
 
 (!) For the English help pages, see HelpContents.
 
@@ -22,6 +24,6 @@ Diese Seiten enthalten Informationen, die nur für Wiki-Administratoren und Entwi
 
 Ein automatisch erzeugter Index über alle Hilfeseiten findet sich auf HilfeIndex. Siehe auch HilfeAllgemein/FragenUndAntworten für Antworten auf oft gestellte Fragen.
 
-Falls Sie Fehler auf den Hilfe-Seiten finden, beschreiben Sie sie bitte auf der Seite HilfeErrata.
+Falls Sie Fehler auf den Hilfe-Seiten finden, beschreiben Sie sie bitte auf der Seite MoinMoin:HilfeErrata.
 
-''[Bitte diesen Seiten keine redundanten Informationen hinzufügen (die dann an zwei Stellen gepflegt werden müssen) - und man halte sich auch bitte an die vorhandene Struktur der Hilfeseiten. Bitte beachten Sie ausserdem, dass die Hauptkopie der Hilfe-Seiten nicht öffentlich ist, dass also diese Seite, die Sie gerade lesen, und alle anderen Hilfeseiten möglicherweise bei einem Update der Wiki-Software überschrieben werden. Wenn Sie also wesentliche Beiträge haben, die nicht verloren gehen sollen, senden Sie eine zusätzliche Benachrichtigung auf die  "MoinMoin user" Mailing-Liste.]''
+''[Bitte diesen Seiten keine redundanten Informationen hinzufügen (die dann an zwei Stellen gepflegt werden müssen) - und man halte sich auch bitte an die vorhandene Struktur der Hilfeseiten. Bitte beachten Sie außerdem, dass die Hauptkopie der Hilfe-Seiten nicht öffentlich ist, dass also diese Seite, die Sie gerade lesen, und alle anderen Hilfeseiten möglicherweise bei einem Update der Wiki-Software überschrieben werden. Wenn Sie also wesentliche Beiträge haben, die nicht verloren gehen sollen, senden Sie eine zusätzliche Benachrichtigung auf die  "MoinMoin user" Mailing-Liste.]''

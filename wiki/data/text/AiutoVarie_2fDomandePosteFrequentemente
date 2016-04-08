@@ -1,0 +1,248 @@
+##language:it
+'''Indice'''
+[[TableOfContents]]
+
+== Domande su "Cosa è un Wiki?" ==
+=== Cosa è un ''Wiki''? ===
+
+Il termine ''Wiki'' è un'abbreviazione di Wiki''''''Wiki''''''Web. Un
+Wiki è un insieme di pagine che possono essere modificate in
+collaborazione con altre persone utilizzando un browser web.
+
+=== Cosa è un ''MoinMoin''? ===
+
+Un Moin''''''Moin è un wiki implementato dal programma Moin''''''Moin,
+scritto in Python.
+
+=== A cosa può servire? ===
+
+Ad essere onesto, è utile per qualsiasi scopo vada bene per te.
+Su [http://www.lineo.com/ Lineo] viene usato un wiki nella rete locale
+con moltissime pagine, che descrivono i vari progetti, le
+architetture, le idee e così via a disposizione delle persone che
+vogliono contribuire dei commenti. Alcune pagine sono puramente
+informative, altre sono un invito alla discussione e al confronto.
+
+In generale, un wiki è uno strumento molto versatile, il cui valore
+dipende dall'uso che se ne fa. Ad esempio, una pagina in un wiki può
+servire allo stesso scopo di un verbale di una discussione. Puoi usare
+una pagina wiki per collaborare con altri ad un progetto.
+
+Svariati Wiki vengono usati internamente dal gruppo di sviluppatori di
+[http://www.zope.org/ Zope] per tener traccia delle varie idee e dei
+progetti.
+
+=== Quali sono le principali funzionalità di un Wiki? ===
+
+Queste sono alcune delle principali caratteristiche:
+
+ * Modificabile da chiunque - Una pagina wiki è modificabile da
+ chiunque con un web browser
+ * Possibilità di vedere le modifiche recenti
+ * Svariati modi di effettuare ricerche
+ * E' molto facile aggiungere nuove pagine
+ * Possibilità di vedere la storia delle revisioni di un documento
+ * E' possibile contribuire nuove informazioni, o correggere quelle
+ presenti
+
+=== Come si confronta con altri strumenti di gruppo, come Notes? ===
+
+Un Wiki è in grado di svolgere alcuni compiti in maniera semplice, ma
+ci sono cose che non può fare. La mancanza più sentita è la
+possibilità di controllare l'accesso al sito, per consentire solo ad
+un certo gruppo di persone di modificare le informazioni.
+
+=== E sulla sicurezza? Non è un Wiki soggetto a cancellazioni complete o vandalismi di un sabotatore? ===
+
+Questa è una domanda importante. In generale, i Wiki '''NON''' offrono
+nessuna sicurezza. (Proprio così!). Pertanto, esiste la possibilità
+che, sia accidentalmente che volutamente, il wiki venga distrutto o
+comunque danneggiato in qualche sua parte.
+
+Ci sono due maniere per danneggiare un wiki. Una è la cancellazione,
+l'altra la manomissione. Il problema della cancellazione non è poi
+così grave, dal momento che viene mantenuto sia un registro delle
+modifiche che un archivio delle versioni precedenti di ogni pagina, in
+un luogo non accessibile agli utenti web. Quando una pagina presenti
+delle cancellazioni o danneggiamenti, può essere rapidamente
+ripristinata dall'ultima sua versione precedente in buono stato.
+
+La manomissione esplicita e intenzionale è invece un problema un po'
+più difficile da trattare. Esiste la possibilità che qualcuno possa
+inserire delle informazioni scorrette su una pagina, o che
+intenzionalmente manometta le informazioni su una pagina esistente (ad
+esempio, una persona può cambiare le attribuzioni di una pagina in
+modo tale che risulti sia stato qualcun altro a inserire una certa
+informazione, oppure alterare il contenuto di un paragrafo in modo da
+travisarne il significato). Gran parte dei sistemi di collaborazione
+soffrono di questo problema. Nei Wiki, il problema è ancora maggiore
+data la totale mancanza di sicurezza. Nella realtà però, i casi di
+vandalismi sui wiki sono estremamente rari, e possono essere
+facilmente individuati attivando la notifica via email ad ogni nuovo
+contributo al sito.
+
+In altre parole, la filosofia del wiki è quella di intervenire
+manualmente nei rari (ed eccezionali) casi di sabotaggio, piuttosto
+che studiare e inserire le funzionalità e il sovraccarico (sia
+nell'implementazione che nell'utilizzo) necessari a prevenire il
+possibile danno causato da un vandalo.
+
+== Domande sul come usare questo Wiki ==
+=== Scovare e accedere alle informazioni contenute nel Wiki ===
+==== Come posso fare una ricerca nel Wiki? ====
+
+Ci sono veramente tante maniere di effettuare ricerche:
+ * Clicca sull'icona con la lente di ingrandimento. Ti porterà nella
+ pagina CercaPagina, dove potrai cercare per parola sia nei titoli sia
+ nel contenuto delle pagine, con possibilità di usare espressioni
+ regolari per esprimere i vincoli della tua ricerca.
+ * Clicca su IndiceDeiTitoli. Ti mostrerà un elenco in ordine
+ alfabetico dei titoli di tutte le pagine.
+ * Clicca su IndicePerParola. Questo crea un elenco di tutte le parole
+ presenti nei titoli di ogni pagina.
+ * Clicca su {{{LikePages}}} in fondo alla pagina. Questo mostra le
+ pagine che hanno nel loro titolo parole simili a quelle della pagina
+ corrente.
+ * Clicca sul titolo della pagina in alto. Questo ti mostra quali
+ pagine si riferiscono alla pagina corrente (ti può aiutare per
+ trovare le pagine correlate all'argomento che stai leggendo).
+
+==== Come posso vedere che cosa è stato modificato di recente? ====
+
+Clicca sul link ModificheRecenti presente in cima a tutte le pagine.
+
+==== Che cosa sono quei StraniLinkRossi che continuo a trovare un po' dappertutto? ====
+
+Qualsiasi parola formata da un mix di lettere maiuscole e minuscole
+che non abbia una pagina associata verrà presentato come un
+collegamento scritto in rosso.
+
+=== Aggiunta di informazioni al Wiki ===
+
+==== Come posso aggiungere qualche cosa al wiki, o correggere un'informazione sbagliata? ====
+
+Se vedi qualche cosa su cui vorresti dire la tua, o che vorresti
+aggiungere o modificare, basta che clicchi sul link
+{{{ModificaIlTesto}}} in fondo alla pagina, oppure sull'icona
+[[Icon(moin-edit.gif)]] in alto. Il contenuto della pagina ti verrà
+presentato in una pagina del tuo browser, dove potrai effettuare le
+modifiche che desideri. Il formattatore wiki generalmente "farà la
+cosa giusta" con qualunque testo ti inserisca. Se vuoi fare le cose
+eleganti, puoi utilizzare gran parte delle tipologie di formattazione
+offerte dall'HTML. Vedi la pagina AiutoSuFormattazione per
+suggerimenti e esempi.
+
+==== Ci sono convenzioni particolari che dovrei seguire quando aggiungo del materiale? ====
+
+Veramente non molte. Aiuta molto mantenere una certa consistenza nella
+formattazione di certe informazioni. Una importante convenzione che
+aiuta in questo è l'utilizzo delle pagine "Modello".
+
+Il Wiki ha una funzionalità chiamata "Modelli" che ti viene proposta
+quando crei una nuova pagina. Se tu clicchi su uno dei modelli
+proposti alla creazione della pagina, allora quella pagina avrà una
+struttura simile alle altre dello stesso tipo. Ad esempio, quando crei
+la tua homepage Wiki, dovresti utilizzare la PaginaPersonaleModello.
+
+==== Come posso aggiungere materiale non testuale al Wiki? ====
+
+Se quanto vuoi aggiungere è già disponibile su un sito web, aggiungi semplicemente un link appropriato alla pagina wiki. Segui queste indicazioni
+ * Ottieni l'URL del documento
+ * Modifica la pagina wiki (vai sulla pagina interessata e clicca su `ModificaIlTesto` in basso)
+ * Inserisci il link dove desideri
+ * Salva le modifiche.
+Il wiki trasformerà in un link ipertestuale il testo che hai inserito.
+
+Puoi abbellire il link inserendo delle parole descrittive dentro le parentesi quadre. Queste parole saranno visualizzate nel link stesso, che sarà comunque associato all'URL prescelto. Ecco un esempio:
+{{{
+  [http://il.tuo.link/acaso.html Questo sarà il testo del link]
+}}}
+produce:
+
+[http://il.tuo.link/acaso.html Questo sarà il testo del link]
+
+==== Come faccio ad aggiungere un'immagine a una pagina? ====
+
+Puoi includere l'URL dell'immagine nella pagina. Esempio:
+{{{
+http://c2.com/sig/inter/wikibase.gif
+}}}
+produce
+
+http://c2.com/sig/inter/wikibase.gif
+
+==== Come inserire documenti residenti in una rete locale (intranet) ====
+
+Se stai usando MoinMoin in una intranet, può essere utilile inserire dei link a documenti condivisi disponibili a chiunque acceda al tuo wiki. Ad esempio:
+{{{
+[file://nomeserver/path/completo/al/file/nomefile.txt Clicca qui per leggere nomefile.txt]}}}
+
+Puoi anche collegare dei file il cui nome contiene degli spazi, inserendo manualmente nell'URL il codice dello spazio secondo le specifiche HTML ({{{%20}}}):
+{{{
+[file://nomeserver/path/completo/al/file/nomefile%20con%20spazi.txt Clicca qui per leggere nomefile con spazi.txt]}}}
+
+Altra opzione, forse ancora più interessante da utilizzare, è l'azione {{{AttachFile}}}, presente dalla versione 0.11 di MoinMoin.
+
+==== Dovrei ''firmare'' le mie modifiche? ====
+
+Se sono significative, o se desideri che gli altri sappiano che le hai aggiunte tu, allora si. Metti semplicemente il tuo nome o l'indirizzo email dopo il tuo commento. E' pratica comune far rientrare il tuo contributo in modo tale che sia chiaro a quale paragrafo ti stai riferendo. Inoltre, aiuta rendere in ''italico'' la tua affermazione, in modo tale che risalti di più nella pagina.
+
+In altri casi però è più appropriato lasciare anonima la tua modifica. La correzione di errori di sintassi, di formattazione o comunque alterazioni banali sono esempi per i quali non è necessario (e addirittura scoraggiato) firmare la propria modifica.
+
+=== Aggiungere altri formati al Wiki ===
+==== Posso inserire codice HTML nel Wiki? ====
+
+Se vuoi aggiungere una singola riga di HTML, usa la macro HTML. Per farlo, passa l'istruzione HTML come parametro della macro HTML, tipo:
+
+{{{[[HTML(<font size=+12>Carattere più grande</font>)]]}}}
+
+This would show up on the page as:
+[[HTML(<font size=+12>Carattere più grande</font>)]]
+
+E' anche possibile inserire un documento HTML in una pagina aggiungendo
+{{{#format html}}}
+come prima riga della pagina. Se quella riga è presente allora l'intera pagina verrà interpretata come HTML (rendendo perciò un tantino più difficile inserire dei link alle altre pagine!). Assicurati di inserire solo la porzione BODY della pagina (senza alcun header HTML o qualsiasi altra cosa fuori dal BODY, inclusa la tag <BODY> stessa).
+
+ /!\ Tutto questo funziona solo se sono state installate le estensioni HTML (macro HTML e parser).
+
+== Installazione & Configurazione ==
+
+ (!) Vedi AiutoSuAmministrazione per informazioni sull'argomento.
+
+=== Perché la funzione "diff" non funziona? ===
+
+La funzione "diff" necessita di due cose per poter funzionare correttamente:
+ * La directory "''datadir''{{{/backup}}}" deve esistere
+ * Devi avere '''GNU diff''' installato sul tuo webserver, in una directory inclusa nella variabile d'ambiente PATH. 
+ Attenzione che la PATH del webserver potrebbere essere diversa da quella usata dalla tua shell.
+
+=== Come posso attivare l'opzione "DeletePage"? ===
+
+"Delete''''''Page" non è attivata di default, dal momento che viene usata prevalentemente in ambienti intranet, ed è un pochino pericolosa su un wiki pubblico. Per consentire questa e altre azioni considerate pericolose, aggiungi qualcosa di simile al tuo {{{moin_config.py}}}: {{{
+allowed_actions=['DeletePage']
+}}}
+
+== Amministrazione del Wiki ==
+=== Cosa devo fare per amministrare il Wiki? ===
+
+C'è un sacco di informazioni amministrative nella pagina ModificheRecenti, incluso il numero di pagine, di macro e di azioni installate.
+
+Io di solito creo una pagina "Admin''''''Page" dove metto delle macro a questo scopo, così come informazioni relative alla posizione fisica effettiva delle pagine, le macro per scovare le PagineOrfane e altre cose utili all'amministratore del wiki.
+
+=== Posso ripristinare una versione precedente di una certa pagina? ===
+
+Non direttamente. E' facile farlo (se hai i permessi di scrittura sulla directory dove sono tenute fisicamente le pagine wiki). Di solito però dovrai richiedere all'amministratore di ripristinare la pagina per te. Questo allo scopo di prevenire  l'improbabile caso di qualcuno che tenti di sabotare il wiki.
+
+Per chi sta leggendo questa pagina (che non è probabilmente il tuo sabotatore), ecco un modo per ripristinare una pagina:
+ 1. clicca sulla piccola "i" nell'angolo superiore destro ({{{PageInfo}}}).
+ 1. clicca si "mostra" della versione che vuoi ripristinare.
+ 1. sostituisci, nell'indirizzo mostrato dal browser, il testo "action=recall" con "action=raw".
+ 1. Copia il testo che ti viene mostrato e incollalo nella pagina desiderata dopo aver cliccato su "{{{ModificaIlTesto}}}".
+
+=== Come creo una nuova pagina modello? ===
+
+I modelli sono pagine che ti vengono proposte automaticamente quando crei un nuova pagina. Qualunque pagina il cui nome termini con la parola Modello verrà automaticamente aggiunta alla lista. Così, se vuoi avere una certa uniformità in un certo tipo di pagine (intestazioni, organizzazione, ecc.), crea semplicemente una pagina con il nome che termina con Modello: quando creerai pagine di questo tipo, seleziona il modello desiderato: il wiki inserirà il contenuto iniziale della pagina, che potrai quindi completare a piacere. Le pagine Modello sono a tutti gli effetti pagine wiki, modificabili nella solita maniera.
+
+Per creare una pagina Modello, crea una nuova pagina chiamata <qualchecosa>Modello.
+
+

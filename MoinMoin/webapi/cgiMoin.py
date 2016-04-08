@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - HTTP interfacing via CGI
 
@@ -8,11 +9,11 @@
 
         from MoinMoin import webapi
 
-    $Id: cgiMoin.py,v 1.13 2002/04/17 21:58:17 jhermann Exp $
+    $Id: cgiMoin.py,v 1.18 2003/11/09 21:01:16 thomaswaldmann Exp $
 """
 
 # Imports
-import os, string
+import os, sys
 
 #############################################################################
 ### Accessors
@@ -21,7 +22,8 @@ import os, string
 def isSSL():
     """ Return true if we are on a SSL (https) connection. """
     return os.environ.get('SSL_PROTOCOL', '') != '' or \
-           os.environ.get('SSL_PROTOCOL_VERSION', '') != ''
+           os.environ.get('SSL_PROTOCOL_VERSION', '') != '' or \
+           os.environ.get('HTTPS', '') == 'on'
 
 
 def getScriptname():
@@ -31,6 +33,12 @@ def getScriptname():
     return name
 
 
+def getUserAgent():
+    """ Get the user agent
+    """
+    return os.environ.get('HTTP_USER_AGENT', '')
+
+
 def getPathinfo():
     """ Return the remaining part of the URL. """
     pathinfo = os.environ.get('PATH_INFO', '')
@@ -38,7 +46,7 @@ def getPathinfo():
     # Fix for bug in IIS/4.0
     if os.name == 'nt':
         scriptname = getScriptname()
-        if string.find(pathinfo, scriptname) == 0:
+        if pathinfo.startswith(scriptname):
             pathinfo = pathinfo[len(scriptname):]
 
     return pathinfo
@@ -75,6 +83,21 @@ def getBaseURL():
 ### Headers
 #############################################################################
 
+class StdoutGuard:
+    """ Throw an exception when someone tries to write prematurely to
+        sys.stdout.
+    """
+
+    def __init__(self, request):
+        self.request = request
+
+    def __getattr__(self, attr):
+        # send headers, then raise an exception to create a stack trace
+        sys.stdout = sys.__stdout__
+        http_headers(self.request)
+        raise RuntimeError("Premature access to sys.stdout.%s" % attr)
+
+
 def setHttpHeader(request, header):
     request.user_headers.append(header)
 
@@ -88,22 +111,22 @@ def http_headers(request, more_headers=[]):
     request.sent_headers = 1
     have_ct = 0
 
+    # deactivate guard
+    sys.stdout = sys.__stdout__
+
     # send http headers
     for header in more_headers:
-        if string.lower(header)[:13] == "content-type:": have_ct = 1
-        print header
+        if header.lower().startswith("content-type:"): have_ct = 1
+        request.write(header, '\r\n')
 
     for header in request.user_headers:
-        if string.lower(header)[:13] == "content-type:": have_ct = 1
-        print header
+        if header.lower().startswith("content-type:"): have_ct = 1
+        request.write(header, '\r\n')
 
     if not have_ct:
-        print "Content-type: text/html;charset=%s" % config.charset
+        request.write("Content-type: text/html;charset=%s\r\n" % config.charset)
 
-    #print "Pragma: no-cache"
-    #print "Cache-control: no-cache"
-    #!!! Better set expiry to some 10 mins or so for normal pages?
-    print
+    request.write('\r\n')
 
     #from pprint import pformat
     #sys.stderr.write(pformat(more_headers))
@@ -112,7 +135,7 @@ def http_headers(request, more_headers=[]):
 
 def http_redirect(request, url):
     """ Redirect to a fully qualified, or server-rooted URL """
-    if string.count(url, "://") == 0:
+    if url.find("://") == -1:
         url = getQualifiedURL(url)
 
     http_headers(request, [

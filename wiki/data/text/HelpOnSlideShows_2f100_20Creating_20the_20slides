@@ -1,0 +1,17 @@
+#pragma section-numbers off
+= Creating the slides =
+
+Put a headline on top of your page (as you see above) because in [[GetText(DiaShow)]] mode, the wiki page title won't be visible (as the whole wiki frame stuff won't be visible, only the page contents).
+
+If you do not want to enumerate your headlines, use `#pragma section-numbers off` at top of your page.
+
+(!) Don't forget to fill in some valuable content.
+
+For your convenience, there is a SlideTemplate - use it.
+
+Put `[[Navigation(slides)]]` (upper) or `[[Navigation(siblings)]]` (lower) at bottom of your page:
+
+[[Navigation(slides)]]
+
+[[Navigation(siblings)]]
+

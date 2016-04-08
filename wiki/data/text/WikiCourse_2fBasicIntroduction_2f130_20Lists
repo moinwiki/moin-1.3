@@ -1,0 +1,23 @@
+##language:en
+#pragma section-numbers off 
+[[Navigation(slides)]] 
+
+= Lists =
+
+== item list ==
+ * first level
+   * second
+   Level
+   * second item
+     ''indented text ''without'' bullet''
+ * first level again
+
+== enumerated list ==
+ 1. first item
+ 1. second item (automatically enumerated)
+
+== Glossary ==
+ Term:: Explanation
+
+----
+For details see HelpOnLists.

@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Load I18N Text
 
@@ -9,12 +10,11 @@
     the description of the related features (which otherwise could
     get very confusing).
 
-    $Id: GetText.py,v 1.1 2001/12/07 22:54:14 jhermann Exp $
+    $Id: GetText.py,v 1.5 2003/11/09 21:01:02 thomaswaldmann Exp $
 """
 
-# Imports
-from MoinMoin.i18n import getText
-
 def execute(macro, args):
-    return getText(args)
+    return macro.formatter.text(
+        macro.request.getText(args).replace('<br>', '\n')
+    )
 

@@ -1,10 +1,11 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - "text/plain" Formatter
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_plain.py,v 1.19 2002/05/10 11:39:01 jhermann Exp $
+    $Id: text_plain.py,v 1.22 2003/11/09 21:00:56 thomaswaldmann Exp $
 """
 
 # Imports
@@ -71,12 +72,15 @@ class Formatter(FormatterBase):
         # !!! remember list state
         return ''
 
-    def listitem(self, on):
+    def listitem(self, on, **kw):
         # !!! return number for ordered lists
         return ' * '
 
     def sup(self, on):
         return '^'
+
+    def sub(self, on):
+        return '_'
 
     def code(self, on):
         return ['`', '´'][not on]

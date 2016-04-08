@@ -1,0 +1,13 @@
+##language:da
+##master-page:HelpTemplate
+##master-date:2002-02-13 21:46:50
+== Skabelon for hjælpesider ==
+Tekst.
+
+=== Eksempel ===
+{{{
+xxx
+}}} 
+
+=== Resultat ===
+xxx

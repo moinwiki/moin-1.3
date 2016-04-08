@@ -1,3 +1,4 @@
+##language:en
 InterWiki links are a quick way to refer to information in other wikis, without having to remember
 cryptic URLs. To write an InterWiki link, just use the InterWiki moniker of the foreign wiki, 
 followed by a page name on that wiki. 

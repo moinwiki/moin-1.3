@@ -1,3 +1,4 @@
+##language:en
 `SecurityPolicy` is a config option that allows wiki admins to dynamically enable or disable certain key actions in a MoinMoin wiki, most notably editing and deleting content.
 
 == Mechanics ==
@@ -7,26 +8,9 @@ The `Permissions` class implements the basic interface for user permissions and
 system policy. If you want to define your own policy, inherit
 from that base class, so that when new permissions are defined, you get the defaults.
 
-Then assign your new class to `SecurityPolicy` in `moin_config`;
-and I mean the class, not an instance of it!
+Then either assign your new class to `SecurityPolicy` in `moin_config` (and I mean the class, not an instance of it), or define your class directly in `moin_config` and name it `SecurityPolicy`.
 
 
 == Samples ==
-=== Disable editing over HTTPS ===
 
-This is used at [http://www.webde-ag.de/ WEB.DE AG] to make the main intra-net wiki available in read-only form via HTTPS. It's an extra security measure, in addition to password protection, against content changes from the outside. The same scheme can be used to have two different URLs pointing at the same wiki, and have only one of those URLs[[FootNote(An URL that is password-protected, by means of Apache server rules.)]] being able to edit the wiki. The net effect is that you have a read-only wiki editable only by certain people.
-
-Add this to your `moin_config.py`:
-{{{
-# permissions
-import MoinMoin.security
- 
-class SecurityPolicy(MoinMoin.security.Permissions):
-    def __init__(self, user):
-        MoinMoin.security.Permissions.__init__(self, user)
- 
-        # no edits via https
-        from MoinMoin import webapi
-        self.edit = not webapi.isSSL()
-        self.delete = self.edit
-}}}
+For samples on using this mechanism, see MoinMoin:SecurityPolicy.

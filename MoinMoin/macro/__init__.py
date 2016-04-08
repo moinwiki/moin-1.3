@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Macro Package
 
@@ -15,10 +16,10 @@
     functions to offer services to other macros or actions. A few
     actually do that, e.g. AttachFile.
 
-    $Id: __init__.py,v 1.2 2002/04/17 19:54:35 jhermann Exp $
+    $Id: __init__.py,v 1.4 2003/11/09 21:01:04 thomaswaldmann Exp $
 """
 
-import MoinMoin.util
+from MoinMoin.util import pysupport
 
-extension_macros = MoinMoin.util.getPackageModules(__file__)
+extension_macros = pysupport.getPackageModules(__file__)
 

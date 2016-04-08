@@ -1,10 +1,11 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Processor for Syntax Highlighting
 
     Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: Colorize.py,v 1.3 2002/04/17 19:24:58 jhermann Exp $
+    $Id: Colorize.py,v 1.6 2003/11/09 21:01:07 thomaswaldmann Exp $
 """
 
 import string, sys, cStringIO
@@ -12,7 +13,7 @@ from MoinMoin.parser import python
 
 def process(request, formatter, lines):
     if not formatter.in_pre:
-        sys.stdout.write(formatter.preformatted(1))
+        request.write(formatter.preformatted(1))
 
     if string.strip(lines[0]) == "#!python":
         del lines[0]
@@ -22,8 +23,8 @@ def process(request, formatter, lines):
 
     buff = cStringIO.StringIO()
     colorizer = python.Parser(string.join(lines, '\n'), request, out = buff)
-    colorizer.format(formatter, {})
+    colorizer.format(formatter)
 
-    sys.stdout.write(formatter.rawHTML(buff.getvalue()))
-    sys.stdout.write(formatter.preformatted(0))
+    request.write(formatter.rawHTML(buff.getvalue()))
+    request.write(formatter.preformatted(0))
 

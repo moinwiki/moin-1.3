@@ -1,3 +1,4 @@
+##language:de
 ##master-page:HelpOnNavigation
 ##master-date:2002-02-20 15:09:13
 == Navigation ==
@@ -16,6 +17,6 @@ Oben rechts sieht man einige Icons für die am häufigsten benutzten Funktionen:
   * [[Icon(moin-search.gif)]] zeigt die Suchseite an
   * [[Icon(moin-help.gif)]] zeigt die Hilfeseite
 
-Wenn man auf den Seitentitel im Kopfbereich klickt, bekommt man jede Seite angezeigt, die auf die aktuelle Seite verweist. Eine Beispielanwendung dieser rückwärts zeigenden, invertierten Verweise ist die Kategorisierung von Seiten, z.B. CategoryHomepage.
+Wenn man auf den Seitentitel im Kopfbereich klickt, bekommt man jede Seite angezeigt, die auf die aktuelle Seite verweist. Eine Beispielanwendung dieser rückwärts zeigenden, invertierten Verweise ist die Kategorisierung von Seiten, z.B. KategorieHomepage.
 
 Im Fußbereich jeder Seite finden sich die "traditionellen" Edititieren- und SeiteFinden-Links des originalen Wikis und zusätzlich Felder für die Schnellsuche in Seitentiteln und Seitentexten, sowie Links, um von Ihnen installierte benutzerspezifische Aktionen aufzurufen.

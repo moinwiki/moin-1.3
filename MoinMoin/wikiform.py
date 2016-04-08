@@ -1,17 +1,17 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - User Forms
 
     Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiform.py,v 1.6 2002/04/24 19:22:12 jhermann Exp $
+    $Id: wikiform.py,v 1.8 2003/11/09 21:00:52 thomaswaldmann Exp $
 """
 
 # Imports
 import cgi, string
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
 #############################################################################
@@ -20,11 +20,13 @@ from MoinMoin.i18n import _
 
 _required_attributes = ['type', 'name', 'label']
 
-def parseDefinition(fielddef, fieldlist):
+def parseDefinition(request, fielddef, fieldlist):
     """ Parse a form field definition and return the HTML markup for it
     """
+    _ = request.getText
+
     row = '<tr><td nowrap valign="top">&nbsp;<b>%s</b>&nbsp;</td><td>%s</td></tr>\n'
-    fields, msg = wikiutil.parseAttributes(fielddef)
+    fields, msg = wikiutil.parseAttributes(request, fielddef)
 
     if not msg:
         for required in _required_attributes:
@@ -88,6 +90,8 @@ def _get_formvalues(form):
 def do_formtest(pagename, request):
     """ Test a user defined form.
     """
+    _ = request.getText
+
     msg = _('Submitted form data:') + '<ul>\n'
     for key, val in _get_formvalues(request.form).items():
         msg = msg + '<li><em>%s</em> = %s</li>\n' % (

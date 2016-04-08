@@ -1,3 +1,4 @@
+##language:en
 HelpContents > HelpOnAdministration > HelpOnUpdating 
 
 '''Index'''
@@ -5,11 +6,26 @@ HelpContents > HelpOnAdministration > HelpOnUpdating
 
 == General procedures ==
 
+=== Backup ===
+
 /!\ '''Before you update an existing wiki, MAKE A BACKUP!''' You have been warned, and it's not my fault when you end up like this... @) 
+
+There are two directory trees which you should backup:
+
+    * The one containing the MoinMoin executable files ({{{lib/MoinMoin}}})
+    * and the one containing the data ({{{share/wikiname}}}/data) 
+
+The paths depend on your installation.
+
+=== Install ===
+
+Download the MoinMoin code that you are interested in updating to.
+
+As root, run "{{{python setup.py install}}}" to install the new version.
 
 === Configuration update ===
 
-After upgrading, your existing wiki should continue to work (the goal is to have sane defaults for any new config values, but then there can be bugs). Check that this is indeed the case, and then take the time to check the CHANGES file in your distribution. Often, new features will be invisible unless your extend your configuration in "moin.config.py".
+After upgrading, your existing wiki should continue to work (the goal is to have sane defaults for any new config values, but then there can be bugs). Check that this is indeed the case, and then take the time to check the CHANGES file in your distribution. Often, new features will be invisible unless your extend your configuration in "moin_config.py".
 
 This is especially true for:
  * somewhat dangerous macros that won't be activated by default, because they're not advisable for public wikis. You need to explicitely activate those by adding an {{{allowed_actions}}} list to the config. Currently, the actions {{{DeletePage}}} and {{{AttachFile}}} are considered unsafe.
@@ -120,3 +136,37 @@ ZufallsSeite
 The next version will include an admin interface that will allow interactive upgrades.
 
 [[FootNote]]
+
+
+[[Anchor(update-1-0)]]
+=== Version 1.0 ===
+
+Version 1.0 is the last to support Python 1.5.2, but some optional features (like statistics) already require Python 2.0.
+
+
+[[Anchor(update-1-1)]]
+=== Version 1.1 ===
+
+Be sure to read the above section on ''General procedures'' before you start upgrading.
+
+'''Version 1.1 requires Python 2.0 or higher''', we recommend to use Python 2.2 (version 2.2.2 if that is available on your host) or even better 2.3.2 (with 2.3.x, MoinMoin runs about 20-30% faster).
+
+The next version (1.2) will require Python 2.2.2 or newer.
+
+
+'''Upgrading your configuration'''
+
+ * If you changed the default for `page_template_ending`, this is now called `page_template_regex` and must contain a regex (defaults to '[a-z]Template$').
+ * Same applies to `page_form_ending` now called `page_form_regex` (default: '[a-z]Form$')
+ * Not a new feature, but configurable now: `page_category_regex` (default: '^Category[A-Z]')
+ * If you have added your own `SecurityPolicy`, the class interface for that has changed (see `security.py`)
+
+'''Enabling new features'''
+
+ * `default_lang` (default: 'en') - If user does not set a language in his user settings, this will be used.
+ * `edit_locking` (default: `'warn 10'`) - Editor locking policy: None, 'warn <timeout in minutes>', or 'lock <timeout in minutes>'.
+ * `hosts_deny` (default: `[]`) - a list of denied IPs; if an IP ends with a dot, it denies a whole subnet (class A, B or C).
+ * `html_pagetitle` (default: `None`) -  Allows you to set a specific HTML page title (if not set, it defaults to the value of sitename).
+ * `mail_login` (default: `None`) - This is only needed when you use SMTP AUTH to send mail; in that case, set this to the username and password separated by a space, i.e. "user pwd".
+ * `smileys` (default: `{}`) -  User-defined smileys (a dict with the markup as the key and a tuple of width, height, border, image name as the value).
+ * don't forget to read the CHANGES file in the distribution archive

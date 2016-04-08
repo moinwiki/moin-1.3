@@ -1,16 +1,16 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - PageSize Macro
 
     Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: PageSize.py,v 1.4 2002/03/20 23:57:07 jhermann Exp $
+    $Id: PageSize.py,v 1.7 2003/11/09 21:01:03 thomaswaldmann Exp $
 """
 
 # Imports
 import string
 from MoinMoin import config, wikiutil
-#from MoinMoin.i18n import _
 
 
 def execute(macro, args):
@@ -20,7 +20,8 @@ def execute(macro, args):
     # get sizes and sort them
     sizes = []
     for name, page in pages.items():
-        sizes.append((page.size(), page))
+        if macro.request.user.may.read(name):
+	    sizes.append((page.size(), page))
     sizes.sort()
     sizes.reverse()
 

@@ -1,9 +1,74 @@
+##language:en
 == Other MoinMoin help topics ==
 
 '''Subtopics'''
  * /FrequentlyAskedQuestions
+ * /ExperimentalFeatures
 
 '''Contents''' [[TableOfContents]]
+
+=== Adding an icon to your wiki setup ===
+
+You maybe want to add some icon to your wiki site, commonly known as `favicon.ico`.
+To get those little icons besides bookmarks and with tabbed browsing, add this to your `moin_config.py`:
+{{{
+html_head = '''
+<link rel="icon" href="/images/icon.png" type="image/png">
+<!-- ... more header stuff ... -->
+'''
+}}}
+
+The image size ''must'' be 16x16 and simply putting it as `/favicon.ico` (into your Document``Root) does ''not'' work with all browsers (e.g. does not work with Mozilla versions 1.0 - 1.3).
+
+=== Enabling a publically editable intermap ===
+
+If you want your users to easily add new InterWiki monikers, change your `moin_config.py` to contain an entry like this:
+{{{
+shared_intermap = ['/usr/local/moin/mywiki/data/text/intermap_2etxt']
+}}}
+
+Then create a page named `intermap.txt` (see LinuxWiki:intermap.txt for an example) with the following content:
+{{{
+#format text/plain
+## Keep the first line and add text only after two hash marks (##)
+##
+## This is a publically editable extension of standard InterWiki
+## definitions. Any addition here is immediately reflected in 
+## the wiki.
+##
+## To enable this in your own wiki, either add the page file of
+## this page to config.shared_intermap (can be a list of files
+## since version 1.1), or add an appropriate symbolic link.
+##
+## The format of an entry is interwiki moniker followed by the URL
+## $PAGE can be used to embed the URI following the moniker in
+## the resultant URL
+
+MyNewMoniker http://example.com/somewiki/$PAGE.html
+}}}
+
+Then check whether your new monikers appear on the InterWiki list.
+
+
+=== Apache tricks ===
+
+==== Securing access to a wiki via Apache means ====
+
+See MoinMoin:PasswordProtectedEditing
+
+==== Serving the wiki from a domain root ====
+`httpd.conf` modification for MoinMoin installation at "/":
+{{{
+# global section:
+LoadModule rewrite_module /usr/lib/apache/1.3/mod_rewrite.so
+# virtualhost section:
+RewriteEngine on
+RewriteRule ^/wiki/       -                      [last]
+RewriteRule ^/robots.txt  -                      [last]
+RewriteRule ^/favicon.ico -                      [last]
+RewriteRule ^/?(.*) /pathto/cgi-bin/moin.cgi/$1  [last,type=application/x-httpd-cgi]
+}}}
+This way you can use short and clean URLs like http://LinuxWiki.de/FrontPage.
 
 === Special features for wiki farms and intranets ===
 

@@ -1,3 +1,4 @@
+##language:en
 HelpContents > HelpOnEditing
 
 == Creating Subpages ==
@@ -6,6 +7,8 @@ Subpages are groups of pages that share a common prefix, which itself is another
 
 Thus, by using "/" to concatenate several WikiName''''''s, you can create arbitrarily deep hierarchies (within limits, especially the length of filenames on your system). In reality, subpages are normal pages that contain a "/" in their name, and thus they are stored besides all other pages in the file system. Subpages are a configurable feature, but they're on by default and it's recommended that you keep it that way, since the help pages themselves use this feature.
 
+Links to sibling pages start with "`../`", for example ../SubPages (a link to this page).
+
 === Example ===
 {{{
  * HelpOnEditing/SubPages
@@ -13,6 +16,9 @@ Thus, by using "/" to concatenate several WikiName''''''s, you can create arbitr
  * [wiki:Self:HelpOnEditing/SubPages This very page]
  * /ThirdLevel
  * [wiki:/ThirdLevel A page below this one]
+ * ../SubPages
+ * ["../"] (anonymous parent link)
+ * [:../:free parent link]
 }}} 
 
 === Display ===
@@ -21,5 +27,8 @@ Thus, by using "/" to concatenate several WikiName''''''s, you can create arbitr
  * [wiki:Self:HelpOnEditing/SubPages This very page]
  * /ThirdLevel
  * [wiki:/ThirdLevel A page below this one]
+ * ../SubPages
+ * ["../"] (anonymous parent link)
+ * [:../:free parent link]
 
- /!\ Please do all of us a favour and don't create the /ThirdLevel pages!
+ /!\ Please do all of us a favour and don't create the /ThirdLevel pages, it's just an example!

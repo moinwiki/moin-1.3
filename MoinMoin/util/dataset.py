@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Datasets
 
@@ -7,18 +8,74 @@
     Datasets are used by the DataBrowserWidget, and with the
     statistics code.
 
-    $Id: dataset.py,v 1.1 2002/05/09 18:17:48 jhermann Exp $
+    $Id: dataset.py,v 1.4 2003/11/09 21:01:14 thomaswaldmann Exp $
 """
 
+class Column:
+    """ Meta-data for a column.
+    """
+
+    _SLOTS = [
+        ('label', ''),
+        ('sortable', 0),
+        ('hidden', 0),
+        ('align', ''),
+        ]
+
+    def __init__(self, name, **kw):
+        self.name = name
+        for slot, defval in self._SLOTS:
+            setattr(self, slot, kw.get(slot, defval))
+
+
 class Dataset:
-    pass
+    """ Holds a 2-dimensional data set (m rows of n columns)
+        and associated meta-data (column titles, etc.)
+    """
 
-class TupleDataset:
-    pass
+    def __init__(self):
+        self.columns = []
+        self.data = []
+        self._pos = 0
 
-class DictDataset:
-    pass
+    def __len__(self):
+        return len(self.data)
 
-class DbDataset:
+    def reset(self):
+        """ Reset iterator to start.
+        """
+        self._pos = 0
+
+    def next(self):
+        """ Return next row as a tuple, ordered by columns.
+        """
+        if self._pos >= len(self):
+            return None
+
+        row = self.data[self._pos]
+        self._pos += 1
+        return row
+
+    def addRow(self, row):
+        """ Add a row to the dataset.
+        """
+        self.data.append(row)
+
+
+class TupleDataset(Dataset):
+    """ A dataset that stores tuples.
+    """
+
+
+class DictDataset(Dataset):
+    """ A dataset that stores dicts as the rows.
+    """
+
+    def next(self):
+        row = Dataset.next(self)
+        return tuple([row[col.name] for col in self.columns])
+
+
+class DbDataset(Dataset):
     pass
 

@@ -1,6 +1,8 @@
+# -*- coding: iso-8859-1 -*-
 # Text translations for pt (Português)
 # Maintained by: Jorge Godoy <godoy@conectiva.com>
 # Encoding: iso-8859-1
+# Direction: ltr
 text = {
 '''
 <h2>New Attachment</h2>
@@ -46,6 +48,9 @@ Enviada notificação por e-mail para estes endereços: %s
 ' Save ':
 ' Salvar ',
 
+' Slide %(pos)d of %(size)d ':
+' Slide %(pos)d of %(size)d ',
+
 ' Upload ':
 ' Upload ',
 
@@ -73,6 +78,11 @@ Enviada notificação por e-mail para estes endereços: %s
 '# of pages of this size':
 '# of pages of this size',
 
+'''## backup of page "%(pagename)s" submitted %(date)s
+''':
+'''## backup of page "%(pagename)s" submitted %(date)s
+''',
+
 '%(changecount)s changes':
 '%(changecount)s changes',
 
@@ -85,14 +95,23 @@ Enviada notificação por e-mail para estes endereços: %s
 '%(hits)d hits out of %(pages)d pages searched.':
 '%(hits)d acertos de um total de %(pages)d páginas procuradas.',
 
+'%(logcount)s (%(logsize)s bytes)':
+'%(logcount)s (%(logsize)s bytes)',
+
 '%(matchcount)d %(matches)s for "%(title)s"':
 '%(matchcount)d %(matches)s para "%(title)s"',
+
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]':
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]',
 
 '("None" for disabling CSS)':
 '("None" para desabilitar o CSS)',
 
 '(currently set to %s)':
 '(atualmente configurado para %s)',
+
+'(last edited %(time)s by %(editor)s)':
+'(last edited %(time)s by %(editor)s)',
 
 '(last modified %s)':
 '(última modificação %s)',
@@ -102,6 +121,15 @@ Enviada notificação por e-mail para estes endereços: %s
 
 '4Suite Version':
 '4Suite Version',
+
+'<Browser setting>':
+'<Browser setting>',
+
+'<Default>':
+'<Default>',
+
+'<No addition>':
+'<No addition>',
 
 "<b>Attachment '%(filename)s' does not exist!</b>":
 "<b>Attachment '%(filename)s' does not exist!</b>",
@@ -130,8 +158,14 @@ Enviada notificação por e-mail para estes endereços: %s
 '<b>No spelling errors found!</b>':
 '<b>No spelling errors found!</b>',
 
+'<b>Page is immutable!</b>':
+'<b>Page is immutable!</b>',
+
 '<b>Please provide a valid email address!</b>':
 '<b>Por favor, forneça um endereço de e-mail válido!</b>',
+
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>":
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>",
 
 '''<b>Sorry, someone else saved the page while you edited it.
 <p>Please do the following: Use the back button of your browser, and cut&paste
@@ -174,6 +208,9 @@ Sua atenção aos detalhes é apreciada.</b>''',
 
 '<b>You cannot use LikePages on an extended pagename!</b>':
 '<b>You cannot use LikePages on an extended pagename!</b>',
+
+'<b>You did not change the page content, not saved!</b>':
+'<b>You did not change the page content, not saved!</b>',
 
 '<b>You have been subscribed to this page.</b>':
 '<b>Você foi cadastrado a esta página.</b>',
@@ -236,6 +273,12 @@ da lista de inscritas.</b>
 <hr>
 """,
 
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>':
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>',
+
+'<p><b>You will not be notified of your own changes!</b></p>':
+'<p><b>You will not be notified of your own changes!</b></p>',
+
 '''<p><small>If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
 <br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
@@ -249,6 +292,9 @@ na página.</b></small></p>
 
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>":
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>",
+
+'<p>The following pages with similar names already exist...</p>':
+'<p>The following pages with similar names already exist...</p>',
 
 '''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
 as shown below in the list of files. 
@@ -264,6 +310,12 @@ since this is subject to change and can break easily.</p>''',
 
 '<small>[goto %s]</small>':
 '<small>[goto %s]</small>',
+
+'<unknown>':
+'<unknown>',
+
+'Accumulated page sizes':
+'Accumulated page sizes',
 
 'Action':
 'Ação',
@@ -304,6 +356,9 @@ since this is subject to change and can break easily.</p>''',
 'Cancel':
 'Cancel',
 
+'Case-sensitive searching':
+'Case-sensitive searching',
+
 'Check Spelling':
 'Check Spelling',
 
@@ -315,6 +370,9 @@ since this is subject to change and can break easily.</p>''',
 
 'Comment':
 'Comment',
+
+"Connection to mailserver '%(server)s' failed: %(reason)s":
+"Connection to mailserver '%(server)s' failed: %(reason)s",
 
 'Create new drawing "%(filename)s"':
 'Create new drawing "%(filename)s"',
@@ -328,6 +386,23 @@ since this is subject to change and can break easily.</p>''',
 'Date format':
 'Formato da data',
 
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''':
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''',
+
 'Default':
 'Padrão',
 
@@ -337,8 +412,14 @@ since this is subject to change and can break easily.</p>''',
 'Describe %s here.':
 'Descreva %s aqui.',
 
+'Detailed Information':
+'Detailed Information',
+
 'Diff for "%s"':
 'Diferenças para "%s"',
+
+'Display context of search results':
+'Display context of search results',
 
 'Distribution of User-Agent Types':
 'Distribution of User-Agent Types',
@@ -351,6 +432,9 @@ since this is subject to change and can break easily.</p>''',
 
 "ERROR in regex '%s'":
 "ERRO na regex '%s'",
+
+'Edit':
+'Edit',
 
 'Edit "%(pagename)s"':
 'Edit "%(pagename)s"',
@@ -373,6 +457,15 @@ since this is subject to change and can break easily.</p>''',
 'Entries in edit log':
 'Entradas no registro de edição',
 
+'Entries in event log':
+'Entries in event log',
+
+'Exactly one matching page for "%s" found!':
+'Exactly one matching page for "%s" found!',
+
+'Exclude system pages':
+'Exclude system pages',
+
 'Expected "=" to follow "%(token)s"':
 'Expected "=" to follow "%(token)s"',
 
@@ -390,6 +483,12 @@ since this is subject to change and can break easily.</p>''',
 
 'Fri':
 'Fri',
+
+'FrontPage':
+'FrontPage',
+
+'Full Link List for "%s"':
+'Full Link List for "%s"',
 
 'Full text search for "%s"':
 'Busca completa por "%s"',
@@ -418,11 +517,26 @@ since this is subject to change and can break easily.</p>''',
 'Ignore changes in the amount of whitespace':
 'Ignore changes in the amount of whitespace',
 
+'Immutable page':
+'Immutable page',
+
+'Include system pages':
+'Include system pages',
+
 'Info for "%s"':
 'Informação para  "%s"',
 
+'Installed processors':
+'Installed processors',
+
+'InterWiki':
+'InterWiki',
+
 'Invalid include arguments "%s"!':
 'Parâmetros de inclusão inválidos "%s"!',
+
+'Line':
+'Line',
 
 'Local Site Map for "%s"':
 'Mapa local do site para "%s"',
@@ -441,6 +555,9 @@ since this is subject to change and can break easily.</p>''',
 
 'Mail sent OK':
 'Mail enviado OK',
+
+'Make this page belong to category %(category)s':
+'Make this page belong to category %(category)s',
 
 'MoinMoin Version':
 'MoinMoin Version',
@@ -463,11 +580,25 @@ since this is subject to change and can break easily.</p>''',
 'No attachments stored for %(pagename)s':
 'Nenhum anexo armazenado para %(pagename)s',
 
+'''No differences found!
+''':
+'''No differences found!
+''',
+
+'No older revisions of the page stored, diff not available.':
+'No older revisions of the page stored, diff not available.',
+
 'No orphaned pages in this wiki.':
 'Nenhuma página órfã neste wiki.',
 
 'No pages match "%s"!':
 'Nenhuma página combina com "%s"!',
+
+'No parent page found!':
+'No parent page found!',
+
+'No quotes on %(pagename)s.':
+'No quotes on %(pagename)s.',
 
 'No wanted pages in this wiki.':
 'Nenhuma página solicitada neste wiki.',
@@ -481,11 +612,17 @@ since this is subject to change and can break easily.</p>''',
 'Number of pages':
 'Número de páginas',
 
+'Number of system pages':
+'Number of system pages',
+
 'Open editor on double click':
 'Open editor on double click',
 
 'Optional comment about this change':
 'Optional comment about this change',
+
+'Optional reason for the deletion':
+'Optional reason for the deletion',
 
 'Or try one of these actions: ':
 'Ou tente uma destas ações: ',
@@ -493,7 +630,7 @@ since this is subject to change and can break easily.</p>''',
 'Others':
 'Others',
 
-'Page "%s" was sucessfully deleted!':
+'Page "%s" was successfully deleted!':
 'Página "%s" foi removida com sucesso!',
 
 'Page Size Distribution':
@@ -511,14 +648,23 @@ since this is subject to change and can break easily.</p>''',
 'Please use the interactive user interface to delete pages!':
 'Por favor, use a interface interativa para remover páginas!',
 
+'Preferred language':
+'Preferred language',
+
 'Preview':
 'Previsão',
 
 'Preview of "%(pagename)s"':
 'Preview of "%(pagename)s"',
 
+'Print View':
+'Print View',
+
 'Python Version':
 'Python Version',
+
+'Quick links':
+'Quick links',
 
 'Really delete this page?':
 'Realmente remover esta página?',
@@ -547,6 +693,12 @@ since this is subject to change and can break easily.</p>''',
 'Rename to (optional)':
 'Rename to (optional)',
 
+'Return to general page information':
+'Return to general page information',
+
+'Revert to version dated %(datestamp)s.':
+'Revert to version dated %(datestamp)s.',
+
 'Revision History':
 'Histórico de Revisões',
 
@@ -561,6 +713,15 @@ since this is subject to change and can break easily.</p>''',
 
 'Server time is':
 'A hora no servidor é',
+
+'Show "%(title)s"':
+'Show "%(title)s"',
+
+'Show all changes in the last %(days)s days<br>':
+'Show all changes in the last %(days)s days<br>',
+
+'Show chart "%(title)s"':
+'Show chart "%(title)s"',
 
 'Show emoticons':
 'Show emoticons',
@@ -595,6 +756,15 @@ since this is subject to change and can break easily.</p>''',
 'Skip to preview':
 'Skip to preview',
 
+'Slideshow':
+'Slideshow',
+
+'Start':
+'Start',
+
+'Status of sending notification mails:':
+'Status of sending notification mails:',
+
 'Submitted form data:':
 'Formulário de dados enviado:',
 
@@ -607,8 +777,23 @@ since this is subject to change and can break easily.</p>''',
 'The backupped content of this page is deprecated and will not be included in search results!':
 'O conteúdo de backup desta página é velho e não será incluso nos resultados das buscas!',
 
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''The comment on the change is:
+%(comment)s
+
+''',
+
+'The external diff utility returned with error code %(rc)s!':
+'The external diff utility returned with error code %(rc)s!',
+
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
 'As seguintes %(badwords)d palavras não foram encontradas no dicionário com %(totalwords)d palavras%(localwords)s e estão destacadas abaixo:',
+
+'The following users subscribed to this page:':
+'The following users subscribed to this page:',
 
 'The page was saved %(count)d%(times)s, though!':
 'Embora a página tenha sido salva %(count)d%(times)s!',
@@ -643,10 +828,13 @@ since this is subject to change and can break easily.</p>''',
 'TitleIndex':
 'TitleIndex',
 
-'To create you own templates, add a page with a name ending in Template.':
+'To create your own templates, add a page with a name ending in Template.':
 'Para criar seus próprios templates, crie uma página terminada em Template.',
 
-'To login on a different machine, use this URL: ':
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".':
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".',
+
+'To login from a different machine, use this URL: ':
 'Para efetuar o login de uma máquina diferente, use esta URL: ',
 
 'Tue':
@@ -673,14 +861,26 @@ since this is subject to change and can break easily.</p>''',
 'Wed':
 'Wed',
 
+'Wiki':
+'Wiki',
+
+'Wiki Markup':
+'Wiki Markup',
+
 'WordIndex':
 'WordIndex',
 
 'XML title index':
 'Índice de títulos em XML',
 
+'XSLT option disabled!':
+'XSLT option disabled!',
+
 'You are not allowed to delete pages in this wiki!':
 'Você não tem permissão para remover páginas neste wiki!',
+
+'You are not allowed to revert this page!':
+'You are not allowed to revert this page!',
 
 'Your email address':
 'Seu endereço de email',
@@ -691,11 +891,23 @@ since this is subject to change and can break easily.</p>''',
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]':
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;atrás]',
 
+'[%(lang)s] %(recipients)s: %(status)s':
+'[%(lang)s] %(recipients)s: %(status)s',
+
+'[%(sitename)s] Update of "%(pagename)s"':
+'[%(sitename)s] Update of "%(pagename)s"',
+
+'[Bookmark reached]':
+'[Bookmark reached]',
+
 '[Content of new page loaded from %s]':
 '[Conteúdo da nova página carregado de %s]',
 
 '[New window]':
 '[New window]',
+
+'[Size limited to %dK]':
+'[Size limited to %dK]',
 
 '[Template %s not found]':
 '[Template %s não encontrado]',
@@ -706,8 +918,17 @@ since this is subject to change and can break easily.</p>''',
 'date':
 'date',
 
+'del':
+'del',
+
 'diff':
 'diff',
+
+'edit':
+'edit',
+
+'get':
+'get',
 
 '''green=view
 red=edit''':
@@ -719,6 +940,9 @@ red=edit''',
 
 'page size upper bound [bytes]':
 'page size upper bound [bytes]',
+
+'revert':
+'revert',
 
 'set bookmark':
 'ajustar bookmark',

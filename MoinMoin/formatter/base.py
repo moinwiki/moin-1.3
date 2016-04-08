@@ -1,10 +1,11 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Formatter Base Class
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: base.py,v 1.23 2002/05/10 11:39:01 jhermann Exp $
+    $Id: base.py,v 1.27 2003/11/09 21:00:56 thomaswaldmann Exp $
 """
 
 # Imports
@@ -27,6 +28,7 @@ class FormatterBase:
 
     def __init__(self, request, **kw):
         self.request = request
+        self._ = request.getText
 
         self._store_pagelinks = kw.get('store_pagelinks', 0)
         self.pagelinks = []
@@ -89,10 +91,13 @@ class FormatterBase:
     def bullet_list(self, on):
         raise NotImplementedError
 
-    def listitem(self, on):
+    def listitem(self, on, **kw):
         raise NotImplementedError
 
     def sup(self, on):
+        raise NotImplementedError
+
+    def sub(self, on):
         raise NotImplementedError
 
     def code(self, on):

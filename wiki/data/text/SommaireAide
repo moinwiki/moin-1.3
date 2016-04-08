@@ -1,0 +1,23 @@
+##language:fr
+== Sommaire Aide ==
+
+Découvrez les pages d'aide les plus importantes :
+ * AideAuxDébutants (HelpForBeginners) - si vous n'avez jamais utilisé de wikis
+ * AideNavigation (HelpOnNavigation) - explique les éléments de navigation d'une page
+ * AideCréationDePage (HelpOnPageCreation) - comment créer une nouvelle et comment utiliser les gabarits de page
+ * AidePréférencesUtilisateurs (HelpOnUserPreferences) - comment s'enregistrer sur le wiki et adapter le comportement par défaut selon votre goût
+ * AideÉdition (HelpOnEditing) - comment éditer une page
+ * AideActions (HelpOnActions) - outils manipulant une page ou tout le site
+ * AideDivers (HelpMiscellaneous) - plus de détails et une FAQ (Foire Aux Questions)
+(NB pages en rouge : en cours de traduc..  :) encore un peu de patience)
+
+Ces pages contiennent des informations destinées uniquement aux administrateurs et développeurs de wiki : 
+ * AideAdministration (HelpOnAdministration) - comment gérer un wiki MoinMoin
+ * AideInstallation (HelpOnInstalling) - comment installer un wiki MoinMoin
+ * AidePourDéveloppeurs (HelpForDevelopers) - comment ajouter de nouvelles options en changeant le code MoinMoin
+
+Un index automatiquement généré de toutes les pages d'aides est disponible à IndexAide (HelpIndex). Voir également AideDivers/QuestionsFréquemmentPosées (HelpMiscellaneous/FrequentlyAskedQuestions) pour les réponses aux questions les plus fréquemment posées. 
+
+Si vous trouvez des erreurs sur les pages d'aides, décrivez les sur MoinMoin:HelpErrata (anglais).
+
+''[S'il vous plait n'ajoutez pas d'information redondante à ces pages (qui seraient maintenues à deux endroits alors) et suivez la structure des pages d'aide. Notez également que l'ensemble principal des pages d'aides n'est pas publique, que cette page que vous lisez et toutes les autres pages peuvent être écrasées quand le logiciel de wiki est mis à jour. Donc si vous avez des contributions importantes qui ne devraient pas être perdues, envoyez une notification supplémentaire à liste des utilisateurs de MoinMoin.]"

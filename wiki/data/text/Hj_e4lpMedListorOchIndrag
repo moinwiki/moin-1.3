@@ -1,0 +1,94 @@
+##language:sv
+##master-page:HelpOnLists
+##master-date:2002-03-05 10:00:33
+##translated-by:Karolina Lindqvist, Shakti Wiki
+== Listor och indrag ==
+Du kan skapa punktlistor och numrerade listor på ett ganska enkelt sätt. Allt du behöver göra är att skriva listraden nästan som den är med ett indrag. För att raden ska börja med en stor punkt, börja raden med en stjärna "{{{*}}}". För att få numrerade listrader, börja raden med en nummermall på en av formerna "{{{1.}}}", "{{{a.}}}", "{{{A.}}}", "{{{i.}}}" eller "{{{I.}}}". Beroende på vilken du väljer, får du olika numreringssystem. Allt annat ger enbart indrag. Om du vill börja din numrerade lista med ett speciellt nummer, lägg bara till "{{{#}}}''värde''" till nummermallen.
+
+För att blanda olika nivåer använder de helt enkelt bara olika indragsnivåer. Alla rader på samma indragsnivå tillhör samma dellista. Detta innbär också att du inte kan ändra numreringsstil efter den första listraden.
+
+Definitionslistor kan skapas på formen {{{<mellanslag>term:: definition}}}. Observera att ''term''  inte kan innehålla några wikimärkkoder.
+
+För mer information om olika märkkoder se HjälpMedÄndringar.
+
+=== Exampel ===
+{{{
+Gör du indrag
+  på det här sättet, då betyder det att
+    du vill ha olika indragsnivåer
+
+Om du börjar en rad med en stjärna
+  * får du
+  * en punkterad
+  * lista
+    * som också kan vara indragen
+      * till flera olika nivåer
+
+En numrerad lista som är blandad med en punktlista:
+  1. ett
+  1. två
+    1. ett
+      * punkt 1
+      * punkt 2
+    1. två
+  1. tre
+    * punkt
+      1. ett
+
+Olika varianter på numrerade listor:
+  * gemena romerska siffror
+    i. ett
+    i. två
+  * versala romerska siffor som börjar med 42
+    I.#42 fyrtiotvå
+    I. fyrtiotre
+  * gemena bokstäver
+    a. ett
+    a. två
+  * versala bokstäver
+    A. ett
+    A. två
+
+ term:: definition
+ en annan term:: och dess definition
+}}} 
+
+=== Hur det ser ut ===
+Gör du indrag
+  på det här sättet, då betyder det att
+    du vill ha olika indragsnivåer
+
+Om du börjar en rad med en stjärna
+  * får du
+  * en punkterad
+  * lista
+    * som också kan vara indragen
+      * till flera olika nivåer
+
+En numrerad lista som är blandad med en punktlista:
+  1. ett
+  1. två
+    1. ett
+      * punkt 1
+      * punkt 2
+    1. två
+  1. tre
+    * punkt
+      1. ett
+
+Olika varianter på numrerade listor:
+  * gemena romerska siffror
+    i. ett
+    i. två
+  * versala romerska siffor som börjar med 42
+    I.#42 fyrtiotvå
+    I. fyrtiotre
+  * gemena bokstäver
+    a. ett
+    a. två
+  * versala bokstäver
+    A. ett
+    A. två
+
+ term:: definition
+ en annan term:: och dess definition

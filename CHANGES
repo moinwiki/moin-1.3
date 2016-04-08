@@ -1,13 +1,173 @@
 MoinMoin Version History
 ========================
 
-Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000, 2001, 2002, 2003 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-Note that the file "ChangeLog" in the distribution contains a detailed
-log of all changes (a summary of all CVS commits).
+$Id: CHANGES,v 1.164 2003/11/29 16:52:22 thomaswaldmann Exp $
 
-$Id: CHANGES,v 1.92 2002/05/10 18:43:01 jhermann Exp $
+-----------------------------------------------------------------------------
+Version 1.1 (2003-11-29, Revision 1.178)
+
+New features:
+  Configuration:
+    * config.default_lang lets you set a default language for users not
+      having specified language in their browser or UserPreferences
+    * "config.page_category_regex" defines what pages are categories
+    * replaced `config.page_template_ending` by a more flexible setting
+      named `config.page_template_regex`
+    * the same with config.page_form_regex
+    * "config.page_group_regex" defines what pages are group definitions
+      Currently groups are used for "user groups" (see ACLs) and "page
+      groups" (see AllSystemPagesGroup).
+    * robot exclusion from all pages except the standard view action,
+      via the config.ua_spiders regex (reduces server load)
+    * "maxdepth" argument for the TableOfContents macro
+    * config.title1, config.title2, config.page_footer1,
+      config.page_footer2 can now be callables and will be called with
+      the "request" object as a single argument (note that you should
+      accept any keyword arguments in order to be compatible to future
+      changes)
+    * "config.html_pagetitle" allows you to set a specific HTML page
+      title (if not set, it defaults to "config.sitename")
+    * navi_bar / quicklinks can now contain free-form links, i.e.
+      entries of the form "[url linktext]" just like in wiki pages
+    * if a quick link starts with '^', it opens in a new window; help
+      now opens in a new window also
+    * `config.smileys` for user-defined smileys
+    * `config.hosts_deny` to forbid access based on IP address
+    * `config.mail_login` can be set to "user pwd", if you need to
+      use SMTP AUTH
+    * `config.edit_locking` can be set to None (old behaviour, no
+      locking), 'warn <timeout mins>' (warn about concurrent edits, but
+      do not enforce anything), or 'lock <timeout mins>' (strict locking)
+    * optionally showing a license text on editor page, use:
+      config.page_license_enabled = 1
+      Optionally use these to customize what is shown there:
+      config.page_license_text = "... your text ..."
+      config.page_license_page = "MyLicensePage"
+      See the default values in MoinMoin/config.py for details and
+      override them in moin_config.py, if needed.
+    * `config.shared_intermap` can be a list of filenames (instead of a
+      single string)
+
+  Authenticaton / Authorization:
+    * added ACL support, written by Gustavo Niemeyer of Conectiva and
+      Thomas Waldmann. See HelpOnAccessControlLists for more infos.
+      You should use MoinMoin/scripts/moin_usercheck.py before activating
+      ACLs or some users with bad or duplicate accounts might get into
+      trouble.
+    * A user account can be disabled using moin_usercheck.py or
+      UserPreferences page. Disabling, but keeping it is good for edit
+      history.
+    * changed security default: deletion only available to known users
+    * support for Basic authentication (Apache style: AUTH_TYPE="Basic",
+      REMOTE_USER="WikiUserName"). If authentication is there, user
+      will be in ACL class "Trusted".
+    * support for username / password login
+      The username / password login will ONLY work, if you define a
+      password. With an empty password, username / password login is not
+      allowed due to security reasons. Passwords are stored encrypted
+      (format similar to Apache SHA) and can also be entered in the
+      UserPreferences form in this format. When requesting login
+      information by email, the password is also sent in this encrypted
+      format (use copy&paste to fill it in the form).
+      ...?action=userform?uid=<userid> is still possible, so if you have
+      bookmarks, they will still work). The input field for the ID was
+      dropped.
+      NOTE: using the userid for login purposes is DEPRECATED and might
+            be removed for better security soon.
+    * after logging in, you will get a cookie valid until midnight.
+      The next day, the cookie will expire and you will have to login
+      again. If you don't want this, you can check the "remember me
+      forever" option in UserPreferences.
+    * if the page file is read-only, you get a message (i.e. you can now
+      protect pages against changes if you're the wiki admin).
+      Note: you can do that easier using ACLs.
+
+  Markup / Macros / Actions:
+    * RandomQuote macro (and even parses Wiki markup now)
+    * `[[Navigation]]` macro for slides and subpage navigation
+    * [[ShowSmileys]] displays ALL smileys, including user-defined ones
+    * the Include macro has new parameters (from, to, sort, items) and
+      is able to include more than one page (via a regex pattern)
+    * `MailTo` macro for adding spam-safe email links to a page
+    * if a fancy link starts with '^' (i.e. if it has the form
+      "[^http:... ...]"), it's opened in a new window
+     * because of that, the NewWindow macro was removed from contrib
+    * "#pragma section-numbers 2" only displays section numbers for
+      headings of level 2 and up (similarly for 3 to 6)
+    * ../SubPageOfParent links
+
+  User interface:
+    * new fancy diffs
+    * Page creation shows LikePages that already exist
+    * editor shows the current size of the page
+    * editor returns to including page when editing an included page
+    * Visual indication we're on the editor page (new CSS style)
+    * selection to add categories to a page in the editor (use preview
+      button to add more than one category)
+    * if user has a homepage, a backup of save/preview text is saved as
+      a subpage UsersHomePage/MoinEditorBackup
+    * added "revert" link to PageInfo view (which makes DeletePage more
+      safe in public wikis, since you can easily revive deleted pages
+      via revert)
+    * Selection for logged in users (i.e. no bots) to extend the listing
+      of recent changes beyond the default limits
+    * Activated display of context for backlinks search
+    * Subscriber list shown on page info
+    * LikePages shows similar pages (using difflib.get_close_matches)
+    * last edit action is stored into "last-edited" file, and
+      displayed in the page footer
+    * reciprocal footnote linking (definition refers back to reference)
+    * "Ex-/Include system pages" link for title index
+      Note: system/help pages algorithm is still mostly broken.
+    * list items set apart by empty lines are now also set apart
+      visually (by adding the CSS class "gap" to <li>)
+    * "save" check for security.Permissions
+    * Added Spanish, Croatian and Danish system texts
+    * Added flag icons for the languages supported in "i18n"
+    * updated help and system pages, more translations, see also
+      AllSystemPagesGroup
+    * there was quite some work done on wiki xmlrpc v1 and v2 - it
+      basically works now.
+
+  Tools and other changes:
+    * moin-dump: New option "--page"
+    * there are some scripts MoinMoin/scripts/* using wiki xmlrpc for
+      backup and wiki page copying applications
+    * Updated the XSLT parser to work with 4Suite 1.0a1
+    * more infos in cgi tracebacks
+    * UPDATE.html is a HTML version of MoinMaster:HelpOnUpdating
+
+Unfinished or experimental features:
+    * user defined forms
+    * XML export of all data in the wiki
+    * RST parser (you need to install docutils to use this)
+    * SystemAdmin macro
+
+Privacy fixes:
+    * do not use / display user's email address in public places
+
+SECURITY FIXES:
+    * Removed two cross-site scripting vulnerabilities reported by "office"
+
+Bugfixes:
+    * Bugfix for PageList when no arguments are given
+    * Disallow full-text searches with too short search terms
+    * [ 566094 ] TitleIndex now supports grouping by Hangul Syllables
+     * fix for multibyte first char in TitleIndex
+    * Footnotes were not HTML escaped
+    * Numbered code displays are now in a table so that you can cut the
+      code w/o the numbers
+    * Bugfix for wrong mail notifications
+    * Create unique anchors for repeated titles
+    * [ 522246 ] Transparently recode localized messages
+    * [ 685003 ] Using "preview" button when editing can lose data
+    * use gmtime() for time handling
+    * fixed negative gmtime() arguments
+    * [[Include]] accepts relative page names
+    * fixed ||NotInterWiki:||...||
 
 -----------------------------------------------------------------------------
 Version 1.0 (2002-05-10, Revision 1.159)
@@ -21,7 +181,7 @@ New features:
       to insert arbitrary HTML into a wiki
     * "action=content" for transclusion into static web pages; emits the
       pure page content, without any <html>, <head>, or <body> tags
-    * "action=link" works like MeatBall:LinkDatabase
+    * "?action=links&mimetype=text/plain" works like MeatBall:LinkDatabase
     * "Preferred language" and "Quick links" user settings
     * Added "processor" concept, processors work on the data in "code
       displays" and are called by a bangpath in the first line of data
@@ -46,6 +206,7 @@ Bugfixes:
     * Macro-generated pagelinks are no longer added to the list of links
     * error codes returned by "diff" are reported
     * fix for attachments on pages with non-USASCII names
+    * correct handling of spaces in attachment filenames and URLs
 
 -----------------------------------------------------------------------------
 Version 0.11 (2002-03-11, Revision 1.151)
@@ -145,7 +306,7 @@ New features:
       defaults to the "<hr>" above the page contents)
     * Additional link on diff pages to ignore whitespace changes
     * Subpages (config.allow_subpages, config.page_icons_up)
-    * ^superscript^ markup
+    * super^script^, sub,,script,, and __underline__ markup
     * `[[FootNote]]` macro
     * many other new config options, see HelpOnConfiguration for
       a complete list
@@ -245,7 +406,7 @@ New features:
 Bugfixes:
     * The editor now sends a "no-cache" HTTP header
     * "PageList" results are now sorted
-	* New config parameter "html_head_queries": send additional header
+    * New config parameter "html_head_queries": send additional header
       for all pages EXCEPT the "normal" view; main usage is to have
       only the normal pages indexed by a spider, not the edit, print,
       etc. views (which cause multiple hits on the same information)

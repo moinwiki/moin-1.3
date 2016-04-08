@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """  
     MoinMoin - Spelling Action
      
@@ -18,14 +19,13 @@
     Additionally, all words on the page "LocalSpellingWords" are added to
     the list of valid words, if that page exists.
 
-    $Id: SpellCheck.py,v 1.24 2002/05/10 11:49:06 jhermann Exp $  
+    $Id: SpellCheck.py,v 1.31 2003/11/09 21:00:55 thomaswaldmann Exp $  
 """
 
 # Imports
 import cgi, os, re, string, sys
 from MoinMoin import config, user, util, wikiutil
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
 # Functions
@@ -94,28 +94,34 @@ def _loadDict(request):
 
 
 def _addLocalWords(request):
+    import types
     from MoinMoin.PageEditor import PageEditor
 
-    # get the page contents
-    lsw_page = PageEditor(config.page_local_spelling_words)
-    words = lsw_page.get_raw_body()
-
-    # get the new words as a string
-    import types
-    newwords = request.form['newwords']
+    # get the new words as a string (if any are marked at all)
+    try:
+        newwords = request.form['newwords']
+    except KeyError:
+        # no new words checked
+        return
     if type(newwords) is not types.ListType:
         newwords = [newwords]
     newwords = string.join(map(lambda w: w.value, newwords), ' ')
 
+    # get the page contents
+    lsw_page = PageEditor(config.page_local_spelling_words, request)
+    words = lsw_page.get_raw_body()
+
     # add the words to the page and save it
     if words and words[-1] != '\n':
         words = words + '\n'
-    lsw_page.save_text(request, words + '\n' + newwords, '0')
+    lsw_page.saveText(words + '\n' + newwords, '0')
 
 
 def checkSpelling(page, request, own_form=1):
     """ Do spell checking, return a tuple with the result.
     """
+    _ = request.getText
+
     # first check to see if we we're called with a "newwords" parameter
     if request.form.has_key('button_newwords'): _addLocalWords(request)
 
@@ -155,14 +161,10 @@ def checkSpelling(page, request, own_form=1):
 
     if badwords:
         badwords = badwords.keys()
-        badwords.sort()
+        badwords.sort(lambda x,y: cmp(x.lower(), y.lower()))
 
-        # for Python 1.5, leave out the lookbehind check (includes the
-        # letter or whitespace before the word in the highlight, which
-        # makes it a bit uglier)
+        # build regex recognizing the bad words
         badwords_re = r'(^|(?<!\w))(%s)(?!\w)'
-        if sys.version < "2":
-            badwords_re = r'(^|\W)(%s)(?!\w)'
         badwords_re = badwords_re % (string.join(map(re.escape, badwords), "|"),)
         badwords_re = re.compile(badwords_re)
 
@@ -202,8 +204,14 @@ def checkSpelling(page, request, own_form=1):
 
 
 def execute(pagename, request):
+    # CNC:2003-06-06
+    _ = request.getText
     page = Page(pagename)
-    badwords, badwords_re, msg = checkSpelling(page, request)
+    if request.user.may.read(pagename):
+        badwords, badwords_re, msg = checkSpelling(page, request)
+    else:
+        badwords = []
+        msg = _("<b>You can't check spelling on a page you can't read.</b>")
 
     if badwords:
         page.send_page(request, msg=msg, hilite_re=badwords_re)

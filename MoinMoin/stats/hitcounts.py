@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Hitcount Statistics
 
@@ -6,7 +7,7 @@
 
     This macro creates a hitcount chart from the data in "event.log".
 
-    $Id: hitcounts.py,v 1.9 2002/04/25 19:32:30 jhermann Exp $
+    $Id: hitcounts.py,v 1.12 2003/11/09 21:01:08 thomaswaldmann Exp $
 """
 
 _debug = 0
@@ -14,15 +15,16 @@ _debug = 0
 import string
 from MoinMoin import config
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
-def linkto(pagename, params=''):
+def linkto(pagename, request, params=''):
+    _ = request.getText
+
     if not config.chart_options:
         return _('<div class="message"><b>Charts are not available!</b></div>')
 
     if _debug:
-        return draw(pagename, None)
+        return draw(pagename, request)
 
     page = Page(pagename)
     result = []
@@ -41,6 +43,8 @@ def draw(pagename, request):
     import cgi, sys, shutil, cStringIO
     from MoinMoin import config, webapi, user
     from MoinMoin.stats.chart import Chart, ChartData, Color
+
+    _ = request.getText
 
     # check params
     filterpage = None

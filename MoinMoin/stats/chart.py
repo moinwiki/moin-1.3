@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Charts
 
@@ -13,7 +14,7 @@
         c.option(title = 'gdchart Demo')
         c.draw(Chart.GDC_LINE, (600, 300), 'test.gif')
 
-    $Id: chart.py,v 1.1 2002/02/01 22:14:52 jhermann Exp $
+    $Id: chart.py,v 1.2 2003/11/09 21:01:08 thomaswaldmann Exp $
 """
 
 import gdchart

@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
 MoinMoin - Create a MoinMoin wiki
 
@@ -15,8 +16,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 """
-# $Id: moin_create.py,v 1.3 2001/07/04 16:37:23 uid31396 Exp $
-__version__ = "$Revision: 1.3 $"[11:-2]
+# $Id: moin_create.py,v 1.5 2003/11/09 21:01:07 thomaswaldmann Exp $
+__version__ = "$Revision: 1.5 $"[11:-2]
 
 
 #############################################################################
@@ -116,8 +117,8 @@ def main():
         optlist, args = getopt.getopt(sys.argv[1:],
             'q',
             ['help', 'quiet', 'version', 'check'])
-    except:
-        _util.fatal("Invalid parameters!", usage=1)
+    except getopt.GetoptError, e:
+        _util.fatal("Invalid parameters: %s" % str(e), usage=1)
 
     #print optlist, args
 
@@ -135,7 +136,7 @@ def main():
 def run():
     global _util
     from MoinMoin.scripts import _util
-    _util.runMain(main)
+    _util.runMain(__name__, main)
 
 
 if __name__ == "__main__": run()

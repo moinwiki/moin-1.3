@@ -1,0 +1,14 @@
+##language:de
+#pragma section-numbers off 
+[[Navigation(slides)]]
+
+= Umgang mit dem Editor =
+
+Um eine Seite zu editieren, klickt man auf [[Icon(moin-edit.gif)]] oder auf den Link "`Editieren`" am Ende der Seite. Es erscheint eine Formularseite, auf der man den Text ändern und anschließend speichern kann. Es wird immer eine Sicherungskopie des vorherigen Inhalts angelegt.
+
+Mit der Vorschau kann man die Darstellung der Seite prüfen, ''ohne'' daß ein Eintrag in AktuelleÄnderungen erzeugt wird; außerdem wird dabei jeweils eine Zwischensicherung angelegt, sofern man eine Homepage angelegt hat ([[Icon(moin-home.gif)]] ist sichtbar).
+
+<!> Den Editor nach dem Bearbeiten von Seiten ''ausschließlich'' über "`Änderungen speichern`" verlassen, sonst sind die Änderungen futsch!
+
+----
+Details siehe HilfeZumEditieren.

@@ -1,9 +1,13 @@
+##language:de
 ##master-page:UserPreferences
-##master-date:2001-12-05 21:16:15
+##master-date:2003-08-14 07:17:12
+Wenn Sie das erste Mal auf dieser Seite sind, sehen Sie das Formular, in das Sie Ihren Benutzernamen und einige andere Einstellungen  eingeben können. Am Besten Sie verwenden einen WikiName wie Vorname``Nachname, dann verweisen Ihre Änderungen und Signaturen auf Ihre Wiki``Homepage. Wenn Sie Ihre Email-Adresse angeben, können Sie bei Seitenänderungen benachrichtigt werden und sich vergessene Passwörter zusenden lassen.
+
+Wenn Sie auf '''[[GetText( Create Profile )]]''' klicken, wird ein Userprofil für Sie angelegt.
+
+/!\ Wenn Sie ein neues Profil erzeugen, dann ignorieren Sie bitte das erste Eingabefeld. Nur '''[[GetText(Name)]]''', '''[[GetText(Password)]]''', '''[[GetText(Password repeat)]]''' und '''[[GetText(Email)]]''' müssen ausgefüllt werden - für '''[[GetText(Email)]]''' bitte das zweite Eingabefeld verwenden.
+
 [[UserPreferences]]
-
-Wenn Sie das erste Mal auf dieser Seite sind, sehen Sie das Formular, in das Sie Ihren Benutzernamen und einige andere Einstellungen (Passwort und e-mail werden gespeichert, aber derzeit nicht benutzt) eingeben können. Wenn Sie auf '''[[GetText( Create Profile )]]''' klicken, wird ein Userprofil für Sie angelegt. Mit Ihren Antworten wird ein HTTP-Cookie zu Ihnen gesandt, das Ihre User-ID enthält, das es dem System ermöglicht, Sie zu erkennen. 
-
- /!\ ''Diese "ID", die in der Antwortseite angezeigt wird, kann dazu benutzt werden, das selbe Cookie zu anderen Maschinen zu senden, die sie benutzen. Notieren Sie sie unbedingt! Oder benutzen Sie Kopieren&Einfügen mit der oben angezeigten URL, nachdem Sie Ihr Profil angelegt haben.''
+ /!\ Diese "ID", die auf der Antwortseite angezeigt wird, wird als Cookie in Ihrem Browser abgespeichert, so dass das System Sie vorübergehend erkennen kann. Es wird um Mitternacht ablaufen, es sei denn, Sie wählen '''[[GetText(Remember login information forever)]]''' an, dann wird das Cookie nicht ablaufen. Um nach Ablauf sich wieder anzumelden, verwenden Sie Name und Passwort, so wie Sie es hier eingegeben haben - vergessen Sie diese Daten nicht! Wenn Sie die Daten vergessen, können Sie sie sich vom System per E-Mail zusenden lassen (Sie sollten daher eine funktionierende E-Mail-Adresse angeben oder Sie werden dann Schwierigkeiten haben).
 
 '''[[GetText( Logout )]]''' löscht das Cookie. Wie oben beschrieben, ermöglicht '''[[GetText( Login )]]''' Ihnen, Zugriff auf Ihr Userprofil zu bekommen, wenn Sie irgendwie das Cookie verloren haben oder auf einer anderen Maschine arbeiten. '''[[GetText( Save )]]''' aktualisiert lediglich Ihr Profil.

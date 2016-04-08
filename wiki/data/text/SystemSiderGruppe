@@ -1,0 +1,91 @@
+##language:da
+##master-page:SystemPagesGroup
+##master-date:2003-08-05 05:50:30
+Dette er en oversigt over alle danske System``Sider (inklusive Hjælpe``Sider) for denne wiki:
+
+Standardsider distribueret med systemet[[FootNote(Standardsiderne bør fjernes herfra hvis oversigten bruges til ACL og siderne efter installation skal kunne tilgås som normale sider)]]:
+ * ForSide
+ * WikiSandKasse
+ * LocalSpellingWords
+
+systemsider:
+ * SenesteRettelser
+ * TitelListe
+ * OrdListe
+ * SiteNavigering
+ * FindSide
+ * BrugerIndstillinger
+ * EfterladteSider
+ * ForældreløseSider
+ * ØnskedeSider
+ * EventStats
+ * EventStats/HitCounts
+ * EventStats/UserAgents
+ * SideStørrelse
+ * InterWiki
+ * TilfældigSide
+ * PythonLanguage
+ * Python4Suite
+ * StructuredText
+ * SystemInfo
+  * SystemSiderGruppe
+ * WikiHjemmeSide
+ * WikiNavn
+ * WikiWikiWeb
+ * XsltVersion
+
+hjælpesider:
+ * HjælpIndhold
+ * HjælpForBegyndere
+ * HelpForDevelopers
+ * HjælpListe
+ * HelpMiscellaneous
+ * HelpMiscellaneous/ExperimentalFeatures
+ * HelpMiscellaneous/FrequentlyAskedQuestions
+ * HelpOnAccessControlLists
+ * HelpOnActions
+ * HelpOnActions/AttachFile
+ * HelpOnAdministration
+ * HelpOnConfiguration
+ * HelpOnConfiguration/CascadingStyleSheets
+ * HelpOnConfiguration/EmailSupport
+ * HelpOnConfiguration/SecurityPolicy
+ * HelpOnEditLocks
+ * HjælpTilRedigering
+ * HelpOnEditing/SubPages
+ * HjælpTilFormatering
+ * HelpOnHeadlines
+ * HelpOnInstalling
+ * HelpOnInstalling/ApacheOnMacOsx
+ * HelpOnInstalling/ApacheOnUnix
+ * HelpOnInstalling/ApacheOnWin32
+ * HelpOnInstalling/BasicInstallation
+ * HelpOnInstalling/InternetInformationServer
+ * HelpOnInstalling/TroubleShooting
+ * HjælpTilHenvisninger
+ * HelpOnLists
+ * HelpOnMacros
+ * ["HelpOnMacros/Include"]
+ * HelpOnMacros/MailTo
+ * HelpOnNavigation
+ * HelpOnPageCreation
+ * HelpOnPageDeletion
+ * HelpOnProcessingInstructions
+ * HelpOnProcessors
+ * HelpOnRules
+ * HelpOnSkins
+ * HelpOnSlideShows
+ * ["HelpOnSlideShows/000 Introduction"]
+ * ["HelpOnSlideShows/100 Creating the slides"]
+ * ["HelpOnSlideShows/900 Last but not least: Running your presentation."]
+ * HelpOnSmileys
+ * HelpOnSpellCheck
+ * HelpOnTables
+ * HelpOnUpdating
+ * HelpOnUserPreferences
+ * HelpOnXmlPages
+ * HjælpSkabelon
+
+kategorisider:
+ * KategoriKategori
+ * KategoriHjemmeside

@@ -1,0 +1,66 @@
+##master-page:HelpOnLinking
+##master-date:2003-03-13 03:36:55
+##language:da
+== Arbitrære sidenavne ==
+Hvis du omkranser en række bogstaver i lodrette klammer og dobbelte anførselstegn {{{["lissom dette"]}}}, bliver det til et sidenavn. Dette kan bruges til specielle anvendelser af MoinMoin (såsom organisering af lister af ting, f.eks. din CD-samling, ved deres "naturlige" navn), eller hvis du vil oprette en wiki med et ikke-vesterlandsk tegnsæt.
+
+/!\ '''Dette er en opsætningsindstilling aktiveret med `allow_extended_names`, så det fungerer muligvis ikke!'''
+
+== URL'er og integrerede billeder ==
+Der er flere måder at indsætte eksterne henvisninger[[FootNote(Det modsatte af eksterne henvisninger er interne, automatiske WikiNavn henvisninger)]] til teksten:
+ * direkte indsættelse af URL'er; hvis adressen ender med fil-endelsen for et billede ("{{{.gif}}}", "{{{.jpg}}}" eller "{{{.png}}}"), bliver URL'en omdannet til et billedemærke.
+ * URL'er i lodrette klammer.
+ * InterWiki henvisninger.
+ * email-adresser.
+
+Indtaster du URL'er inde i normal tekst er der problemet med at genkende hvad der hører til URL'en og hvad der ikke gør. Der er fire måder at tvinge afslutning af en URL:
+ * tilføj et mellemrum efter URL'en.
+ * brug Wiki:SixSingleQuotes undvigelsesmetoden.
+ * omkrans URL'en af dobbelte anførselstegn.
+ * brug syntaksen med lodrette klammer.
+
+De understøttede URL-skemaer er: `http`, `https`, `ftp`, `nntp`, `news`, `mailto`, `telnet`, og `file`. Administratoren af din wiki kan udvide med flere skemaer med {{{config.url_schemas}}}-variablen (se HelpOnConfiguration).
+
+Oveni standardskemaerne er der de MoinMoin-specifikke: `wiki`, `attachment`, `inline`, and `drawing`. "`wiki`" indikerer en InterWiki henvisning, så `MoinMoin:ForSide` og `wiki:MoinMoin:ForSide` er det samme; normalt vil du bruge den kortere form; "`wiki`"-skemaet bliver vigtigt når du bruger syntaksen med lodrette klammer, da du her altid skal angive et skema. De øvrige tre skemaer er relateret til vedhæftede filer og gennegås under HelpOnActions/AttachFile.
+
+Når opsætningsindstillingen `bang_meta` er aktiveret, kan du undertrykke WikiNavn-henvisninger ved at tilføje et udråbstegn (''bang'') foran WikiNavn''''''et, som i `!WikiNavn`. Dette er slået fra som standard.
+
+Se HjælpTilRedigering for yderligere information om mulig opmærkning. For detaljer om henvisninger til undersider se HelpOnEditing/SubPages.
+
+[[FootNote]]
+
+=== Eksempel ===
+{{{
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Hjemmeside]
+ * [^http://moin.sourceforge.net/ MoinMoin Sourceforge Hjemmeside - i et nyt vindue]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki-side på MeatBall]
+ * jh@web.de
+ * [#forankringsnavn forankringshenvisning]
+}}}
+
+=== Display ===
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Hjemmeside]
+ * [^http://moin.sourceforge.net/ MoinMoin Sourceforge Hjemmeside - i et nyt vindue]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki-side på MeatBall]
+ * jh@web.de
+ * [#forankringsnavn forankringshenvisning]

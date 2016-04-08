@@ -1,7 +1,8 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Configuration
 
-    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000-2003 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     Note that there are more config options than you'll find in
@@ -12,9 +13,9 @@
     Also, the URL http://purl.net/wiki/moin/HelpOnConfiguration has
     a list of config options.
 
-    $Id: moin_config.py,v 1.6 2002/02/05 23:00:58 jhermann Exp $
+    $Id: moin_config.py,v 1.10 2003/11/19 00:31:11 thomaswaldmann Exp $
 """
-__version__ = "$Revision: 1.6 $"[11:-2]
+__version__ = "$Revision: 1.10 $"[11:-2]
 
 # If you run several wikis on one host (commonly called a wiki farm),
 # uncommenting the following allows you to load global settings for
@@ -41,8 +42,10 @@ show_hosts = 1                          # show hostnames?
 nonexist_qm = 0                         # show '?' for nonexistent?
 backtick_meta = 1                       # allow `inline typewriter`?
 allow_extended_names = 1                # allow ["..."] markup?
-edit_rows = 30                          # editor size
+edit_rows = 20                          # editor size
 max_macro_size = 50                     # max size of RecentChanges in KB (0=unlimited)
+bang_meta = 0                           # use ! to escape WikiNames?
+show_section_numbers = 1                # enumerate headlines?
 
 # charting needs "gdchart" installed!
 # you can remove the test and gain a little speed (i.e. keep only
@@ -60,12 +63,7 @@ html_head = """
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=%s">
 """ % (charset,)
 
-# security (deactivated by default)
+# security critical actions (deactivated by default)
 if 0:
     allowed_actions = ['DeletePage', 'AttachFile']
-
-    from MoinMoin.security import Permissions
-    class SecurityPolicy(Permissions):
-        edit = 1
-        delete = 1
 

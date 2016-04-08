@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - User-Agent Statistics
 
@@ -7,7 +8,7 @@
     This macro creates a pie chart of the type of user agents
     accessing the wiki.
 
-    $Id: useragents.py,v 1.5 2002/04/25 19:32:31 jhermann Exp $
+    $Id: useragents.py,v 1.8 2003/11/09 21:01:08 thomaswaldmann Exp $
 """
 
 _debug = 0
@@ -15,15 +16,16 @@ _debug = 0
 import string
 from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
-def linkto(pagename, params=''):
+def linkto(pagename, request, params=''):
+    _ = request.getText
+
     if not config.chart_options:
         return _('<div class="message"><b>Charts are not available!</b></div>')
 
     if _debug:
-        return draw(pagename, None)
+        return draw(pagename, request)
 
     page = Page(pagename)
     result = []
@@ -41,6 +43,8 @@ def draw(pagename, request):
     import cgi, sys, shutil, cStringIO, operator
     from MoinMoin import config, webapi
     from MoinMoin.stats.chart import Chart, ChartData, Color
+
+    _ = request.getText
 
     style = Chart.GDC_3DPIE
 

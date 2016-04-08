@@ -1,0 +1,16 @@
+##language:de
+#pragma section-numbers off 
+[[Navigation(slides)]]
+
+= Makros =
+
+ * Makros erlauben das Einfügen dynamischer (berechneter) Inhalte in die Seiten.
+ * Ein Makro wird durch "`[[MakroName(parameter)]]`" aufgerufen.
+ * Die Parameter sind dabei je nach Makro optional.
+ * Die wichtigsten Makros:
+   * `TableOfContents` - zeigt ein lokales Inhaltsverzeichnis an
+   * `Anchor` - definiert lokale Verweisziele
+   * `FootNote` - erzeugt eine Fußnote[[FootNote(Fußnoten sehen so aus.)]]
+   * `PageList` - erzeugt Listen von Seiten, deren Titel einem Muster entsprechen
+----
+Details auf HilfeZuMakros.

@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Extensions to twisted.web
 
@@ -10,6 +11,6 @@
     The interface between generic MoinMoin code and the code
     here is in "MoinMoin.webapi.twistedMoin".
 
-    $Id: __init__.py,v 1.2 2001/03/15 22:20:25 jhermann Exp $
+    $Id: __init__.py,v 1.3 2003/11/09 21:01:13 thomaswaldmann Exp $
 """
 

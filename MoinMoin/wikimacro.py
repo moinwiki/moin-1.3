@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Macro Implementation
 
@@ -10,15 +11,15 @@
     The sub-package "MoinMoin.macro" contains external
     macros, you can place your extensions there.
 
-    $Id: wikimacro.py,v 1.42 2002/05/09 21:09:37 jhermann Exp $
+    $Id: wikimacro.py,v 1.69 2003/11/09 21:00:52 thomaswaldmann Exp $
 """
 
 # Imports
 import os, re, string, sys, time
 from MoinMoin import action, config, editlog, macro, user, util
-from MoinMoin import version, wikiutil, wikiaction
+from MoinMoin import version, wikiutil, wikiaction, i18n
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
+from MoinMoin.util import pysupport
 
 
 #############################################################################
@@ -28,17 +29,20 @@ from MoinMoin.i18n import _
 names = ["TitleSearch", "WordIndex", "TitleIndex",
          "GoTo", "InterWiki", "SystemInfo", "PageCount", "UserPreferences",
          # Macros with arguments
-         "Icon", "PageList", "Date", "DateTime", "Anchor",
+         "Icon", "PageList", "Date", "DateTime", "Anchor", "MailTo"
 ]
 
 # external macros
 names.extend(macro.extension_macros)
 
+# languages
+names.extend(i18n.languages.keys())
+
 # plugins
 _plugins = os.path.join(config.plugin_dir, 'macro')
 plugin_macros = []
 if os.path.isdir(_plugins):
-    plugin_macros = util.getPackageModules(os.path.join(_plugins, 'dummy'))
+    plugin_macros = pysupport.getPackageModules(os.path.join(_plugins, 'dummy'))
     names.extend(plugin_macros)
 
 
@@ -58,6 +62,24 @@ def _make_index_key(index_letters, additional_html=""):
     return s
 
 
+def execute_external_macro(macro_name, function, args):
+    """ Call `function` with `args` in an external macro `macro_name`.
+    """
+    # load extension macro
+    if macro_name in macro.extension_macros:
+        execute = pysupport.importName("MoinMoin.macro." + macro_name, function)
+        return execute(*args)
+
+    # try plugin dir
+    # !!! plugin dir should prolly take precedence, but changing this should
+    # be done uniformly to all extensions (actions, etc.)
+    if macro_name in plugin_macros:
+        execute = pysupport.importPlugin(_plugins, "MoinMoin.plugin.macro", macro_name, function)
+        return execute(*args)
+
+    raise ImportError("Cannot load macro %s" % macro_name)
+
+
 #############################################################################
 ### Macros - Handlers for [[macroname]] markup
 #############################################################################
@@ -70,28 +92,30 @@ class Macro:
         self.formatter = self.parser.formatter
         self.form = self.parser.form
         self.request = self.parser.request
+        self._ = self.request.getText
+
+        # make formatter available in request, so macros
+        # can rely on that
+        self.request.formatter = self.formatter
 
     def execute(self, macro_name, args):
         builtins = vars(self.__class__)
         if builtins.has_key('_macro_' + macro_name):
-            return apply(builtins['_macro_' + macro_name], (self, args))
+            return builtins['_macro_' + macro_name](self, args)
 
-        # load extension macro
-        if macro_name in macro.extension_macros:
-            execute = util.importName("MoinMoin.macro." + macro_name, "execute")
-            return apply(execute, (self, args))
+        # language macro
+        if i18n.languages.has_key(macro_name):
+            self.request.current_lang = macro_name
+            return ''
 
-        # try plugin dir
-        if macro_name in plugin_macros:
-            execute = util.importPlugin(_plugins, "MoinMoin.plugin.macro", macro_name, "execute")
-            return apply(execute, (self, args))
-
-        raise ImportError("Cannot load macro %s" % macro_name)
+        return execute_external_macro(macro_name, "execute", (self, args))
 
     def _macro_TitleSearch(self, args):
         return self._m_search("titlesearch")
 
     def _m_search(self, type):
+        import cgi
+
         if self.form.has_key('value'):
             default = self.form["value"].value
         else:
@@ -100,26 +124,27 @@ class Macro:
         if type == "fullsearch":
             boxes = (
                   '<br><input type="checkbox" name="context" value="40" checked>'
-                + _('Display context of search results')
+                + self._('Display context of search results')
                 + '<br><input type="checkbox" name="case" value="1">'
-                + _('Case-sensitive searching')
+                + self._('Case-sensitive searching')
             )
         return self.formatter.rawHTML((
             '<form method="GET">'
             '<input type="hidden" name="action" value="%s">'
             '<input name="value" size="30" value="%s">&nbsp;'
             '<input type="submit" value="%s">'
-            '%s</form>') % (type, default, _("Go"), boxes))
+            '%s</form>') % (type, cgi.escape(default, quote=1), self._("Go"), boxes))
 
     def _macro_GoTo(self, args):
         return self.formatter.rawHTML("""<form method="get"><input name="goto" size="30">
         <input type="submit" value="%s">
-        </form>""" % _("Go"))
+        </form>""" % self._("Go"))
 
     def _macro_WordIndex(self, args):
         index_letters = []
         s = ''
         pages = list(wikiutil.getPageList(config.text_dir))
+        pages = filter(self.request.user.may.read, pages)
         map = {}
         word_re = re.compile('[%s][%s]+' % (config.upperletters, config.lowerletters))
         for name in pages:
@@ -159,13 +184,22 @@ class Macro:
 
         s = ''
         index_letters = []
+        allpages = int(self.form.getvalue('allpages', 0)) != 0
         pages = list(wikiutil.getPageList(config.text_dir))
+        pages = filter(self.request.user.may.read, pages)
+        if not allpages:
+            pages = [p for p in pages if not wikiutil.isSystemPage(p)]
         pages.sort()
         current_letter = None
         for name in pages:
             letter = name[0]
-            if wikiutil.isUnicodeName(name):
-                letter = "~"
+            if wikiutil.isUnicodeName(letter):
+                try:
+                    letter = wikiutil.getUnicodeIndexGroup(unicode(name, config.charset))
+                    if letter: letter = letter.encode(config.charset)
+                except UnicodeError:
+                    letter = None
+                if not letter: letter = "~"
             if letter not in index_letters:
                 index_letters.append(letter)
             if letter <> current_letter:
@@ -174,7 +208,7 @@ class Macro:
                 current_letter = letter
             else:
                 s = s + '<br>'
-            s = s + Page(name).link_to() + '\n'
+            s = s + Page(name).link_to(attachment_indicator=1) + '\n'
 
         # add rss link
         index = ''
@@ -185,10 +219,14 @@ class Macro:
                 wikiutil.quoteWikiname(self.formatter.page.page_name) + "?action=rss_ti",
                 img, unescaped=1)
 
+        qpagename = wikiutil.quoteWikiname(self.formatter.page.page_name)
         index = index + _make_index_key(index_letters, """<br>
-<a href="?action=titleindex">%s</a>&nbsp;|
-<a href="?action=titleindex&mimetype=text/xml">%s</a>
-""" % (_('Plain title index'), _('XML title index')) )
+<a href="%s?allpages=%d">%s</a>&nbsp;|
+<a href="%s?action=titleindex">%s</a>&nbsp;|
+<a href="%s?action=titleindex&mimetype=text/xml">%s</a>
+""" % (qpagename, not allpages, (self._('Include system pages'), self._('Exclude system pages'))[allpages],
+       qpagename, self._('Plain title index'),
+       qpagename, self._('XML title index')) )
 
         return index + s
 
@@ -217,6 +255,7 @@ class Macro:
 
 
     def _macro_SystemInfo(self, args):
+        import operator
         from cStringIO import StringIO
         from MoinMoin import processor
 
@@ -229,35 +268,45 @@ class Macro:
         except AttributeError:
             ftversion = 'N/A'
 
+        pagelist = wikiutil.getPageList(config.text_dir)
+        totalsize = reduce(operator.add, [Page(name).size() for name in pagelist])
+
         buf = StringIO()
         row = lambda label, value, buf=buf: buf.write(
             '<tr><td valign="top" nowrap><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>' %
             (label, value))
 
-        eventlogger = self.request.getEventLogger()
-
         buf.write('<table border=0 cellspacing=2 cellpadding=0>')
-        row(_('Python Version'), sys.version)
-        row(_('MoinMoin Version'), _('Release %s [Revision %s]') % (version.release, version.revision))
+        row(self._('Python Version'), sys.version)
+        row(self._('MoinMoin Version'), self._('Release %s [Revision %s]') % (version.release, version.revision))
         if ftversion:
-            row(_('4Suite Version'), ftversion)
-        row(_('Number of pages'), len(wikiutil.getPageList(config.text_dir)))
-        row(_('Number of backup versions'), len(wikiutil.getBackupList(config.backup_dir, None)))
-        edlog = editlog.EditLog()
-        row(_('Entries in edit log'), _("%(logcount)s (%(logsize)s bytes)") %
+            row(self._('4Suite Version'), ftversion)
+        row(self._('Number of pages'), len(pagelist))
+        row(self._('Number of system pages'), len(filter(wikiutil.isSystemPage, pagelist)))
+        row(self._('Number of backup versions'), len(wikiutil.getBackupList(config.backup_dir, None)))
+        row(self._('Accumulated page sizes'), totalsize)
+
+        edlog = editlog.EditLog(self.request)
+        row(self._('Entries in edit log'), self._("%(logcount)s (%(logsize)s bytes)") %
             {'logcount': len(edlog), 'logsize': edlog.size()})
-        row(_('Entries in event log'), _("%(logcount)s (%(logsize)s bytes)") %
-            {'logcount': len(eventlogger.read()), 'logsize': eventlogger.size()})
-        row(_('Global extension macros'), 
-            string.join(macro.extension_macros, ', ') or _("<b>NONE</b>"))
-        row(_('Local extension macros'), 
-            string.join(plugin_macros, ', ') or _("<b>NONE</b>"))
-        row(_('Global extension actions'), 
-            string.join(action.extension_actions, ', ') or _("<b>NONE</b>"))
-        row(_('Local extension actions'), 
-            string.join(wikiaction.getPlugins()[1], ', ') or _("<b>NONE</b>"))
-        row(_('Installed processors'), 
-            string.join(processor.processors, ', ') or _("<b>NONE</b>"))
+
+        # !!! This puts a heavy load on the server when the log is large,
+        # and it can appear on normal pages ==> so disable it for now.
+        if 0:
+            eventlogger = self.request.getEventLogger()
+            row(self._('Entries in event log'), self._("%(logcount)s (%(logsize)s bytes)") %
+                {'logcount': len(eventlogger.read()), 'logsize': eventlogger.size()})
+
+        row(self._('Global extension macros'), 
+            string.join(macro.extension_macros, ', ') or self._("<b>NONE</b>"))
+        row(self._('Local extension macros'), 
+            string.join(plugin_macros, ', ') or self._("<b>NONE</b>"))
+        row(self._('Global extension actions'), 
+            string.join(action.extension_actions, ', ') or self._("<b>NONE</b>"))
+        row(self._('Local extension actions'), 
+            string.join(wikiaction.getPlugins()[1], ', ') or self._("<b>NONE</b>"))
+        row(self._('Installed processors'), 
+            string.join(processor.processors, ', ') or self._("<b>NONE</b>"))
         buf.write('</table>')
 
         return self.formatter.rawHTML(buf.getvalue())
@@ -274,14 +323,15 @@ class Macro:
 
     def _macro_PageList(self, args):
         try:
-            needle_re = re.compile(args, re.IGNORECASE)
+            needle_re = re.compile(args or '', re.IGNORECASE)
         except re.error, e:
             return "<b>%s: %s</b>" % (
-                _("ERROR in regex '%s'") % (args,), e)
+                self._("ERROR in regex '%s'") % (args,), e)
 
         all_pages = wikiutil.getPageList(config.text_dir)
         hits = filter(needle_re.search, all_pages)
         hits.sort()
+        hits = filter(self.request.user.may.read, hits)
 
         result = self.formatter.bullet_list(1)
         for filename in hits:
@@ -294,9 +344,11 @@ class Macro:
 
     def __get_Date(self, args, format_date):
         if not args:
-            tm = time.time()
-        elif len(args) == 19 and args[4] == '-' and args[7] == '-' \
+            tm = time.time() # always UTC
+        elif len(args) >= 19 and args[4] == '-' and args[7] == '-' \
                 and args[10] == 'T' and args[13] == ':' and args[16] == ':':
+            # we ignore any time zone offsets here, assume UTC,
+            # and accept (and ignore) any trailing stuff
             try:
                 tm = (
                     int(args[0:4]),
@@ -309,14 +361,17 @@ class Macro:
                 )
             except ValueError, e:
                 return "<b>%s: %s</b>" % (
-                    _("Bad timestamp '%s'") % (args,), e)
-            tm = time.mktime(tm)
+                    self._("Bad timestamp '%s'") % (args,), e)
+     	    # as mktime wants a localtime argument (but we only have UTC),
+            # we adjust by our local timezone's offset
+     	    tm = time.mktime(tm) - time.timezone
         else:
+            # try raw seconds since epoch in UTC
             try:
                 tm = float(args)
             except ValueError, e:
                 return "<b>%s: %s</b>" % (
-                    _("Bad timestamp '%s'") % (args,), e)
+                    self._("Bad timestamp '%s'") % (args,), e)
         return format_date(tm)
 
     def _macro_Date(self, args):
@@ -332,4 +387,35 @@ class Macro:
 
     def _macro_Anchor(self, args):
         return self.formatter.anchordef(args or "anchor")
+
+    def _macro_MailTo(self, args):
+        from MoinMoin.util.mail import decodeSpamSafeEmail
+
+        args = args or ''
+        if args.find(',') == -1:
+            email = args
+            text = ''
+        else:
+            email, text = args.split(',', 1)
+
+        email, text = email.strip(), text.strip()
+
+        if self.request.user.valid:
+            # decode address and generate mailto: link
+            email = decodeSpamSafeEmail(email)
+            text = util.web.getLinkIcon(self.request, self.formatter, "mailto") + \
+                self.formatter.text(text or email)
+            result = self.formatter.url('mailto:' + email, text, 'external', pretty_url=1, unescaped=1)
+        else:
+            # unknown user, maybe even a spambot, so
+            # just return text as given in macro args
+            email = self.formatter.code(1) + \
+                self.formatter.text("<%s>" % email) + \
+                self.formatter.code(0)
+            if text:
+                result = self.formatter.text(text) + " " + email
+            else:
+                result = email
+
+        return result
 

@@ -1,0 +1,32 @@
+##language:fr
+== Configurez vos préférences utilisateur / UserPreferences ==
+Vous pouvez vous enregistrer et établir vos préférences en cliquant sur le lien PréférencesUtilisateur en haut à droite des pages. Si vous êtes enregistré et logué, votre nom s'affichera à la place de "Préférences''Utilisateur".
+
+Description des différents champs des User''Preferences, ci-dessous, rien que pour vous:
+
+ * '''[[GetText(Name)]]''' : Votre vrai nom ou un alias. L'idéal est d'utiliser un format WikiName.
+ * '''[[GetText(Password)]]''' : Un truc que vous pouvez vous rappeler (dont vous pouvez vous souvenir), mais pas vos amis ni votre famille. ''Pas utilisé pour l'instant, alors laissez-le vide!''
+ * '''[[GetText(Email)]]''' : Votre adresse mail. Indispensable pour s'incrire aux pages ou pour recevoir par mail votre identifiant oublié. Votre adresse e-mail ne sera pas divulguée publiquement.
+ * '''[[GetText(CSS URL)]]''' : Ce wiki n'utilise pas de feuilles de styles alternatives. Laissez la configuration par défaut.
+ * '''[[GetText(Editor size)]]''' : <!> Contrôle la taille de la zone de texte lors de la modif d'une page. Ajustez-la à la taille de votre moniteur et à vos préférences perso.
+ * '''[[GetText(Time zone)]]''' : ... Votre fuseau horaire.
+   * '''[[GetText(Your time is)]]''' : Si l'heure affichée est inexacte, faites défiler pour choisir l'heure correcte.
+   * '''[[GetText(Server time is)]]''' : Affichage de l'heure du serveur.
+ * '''[[GetText(Date format)]]''' : Le choix par défault, année-mois-jour, est le format le plus simple pour un usage international : il évitera les confusions.
+ * '''[[GetText(Preferred language)]]''' : Par défaut, le langage préféré sera celui de votre navigateur. IL est conseillé de choisir un langage spécifique pour recevoir ses mails dans sa langue maternelle.
+ * '''[[GetText(General options)]]''' : ... les options générales!
+   * '''[[GetText(Add "Open in new window" icon to pretty links)]]''' : Si vous cochez, les liens pointant hors du wiki auront leur propre icône pour ouvrir l'URL dans une nouvelle fenêtre. C'est mignon non?
+   * '''[[GetText(Add spaces to displayed wiki names)]]''' : Si vous cochez, les '''Wiki``Names''' ressembleront à des '''Wiki Names'''.
+   * '''[[GetText(Open editor on double click)]]''' : Ouvre l'éditeur sur un double clic. Pratique pour éditer un grand nombre de pages.
+   * '''[[GetText(Remember last page visited)]]''' : Pour se souvenir de la dernière page visitée. En dirigeant votre navigateur vers l'URL de base du wiki(celui qui ne mentionne aucune page), vous verrez la dernirèe page que vous avez visitée. Pratique si vous lisez ou éditez toujours la même page.
+   * '''[[GetText(Show emoticons)]]''' : Les émoticônes c'est mignon! On affiche /!\ et ;)) à la place de `/!\` et `;))`.
+   * '''[[GetText(Show fancy diffs)]]''' : Affiche les différences de façon plus claire sur la page.
+   * '''[[GetText(Show fancy links)]]''' : affiche les petits dessins qui indiquent le type de lien, [[Icon(moin-www.gif)]] pour WWW, [[Icon(moin-ftp.gif)]] pour FTP, etc.
+   * '''[[GetText(Show icon toolbar)]]''' : Fournit une rangée d'icônes-liens dans le coin supérieur droit.
+   * '''[[GetText(Show question mark for non-existing pagelinks)]]''' : affiche un '''?''' en surbrillance en tête des pagesinexistantes à la place du nom en code couleur.
+   * '''[[GetText(Show page trail)]]''' : Liste les 5 dernière pages visitées en haut depage, pour que vous puissiez retourner en arrière de plusieurs pages facilement.
+   * '''[[GetText(Show top/bottom links in headings)]]''' : Si vous cochez, chaque barre de titre aura une flèche vers le haut et une vers le bas, pour naviguer vers le haut ou bas de page.
+ * '''[[GetText(Quick links)]]''' : Option qui a priorité sur les choix standards dans votre barre de navigation grise n haut de page : entrez un nom de page wiki par ligne. Si la page commence par `^`, ça ouvre une nouvelle fenêtre. On peut ajouter des liens de forme libre, càd de la forme `[url linktext]`, comme dans les pages wiki.
+ * '''[[GetText(Subscribed wiki pages<br>(one regex per line))]]''': Entrez '''`.*`''' pour recevoir un email quand unepage du wiki est modifiée. (''non recommandé'' pour les wikis très actifs), ou entrez le nom de pages individuelles, une par ligne.  Si vous êtes familiarisé avec les '''regular expressions'''(expressions régulières), vous pouvez entrer une expression '''regex''' en relation avec les noms de pages qui vous intéressent. (.* est associé à tous les noms de pages). En cochant l'option '''[[GetText(Show icon toolbar)]]''' , l'inscription aux pagesindividuelles est facilitée en cliquant sur l'icône -enveloppe quand vous visualisez une page qui vous intéresse.
+
+ /!\ Cette caractéristique est optionnelle, elle ne marche que quand l'aide email (email support) est activée pour ce wiki, voir à ce sujet HelpOnConfiguration/EmailSupport (quand la traduc sera faite).

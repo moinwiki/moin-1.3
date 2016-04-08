@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Command line utilities
 
@@ -14,15 +15,16 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    $Id: _util.py,v 1.2 2002/02/13 21:13:55 jhermann Exp $
+    $Id: _util.py,v 1.5 2003/11/09 21:01:07 thomaswaldmann Exp $
 """
-__version__ = "$Revision: 1.2 $"[11:-2]
+__version__ = "$Revision: 1.5 $"[11:-2]
 
 # Imports
 import os, sys
 
 # Globals
 flag_quiet = 0
+script_module = '__main__'
 
 
 #############################################################################
@@ -34,7 +36,7 @@ def fatal(msgtext, **kw):
     """
     sys.stderr.write("FATAL ERROR: " + msgtext + "\n")
     if kw.get('usage', 0):
-        maindict = vars(sys.modules['__main__'])
+        maindict = vars(sys.modules[script_module])
         if maindict.has_key('usage'):
             maindict['usage']()
     sys.exit(1)
@@ -51,61 +53,62 @@ def log(msgtext):
 ### Commandline Support
 #############################################################################
 
-def cmdInit():
-    """ Common command initialization.
-    """
-    import time
+class Script:
 
-    global _start_time
-    _start_time = time.clock()
+    def __init__(self, script, usage):
+        import sys, time
+
+        self.script_module = sys.modules[script]
+
+        global _start_time
+        _start_time = time.clock()
+
+        from MoinMoin.support import optik
+        from MoinMoin import version
+
+        cmd = self.script_module.__name__.split('.')[-1].replace('_', '-')
+        ver = self.script_module.__version__
+        rev = "%s (%s %s [%s])" % (
+            ver, version.project, version.release, version.revision)
+        sys.argv[0] = cmd
+
+        self.parser = optik.OptionParser(
+            usage=
+                "%(cmd)s %(usage)s\n"
+                "\n"
+                "%(cmd)s v%(ver)s, Copyright (c) 2002, 2003 by Jürgen Hermann <jh@web.de>"
+                % locals(),
+            version=rev)
+        self.parser.add_option(
+            "-q", "--quiet", 
+            action="store_true", dest="quiet",
+            help="Be quiet (no informational messages)"
+        )
 
 
-def runMain(mainloop):
-    """ Run the main function of a command.
-    """
-    showtime = 1
-    try:
+    def run(self):
+        """ Run the main function of a command.
+        """
+        global flag_quiet
+
+        showtime = 1
         try:
-            cmdInit()
-            mainloop()
-        except KeyboardInterrupt:
-            log("*** Interrupted by user!")
-        except SystemExit:
-            showtime = 0
-            raise
-    finally:
-        if showtime: logRuntime()
+            try:
+                self.options, self.args = self.parser.parse_args()
+                flag_quiet = self.options.quiet
+                self.mainloop()
+            except KeyboardInterrupt:
+                log("*** Interrupted by user!")
+            except SystemExit:
+                showtime = 0
+                raise
+        finally:
+            if showtime: self.logRuntime()
 
 
-def logRuntime():
-    """ Print the total command run time.
-    """
-    import time
-    log("Needed %.3f secs." % (time.clock() - _start_time,))
-
-
-def haveOptions(optlist, options):
-    """ Check whether one of the options in "options" is in the list of
-        options ("optlist") created from the command line
-    """
-    return filter(lambda flag, o=options: flag[0] in o, optlist) != []
-
-
-def getOption(optlist, options):
-    """ Get the value of the options in "options", from the list of
-        options ("optlist") created from the command line
-    """
-    match = filter(lambda flag, o=options: flag[0] in o, optlist)
-    if match:
-        return match[-1][1]
-    else:
-        return ""
-
-
-def getOptionList(optlist, options):
-    """ Get all the values of the options in "options", from the list of
-        options ("optlist") created from the command line
-    """
-    opts = filter(lambda flag, o=options: flag[0] in o, optlist)
-    return map(lambda o: o[1], opts)
+    def logRuntime(self):
+        """ Print the total command run time.
+        """
+        import time
+        log("Needed %.3f secs." % (time.clock() - _start_time,))
 

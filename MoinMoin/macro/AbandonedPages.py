@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - AbandonedPages Macro
 
@@ -8,7 +9,7 @@
     according to the edit log; if you shortened the log, the displayed
     information may not be what you expect.
 
-    $Id: AbandonedPages.py,v 1.1 2001/11/16 02:34:47 jhermann Exp $
+    $Id: AbandonedPages.py,v 1.2 2003/11/09 21:01:01 thomaswaldmann Exp $
 """
 
 from MoinMoin.macro import RecentChanges

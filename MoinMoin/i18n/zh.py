@@ -1,6 +1,7 @@
 # Text translations for zh (Chinese)
 # Maintained by: "Changzhe Han" <hancz@brovic.com>
 # Encoding: gb2312
+# Direction: ltr
 text = {
 '''
 <h2>New Attachment</h2>
@@ -45,6 +46,9 @@ Sent a mail notification to these addresses: %s
 ' Save ':
 ' 保存 ',
 
+' Slide %(pos)d of %(size)d ':
+' Slide %(pos)d of %(size)d ',
+
 ' Upload ':
 ' 上载 ',
 
@@ -75,6 +79,11 @@ Sent a mail notification to these addresses: %s
 '# of pages of this size':
 '# of 这样大小的页面',
 
+'''## backup of page "%(pagename)s" submitted %(date)s
+''':
+'''## backup of page "%(pagename)s" submitted %(date)s
+''',
+
 '%(changecount)s changes':
 '%(changecount)s 次改变',
 
@@ -87,14 +96,23 @@ Sent a mail notification to these addresses: %s
 '%(hits)d hits out of %(pages)d pages searched.':
 '搜索 %(pages)d 页面，找到 %(hits)d 次.',
 
+'%(logcount)s (%(logsize)s bytes)':
+'%(logcount)s (%(logsize)s bytes)',
+
 '%(matchcount)d %(matches)s for "%(title)s"':
 '%(matchcount)d %(matches)s 对 "%(title)s"',
+
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]':
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]',
 
 '("None" for disabling CSS)':
 '("None" 禁用 CSS)',
 
 '(currently set to %s)':
 '(目前设为 %s)',
+
+'(last edited %(time)s by %(editor)s)':
+'(last edited %(time)s by %(editor)s)',
 
 '(last modified %s)':
 '(上次修改 %s)',
@@ -104,6 +122,15 @@ Sent a mail notification to these addresses: %s
 
 '4Suite Version':
 '4Suite Version',
+
+'<Browser setting>':
+'<Browser setting>',
+
+'<Default>':
+'<Default>',
+
+'<No addition>':
+'<No addition>',
 
 "<b>Attachment '%(filename)s' does not exist!</b>":
 "<b>附件 '%(filename)s' 不存在!</b>",
@@ -132,8 +159,14 @@ Sent a mail notification to these addresses: %s
 '<b>No spelling errors found!</b>':
 '<b>没找到拼写错误！</b>',
 
+'<b>Page is immutable!</b>':
+'<b>Page is immutable!</b>',
+
 '<b>Please provide a valid email address!</b>':
 '<b>请提供一个可用email地址!</b>',
+
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>":
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>",
 
 '''<b>Sorry, someone else saved the page while you edited it.
 <p>Please do the following: Use the back button of your browser, and cut&paste
@@ -177,6 +210,9 @@ Your attention to detail is appreciated.</b>''':
 
 '<b>You cannot use LikePages on an extended pagename!</b>':
 '<b>您不能用 LikePages 于扩充的页名！</b>',
+
+'<b>You did not change the page content, not saved!</b>':
+'<b>You did not change the page content, not saved!</b>',
 
 '<b>You have been subscribed to this page.</b>':
 '<b>您订阅了此页.</b>',
@@ -238,6 +274,12 @@ from the subscription list.</b>
 <hr>
 """,
 
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>':
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>',
+
+'<p><b>You will not be notified of your own changes!</b></p>':
+'<p><b>You will not be notified of your own changes!</b></p>',
+
 '''<p><small>If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
 <br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
@@ -250,7 +292,10 @@ macro call.</b></small></p>
 ''',
 
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>":
-"<p>本页内容的SHA digest为: <tt>%(digest)s</tt></p>",
+'<p>本页内容的SHA digest为: <tt>%(digest)s</tt></p>',
+
+'<p>The following pages with similar names already exist...</p>':
+'<p>The following pages with similar names already exist...</p>',
 
 '''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
 as shown below in the list of files. 
@@ -266,6 +311,12 @@ since this is subject to change and can break easily.</p>''':
 
 '<small>[goto %s]</small>':
 '<small>[转到 %s]</small>',
+
+'<unknown>':
+'<unknown>',
+
+'Accumulated page sizes':
+'Accumulated page sizes',
 
 'Action':
 '动作',
@@ -306,6 +357,9 @@ since this is subject to change and can break easily.</p>''':
 'Cancel':
 '取消',
 
+'Case-sensitive searching':
+'Case-sensitive searching',
+
 'Check Spelling':
 '检查拼写',
 
@@ -317,6 +371,9 @@ since this is subject to change and can break easily.</p>''':
 
 'Comment':
 '注释',
+
+"Connection to mailserver '%(server)s' failed: %(reason)s":
+"Connection to mailserver '%(server)s' failed: %(reason)s",
 
 'Create new drawing "%(filename)s"':
 '创建新 drawing "%(filename)s"',
@@ -330,6 +387,23 @@ since this is subject to change and can break easily.</p>''':
 'Date format':
 '日期格式',
 
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''':
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''',
+
 'Default':
 '缺省',
 
@@ -339,8 +413,14 @@ since this is subject to change and can break easily.</p>''':
 'Describe %s here.':
 '在这里描述 %s .',
 
+'Detailed Information':
+'Detailed Information',
+
 'Diff for "%s"':
 '"%s" 版本差别',
+
+'Display context of search results':
+'Display context of search results',
 
 'Distribution of User-Agent Types':
 '用户代理类型分布',
@@ -353,6 +433,9 @@ since this is subject to change and can break easily.</p>''':
 
 "ERROR in regex '%s'":
 "表达式 '%s' 有错",
+
+'Edit':
+'Edit',
 
 'Edit "%(pagename)s"':
 '编辑 "%(pagename)s"',
@@ -375,6 +458,15 @@ since this is subject to change and can break easily.</p>''':
 'Entries in edit log':
 '编辑日志项',
 
+'Entries in event log':
+'Entries in event log',
+
+'Exactly one matching page for "%s" found!':
+'Exactly one matching page for "%s" found!',
+
+'Exclude system pages':
+'Exclude system pages',
+
 'Expected "=" to follow "%(token)s"':
 '期待 "=" 跟着 "%(token)s"',
 
@@ -392,6 +484,12 @@ since this is subject to change and can break easily.</p>''':
 
 'Fri':
 '星期五',
+
+'FrontPage':
+'FrontPage',
+
+'Full Link List for "%s"':
+'Full Link List for "%s"',
 
 'Full text search for "%s"':
 '全文搜索 "%s"',
@@ -420,11 +518,26 @@ since this is subject to change and can break easily.</p>''':
 'Ignore changes in the amount of whitespace':
 '忽略仅仅空白数量的改变',
 
+'Immutable page':
+'Immutable page',
+
+'Include system pages':
+'Include system pages',
+
 'Info for "%s"':
 '关于 "%s"',
 
+'Installed processors':
+'Installed processors',
+
+'InterWiki':
+'InterWiki',
+
 'Invalid include arguments "%s"!':
 '包含参数 "%s" 不可用!',
+
+'Line':
+'Line',
 
 'Local Site Map for "%s"':
 '"%s" 的本地站点图',
@@ -443,6 +556,9 @@ since this is subject to change and can break easily.</p>''':
 
 'Mail sent OK':
 '邮件发送成功',
+
+'Make this page belong to category %(category)s':
+'Make this page belong to category %(category)s',
 
 'MoinMoin Version':
 'MoinMoin 版本',
@@ -465,11 +581,25 @@ since this is subject to change and can break easily.</p>''':
 'No attachments stored for %(pagename)s':
 '%(pagename)s 无附件保存',
 
+'''No differences found!
+''':
+'''No differences found!
+''',
+
+'No older revisions of the page stored, diff not available.':
+'No older revisions of the page stored, diff not available.',
+
 'No orphaned pages in this wiki.':
 '本wiki无孤立页.',
 
 'No pages match "%s"!':
 '无匹配 "%s" 的页面!',
+
+'No parent page found!':
+'No parent page found!',
+
+'No quotes on %(pagename)s.':
+'No quotes on %(pagename)s.',
 
 'No wanted pages in this wiki.':
 '本wiki中无所需页.',
@@ -483,11 +613,17 @@ since this is subject to change and can break easily.</p>''':
 'Number of pages':
 '页面数',
 
+'Number of system pages':
+'Number of system pages',
+
 'Open editor on double click':
 '双击打开编辑器',
 
 'Optional comment about this change':
 '关于本次改变可加的注释',
+
+'Optional reason for the deletion':
+'Optional reason for the deletion',
 
 'Or try one of these actions: ':
 '或尝试以下动作: ',
@@ -495,7 +631,7 @@ since this is subject to change and can break easily.</p>''':
 'Others':
 '其它',
 
-'Page "%s" was sucessfully deleted!':
+'Page "%s" was successfully deleted!':
 '页面 "%s" 被成功删除!',
 
 'Page Size Distribution':
@@ -513,14 +649,23 @@ since this is subject to change and can break easily.</p>''':
 'Please use the interactive user interface to delete pages!':
 '请使用交互用户界面删除页面!',
 
+'Preferred language':
+'Preferred language',
+
 'Preview':
 '预览',
 
 'Preview of "%(pagename)s"':
 '页面"%(pagename)s"的预览',
 
+'Print View':
+'Print View',
+
 'Python Version':
 'Python 版本',
+
+'Quick links':
+'Quick links',
 
 'Really delete this page?':
 '真要删除本页?',
@@ -549,6 +694,12 @@ since this is subject to change and can break easily.</p>''':
 'Rename to (optional)':
 '改名为（可选）',
 
+'Return to general page information':
+'Return to general page information',
+
+'Revert to version dated %(datestamp)s.':
+'Revert to version dated %(datestamp)s.',
+
 'Revision History':
 '版本历史',
 
@@ -563,6 +714,15 @@ since this is subject to change and can break easily.</p>''':
 
 'Server time is':
 '服务器时间为',
+
+'Show "%(title)s"':
+'Show "%(title)s"',
+
+'Show all changes in the last %(days)s days<br>':
+'Show all changes in the last %(days)s days<br>',
+
+'Show chart "%(title)s"':
+'Show chart "%(title)s"',
 
 'Show emoticons':
 '显示表情符',
@@ -597,6 +757,15 @@ since this is subject to change and can break easily.</p>''':
 'Skip to preview':
 '跳转到预览',
 
+'Slideshow':
+'Slideshow',
+
+'Start':
+'Start',
+
+'Status of sending notification mails:':
+'Status of sending notification mails:',
+
 'Submitted form data:':
 '提交表数据:',
 
@@ -609,8 +778,23 @@ since this is subject to change and can break easily.</p>''':
 'The backupped content of this page is deprecated and will not be included in search results!':
 '本页的备份内容不赞成使用，并且将不出现在搜索结果中!',
 
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''The comment on the change is:
+%(comment)s
+
+''',
+
+'The external diff utility returned with error code %(rc)s!':
+'The external diff utility returned with error code %(rc)s!',
+
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
 '以下 %(badwords)d 词在 %(totalwords)d 词的词典中无法找到 %(localwords)s 并在下面加亮标出:',
+
+'The following users subscribed to this page:':
+'The following users subscribed to this page:',
 
 'The page was saved %(count)d%(times)s, though!':
 '本页被保存了 %(count)d%(times)s!',
@@ -642,10 +826,13 @@ since this is subject to change and can break easily.</p>''':
 'TitleIndex':
 '标题索引',
 
-'To create you own templates, add a page with a name ending in Template.':
+'To create your own templates, add a page with a name ending in Template.':
 '为创建您自己的模板, 加入一个名字以 Template 结尾的页面.',
 
-'To login on a different machine, use this URL: ':
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".':
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".',
+
+'To login from a different machine, use this URL: ':
 '要从其它机器登录, 用此 URL: ',
 
 'Tue':
@@ -672,14 +859,26 @@ since this is subject to change and can break easily.</p>''':
 'Wed':
 '星期三',
 
+'Wiki':
+'Wiki',
+
+'Wiki Markup':
+'Wiki Markup',
+
 'WordIndex':
 '词汇索引',
 
 'XML title index':
 'XML 标题索引',
 
+'XSLT option disabled!':
+'XSLT option disabled!',
+
 'You are not allowed to delete pages in this wiki!':
 '在本wiki您不允许删除页面!',
+
+'You are not allowed to revert this page!':
+'You are not allowed to revert this page!',
 
 'Your email address':
 '您的email地址',
@@ -690,11 +889,23 @@ since this is subject to change and can break easily.</p>''':
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]':
 '[%(hours)d小时&nbsp;%(mins)d分&nbsp;以前]',
 
+'[%(lang)s] %(recipients)s: %(status)s':
+'[%(lang)s] %(recipients)s: %(status)s',
+
+'[%(sitename)s] Update of "%(pagename)s"':
+'[%(sitename)s] Update of "%(pagename)s"',
+
+'[Bookmark reached]':
+'[Bookmark reached]',
+
 '[Content of new page loaded from %s]':
 '[新页面的内容从 %s 载入]',
 
 '[New window]':
 '[新窗口]',
+
+'[Size limited to %dK]':
+'[Size limited to %dK]',
 
 '[Template %s not found]':
 '[模板 %s 未找到]',
@@ -705,8 +916,17 @@ since this is subject to change and can break easily.</p>''':
 'date':
 '日期',
 
+'del':
+'del',
+
 'diff':
 '差别',
+
+'edit':
+'edit',
+
+'get':
+'get',
 
 '''green=view
 red=edit''':
@@ -718,6 +938,9 @@ red=edit''',
 
 'page size upper bound [bytes]':
 '页面大小上界 [字节]',
+
+'revert':
+'revert',
 
 'set bookmark':
 '设置书签',

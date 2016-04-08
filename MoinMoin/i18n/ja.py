@@ -1,6 +1,7 @@
 # Text translations for ja (Japanese)
 # Maintained by: "Jyunji Kondo" <j-kondo@pst.fujitsu.com>
 # Encoding: euc-jp
+# Direction: ltr
 text = {
 '''
 <h2>New Attachment</h2>
@@ -46,6 +47,9 @@ Sent a mail notification to these addresses: %s
 ' Save ':
 ' 保存 ',
 
+' Slide %(pos)d of %(size)d ':
+' Slide %(pos)d of %(size)d ',
+
 ' Upload ':
 ' アップロード ',
 
@@ -76,6 +80,11 @@ Sent a mail notification to these addresses: %s
 '# of pages of this size':
 '# of pages of this size',
 
+'''## backup of page "%(pagename)s" submitted %(date)s
+''':
+'''## backup of page "%(pagename)s" submitted %(date)s
+''',
+
 '%(changecount)s changes':
 '%(changecount)s 回の変更',
 
@@ -88,14 +97,23 @@ Sent a mail notification to these addresses: %s
 '%(hits)d hits out of %(pages)d pages searched.':
 '%(pages)d ページで %(hits)d 個がヒット。',
 
+'%(logcount)s (%(logsize)s bytes)':
+'%(logcount)s (%(logsize)s bytes)',
+
 '%(matchcount)d %(matches)s for "%(title)s"':
 '"%(title)s" が %(matchcount)d %(matches)s',
+
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]':
+'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]',
 
 '("None" for disabling CSS)':
 '(CSSを無効にするには"None"を記入する)',
 
 '(currently set to %s)':
 '(%sにセットされています)',
+
+'(last edited %(time)s by %(editor)s)':
+'(last edited %(time)s by %(editor)s)',
 
 '(last modified %s)':
 '(最終更新日時 %s)',
@@ -105,6 +123,15 @@ Sent a mail notification to these addresses: %s
 
 '4Suite Version':
 '4Suiteのバージョン',
+
+'<Browser setting>':
+'<Browser setting>',
+
+'<Default>':
+'<Default>',
+
+'<No addition>':
+'<No addition>',
 
 "<b>Attachment '%(filename)s' does not exist!</b>":
 "<b>Attachment '%(filename)s' does not exist!</b>",
@@ -133,8 +160,14 @@ Sent a mail notification to these addresses: %s
 '<b>No spelling errors found!</b>':
 '<b>綴り間違いはありませんでした!</b>',
 
+'<b>Page is immutable!</b>':
+'<b>Page is immutable!</b>',
+
 '<b>Please provide a valid email address!</b>':
 '<b>正しいemailアドレスを入力してください!</b>',
+
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>":
+"<b>Please use a more selective search term instead of '%(needle)s'!</b>",
 
 '''<b>Sorry, someone else saved the page while you edited it.
 <p>Please do the following: Use the back button of your browser, and cut&paste
@@ -179,6 +212,9 @@ Your attention to detail is appreciated.</b>''':
 
 '<b>You cannot use LikePages on an extended pagename!</b>':
 '<b>拡張ページ名では、LikePagesを使えません!</b>',
+
+'<b>You did not change the page content, not saved!</b>':
+'<b>You did not change the page content, not saved!</b>',
 
 '<b>You have been subscribed to this page.</b>':
 '<b>このページを購読するようにしました。</b>',
@@ -240,6 +276,12 @@ from the subscription list.</b>
 <hr>
 """,
 
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>':
+'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>',
+
+'<p><b>You will not be notified of your own changes!</b></p>':
+'<p><b>You will not be notified of your own changes!</b></p>',
+
 '''<p><small>If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
 <br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
@@ -253,6 +295,9 @@ macro call.</b></small></p>
 
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>":
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>",
+
+'<p>The following pages with similar names already exist...</p>':
+'<p>The following pages with similar names already exist...</p>',
 
 '''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
 as shown below in the list of files. 
@@ -268,6 +313,12 @@ since this is subject to change and can break easily.</p>''',
 
 '<small>[goto %s]</small>':
 '<small>[%sへ進む]</small>',
+
+'<unknown>':
+'<unknown>',
+
+'Accumulated page sizes':
+'Accumulated page sizes',
 
 'Action':
 'アクション',
@@ -308,6 +359,9 @@ since this is subject to change and can break easily.</p>''',
 'Cancel':
 '取消',
 
+'Case-sensitive searching':
+'Case-sensitive searching',
+
 'Check Spelling':
 '綴りを確認',
 
@@ -319,6 +373,9 @@ since this is subject to change and can break easily.</p>''',
 
 'Comment':
 'コメント',
+
+"Connection to mailserver '%(server)s' failed: %(reason)s":
+"Connection to mailserver '%(server)s' failed: %(reason)s",
 
 'Create new drawing "%(filename)s"':
 'Create new drawing "%(filename)s"',
@@ -332,6 +389,23 @@ since this is subject to change and can break easily.</p>''',
 'Date format':
 '日付の書式',
 
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''':
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''',
+
 'Default':
 '省略値',
 
@@ -341,8 +415,14 @@ since this is subject to change and can break easily.</p>''',
 'Describe %s here.':
 'ここに %s について記述して！',
 
+'Detailed Information':
+'Detailed Information',
+
 'Diff for "%s"':
 '"%s"の差分',
+
+'Display context of search results':
+'Display context of search results',
 
 'Distribution of User-Agent Types':
 'Distribution of User-Agent Types',
@@ -355,6 +435,9 @@ since this is subject to change and can break easily.</p>''',
 
 "ERROR in regex '%s'":
 "正規表現 '%s' でエラーがありました。",
+
+'Edit':
+'Edit',
 
 'Edit "%(pagename)s"':
 '"%(pagename)s"を編集',
@@ -377,6 +460,15 @@ since this is subject to change and can break easily.</p>''',
 'Entries in edit log':
 '編集ログ中のエントリー数',
 
+'Entries in event log':
+'Entries in event log',
+
+'Exactly one matching page for "%s" found!':
+'Exactly one matching page for "%s" found!',
+
+'Exclude system pages':
+'Exclude system pages',
+
 'Expected "=" to follow "%(token)s"':
 '"%(token)s" の後に"="がありません',
 
@@ -394,6 +486,12 @@ since this is subject to change and can break easily.</p>''',
 
 'Fri':
 'Fri',
+
+'FrontPage':
+'FrontPage',
+
+'Full Link List for "%s"':
+'Full Link List for "%s"',
 
 'Full text search for "%s"':
 '"%s" の全文検索結果',
@@ -422,6 +520,12 @@ since this is subject to change and can break easily.</p>''',
 'Ignore changes in the amount of whitespace':
 'Ignore changes in the amount of whitespace',
 
+'Immutable page':
+'Immutable page',
+
+'Include system pages':
+'Include system pages',
+
 'Info for "%s"':
 '"%s"の情報',
 
@@ -431,8 +535,17 @@ since this is subject to change and can break easily.</p>''',
 'Installed extension macros':
 '実装済の拡張マクロ',
 
+'Installed processors':
+'Installed processors',
+
+'InterWiki':
+'InterWiki',
+
 'Invalid include arguments "%s"!':
 '"%s" の引数が正しくありません!',
+
+'Line':
+'Line',
 
 'Local Site Map for "%s"':
 '"%s"のローカルサイトマップ',
@@ -451,6 +564,9 @@ since this is subject to change and can break easily.</p>''',
 
 'Mail sent OK':
 'メールは正しく送られました',
+
+'Make this page belong to category %(category)s':
+'Make this page belong to category %(category)s',
 
 'MoinMoin Version':
 'MoinMoinのバージョン',
@@ -473,11 +589,25 @@ since this is subject to change and can break easily.</p>''',
 'No attachments stored for %(pagename)s':
 '%(pagename)s のアタッチメントは保存されません',
 
+'''No differences found!
+''':
+'''No differences found!
+''',
+
+'No older revisions of the page stored, diff not available.':
+'No older revisions of the page stored, diff not available.',
+
 'No orphaned pages in this wiki.':
 'このwikiで、孤立したページはありません。',
 
 'No pages match "%s"!':
 '"%s"で一致したページはありません!',
+
+'No parent page found!':
+'No parent page found!',
+
+'No quotes on %(pagename)s.':
+'No quotes on %(pagename)s.',
 
 'No wanted pages in this wiki.':
 'このwikiで、何も記述がないページはありません。',
@@ -491,11 +621,17 @@ since this is subject to change and can break easily.</p>''',
 'Number of pages':
 'ページの数',
 
+'Number of system pages':
+'Number of system pages',
+
 'Open editor on double click':
 'ダブルクリックでエディターを開く',
 
 'Optional comment about this change':
 'この修正についてのコメント',
+
+'Optional reason for the deletion':
+'Optional reason for the deletion',
 
 'Or try one of these actions: ':
 'それかこれを試して: ',
@@ -503,7 +639,7 @@ since this is subject to change and can break easily.</p>''',
 'Others':
 'Others',
 
-'Page "%s" was sucessfully deleted!':
+'Page "%s" was successfully deleted!':
 '"%s"は正常に削除されました!',
 
 'Page Size Distribution':
@@ -521,14 +657,23 @@ since this is subject to change and can break easily.</p>''',
 'Please use the interactive user interface to delete pages!':
 '対話的なユーザインターフェースを使ってページを削除してください!',
 
+'Preferred language':
+'Preferred language',
+
 'Preview':
 'プレビュー',
 
 'Preview of "%(pagename)s"':
 '"%(pagename)s"のプレビュー',
 
+'Print View':
+'Print View',
+
 'Python Version':
 'Pythonのバージョン',
+
+'Quick links':
+'Quick links',
 
 'Really delete this page?':
 'このページを本当に削除しますか？',
@@ -557,6 +702,12 @@ since this is subject to change and can break easily.</p>''',
 'Rename to (optional)':
 '名前を変更 (任意)',
 
+'Return to general page information':
+'Return to general page information',
+
+'Revert to version dated %(datestamp)s.':
+'Revert to version dated %(datestamp)s.',
+
 'Revision History':
 '更新履歴',
 
@@ -571,6 +722,15 @@ since this is subject to change and can break easily.</p>''',
 
 'Server time is':
 'サーバの時間は',
+
+'Show "%(title)s"':
+'Show "%(title)s"',
+
+'Show all changes in the last %(days)s days<br>':
+'Show all changes in the last %(days)s days<br>',
+
+'Show chart "%(title)s"':
+'Show chart "%(title)s"',
 
 'Show emoticons':
 'emoticonを表示する',
@@ -605,6 +765,15 @@ since this is subject to change and can break easily.</p>''',
 'Skip to preview':
 'プレビューへ移動',
 
+'Slideshow':
+'Slideshow',
+
+'Start':
+'Start',
+
+'Status of sending notification mails:':
+'Status of sending notification mails:',
+
 'Submitted form data:':
 '提出されたフォームデータ:',
 
@@ -617,8 +786,23 @@ since this is subject to change and can break easily.</p>''',
 'The backupped content of this page is deprecated and will not be included in search results!':
 'このページは、deprecatedの印が付けられているので、検索結果には含まれません!',
 
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''The comment on the change is:
+%(comment)s
+
+''',
+
+'The external diff utility returned with error code %(rc)s!':
+'The external diff utility returned with error code %(rc)s!',
+
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
 '次の %(badwords)d 語は、%(totalwords)d 語の辞書 %(localwords)s でみつからず、下でハイライトされています:',
+
+'The following users subscribed to this page:':
+'The following users subscribed to this page:',
 
 'The page was saved %(count)d%(times)s, though!':
 'このページは %(count)d%(times)s 保存されたけど!',
@@ -650,10 +834,13 @@ since this is subject to change and can break easily.</p>''',
 'TitleIndex':
 'TitleIndex',
 
-'To create you own templates, add a page with a name ending in Template.':
+'To create your own templates, add a page with a name ending in Template.':
 'オリジナルのひな型を作るには、"Template"で終るページを追加してください。',
 
-'To login on a different machine, use this URL: ':
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".':
+'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".',
+
+'To login from a different machine, use this URL: ':
 '違うマシンでログインするには、このURLを使ってください: ',
 
 'Tue':
@@ -680,14 +867,26 @@ since this is subject to change and can break easily.</p>''',
 'Wed':
 'Wed',
 
+'Wiki':
+'Wiki',
+
+'Wiki Markup':
+'Wiki Markup',
+
 'WordIndex':
 'WordIndex',
 
 'XML title index':
 'XMLのタイトル索引',
 
+'XSLT option disabled!':
+'XSLT option disabled!',
+
 'You are not allowed to delete pages in this wiki!':
 'あなたはこのwikiでページを削除することを許可されていません!',
+
+'You are not allowed to revert this page!':
+'You are not allowed to revert this page!',
 
 'Your email address':
 'あなたのemailアドレス',
@@ -698,11 +897,23 @@ since this is subject to change and can break easily.</p>''',
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]':
 '[%(hours)d時間&nbsp;%(mins)d分&nbsp;前]',
 
+'[%(lang)s] %(recipients)s: %(status)s':
+'[%(lang)s] %(recipients)s: %(status)s',
+
+'[%(sitename)s] Update of "%(pagename)s"':
+'[%(sitename)s] Update of "%(pagename)s"',
+
+'[Bookmark reached]':
+'[Bookmark reached]',
+
 '[Content of new page loaded from %s]':
 '[新しいページの内容が%sからロードされました]',
 
 '[New window]':
 '[新しいウィンドウ]',
+
+'[Size limited to %dK]':
+'[Size limited to %dK]',
 
 '[Template %s not found]':
 '[ひな型 %s が見つかりません]',
@@ -713,8 +924,17 @@ since this is subject to change and can break easily.</p>''',
 'date':
 'date',
 
+'del':
+'del',
+
 'diff':
 '差分',
+
+'edit':
+'edit',
+
+'get':
+'get',
 
 '''green=view
 red=edit''':
@@ -726,6 +946,9 @@ red=edit''',
 
 'page size upper bound [bytes]':
 'page size upper bound [bytes]',
+
+'revert':
+'revert',
 
 'set bookmark':
 'ブックマークにセットする',

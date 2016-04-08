@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - BR Macro
 
@@ -6,7 +7,7 @@
 
     This very complicated macro produces a line break.
 
-    $Id: BR.py,v 1.1 2000/12/22 01:12:13 jhermann Exp $
+    $Id: BR.py,v 1.2 2003/11/09 21:01:02 thomaswaldmann Exp $
 """
 
 def execute(macro, args):

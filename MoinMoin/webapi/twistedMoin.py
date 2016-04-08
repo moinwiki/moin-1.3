@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - HTTP interfacing via twisted.web
 
@@ -8,7 +9,7 @@
 
         from MoinMoin import webapi
 
-    $Id: twistedMoin.py,v 1.2 2002/04/17 21:58:17 jhermann Exp $
+    $Id: twistedMoin.py,v 1.3 2003/11/09 21:01:16 thomaswaldmann Exp $
 """
 
 # Imports

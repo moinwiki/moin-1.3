@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Pagesize Statistics
 
@@ -6,7 +7,7 @@
 
     This macro creates a bar graph of page size classes.
 
-    $Id: pagesize.py,v 1.5 2002/04/17 22:13:28 jhermann Exp $
+    $Id: pagesize.py,v 1.8 2003/11/09 21:01:08 thomaswaldmann Exp $
 """
 
 _debug = 0
@@ -14,15 +15,16 @@ _debug = 0
 import string
 from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
 
 
-def linkto(pagename, params=''):
+def linkto(pagename, request, params=''):
+    _ = request.getText
+
     if not config.chart_options:
         return _('<div class="message"><b>Charts are not available!</b></div>')
 
     if _debug:
-        return draw(pagename, None)
+        return draw(pagename, request)
 
     page = Page(pagename)
     result = []
@@ -48,6 +50,7 @@ def draw(pagename, request):
     from MoinMoin import config, webapi
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
+    _ = request.getText
     style = Chart.GDC_3DBAR
 
     # get data

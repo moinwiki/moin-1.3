@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Package Initialization
 
@@ -6,7 +7,7 @@
 
     Subpackage containing XML support code.
 
-    $Id: __init__.py,v 1.2 2002/02/13 21:13:55 jhermann Exp $
+    $Id: __init__.py,v 1.3 2003/11/09 21:01:18 thomaswaldmann Exp $
 """
 
 try:

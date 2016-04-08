@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Processor Package
 
@@ -12,10 +13,10 @@
     The first line of the list is always the bang path, so
     you can place arguments there and parse them.
 
-    $Id: __init__.py,v 1.2 2002/03/17 13:46:17 jhermann Exp $
+    $Id: __init__.py,v 1.4 2003/11/09 21:01:07 thomaswaldmann Exp $
 """
 
-from MoinMoin.util import getPackageModules
-processors = getPackageModules(__file__)
-del getPackageModules
+from MoinMoin.util import pysupport
+
+processors = pysupport.getPackageModules(__file__)
 

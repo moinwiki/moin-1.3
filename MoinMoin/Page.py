@@ -1,15 +1,17 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Page class
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: Page.py,v 1.119 2002/04/25 19:32:30 jhermann Exp $
+    $Id: Page.py,v 1.154 2003/11/09 21:00:45 thomaswaldmann Exp $
 """
 
 # Imports
 import cStringIO, os, re, sys, string, urllib
 from MoinMoin import caching, config, user, util, wikiutil, webapi
+import MoinMoin.util.web
 from MoinMoin.i18n import _
 
 
@@ -39,7 +41,7 @@ class Page:
         """
         self.page_name = page_name
         self.prev_date = keywords.get('date')
-        self.raw_body = None
+        self._raw_body = None
 
         if keywords.has_key('formatter'):
             self.formatter = keywords.get('formatter')
@@ -59,24 +61,6 @@ class Page:
         return self._SPLIT_RE.sub(r'\1 \2', self.page_name)
 
 
-    def _split_title_py16(self, force=0):
-        """ Return a string with the page name split by spaces, if
-            the user wants that.
-        """
-        if not force and not user.current.wikiname_add_spaces: return self.page_name
-    
-        # Provided by Magnus Lyckå
-        # Note that "upperletters" HAS to start with "A-Z"
-        # This is a quickfix, and not worth any more effort
-        temp = [self.page_name[0]]
-        ucase = string.uppercase + config.upperletters[3:]
-        for letter in self.page_name[1:]:
-            if letter in ucase:
-                temp.append(' ')
-            temp.append(letter)
-        return string.join(temp,'')
-
-
     def _text_filename(self):
         """The name of the page file, possibly of an older page"""
         if self.prev_date:
@@ -90,68 +74,198 @@ class Page:
         return os.path.join(config.text_dir, ('#' + wikiutil.quoteFilename(self.page_name) + '.' + `os.getpid()` + '#'))
 
 
+    def last_edit(self, request): # this is used by wikirpc.py
+        if not self.exists():
+            return None
+
+        result = None
+        if not self.prev_date: # we don't have a last-edited entry for backup versions        
+            from MoinMoin import editlog
+            log = editlog.loadLogEntry(request, wikiutil.getPagePath(self.page_name, 'last-edited', check_create=0))
+            if log:
+                editordata = log.getEditorData()
+                editor = editordata[1]
+                if editordata[0] == 'homepage':
+                    editor = editordata[1].page_name
+                result = {
+                    'timestamp': log.ed_time,
+                    'editor': editor,
+                }
+                del log
+        if not result:
+            timestamp = self.mtime()
+            result = {
+                'timestamp': timestamp,
+                'editor': '?',
+            }
+
+        return result
+
+    def _last_modified(self, request):
+        if not self.exists():
+            return None
+
+        from MoinMoin import editlog
+
+        result = None
+        log = editlog.loadLogEntry(request, wikiutil.getPagePath(self.page_name, 'last-edited', check_create=0))
+        if log:
+            result = _("(last edited %(time)s by %(editor)s)") % {
+                'time': user.current.getFormattedDateTime(log.ed_time),
+                'editor': log.getEditor(),
+            }
+        del log
+
+        return result or _("(last modified %s)") % user.current.getFormattedDateTime(
+                os.path.getmtime(self._text_filename()))
+
+
+    def isWritable(self):
+        """True if page can be changed"""
+        return os.access(self._text_filename(), os.W_OK) or not self.exists()
+
+
     def exists(self):
         """True if the page exists"""
         return os.path.exists(self._text_filename())
 
 
     def size(self):
-        """Return page size"""
-        if self.raw_body is not None:
-            return len(self.raw_body)
-        
-        return os.path.getsize(self._text_filename())
+        """Return page size, 0 for non-existent pages"""
+        if self._raw_body is not None:
+            return len(self._raw_body)
+
+        try:
+            return os.path.getsize(self._text_filename())
+        except EnvironmentError, e:
+            import errno
+            if e.errno == errno.ENOENT: return 0
+            raise
+
+    def mtime(self):
+        try:
+            return os.path.getmtime(self._text_filename())
+        except EnvironmentError, e:
+            import errno
+            if e.errno == errno.ENOENT: return 0
+            raise
+
+    def get_raw_body(self):
+        """Load the raw markup from the page file"""
+        if self._raw_body is None:
+            # try to open file
+            try:
+                file = open(self._text_filename(), 'rb')
+            except IOError, er:
+                import errno
+                if er.errno == errno.ENOENT:
+                    # just doesn't exist, return empty text (note that we
+                    # never store empty pages, so this is detectable and also
+                    # safe when passed to a function expecting a string)
+                    return ""
+                else:
+                    raise er
+
+            # read file content and make sure it is closed properly
+            try:
+                self.set_raw_body(file.read())
+            finally:
+                file.close()
+
+        return self._raw_body
+
+
+    def set_raw_body(self, body):
+        """Set the raw body text (prevents loading from disk)"""
+        self._raw_body = body
 
 
     def url(self, querystr=None):
         """ Return an URL for this page.
         """
         url = "%s/%s" % (webapi.getScriptname(), wikiutil.quoteWikiname(self.page_name))
-        if querystr: url = "%s?%s" % (url, string.replace(querystr, '&', '&amp;'))
+        if querystr:
+            querystr = util.web.makeQueryString(querystr)
+            url = "%s?%s" % (url, string.replace(querystr, '&', '&amp;'))
         return url
 
 
-    def link_to(self, text=None, querystr=None, anchor=None):
-        """Return HTML markup that links to this page"""
+    def link_to(self, text=None, querystr=None, anchor=None, **kw):
+        """ Return HTML markup that links to this page.
+
+            See wikiutil.link_tag() for possible keyword parameters.
+
+            attachment_indicator=1 adds just that.
+        """
         text = text or self.split_title()
         fmt = getattr(self, 'formatter', None)
         url = wikiutil.quoteWikiname(self.page_name)
-        if querystr: url = "%s?%s" % (url, string.replace(querystr, '&', '&amp;'))
+        # CNC:2003-05-30
+        url = url.replace('_2f', '/')
+        if querystr:
+            querystr = util.web.makeQueryString(querystr)
+            url = "%s?%s" % (url, string.replace(querystr, '&', '&amp;'))
         if anchor: url = "%s#%s" % (url, urllib.quote_plus(anchor))
+
+        # create a link to attachments if any exist
+        attach_link = ''
+        if kw.get('attachment_indicator', 0):
+            from MoinMoin.action import AttachFile
+            attach_link = AttachFile.getIndicator(self.page_name)
+
         if self.exists():
-            return wikiutil.link_tag(url, text, formatter=fmt)
+            return wikiutil.link_tag(url, text, formatter=fmt, **kw) + attach_link
         elif user.current.show_nonexist_qm:
+            kw['css_class'] = 'nonexistent'
             return wikiutil.link_tag(url,
-                '?', 'nonexistent', formatter=fmt) + text
+                '?', formatter=fmt, **kw) + text + attach_link
         else:
-            return wikiutil.link_tag(url, text, 'nonexistent', formatter=fmt)
+            kw['css_class'] = 'nonexistent'
+            return wikiutil.link_tag(url, text, formatter=fmt, **kw) + attach_link
 
 
-    def get_raw_body(self):
-        """Load the raw markup from the page file"""
-        if self.raw_body is not None:
-            return self.raw_body
+    def getSubscribers(self, request, **kw):
+        """ Get all subscribers of this page.
+            Return dict with email lists per language.
 
-        # try to open file
-        try:
-            file = open(self._text_filename(), 'rb')
-        except IOError, er:
-            import errno
-            if er.errno == errno.ENOENT:
-                # just doesn't exist, return empty text (note that we
-                # never store empty pages, so this is detectable and also
-                # safe when passed to a function expecting a string)
-                return ""
-            else:
-                raise er
+            include_self == 1: include current user (default: 0)
+            return_users == 1: return user instances (default: 0)
+        """
+        include_self = kw.get('include_self', 0)
+        return_users = kw.get('return_users', 0)
 
-        # read file content and make sure it is closed properly
-        try:
-            result = file.read()
-        finally:
-            file.close()
+        # extract categories of this page
+        pageList = self.getCategories(request)
+        
+        # add current page name for list matching
+        pageList.append(self.page_name)
 
-        return result
+        if config.SecurityPolicy:
+            UserPerms = config.SecurityPolicy
+        else:
+            from security import Default as UserPerms
+
+        # get email addresses of the all wiki user which have a profile stored;
+        # add the address only if the user has subscribed to the page and
+        # the user is not the current editor
+        userlist = user.getUserList()
+        emails = {}
+        for uid in userlist:
+            if uid == request.user.id and not include_self: continue # no self notification
+            subscriber = user.User(request, uid)
+            if not subscriber.email: continue # skip empty email address
+
+            if not UserPerms(subscriber).read(self.page_name): continue
+
+            if subscriber.isSubscribedTo(pageList):                
+                lang = subscriber.language or 'en'
+                if not emails.has_key(lang): emails[lang] = []
+                if return_users:
+                    emails[lang].append(subscriber)
+                else:
+                    emails[lang].append(subscriber.email) 
+
+        return emails
 
 
     def send_page(self, request, msg=None, **keywords):
@@ -165,10 +279,10 @@ class Page:
         """
         request.clock.start('send_page')
         import cgi
-        form = request.form
+        from MoinMoin.util import pysupport
 
         # determine modes
-        print_mode = form.has_key('action') and form['action'].value == 'print'
+        print_mode = request.form.has_key('action') and request.form['action'].value == 'print'
         content_only = keywords.get('content_only', 0)
         self.hilite_re = keywords.get('hilite_re', None)
         if msg is None: msg = ""
@@ -182,7 +296,7 @@ class Page:
 
         # if necessary, load the default formatter
         if self.default_formatter:
-            from formatter.text_html import Formatter
+            from MoinMoin.formatter.text_html import Formatter
             self.formatter = Formatter(request, store_pagelinks=1)
         self.formatter.setPage(self)
 
@@ -206,6 +320,11 @@ class Page:
                 line = body
                 body = ''
 
+            # end parsing on empty (invalid) PI
+            if line == "#":
+                body = line + '\n' + body
+                break
+
             # skip comments (lines with two hash marks)
             if line[1] == '#': continue
 
@@ -224,7 +343,7 @@ class Page:
                 # endless looping (see code in "cgimain") or any
                 # cascaded redirection
                 pi_redirect = args
-                if form.has_key('action') or form.has_key('redirect') or content_only: continue
+                if request.form.has_key('action') or request.form.has_key('redirect') or content_only: continue
 
                 webapi.http_redirect(request, '%s/%s?action=show&redirect=%s' % (
                     webapi.getScriptname(),
@@ -267,9 +386,13 @@ class Page:
                     pi_formtext.append('<table border="1" cellspacing="1" cellpadding="3">\n'
                         '<form method="POST" action="%s">\n'
                         '<input type="hidden" name="action" value="formtest">\n' % self.url())
-                pi_formtext.append(wikiform.parseDefinition(args, pi_formfields))
+                pi_formtext.append(wikiform.parseDefinition(request, args, pi_formfields))
+            elif verb == "acl":
+                # We could build it here, but there's no request.
+                pass
             else:
-                # unknown PI ==> end PI parsing
+                # unknown PI ==> end PI parsing, and show invalid PI as text
+                body = line + '\n' + body
                 break
 
         # start document output
@@ -277,14 +400,14 @@ class Page:
         if not content_only:
             # send the document leader
             webapi.http_headers(request)
-            sys.stdout.write(doc_leader)
+            request.write(doc_leader)
 
             # send the page header
             if self.default_formatter:
                 page_needle = self.page_name
                 if config.allow_subpages and string.count(page_needle, '/'):
                     page_needle = '/' + string.split(page_needle, '/')[-1]
-                link = '%s/%s?action=fullsearch&value=%s&literal=1&case=1' % (
+                link = '%s/%s?action=fullsearch&value=%s&literal=1&case=1&context=40' % (
                     webapi.getScriptname(),
                     wikiutil.quoteWikiname(self.page_name),
                     urllib.quote_plus(page_needle, ''))
@@ -294,8 +417,8 @@ class Page:
                         _('Version as of %(date)s') % {'date':
                             user.current.getFormattedDateTime(os.path.getmtime(self._text_filename()))},
                         msg)
-                if form.has_key('redirect'):
-                    redir = form['redirect'].value
+                if request.form.has_key('redirect'):
+                    redir = request.form['redirect'].value
                     msg = '%s<b>%s</b><br>%s' % (
                         wikiutil.getSmiley('/!\\', self.formatter),
                         _('Redirected from page "%(page)s"') % {'page':
@@ -306,7 +429,7 @@ class Page:
                         wikiutil.getSmiley('<!>', self.formatter),
                         _('This page redirects to page "%(page)s"') % {'page': pi_redirect},
                         msg)
-                wikiutil.send_title(title, link=link, msg=msg,
+                wikiutil.send_title(request, title, link=link, msg=msg,
                     pagename=self.page_name, print_mode=print_mode,
                     allow_doubleclick=1)
 
@@ -336,11 +459,11 @@ class Page:
                         '[[Form("%(pagename)s")]]'
                         '</tt></b><br><br>\n'
                         'macro call.</b></small></p>\n'
-                    ) % {'pagename': self.page_name[:-len(config.page_form_ending)]})
+                    ) % {'pagename': self.page_name})
                     print string.join(pi_formtext, '')
 
         # try to load the parser
-        Parser = util.importName("MoinMoin.parser." + pi_format, "Parser")
+        Parser = pysupport.importName("MoinMoin.parser." + pi_format, "Parser")
         if Parser is None:
             # default to plain text formatter (i.e. show the page source)
             del Parser
@@ -348,36 +471,12 @@ class Page:
 
         # new page?
         if not self.exists() and self.default_formatter and not content_only:
-            # generate the default page content for new pages
-            print wikiutil.link_tag(wikiutil.quoteWikiname(self.page_name)+'?action=edit',
-                _("Create this page"))
-
-            # look for template pages
-            templates = filter(lambda page, u = wikiutil: u.isTemplatePage(page),
-                wikiutil.getPageList(config.text_dir))
-            if templates:
-                print self.formatter.paragraph(1)
-                print self.formatter.text(_('Alternatively, use one of these templates:'))
-                print self.formatter.paragraph(0)
-
-                # send list of template pages
-                print self.formatter.bullet_list(1)
-                for page in templates:
-                    print self.formatter.listitem(1)
-                    print wikiutil.link_tag("%s?action=edit&template=%s" % (
-                            wikiutil.quoteWikiname(self.page_name),
-                            wikiutil.quoteWikiname(page)),
-                        page)
-                    print self.formatter.listitem(0)
-                print self.formatter.bullet_list(0)
-
-            print self.formatter.paragraph(1)
-            print self.formatter.text(_('To create you own templates, ' +
-                'add a page with a name ending in Template.'))
-            print self.formatter.paragraph(0)
+            self._emptyPageText(request)
+        elif not user.current.may.read(self.page_name):
+            print _("<b>You are not allowed to view this page.</b>")+"<br>"
         else:
             # parse the text and send the page content
-            Parser(body, request).format(self.formatter, form)
+            Parser(body, request).format(self.formatter)
 
             # check for pending footnotes
             if getattr(request, 'footnotes', None):
@@ -390,10 +489,10 @@ class Page:
         if not content_only:
             # send the page footer
             if self.default_formatter and not print_mode:
-                wikiutil.send_footer(request, self.page_name, self._last_modified(),
+                wikiutil.send_footer(request, self.page_name, self._last_modified(request),
                     print_mode=print_mode)
 
-            sys.stdout.write(doc_trailer)
+            request.write(doc_trailer)
 
         # cache the pagelinks
         if self.default_formatter and self.exists():
@@ -408,10 +507,45 @@ class Page:
         request.clock.stop('send_page')
 
 
-    def _last_modified(self):
-        if not self.exists():
-            return None
-        return user.current.getFormattedDateTime(os.path.getmtime(self._text_filename()))
+    def _emptyPageText(self, request):
+        from MoinMoin.action import LikePages
+
+        # generate the default page content for new pages
+        print wikiutil.link_tag(wikiutil.quoteWikiname(self.page_name)+'?action=edit',
+            _("Create this page"))
+
+        # look for template pages
+        templates = filter(lambda page, u = wikiutil: u.isTemplatePage(page),
+            wikiutil.getPageList(config.text_dir))
+        if templates:
+            templates.sort()
+
+            print self.formatter.paragraph(1)
+            print self.formatter.text(_('Alternatively, use one of these templates:'))
+            print self.formatter.paragraph(0)
+
+            # send list of template pages
+            print self.formatter.bullet_list(1)
+            for page in templates:
+                print self.formatter.listitem(1)
+                print wikiutil.link_tag("%s?action=edit&template=%s" % (
+                        wikiutil.quoteWikiname(self.page_name),
+                        wikiutil.quoteWikiname(page)),
+                    page)
+                print self.formatter.listitem(0)
+            print self.formatter.bullet_list(0)
+
+        print self.formatter.paragraph(1)
+        print self.formatter.text(_('To create your own templates, ' +
+            'add a page with a name matching the regex "%(page_template_regex)s".') % vars(config))
+        print self.formatter.paragraph(0)
+
+        # list similar pages that already exist
+        start, end, matches = LikePages.findMatches(self.page_name, request)
+        if matches and not isinstance(matches, type('')):
+            print self.formatter.rule()
+            print _('<p>The following pages with similar names already exist...</p>')
+            LikePages.showMatches(self.page_name, request, start, end, matches)
 
 
     def getPageLinks(self, request):
@@ -425,14 +559,20 @@ class Page:
             # this is normally never called, but is here to fill the cache
             # in existing wikis; thus, we do a "null" send_page here, which
             # is not efficient, but reduces code duplication
+            # !!! it is also an evil hack, and needs to be removed
+            # !!! by refactoring Page to separate body parsing & send_page
             stdout = sys.stdout
             sys.stdout = cStringIO.StringIO()
             try:
                 try:
+                    request.mode_getpagelinks = 1
                     Page(self.page_name).send_page(request, content_only=1)
                 except:
+                    import traceback
+                    traceback.print_exc()
                     cache.update('')
             finally:
+                request.mode_getpagelinks = 0
                 sys.stdout = stdout
                 if hasattr(request, '_fmt_hd_counters'):
                     del request._fmt_hd_counters
@@ -440,7 +580,23 @@ class Page:
         return filter(None, string.split(cache.content(), '\n'))
 
 
-# Python 1.6's "re" is buggy
-if sys.version[:3] == "1.6":
-    Page.split_title = Page._split_title_py16
+    def getCategories(self, request):
+        """ Return a list of categories this page belongs to.
+        """
+        return wikiutil.filterCategoryPages(self.getPageLinks(request))
 
+    # There are many places accessing ACLs even without actually sending
+    # the page. This cache ensures that we don't have to parse ACLs for
+    # some page twice.
+    _acl_cache = {}
+    def getACL(self, request):
+        if not config.acl_enabled:
+            import wikiacl
+            return wikiacl.AccessControlList(request)
+        try:
+            acl = self._acl_cache[self.page_name]
+        except:
+            import wikiacl
+            acl = wikiacl.parseACL(request, self.get_raw_body())
+            self._acl_cache[self.page_name] = acl
+        return acl

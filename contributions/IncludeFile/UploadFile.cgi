@@ -9,7 +9,7 @@
     All rights reserved, see COPYING for details.
 
     That utility is used by IncludeFile.py to upload a file at the
-    designated location (see paramaters)
+    designated location (see parameters)
 
     It is recommended to locate that file in the macro folder.
 
@@ -20,7 +20,7 @@
     FILE_PATH: path to the same place
     
 
-    $Id: UploadFile.cgi,v 1.1 2001/11/09 00:25:21 jhermann Exp $
+    $Id: UploadFile.cgi,v 1.2 2003/11/19 00:31:10 thomaswaldmann Exp $
 """
 
 ############################################################################

@@ -1,17 +1,18 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - MoinMoin Wiki Markup Parser
 
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wiki.py,v 1.88 2002/05/09 21:09:37 jhermann Exp $
+    $Id: wiki.py,v 1.127 2003/11/09 21:01:05 thomaswaldmann Exp $
 """
 
 # Imports
-import cgi, os, re, string, sys
+import os, re, string, sys
 from MoinMoin import config, user, wikimacro, wikiutil, util
 from MoinMoin.Page import Page
-from MoinMoin.i18n import _
+import MoinMoin.util.web
 
 
 #############################################################################
@@ -30,6 +31,7 @@ class Parser:
     """
 
     # some common strings
+    PARENT_PREFIX = wikiutil.PARENT_PREFIX
     attachment_schemas = ["attachment", "inline", "drawing"]
     punct_pattern = re.escape('''"'}]|:,.)?!''')
     url_pattern = ('http|https|ftp|nntp|news|mailto|telnet|wiki|file|' +
@@ -37,10 +39,11 @@ class Parser:
             (config.url_schemas and '|' + string.join(config.url_schemas, '|') or ''))
 
     # some common rules
-    word_rule = r'(?:%(subpages)s(?:[%(u)s][%(l)s]+){2,})+' % {
+    word_rule = r'(?:(?<![%(l)s])|^)%(parent)s(?:%(subpages)s(?:[%(u)s][%(l)s]+){2,})+(?![%(u)s%(l)s]+)' % {
         'u': config.upperletters,
         'l': config.lowerletters,
-        'subpages': config.allow_subpages and '/?' or '',
+        'subpages': config.allow_subpages and (wikiutil.CHILD_PREFIX + '?') or '',
+        'parent': config.allow_subpages and (r'(?:%s)?' % re.escape(PARENT_PREFIX)) or '',
     }
     url_rule = r'%(url_guard)s(%(url)s)\:([^\s\<%(punct)s]|([%(punct)s][^\s\<%(punct)s]))+' % {
         'url_guard': ('(^|(?<!\w))', '')[sys.version < "2"],
@@ -56,7 +59,9 @@ class Parser:
 (?P<emph_ibi>'''''(?=[^']+''))
 (?P<emph_ib_or_bi>'{5}(?=[^']))
 (?P<emph>'{2,3})
+(?P<u>__)
 (?P<sup>\^.*?\^)
+(?P<sub>,,[^,]{1,40},,)
 (?P<tt>\{\{\{.*?\}\}\})
 (?P<processor>(\{\{\{#!.*))
 (?P<pre>(\{\{\{ ?|\}\}\}))
@@ -69,13 +74,13 @@ class Parser:
 (?P<tableZ>\|\| $)
 (?P<table>(?:\|\|)+(?:<[^>]*?>)?(?=.))
 (?P<heading>^\s*(?P<hmarker>=+)\s.*\s(?P=hmarker) $)
-(?P<interwiki>[A-Z][a-zA-Z]+\:[^\s'\"\:\<]([^\s%(punct)s]|([%(punct)s][^\s%(punct)s]))+)
+(?P<interwiki>[A-Z][a-zA-Z]+\:[^\s'\"\:\<\|]([^\s%(punct)s]|([%(punct)s][^\s%(punct)s]))+)
 (?P<word>%(word_rule)s)
-(?P<url_bracket>\[((%(url)s)\:|#)[^\s\]]+(\s[^\]]+)?\])
+(?P<url_bracket>\[\^?((%(url)s)\:|#|\:)[^\s\]]+(\s[^\]]+)?\])
 (?P<url>%(url_rule)s)
 (?P<email>[-\w._+]+\@[\w-]+\.[\w.-]+)
-(?P<smiley>\s(%(smiley)s)\s)
-(?P<smileyA>^(%(smiley)s)\s)
+(?P<smiley>(?<=\s)(%(smiley)s)(?=\s))
+(?P<smileyA>^(%(smiley)s)(?=\s))
 (?P<ent>[<>&])"""  % {
         'url': url_pattern,
         'punct': punct_pattern,
@@ -84,21 +89,26 @@ class Parser:
         'dl_rule': dl_rule,
         'url_rule': url_rule,
         'word_rule': word_rule,
-        'smiley': string.join(map(re.escape, wikiutil.smileys.keys()), '|')}
+        'smiley': string.join(map(re.escape, config.smileys.keys()), '|')}
 
     def __init__(self, raw, request, **kw):
         self.raw = raw
         self.request = request
+        self.form = request.form
+        self._ = request.getText
 
         self.macro = None
 
         self.is_em = 0
         self.is_b = 0
+        self.is_u = 0
         self.lineno = 0
         self.in_li = 0
         self.in_dd = 0
         self.in_pre = 0
         self.in_table = 0
+
+        self.titles = {}
 
         # holds the nesting level (in chars) of open lists
         self.list_indents = []
@@ -107,7 +117,7 @@ class Parser:
 
     def _check_p(self):
         if not (self.formatter.in_p or self.in_pre):
-            sys.stdout.write(self.formatter.paragraph(1))
+            self.request.write(self.formatter.paragraph(1))
 
 
     def _close_item(self, result):
@@ -130,6 +140,8 @@ class Parser:
         else:
             url, text = url_and_text
 
+        target = kw.get('target', None)
+
         url = url[5:] # remove "wiki:"
         if text is None:
             tag, tail = wikiutil.split_wiki(url)
@@ -138,14 +150,13 @@ class Parser:
             else:
                 text = url
                 url = ""
-        elif config.allow_subpages and url[0] == '/':
+        elif config.allow_subpages and url[0] == wikiutil.CHILD_PREFIX:
             # fancy link to subpage [wiki:/SubPage text]
-            return self._word_repl(url, text)
+            return self._word_repl(url, text, target=target)
         elif Page(url).exists():
             # fancy link to local page [wiki:LocalPage text]
-            return self._word_repl(url, text)
+            return self._word_repl(url, text, target=target)
 
-        import urllib
         wikitag, wikiurl, wikitail = wikiutil.resolve_wiki(url)
         wikiurl = wikiutil.mapURL(wikiurl)
         href = wikiutil.join_wiki(wikiurl, wikitail)
@@ -156,7 +167,7 @@ class Parser:
 
         # link to self?
         if wikitag is None:
-            return self._word_repl(wikitail)
+            return self._word_repl(wikitail, target=target)
               
         # return InterWiki hyperlink
         prefix = config.url_prefix
@@ -170,12 +181,14 @@ class Parser:
                 src=prefix+"/img/moin-inter.gif",
                 alt="[%s]" % wikitag)
         return self.formatter.url(href, icon + text,
-            title=wikitag, unescaped=1, pretty_url=kw.get('pretty_url', 0))
+            title=wikitag, unescaped=1, pretty_url=kw.get('pretty_url', 0), target=target)
 
 
     def attachment(self, url_and_text, **kw):
         """ This gets called on attachment URLs.
         """
+        import urllib
+
         self._check_p()
 
         if len(url_and_text) == 1:
@@ -187,6 +200,7 @@ class Parser:
         inline = url[0] == 'i'
         drawing = url[0] == 'd'
         url = string.split(url, ":", 1)[1]
+        url = urllib.unquote(url)
         text = text or url
 
         pagename = self.formatter.page.page_name
@@ -208,9 +222,9 @@ class Parser:
         # check whether attachment exists, possibly point to upload form
         if not os.path.exists(fpath):
             if drawing:
-                linktext = _('Create new drawing "%(filename)s"')
+                linktext = self._('Create new drawing "%(filename)s"')
             else:
-                linktext = _('Upload new attachment "%(filename)s"')
+                linktext = self._('Upload new attachment "%(filename)s"')
             return wikiutil.link_tag(
                 '%s?action=AttachFile&rename=%s%s' % (
                     wikiutil.quoteWikiname(pagename),
@@ -234,7 +248,7 @@ class Parser:
 
                 buff = cStringIO.StringIO()
                 colorizer = python.Parser(open(fpath, 'r').read(), self.request, out = buff)
-                colorizer.format(self.formatter, self.form)
+                colorizer.format(self.formatter)
                 return self.formatter.preformatted(1) + \
                     self.formatter.rawHTML(buff.getvalue()) + \
                     self.formatter.preformatted(0)
@@ -242,6 +256,13 @@ class Parser:
         return self.formatter.url(
             AttachFile.getAttachUrl(pagename, url),
             text, pretty_url=kw.get('pretty_url', 0))
+
+
+    def _u_repl(self, word):
+        """Handle underline."""
+        self._check_p()
+        self.is_u = not self.is_u
+        return self.formatter.underline(self.is_u)
 
 
     def _emph_repl(self, word):
@@ -294,6 +315,14 @@ class Parser:
             self.formatter.sup(0)
 
 
+    def _sub_repl(self, word):
+        """Handle subscript."""
+        self._check_p()
+        return self.formatter.sub(1) + \
+            self.highlight_text(word[2:-2]) + \
+            self.formatter.sub(0)
+
+
     def _rule_repl(self, word):
         """Handle sequences of dashes."""
         result = self._undent()
@@ -304,17 +333,29 @@ class Parser:
         return result
 
 
-    def _word_repl(self, word, text=None):
+    def _word_repl(self, word, text=None, target=None):
         """Handle WikiNames."""
         self._check_p()
-        if not text: text = word
-        if config.allow_subpages and word[0] == '/':
+
+        # check for parent links
+        # !!! should use wikiutil.AbsPageName here, but setting `text`
+        # correctly prevents us from doing this for now
+        if config.allow_subpages and word.startswith(self.PARENT_PREFIX):
+            if not text: text = word
+            word = '/'.join(filter(None, self.formatter.page.page_name.split('/')[:-1] + [word[3:]]))
+
+        if not text:
+            # if a simple, self-referencing link, emit it as plain text
+            if word == self.formatter.page.page_name:
+                return word
+            text = word
+        if config.allow_subpages and word.startswith(wikiutil.CHILD_PREFIX):
             word = self.formatter.page.page_name + word
         text = self.highlight_text(text)
         if word == text:
-            return self.formatter.pagelink(word)
+            return self.formatter.pagelink(word, target=target)
         else:
-            return self.formatter.pagelink(word, text)
+            return self.formatter.pagelink(word, text, target=target)
 
     def _notword_repl(self, word):
         """Handle !NotWikiNames."""
@@ -342,42 +383,48 @@ class Parser:
 
     def _wikiname_bracket_repl(self, word):
         """Handle special-char wikinames."""
-        return self._word_repl(word[2:-2])
+        wikiname = word[2:-2]
+        if wikiname:
+            return self._word_repl(wikiname)
+        else:
+            return word
 
 
     def _url_bracket_repl(self, word):
         """Handle bracketed URLs."""
         self._check_p()
-        words = string.split(word[1:-1], None, 1)
+
+        # open in new window?
+        target = None
+        if word[1] == '^':
+            target = '_blank'
+            word = '[' + word[2:]
+
+        # Local extended link?
+        if word[1] == ':':
+            words = word[2:-1].split(':', 1)
+            if len(words) == 1: words = words * 2
+            return self._word_repl(words[0], words[1], target=target)
+
+        # Traditional split on space
+        words = word[1:-1].split(None, 1)
         if len(words) == 1: words = words * 2
 
         if words[0][0] == '#':
             # anchor link
-            return self.formatter.url(words[0], self.highlight_text(words[1]))
+            return self.formatter.url(words[0], self.highlight_text(words[1]), target=target)
 
         scheme = string.split(words[0], ":", 1)[0]
-        if scheme == "wiki": return self.interwiki(words, pretty_url=1)
+        if scheme == "wiki": return self.interwiki(words, pretty_url=1, target=target)
         if scheme in self.attachment_schemas:
             return self.attachment(words, pretty_url=1)
 
-        icon = ("www", 11, 11)
-        if scheme == "mailto": icon = ("email", 14, 10)
-        if scheme == "news": icon = ("news", 10, 11)
-        if scheme == "telnet": icon = ("telnet", 10, 11)
-        if scheme == "ftp": icon = ("ftp", 11, 11)
-        if scheme == "file": icon = ("ftp", 11, 11)
-        #!!! use a map?
-        # http|https|ftp|nntp|news|mailto|wiki|file
-
-        text = ''
-        if self.request.user.show_fancy_links:
-            text = text + self.formatter.image(
-                src="%s/img/moin-%s.gif" % (config.url_prefix, icon[0]),
-                width=icon[1], height=icon[2], border=0, hspace=4,
-                alt="[%s]" % string.upper(icon[0])
-                )
-        text = text + self.highlight_text(words[1])
-        return self.formatter.url(words[0], text, 'external', pretty_url=1, unescaped=1)
+        if wikiutil.isPicture(words[1]) and re.match(self.url_rule, words[1]):
+            text = self.formatter.image(border=2, title=words[0], alt=words[0], src=words[1])
+        else:
+            text = util.web.getLinkIcon(self.request, self.formatter, scheme)
+            text += self.highlight_text(words[1])
+        return self.formatter.url(words[0], text, 'external', pretty_url=1, unescaped=1, target=target)
 
 
     def _email_repl(self, word):
@@ -406,7 +453,10 @@ class Parser:
         result = []
         self._close_item(result)
         self.in_li = 1
-        result.append(self.formatter.listitem(1))
+        css_class = ''
+        if self.line_was_empty and not self.first_list_item:
+            css_class = 'gap'
+        result.append(self.formatter.listitem(1, css_class=css_class))
         result.append(self.formatter.paragraph(1))
         return string.join(result, '')
 
@@ -423,7 +473,8 @@ class Parser:
         self.in_dd = 1
         result.extend([
             self.formatter.definition_term(1),
-            match[:-3],
+            # CNC:2003-05-30
+            self.formatter.text(match[:-3]),
             self.formatter.definition_term(0),
             self.formatter.definition_desc(1)
         ])
@@ -456,26 +507,26 @@ class Parser:
         attrdef = attrdef[1:]
 
         # extension for special table markup
-        def table_extension(key, parser, attrs):
+        def table_extension(key, parser, attrs, wiki_parser=self):
             msg = ''
             if key[0] in string.digits:
                 token = parser.get_token()
                 if token != '%':
                     wanted = '%'
-                    msg = _('Expected "%(wanted)s" after "%(key)s", got "%(token)s"') % locals()
+                    msg = wiki_parser._('Expected "%(wanted)s" after "%(key)s", got "%(token)s"') % locals()
                 else:
                     try:
                         dummy = int(key)
                     except ValueError:
-                        msg = _('Expected an integer "%(key)s" before "%(token)s"') % locals()
+                        msg = wiki_parser._('Expected an integer "%(key)s" before "%(token)s"') % locals()
                     else:
-                        attrs['width'] = '"%s"' % key
+                        attrs['width'] = '"%s%%"' % key
             elif key == '-':
                 arg = parser.get_token()
                 try:
                     dummy = int(arg)
                 except ValueError:
-                    msg = _('Expected an integer "%(arg)s" after "%(key)s"') % locals()
+                    msg = wiki_parser._('Expected an integer "%(arg)s" after "%(key)s"') % locals()
                 else:
                     attrs['colspan'] = '"%s"' % arg
             elif key == '|':
@@ -483,7 +534,7 @@ class Parser:
                 try:
                     dummy = int(arg)
                 except ValueError:
-                    msg = _('Expected an integer "%(arg)s" after "%(key)s"') % locals()
+                    msg = wiki_parser._('Expected an integer "%(arg)s" after "%(key)s"') % locals()
                 else:
                     attrs['rowspan'] = '"%s"' % arg
             elif key == '(':
@@ -500,9 +551,9 @@ class Parser:
                 arg = parser.get_token()
                 try:
                     if len(arg) != 6: raise ValueError
-                    dummy = string.atoi(arg, 16)
+                    dummy = int(arg, 16)
                 except ValueError:
-                    msg = _('Expected a color value "%(arg)s" after "%(key)s"' % locals())
+                    msg = wiki_parser._('Expected a color value "%(arg)s" after "%(key)s"' % locals())
                 else:
                     attrs['bgcolor'] = '"%s"' % arg
             else:
@@ -510,7 +561,7 @@ class Parser:
             return msg
 
         # scan attributes
-        attr, msg = wikiutil.parseAttributes(attrdef, '>', table_extension)
+        attr, msg = wikiutil.parseAttributes(self.request, attrdef, '>', table_extension)
         if msg: msg = '<strong class="highlight">%s</strong>' % msg
         return attr, msg
 
@@ -565,22 +616,37 @@ class Parser:
         level = 1
         while h[level:level+1] == '=': level = level+1
         depth = min(5,level)
-        headline = string.strip(h[level:-level])
+
+        title_text = string.strip(h[level:-level])
+        self.titles.setdefault(title_text, 0)
+        self.titles[title_text] += 1
+
+        unique_id = ''
+        if self.titles[title_text] > 1:
+            unique_id = '-%d' % self.titles[title_text]
+
         return \
-            self.formatter.anchordef("head-"+sha.new(headline).hexdigest()) + \
-            self.formatter.heading(depth, self.highlight_text(headline, flow=0), icons=icons)
+            self.formatter.anchordef("head-"+sha.new(title_text).hexdigest()+unique_id) + \
+            self.formatter.heading(depth, self.highlight_text(title_text, flow=0), icons=icons)
 
 
     def _processor_repl(self, word):
         """Handle processed code displays."""
         if word[:3] == '{{{': word = word[3:]
 
-        from MoinMoin.processor import processors
         self.processor = None
-        processor_name = string.split(word[2:])[0]
-        if processor_name in processors:
-            self.processor = util.importName("MoinMoin.processor." +
-                processor_name, "process")
+        if word.strip() == '#!':
+            # empty bang paths lead to a normal code display
+            # can be used to escape real, non-empty bang paths
+            word = ''
+        else:
+            from MoinMoin.processor import processors
+            processor_name = word[2:].split()[0]
+            if processor_name in processors:
+                from MoinMoin.util import pysupport
+
+                self.processor = pysupport.importName("MoinMoin.processor." +
+                    processor_name, "process")
 
         if self.processor:
             self.in_pre = 2
@@ -588,8 +654,8 @@ class Parser:
             return ''
         else:
             self._check_p()
-            self.in_pre = 1
-            return self.formatter.preformatted(self.in_pre) + \
+            self.in_pre = word and 1 or 3
+            return self.formatter.preformatted(1) + \
                 self.formatter.text(word)
 
 
@@ -674,6 +740,7 @@ class Parser:
                 open = open + self.formatter.definition_list(1)
             else:
                 open = open + self.formatter.bullet_list(1)
+            self.first_list_item = 1
 
         # If list level changes, close an open table
         if self.in_table and (open or close):
@@ -745,7 +812,7 @@ class Parser:
                 if self.in_pre and type not in ['pre', 'ent']:
                     return self.highlight_text(hit)
                 else:
-                    return apply(getattr(self, '_' + type + '_repl'), (hit,))
+                    return getattr(self, '_' + type + '_repl')(hit)
         else:
             import pprint
             raise Exception("Can't handle match " + `match`
@@ -755,12 +822,11 @@ class Parser:
         return ""
 
 
-    def format(self, formatter, form):
+    def format(self, formatter):
         """ For each line, scan through looking for magic
             strings, outputting verbatim any intervening text.
         """
         self.formatter = formatter
-        self.form = form
         self.hilite_re = self.formatter.page.hilite_re
 
         # prepare regex patterns
@@ -789,9 +855,14 @@ class Parser:
         # go through the lines
         self.lineno = 0
         self.lines = eol_re.split(rawtext)
+        self.line_is_empty = 0
+
         for line in self.lines:
             self.lineno = self.lineno + 1
             self.table_rowstart = 1
+            self.line_was_empty = self.line_is_empty
+            self.line_is_empty = 0
+            self.first_list_item = 0
 
             if self.in_pre:
                 if self.in_pre == 2:
@@ -807,7 +878,7 @@ class Parser:
 
                     # send rest of line through regex machinery
                     line = line[endpos+3:]                    
-                elif string.strip(line)[:2] == "#!" and string.find(line, 'python') > 0:
+                elif self.in_pre == 1 and string.strip(line)[:2] == "#!" and string.find(line, 'python') > 0:
                     from MoinMoin.processor.Colorize import process
                     self.processor = process
                     self.in_pre = 2
@@ -817,10 +888,11 @@ class Parser:
                 # paragraph break on empty lines
                 if not string.strip(line):
                     if self.formatter.in_p:
-                        sys.stdout.write(self.formatter.paragraph(0))
+                        self.request.write(self.formatter.paragraph(0))
                     if self.in_table:
-                        sys.stdout.write(self.formatter.table(0))
+                        self.request.write(self.formatter.table(0))
                         self.in_table = 0
+                    self.line_is_empty = 1
                     continue
 
                 # check indent level
@@ -847,35 +919,37 @@ class Parser:
                             indtype = "dl"
 
                 # output proper indentation tags
-                print self._indent_to(indlen, indtype, numtype, numstart)
+                self.request.write(self._indent_to(indlen, indtype, numtype, numstart))
 
                 # start or end table mode
                 if not self.in_table and line[indlen:indlen+2] == "||" and line[-2:] == "||":
                     attrs, attrerr = self._getTableAttrs(line[indlen+2:])
-                    sys.stdout.write(self.formatter.table(1, attrs) + attrerr)
+                    self.request.write(self.formatter.table(1, attrs) + attrerr)
                     self.in_table = self.lineno
                 elif self.in_table and not(line[indlen:indlen+2] == "||" and line[-2:] == "||"):
-                    sys.stdout.write(self.formatter.table(0))
+                    self.request.write(self.formatter.table(0))
                     self.in_table = 0
 
             # convert line from wiki markup to HTML and print it
+	    if not self.in_pre:   # we don't want to have trailing blanks in pre
+	        line = line + " " # we don't have \n as whitespace any more
             if self.hilite_re:
-                sys.stdout.write(self.highlight_scan(scan_re, line + " "))
+                self.request.write(self.highlight_scan(scan_re, line))
             else:
-                line, count = re.subn(scan_re, self.replace, line + " ")
+                line, count = re.subn(scan_re, self.replace, line)
                 ##if not count: self._check_p()
                 self._check_p()
-                sys.stdout.write(line)
+                self.request.write(line)
 
             if self.in_pre:
-                sys.stdout.write(self.formatter.linebreak())
+                self.request.write(self.formatter.linebreak())
             #if self.in_li:
             #    self.in_li = 0
-            #    sys.stdout.write(self.formatter.listitem(0))
+            #    self.request.write(self.formatter.listitem(0))
 
         # close code displays, paragraphs, tables and open lists
-        if self.in_pre: sys.stdout.write(self.formatter.preformatted(0))
-        if self.formatter.in_p: sys.stdout.write(self.formatter.paragraph(0))
-        if self.in_table: sys.stdout.write(self.formatter.table(0))
-        sys.stdout.write(self._undent())
+        if self.in_pre: self.request.write(self.formatter.preformatted(0))
+        if self.formatter.in_p: self.request.write(self.formatter.paragraph(0))
+        if self.in_table: self.request.write(self.formatter.table(0))
+        self.request.write(self._undent())
 

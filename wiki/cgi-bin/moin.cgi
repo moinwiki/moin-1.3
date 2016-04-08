@@ -1,12 +1,12 @@
 #! /usr/bin/env python
-
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - CGI Driver Script
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000-2003 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: moin.cgi,v 1.2 2002/03/11 21:48:48 jhermann Exp $
+    $Id: moin.cgi,v 1.5 2003/11/19 00:31:11 thomaswaldmann Exp $
 """
 
 #import sys
@@ -18,7 +18,7 @@ if os.environ.get('QUERY_STRING') == 'test':
 
     try:
         from MoinMoin import cgimain
-        print 'Package "MoinMoin" sucessfully imported.\n'
+        print 'Package "MoinMoin" successfully imported.\n'
         cgimain.test()
     except:
         import sys, traceback, string, pprint

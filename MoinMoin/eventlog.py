@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Event log management
 
@@ -8,12 +9,13 @@
     editing it, etc. For now, we just add events, later we need
     to add statistical reports, and aggregation to a database.
 
-    $Id: eventlog.py,v 1.9 2002/04/25 19:32:30 jhermann Exp $
+    $Id: eventlog.py,v 1.13 2003/11/09 21:00:49 thomaswaldmann Exp $
 """
 
 # Imports
 import os, string, time, urllib
 from MoinMoin import config, util
+import MoinMoin.util.web
 
 
 #############################################################################
@@ -27,10 +29,6 @@ class EventLogger:
     def __init__(self):
         self._filename = os.path.join(config.data_dir, 'event.log')
         self._logfile = None
-        self._ua_match = None
-        if config.ua_spiders:
-            import re
-            self._ua_match = re.compile(config.ua_spiders)
 
     def _write(self, data):
         if not self._logfile:
@@ -42,7 +40,7 @@ class EventLogger:
         """ Write an event of type `eventtype, with optional key/value
             pairs appended (i.e. you have to pass a dict).
         """
-        if self._ua_match and self._ua_match.search(os.environ.get('HTTP_USER_AGENT', '')):
+        if util.web.isSpiderAgent():
             return
 
         kvlist = values.items()
@@ -67,9 +65,13 @@ class EventLogger:
 
         data = []
         for event in events:
-            time, eventtype, kvpairs = string.split(string.rstrip(event), '\t')
+            try:
+                time, eventtype, kvpairs = string.split(string.rstrip(event), '\t')
+            except ValueError:
+                # badly formatted line in file, skip it
+                continue
             if filter and eventtype not in filter: continue
-            data.append((float(time), eventtype, util.parseQueryString(kvpairs)))
+            data.append((float(time), eventtype, util.web.parseQueryString(kvpairs)))
 
         return data
 

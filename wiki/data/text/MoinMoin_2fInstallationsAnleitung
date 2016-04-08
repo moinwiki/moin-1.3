@@ -1,7 +1,8 @@
+##language:de
 #pragma section-numbers off
 
 Diese HTML-Seite fasst die grundlegenden Installationsbeschreibungen von http://purl.net/wiki/moin/MoinMoin/InstallationsAnleitung zusammen.
-Sie enthält alle notwendigen Informationen, um Ihre eigene Wiki-Umbegung einzurichten, auch ohne online zu sein.
+Sie enthält alle notwendigen Informationen, um Ihre eigene Wiki-Umgebung einzurichten, auch ohne online zu sein.
 Wenn Sie jedoch eine permanente Internet-Verbindung besitzen, können Sie auch die zuvor erwähnte Seite "Hilfe``Zur``Installation" in den Browser laden, die ggf. aktuellere Informationen enthält.
 
 Nachdem Sie gemäß der Anleitung Ihr Wiki zum Laufen gebracht haben, können Sie den Rest der Onlinehilfe direkt dort lesen.

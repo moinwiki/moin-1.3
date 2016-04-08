@@ -1,3 +1,4 @@
+##language:de
 ##master-page:HelpOnEditing/SubPages
 ##master-date:2002-01-24 15:59:57
 HilfeInhalt > HilfeZumEditieren
@@ -8,6 +9,8 @@ Unterseiten sind Gruppen von Seiten, die einen gemeinsamen Präfix teilen, der se
 
 Durch die Verwendung von "/", um mehrere WikiName``n zusammenzufügen, können Sie beliebig tiefe Hierarchien aufbauen (innerhalb gewisser Grenzen, insbesondere der maximalen Länge von Dateinamen des Hostsystems). In Wirklichkeit sind Unterseiten auch normale Seiten, die einen "/" im Namen enthalten und daher neben allen anderen Seiten im Dateisystem gespeichert werden. Unterseiten sind eine konfigurierbare Eigenschaft, sie sind allerdings standardmäßig eingeschaltet und es wird empfohlen, daß Sie das auch so beibehalten, da die Hilfeseiten auch diese Eigenschaft benutzen.
 
+Verweise zu benachbarten Unterseiten fangen mit "`../`" an, z.B. ../UnterSeiten (ein Verweis auf diese Seite).
+
 === Beispiel ===
 {{{
  * HilfeZumEditieren/UnterSeiten
@@ -15,6 +18,8 @@ Durch die Verwendung von "/", um mehrere WikiName``n zusammenzufügen, können Sie
  * [wiki:Self:HilfeZumEditieren/UnterSeiten genau diese Seite]
  * /DritteEbene
  * [wiki:/DritteEbene eine Seite unterhalb dieser hier]
+ * ../UnterSeiten
+ * ["../"] (anonymer Verweis zur übergeordneten Seite)
 }}} 
 
 === Anzeige ===
@@ -23,5 +28,8 @@ Durch die Verwendung von "/", um mehrere WikiName``n zusammenzufügen, können Sie
  * [wiki:Self:HilfeZumEditieren/UnterSeiten genau diese Seite]
  * /DritteEbene
  * [wiki:/DritteEbene eine Seite unterhalb dieser hier]
+ * ../UnterSeiten
+ * ["../"] (anonymer Verweis zur übergeordneten Seite)
 
- /!\ Bitte tun Sie uns allen einen Gefallen und erzeugen Sie NICHT die /DritteEbene Seiten!
+
+/!\ Bitte tun Sie uns allen einen Gefallen und erzeugen Sie die /DritteEbene Seiten ''nicht'' einfach nur zum Ausprobieren!

@@ -1,0 +1,80 @@
+##language:it
+== WikiWikiWeb ==
+
+Un WikiWikiWeb è un ambiente ipertestuale collaborativo, con l'enfasi sulla
+facilità di accesso e di modifica delle informazioni.
+
+Puoi modificare qualsiasi pagina cliccando sul link in fondo alla pagina.
+Le parole maiuscole unite insieme formano un NomeWiki, che rappresenta un
+collegamento ipertestuale a un'altra pagina. Cliccando sul titolo della
+pagina si ottiene un elenco di tutte le pagine che contengono riferimenti
+alla pagina corrente. Le pagine che non esistono ancora sono rappresentate
+con un punto di domanda (oppure in colore rosso): segui il link e potrai
+aggiungere la pagina. Questo è anche il modo per creare una nuova pagina:
+inserisci un NomeWiki in una pagina esistente, conferma la modifica, clicca
+sul nuovo link e crea la pagina (ulteriori dettagli in AiutoSuCreazionePagina).
+
+Sei invitato a fare prove di qualsiasi tipo utilizzando la pagina CastelliDiSabbia.
+Per favore, prima di modificare le altre pagine, aspetta di sentirti a tuo
+agio con il modo di lavorare del wiki.
+
+Per saperne di più su cosa sia un Wiki:WikiWikiWeb, leggi
+Wiki:WhyWikiWorks e anche Wiki:WikiNature. Inoltre, consulta le pagine
+Wiki:WikiWikiWebFaq e Wiki:OneMinuteWiki.
+
+Questo wiki fa parte del InterWiki space, che significa che puoi facilmente
+fare riferimento ad una enorme mole di informazioni disponibile attraverso
+altri siti wiki pubblici.
+
+Buoni punti di partenza per esplorare il wiki sono:
+ * ModificheRecenti: vedi dove sono state fatte delle modifiche, e da chi
+ * CercaPagina: svariate maniere di ricercare una pagina
+ * IndiceDeiTitoli: elenco di tutte le pagine del wiki
+ * IndicePerParola: elenco di tutte le parole che formano i titoli delle pagine
+ * NavigaIlSito: una pagina che raggruppa le varie modalità di ricerca nel wiki
+ * CastelliDiSabbia: una pagina dedicata agli esperimenti, che puoi modificare a piacere
+
+Per ulteriore aiuto, vedi le pagine AiutoContenuti e AiutoIndice.
+
+== Nomi Wiki ==
+
+Un NomeWiki è una parola formata dalla concatenazione di singole parole
+con la prima lettera in maiuscolo. I Nomi''''''Wiki automagicamente diventano
+dei link ipertestuali nella pagina che li contengono. Cosa esattamente sia una
+lettera in maiuscolo o minuscolo è determinato dalla configurazione, e quella
+di default funziona col set di caratteri  Latin-1 (ISO-8859-1). Vedi sotto
+per come adattare le regole per gestire il Russo, l'Ebraico o altre lingue
+non occidentali.
+
+Quando clicchi sul titolo della pagina (ad esempio su AiutoPerNovizi in cima
+a questa pagina), ottieni un elenco di tutte le pagine che contengono dei
+riferimenti a quella corrente. Questo funziona anche su pagine che non sono
+ancora state definite.
+
+Un punto di domanda prima del link, o quando il link è in grassetto rosso,
+indica che quella pagina non è ancora stata creata: puoi cliccare sul punto
+di domanda per ottenere una sua definizione. Cliccando sul link invece potrai
+inserire una nuova pagina, modificando la pagina di default che ti viene
+presentata e salvandola. Una lista delle pagine che non sono ancora state
+create ma alle quali ci si è riferiti in altre pagine è disponibile in PagineAssenti.
+
+Per prevenire il meccanismo Wiki su un nome, ad esempio se vuoi scrivere
+la parola Nome''''''Wiki senza che diventi un link, usa questo trucco:
+inserisci in mezzo alla parola una marcatura in grassetto vuota (cioè
+una sequenza di sei apici), così: {{{Nome''''''Wiki}}}. In alternativa,
+puoi usare una sequenza più corta, utilizzando gli apici rovesciati "{{{``}}},
+cioè {{{Nome``Wiki}}}.
+
+Per saperne di più sul formato di markup, vedi AiutoSuFormattazione.
+
+== Nomi di pagina arbitrari ==
+
+Se racchiudi una serie di caratteri tra parentesi quadre e doppie virgolette
+{{{["in questo modo"]}}}, diventa una maniera alternativa per specificare
+il nome di una pagina. Questo può essere usato a scopi particolari
+(come organizzare un elenco di elementi, ad esempio la tua collezione di
+CD, utilizzando il loro nome "naturale"), o se vuoi creare un wiki con
+pagine che utilizzino set di caratteri non occidentali.
+
+/!\ '''Questa è una funzionalità abilitabile con `allow_extended_names`, e potrebbe non essere disponibile!'''
+

@@ -1,20 +1,22 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin - OrphanedPages Macro
 
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: OrphanedPages.py,v 1.6 2002/04/17 20:33:33 jhermann Exp $
+    $Id: OrphanedPages.py,v 1.12 2003/11/09 21:01:03 thomaswaldmann Exp $
 """
 
 # Imports
 from MoinMoin import config, user, wikiutil
-from MoinMoin.i18n import _
 
 _guard = 0
 
 
 def execute(macro, args):
+    _ = macro.request.getText
+
     # prevent recursive calls
     global _guard
     if _guard: return ''
@@ -22,6 +24,12 @@ def execute(macro, args):
     # delete all linked pages from a dict of all pages
     _guard = 1
     pages = wikiutil.getPageDict(config.text_dir)
+    # we do not look at pages we have no read rights on - this avoids
+    # having MoinEditorBackup showing up (except your very own one)
+    for key in pages.keys():
+        if not macro.request.user.may.read(pages[key].page_name) or \
+           key.endswith('/MoinEditorBackup'):
+            del pages[key]
     orphaned = {}
     orphaned.update(pages)
     for page in pages.values():

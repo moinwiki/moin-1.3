@@ -1,12 +1,13 @@
+# -*- coding: iso-8859-1 -*-
 """
     MoinMoin
 
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: caching.py,v 1.4 2001/06/08 17:13:02 jhermann Exp $
+    $Id: caching.py,v 1.5 2003/11/09 21:00:48 thomaswaldmann Exp $
 """
-__version__ = "$Revision: 1.4 $"[11:-2]
+__version__ = "$Revision: 1.5 $"[11:-2]
 
 # Imports
 import os, shutil

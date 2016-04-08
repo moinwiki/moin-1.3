@@ -1,5 +1,8 @@
+##language:de
 ##master-page:HelpForBeginners
-##master-date:2002-02-20 15:09:13
+##master-date:2002-12-16 15:13:06
+##master-sha:79B9E2A6EEC6A617C928EEEDF88B6B752A6C3628
+
 == WikiWikiWeb ==
 Ein WikiWikiWeb ist eine Hypertext-Umgebung für gemeinschaftliches Zusammenarbeiten, mit Betonung auf einfachen Zugriff auf und einfaches Ändern von Informationen.
 
@@ -33,8 +36,3 @@ Ein Fragezeichen vor einem Link (oder auch ein Link, der fett und rot abgebildet
 Um einen WikiName``n nicht als solchen gelten zu lassen (ihn zu "escapen"), z.B. wenn man Wiki''''''Name schreiben will, ohne einen Link zu generieren, kann man eine leere Fettschrift-Markierung verwenden (also eine Folge von sechs einfachen Anführungszeichen) wie hier: {{{Wiki''''''Name}}}. Alternativ können Sie die kürzere Sequenz "{{{``}}}" (zwei inverse Hochkommata, engl. ''Backticks'') verwenden, d.h. {{{Wiki``Name}}}.
 
 Lesen Sie HilfeZumEditieren, um weiteres über Wiki-Notation zu lernen.
-
-== Beliebige Seiten-Namen ==
-Wenn Sie eine Folge von Zeichen in eckigen Klammern und doppelten Anführungszeichen {{{["wie hier"]}}} einschließen, dann wird daraus ein Seitenname. Dies kann für spezielle Anwendungen benutzt werden (z.B. für's Organisieren einer Liste von Dingen, z.B. Ihrer CD-Sammlung über deren "natürlichen" Namen) oder auch wenn Sie ein Wiki mit nicht-westlichen Zeichensätzen erzeugen wollen.
-
-/!\ '''Dies ist eine konfigurierbare Eigenschaft, die durch `allow_extended_names` aktiviert wird, dadurch kann es sein, dass dies nicht ohne weiteres funktioniert!'''

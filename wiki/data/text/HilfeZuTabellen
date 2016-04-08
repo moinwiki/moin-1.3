@@ -1,5 +1,6 @@
+##language:de
 ##master-page:HelpOnTables
-##master-date:2002-02-27 15:16:34
+##master-date:2003-10-29 15:15:03
 == Tabellen-Formatierung ==
 Wenn Sie eine Tabelle anlegen wollen, beginnen und beenden Sie eine Zeile mit dem Tabellen-Markierer "{{{||}}}". Zwischen dieser Start- und Ende-Markierung können Sie eine beliebige Anzahl von Zellen erzeugen, indem Sie sie mit "{{{||}}}" voneinander trennen. Um eine zentrierte Zelle zu erhalten, die mehrere Spalten überspannt, fangen Sie diese Zelle mit mehr als einem Zellmarkierer an. Aufeinanderfolgende Zeilen mit der selben Einrückungstiefe, die eine Tabellenkennzeichnung enthalten, werden in eine gemeinsame Tabelle zusammengefasst.
 
@@ -63,3 +64,7 @@ Zusätzlich zu den genannten können Sie auch noch einige der traditionellen, etwa
  ||<)> rechts ||
  Farben::
  ||<#FF8080> rot ||<#80FF80> grün ||<#8080FF> blau ||
+
+
+=== Tabellendaten aus anderen Quellen einfügen ===
+ * kommaseparierte Werte: siehe wiki:Self:HilfeZuProzessoren#csvprocessor

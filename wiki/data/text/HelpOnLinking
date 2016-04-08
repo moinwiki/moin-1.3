@@ -1,3 +1,9 @@
+##language:en
+== Arbitrary Page Names ==
+If you enclose a sequence of characters in square brackets and double quotes {{{["like this"]}}}, that makes it a page name. That can be used for specific uses of MoinMoin (like organizing a list of items, e.g. your CD collection, by their "natural" name), or if you want to create a wiki with a non-western character encoding. 
+
+/!\ '''This is a configurable feature enabled by `allow_extended_names`, so it might not work!'''
+
 == URLs and Inline Images ==
 There are several way to insert external references[[FootNote(The opposite of external references are the internal, automatic WikiName links.)]] into the text:
  * direct URL insertion; if the URL ends in an image extension ("{{{.gif}}}", "{{{.jpg}}}" or "{{{.png}}}"), the URL is converted to an image tag.
@@ -13,7 +19,7 @@ If you enter URLs into normal text, there is the problem of detecting what belon
 
 The supported URL schemes are: `http`, `https`, `ftp`, `nntp`, `news`, `mailto`, `telnet`, and `file`. The administrator of your wiki can extend the supported schemes by using the {{{config.url_schemas}}} variable (see HelpOnConfiguration).
 
-In addition to the standard schemes, there are MoinMoin-specific ones: `wiki`, `attachment`, `inline`, and `drawing`. "`wiki`" indicates an InterWiki link, so `MoinMoin:Frontpage` and `wiki:MoinMoin:Frontpage` are equivalent; you will normally prefer the shorter form, the "`wiki`" scheme becomes important when you use bracketed links, since there you always need a scheme. The other three schemes are related to file attachments and are explained on HelpOnActions/AttachFile.
+In addition to the standard schemes, there are MoinMoin-specific ones: `wiki`, `attachment`, `inline`, and `drawing`. "`wiki`" indicates an InterWiki link, so `MoinMoin:FrontPage` and `wiki:MoinMoin:FrontPage` are equivalent; you will normally prefer the shorter form, the "`wiki`" scheme becomes important when you use bracketed links, since there you always need a scheme. The other three schemes are related to file attachments and are explained on HelpOnActions/AttachFile.
 
 When the configuration option `bang_meta` is set to true, you can surpress WikiName linking by putting an exclamation mark (''bang'') before the WikiName, i.e. `!WikiName`. This is deactivated by default.
 
@@ -26,6 +32,7 @@ For more information on the possible markup, see HelpOnEditing. For details on h
  * http://moin.sourceforge.net/
  * [http://moin.sourceforge.net/]
  * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * [^http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage - in new window]
  * http://moin.sourceforge.net/moinmoin.gif
  * [http://moin.sourceforge.net/moinmoin.gif]
  * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
@@ -43,6 +50,7 @@ For more information on the possible markup, see HelpOnEditing. For details on h
  * http://moin.sourceforge.net/
  * [http://moin.sourceforge.net/]
  * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * [^http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage - in new window]
  * http://moin.sourceforge.net/moinmoin.gif
  * [http://moin.sourceforge.net/moinmoin.gif]
  * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]

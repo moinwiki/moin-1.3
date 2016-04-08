@@ -1,5 +1,6 @@
+##language:en
 ##||{{{[[ ]]}}} ||  ||  ||
-
+[[Navigation(children)]]
 [[TableOfContents]]
 
 == Macros ==
@@ -26,8 +27,12 @@ For more information on the possible markup, see HelpOnEditing.
 ||{{{[[AbandonedPages]]}}} || list pages that were not edited for the longest time || See AbandonedPages ||
 ||{{{[[RandomPage]]}}}      || a link to a random page || [[RandomPage]] ||
 ||{{{[[RandomPage(#)]]}}}   || links to a number of random pages || Two random pages:[[RandomPage(2)]] ||
-||{{{[[TableOfContents]]}}} || display a local table of contents || See below ||
+||{{{[[TableOfContents([maxdepth])]]}}} || display a local table of contents, possibly limited to a maximal depth || See above ||
 ||{{{[[Anchor(anchorname)]]}}} || macro to insert anchors into a page || [[Anchor(here)]][#here] ||
+||{{{[[Navigation(children[,maxdepth])]]}}} || macro to list all of a pages' children || See start of this page ||
+||{{{[[Navigation(siblings[,maxdepth])]]}}} || quick navigation to siblings of a page || See /MailTo ||
+||{{{[[Navigation(slideshow)]]}}} || creates a link to toggle between slide show and wiki mode, and a link to start the slide show || See HelpOnSlideShows ||
+||{{{[[Navigation(slides)]]}}} || displays first/prev/next/last links || See HelpOnSlideShows ||
 
 === System information ===
 ||'''Macro'''||'''Description'''||'''Example'''||
@@ -43,12 +48,14 @@ For more information on the possible markup, see HelpOnEditing.
 ||{{{[[Icon(image)]]}}}     || display system icons || See HelpOnNavigation ||
 ||{{{[[UserPreferences]]}}} || display a user preferences dialog || See UserPreferences ||
 ||{{{[[BR]]}}} || insert a line break || 1st line[[BR]]2nd line ||
-||{{{[[Include(HelloWorld[,"heading"[,level]])]]}}} || include contents of another page || [[Include(HelloWorld)]] ||
+||{{{[[RandomQuote(pagename)]]}}} || Select a random quote from the given page, or from `FortuneCookies` if ommitted || [[RandomQuote]] ||
+||{{{[[Include(HelloWorld[,"heading"[,level]])]]}}} || include contents of another page || for details see ["/Include"] ||
 ||{{{[[FootNote(text)]]}}} || Add a footnote (the text cannot contain any wiki markup), or explicitely display collected footnotes when no args are given || See HelpOnPageCreation for an example ||
 ||{{{[[Date(timestamp)]]}}} || display a timestamp according to system settings || [[Date()]] ||
 ||{{{[[DateTime(timestamp)]]}}} || display a timestamp[[FootNote("timestamp" can be empty (current time), a number of seconds since 1970 (unix timestamp), or a W3C time specification ("2002-01-23T12:34:56").)]] according to user settings || [[DateTime()]] ||
 ||{{{[[GetText(text)]]}}} || loads I18N texts (mainly intended for use on Help pages) || "Edit``Text" is translated to "[[GetText(EditText)]]" ||
 ||{{{[[TeudView]]}}} || useful for intranet developer wikis, a means to view pydoc documentation, formatted via a XSLT stylesheet, for details see EfnetPythonWiki:TeudProject || See EfnetPythonWiki:TeudViewer?module=MoinMoin.macro.TeudView ||
+||{{{[[MailTo(email)]]}}} || protect your email address from spam bots || for details see /MailTo ||
 
 [[FootNote]]
 

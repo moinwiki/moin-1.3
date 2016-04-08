@@ -1,0 +1,11 @@
+##language:fr
+
+[[UserPreferences]]
+
+Si vous venez pour la première fois sur cette page, vous voyez ici le formulaire dans lequel vous entrerez votre nom d'utilisateur et d'autres paramètres (le mot de passe est conservé, mais pour l'instant non utilisé). Le mieux est de choisir un WikiNom (comme Prénom``Nom) comme nom d'utilisateur pour que vos modifications et signatures soient liées à votre Wiki``Homepage. En entrant votre addresse de messagerie vous aurez la possibilité d'avoir des notifications de modifications de pages.
+
+Si vous cliquez sur '''Créer un profil''', un profil utilisateur sera créé pour vous. Avec la réponse, un cookie HTTP est envoyé qui contient votre identifiant (ID) utilisateur, ce qui permet au système de vous reconnaitre.
+
+ /!\ ''Cet "ID", affiché dans la page de réponse, peut être utilisé pour envoyez le même cookie à d'autres machines que vous pourriez utiliser. Donc notez le bien ! Ou alors copier et coller l'URL montré ci-dessus, après créé votre profil.''
+
+'''Se déconnecter''' efface le cookie. Comme il est décrit ci-dessus, '''Se connecter''' vous permet d'avoir accès à votre profil utilisateur si jamais vous avez perdu le cookie ou si vous être sur une autre machine. '''Sauver''' met à jour votre profil.

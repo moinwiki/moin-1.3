@@ -1,5 +1,6 @@
+##language:de
 ##master-page:HelpOnActions
-##master-date:2002-02-27 15:16:34
+##master-date:2003-04-15 05:39:09
 == Aktionen ==
 
 Aktionen sind Werkzeuge, die auf einer Seite oder auf dem ganzen Wiki arbeiten, aber, anders als Makros, nichts zum Seiteninhalt hinzufügen, wenn man die Seite anschaut, sondern den Seiteninhalt bearbeiten. Sie erzeugen eine Ausgabe, die vom Seiteninhalt abhängt (Navigations-Aktionen wie Suchen) oder implementieren Funktionen, die nicht mit dem Betrachten zusammenhängen (wie Löschen oder Umbenennen einer Seite).
@@ -8,9 +9,9 @@ Es gibt eine Menge von system-definierten Aktionen, worin auch das Editieren ein
 
 Die folgenden Aktionen werden zu der Liste von benutzerdefinierten Erweiterungs-Aktionen am Ende jeder Seite hinzugefügt. Dies geschieht für jede gemischtgeschriebene Aktion - für andere Aktionen (komplett in Kleinbuchstaben), siehe die Liste weiter unten auf dieser Seite. Einige dieser Aktionen sind möglicherweise nicht in Ihrem Wiki verfügbar.
 
+ * `AttachFile`: Dateien an eine Seite anhängen, siehe /DateiAnhänge für weitere Details.
  * `DeletePage`: Löschen einer Seite, nachdem Sie nochmals bestätigt haben. Löschen heisst, dass eine letzte Sicherungskopie angelegt und dann die Seite entfernt wird, d.h. Sie können die Seite später ''wiederbeleben'' (solange die Sicherungskopien nicht physikalisch gelöscht werden).
  * `LikePages`: Auflisten von Seiten, deren Titel mit dem gleichen MeatBall:WikiWord anfangen oder enden wie der aktuelle Seitentitel.
- * `AttachFile`: Dateien an eine Seite anhängen, siehe /DateiAnhänge für weitere Details.
  * `LocalSiteMap`: Anzeigen von nahen Links der aktuellen Seite, d.h. eine Liste aller Seiten, auf die verwiesen wird - und auch wieder die Seiten, auf die von dort verwiesen wird - bis zu einer bestimmten, begrenzten Tiefe.
  * `SpellCheck`: rufe die Rechtschreibprüfung für die aktuelle Seite auf; siehe HilfeZurRechtschreibprüfung für weitere Informationen.
 
@@ -38,3 +39,4 @@ Es folgt eine Liste von ''internen'' Aktionen, die für die Implementierung der v
  * chart: Charts anzeigen.
  * dumpform: wird für die Entwicklung genutzt.
  * export: Wiki exportieren (experimentell).
+ * macro: Ausführen einer Hilfs-Aktion in einem externen Makro. ''[1.1]''

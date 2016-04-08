@@ -1,5 +1,7 @@
+##language:de
 ##master-page:HelpOnMacros
 ##master-date:
+[[Navigation(children)]]
 [[TableOfContents]]
 
 == Makros ==
@@ -26,8 +28,12 @@ Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEdit
 ||{{{[[AbandonedPages]]}}}  || Seiten auflisten, die am längsten nicht mehr editiert worden sind || Siehe AufgegebeneSeiten ||
 ||{{{[[RandomPage]]}}}      || ein Link zu einer zufälligen Seite || [[RandomPage]] ||
 ||{{{[[RandomPage(#)]]}}}   || Links zu einer Anzahl von zufälligen Seiten || Zwei zufällige Seiten: [[RandomPage(2)]] ||
-||{{{[[TableOfContents]]}}} || zeigt ein lokales Inhaltsverzeichnis an || siehe unten ||
+||{{{[[TableOfContents([maxTiefe])]]}}} || zeigt ein lokales Inhaltsverzeichnis an, optional begrenzt bis zu einer maximalen Tiefe || siehe oben ||
 ||{{{[[Anchor(anchorname)]]}}} || Makro, um einen Anker in eine Seite einzufügen || [[Anchor(hier)]][#hier] ||
+||{{{[[Navigation(children[,maxdepth])]]}}} || Makro, um alle Unterseiten einer Seite aufzulisten || Siehe Anfang dieser Seite ||
+||{{{[[Navigation(siblings[,maxdepth])]]}}} || Makro, um schnell zwischen benachbarten Unterseiten zu wechseln || Siehe /MailTo ||
+||{{{[[Navigation(slideshow)]]}}} || Makro, um zwischen Diashow- und Wiki-Modus zu wechseln || Siehe HilfeZuDiaShow ||
+||{{{[[Navigation(slides)]]}}} || Makro, um ein Kontrollfeld mit "Anfang/Vorgänger/Nachfolger/Ende" für Diashows anzuzeigen || Siehe HilfeZuDiaShow ||
 
 === System-Informationen ===
 ||'''Makro'''||'''Beschreibung'''||'''Beispiel'''||
@@ -36,22 +42,24 @@ Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEdit
 ||{{{[[PageCount]]}}}       || aktuelle Seitenanzahl || [[PageCount]] Seiten ||
 ||{{{[[PageSize]]}}}        || auflisten der Seitengrößen aller Seiten || Siehe SeitenGröße ||
 ||{{{[[StatsChart(Typ)]]}}} || Statistische Grafiken anzeigen (derzeit definierte Typen: hitcounts, pagesize, useragents) || Siehe EventStats und Unterseiten ||
-||{{{[[SystemAdmin]]}}} || Web-Interface zur Wiki-Administration (in Version 0.11 noch unvollständig) || Siehe SystemInfo ||
+||{{{[[SystemAdmin]]}}} || Web-Interface zur Wiki-Administration (in Version 1.1 noch unvollständig) || Siehe SystemInfo ||
 
 === Andere ===
 ||'''Makro'''||'''Beschreibung'''||'''Beispiel'''||
 ||{{{[[Icon(image)]]}}}     || Anzeigen der System-Icons || HilfeZurNavigation ||
 ||{{{[[UserPreferences]]}}} || Anzeigen der Benutzereinstellungen || BenutzerEinstellungen ||
 ||{{{[[BR]]}}} || einen harten Zeilenumbruch einfügen|| erste Zeile[[BR]]zweite Zeile ||
-||{{{[[Include(HalloWelt[,heading[,level]])]]}}} || Einfügen des Inhalts einer anderen Seite || [[Include(HalloWelt)]] ||
+||{{{[[RandomQuote(Seitenname)]]}}} || Wählt ein zufälliges Zitat aus der angegebenen Seite aus; falls keine Seite angegeben wurde, wird die Seite `FortuneCookies` benutzt || [[RandomQuote]] ||
+||{{{[[Include(HalloWelt[,heading[,level]])]]}}} || Einfügen des Inhalts einer anderen Seite || Details auf ["/Include"] ||
 ||{{{[[FootNote(Text)]]}}} || Fußnote hinzufügen (der Text darf keine Wiki-Notation enthalten) oder gesammelte Fußnoten anzeigen, wenn keine Argumente angegeben werden || Siehe HilfeZurSeitenErzeugung ||
 ||{{{[[Date(timestamp)]]}}} || Anzeigen eines Datums-Stempels gemäß den Systemeinstellungen || [[Date()]] ||
 ||{{{[[DateTime(timestamp)]]}}} || Anzeigen eines Datums/Zeit-Stempels[[FootNote("timestamp" kann leer sein (aktuelle Zeit), die Sekundenzahl seit 1970 (Unix-timestamp) oder eine W3C-Zeitspezifikation ("2002-01-23T12:34:56").)]] gemäß den BenutzerEinstellungen || [[DateTime()]] ||
 ||{{{[[GetText(Text)]]}}} || lädt I18N-Texte (primär gedacht für die Benutzung auf Hilfeseiten) || "Edit``Text" wird übersetzt zu [[GetText(EditText)]]" ||
 ||{{{[[TeudView]]}}} || nützlich für Intranet-Entwickler-Wikis; eine Mittel pydoc-Dokumentation anzuzeigen, formatiert über ein XSLT-Stylesheet, für Details siehe EfnetPythonWiki:TeudProject || Siehe EfnetPythonWiki:TeudViewer?module=MoinMoin.macro.TeudView ||
+||{{{[[MailTo(email)]]}}} || schützt Ihre E-Mail-Adresse vor Adress-Sammel-Robotern || Details siehe /MailTo ||
 
 [[FootNote]]
 
 == Beispiel-Anzeige ==
-Wir zeigen hier nicht Beispiele für alle Makros, weil das diese Seite sehr lange machen würde. Hier ist der Ersatztext fur das {{{[[SystemInfo]]}}}-Makro:
+Wir zeigen hier nicht Beispiele für alle Makros, weil das diese Seite sehr lange machen würde. Hier ist der Ersatztext für das {{{[[SystemInfo]]}}}-Makro:
  [[SystemInfo]]
