@@ -1,0 +1,18 @@
+SiteNavigation is the central place to explore this wiki. MoinMoin supports these MeatBall:IndexingScheme''''''s:
+ * RecentChanges
+ * TitleIndex
+ * WordIndex
+ * FindPage
+ * WantedPages
+ * OrphanedPages
+ * RandomPage
+ * PageSize
+
+At the bottom of each page, there are actions that allow to navigate to other pages related to the current page:
+ * Like''''''Pages
+ * Local''''''Site''''''Map
+
+Additionally, there are the
+{{{[[PageList]]}}}, {{{[[FullSearch('text')]]}}}
+and {{{[[TableOfContents]]}}}
+macros, which allow you to automatically generate indices for cohesive parts of a wiki.

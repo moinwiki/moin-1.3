@@ -1,0 +1,7 @@
+This page contains a list of recent changes in this wiki of '''[[PageCount]] pages''' (more system information on SystemInfo). For changes on other wikis, see OpenWiki:WikiSites/Aggregation.
+----
+[[RecentChanges]]
+
+|||| [[Icon(moin-diff.gif)]] || marks older pages that have at least one backup version stored (click for an author diff)||
+|||| [[Icon(moin-updated.gif)]] || marks pages edited since you set your bookmark (click for a bookmark diff)||
+|||| [[Icon(moin-new.gif)]] || marks pages created since you set your bookmark, and were not edited after creation||

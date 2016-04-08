@@ -4,7 +4,7 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: python.py,v 1.6 2001/03/23 00:53:16 jhermann Exp $
+    $Id: python.py,v 1.9 2002/03/04 19:12:57 jhermann Exp $
 """
 
 # Imports
@@ -31,15 +31,65 @@ _colors = {
 }
 
 
+class CountedOutput:
+    """ Add line counts and possibly info texts to output
+    """
+
+    def __init__(self, out, lineinfo):
+        self.out = out
+        self.lineinfo = lineinfo
+        self.line = 0
+        self.infocounter = 0
+        self.maxinfo = 0
+
+        if lineinfo:
+            import operator
+            self.maxinfo = reduce(operator.add, map(len, lineinfo.values()), 0)
+
+    def line_no(self):
+        if self.lineinfo:
+            for info in self.lineinfo.get(self.line, []):
+                self.infocounter += 1
+                self.out.write('<a name="info%d"></a>'
+                    '<b><font color="%s">' % (self.infocounter, '#FF0000'))
+                if self.infocounter == 1:
+                    self.out.write('   ')
+                else:
+                    self.out.write('<a href="#info%d">&lt;&lt;</a> ' % (self.infocounter-1))
+                if self.infocounter == self.maxinfo:
+                    self.out.write('   ')
+                else:
+                    self.out.write('<a href="#info%d">&gt;&gt;</a> ' % (self.infocounter+1))
+                self.out.write('#%d: %s</font></b>\n' % (self.infocounter, info))
+        self.out.write('<font color="%s">%5d </font>' % (_colors[_TEXT], self.line))
+
+    def write(self, data):
+        if not self.line:
+            self.line = 1
+            self.line_no()
+
+        parts = data.split('\n')
+        if len(parts) > 1:
+            self.out.write(parts[0])
+            for part in parts[1:]:
+                self.line += 1
+                self.out.write('\n')
+                self.line_no()
+                self.out.write(part)
+        else:
+            self.out.write(data)
+
+
 class Parser:
     """ Send colored python source.
     """
 
-    def __init__(self, raw, out = sys.stdout):
+    def __init__(self, raw, lineinfo={}, **kw):
         """ Store the source text.
         """
-        self.raw = string.strip(string.expandtabs(raw))
-        self.out = out
+        self.raw = string.rstrip(string.expandtabs(raw))
+        self.rawout = kw.get('out', sys.stdout)
+        self.out = CountedOutput(self.rawout, lineinfo)
 
     def format(self, formatter, form):
         """ Parse and send the colored source.
@@ -56,15 +106,15 @@ class Parser:
         # parse the source and write it
         self.pos = 0
         text = cStringIO.StringIO(self.raw)
-        self.out.write('<pre><font face="Lucida,Courier New">')
+        self.rawout.write('<pre><font face="Lucida,Courier New">')
         try:
             tokenize.tokenize(text.readline, self)
         except tokenize.TokenError, ex:
             msg = ex[0]
             line = ex[1][0]
-            self.out.write("<h3>ERROR: %s</h3>%s\n" % (
+            self.rawout.write("<h3>ERROR: %s</h3>%s\n" % (
                 msg, self.raw[self.lines[line]:]))
-        self.out.write('</font></pre>')
+        self.rawout.write('</font></pre>')
 
     def __call__(self, toktype, toktext, (srow,scol), (erow,ecol), line):
         """ Token handler.
@@ -116,7 +166,7 @@ if __name__ == "__main__":
     source = open('python.py').read()
 
     # write colorized version to "python.html"
-    Parser(source, open('python.html', 'wt')).format(None, None)
+    Parser(source, out = open('python.html', 'wt')).format(None, None)
 
     # load HTML page into browser
     if os.name == "nt":

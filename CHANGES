@@ -1,13 +1,154 @@
 MoinMoin Version History
 ========================
 
-Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: CHANGES,v 1.7 2001/10/27 14:34:54 jhermann Exp $
+Note that the file "ChangeLog" in the distribution contains a detailed
+log of all changes (a summary of all CVS commits).
+
+$Id: CHANGES,v 1.76 2002/03/11 22:42:17 jhermann Exp $
 
 -----------------------------------------------------------------------------
-Version 0.10 (2001-11-28, Revision 1.134)
+Version 0.11 (2002-03-11, Revision 1.151)
+
+Most important new features: file attachments, definition list markup
+(glossaries), change notification via email, variable substitution when
+saving pages, edit preview, and improved documentation.
+
+Note that the RSS features require a recent PyXML (CVS or 0.7) due to
+bugs in the namespace handling of xml.sax.saxutils in earlier versions.
+This is (hopefully) automatically detected on every installation.
+
+Statistical features are NOT designed to work with Python 1.5.2 and
+require Python 2.0 or higher. Overall, MoinMoin 0.11 is not explicitely
+tested for 1.5.2 compatibility.
+
+New features:
+    * XML formatting now (most often) produces well-formed, and, depending
+      on proper layout of the wiki page, valid StyleBook XML
+    * Headers are now automatically numbered, unless you set the config
+      item 'show_section_numbers' to 0
+    * "#pragma section-numbers off" (or "0") switches that off explicitely,
+      and "on" or "1" enables numbering 
+    * Added a "contributions" directory for 3rd party extensions
+    * AttachFile action, contributed by Ken Sugino; note that you have
+      to enable this action because of the possibility of DoS attacks
+      (malicious uploads), by adding this to your moin_config:
+            allowed_actions = ['AttachFile']
+    * "attachment:" URL scheme allows access to attachments, to get files
+       from other pages use "attachment:WikiName/filename.ext".
+    * New macros: Date(unixtimestamp) and DateTime(unixtimestamp) to
+      display a timestamp according to system/user settings
+    * Variable substitution when a page is saved, note that saving
+      template pages does NOT expand variables. Supported are:
+        @DATE@      Current date in the system's format
+        @TIME@      Current date and time in the user's format
+        @USERNAME@  Just the user's name (or his domain/IP)
+        @USER@      Signature "-- loginname"
+        @SIG@       Dated Signature "-- loginname date time"
+        @MAILTO@    A fancy mailto: link with the user's data  
+    * Copied some new emoticons from PikiePikie
+        || {{{ :-? }}} || :-? || tongue.gif ||
+        || {{{ :\  }}} || :\  || ohwell.gif ||
+        || {{{ >:> }}} || >:> || devil.gif  ||
+        || {{{ %)  }}} || %)  || eyes.gif   ||
+        || {{{ @)  }}} || @)  || eek.gif    ||
+        || {{{ |)  }}} || |)  || tired.gif  ||
+        || {{{ ;)) }}} || ;)) || lol.gif    ||
+    * AbandonedPages macro
+    * Added definition list markup: {{{<whitespace>term:: definition}}}
+    * Added email notification features contributed by Daniel Saß
+    * SystemInfo: show "Entries in edit log"
+    * Added "RSS" icon to RecentChanges macro and code to generate a
+      RecentChanges RSS channel, see
+          http://www.usemod.com/cgi-bin/mb.pl?UnifiedRecentChanges
+      for details
+    * Added config.sitename and config.interwikiname parameter
+    * Better WikiFarm support:
+      * <datadir>/plugin/macro and <datadir>/plugin/action can be used
+        to store macros and actions local to a specific wiki instance
+      * config.shared_intermap can contain a pathname to a shared
+        "intermap.txt" file (i.e. one stored outside the datadir)
+    * added `backtick` shortcut for {{{inline literal}}} (has to be
+      enabled by "backtick_meta=1" in the config file); note that ``
+      is then a shorter replacement for '''''' escaping
+    * added inline search fields (at the bottom of each page)
+    * Added preview to the editor, including spell checking
+    * New languages: Chinese (Changzhe Han) and Portuguese (Jorge
+      Godoy), updated French (Lucas Bruand), added Korean (Hye-Shik
+      Chang) and Italian (Lele Gaifax)
+    * New SystemAdmin macro
+    * `[[Anchor(anchorname)]]` macro to insert anchors into a page,
+      and [#anchorname Anchor Links].
+    * User option to open editor view via a double-click
+    * Added commentary field to editor, recent changes and page info
+    * Page trails (user option)
+    * UserPreferences: checkboxes for double-click edit, page trail,
+      fancy links, emoticons, jump to last page visited, and some
+      other yes/no options
+    * "config.nonexist_qm" is now the default for a user setting
+    * `[[GetText(text)]]` macro loads I18N texts (mainly intended
+      for use on Help pages)
+    * table attributes via "||<attrlist> ... ||", more details on
+      http://purl.net/wiki/moin/HelpOnTables
+    * PythonFaq interwiki tag and support for $PAGE placeholder
+    * event logging, as the basis for future statistics
+    * "moin-dump" command line tool to create a static copy of
+      the wiki content
+    * "config.external_diff" allows to set an exact path to the
+      command, or change the name to for example "gdiff" if GNU
+      diff is not a native command in your UNIX flavour
+    * `[[PageSize]]` macro
+    * the interwiki name "Self" now always points to the own wiki
+    * config.title1 and config.title2 are inserted into the output
+      right before and after the system title html code (title1
+      is right after the <body> tag and normally undefined, title2
+      defaults to the "<hr>" above the page contents)
+    * Additional link on diff pages to ignore whitespace changes
+    * Subpages (config.allow_subpages, config.page_icons_up)
+    * ^superscript^ markup
+    * `[[FootNote]]` macro
+    * many other new config options, see HelpOnConfiguration for
+      a complete list
+    * [[StatsChart(type)]] shows statistical charts (currently
+      defined types: hitcounts, pagesize, useragents)
+    * 'inline:' scheme works like 'attachment:', but tries to
+      inline the content of the attachment into the page;
+      currently knows about "*.py" sources and colorizes them
+    * support for Java applet "TWikiDrawPlugin" via
+      drawing:<drawingname> URL scheme (you need to activate
+      the AttachFile action if you want drawings)
+    * numeric entities (&#nnnnn;) are now optionally NOT escaped,
+      which allows you to insert more characters into a Latin-1
+      page, especially the Euro symbol
+    * navi_bar is now a list of page names which should be linked
+      on every page
+    * test.cgi is now rolled into moin.cgi, and can be called
+      by adding "?test" to the wiki base URL. Also, as a security
+      feature, the server's environment is only shown for requests
+      local to the web server.
+
+Unfinished features:
+    * user defined forms
+    * XML export of all data in the wiki
+
+Documentation:
+    * extended the online help ("Help*" pages)
+    * German help pages (thanks to Thomas Waldmann)
+
+Bugfixes:
+    * #425857: python Parser bug on the second call
+    * #424917: Caching control
+    * #465499: Two HTTPS problems
+    * #491155: FrontPage hardcoded
+    * Handling of inbound UTF-8 encoded URIs (only with Python >= 2.0)
+    * Fix for subtle changes in "re" of Python 2.2
+    * User-provided URLs are now never URL-escaped, which allows appending
+      #anchors and using %20 for spaces in InterWiki links
+
+-----------------------------------------------------------------------------
+Version 0.10 (2001-10-28, Revision 1.134)
 
 This version is still Python 1.5.2 compatible, but it's not extensively
 tested for that version and some parts of the system might not work

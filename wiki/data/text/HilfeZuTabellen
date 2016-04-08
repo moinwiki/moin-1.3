@@ -1,0 +1,65 @@
+##master-page:HelpOnTables
+##master-date:2002-02-27 15:16:34
+== Tabellen-Formatierung ==
+Wenn Sie eine Tabelle anlegen wollen, beginnen und beenden Sie eine Zeile mit dem Tabellen-Markierer "{{{||}}}". Zwischen dieser Start- und Ende-Markierung können Sie eine beliebige Anzahl von Zellen erzeugen, indem Sie sie mit "{{{||}}}" voneinander trennen. Um eine zentrierte Zelle zu erhalten, die mehrere Spalten überspannt, fangen Sie diese Zelle mit mehr als einem Zellmarkierer an. Aufeinanderfolgende Zeilen mit der selben Einrückungstiefe, die eine Tabellenkennzeichnung enthalten, werden in eine gemeinsame Tabelle zusammengefasst.
+
+Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEditieren.
+
+=== Tabellen-Attribute ===
+
+Abgesehen von der Möglichkeit, Zellmarkierer zu wiederholen, um mehrspaltige Tabellenzellen zu erhalten, können Sie auch viele HTML-Tabellen-Attribute setzen. Jegliches Attribut muss zwischen spitze Klammern {{{<...>}}} direkt hinter den Zellenmarkierer geschrieben werden.
+
+Die wiki-artige Formatierung hat folgende Optionen:
+ * {{{<50%>}}}: Spaltenbreite
+ * {{{<-2>}}}: mehrspaltig
+ * {{{<|2>}}}: mehrzeilig
+ * {{{<(>}}}: linksbündig
+ * {{{<:>}}}: zentriert
+ * {{{<)>}}}: rechtsbündig
+ * {{{<^>}}}: oben bündig
+ * {{{<v>}}}: unten bündig
+ * {{{<#XXXXXX>}}}: Hintergrund-Farbe
+
+Falls Sie verschiedene, zueinander in Konflikt stehende Optionen verwenden, wie {{{<(:)>}}}, gewinnt die letzte Option. Es gibt keine explizite Option für vertikales Zentrieren (''middle''), da dies immer die Standardeinstellung ist.
+
+Zusätzlich zu den genannten können Sie auch noch einige der traditionellen, etwas längeren HTML-Attribute verwenden (beachten Sie, dass nur manche HTML-Attribute erlaubt sind). Dadurch, dass Sie die Attribute auf diese Art angeben, ist es möglich, Eigenschaften der Tabellen-Zeilen und der Tabelle selbst einzustellen - insbesondere können Sie die Tabellenbreite mit {{{||<tablewidth="100%">...||}}} in der ersten Zeile Ihrer Tabelle setzen. Ebenso die Farbe einer ganzen Zeile mit {{{||<rowbgcolor="#FFFFE0">...||}}} in der ersten Zelle einer Zeile. Wie Sie sehen, muss man dem Namen des HTML-Attributs ein {{{table}}} oder {{{row}}} voranstellen.
+
+=== Beispiel ===
+{{{
+ Allgemeines Tabellen-Layout und HTML-artige Optionen::
+ ||||||<tablewidth="80%">'''Kopfzeile'''||
+ ||Zelle 1||Zelle2||Zelle 3||
+ ||<rowspan=2> Zeilen-übergreifend||||<bgcolor='#E0E0FF'> 2 Spalten übergreifend||
+ ||<rowbgcolor="#FFFFE0">Zelle2||Zelle 3||
+ Zellen-Breite::
+ || schmal ||<:99%> breit ||
+ zeilen- und spalten-übergreifend::
+ ||<|2> 2 Zeilen || Zeile 1 ||
+ || Zeile 2 ||
+ ||<-2> Zeile 3 über 2 Spalten ||
+ Ausrichtung::
+ ||<(> links ||<^|3> oben ||<v|3> unten ||
+ ||<:> zentriert ||
+ ||<)> rechts ||
+ Farben::
+ ||<#FF8080> rot ||<#80FF80> grün ||<#8080FF> blau ||
+}}} 
+
+=== Anzeige ===
+ Allgemeines Tabellen-Layout und HTML-artige Optionen::
+ ||||||<tablewidth="80%">'''Kopfzeile'''||
+ ||Zelle 1||Zelle2||Zelle 3||
+ ||<rowspan=2> Zeilen-übergreifend||||<bgcolor='#E0E0FF'> 2 Spalten übergreifend||
+ ||<rowbgcolor="#FFFFE0">Zelle2||Zelle 3||
+ Zellen-Breite::
+ || schmal ||<:99%> breit ||
+ zeilen- und spalten-übergreifend::
+ ||<|2> 2 Zeilen || Zeile 1 ||
+ || Zeile 2 ||
+ ||<-2> Zeile 3 über 2 Spalten ||
+ Ausrichtung::
+ ||<(> links ||<^|3> oben ||<v|3> unten ||
+ ||<:> zentriert ||
+ ||<)> rechts ||
+ Farben::
+ ||<#FF8080> rot ||<#80FF80> grün ||<#8080FF> blau ||

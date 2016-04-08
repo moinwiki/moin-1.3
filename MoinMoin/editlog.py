@@ -1,17 +1,17 @@
 """
     MoinMoin - Edit log management
 
-    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     Functions to keep track of when people have changed pages, so we
     can do the recent changes page and so on.
 
-    $Id: editlog.py,v 1.6 2001/10/24 19:15:32 jhermann Exp $
+    $Id: editlog.py,v 1.14 2002/02/13 21:13:52 jhermann Exp $
 """
 
 # Imports
-import os, string, time
+import cgi, os, string, time
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
 
@@ -33,7 +33,7 @@ class LogBase:
         """
         return None
 
-    def addEntry(pagename, host, mtime):
+    def addEntry(self, pagename, host, mtime, comment):
         """ Add an entry to the editlog """
         pass
 
@@ -61,7 +61,7 @@ class LogText(LogBase):
         if not os.access(self.filename, os.W_OK):
             return "The edit log '%s' is not writable!" % (self.filename,)
 
-    def addEntry(self, pagename, host, mtime):
+    def addEntry(self, pagename, host, mtime, comment, action="SAVE"):
         """ Add an entry to the editlog """
         import socket
 
@@ -70,9 +70,12 @@ class LogText(LogBase):
         except socket.error:
             hostname = host
 
+        remap_chars = string.maketrans('\t\r\n', '   ')
+        comment = string.translate(comment, remap_chars)
+
         logfile = open(self.filename, 'a+')
         entry = string.join((wikiutil.quoteFilename(pagename), host, `mtime`,
-                             hostname, user.User().id), "\t") + "\n"
+                             hostname, user.User().id, comment, action), "\t") + "\n"
         try:
             # fcntl.flock(logfile.fileno(), fcntl.LOCK_EX)
             logfile.seek(0, 2)                  # to end
@@ -113,9 +116,12 @@ class EditLog:
         pagename, addr, ed_time, hostname, userid
     """
 
-    def __init__(self):
+    _NUM_FIELDS = 7
+
+    def __init__(self, **kw):
         self._lines = self._editlog_raw_lines()
-        self._lines.reverse()
+        if not kw.get('reverse', 0):
+            self._lines.reverse()
         self._index = 0
         self._usercache = {}
 
@@ -128,11 +134,19 @@ class EditLog:
 
     def next(self):
         """ Load next editlog entry, return false after last entry """
-        if self._index >= len(self._lines):
+        if self.peek(0):
+            self._index = self._index + 1
+            return 1
+        return 0
+
+
+    def peek(self, offset):
+        """ Peek `offset` entries ahead (or behind), return false after last entry """
+        idx = self._index + offset
+        if idx < 0 or len(self._lines) <= idx:
             self._parse_log_line("")
             return 0
-        self._parse_log_line(self._lines[self._index])
-        self._index = self._index + 1
+        self._parse_log_line(self._lines[idx])
         return 1
 
 
@@ -169,8 +183,8 @@ class EditLog:
         return 0
 
 
-    def getEditor(self):
-        """ Return a string representing the user that did the edit.
+    def getEditorData(self):
+        """ Return a string or Page object representing the user that did the edit.
         """
         result = self.hostname
         if self.userid:
@@ -180,11 +194,20 @@ class EditLog:
             if userdata.name:
                 pg = Page(userdata.name)
                 if pg.exists():
-                    result = pg.link_to()
+                    result = pg
                 else:
                     result = userdata.name or self.hostname
 
         return result
+
+
+    def getEditor(self):
+        """ Return a HTML-safe string representing the user that did the edit.
+        """
+        result = self.getEditorData()
+        if isinstance(result, Page):
+            return result.link_to()
+        return cgi.escape(result)
 
 
     def __len__(self):
@@ -202,13 +225,22 @@ class EditLog:
     def _editlog_raw_lines(self):
         """ Load a list of raw editlog lines """
         editlog_name = os.path.join(config.data_dir, 'editlog') #!!! self.filename
-        logfile = open(editlog_name, 'rt')
         try:
-            # fcntl.flock(logfile.fileno(), fcntl.LOCK_SH)
-            return logfile.readlines()
-        finally:
-            # fcntl.flock(logfile.fileno(), fcntl.LOCK_UN)
-            logfile.close()
+            logfile = open(editlog_name, 'rt')
+            try:
+                # fcntl.flock(logfile.fileno(), fcntl.LOCK_SH)
+                return logfile.readlines()
+            finally:
+                # fcntl.flock(logfile.fileno(), fcntl.LOCK_UN)
+                logfile.close()
+        except IOError, er:
+            import errno
+            if er.errno == errno.ENOENT:
+                # just doesn't exist, return empty list
+                return []
+            else:
+                raise er
+
         return []
 
 
@@ -217,13 +249,17 @@ class EditLog:
             pagename, addr, ed_time, hostname, userid
         """
         fields = string.split(string.strip(line), '\t')
-        while len(fields) < 5: fields.append('')
+        while len(fields) < self._NUM_FIELDS: fields.append('')
 
-        self.pagename, self.addr, self.ed_time, self.hostname, self.userid = fields[:5]
+        self.pagename, self.addr, self.ed_time, self.hostname, \
+            self.userid, self.comment, self.action = fields[:self._NUM_FIELDS]
         if not self.hostname:
             self.hostname = self.addr
         self.pagename = wikiutil.unquoteFilename(self.pagename)
         self.ed_time = float(self.ed_time or "0")
+        if not self.action:
+            self.action = 'SAVE'
+
 
     def _make_condition(self, kw):
         """ Create a callable that filters an entry according to values

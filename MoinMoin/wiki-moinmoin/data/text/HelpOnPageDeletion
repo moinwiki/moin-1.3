@@ -1,2 +1,0 @@
-== How to delete pages ==
-For now, the only way to delete a page is via the shell on the host system. The page files are found in the "data/text" directory, and you can simply delete them from there.

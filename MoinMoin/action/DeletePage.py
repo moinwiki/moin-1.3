@@ -7,13 +7,14 @@
     This action allows you to delete a page. Note that the standard
     config lists this action as excluded!
 
-    $Id: DeletePage.py,v 1.6 2001/07/03 20:32:47 jhermann Exp $
+    $Id: DeletePage.py,v 1.9 2002/03/06 22:36:52 jhermann Exp $
 """
 
 # Imports
 import string
 from MoinMoin import config, user, webapi, wikiutil
 from MoinMoin.Page import Page
+from MoinMoin.i18n import _
 
 
 def execute(pagename, form):
@@ -21,17 +22,18 @@ def execute(pagename, form):
     page = Page(pagename)
 
     # be extra paranoid in dangerous actions
-    if actname in config.excluded_actions or not user.current.may.edit:
+    if actname in config.excluded_actions or not user.current.may.edit \
+            or not user.current.may.delete:
         return page.send_page(form,
             msg='<strong>%s</strong>' %
-                user.current.text('You are not allowed to delete pages in this wiki!'))
+                _('You are not allowed to delete pages in this wiki!'))
 
 
     # check whether page exists at all
     if not page.exists():
         return page.send_page(form,
             msg='<strong>%s</strong>' %
-                user.current.text('This page is already deleted or was never created!'))
+                _('This page is already deleted or was never created!'))
 
     # check whether the user clicked the delete button
     if form.has_key('button') and form.has_key('ticket'):
@@ -40,21 +42,21 @@ def execute(pagename, form):
         if not _checkTicket(form['ticket'].value):
             return page.send_page(form,
                 msg='<strong>%s</strong>' %
-                    user.current.text('Please use the interactive user interface to delete pages!'))
+                    _('Please use the interactive user interface to delete pages!'))
 
         # Delete the page
         page.delete()
 
         # Redirect to RecentChanges
-        return Page(config.page_recent_changes).send_page(form,
+        return wikiutil.getSysPage('RecentChanges').send_page(form,
                 msg='<strong>%s</strong>' %
-                    (user.current.text('Page "%s" was sucessfully deleted!') % (pagename,)))
+                    (_('Page "%s" was sucessfully deleted!') % (pagename,)))
 
     # send deletion form
     wikiname = wikiutil.quoteWikiname(pagename)
     ticket = _createTicket()
-    querytext = user.current.text('Really delete this page?')
-    button = user.current.text(' Delete ')
+    querytext = _('Really delete this page?')
+    button = _(' Delete ')
     formhtml = """
 <form method="GET" action="%(wikiname)s">
 <strong>%(querytext)s</strong>

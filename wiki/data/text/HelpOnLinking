@@ -1,0 +1,56 @@
+== URLs and Inline Images ==
+There are several way to insert external references[[FootNote(The opposite of external references are the internal, automatic WikiName links.)]] into the text:
+ * direct URL insertion; if the URL ends in an image extension ("{{{.gif}}}", "{{{.jpg}}}" or "{{{.png}}}"), the URL is converted to an image tag.
+ * bracketed URLs.
+ * InterWiki links.
+ * email addresses.
+
+If you enter URLs into normal text, there is the problem of detecting what belongs to the URL and what not. There are four ways to force the ending of an URL:
+ * put a space after the URL.
+ * use the Wiki:SixSingleQuotes escaping.
+ * put the URL into double quotes.
+ * use the bracketed URL syntax.
+
+The supported URL schemes are: `http`, `https`, `ftp`, `nntp`, `news`, `mailto`, `telnet`, and `file`. The administrator of your wiki can extend the supported schemes by using the {{{config.url_schemas}}} variable (see HelpOnConfiguration).
+
+In addition to the standard schemes, there are MoinMoin-specific ones: `wiki`, `attachment`, `inline`, and `drawing`. "`wiki`" indicates an InterWiki link, so `MoinMoin:Frontpage` and `wiki:MoinMoin:Frontpage` are equivalent; you will normally prefer the shorter form, the "`wiki`" scheme becomes important when you use bracketed links, since there you always need a scheme. The other three schemes are related to file attachments and are explained on HelpOnActions/AttachFile.
+
+When the configuration option `bang_meta` is set to true, you can surpress WikiName linking by putting an exclamation mark (''bang'') before the WikiName, i.e. `!WikiName`. This is deactivated by default.
+
+For more information on the possible markup, see HelpOnEditing. For details on how to link to subpages, see HelpOnEditing/SubPages.
+
+[[FootNote]]
+
+=== Example ===
+{{{
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
+ * jh@web.de
+ * [#anchorname Anchor Link]
+}}} 
+
+=== Display ===
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
+ * jh@web.de
+ * [#anchorname Anchor Link]

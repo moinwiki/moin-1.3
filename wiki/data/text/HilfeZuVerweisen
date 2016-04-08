@@ -1,0 +1,57 @@
+##master-page:HelpOnLinking
+##master-date:2002-02-27 15:16:34
+== Verweise und eingebettete Bilder ==
+Es gibt verschiedene Wege, um externe Referenzen[[FootNote(Das Gegenteil von externen Referenzen sind die internen, automatischen Verweise mittels WikiNamen.)]] in den Text einzufügen:
+ * direktes Einfügen einer URL; wenn die URL mit einer Erweiterung für Bilddateien endet ("{{{.gif}}}", "{{{.jpg}}}" or "{{{.png}}}"), wird die URL in ein HTML-Bildelement konvertiert.
+ * geklammerte URLs.
+ * InterWiki-Verweise.
+ * email-Adressen.
+
+Wenn Sie URLs in normalen Text einfügen, ist es problematisch zu erkennen, was zu der URL gehört und was nicht. Es gibt vier Wege, das Ende einer URL zu erzwingen:
+ * platzieren Sie ein Leerzeichen hinter die URL.
+ * benutzen Sie die Wiki:SixSingleQuotes''''''-Methode (oder alternativ zwei inverse Hochkommata {{{``}}}).
+ * geben Sie die URL in doppelten Anführungszeichen ein.
+ * benutzen Sie die Klammer-URL-Syntax.
+
+Folgende URL-Schemata werden unterstützt: `http`, `https`, `ftp`, `nntp`, `news`, `mailto`, `telnet` und `file`. Der Administrator Ihres Wikis kann die unterstützen Schemata erweitern, indem er die {{{config.url_schemas}}}-Variable benutzt (siehe HilfeZurKonfiguration).
+
+Zusätzlich zu den Standard-Schemata gibt es auch noch MoinMoin-spezifische: `wiki`, `attachment`, `inline` und `drawing`. "`wiki`" weist einen InterWiki-Link aus,  `MoinMoin:Frontpage` und `wiki:MoinMoin:Frontpage` sind also gleichbedeutend; normalerweise werden Sie die kürzere Form bevorzugen, das "`wiki`"-Schema wird dann wichtig, wenn Sie geklammerte Links benutzen, weil Sie dort immer ein Schema benötigen. Die anderen Schemata beziehen sich auf Dateianhänge und werden auf HilfeZuAktionen/DateiAnhänge erklärt.
+
+Wenn Sie die Konfigurations-Option `bang_meta` auf `true` setzen, können Sie die Verlinkung über WikiName``n unterdrücken, indem sie ein Ausrufezeichen (engl.: ''bang'') vor den WikiName``n schreiben, z.B. `!WikiName`. Dies ist standardmäßig abgeschaltet.
+
+Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEditieren. Zu den Details, wie man auf Unterseiten verweist, siehe  HilfeZumEditieren/UnterSeiten.
+
+[[FootNote]]
+=== Beispiel ===
+{{{
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin-Homepage auf Sourceforge]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki-Seite auf MeatBall]
+ * jh@web.de
+ * [#anchorname Anker-Verweis]
+}}} 
+
+=== Anzeige ===
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin-Homepage auf Sourceforge]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki-Seite auf MeatBall]
+ * jh@web.de
+ * [#anchorname Anker-Link]

@@ -1,0 +1,67 @@
+/!\ THIS IS WORK IN PROGRESS /!\
+----
+
+'''Related Topics'''
+ * MoinMoin:MoinMoinWinCvs
+
+'''Contents'''
+[[TableOfContents]]
+
+'''TODO'''
+ * Collect existing info from the MoinMoin wiki pages
+ * Explain extension / plugin concept
+ * Start at defining somewhat official APIs (but not before we changed everything to accesses via `request`)
+ * Show how to best create URLs (Page.link_to etc.)
+ * How to use I18N features
+
+== Contributions ==
+
+The distribution contains a "contributions" directory for 3rd party extensions that are not made part of the official distribution.
+This directory contains extensions contributed by MoinMoin users and
+that are considered either too exotic or need too much work to be
+integrated into the core sources. Another reason of not adding them is
+that modules in the core have to be maintained when structural changes
+happen, which is a constant burden. 
+
+Thus, these sources are here for you to try them out and take advantage
+of a feature someone found useful enough to write code for, but you
+cannot expect that they always work with the current distribution.
+Contributors are encouraged to send updates... 
+
+
+== Extension guidelines ==
+These are the rules that govern MoinMoin development:
+ * All extensions to or modifications of the original MoinMoin:WikiMarkup should be kept compatible and in the spirit of the MoinMoin:OriginalWiki. Example: [http://... text] shows up literally, i.e. no information is lost when cut&pasting to another Wiki.
+ * Be portable at all times, at the very least to Win32 and Unix.
+ * Keep the simple nature of page storage, if there are performance issues, add transparent caching / indexing.
+
+
+== CVS structure ==
+
+For historical reasons, the ''virtual'' CVS module "`moin`" combines the "`dist`" and the "`MoinMoin`" module; "`moin`" is the only module you should check out.
+
+
+== Tour of the most important modules ==
+
+ wikiaction.py:: HelpOnActions lists all the querystrings that are handled by this module.
+
+== Creating a release ==
+
+This describes how to create a release tarball for MoinMoin. It's of minor interest to anyone except MoinMoin:JürgenHermann. :)
+
+ 1. Commit any pending code changes.
+ 1. Commit the current status of the MoinMoin wiki (especially the help pages).
+ 1. `make install-docs`
+ 1. Validate the CHANGES file (insert current date and new version number).
+ 1. Tag the repository: {{{
+cvs tag rel-MAJOR-MINOR}}}
+ 1. Create an export directory: {{{
+cvs -z3 -d :pserver:anonymous@cvs.moin.sourceforge.net:/cvsroot/moin export -r HEAD moin
+cd moin
+python setup.py sdist
+}}}
+ 1. Upload the tarball (or zip):
+    * [http://sourceforge.net/project/admin/editpackages.php?group_id=8482 SourceForge / Project Admin / Release Files]
+    * Follow the forms
+    * See also [http://sfdocs.sourceforge.net/sfdocs/display_topic.php?topicid=22 Making File Releases]
+ 1. Download from MoinMoin:SourceForge and give it a test run.

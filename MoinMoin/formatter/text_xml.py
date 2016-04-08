@@ -1,14 +1,19 @@
 """
     MoinMoin - "text/xml" Formatter
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_xml.py,v 1.9 2001/03/10 23:12:11 jhermann Exp $
+    Note that this formatter needs either PyXML installed for
+    Python 1.5.2, or Python 2.0 or higher.
+
+    $Id: text_xml.py,v 1.23 2002/02/13 21:13:53 jhermann Exp $
 """
 
 # Imports
-import cgi
+import string
+from xml.sax import saxutils
+
 from base import FormatterBase
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
@@ -23,20 +28,35 @@ class Formatter(FormatterBase):
         Send XML data.
     """
 
+    hardspace = '&#160;'
+
     def __init__(self, **kw):
         apply(FormatterBase.__init__, (self,), kw)
+        self._current_depth = 1
+        self._base_depth = 0
+        self.in_pre = 0
+
+    def _escape(self, text):
+        return saxutils.escape(text, {"'": "&apos;", '"': "&quot;"})
 
     def startDocument(self, pagename):
         encoding = 'ISO-8859-1'
         return '<?xml version="1.0" encoding="%s"?>\n<s1 title="%s">' % (
-            encoding, cgi.escape(pagename, 1))
+            encoding, self._escape(pagename))
 
     def endDocument(self):
-        return '</s1>'
+        result = ""
+        while self._current_depth > 1:
+            result = result + "</s%d>" % self._current_depth
+            self._current_depth = self._current_depth - 1
+        return result + '</s1>'
+
+    def rawHTML(self, markup):
+        return '<![CDATA[' + string.replace(markup, ']]>', ']]>]]&gt;<![CDATA[') + ']]>'
 
     def pagelink(self, pagename, text=None):
         FormatterBase.pagelink(self, pagename, text)
-        return Page(pagename).link_to(text)
+        return Page(pagename, formatter=self).link_to(text)
 
     def url(self, url, text=None, css=None, **kw):
         if text is None: text = url
@@ -44,19 +64,24 @@ class Formatter(FormatterBase):
         if wikiutil.isPicture(url):
             return '<img src="%s"/>' % (url,)
         else:
-            str = '<a'
-            if css: str = '%s class="%s"' % (str, css)
-            str = '%s href="%s">%s</a>' % (str, cgi.escape(url, 1), text)
+            unescaped = kw.get('unescaped', 0)
+            str = '<jump'
+            ##if css: str = '%s class="%s"' % (str, css)
+            if not unescaped: text = self._escape(text)
+            str = '%s href="%s">%s</jump>' % (str, self._escape(url), text)
             return str
 
     def text(self, text):
-        return cgi.escape(text)
+        if self.in_pre:
+            return string.replace(text, ']]>', ']]>]]&gt;<![CDATA[')
+        return self._escape(text)
 
     def rule(self, size=0):
+        return "\n<br/>%s<br/>\n" % ("-"*78,) # <hr/> not supported in stylebook
         if size:
-            return '<hr size="%d">\n' % (size,)
+            return '<hr size="%d"/>\n' % (size,)
         else:
-            return '<hr>\n'
+            return '<hr/>\n'
 
     def strong(self, on):
         return ['<strong>', '</strong>'][not on]
@@ -68,10 +93,14 @@ class Formatter(FormatterBase):
         return ['<strong>', '</strong>'][not on]
 
     def number_list(self, on, type=None, start=None):
-        return ['<ol>', '</ol>'][not on]
+        result = ''
+        if self.in_p: result = self.paragraph(0)
+        return result + ['<ol>', '</ol>'][not on]
 
     def bullet_list(self, on):
-        return ['<ul>', '</ul>'][not on]
+        result = ''
+        if self.in_p: result = self.paragraph(0)
+        return result + ['<ul>', '</ul>'][not on]
 
     def listitem(self, on):
         return ['<li>', '</li>'][not on]
@@ -79,30 +108,71 @@ class Formatter(FormatterBase):
     def code(self, on):
         return ['<code>', '</code>'][not on]
 
-    def preformatted(self, on):
-        return ['<source>', '</source>'][not on]
+    def sup(self, on):
+        return ['<sup>', '</sup>'][not on]
 
-    def paragraph(self):
-        return '<p>'
+    def preformatted(self, on):
+        self.in_pre = on
+        result = ''
+        if self.in_p: result = self.paragraph(0)
+        return result + ['<source><![CDATA[', ']]></source>'][not on]
+
+    def paragraph(self, on):
+        FormatterBase.paragraph(self, on)
+        return ['<p>', '</p>'][not on]
 
     def linebreak(self, preformatted=1):
         return ['\n', '<br/>'][not preformatted]
 
-    def heading(self, depth, title):
-        return '<s%d title="%s">\n' % (depth, cgi.escape(title, 1))
+    def heading(self, depth, title, **kw):
+        # remember depth of first heading, and adapt current depth accordingly
+        if not self._base_depth:
+            self._base_depth = depth
+        depth = max(depth + (2 - self._base_depth), 2)
 
-    def table(self, on):
+        # close open sections
+        result = ""
+        while self._current_depth >= depth:
+            result = result + "</s%d>" % self._current_depth
+            self._current_depth = self._current_depth - 1
+        self._current_depth = depth
+
+        return result + '<s%d title="%s">\n' % (depth, self._escape(title))
+
+    def table(self, on, attrs={}):
         return ['<table>', '</table>'][not on]
+
+    def table_row(self, on, attrs={}):
+        return ['<tr>', '</tr>'][not on]
+
+    def table_cell(self, on, attrs={}):
+        return ['<td>', '</td>'][not on]
+
+    def anchordef(self, name):
+        return '<anchor name="%s"/>' % name
+
+    def anchorlink(self, name, text):
+        return '<link anchor="%s">%s</link>' % (name, self._escape(text, {}))
 
     def underline(self, on):
         return self.strong(on) # no underline in StyleBook
 
     def definition_list(self, on):
-        return ['<gloss>', '</gloss>'][not on]
+        result = ''
+        if self.in_p: result = self.paragraph(0)
+        return result + ['<gloss>', '</gloss>'][not on]
 
     def definition_term(self, on, compact=0):
         return ['<label>', '</label>'][not on]
 
     def definition_desc(self, on):
         return ['<item>', '</item>'][not on]
+
+    def image(self, **kw):
+        valid_attrs = ['src', 'width', 'height', 'alt', 'vspace', 'hspace', 'align']
+        attrs = {}
+        for key, value in kw.items():
+            if key in valid_attrs:
+                attrs[key] = value
+        return apply(FormatterBase.image, (self,), attrs) + '</img>'
 

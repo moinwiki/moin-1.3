@@ -1,0 +1,57 @@
+##||{{{[[ ]]}}} ||  ||  ||
+
+[[TableOfContents]]
+
+== Macros ==
+Macros allow the insertion of system features into normal wiki pages; the only thing that makes those pages special is that they contain macros. If you edit pages like RecentChanges or SystemInfo, you'll see what that means.
+
+For more information on the possible markup, see HelpOnEditing. 
+
+=== Search macros ===
+||'''Macro'''||'''Description'''||'''Example'''||
+||{{{[[TitleSearch]]}}}     || search the page titles || See the FindPage ||
+||{{{[[FullSearch]]}}}      || search the page contents || See the FindPage ||
+||{{{[[FullSearch()]]}}}      || search for the current title in all pages (like clicking on the page title) || See the CategoryCategory page ||
+||{{{[[FullSearch('text')]]}}} || search for "text" in all pages || Search for {{{FullSearch}}}:[[FullSearch('FullSearch')]] ||
+||{{{[[GoTo]]}}}            || directly go to the page you enter || See the FindPage ||
+||{{{[[PageList(regex)]]}}} || list of pages whose title matches the regex || See the HelpIndex ||
+
+=== Navigation ===
+||'''Macro'''||'''Description'''||'''Example'''||
+||{{{[[RecentChanges]]}}}   || a list of recently edited pages || See RecentChanges ||
+||{{{[[TitleIndex]]}}}      || an index of all page titles || See TitleIndex ||
+||{{{[[WordIndex]]}}}       || an index of all words in page titles || See WordIndex ||
+||{{{[[WantedPages]]}}} || list links to non-existent pages || See WantedPages ||
+||{{{[[OrphanedPages]]}}} || list pages no other page links to || See OrphanedPages ||
+||{{{[[AbandonedPages]]}}} || list pages that were not edited for the longest time || See AbandonedPages ||
+||{{{[[RandomPage]]}}}      || a link to a random page || [[RandomPage]] ||
+||{{{[[RandomPage(#)]]}}}   || links to a number of random pages || Two random pages:[[RandomPage(2)]] ||
+||{{{[[TableOfContents]]}}} || display a local table of contents || See below ||
+||{{{[[Anchor(anchorname)]]}}} || macro to insert anchors into a page || [[Anchor(here)]][#here] ||
+
+=== System information ===
+||'''Macro'''||'''Description'''||'''Example'''||
+||{{{[[InterWiki]]}}}       || a list of all known InterWiki names || InterWiki ||
+||{{{[[SystemInfo]]}}}      || info on the wiki, the python interpreter and the host system || SystemInfo ||
+||{{{[[PageCount]]}}}       || current page count || [[PageCount]] pages ||
+||{{{[[PageSize]]}}}        || list the sizes of all pages || See PageSize ||
+||{{{[[StatsChart(type)]]}}} || shows statistical charts (currently defined types: hitcounts, pagesize, useragents) || See EventStats and subpages  ||
+||{{{[[SystemAdmin]]}}} || Web interface to wiki administration (not completed yet as of version 0.11) || See SystemInfo ||
+
+=== Others ===
+||'''Macro'''||'''Description'''||'''Example'''||
+||{{{[[Icon(image)]]}}}     || display system icons || See HelpOnNavigation ||
+||{{{[[UserPreferences]]}}} || display a user preferences dialog || See UserPreferences ||
+||{{{[[BR]]}}} || insert a line break || 1st line[[BR]]2nd line ||
+||{{{[[Include(HelloWorld[,"heading"[,level]])]]}}} || include contents of another page || [[Include(HelloWorld)]] ||
+||{{{[[FootNote(text)]]}}} || Add a footnote (the text cannot contain any wiki markup), or explicitely display collected footnotes when no args are given || See HelpOnPageCreation for an example ||
+||{{{[[Date(timestamp)]]}}} || display a timestamp according to system settings || [[Date()]] ||
+||{{{[[DateTime(timestamp)]]}}} || display a timestamp[[FootNote("timestamp" can be empty (current time), a number of seconds since 1970 (unix timestamp), or a W3C time specification ("2002-01-23T12:34:56").)]] according to user settings || [[DateTime()]] ||
+||{{{[[GetText(text)]]}}} || loads I18N texts (mainly intended for use on Help pages) || "Edit``Text" is translated to "[[GetText(EditText)]]" ||
+||{{{[[TeudView]]}}} || useful for intranet developer wikis, a means to view pydoc documentation, formatted via a XSLT stylesheet, for details see EfnetPythonWiki:TeudProject || See EfnetPythonWiki:TeudViewer?module=MoinMoin.macro.TeudView ||
+
+[[FootNote]]
+
+== Example Display ==
+We don't show examples for all macros here, because that would make this page quite long. Here is is the replacement text for the {{{[[SystemInfo]]}}} macro:
+ [[SystemInfo]]

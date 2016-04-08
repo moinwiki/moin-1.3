@@ -1,7 +1,7 @@
 """
     MoinMoin - Command line utilities
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     This program is free software; you can redistribute it and/or modify
@@ -14,9 +14,9 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    $Id: _util.py,v 1.1 2001/07/04 16:37:54 uid31396 Exp $
+    $Id: _util.py,v 1.2 2002/02/13 21:13:55 jhermann Exp $
 """
-__version__ = "$Revision: 1.1 $"[11:-2]
+__version__ = "$Revision: 1.2 $"[11:-2]
 
 # Imports
 import os, sys

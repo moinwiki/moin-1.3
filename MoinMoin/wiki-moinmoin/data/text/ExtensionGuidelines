@@ -1,6 +1,0 @@
-These are the rules that govern MoinMoin development:
- * All extensions to or modifications of the original WikiMarkup should be kept compatible and in the spirit of the OriginalWiki. Example: [http://... text] shows up literally, i.e. no information is lost when cut&pasting to another Wiki.
- * Be portable at all times, at the very least to Win32 and Unix.
- * Keep the simple nature of PikiPiki's storage, if there are performance issues, add transparent caching / indexing.
-
-See also: MoinMoinTodo

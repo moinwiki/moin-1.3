@@ -1,3 +1,12 @@
+#
+# This module was written by Ka-Ping Yee, <ping@lfw.org>.
+# 
+# $Id: cgitb.py,v 1.3 2001/11/24 17:24:54 jhermann Exp $
+
+__doc__ = """
+Extended CGI traceback handler by Ka-Ping Yee, <ping@lfw.org>.
+"""
+
 import sys, os, types, string, keyword, linecache, tokenize, inspect, pydoc
 
 def breaker():
@@ -11,21 +20,22 @@ def html(context=5):
         etype = etype.__name__
     pyver = 'Python ' + string.split(sys.version)[0] + '<br>' + sys.executable
     head = pydoc.html.heading(
-        '<big><big><strong>%s</strong></big></big>' % str(etype),
+        '<font size=+1><strong>%s</strong>: %s</font>'%(str(etype), str(evalue)),
         '#ffffff', '#aa55cc', pyver)
 
     head = head + ('<p>A problem occurred while running a Python script. '
                    'Here is the sequence of function calls leading up to '
-                   'the error, with the most recent (innermost) call last.')
+                   'the error, with the most recent (innermost) call first. '
+                   'The exception attributes are:')
 
     indent = '<tt><small>%s</small>&nbsp;</tt>' % ('&nbsp;' * 5)
     traceback = []
     for frame, file, lnum, func, lines, index in inspect.trace(context):
-        if file:
+        if file is None:
+            link = '&lt;file is None - probably inside <tt>eval</tt> or <tt>exec</tt>&gt;'
+        else:
             file = os.path.abspath(file)
             link = '<a href="file:%s">%s</a>' % (file, pydoc.html.escape(file))
-        else:
-            link = frame.f_code.co_filename
         args, varargs, varkw, locals = inspect.getargvalues(frame)
         if func == '?':
             call = ''
@@ -34,6 +44,15 @@ def html(context=5):
                     args, varargs, varkw, locals,
                     formatvalue=lambda value: '=' + pydoc.html.repr(value))
 
+        level = '''
+<table width="100%%" bgcolor="#d8bbff" cellspacing=0 cellpadding=2 border=0>
+<tr><td>%s %s</td></tr></table>''' % (link, call)
+
+        if file is None:
+            traceback.append('<p>' + level)
+            continue
+
+        # do a fil inspection
         names = []
         def tokeneater(type, token, start, end, line, names=names):
             if type == tokenize.NAME and token not in keyword.kwlist:
@@ -70,25 +89,23 @@ def html(context=5):
         else:
             lvals = ''
 
-        level = '''
-<table width="100%%" bgcolor="#d8bbff" cellspacing=0 cellpadding=2 border=0>
-<tr><td>%s %s</td></tr></table>''' % (link, call)
         excerpt = []
-        if index and lines:
-            i = lnum - index
-            for line in lines:
-                number = '&nbsp;' * (5-len(str(i))) + str(i)
-                number = '<small><font color="#909090">%s</font></small>' % number
-                line = '<tt>%s&nbsp;%s</tt>' % (number, pydoc.html.preformat(line))
-                if i == lnum:
-                    line = '''
+        i = lnum - index
+        for line in lines:
+            number = '&nbsp;' * (5-len(str(i))) + str(i)
+            number = '<small><font color="#909090">%s</font></small>' % number
+            line = '<tt>%s&nbsp;%s</tt>' % (number, pydoc.html.preformat(line))
+            if i == lnum:
+                line = '''
 <table width="100%%" bgcolor="#ffccee" cellspacing=0 cellpadding=0 border=0>
 <tr><td>%s</td></tr></table>''' % line
-                excerpt.append('\n' + line)
-                if i == lnum:
-                    excerpt.append(lvals)
-                i = i + 1
+            excerpt.append('\n' + line)
+            if i == lnum:
+                excerpt.append(lvals)
+            i = i + 1
         traceback.append('<p>' + level + string.join(excerpt, '\n'))
+
+    traceback.reverse()
 
     exception = '<p><strong>%s</strong>: %s' % (str(etype), str(evalue))
     attribs = []
@@ -97,12 +114,9 @@ def html(context=5):
             value = pydoc.html.repr(getattr(evalue, name))
             attribs.append('<br>%s%s&nbsp;= %s' % (indent, name, value))
 
-    return head + string.join(traceback) + exception + string.join(attribs)
+    return head + string.join(attribs) + string.join(traceback) + '<p>&nbsp;</p>'
 
 def handler():
     print breaker()
     print html()
 
-if __name__ == '__main__':
-    try: import tester
-    except: handler()

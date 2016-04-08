@@ -1,0 +1,34 @@
+##master-page:HelpOnSpellCheck
+##master-date:2002-02-03 10:53:42
+HilfeInhalt > HilfeZurAdministration > HilfeZurRechtschreibprüfung
+
+== Die Rechtschreibprüf-Option ==
+MoinMoin sucht nach gültigen Worten an 2 Stellen:
+ * im "dict"-Verzeichnis im MoinMoin-Package-Verzeichnis
+ * auf der Seite LocalSpellingWords
+
+Wenn in Ihrer Python-Installation das "dbhash"-Modul verfügbar ist, werden die Dateien in "dict" nur ''einmalig'' gelesen und dann in einer sog. Hash-Tabelle gespeichert. Dies beschleunigt die Rechtschreibprüfung, weil dann die dafür notwendige Zeit nur von der Wortzahl auf der ''zu prüfenden Seite'' abhängt und ''nicht'' von der Anzahl der Worte im Wörterbuch (mit 250000 Worten nur einige hundert Millisekunden statt einiger Sekunden).
+
+Übrigens: eine UNIX-Maschine hat normalerweise mindestens eine (englische) Wortdatei im Lieferumfang - um diese zu benutzen, erzeugen Sie einfach einen Symlink im dict-Verzeichnis, wie z.B.:
+{{{
+MoinMoin/dict> ln -s /usr/dict/words .
+}}}
+Auf einigen Systemen heisst die Wortdatei stattdessen auch "/usr/share/dict/words".
+
+=== Beispiel ===
+{{{
+MoinMoin> ls -l dict
+drwxr-xr-x   7 544      everyone        0 Jan 04 08:29 CVS
+-rw-r--r--   1 544      everyone   409067 Jan 04 06:38 american-english
+-rw-r--r--   1 544      everyone  2913577 Jan 25  2000 german.txt
+-rw-r--r--   1 544      everyone    92631 Nov 30 15:24 top10000de.txt
+}}}
+
+=== Wort-Dateien ===
+Wenn Sie US-englische oder deutsche Wort-Dateien benötigen, finden Sie sie [http://moin.sf.net/files/ hier].
+
+=== Wenn es nicht funktioniert ===
+
+Wenn Sie den Inhalt von "MoinMoin/dict/" ändern (weil sie neue Wortdateien hinzufügen oder alte löschen) oder wenn Sie das "MoinMoin/dict/"-Verzeichnis erst neu angelegt haben, dann sollten Sie die Datei "data/dict.cache" löschen (eine wird dann automatisch eine neue erzeugt).
+
+Wenn Sie das nicht machen, werden Ihre neuen Wortlisten nicht erkannt (z.B. wird dann nur LocalSpellingWords benutzt).

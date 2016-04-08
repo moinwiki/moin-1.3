@@ -4,13 +4,14 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: xslt.py,v 1.5 2001/03/30 21:06:52 jhermann Exp $
+    $Id: xslt.py,v 1.10 2001/12/01 20:08:42 jhermann Exp $
 """
 
 # Imports
 import cgi, string
 
 from MoinMoin import caching, user, util, wikiutil
+from MoinMoin.i18n import _
 
 
 #############################################################################
@@ -22,7 +23,7 @@ class Parser:
         Send XML file formatted via XSLT.
     """
 
-    def __init__(self, raw):
+    def __init__(self, raw, **kw):
         self.raw = raw
 
     def format(self, formatter, form):
@@ -40,7 +41,7 @@ class Parser:
         import xml.xslt
         import xml.xslt.Processor
 
-        from MoinMoin import xsltutil
+        from MoinMoin.wikixml import xsltutil
 
         processor = xml.xslt.Processor.Processor()
         processor.setStylesheetReader(xsltutil.MoinStylesheetReader(self))
@@ -62,7 +63,7 @@ class Parser:
             text = string.replace(text, '\n', '<br>\n')
             text = string.replace(text, ' ', '&nbsp;')
             print "<b>%s: %s</b><p>" % (
-                user.current.text('%(errortype)s processing error') % {'errortype': etype},
+                _('%(errortype)s processing error') % {'errortype': etype},
                 msg,), text
         else:
             print result
@@ -73,7 +74,7 @@ class Parser:
         refresh = wikiutil.link_tag(
             wikiutil.quoteWikiname(formatter.page.page_name) +
                 "?action=refresh&arena=%s&key=%s" % (arena, key),
-            user.current.text("RefreshCache")) + user.current.text(' for this page (cached %(date)s)') % {
+            _("RefreshCache")) + _(' for this page (cached %(date)s)') % {
                 'date': user.current.getFormattedDateTime(cache.mtime()),} + '<br>'
         wikiutil.add2footer('RefreshCache', refresh)
 

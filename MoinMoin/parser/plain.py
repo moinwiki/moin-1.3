@@ -1,10 +1,10 @@
 """
     MoinMoin - Plain Text Parser
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: plain.py,v 1.4 2000/11/15 00:50:25 jhermann Exp $
+    $Id: plain.py,v 1.6 2002/02/13 21:13:54 jhermann Exp $
 """
 
 # Imports
@@ -20,7 +20,7 @@ class Parser:
         Send plain text in a HTML <pre> element.
     """
 
-    def __init__(self, raw):
+    def __init__(self, raw, **kw):
         self.raw = raw
 
     def format(self, formatter, form):

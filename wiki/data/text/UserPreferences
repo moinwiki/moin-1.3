@@ -1,0 +1,7 @@
+[[UserPreferences]]
+
+If you are coming to this page for the first time, you'll see the form into which you can enter your username and some other settings (password and e-mail are stored, but currently not used). If you click on '''Create Profile''', a user profile will be created for you. With the response, a HTTP cookie will be sent that contains your user ID, which enables the system to recognize you. 
+
+ /!\ ''This "ID", shown in the response page, can be used to send the same cookie to other machines you might use. So jot it down! Or cut and paste the URL shown above, after you created your profile.''
+
+'''Logout''' clears the cookie. As described above, '''Login''' enables you to gain access to your user profile if you somehow lost the cookie or are on another machine. '''Save''' just updates your profile.

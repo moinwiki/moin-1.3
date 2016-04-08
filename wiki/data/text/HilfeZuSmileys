@@ -1,0 +1,29 @@
+##master-page:HelpOnSmileys
+##master-date:2002-02-27 15:16:34
+== Graphische Symbole ==
+Um ein Smiley (Emoticon) bzw. bestimmte Symbole einzufügen, tippen Sie einfach Ihren Lieblings-Smiley aus der Liste weiter unten. Sie werden allerdings nur dann in ein Bild umgewandelt, wenn sie von Leerzeichen umgeben sind, oder am Anfang oder Ende einer Zeile stehen (auch hier durch ein Leerzeichen vom Rest der Zeile isoliert).
+
+Für weitere Informationen über die Notation siehe HilfeZumEditieren.
+
+=== Beispiele ===
+|| '''Notation''' || '''Bild''' || '''Dateiname''' ||
+|| {{{ :) }}} || :) || smile.gif ||
+|| {{{ B) }}} || B) || smile2.gif ||
+|| {{{ :)) }}} || :)) || smile3.gif ||
+|| {{{ ;) }}} || ;) || smile4.gif ||
+|| {{{ :D }}} || :D || biggrin.gif ||
+|| {{{ <:( }}} || <:( || frown.gif ||
+|| {{{ X-( }}} || X-( || angry.gif ||
+|| {{{ :o }}} || :o || redface.gif ||
+|| {{{ :( }}} || :( || sad.gif ||
+|| {{{ /!\ }}} || /!\ || alert.gif ||
+|| {{{ <!> }}} || <!> || attention.gif ||
+|| {{{ (!) }}} || (!) || idea.gif ||
+|||||| ''mit Version 0.11 neu hinzugekommen'' ||
+|| {{{ :-? }}} || :-? || tongue.gif ||
+|| {{{ :\  }}} || :\  || ohwell.gif ||
+|| {{{ >:> }}} || >:> || devil.gif  ||
+|| {{{ %)  }}} || %)  || eyes.gif   ||
+|| {{{ @)  }}} || @)  || eek.gif    ||
+|| {{{ |)  }}} || |)  || tired.gif  ||
+|| {{{ ;)) }}} || ;)) || lol.gif    ||

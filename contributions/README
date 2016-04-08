@@ -1,0 +1,44 @@
+MoinMoin Contributions
+======================
+
+$Id: README,v 1.2 2001/11/27 20:14:35 jhermann Exp $
+
+-----------------------------------------------------------------------------
+
+This directory contains extensions contributed by MoinMoin users and
+that are considered either too exotic or need too much work to be
+integrated into the core sources. Another reason of not adding them is
+that modules in the core have to be maintained when structural changes
+happen, which is a constant burden. 
+
+Thus, these sources are here for you to try them out and take advantage
+of a feature someone found useful enough to write code for, but you
+cannot expect that they always work with the current distribution.
+Contributors are encouraged to send updates... 
+
+-----------------------------------------------------------------------------
+"plugin" contains one-file contributed macros that can be copied to
+either the MoinMoin/macro and MoinMoin/action directories, or to
+the "plugin" directory in the data directory of a MoinMoin instance.
+
+Most of those macros are copied from the MacroMarket and ActionMarket
+pages of the MoinMoin wiki. See
+
+    http://purl.net/wiki/moin/MacroMarket
+    http://purl.net/wiki/moin/ActionMarket
+
+These are untested, and not guaranteed to work with the current code
+base.
+
+-----------------------------------------------------------------------------
+IncludeFile
+by Charles Bevali <Charles.Bevali@systems.dhl.com>
+updated 2001-11-08
+
+This macro inserts a file-upload box or the uploaded file in the body of
+a message, if it is a jpg or gif, or a link to the file otherwise. 
+
+More information is in "IncludeFile.py".
+
+-----------------------------------------------------------------------------
+

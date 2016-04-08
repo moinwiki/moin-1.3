@@ -1,7 +1,7 @@
 MoinMoin Readme
 ===============
 
-Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
 This program is free software; you can redistribute it and/or modify
@@ -18,30 +18,48 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-$Id: README,v 1.1 2001/06/09 11:25:13 jhermann Exp $
+$Id: README,v 1.6 2002/02/27 21:02:53 jhermann Exp $
 
 -----------------------------------------------------------------------------
 
 MoinMoin is a Python WikiClone. The project's homepage can be found at
 http://moin.sourceforge.net/.
 
-See INSTALL         for installation instructions.
-See INSTALL.IIS     for how to set up MoinMoin on Win2K/IIS
-See CHANGES         for a version history.
+See INSTALL.html            for installation instructions.
+See CHANGES                 for a version history.
+See contributions/README    for user-supplied extensions.
 
 Note that the code base contains some experimental or unfinished features.
-Use them at your own risk. Official features are described on the set of help
-pages contained in the distribution wiki.
+Use them at your own risk. Official features are described on the set of
+help pages contained in the distribution wiki.
 
 
+=======
+SUPPORT
+=======
+
+To get support, please use the MoinMoin User's Mailing List. To subscribe,
+go to http://lists.sourceforge.net/lists/listinfo/moin-user.
+
+Direct mail to my mail account is increasing in volume, and prevents
+others from both helping you, and learning from any answers.
+
+
+================
 ACKNOWLEDGEMENTS
+================
 
 I like to thank especially these people for their valuable ideas and
 contributions:
 
-    Ward Cunningham                 ward@c2.com
-    Martin Pool                     mbp@humbug.org.au
-    Marko Schulz                    Marko.Schulz@gmx.de
+    Ward Cunningham <ward@c2.com> for inventing WikiWIki in the first
+    place.
+
+    Martin Pool <mbp@humbug.org.au> for providing the base of what now
+    is MoinMoin.
+
+    Marko Schulz <Marko.Schulz@gmx.de> for providing input on the first
+    versions of MoinMoin as it evolved.
 
     Tom Holroyd <tomh@po.crl.go.jp> provided the set of emoticons that come
     with the standard distribution, and came up with the idea to add that
@@ -55,7 +73,16 @@ contributions:
     Christian Bird <chris.bird@lineo.com> provided some nice ideas and some
     code.
 
+    Peter Thoeny and all other people involved in creating TWikiDrawPlugin;
+    for copyright information on TWikiDrawPlugin see below; for more
+    information and a download link to get the source refer to
+    http://twiki.org/cgi-bin/view/TWiki/TWikiDrawPlugin
+
+    Thomas Waldmann for the major effort of translating all the help and
+    system pages to German.
+
     And all the people I forgot or that are mentioned in the code.
+
 
 -----------------------------------------------------------------------------
 
@@ -78,4 +105,42 @@ MoinMoin is based on PikiPiki, this is PikiPiki's copyright:
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
     USA
 
-The PikiPiki homepage is at http://www.linuxcare.com.au/mbp/piki/.
+The PikiPiki homepage is (was) at http://www.linuxcare.com.au/mbp/piki/.
+
+
+-----------------------------------------------------------------------------
+
+TWikiDraw is based on Erich Gamma's JHotDraw 5.1. (JHotDraw is copyright
+1996, 1997 by IFA Informatik and Erich Gamma,
+erich_gamma@acmSPAMBLOCK.org . It is hereby granted that this software
+can be used, copied, modified, and distributed without fee provided that
+this copyright notice appears in all copies. ) 
+
+TWikiDraw uses ACME Labs' GifEncoder to convert a drawing into a GIF
+file format. (GifEncoder is Copyright (C)1996,1998 by Jef Poskanzer,
+jef@acmeSPAMBLOCK.com . All rights reserved. THIS SOFTWARE IS PROVIDED
+BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.) 
+
+TWikiDraw uses some ideas of KmWiki drawing applet. 
+
+TWikiDraw: Copyright 2000 by Peter Thoeny, Peter@ThoenySPAMBLOCK.com. It
+is hereby granted that this software can be used, copied, modified, and
+distributed without fee provided that this copyright notice appears in
+all copies. 
+
+Modifications Copyright (C) 2001 Motorola. All Rights Reserved. 
+
+PeterThoeny created TWikiDraw based on above software 
+
+CrawfordCurrie made a number of improvements. 
+

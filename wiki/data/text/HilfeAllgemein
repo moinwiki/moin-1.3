@@ -1,0 +1,33 @@
+##master-page:HelpMiscellaneous
+##master-date:2002-02-25 18:40:24
+
+= Andere MoinMoin-Hilfethemen =
+
+'''Unterthemen'''
+ * /FragenUndAntworten
+
+'''Inhalt''' [[TableOfContents]]
+
+== Deutsche Seiten zum Thema Wikis ==
+
+Folgende Verweise führen zu Seiten, die weitere Informationen zum Thema Wikis in deutscher Sprache enthalten:
+ * Wiki:WikiInEinerMinute
+ * [wiki:DseWiki:StartSeite DseWiki]: DseWiki:WikiInEinerMinute, DseWiki:WarumWiki, DseWiki:WikiQuizz
+
+== Besondere Features fuer Wiki-Farmen und Intranets ==
+
+Die folgende Anleitung zeigt, wie Sie Ihre Konfiguration optimieren, so dass Sie mehrere Wikis auf einem Rechner laufen lassen oder MoinMoin in einem Intranet einsetzen können.
+
+=== Zentralisierte Einstellungen ===
+
+ * farm_config.py
+ * gemeinsame intermap.txt
+ * gemeinsame Codebasis und Icons
+
+=== URLs umleiten ===
+
+Die Konfigurationsvariable "`url_mappings`" kann hierfür verwendet werden. Dies ist eine Tabelle von URL-Präfixen (ein `dict` von {{{'Präfix':'Ersetzung'}}}). URLs umzuleiten hilft besonders in Intranets, in denen ganze Bäume von extern untergebrachten Dokumenten verschoben werden.
+
+== TODO ==
+
+<!> TODO: Do TODO (-:

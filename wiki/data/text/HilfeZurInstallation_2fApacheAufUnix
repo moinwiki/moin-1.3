@@ -1,0 +1,208 @@
+##master-page: HelpOnInstalling/ApacheOnUnix 
+##master-date: 27.02.2002 22:16:34
+##master-sha: 7AF28DB20DB3B46638EFE5B7799A56322B855676
+
+'''Index'''
+[[TableOfContents]]
+
+
+== Installation when you are root or the webmaster ==
+
+When you are root or the webmaster on the host you want to install Moin``Moin on, you can place the software in a "standard" location, and also better integrate Moin``Moin into your webserver. Especially, you can use a "nice" base URL that does not include "cgi-bin" or "moin.cgi" at all.
+
+Most GNU/Linux distributions come with Apache pre-installed. In the following description, we assume the file system layout of a SuSE 7.0 system, that is:
+ * `/etc/httpd/httpd.conf` - the main httpd configuration file
+ * `/var/log/httpd/error_log` - log containing error messages
+
+=== Installing MoinMoin ===
+
+Before creating a wiki instance, you have to download and install the basic Moin``Moin software. We assume you already have downloaded the distribution archive to "`/tmp`" [[FootNote(If you want to install the current development version from CVS, replace "/tmp" with your "moin" working directory.)]].
+
+Open a shell and enter the following commands:
+{{{
+cd /tmp
+tar xfz moin-0.11.tgz
+cd moin-0.11
+python setup.py install --record=install.log
+}}}
+
+This will install all necessary files into the `sys.prefix` directory of your Python interpreter (usually either "`/usr`" or "`/usr/local`"), and create a "`install.log`" file listing all the files that are created there. The command "`python -c 'import sys; print sys.prefix'`" will tell you where your Python interpreter is installed, we assume "`/usr/local`" here.
+
+[[FootNote]]
+
+=== Creating a wiki instance ===
+
+You could run your wiki directly using the sample wiki created in "`/usr/local/share/moin`", but this is not recommended for two reasons:
+ 1. updating your wiki is more complicated and more dangerous.
+ 1. creating a second wiki instance, even if you currently don't plan for one, is much easier.
+
+We need to know what user and group your Apache server runs on, so issue this command:
+ `jh@localhost:~ > `'''`egrep "^User|^Group" /etc/httpd/httpd.conf`'''[[BR]]
+ `User wwwrun`[[BR]]
+ `Group nogroup`[[BR]]
+
+This shows a typical result "`wwwrun.nogroup`", which we will use later on.
+
+To create an instance named "`mywiki`", enter these commands on a ''root'' shell prompt:
+{{{
+cd /usr/local/share/moin
+mkdir mywiki
+cp -r data mywiki
+cp cgi-bin/* mywiki
+chown -R wwwrun.nogroup mywiki
+chmod a+rx mywiki/*.cgi
+}}}
+
+"`mywiki`" is the name of your wiki instance, you might want to chose a different name best fitting the intended use of this instance; just don't name it simply "`wiki`", because that would result in problems later on.
+
+Then, append these lines to "`/etc/httpd/httpd.conf`": {{{
+Alias /wiki/ "/usr/local/share/moin/htdocs/"
+ScriptAlias /mywiki "/usr/local/share/moin/mywiki/moin.cgi"
+}}}
+
+The first line you only need once; the second line is needed once for each wiki instance (of course, each one with another wiki name and path).
+
+That is all, '''restart your Apache server''' ("`/etc/rc.d/apache restart`" on SuSE) and try to access your new-born wiki with the URL "`http://127.0.0.1/mywiki/`". You should see the Front``Page, try to edit and save it, and if that works, see if your edit is reflected on the Recent``Changes page.
+
+Finally, edit "`moin_config.py`" and at least change "`sitename`" and "`logo_url`" to some personal values:
+{{{
+sitename = 'My Wiki'
+logo_url = '/images/mywiki-logo.gif'
+}}}
+
+For a personal or intranet installation, you'll normally also add the line {{{
+allowed_actions = ['DeletePage', 'AttachFile']
+}}}
+
+=== Troubleshooting ===
+
+The first thing to do when your wiki does not work as expected is to issue the command "`tail /var/log/httpd/error_log`" to display the most recent errors. Usually, you will get a hint on what went wrong, like missing file system permissions.
+
+The most common problem you might encounter is when you have Python 1.5.2 installed into "`/usr`", and a newer Python distribution into "`/usr/local`"; this is typical for GNU/Linux distributions that still come bundled with version 1.5.2 of Python.
+
+In that case, if you enter "`python`" on you prompt, you will usually get the more recent Python interpreter, because "`/usr/local/bin`" is in your `PATH`. The situation is different in your webserver environment, and thus you might have to change the bang path of "`moin.cgi`", like this: {{{
+#! /usr/local/bin/python
+
+"""
+    MoinMoin - CGI Driver Script
+...
+}}}
+
+
+== Installation into your home directory ==
+
+Installation into your shell account's home directory is typically used on a host shared by many users and where you are ''not'' the root user. This usually implies that you cannot change the `httpd.conf` file, and also you cannot copy files into the machine's `cgi-bin` and `htdocs` directories. For this situation, Apache includes the `UserDir` directive, which maps all URLs that start with "`/~username`" to a directory in your home directory, where you have write permissions and thus can install Moin``Moin.
+
+
+=== Making sure /~username URLs work ===
+
+This kind of setup can only work if your webmaster has configured the host's Apache server so that the `UserDir` mechanism works. Here's how to check for this: 
+
+ `jh@localhost:~ > `'''`ls -ld public_html`'''[[BR]]
+ `drwxr-xr-x   2 jh       users          35 Jan 31 00:29 public_html`[[BR]]
+
+If this does not show a listing like above, then you might need to create the `public_html`directory. Note that this directory must be readable (`r-x`) by the web server.
+
+ `jh@localhost:~ > `'''`lynx -error_file=/dev/stderr -dump http://localhost/~jh/ >/dev/null`'''[[BR]]
+ `   URL=http://localhost/~jh/ (GET)`[[BR]]
+ `STATUS=HTTP/1.1 200 OK`[[BR]]
+
+You see here that we get a "`200 OK`" status response, which means that you can access your `public_html` area.
+If it does not work, you will probably get a "`403 Forbidden`" or a "`404 Not Found`" response. The first one normally indicates that you need to fix the permissions of your home directory (`~`) or your `~/public_html`. But we also need to be able to execute CGI scripts, so we test that, too.
+
+ `jh@localhost:~ > `'''`cat >~/public_html/test.cgi`'''[[BR]]
+ '''`#!/bin/sh`'''[[BR]]
+ '''`echo Content-Type: text/plain`'''[[BR]]
+ '''`echo`'''[[BR]]
+ '''`echo IT WORKS`'''[[BR]]
+ '''`<CTRL-D>`'''[[BR]]
+ `jh@localhost:~ > `'''`chmod a+rx ~/public_html/test.cgi`'''[[BR]]
+ `jh@localhost:~ > `'''`lynx -dump http://localhost/~jh/test.cgi`'''[[BR]]
+ `IT WORKS`[[BR]]
+
+If you see anything else than "`IT WORKS`", then you are not allowed to execute CGI scripts. How you get that to work is not in the scope of this description, ask your webmaster!
+
+A working Python installation, and a working `diff` command is also assumed.
+
+ `jh@localhost:~ > `'''`python -V`'''[[BR]]
+ `Python 2.1`[[BR]]
+ `jh@localhost:~ > `'''`diff --version`'''[[BR]]
+ `diff - GNU diffutils version 2.7`[[BR]]
+
+(!) The command line examples show your input in '''`bold typewriter`''', and the sample output in `plain typewriter`. The examples use "`jh`" as the user's name, which means you have to replace your own one whereever "`jh`" appears. The same is true for version numbers (`0.11`) and download URLs.
+
+
+=== Getting the distribution archive and doing the basic installation ===
+
+The following commands will fetch and install the ''nightly CVS tarball'', i.e. the current development version. To get the official distribution version, use an appropriate URL.
+
+ {{{
+mkdir ~/tmp
+cd ~/tmp
+wget http://moin.sf.net/files/moin-0.11.tar.gz
+tar xfz moin-0.11.tar.gz
+cd moin-0.11
+python setup.py --quiet install --home=$HOME --record=install.log
+}}}
+
+This will install the Moin``Moin software into the directories 
+"`~/lib/python/MoinMoin`",
+"`~/bin`",
+and "`~/share/moin`". You'll find a detailed file list in "`install.log`".
+
+
+=== Setting up a wiki instance ===
+
+The next step is to create a copy of the wiki data and the config file.
+ {{{
+mkdir ~/wiki
+cd ~/wiki
+cp ~/share/moin/cgi-bin/moin_config.py .
+cp -r ~/share/moin/data .
+chmod -R o+rwX data
+vi moin_config.py
+}}}
+
+The last command starts the editor, you need to at least change the "`data_dir`" and "`url_prefix`" config values, as you can see in the following diff:
+ {{{
+@@ -28,4 +28,4 @@
+ interwikiname = None
+-data_dir = './data/'
+-url_prefix = '/wiki'
++data_dir = '/home/jh/wiki/data/'
++url_prefix = '/~jh/wiki'
+ logo_url = url_prefix + '/img/moinmoin.gif'
+}}}
+
+
+=== Setting up public_html and testing the installation ===
+
+Now we create the public part of the wiki, which is directly accessible by the web browser. 
+ {{{
+cd ~/public_html
+cp -r ~/share/moin/htdocs wiki
+cp ~/share/moin/cgi-bin/*.cgi .
+chmod a+rx *.cgi
+}}}
+
+To be able to execute the CGI script in your home directory, you need to extend Python's path within that script, and possibly adapt the ''bang path'' (that is the first line of the script). So, change "`moin.cgi`" similarly to this diff:
+ {{{
+@@ -1,2 +1,2 @@
+-#! /usr/bin/env python
++#! /usr/local/bin/python2.1
+
+@@ -11,4 +11,4 @@
+
+-#import sys
+-#sys.path.append('/usr/local/home/USERNAME/lib/python')
++import sys
++sys.path.extend(['/home/jh/wiki', '/home/jh/lib/python'])
+
+}}}
+
+Finally, you can test your wiki installation by running the ''Moin``Moin CGI Diagnosis'':
+ {{{
+lynx -dump http://localhost/~jh/moin.cgi?test
+}}}
+
+And now, your wiki should work and is available at the URL "`http://localhost/~jh/moin.cgi`". Conclude your tests by editing and saving the `FrontPage` and checking out `RecentChanges`, which should reflect that edit.

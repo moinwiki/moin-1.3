@@ -1,0 +1,119 @@
+##master-page:HelpOnUpdating
+##master-date:2002-03-07 14:34:55
+HilfeInhalt > HilfeZurAdministration > HilfeZumUpdaten
+
+'''Index'''
+[[TableOfContents]]
+
+== Allgemeine Verfahrensweise ==
+
+/!\ '''Bevor Sie ein existierendes Wiki updaten, ERSTELLEN SIE EINE SICHERUNG!''' Sie wurden gewarnt - es ist nicht mein Fehler, wenn Sie so enden: @) 
+
+=== Konfigurations-Update ===
+
+Nach dem Upgrade sollte Ihr existierendes Wiki weiterhin funktionsfähig sein (das Ziel ist, vernünftige Default-Werte für neue Konfigurations-Variablen zu haben, aber Fehler kann es immer mal geben). Prüfen Sie also, ob dem wirklich so ist und dann nehmen Sie sich die Zeit, die Datei CHANGES in der Distribution zu lesen. Oft sind neue Eigenschaften nicht sichtbar, es sei denn Sie erweitern Ihre Konfigurationsdatei "moin.config.py".
+
+Insbesondere trifft dies zu auf:
+ * in gewisser Weise gefährliche Macros, die nicht standardmäßig aktiviert sind, weil sie für öffentliche Wikis nicht ratsam sind. Sie müssen diese explizit aktivieren, indem Sie eine {{{allowed_actions}}}-Liste zu der Konfiguration hinzufügen. Derzeit werden die Aktionen {{{DeletePage}}} und {{{AttachFile}}} als unsicher betrachtet.
+
+ * email-Funktionen: Sie müssen {{{mail_smarthost}}} und {{{mail_from}}} angeben.
+
+ * Neue Seiten-Icons: um die Icons wie "XML", "Subscribe" etc. zu bekommen, löschen Sie am besten die {{{page_icons}}}-Einstellung, da es nun einen Default in "config.py" dafür gibt. Wenn Sie es in der Vergangenheit geändert haben, fügen Sie neue Icons aus dem "config.py"-Default zu Ihrer "moin_config.py" hinzu.
+
+=== Updaten der Dateien ===
+
+ Bilder:: Bei jedem Update sollten Sie den Inhalt des Verzeichnisses "share/moin/htdocs/img" in das Ihrem Webserver sichtbare Bildverzeichnis kopieren - normalerweise enthalten neue Releases einige neue GIFs. 
+ Wenn Sie das standardmäßige ''distutils''-Setupverfahren benutzen, ist das nicht mehr notwendig (distutils frischt die Dateien für Sie auf und der Webserver bekommt die Dateien der installierten Bilder).
+
+ System-Seiten:: Wenn Sie auf eine neue Version upgraden, kopieren sie wenigstens die Hilfeseiten ("Help*" und "Hilfe*") in Ihr existierendes Verzeichnis. Danach überprüfen Sie bitte, ob irgendwelche neuen System-Seiten fehlen.
+
+ InterWiki:: Überprüfen Sie, ob Sie die neuesten Einträge in der Datei "intermap.txt" haben. Wenn Sie "private" Einträge haben, fügen Sie diese der neuen Datei aus der Distribution hinzu und kopieren Sie das Resultat dann über ihre seitherige Datei. Beachten Sie, dass seit Version 0.11, Sie auch mit "shared_intermap" auf eine Datei verweisen könen, die ''vor'' der Datei aus Ihrem ''data''-Verzeichnis (welche Vorrang hat) geladen wird (das heisst, globale Einträge in der shared_intermap, private Einträge in der Datei im ''data''-Verzeichnis).
+
+=== Problembehandlung ===
+
+Um BenutzerEinstellungen funktionsfähig zu bekommen, sollten Sie "mkdir -m707 user" in Ihrem "data"-Verzeichnis ausführen. Es ist eine gute Idee, nach Installation einer neuen Release im Browser "moin.cgi?test" aufzurufen. Durch die Angabe von "?test" wird ein Diagnosewerkzeug aufgerufen, welches helfen kann, einige übliche Fehler finden.
+
+Abhängig von Ihrer Installation sind enger definierte Zugriffsrechte eine gute Idee. Idealerweise weisen Sie allen Dateien im ''data''-Verzeichnis den User zu, unter dem der Webserver-Prozess abläuft und dann benutzen Sie `700` oder `755` als Zugriffsrechte.
+
+
+== Upgrade-Informationen für bestimmte Versionen ==
+
+Die folgenden Abschnitten enthalten Informationen, die sich auf bestimmte Versionen der Software beziehen. Wenn Sie mehrere Versionen überspringen, lesen Sie alle Abschnitte, die sich auf Ihre Situation beziehen.
+
+[[Anchor(update-0-11)]]
+=== Version 0.11 ===
+
+(!) Es wird bestens empfohlen, dass Sie jede Installation vor 0.11 auf die neue ''distutils''-Methode umstellen, was Ihnen zuküntige Upgrades stark vereinfachen wird.
+
+Sie sollten der Anleitung auf HilfeZurInstallation folgen bezüglich der Grundinstallation, bis Sie zu dem Punkt "Erzeugen einer Wiki-Instanz"-Schritt kommen. Dann haben Sie zwei Möglichkeiten:
+ 1. passen Sie einfach Ihre alte Installation auf die neue Situation an, das bedeutet insbesondere, dass Sie einen Alias erzeugen, der auf das  `.../share/moin/htdocs`-Verzeichnis verweist; Sie müssen `url_prefix` dann auf `/wiki` ändern. Der positive Effekt daran ist, dass Sie automatisch jegliche neue Icons und CSS-Dateien der Version 0.11 und jeder zukünftigen Version bekommen, weil ''distutils'' sie an dieser Stelle updatet.
+ 1. erzeugen Sie eine neue Instanz der Anleitung folgend, kopieren Sie das ''data''-Verzeichnis von Ihrer alten Instanz und vereinigen Sie die Konfigurations-Dateien.
+
+Prüfen Sie Ihre Konfiguration im Vergleich zu der mitgelieferten standardmäßigen `moin_config.py`, die Sie in `.../share/moin/cgi-bin/moin_config.py` nach der Installation mit distutils finden. Sie sollten die `sitename`-Einstellung hinzufügen, die zu Seitentiteln, zu ''RSS feeds'' und ähnlichem hinzugefügt wird.
+
+Wenn Sie offizieller Teil des InterWiki-Verbunds sind, fügen Sie auch `interwikiname` hinzu, was Ihren eigenen InterWiki-Kurznamen enthalten sollte (z.B. "`MoinMoin`" für das MoinMoin-Wiki selbst).
+
+Um neue Icons zu bekommen und auch die I18N-Anpassung der Menu- und Icon-Links zu erlauben, sollten Sie Ihre Einstellungen für `page_icons` und `navi_bar` entweder löschen oder anpassen[[FootNote(Anpassen bedeutet, Ihre Einstellungen und die Standardeinstellungen in MoinMoin/config.py zu vergleichen.)]]. Beachten Sie, dass die neue `navi_bar`-Standardeinstellung den Wikinamen aus der neuen `sitename`-Einstellung bezieht, was früher der Hauptgrund war, eine eigene, modifizierte `navi_bar` zu haben.
+
+Aufgrund der I18N-Unterstützung für System-Seiten ist der einzige übriggebliebene Seitenname der der ''front page'', die über `page_front_page`  (der alte Name `front_page` für diese Einstellung wird nicht mehr unterstützt) eingestellt werden kann; der Logik dahinter ist die, dass Seitennamen-Anpassung hauptsächlich für Lokalisierung hinzugefügt wurde, während das Ändern der ''front page'' relativ üblich ist, oft wird die ''front page'' genauso benannt, wie das ganze Wiki.
+
+Zuguterletzt kopieren Sie jegliche neue Systemseiten in Ihr Wiki ''data''-Verzeichnis. Die aktuellen System-Seiten sind im Verzeichnis `.../share/moin/data/text`. Die Mindestmenge, die Sie kopieren müssen sind die neuen (englischen) Hilfeseiten ("`Help*`"). Wenn Sie sicher sind, dass Sie keinerlei Systemseiten geändert haben, können Sie auch einfach alle in das Verzeichnis `data/text` Ihrer Wiki-Instanz kopieren.
+
+/!\ '''Wenn Sie alle Systemseiten mit einem Kommando kopieren, versichern Sie sich, dass Sie Seiten, die wahrscheinlich von Ihren Benutzern geändert wurden, aus der folgenden Liste auslassen/löschen.'''
+
+Die folgenden Seiten werden sehr wahrscheinlich geändert, sobald ein Wiki in Benutzung ist und es ist ratsam, sie aus dem Haupt-Systemseiten-Verzeichnis `.../share/moin/data/text` zu löschen vor jeglichen Update einer Instanz; Sie sind nur beigelegt, um damit neue Wikis zu bestücken: {{{
+CategoryCategory
+CategoryHomepage
+FrontPage
+HomepageTemplate
+LocalSpellingWords
+PythonLanguage
+WikiHomePage
+WikiName
+WikiSandBox
+}}}
+
+Die empfohlene Menge ist die folgende Liste: {{{
+Help*
+AbandonedPages
+EventStats
+EventStats_2fHitCounts
+EventStats_2fUserAgents
+FindPage
+InterWiki
+MoinMoin
+OrphanedPages
+PageSize
+Python4Suite
+RandomPage
+RecentChanges
+SiteNavigation
+StructuredText
+SystemInfo
+TitleIndex
+UserPreferences
+WantedPages
+WikiWikiWeb
+WordIndex
+XsltVersion
+}}}
+
+Wenn Sie deutschen Besuchern einen Gefallen tun wollen, sollten Sie auch die neuen deutschen System- und Hilfe-Seiten kopieren, sie werden automatisch aktiviert, wenn Sie die standardmäßigen `page_icons`- und `navi_bar`-Einstellungen verwenden: {{{
+Hilfe*
+AktuelleÄnderungen (Aktuelle_c4nderungen)
+AufgegebeneSeiten
+BenutzerEinstellungen
+GesuchteSeiten
+SeiteFinden
+SeitenGröße (SeitenGr_f6_dfe)
+StartSeite
+TitelIndex
+VerwaisteSeiten
+WegWeiser
+WortIndex
+ZufallsSeite
+}}}
+
+Die nächste Version wird eine Admin-Schnittstelle beinhalten, die interaktive Upgrades erlauben wird.
+
+[[FootNote]]

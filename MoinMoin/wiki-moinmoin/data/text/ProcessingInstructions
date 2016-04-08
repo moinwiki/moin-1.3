@@ -1,5 +1,0 @@
-See HelpOnProcessingInstructions
-
-----
-PIs that require some more thought are:
- * {{{#INCLUDE}}} ''pagename'': include the text of another page

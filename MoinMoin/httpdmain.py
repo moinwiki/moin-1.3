@@ -6,9 +6,9 @@
 
     Significant contributions to this module by R. Church <rc@ghostbitch.org>
 
-    $Id: httpdmain.py,v 1.8 2001/07/11 20:23:00 jhermann Exp $
+    $Id: httpdmain.py,v 1.9 2001/12/09 14:33:45 jhermann Exp $
 """
-__version__ = "$Revision: 1.8 $"[11:-2]
+__version__ = "$Revision: 1.9 $"[11:-2]
 
 # Imports
 import os, signal, sys, time, thread, urllib, string
@@ -216,14 +216,14 @@ def run():
         # if run as root, change to configured user
         if os.getuid() == 0:
             if not config.httpd_user:
-                print "Won't run as root, set the http_user config variable!"
+                print "Won't run as root, set the httpd_user config variable!"
                 sys.exit(1)
             
             import pwd
             try:
                 pwentry = pwd.getpwnam(config.httpd_user)
             except KeyError:
-                print "Can't find http_user '%s'!" % (config.httpd_user,)
+                print "Can't find httpd_user '%s'!" % (config.httpd_user,)
                 sys.exit(1)
 
             uid = pwentry[2]

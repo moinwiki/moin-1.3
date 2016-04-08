@@ -1,13 +1,25 @@
 """
     MoinMoin - Main CGI Module
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: cgimain.py,v 1.31 2001/10/24 19:15:32 jhermann Exp $
+    $Id: cgimain.py,v 1.47 2002/03/11 21:48:48 jhermann Exp $
 """
 
 opened_logs = 0
+
+
+#############################################################################
+### Helper functions
+#############################################################################
+
+def createRequest(properties={}):
+    # set up request data
+    from MoinMoin.request import Request
+    global request
+    request = Request(properties)
+
 
 #############################################################################
 ### Test code
@@ -18,12 +30,19 @@ def test():
         is sucessfully imported. It should print a plain text diagnosis
         to stdout.
     """
+    createRequest()
+
     import os, string
     from MoinMoin import config, util, version, editlog
 
     print 'Release ', version.release
     print 'Revision', version.revision
     print
+
+    # check if the request is a local one
+    import socket
+    local_request = socket.getfqdn(os.environ.get('SERVER_NAME')) == \
+        socket.getfqdn(os.environ.get('REMOTE_ADDR'))
 
     # check directories
     print "Checking directories..."
@@ -45,19 +64,23 @@ def test():
     if msg: print "***", msg
 
     # check for "diff" command
-    diff = util.popen("diff --version", "r")
+    diff = util.popen(config.external_diff + " --version", "r")
     lines = diff.readlines()
     rc = diff.close()
     if rc or not lines:
-        print "*** Could not find an external 'diff' program!"
+        print "*** Could not find external diff utility '%s'!" % config.external_diff
     else:
         print 'Found an external diff: "%s"' % (string.strip(lines[0]),)
 
-    # print the environment, in case people use exotic servers with broken
-    # CGI APIs (say, M$ IIS), to help debugging those
+    # keep some values to ourselves
     print "\nServer Environment:"
-    for key in os.environ.keys():
-        print "    %s = %s" % (key, repr(os.environ[key]))
+    if local_request:
+        # print the environment, in case people use exotic servers with broken
+        # CGI APIs (say, M$ IIS), to help debugging those
+        for key in os.environ.keys():
+            print "    %s = %s" % (key, repr(os.environ[key]))
+    else:
+        print "    ONLY AVAILABLE FOR LOCAL REQUESTS ON THIS HOST!"
 
 
 #############################################################################
@@ -65,24 +88,30 @@ def test():
 #############################################################################
 
 def run(properties={}):
-    # set up request data
-    from MoinMoin.request import Request
-    global request
-    request = Request(properties)
+    import cgi, os, sys, string
 
-    # Imports
-    request.clock.start('imports')
-    import cgi, os, sys
-    from MoinMoin import config, version, wikiutil, user, webapi
-    from MoinMoin.Page import Page
-    request.clock.stop('imports')
+    # force input/output to binary
+    if sys.platform == "win32":
+        import msvcrt
+        msvcrt.setmode(sys.stdin.fileno(), os.O_BINARY)
+        msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
 
     # create CGI log file, and one for catching stderr output
+    from MoinMoin import config
     global opened_logs
     if not opened_logs:
         cgi.logfile = os.path.join(config.data_dir, 'cgi_log')
         sys.stderr = open(os.path.join(config.data_dir, 'err_log'), 'at')
         opened_logs = 1
+
+    createRequest(properties)
+
+    # Imports
+    request.clock.start('imports')
+    from MoinMoin import version, wikiutil, user, webapi
+    from MoinMoin.Page import Page
+    from MoinMoin.i18n import _
+    request.clock.stop('imports')
 
     # sys.stderr.write("----\n")
     # for key in os.environ.keys():    
@@ -99,44 +128,69 @@ def run(properties={}):
 
         pagename = None
         if len(path_info) and path_info[0] == '/':
-            pagename = wikiutil.unquoteWikiname(path_info[1:]) or config.page_front_page
+            pagename = wikiutil.unquoteWikiname(path_info[1:])
     except: # catch and print any exception
         webapi.http_headers()
         cgi.print_exception()
         sys.exit(0)
 
+    # possibly jump to page where user left off
+    if not pagename and not action and user.current.remember_last_visit:
+        pagetrail = user.current.getTrail()
+        if pagetrail:
+            webapi.http_redirect(Page(pagetrail[-1]).url())
+            sys.exit(0)
+
     try:
         # handle request
         from MoinMoin import wikiaction
 
+        # check for non-URI characters and then handle them according to
+        # http://www.w3.org/TR/REC-html40/appendix/notes.html#h-B.2.1
+        if pagename and sys.version[:2] != '1.':
+            try:
+                dummy = unicode(pagename, 'ASCII')
+            except UnicodeError:
+                # we have something else than plain ASCII, try converting
+                # from UTF-8 to local charset
+                try:
+                    pagename = unicode(pagename, 'UTF-8').encode(config.charset)
+                except UnicodeError:
+                    # give up, use URI value literally and see what happens
+                    pass
+
+        if request.form.has_key('filepath') and request.form.has_key('noredirect'):
+            # looks like user wants to save a drawing
+            from MoinMoin.action.AttachFile import execute
+            execute(pagename, request.form)
+            sys.exit(0)
         if action:
             handler = wikiaction.getHandler(action)
             if handler:
                 handler(pagename or config.page_front_page, request.form)
             else:
                 webapi.http_headers()
-                print "<p>" + user.current.text("Unknown action")
+                print "<p>" + _("Unknown action")
         else:
             if request.form.has_key('goto'):
-                query = request.form['goto'].value
+                query = string.strip(request.form['goto'].value)
             elif pagename:
                 query = pagename
             else:
                 query = wikiutil.unquoteWikiname(os.environ.get('QUERY_STRING', '')) or config.page_front_page
 
             if config.allow_extended_names:
-                Page(query).send_page(request.form)
+                Page(query).send_page(request.form, count_hit=1)
             else:
+                from MoinMoin.parser.wiki import Parser
                 import re
-                word_re_str = r"([%s][%s]+){2,}" % (
-                    config.upperletters, config.lowerletters)
-                word_match = re.match(word_re_str, query)
+                word_match = re.match(Parser.word_rule, query)
                 if word_match:
                     word = word_match.group(0)
-                    Page(word).send_page(request.form)
+                    Page(word).send_page(request.form, count_hit=1)
                 else:
                     webapi.http_headers()
-                    print '<p>' + user.current.text("Can't work out query") + ' "<pre>' + query + '</pre>"'
+                    print '<p>' + _("Can't work out query") + ' "<pre>' + query + '</pre>"'
 
         # generate page footer
         # (actions that do not want this footer use sys.exit(0) to break out
@@ -144,7 +198,7 @@ def run(properties={}):
 
         request.clock.stop('total')
 
-        if config.show_timings:
+        if config.show_timings and request.form.getvalue('action', None) != 'print':
             print '<pre><font size="1" face="Verdana">',
             request.clock.dump(sys.stdout)
             print '</font></pre>'
@@ -162,11 +216,20 @@ def run(properties={}):
         print
         print "<!-- ERROR REPORT FOLLOWS -->"
 
+        saved_exc = sys.exc_info()
         try:
             from MoinMoin.support import cgitb
-            cgitb.handler()
         except:
-            cgi.print_exception()
+            # no cgitb, for whatever reason
+            apply(cgi.print_exception, saved_exc)
+        else:
+            try:
+                cgitb.handler()
+            except:
+                apply(cgi.print_exception, saved_exc)
+                print "\n\n<hr><p><b>Additionally, cgitb raised this exception:</b></p>"
+                cgi.print_exception()
+        del saved_exc
 
     sys.stdout.flush()
 

@@ -1,0 +1,29 @@
+The following pages are about the development of MoinMoin:
+ * MoinMoin:MoinMoinTranslation - discussion about translating MoinMoin
+ * MoinMoin:MoinMoinBugs - bugs in the software (see also the bug tracker on MoinMoin:SourceForge)
+ * MoinMoin:MoinMoinDiscussion - discussion about new features
+ * MoinMoin:MoinMoinIdeas - you are encouraged to ''add'' wishes and ideas to this page
+ * MoinMoin:MoinMoinMailingLists - discussion about MoinMoin via email
+ * MoinMoin:MoinMoinWinCvs - instructions on using WinCVS to obtain the latest source of MoinMoin
+ * HelpForDevelopers - the rules that govern MoinMoin development
+
+These pages provide information about using and installing MoinMoin:
+ * HelpContents - The main page of the help system
+ * HelpMiscellaneous/FrequentlyAskedQuestions - Frequently Asked Questions
+ * MoinMoin:MoinMoinMailingLists - discussion about MoinMoin via email
+ * MoinMoin:MoinMoinWikis - list of wiki sites using MoinMoin
+ * /InstallDocs - all the help pages about installation rolled into one
+ * /InstallationsAnleitung - installation docs in German
+
+Other pages about MoinMoin:
+ * MoinMoin:MoinMoinEtymology
+
+External links:
+ * [http://sourceforge.net/projects/moin/ SourceForge Project Info]
+ * [http://moin.sourceforge.net/ Project Homepage]
+ * [http://freshmeat.net/projects/moin FreshMeat Entry]
+ * [http://www.oreillynet.com/pub/a/python/2000/11/29/pythonnews.html PythonNews article on wikis]
+
+Connect to Foldoc:IRC for meeting the author and other MoinMoin users and developers:
+ * channel `#moin` on server `irc.openprojects.net`
+ * see also [http://www.openprojects.net OPN Home] and esp. [http://www.openprojects.net/irc_servers.shtml OPN IRC Servers] for more information

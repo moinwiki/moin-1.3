@@ -1,14 +1,14 @@
 """
     MoinMoin - HTTP interfacing via CGI
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     NEVER IMPORT THIS MODULE DIRECTLY, ALWAYS USE
 
         from MoinMoin import webapi
 
-    $Id: cgiMoin.py,v 1.6 2001/07/10 20:26:56 jhermann Exp $
+    $Id: cgiMoin.py,v 1.11 2002/02/13 21:13:55 jhermann Exp $
 """
 
 # Imports
@@ -20,8 +20,8 @@ import os, string
 
 def isSSL():
     """ Return true if we are on a SSL (https) connection. """
-    return os.environ.get('SSL_PROTOCOL', '') != ''
-
+    return os.environ.get('SSL_PROTOCOL', '') != '' or \
+           os.environ.get('SSL_PROTOCOL_VERSION', '') != ''
 
 def getScriptname():
     """ Return the scriptname part of the URL ("/path/to/my.cgi"). """
@@ -46,6 +46,9 @@ def getQualifiedURL(uri = None):
 
         *uri* -- append this server-rooted uri (must start with a slash)
     """
+    if uri and uri[:4] == "http":
+        return uri
+
     schema, stdport = (('http', '80'), ('https', '443'))[isSSL()]
     host = os.environ.get('HTTP_HOST')
     if not host:
@@ -75,6 +78,7 @@ def setHttpHeader(header):
 
 
 def http_headers(more_headers=[]):
+    from MoinMoin import config
     from MoinMoin.cgimain import request
 
     if request.sent_headers:
@@ -93,7 +97,7 @@ def http_headers(more_headers=[]):
         print header
 
     if not have_ct:
-        print "Content-type: text/html"
+        print "Content-type: text/html;charset=%s" % config.charset
 
     #print "Pragma: no-cache"
     #print "Cache-control: no-cache"
@@ -108,10 +112,10 @@ def http_headers(more_headers=[]):
 def http_redirect(url):
     """ Redirect to a fully qualified, or server-rooted URL """
     if string.count(url, "://") == 0:
-        url = "http://%s:%s%s" % (
-            os.environ.get('SERVER_NAME'),
-            os.environ.get('SERVER_PORT'),
-            url)
+        url = getQualifiedURL(url)
 
-    http_headers(["Location: " + url])
+    http_headers([
+        "Status: 302",
+        "Location: " + url,
+    ])
 

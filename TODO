@@ -4,6 +4,8 @@ A larger list of ideas and open items is on
 
 This is a list of short-term items scheduled for development:
 
+    * support for attachments in moin-dump
+
     * implement abstract storage classes for all data
         * started on Edit LogBase/LogText storage
         * dbhash implementation
@@ -11,15 +13,12 @@ This is a list of short-term items scheduled for development:
         * mysql implementation
         * tools to convert between storages (XML ex/import)
 
-    * upload macro / action
-        * someone posted code for that I think
-        * revamp that, or invent own code
-
     * refactor output formatters so that easy XML generation
       is possible (SAX stream, or similar event stream)
 
     * work on documentation, both external and in code
-        * prio #1: document config options
+        * prio #1: change install docs to reflect use of setup.py
+        * prio #2: document config options
 
     * invest further work to make MoinMoin compatible to
       systems with persistence (i.e. globally use & pass

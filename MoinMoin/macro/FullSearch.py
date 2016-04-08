@@ -1,7 +1,7 @@
 """
     MoinMoin - FullSearch Macro
 
-    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     [[FullSearch]]
@@ -16,12 +16,13 @@
         embeds a search result into a page, as if you entered
         "HelpContents" into the search dialog
 
-    $Id: FullSearch.py,v 1.2 2001/03/28 23:03:43 jhermann Exp $
+    $Id: FullSearch.py,v 1.5 2002/02/13 21:13:53 jhermann Exp $
 """
 
 # Imports
-import cgi, re
+import cgi, re, urllib
 from MoinMoin import config, user, wikiutil
+from MoinMoin.i18n import _
 
 _args_re_pattern = r'((?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))|'
 
@@ -52,11 +53,11 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     for (count, pagename) in hits:
         result = result + macro.formatter.listitem(1)
         result = result + wikiutil.link_tag('%s?action=highlight&value=%s' %
-            (wikiutil.quoteWikiname(pagename), cgi.escape(macro.formatter.page.page_name)),
+            (wikiutil.quoteWikiname(pagename), urllib.quote_plus(needle)),
             pagename)
         result = result + ' . . . . ' + `count` + [
-            user.current.text(' match'),
-            user.current.text(' matches')][count != 1]
+            _(' match'),
+            _(' matches')][count != 1]
         result = result + macro.formatter.listitem(0)
     result = result + macro.formatter.number_list(0)
 

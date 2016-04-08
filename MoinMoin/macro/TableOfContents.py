@@ -1,10 +1,10 @@
 """
     MoinMoin - TableOfContents Macro
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: TableOfContents.py,v 1.2 2001/06/27 16:28:38 jhermann Exp $
+    $Id: TableOfContents.py,v 1.3 2002/02/13 21:13:53 jhermann Exp $
 """
 
 # Imports

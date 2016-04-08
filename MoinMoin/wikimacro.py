@@ -1,22 +1,24 @@
 """
     MoinMoin - Macro Implementation
 
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
+    All rights reserved, see COPYING for details.
+
     These macros are used by the parser/wiki.py module
     to implement complex and/or dynamic page content.
 
     The sub-package "MoinMoin.macro" contains external
     macros, you can place your extensions there.
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: wikimacro.py,v 1.18 2001/07/16 21:45:22 jhermann Exp $
+    $Id: wikimacro.py,v 1.33 2002/03/06 22:36:52 jhermann Exp $
 """
 
 # Imports
-import re, string, sys, time
-from MoinMoin import action, config, macro, user, util, version, wikiutil
-from MoinMoin.Page import Page
+import os, re, string, sys, time
+from MoinMoin import action, config, editlog, macro, user, util
+from MoinMoin import version, wikiutil, wikiaction
+from MoinMoin.Page import Page, request
+from MoinMoin.i18n import _
 
 
 #############################################################################
@@ -26,10 +28,18 @@ from MoinMoin.Page import Page
 names = ["TitleSearch", "WordIndex", "TitleIndex",
          "GoTo", "InterWiki", "SystemInfo", "PageCount", "UserPreferences",
          # Macros with arguments
-         "Icon", "PageList"]
+         "Icon", "PageList", "Date", "DateTime", "Anchor",
+]
 
 # external macros
 names.extend(macro.extension_macros)
+
+# plugins
+_plugins = os.path.join(config.plugin_dir, 'macro')
+plugin_macros = []
+if os.path.isdir(_plugins):
+    plugin_macros = util.getPackageModules(os.path.join(_plugins, 'dummy'))
+    names.extend(plugin_macros)
 
 
 #############################################################################
@@ -59,6 +69,7 @@ class Macro:
         self.parser = parser
         self.formatter = self.parser.formatter
         self.form = self.parser.form
+        self.request = request
 
     def execute(self, macro_name, args):
         builtins = vars(self.__class__)
@@ -66,8 +77,16 @@ class Macro:
             return apply(builtins['_macro_' + macro_name], (self, args))
 
         # load extension macro
-        execute = util.importName("MoinMoin.macro." + macro_name, "execute")
-        return apply(execute, (self, args))
+        if macro_name in macro.extension_macros:
+            execute = util.importName("MoinMoin.macro." + macro_name, "execute")
+            return apply(execute, (self, args))
+
+        # try plugin dir
+        if macro_name in plugin_macros:
+            execute = util.importPlugin(_plugins, "MoinMoin.plugin.macro", macro_name, "execute")
+            return apply(execute, (self, args))
+
+        raise ImportError("Cannot load macro %s" % macro_name)
 
     def _macro_TitleSearch(self, args):
         return self._m_search("titlesearch")
@@ -77,16 +96,16 @@ class Macro:
             default = self.form["value"].value
         else:
             default = ''
-        return """<form method="get">
+        return self.formatter.rawHTML("""<form method="get">
         <input type="hidden" name="action" value="%s"> 
         <input name="value" size="30" value="%s"> 
-        <input type="submit" value="Go">
-        </form>""" % (type, default)
+        <input type="submit" value="%s">
+        </form>""" % (type, default, _("Go")))
 
     def _macro_GoTo(self, args):
-        return """<form method="get"><input name="goto" size="30">
-        <input type="submit" value="Go">
-        </form>"""
+        return self.formatter.rawHTML("""<form method="get"><input name="goto" size="30">
+        <input type="submit" value="%s">
+        </form>""" % _("Go"))
 
     def _macro_WordIndex(self, args):
         index_letters = []
@@ -127,8 +146,10 @@ class Macro:
 
 
     def _macro_TitleIndex(self, args):
-        index_letters = []
+        from MoinMoin import wikixml
+
         s = ''
+        index_letters = []
         pages = list(wikiutil.getPageList(config.text_dir))
         pages.sort()
         current_letter = None
@@ -145,14 +166,28 @@ class Macro:
             else:
                 s = s + '<br>'
             s = s + Page(name).link_to() + '\n'
-        return _make_index_key(index_letters, """<br>
+
+        # add rss link
+        index = ''
+        if 0 and wikixml.ok: # !!! currently switched off (not implemented)
+            img = self.formatter.image(width=36, height=14, hspace=2, align="right",
+                border=0, src=config.url_prefix+"/img/moin-rss.gif", alt="[RSS]")
+            index = index + self.formatter.url(
+                wikiutil.quoteWikiname(self.formatter.page.page_name) + "?action=rss_ti",
+                img, unescaped=1)
+
+        index = index + _make_index_key(index_letters, """<br>
 <a href="?action=titleindex">%s</a>&nbsp;|
 <a href="?action=titleindex&mimetype=text/xml">%s</a>
-""" % (user.current.text('Plain title index'), user.current.text('XML title index')) ) + s
+""" % (_('Plain title index'), _('XML title index')) )
+
+        return index + s
 
 
     def _macro_InterWiki(self, args):
         from cStringIO import StringIO
+
+        # load interwiki list
         dummy = wikiutil.resolve_wiki('')
 
         buf = StringIO()
@@ -165,7 +200,7 @@ class Macro:
             buf.write('</tr>\n')
         buf.write('</table>')
 
-        return buf.getvalue()
+        return self.formatter.rawHTML(buf.getvalue())
 
 
     def _macro_SystemInfo(self, args):
@@ -182,23 +217,28 @@ class Macro:
 
         buf = StringIO()
         row = lambda label, value, buf=buf: buf.write(
-            '<tr><td><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>' %
-            (user.current.text(label), value))
+            '<tr><td valign="top" nowrap><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>' %
+            (label, value))
 
         buf.write('<table border=0 cellspacing=2 cellpadding=0>')
-        row('Python Version', sys.version)
-        row('MoinMoin Version', user.current.text('Release %s [Revision %s]') % (version.release, version.revision))
+        row(_('Python Version'), sys.version)
+        row(_('MoinMoin Version'), _('Release %s [Revision %s]') % (version.release, version.revision))
         if ftversion:
-            row('4Suite Version', ftversion)
-        row('Number of pages', len(wikiutil.getPageList(config.text_dir)))
-        row('Number of backup versions', len(wikiutil.getBackupList(config.backup_dir, None)))
-        row('Installed extension macros',
-            string.join(macro.extension_macros, ', ') or user.current.text("<b>NONE</b>"))
-        row('Installed extension actions',
-            string.join(action.extension_actions, ', ') or user.current.text("<b>NONE</b>"))
+            row(_('4Suite Version'), ftversion)
+        row(_('Number of pages'), len(wikiutil.getPageList(config.text_dir)))
+        row(_('Number of backup versions'), len(wikiutil.getBackupList(config.backup_dir, None)))
+        row(_('Entries in edit log'), len(editlog.EditLog()))
+        row(_('Global extension macros'), 
+            string.join(macro.extension_macros, ', ') or _("<b>NONE</b>"))
+        row(_('Local extension macros'), 
+            string.join(plugin_macros, ', ') or _("<b>NONE</b>"))
+        row(_('Global extension actions'), 
+            string.join(action.extension_actions, ', ') or _("<b>NONE</b>"))
+        row(_('Local extension actions'), 
+            string.join(wikiaction.getPlugins()[1], ', ') or _("<b>NONE</b>"))
         buf.write('</table>')
 
-        return buf.getvalue()
+        return self.formatter.rawHTML(buf.getvalue())
 
 
     def _macro_PageCount(self, args):
@@ -206,7 +246,8 @@ class Macro:
 
 
     def _macro_Icon(self, args):
-        return '<img src="%s/img/%s" border="0" hspace="2">' % (config.url_prefix, args)
+        return self.formatter.image(border=0, hspace=2,
+            src="%s/img/%s" % (config.url_prefix, args))
 
 
     def _macro_PageList(self, args):
@@ -214,7 +255,7 @@ class Macro:
             needle_re = re.compile(args, re.IGNORECASE)
         except re.error, e:
             return "<b>%s: %s</b>" % (
-                user.current.text("ERROR in regex '%s'") % (args,), e)
+                _("ERROR in regex '%s'") % (args,), e)
 
         all_pages = wikiutil.getPageList(config.text_dir)
         hits = filter(needle_re.search, all_pages)
@@ -229,7 +270,44 @@ class Macro:
         return result
 
 
+    def __get_Date(self, args, format_date):
+        if not args:
+            tm = time.time()
+        elif len(args) == 19 and args[4] == '-' and args[7] == '-' \
+                and args[10] == 'T' and args[13] == ':' and args[16] == ':':
+            try:
+                tm = (
+                    int(args[0:4]),
+                    int(args[5:7]),
+                    int(args[8:10]),
+                    int(args[11:13]),
+                    int(args[14:16]),
+                    int(args[17:19]),
+                    0, 0, 0
+                )
+            except ValueError, e:
+                return "<b>%s: %s</b>" % (
+                    _("Bad timestamp '%s'") % (args,), e)
+            tm = time.mktime(tm)
+        else:
+            try:
+                tm = float(args)
+            except ValueError, e:
+                return "<b>%s: %s</b>" % (
+                    _("Bad timestamp '%s'") % (args,), e)
+        return format_date(tm)
+
+    def _macro_Date(self, args):
+        return self.__get_Date(args, user.current.getFormattedDate)
+
+    def _macro_DateTime(self, args):
+        return self.__get_Date(args, user.current.getFormattedDateTime)
+
+
     def _macro_UserPreferences(self, args):
         from MoinMoin import userform
-        return userform.getUserForm(self.form)
+        return self.formatter.rawHTML(userform.getUserForm(self.form))
+
+    def _macro_Anchor(self, args):
+        return self.formatter.anchordef(args or "anchor")
 

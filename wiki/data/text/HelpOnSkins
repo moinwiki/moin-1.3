@@ -1,0 +1,11 @@
+== Changing the page layout ==
+
+While MoinMoin currently has no full support for HTML templates, and switching between several layouts, you can change the most important parts of the generated HTML code, and add your own HTML fragments.
+
+"`title1`" and "`title2`" are inserted into the output right before and after the system's title html code (`title1` is right after the <body> tag and normally undefined, `title2` defaults to the "`<hr>`" above the page contents). "`navi_bar`" is a list of page names[[FootNote(In versions prior to 0.11, navi_bar was a piece of HTML code.)]] that are added to the title area as quick links into the wiki; if it is `None`, no navigation bar is added.
+
+Similarly, the footer area can be changed by setting "`page_footer1`" and "`page_footer2`".
+
+"`html_head`" is added into the <head> element for ''all'' pages, while "`html_head_queries`" is sent only for edit and action pages (`html_head` is sent for those, too).
+
+See http://openlook.org/ for a very nice example.

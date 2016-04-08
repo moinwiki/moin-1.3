@@ -9,12 +9,13 @@
     with the same word as the current pagename. If only one matching
     page is found, that page is displayed directly.
 
-    $Id: LikePages.py,v 1.5 2001/05/31 00:56:45 jhermann Exp $
+    $Id: LikePages.py,v 1.9 2002/02/25 21:21:12 jhermann Exp $
 """
 
 import re
 from MoinMoin import config, user, util, wikiutil, webapi
 from MoinMoin.Page import Page
+from MoinMoin.i18n import _
 
 
 def execute(pagename, form,
@@ -22,12 +23,20 @@ def execute(pagename, form,
         e_re=re.compile('([%s][%s]+)$' % (config.upperletters, config.lowerletters))):
 
     # figure the start and end words
-    match = s_re.match(pagename)
-    start = match.group(1)
+    s_match = s_re.match(pagename)
+    e_match = e_re.search(pagename)
+    if not (s_match and e_match):
+        Page(pagename).send_page(form,
+            msg=_('<b>You cannot use LikePages on an extended pagename!</b>'))
+        return
+
+    # extract the words
+    start = s_match.group(1)
     s_len = len(start)
-    match = e_re.search(pagename)
-    end = match.group(1)
+    end = e_match.group(1)
     e_len = len(end)
+    subpage = pagename + '/'
+    sp_len = len(subpage)
 
     # find any matching pages
     matches = {}
@@ -36,28 +45,32 @@ def execute(pagename, form,
         if anypage == pagename:
             continue
         p_len = len(anypage)
-        if p_len > s_len and anypage[:s_len] == start:
-            matches[anypage] = 1
-        if p_len > e_len and anypage[-e_len:] == end:
-            matches[anypage] = matches.get(anypage, 0) + 2
+        if p_len > sp_len and anypage[:sp_len] == subpage:
+            matches[anypage] = 4
+        else:
+            if p_len > s_len and anypage[:s_len] == start:
+                matches[anypage] = 1
+            if p_len > e_len and anypage[-e_len:] == end:
+                matches[anypage] = matches.get(anypage, 0) + 2
 
     # no matches :(
     if not matches:
         return Page(pagename).send_page(form,
-            msg='<strong>' + user.current.text('No pages match "%s"!') % (pagename,) + '</strong>')
+            msg='<strong>' + _('No pages match "%s"!') % (pagename,) + '</strong>')
 
     # one match - display it
     if len(matches) == 1:
         return Page(matches.keys()[0]).send_page(form,
-            msg='<strong>' + user.current.text('Exactly one matching page for "%s" found!') % (pagename,) + '</strong>')
+            msg='<strong>' + _('Exactly one matching page for "%s" found!') % (pagename,) + '</strong>')
 
     # more than one match, list 'em
     webapi.http_headers()
-    wikiutil.send_title(user.current.text('Multiple matches for "%s...%s"') % (start, end),
+    wikiutil.send_title(_('Multiple matches for "%s...%s"') % (start, end),
         pagename=pagename)
 
     keys = matches.keys()
     keys.sort()
+    showMatches(matches, keys, 4, "%s/..." % pagename)
     showMatches(matches, keys, 3, "%s...%s" % (start, end))
     showMatches(matches, keys, 1, "%s..." % (start,))
     showMatches(matches, keys, 2, "...%s" % (end,))
@@ -69,9 +82,9 @@ def showMatches(matches, keys, match, title):
     matchcount = matches.values().count(match)
 
     if matchcount:
-        print '<b>' + user.current.text('%(matchcount)d %(matches)s for "%(title)s"') % {
+        print '<b>' + _('%(matchcount)d %(matches)s for "%(title)s"') % {
             'matchcount': matchcount,
-            'matches': (user.current.text(' match'), user.current.text(' matches'))[matchcount != 1],
+            'matches': (_(' match'), _(' matches'))[matchcount != 1],
             'title': title} + '</b>'
         print "<ul>"
         for key in keys:

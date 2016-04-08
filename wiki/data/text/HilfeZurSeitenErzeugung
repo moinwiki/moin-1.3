@@ -1,0 +1,29 @@
+##master-page:HelpOnPageCreation
+##master-date:2002-02-20 15:09:13
+== Erzeugen einer neuen Seite ==
+
+Um eine neue Seite zu erzeugen, fügen Sie ihren WikiName``n auf eine existierende Seite hinzu und speichern Sie. Danach können Sie (auf der geänderten Seite) auf den WikiName``n klicken, da daraus automatisch ein Verweis (Hyperlink) entstanden ist.
+
+Dann wird Ihnen ihre neue Seite präsentiert, die Sie dann auf die übliche Art editieren können. Die Seite wird beim ersten Speichern automatisch angelegt. Seiten können normalerweise[[FootNote(eine Seiten-Löschfunktion kann durch den Wiki-Administrator aktiviert werden (wird normalerweise nur in Intranets verwendet).)]] nicht gelöscht werden, deshalb achten Sie bitte auf korrekte Schreibweise des neuen WikiName``ns.
+
+Details über Erzeugen und Verlinken von Unterseiten siehe HilfeZumEditieren/UnterSeiten. 
+
+[[FootNote]]
+
+== Erzeugen einer Vorlagen-Seite ==
+Um eine Vorlage (engl. "Template") zu erzeugen, befolgen Sie die obige Beschreibung und erzeugen Sie eine Seite, deren WikiName in "'''Template'''" endet. Diese Seite wird dann der Liste der Vorlagen-Seiten hinzugefügt, die angezeigt wird, wenn man versucht, auf eine nicht-existierende Seite zuzugreifen.
+
+Zum Beispiel hat NichtExistierendeHilfeSeite einen Link zu HilfeTemplate, der den Inhalt von HilfeTemplate in den Editierbereich lädt, wenn man auf den Link klickt.
+
+== Variablen-Ersetzung beim Speichern einer Seite ==
+
+Die folgenden Variablen werden ersetzt, wenn man eine Seite speichert.
+
+|| @''''''DATE@     || Aktuelles Datum im Systemformat ||
+|| @''''''TIME@     || Aktuelles Datum und Uhrzeit im Benutzerformat ||
+|| @''''''USERNAME@ || Nur der Name des Benutzers (oder seine Domain/IP) ||
+|| @''''''USER@     || Unterschrift "-- Login-Name" ||
+|| @''''''SIG@      || Unterschrift mit Datum/Uhrzeit "-- Login-Name Datum Uhrzeit" ||
+|| @''''''MAILTO@   || {{{mailto:}}}-Link mit den Daten des Benutzers ||
+
+Beachten Sie, dass beim Abspeichern von Vorlagen (Template) oder Formularen (Form) die Variablen ''nicht'' ersetzt werden. Abgesehen davon ist die Variablenersetzung sehr global und und geschieht überall auf der Seite, inklusive Code-Anzeigen, Kommentaren, Verarbeitungsanweisungen und anderen "speziellen" Seitenbereichen, von denen man annehmen könnte, dass sie ausgeschlossen sind.

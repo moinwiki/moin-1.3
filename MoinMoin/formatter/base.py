@@ -1,13 +1,14 @@
 """
     MoinMoin - Formatter Base Class
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: base.py,v 1.9 2001/03/10 23:12:11 jhermann Exp $
+    $Id: base.py,v 1.19 2002/02/13 21:13:52 jhermann Exp $
 """
 
 # Imports
+import sys, cgi
 
 
 #############################################################################
@@ -15,13 +16,19 @@
 #############################################################################
 
 class FormatterBase:
+    """ This defines the output interface used all over the rest of the code.
+
+        Note that no other means should be used to generate _content_ output,
+        while navigational elements (HTML page header/footer) and the like
+        can be printed directly without violating output abstraction.
     """
-        Send HTML data.
-    """
+
+    hardspace = ' '
 
     def __init__(self, **kw):
         self._store_pagelinks = kw.get('store_pagelinks', 0)
         self.pagelinks = []
+        self.in_p = 0
 
     def setPage(self, page):
         self.page = page
@@ -32,8 +39,18 @@ class FormatterBase:
     def endDocument(self):
         return ""
 
+    def rawHTML(self, markup):
+        """ This allows emitting pre-formatted HTML markup, and should be
+            used wisely (i.e. very seldom).
+
+            Using this event while generating content results in unwanted
+            effects, like loss of markup or insertion of CDATA sections
+            when output goes to XML formats.
+        """
+        return markup
+
     def pagelink(self, pagename, text=None):
-        if self._store_pagelinks:
+        if self._store_pagelinks and pagename not in self.pagelinks:
             self.pagelinks.append(pagename)
 
     def url(self, url, text=None, css=None, **kw):
@@ -63,22 +80,31 @@ class FormatterBase:
     def listitem(self, on):
         raise NotImplementedError
 
+    def sup(self, on):
+        raise NotImplementedError
+
     def code(self, on):
         raise NotImplementedError
 
     def preformatted(self, on):
         raise NotImplementedError
 
-    def paragraph(self):
-        raise NotImplementedError
+    def paragraph(self, on):
+        self.in_p = on != 0
 
     def linebreak(self, preformatted=1):
         raise NotImplementedError
 
-    def heading(self, depth, title):
+    def heading(self, depth, title, **kw):
         raise NotImplementedError
 
-    def table(self, on):
+    def table(self, on, attrs={}):
+        raise NotImplementedError
+
+    def table_row(self, on, attrs={}):
+        raise NotImplementedError
+
+    def table_cell(self, on, attrs={}):
         raise NotImplementedError
 
     def anchordef(self, name):
@@ -98,4 +124,14 @@ class FormatterBase:
 
     def definition_desc(self, on):
         raise NotImplementedError
+
+    def image(self, **kw):
+        """ Take HTML <IMG> tag attributes in `attr`.
+
+            Attribute names have to be lowercase!
+        """
+        result = '<img'
+        for attr, value in kw.items():
+            result = result + ' %s="%s"' % (attr, cgi.escape(str(value)))
+        return result + '>'
 

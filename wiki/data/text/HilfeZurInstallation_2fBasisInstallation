@@ -1,0 +1,110 @@
+##master-page: HelpOnInstalling/BasicInstallation
+##master-date: 27.02.2002 22:16:34
+##master-sha: E034B7149EF926F1E5FCA1C9FD6E36D6D9B344EC
+
+== Basic Installation ==
+
+Before you can integrate Moin``Moin into your web environment,
+you have to do the basic installation using the standard Python
+''distutils'' mechanism. We'll explain the usual steps you need to
+take to do this. For more details on the distutils installation
+process, consult the [http://www.python.org/doc/current/inst/inst.html Installing Python Modules] document of your
+Python manual.
+
+ /!\ '''NOTE:''' You will need the Python Development package installed on UNIX systems for distutils to work correctly.
+
+The first step is to unpack the distribution archive, which you
+have done already when you loaded this instructions from your disk.
+If you read this on the web, the distribution comes in a versioned
+ZIP or TAR archive, which you can unpack in the usual ways, into a
+temporary directory (`/tmp` on UNIX, `C:\TEMP` on Windows). The
+distribution archive will always unpack into a directory named
+`moin-<version>`, for example `moin-0.11`.
+
+After unpacking, to install into a specific directory (`C:\moin`
+in our example), call `setup.py` after changing your current
+directory to the distribution directory. The following commands
+can be used to complete theses steps:
+    {{{
+    unzip moin-0.11.zip
+    cd moin-0.11
+    python setup.py --quiet install --prefix=C:\moin
+}}}
+
+This creates the following directories in "C:\moin" (note
+that on a UNIX system, the directory layout will be slightly
+different):
+    {{{
+    MoinMoin
+    MoinMoin/action
+    MoinMoin/formatter
+    MoinMoin/i18n
+    MoinMoin/macro
+    MoinMoin/parser
+    MoinMoin/py15
+    MoinMoin/scripts
+    MoinMoin/support
+    MoinMoin/twisted
+    MoinMoin/webapi
+    Scripts
+    share
+    share/moin
+    share/moin/cgi-bin
+    share/moin/data
+    share/moin/data/backup
+    share/moin/data/cache
+    share/moin/data/pages
+    share/moin/data/plugin
+    share/moin/data/plugin/action
+    share/moin/data/plugin/macro
+    share/moin/data/text
+    share/moin/data/user
+    share/moin/htdocs
+    share/moin/htdocs/css
+    share/moin/htdocs/img
+}}}
+
+You will likely see the following warning:
+
+    warning: install: modules installed to 'C:\moin\', which
+    is not in Python's module search path (sys.path) -- you'll
+    have to change the search path yourself 
+
+This means exactly what it says, you need to add your install
+directory to the search path of Python. There are several ways
+to do this:
+
+    Environment variable:: Change `PYTHONPATH` in a way that is
+    persistent (`/etc/profile.d` on UNIX, `AUTOEXEC.BAT` on W9x,
+    the `Properties` item in the context menu of `My Computer` on NT4 and
+    W2K)
+
+    Apache "httpd.conf":: Use the `SetEnv` directive to set
+    `PYTHONPATH` to a suitable value, for example: {{{
+    SetEnv PYTHONPATH "C:\moin"
+}}}
+
+    "moin.cgi":: Directly add your installation directory to
+    the CGI driver script, like this: {{{
+    import sys
+    sys.path.append('C:/moin')
+}}}
+
+If you use the following default installation command, Moin``Moin
+will be installed to the Python directory:
+    {{{
+    python setup.py --quiet install
+}}}
+
+You won't need to change your `PYTHONPATH` then, but depending
+on your system environment you might not be able to use that
+command, especially when you are not the root user on a UNIX
+system. If you don't know where your Python directory is, this
+command will tell you:
+    {{{
+    python -c "import sys; print sys.prefix"
+}}}
+
+The directory structure we showed above will then be created
+in that directory. If you're interested in the exact list of
+files that are installed, use the `--record` option of distutils.

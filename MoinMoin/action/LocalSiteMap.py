@@ -2,7 +2,7 @@
     MoinMoin - LocalSiteMap action
 
     Copyright (c) 2001 by Steve Howell <showell@zipcon.com>
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     The LocalSiteMap action gives you a page that shows 
@@ -24,18 +24,20 @@
     TODO:
         - add missing docs (docstrings, inline comments)
 
+    $Id: LocalSiteMap.py,v 1.3 2002/02/13 21:13:52 jhermann Exp $
 """
     
 
 # Imports
 import string
-#import os, urlparse
 from MoinMoin import config, wikiutil, webapi, user
 from MoinMoin.Page import Page
+from MoinMoin.i18n import _
+
 
 def execute(pagename, form):
     webapi.http_headers()
-    wikiutil.send_title(user.current.text('Local Site Map for "%s"') % (pagename),  
+    wikiutil.send_title(_('Local Site Map for "%s"') % (pagename),  
         pagename=pagename)
 
     """

@@ -1,7 +1,7 @@
 """
     MoinMoin - Wiki Security Interface
 
-    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     This implements the basic interface for user permissions and
@@ -12,11 +12,8 @@
     Then assign your new class to "SecurityPolicy" in moin_config;
     and I mean the class, not an instance of it!
 
-    $Id: security.py,v 1.1 2001/05/30 19:49:24 jhermann Exp $
+    $Id: security.py,v 1.3 2002/02/13 21:13:52 jhermann Exp $
 """
-
-# Imports
-
 
 #############################################################################
 ### Basic Permissions Interface -- all features enabled by default
@@ -28,6 +25,10 @@ class Permissions:
 
     # allowed to edit pages?
     edit = 1
+
+    # allowed to delete things? (note that you still need to allow the related
+    # actions, this just controls their behaviour, not their activation)
+    delete = 1
 
     def __init__(self, user):
         self.user = user

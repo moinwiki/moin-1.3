@@ -1,0 +1,14 @@
+HelpContents > HelpOnAdministration
+
+== Maintaining a MoinMoin wiki ==
+The following pages contain information on various subtopics important to MoinMoin admins.
+
+Regular tasks:
+ * HelpOnPageDeletion - how to delete pages
+
+Installing and upgrading:
+ * HelpOnInstalling - how to install the software and supporting files
+ * HelpOnConfiguration - how to configure your system
+ * HelpOnUpdating - how to update an existing MoinMoin installation
+ * HelpOnSpellCheck - how to configure and maintain the spell checking option
+ * HelpOnSkins - how to change the page layout of your wiki

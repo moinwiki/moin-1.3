@@ -4,11 +4,12 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: OrphanedPages.py,v 1.3 2001/05/31 01:02:08 jhermann Exp $
+    $Id: OrphanedPages.py,v 1.4 2001/11/24 02:30:58 jhermann Exp $
 """
 
 # Imports
 from MoinMoin import config, user, wikiutil
+from MoinMoin.i18n import _
 
 _guard = 0
 
@@ -32,7 +33,7 @@ def execute(macro, args):
 
     # check for the extreme case
     if not orphaned:
-        return "<p><b>%s</b></p>" % user.current.text("No orphaned pages in this wiki.")
+        return "<p><b>%s</b></p>" % _("No orphaned pages in this wiki.")
 
     # return a list of page links
     orphanednames = orphaned.keys()

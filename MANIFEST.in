@@ -1,25 +1,26 @@
 # MoinMoin - Distutils distribution files
 #
-# Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
+# Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
 # All rights reserved, see COPYING for details.
 #
-# $Id: MANIFEST.in,v 1.5 2001/10/27 14:34:54 jhermann Exp $
+# $Id: MANIFEST.in,v 1.11 2002/02/27 21:02:53 jhermann Exp $
 
-include CHANGES COPYING ChangeLog INSTALL INSTALL.IIS README TODO
+include CHANGES COPYING INSTALL.html README TODO
 include MANIFEST.in moinlogo.bmp setup.cfg
 
-include MoinMoin/wiki-moinmoin/PythonPowered.gif
-include MoinMoin/wiki-moinmoin/default.css
-include MoinMoin/wiki-moinmoin/index.html
-include MoinMoin/wiki-moinmoin/moin.cgi
-include MoinMoin/wiki-moinmoin/moin_config.py
-include MoinMoin/wiki-moinmoin/moinmoin.gif
-include MoinMoin/wiki-moinmoin/test.cgi
+# "wiki" directory
+recursive-include   wiki/cgi-bin *.cgi *.py
+include             wiki/data/intermap.txt
+recursive-include   wiki/data/text *
+include             wiki/htdocs/index.html
+recursive-include   wiki/htdocs/css *.css
+recursive-include   wiki/htdocs/img *.gif *.png
 
-include MoinMoin/wiki-moinmoin/data/editlog
-include MoinMoin/wiki-moinmoin/data/intermap.txt
+# include MoinMoin/wiki-moinmoin/default.css
+# include MoinMoin/wiki-moinmoin/data/editlog
+# recursive-include MoinMoin/wiki-moinmoin/img *
+# recursive-include MoinMoin/wiki-moinmoin/data/text *
 
-recursive-include MoinMoin/wiki-moinmoin/img *
-recursive-include MoinMoin/wiki-moinmoin/data/text *
+recursive-include contributions *
 
 global-exclude */CVS/*

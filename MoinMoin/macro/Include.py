@@ -1,8 +1,8 @@
 """
     MoinMoin - Include macro
 
-    Copyright (c) 2000-2001 by Richard Jones <richard@bizarsoftware.com.au>
-    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001 by Richard Jones <richard@bizarsoftware.com.au>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     This macro includes the formatted content of the given page, following
@@ -21,12 +21,13 @@
         [[Include(FooBar, , 2]] -- add a H2 of 'Foo Bar'
         [[Include(FooBar, 'All about Foo Bar', 2]] -- add a H2 of 'All about Foo Bar'
 
-    $Id: Include.py,v 1.4 2001/03/30 21:06:52 jhermann Exp $
+    $Id: Include.py,v 1.6 2002/02/13 21:13:53 jhermann Exp $
 """
 
 import sys, string, re, cStringIO
 from MoinMoin import user
 from MoinMoin.Page import Page
+from MoinMoin.i18n import _
 
 _arg_heading = r'(?P<heading>,)\s*(|(?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))'
 _arg_level = r',\s*(?P<level>\d+)'
@@ -38,7 +39,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     # parse and check arguments
     args = args_re.match(text)
     if not args:
-        return ('<p><strong class="error">%s</strong></p>' % user.current.text('Invalid include arguments "%s"!')) % (text,)
+        return ('<p><strong class="error">%s</strong></p>' % _('Invalid include arguments "%s"!')) % (text,)
 
     # get the page
     print_mode = macro.form.has_key('action') and macro.form['action'].value == "print"
@@ -83,7 +84,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
 
     # if no heading and not in print mode, then output a helper link
     if not (level or print_mode):
-        ret = ret + inc_page.link_to(user.current.text('<small>[goto %s]</small>') % (inc_name,))
+        ret = ret + inc_page.link_to(_('<small>[goto %s]</small>') % (inc_name,))
 
     # return include text
     return ret

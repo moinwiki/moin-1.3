@@ -1,16 +1,17 @@
 """
     MoinMoin - MoinMoin Wiki Markup Parser
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wiki.py,v 1.34 2001/09/24 19:05:08 jhermann Exp $
+    $Id: wiki.py,v 1.81 2002/02/20 19:32:34 jhermann Exp $
 """
 
 # Imports
-import cgi, re, string, sys
-from MoinMoin import config, wikimacro, wikiutil
+import cgi, os, re, string, sys
+from MoinMoin import config, user, wikimacro, wikiutil
 from MoinMoin.Page import Page
+from MoinMoin.i18n import _
 
 
 #############################################################################
@@ -28,10 +29,34 @@ class Parser:
         patterns defined in print_html().
     """
 
-    ol_rule = r"^\s+[0-9aAiI]\.(?:#\d+)?\s"
+    # some common strings
+    attachment_schemas = ["attachment", "inline", "drawing"]
+    punct_pattern = re.escape('''"'}]|:,.)?!''')
+    url_pattern = ('http|https|ftp|nntp|news|mailto|telnet|wiki|file|' +
+            string.join(attachment_schemas, '|') + 
+            (config.url_schemas and '|' + string.join(config.url_schemas, '|') or ''))
 
+    # some common rules
+    word_rule = r'(?:%(subpages)s(?:[%(u)s][%(l)s]+){2,})+' % {
+        'u': config.upperletters,
+        'l': config.lowerletters,
+        'subpages': config.allow_subpages and '/?' or '',
+    }
+    url_rule = r'%(url_guard)s(%(url)s)\:([^\s\<%(punct)s]|([%(punct)s][^\s\<%(punct)s]))+' % {
+        'url_guard': ('(^|(?<!\w))', '')[sys.version < "2"],
+        'url': url_pattern,
+        'punct': punct_pattern,
+    }
+
+    ol_rule = r"^\s+[0-9aAiI]\.(?:#\d+)?\s"
+    dl_rule = r"^\s+.*?::\s"
+
+    # the big, fat, ugly one ;)
     formatting_rules = r"""(?:(?P<emph_ibb>'''''(?=[^']+'''))
+(?P<emph_ibi>'''''(?=[^']+''))
+(?P<emph_ib_or_bi>'{5}(?=[^']))
 (?P<emph>'{2,3})
+(?P<sup>\^.*?\^)
 (?P<tt>\{\{\{.*?\}\}\})
 (?P<pre>(\{\{\{ ?|\}\}\}))
 (?P<rule>-{4,})
@@ -39,28 +64,28 @@ class Parser:
 (?P<macro>\[\[(%(macronames)s)(?:\(.*?\))?\]\]))
 (?P<li>^\s+\*)
 (?P<ol>%(ol_rule)s)
+(?P<dl>%(dl_rule)s)
 (?P<tableZ>\|\| $)
-(?P<table>(?:\|\|)+(?=.))
+(?P<table>(?:\|\|)+(?:<[^>]*?>)?(?=.))
 (?P<heading>^\s*(?P<hmarker>=+)\s.*\s(?P=hmarker) $)
 (?P<interwiki>[A-Z][a-zA-Z]+\:[^\s'\"\:\<]([^\s%(punct)s]|([%(punct)s][^\s%(punct)s]))+)
-(?P<word>(?:[%(u)s][%(l)s]+){2,})
-(?P<url_bracket>\[(%(url)s)\:[^\s\]]+(\s[^\]]+)?\])
-(?P<url>%(url_guard)s(%(url)s)\:([^\s\<%(punct)s]|([%(punct)s][^\s\<%(punct)s]))+)
+(?P<word>%(word_rule)s)
+(?P<url_bracket>\[((%(url)s)\:|#)[^\s\]]+(\s[^\]]+)?\])
+(?P<url>%(url_rule)s)
 (?P<email>[-\w._+]+\@[\w-]+\.[\w.-]+)
 (?P<smiley>\s(%(smiley)s)\s)
 (?P<smileyA>^(%(smiley)s)\s)
 (?P<ent>[<>&])"""  % {
-        'url': 'http|https|ftp|nntp|news|mailto|telnet|wiki|file' +
-            (config.url_schemas and '|' + string.join(config.url_schemas, '|') or ''),
-        'url_guard': ('(^|(?<!\w))', '')[sys.version < "2"],
-        'punct': re.escape('''"'}]|:,.)?!'''),
+        'url': url_pattern,
+        'punct': punct_pattern,
         'macronames': string.join(wikimacro.names, '|'),
         'ol_rule': ol_rule,
-        'u': config.upperletters,
-        'l': config.lowerletters,
+        'dl_rule': dl_rule,
+        'url_rule': url_rule,
+        'word_rule': word_rule,
         'smiley': string.join(map(re.escape, wikiutil.smileys.keys()), '|')}
 
-    def __init__(self, raw):
+    def __init__(self, raw, **kw):
         self.raw = raw
 
         self.macro = None
@@ -68,6 +93,8 @@ class Parser:
         self.is_em = 0
         self.is_b = 0
         self.lineno = 0
+        self.in_li = 0
+        self.in_dd = 0
         self.in_pre = 0
         self.in_table = 0
 
@@ -75,7 +102,25 @@ class Parser:
         self.list_indents = []
         self.list_types = []
 
+    def _check_p(self):
+        if not (self.formatter.in_p or self.in_pre):
+            sys.stdout.write(self.formatter.paragraph(1))
+
+
+    def _close_item(self, result):
+        if self.formatter.in_p:
+            result.append(self.formatter.paragraph(0))
+        if self.in_li:
+            self.in_li = 0
+            result.append(self.formatter.listitem(0))
+        if self.in_dd:
+            self.in_dd = 0
+            result.append(self.formatter.definition_desc(0))
+
+
     def interwiki(self, url_and_text, **kw):
+        self._check_p()
+
         if len(url_and_text) == 1:
             url = url_and_text[0]
             text = None
@@ -90,39 +135,163 @@ class Parser:
             else:
                 text = url
                 url = ""
+        elif config.allow_subpages and url[0] == '/':
+            # fancy link to subpage [wiki:/SubPage text]
+            return self._word_repl(url, text)
+        elif Page(url).exists():
+            # fancy link to local page [wiki:LocalPage text]
+            return self._word_repl(url, text)
 
+        import urllib
         wikitag, wikiurl, wikitail = wikiutil.resolve_wiki(url)
+        wikiurl = wikiutil.mapURL(wikiurl)
+        if string.find(wikiurl, '$PAGE') == -1:
+            href = wikiurl + wikitail
+        else:
+            href = string.replace(wikiurl, '$PAGE', wikitail)
 
         # check for image URL, and possibly return IMG tag
         if not kw.get('pretty_url', 0) and wikiutil.isPicture(wikitail):
-            return '<img src="%s%s" border="0">' % (wikiutil.mapURL(wikiurl), wikitail)
+            return self.formatter.image(border=0, src=href)
 
+        # link to self?
+        if wikitag is None:
+            return self._word_repl(wikitail)
+              
         # return InterWiki hyperlink
-        return '''<a href="%(wikiurl)s"><img src="%(prefix)s/img/moin-inter.gif"
-width="16" height="16" hspace="2" border="%(badwiki)d"
-alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(text)s</a>''' % {
-            'wikiurl': wikiutil.mapURL(wikiurl),
-            'prefix': config.url_prefix,
-            'badwiki': wikitag == "BadWikiTag",
-            'wikitag': wikitag,
-            'wikitail': wikitail,
-            'text': self.highlight_text(text),
-        }
+        prefix = config.url_prefix
+        badwiki = wikitag == "BadWikiTag"
+        text = self.highlight_text(text) # also cgi.escapes if necessary
+
+        icon = ''
+        if user.current.show_fancy_links:
+            icon = self.formatter.image(width=16, height=16, hspace=2,
+                border=badwiki,
+                src=prefix+"/img/moin-inter.gif",
+                alt="[%s]" % wikitag)
+        return self.formatter.url(href, icon + text,
+            title=wikitag, unescaped=1, pretty_url=kw.get('pretty_url', 0))
+
+
+    def attachment(self, url_and_text, **kw):
+        """ This gets called on attachment URLs.
+        """
+        self._check_p()
+
+        if len(url_and_text) == 1:
+            url = url_and_text[0]
+            text = None
+        else:
+            url, text = url_and_text
+
+        inline = url[0] == 'i'
+        drawing = url[0] == 'd'
+        url = string.split(url, ":", 1)[1]
+        text = text or url
+
+        pagename = self.formatter.page.page_name
+        parts = string.split(url, '/')
+        if len(parts) > 1:
+            # get attachment from other page
+            pagename = string.join(parts[:-1], '/')
+            url = parts[-1]
+
+        import urllib
+        from MoinMoin.action import AttachFile
+        fname = wikiutil.taintfilename(url)
+        if drawing:
+            drawing = fname
+            fname = fname + ".gif"
+            url = url + ".gif"
+        fpath = os.path.join(AttachFile.getAttachDir(pagename), fname)
+
+        # check whether attachment exists, possibly point to upload form
+        if not os.path.exists(fpath):
+            if drawing:
+                linktext = _('Create new drawing "%(filename)s"')
+            else:
+                linktext = _('Upload new attachment "%(filename)s"')
+            return wikiutil.link_tag(
+                '%s?action=AttachFile&rename=%s%s' % (
+                    wikiutil.quoteWikiname(pagename),
+                    urllib.quote_plus(fname),
+                    drawing and ('&drawing=%s' % urllib.quote(drawing)) or ''),
+                linktext % {'filename': fname})
+
+        # check for image URL, and possibly return IMG tag
+        # (images are always inlined, just like for other URLs)
+        if not kw.get('pretty_url', 0) and wikiutil.isPicture(url):
+            return self.formatter.image(border=0, alt=url,
+                src=AttachFile.getAttachUrl(pagename, url, addts=1))
+
+        # try to inline the attachment (we only accept a list
+        # of known extensions)
+        base, ext = os.path.splitext(url)
+        if inline and ext in ['.py']:
+            if ext == '.py':
+                import cStringIO
+                from MoinMoin.parser import python
+
+                buff = cStringIO.StringIO()
+                colorizer = python.Parser(open(fpath, 'r').read(), out = buff)
+                colorizer.format(self.formatter, self.form)
+                return self.formatter.preformatted(1) + \
+                    self.formatter.rawHTML(buff.getvalue()) + \
+                    self.formatter.preformatted(0)
+
+        return self.formatter.url(
+            AttachFile.getAttachUrl(pagename, url),
+            text, pretty_url=kw.get('pretty_url', 0))
+
 
     def _emph_repl(self, word):
         """Handle emphasis, i.e. '' and '''."""
+        self._check_p()
+        ##print "#", self.is_b, self.is_em, "#"
         if len(word) == 3:
             self.is_b = not self.is_b
+            if self.is_em and self.is_b: self.is_b = 2
             return self.formatter.strong(self.is_b)
         else:
             self.is_em = not self.is_em
+            if self.is_em and self.is_b: self.is_em = 2
             return self.formatter.emphasis(self.is_em)
 
     def _emph_ibb_repl(self, word):
         """Handle mixed emphasis, i.e. ''''' followed by '''."""
+        self._check_p()
         self.is_b = not self.is_b
         self.is_em = not self.is_em
+        if self.is_em and self.is_b: self.is_b = 2
         return self.formatter.emphasis(self.is_em) + self.formatter.strong(self.is_b)
+
+    def _emph_ibi_repl(self, word):
+        """Handle mixed emphasis, i.e. ''''' followed by ''."""
+        self._check_p()
+        self.is_b = not self.is_b
+        self.is_em = not self.is_em
+        if self.is_em and self.is_b: self.is_em = 2
+        return self.formatter.strong(self.is_b) + self.formatter.emphasis(self.is_em)
+
+    def _emph_ib_or_bi_repl(self, word):
+        """Handle mixed emphasis, exactly five '''''."""
+        self._check_p()
+        ##print "*", self.is_b, self.is_em, "*"
+        b_before_em = self.is_b > self.is_em > 0
+        self.is_b = not self.is_b
+        self.is_em = not self.is_em
+        if b_before_em:
+            return self.formatter.strong(self.is_b) + self.formatter.emphasis(self.is_em)
+        else:
+            return self.formatter.emphasis(self.is_em) + self.formatter.strong(self.is_b)
+
+
+    def _sup_repl(self, word):
+        """Handle superscript."""
+        self._check_p()
+        return self.formatter.sup(1) + \
+            self.highlight_text(word[1:-1]) + \
+            self.formatter.sup(0)
 
 
     def _rule_repl(self, word):
@@ -135,40 +304,61 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
         return result
 
 
-    def _word_repl(self, word):
+    def _word_repl(self, word, text=None):
         """Handle WikiNames."""
-        return self.formatter.pagelink(word, self.highlight_text(word))
+        self._check_p()
+        if not text: text = word
+        if config.allow_subpages and word[0] == '/':
+            word = self.formatter.page.page_name + word
+        text = self.highlight_text(text)
+        if word == text:
+            return self.formatter.pagelink(word)
+        else:
+            return self.formatter.pagelink(word, text)
 
     def _notword_repl(self, word):
         """Handle !NotWikiNames."""
+        self._check_p()
         return self.highlight_text(word[1:])
 
 
     def _interwiki_repl(self, word):
         """Handle InterWiki links."""
-        #!!! handle this correctly
+        self._check_p()
         return self.interwiki(["wiki:" + word])
 
 
     def _url_repl(self, word):
         """Handle literal URLs including inline images."""
-        if word[:5] == "wiki:": return self.interwiki([word])
+        self._check_p()
+        scheme = string.split(word, ":", 1)[0]
+
+        if scheme == "wiki": return self.interwiki([word])
+        if scheme in self.attachment_schemas:
+            return self.attachment([word])
+
         return self.formatter.url(word, text=self.highlight_text(word))
 
 
     def _wikiname_bracket_repl(self, word):
         """Handle special-char wikinames."""
-        wikiname = word[2:-2]
-        return self.formatter.pagelink(wikiname)
+        return self._word_repl(word[2:-2])
 
 
     def _url_bracket_repl(self, word):
         """Handle bracketed URLs."""
+        self._check_p()
         words = string.split(word[1:-1], None, 1)
         if len(words) == 1: words = words * 2
-        scheme = string.split(words[0], ":", 1)[0]
 
+        if words[0][0] == '#':
+            # anchor link
+            return self.formatter.url(words[0], self.highlight_text(words[1]))
+
+        scheme = string.split(words[0], ":", 1)[0]
         if scheme == "wiki": return self.interwiki(words, pretty_url=1)
+        if scheme in self.attachment_schemas:
+            return self.attachment(words, pretty_url=1)
 
         icon = ("www", 11, 11)
         if scheme == "mailto": icon = ("email", 14, 10)
@@ -179,67 +369,181 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
         #!!! use a map?
         # http|https|ftp|nntp|news|mailto|wiki|file
 
-        text = '<img src="%s/img/moin-%s.gif" width="%d" height="%d" border="0" hspace="4" alt="[%s]">%s' % (
-            config.url_prefix, icon[0], icon[1], icon[2], string.upper(icon[0]),
-            self.highlight_text(words[1]))
-        return self.formatter.url(words[0], text, 'external', pretty_url=1)
+        text = ''
+        if user.current.show_fancy_links:
+            text = text + self.formatter.image(
+                src="%s/img/moin-%s.gif" % (config.url_prefix, icon[0]),
+                width=icon[1], height=icon[2], border=0, hspace=4,
+                alt="[%s]" % string.upper(icon[0])
+                )
+        text = text + self.highlight_text(words[1])
+        return self.formatter.url(words[0], text, 'external', pretty_url=1, unescaped=1)
 
 
     def _email_repl(self, word):
         """Handle email addresses (without a leading mailto:)."""
+        self._check_p()
         return self.formatter.url("mailto:" + word, self.highlight_text(word))
 
 
     def _ent_repl(self, word):
         """Handle SGML entities."""
+        self._check_p()
         return self.formatter.text(word)
         #return {'&': '&amp;',
         #        '<': '&lt;',
         #        '>': '&gt;'}[word]
 
 
+    def _ent_numeric_repl(self, word):
+        """Handle numeric SGML entities."""
+        self._check_p()
+        return self.formatter.rawHTML(word)
+
+
     def _li_repl(self, match):
         """Handle bullet lists."""
-        return self.formatter.listitem(1)
+        result = []
+        self._close_item(result)
+        self.in_li = 1
+        result.append(self.formatter.listitem(1))
+        result.append(self.formatter.paragraph(1))
+        return string.join(result, '')
 
 
     def _ol_repl(self, match):
         """Handle numbered lists."""
-        return self.formatter.listitem(1)
+        return self._li_repl(match)
+
+
+    def _dl_repl(self, match):
+        """Handle definition lists."""
+        result = []
+        self._close_item(result)
+        self.in_dd = 1
+        result.extend([
+            self.formatter.definition_term(1),
+            match[:-3],
+            self.formatter.definition_term(0),
+            self.formatter.definition_desc(1)
+        ])
+        return string.join(result, '')
 
 
     def _tt_repl(self, word):
         """Handle inline code."""
+        self._check_p()
         return self.formatter.code(1) + \
             self.highlight_text(word[3:-3]) + \
             self.formatter.code(0)
 
 
+    def _tt_bt_repl(self, word):
+        """Handle backticked inline code."""
+        if len(word) == 2: return ""
+        self._check_p()
+        return self.formatter.code(1) + \
+            self.highlight_text(word[1:-1]) + \
+            self.formatter.code(0)
+
+
+    def _getTableAttrs(self, attrdef):
+        # skip "|" and initial "<"
+        while attrdef and attrdef[0] == "|":
+            attrdef = attrdef[1:]
+        if not attrdef or attrdef[0] != "<":
+            return {}, ''
+        attrdef = attrdef[1:]
+
+        # extension for special table markup
+        def table_extension(key, parser, attrs):
+            msg = ''
+            if key[0] in string.digits:
+                token = parser.get_token()
+                if token != '%':
+                    wanted = '%'
+                    msg = _('Expected "%(wanted)s" after "%(key)s", got "%(token)s"') % locals()
+                else:
+                    try:
+                        dummy = int(key)
+                    except ValueError:
+                        msg = _('Expected an integer "%(key)s" before "%(token)s"') % locals()
+                    else:
+                        attrs['width'] = '"%s"' % key
+            elif key == '-':
+                arg = parser.get_token()
+                try:
+                    dummy = int(arg)
+                except ValueError:
+                    msg = _('Expected an integer "%(arg)s" after "%(key)s"') % locals()
+                else:
+                    attrs['colspan'] = '"%s"' % arg
+            elif key == '|':
+                arg = parser.get_token()
+                try:
+                    dummy = int(arg)
+                except ValueError:
+                    msg = _('Expected an integer "%(arg)s" after "%(key)s"') % locals()
+                else:
+                    attrs['rowspan'] = '"%s"' % arg
+            elif key == '(':
+                attrs['align'] = '"left"'
+            elif key == ':':
+                attrs['align'] = '"center"'
+            elif key == ')':
+                attrs['align'] = '"right"'
+            elif key == '^':
+                attrs['valign'] = '"top"'
+            elif key == 'v':
+                attrs['valign'] = '"bottom"'
+            elif key == '#':
+                arg = parser.get_token()
+                try:
+                    if len(arg) != 6: raise ValueError
+                    dummy = string.atoi(arg, 16)
+                except ValueError:
+                    msg = _('Expected a color value "%(arg)s" after "%(key)s"' % locals())
+                else:
+                    attrs['bgcolor'] = '"%s"' % arg
+            else:
+                msg = None
+            return msg
+
+        # scan attributes
+        attr, msg = wikiutil.parseAttributes(attrdef, '>', table_extension)
+        if msg: msg = '<strong class="highlight">%s</strong>' % msg
+        return attr, msg
+
     def _tableZ_repl(self, word):
         """Handle table row end."""
         if self.in_table:
-            return '</td>\n</tr>'
+            return self.formatter.table_cell(0) + self.formatter.table_row(0)
         else:
             return word
+
 
     def _table_repl(self, word):
         """Handle table cell separator."""
         if self.in_table:
+            # check for attributes
+            attrs, attrerr = self._getTableAttrs(word)
+
             # start the table row?
             if self.table_rowstart:
                 self.table_rowstart = 0
-                leader = '<tr class="wiki">'
+                leader = self.formatter.table_row(1, attrs)
             else:
-                leader = '</td>'
+                leader = self.formatter.table_cell(0)
 
             # check for adjacent cell markers
-            if len(word) > 2:
-                colspan = ' align="center" colspan="%d"' % (len(word)/2,)
-            else:
-                colspan = ''
+            if string.count(word, "|") > 2:
+                if not attrs.has_key('align'):
+                    attrs['align'] = '"center"'
+                if not attrs.has_key('colspan'):
+                    attrs['colspan'] = '"%d"' % (string.count(word, "|")/2)
 
             # return the complete cell markup           
-            return '%s\n<td class="wiki"%s>' % (leader, colspan)
+            return leader + self.formatter.table_cell(1, attrs) + attrerr
         else:
             return word
 
@@ -247,20 +551,31 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
     def _heading_repl(self, word):
         """Handle section headings."""
         import sha
-        
+
+        icons = ''
+        if user.current.show_topbottom:
+            bottom = self.formatter.image(width=14, height=10, hspace=2, vspace=6, align="right",
+                border=0, src=config.url_prefix+"/img/moin-bottom.gif", alt="[BOTTOM]")
+            icons = icons + self.formatter.url("#bottom", bottom, unescaped=1)
+            top = self.formatter.image(width=14, height=10, hspace=2, vspace=6, align="right",
+                border=0, src=config.url_prefix+"/img/moin-top.gif", alt="[TOP]")
+            icons = icons + self.formatter.url("#top", top, unescaped=1)
+
         h = string.strip(word)
         level = 1
         while h[level:level+1] == '=': level = level+1
         depth = min(5,level)
         headline = string.strip(h[level:-level])
-        return self.formatter.anchordef("head-"+sha.new(headline).hexdigest()) + \
-            self.formatter.heading(depth, self.highlight_text(headline))
+        return \
+            self.formatter.anchordef("head-"+sha.new(headline).hexdigest()) + \
+            self.formatter.heading(depth, self.highlight_text(headline, flow=0), icons=icons)
 
 
     def _pre_repl(self, word):
         """Handle code displays."""
         word = string.strip(word)
         if word == '{{{' and not self.in_pre:
+            self._check_p()
             self.in_pre = 1
             return self.formatter.preformatted(self.in_pre)
         elif word == '}}}' and self.in_pre:
@@ -271,7 +586,8 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
 
     def _smiley_repl(self, word):
         """Handle smileys."""
-        return wikiutil.getSmiley(string.strip(word))
+        self._check_p()
+        return wikiutil.getSmiley(word, self.formatter)
 
     _smileyA_repl = _smiley_repl
 
@@ -282,6 +598,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
 
     def _macro_repl(self, word):
         """Handle macros ([[macroname]])."""
+        self._check_p()
         macro_name = word[2:-2]
 
         # check for arguments
@@ -305,15 +622,21 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
 
     def _indent_to(self, new_level, list_type, numtype, numstart):
         """Close and open lists."""
-        close = ''
+        close = []
         open = ''
+
+        # Close open paragraphs and list items
+        if self._indent_level() != new_level:
+            self._close_item(close)
 
         # Close lists while char-wise indent is greater than the current one
         while self._indent_level() > new_level:
             if self.list_types[-1] == 'ol':
-                close = close + self.formatter.number_list(0)
+                close.append(self.formatter.number_list(0))
+            elif self.list_types[-1] == 'dl':
+                close.append(self.formatter.definition_list(0))
             else:
-                close = close + self.formatter.bullet_list(0)
+                close.append(self.formatter.bullet_list(0))
 
             del(self.list_indents[-1])
             del(self.list_types[-1])
@@ -324,31 +647,37 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
             self.list_types.append(list_type)
             if list_type == 'ol':
                 open = open + self.formatter.number_list(1, numtype, numstart)
+            elif list_type == 'dl':
+                open = open + self.formatter.definition_list(1)
             else:
                 open = open + self.formatter.bullet_list(1)
 
         # If list level changes, close an open table
         if self.in_table and (open or close):
-            close = self.formatter.table(0) + close
+            close[0:0] = [self.formatter.table(0)]
             self.in_table = 0
 
-        return close + open
+        return string.join(close, '') + open
 
 
     def _undent(self):
         """Close all open lists."""
-        result = ''
+        result = []
+        self._close_item(result)
         for type in self.list_types:
             if type == 'ol':
-                result = result + self.formatter.number_list(0)
+                result.append(self.formatter.number_list(0))
+            elif type == 'dl':
+                result.append(self.formatter.definition_list(0))
             else:
-                result = result + self.formatter.bullet_list(0)
+                result.append(self.formatter.bullet_list(0))
         self.list_indents = []
         self.list_types = []
-        return result
+        return string.join(result, '')
 
 
-    def highlight_text(self, text):
+    def highlight_text(self, text, **kw):
+        if kw.get('flow', 1): self._check_p()
         if not self.hilite_re: return self.formatter.text(text)
 
         result = []
@@ -365,7 +694,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
             lastpos = match.end() + (match.end() == lastpos)
             match = self.hilite_re.search(text, lastpos)
 
-        result.append(text[lastpos:])
+        result.append(self.formatter.text(text[lastpos:]))
         return string.join(result, '')
 
     def highlight_scan(self, scan_re, line):
@@ -388,7 +717,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
     def replace(self, match):
         #hit = filter(lambda g: g[1], match.groupdict().items())
         for type, hit in match.groupdict().items():
-            if hit is not None:
+            if hit is not None and type != "hmarker":
                 ##print "###", cgi.escape(`type`), cgi.escape(`hit`), "###"
                 if self.in_pre and type not in ['pre', 'ent']:
                     return self.highlight_text(hit)
@@ -412,21 +741,26 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
         self.hilite_re = self.formatter.page.hilite_re
 
         # prepare regex patterns
-        rules = string.replace(self.__class__.formatting_rules, '\n', '|')
+        rules = string.replace(self.formatting_rules, '\n', '|')
         if config.allow_extended_names:
             rules = rules + r'|(?P<wikiname_bracket>\[".*?"\])'
         if config.bang_meta:
-            rules = r'(?P<notword>!(?:[%(u)s][%(l)s]+){2,})|%(rules)s' % {
-                'u': config.upperletters,
-                'l': config.lowerletters,
+            rules = r'(?P<notword>!%(word_rule)s)|%(rules)s' % {
+                'word_rule': self.word_rule,
                 'rules': rules,
             }
+        if config.backtick_meta:
+            rules = rules + r'|(?P<tt_bt>`.*?`)'
+        if config.allow_numeric_entities:
+            rules = r'(?P<ent_numeric>&#\d{1,5};)|' + rules
+
         scan_re = re.compile(rules)
-        number_re = re.compile(self.__class__.ol_rule)
+        number_re = re.compile(self.ol_rule)
+        term_re = re.compile(self.dl_rule)
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
 
-        # get text and replaces TABs
+        # get text and replace TABs
         rawtext = string.expandtabs(self.raw)
 
         # go through the lines
@@ -436,13 +770,42 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
             self.lineno = self.lineno + 1
             self.table_rowstart = 1
 
-            if not self.in_pre:
+            if self.in_pre:
+                if self.in_pre == 2:
+                    # colorization mode
+                    endpos = string.find(line, "}}}")
+                    if endpos == -1:
+                        self.colorize_lines.append(line)
+                        continue
+
+                    # !!! same code as with "inline:" handling, this needs to be unified!
+                    import cStringIO
+                    from MoinMoin.parser import python
+
+                    buff = cStringIO.StringIO()
+                    colorizer = python.Parser(string.join(self.colorize_lines, '\n'), out = buff)
+                    colorizer.format(self.formatter, self.form)
+
+                    sys.stdout.write(self.formatter.rawHTML(buff.getvalue()))
+                    sys.stdout.write(self.formatter.preformatted(0))
+                    self.in_pre = 0
+                    del buff
+                    del self.colorize_lines
+
+                    # send rest of line through regex machinery
+                    line = line[endpos+3:]                    
+                elif string.strip(line) == "#!python":
+                    self.in_pre = 2
+                    self.colorize_lines = []
+                    continue
+            else:
                 # paragraph break on empty lines
                 if not string.strip(line):
+                    if self.formatter.in_p:
+                        sys.stdout.write(self.formatter.paragraph(0))
                     if self.in_table:
                         sys.stdout.write(self.formatter.table(0))
                         self.in_table = 0
-                    sys.stdout.write(self.formatter.paragraph())
                     continue
 
                 # check indent level
@@ -462,13 +825,18 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
                             numstart = None
 
                         indtype = "ol"
+                    else:
+                        match = term_re.match(line)
+                        if match:
+                            indtype = "dl"
 
                 # output proper indentation tags
                 print self._indent_to(indlen, indtype, numtype, numstart)
 
                 # start or end table mode
                 if not self.in_table and line[indlen:indlen+2] == "||" and line[-2:] == "||":
-                    sys.stdout.write(self.formatter.table(1))
+                    attrs, attrerr = self._getTableAttrs(line[indlen+2:])
+                    sys.stdout.write(self.formatter.table(1, attrs) + attrerr)
                     self.in_table = self.lineno
                 elif self.in_table and not(line[indlen:indlen+2] == "||" and line[-2:] == "||"):
                     sys.stdout.write(self.formatter.table(0))
@@ -478,13 +846,20 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
             if self.hilite_re:
                 sys.stdout.write(self.highlight_scan(scan_re, line + " "))
             else:
-                sys.stdout.write(re.sub(scan_re, self.replace, line + " "))
+                line, count = re.subn(scan_re, self.replace, line + " ")
+                ##if not count: self._check_p()
+                self._check_p()
+                sys.stdout.write(line)
 
             if self.in_pre:
                 sys.stdout.write(self.formatter.linebreak())
+            #if self.in_li:
+            #    self.in_li = 0
+            #    sys.stdout.write(self.formatter.listitem(0))
 
-        # close code displays, tables and open lists
+        # close code displays, paragraphs, tables and open lists
         if self.in_pre: sys.stdout.write(self.formatter.preformatted(0))
+        if self.formatter.in_p: sys.stdout.write(self.formatter.paragraph(0))
         if self.in_table: sys.stdout.write(self.formatter.table(0))
         sys.stdout.write(self._undent())
 

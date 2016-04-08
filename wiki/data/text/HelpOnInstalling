@@ -1,0 +1,27 @@
+HelpContents > HelpOnAdministration > HelpOnInstalling
+
+[[TableOfContents]]
+
+== How to install your own MoinMoin Wiki ==
+This page describes the installation procedure applying to MoinMoin version 0.11 and up. In the next section, there is a list of real-world [#installscenarios Installation Scenarios] that help you to understand how to apply the instructions in different environments. If you already have a wiki running and want to upgrade to 0.11, see HelpOnUpdating. 
+
+/BasicInstallation explains the "`setup.py`" step of the installation in more detail. This applies equally to all scenarios, and you should read it before trying a live installation.
+
+After a successful installation, you might want to read more about configuration and other options that you, as the wiki administrator, can set up. HelpOnAdministration contains links to pages that cover these topics.
+Especially, the HelpOnConfiguration and HelpOnUpdating pages provide additional information regarding wiki setup and maintenance. MoinMoin:MoinMoinWinCvs and MoinMoin:MoinMoinUnixCvs describe how to run your wiki using the current development version from the MoinMoin:SourceForge CVS repository.
+
+
+[[Anchor(installscenarios)]]
+=== Sample Installation Scenarios ===
+
+The following subpages will show you concrete examples of installation sessions, showing the commands used and explaining what they do. It is highly recommended that you ''first'' read the general information on installing (especially the next section of this page) before choosing an installation scenario that best fits your intended use of MoinMoin.
+
+UNIX:
+ * /ApacheOnUnix
+
+Windows:
+ * /ApacheOnWin32
+ * /InternetInformationServer
+
+Macintosh:
+ * /ApacheOnMacOsx

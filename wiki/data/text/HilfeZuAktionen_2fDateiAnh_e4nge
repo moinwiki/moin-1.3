@@ -1,0 +1,36 @@
+##master-page:HelpOnActions/AttachFile 
+##master-date:2002-03-05 18:43:17
+
+== Aktivieren der AttachFile-Aktion ==
+
+Die `AttachFile`-Aktion ermöglicht es, mehrere Dateien an eine Seite anzuhängen. Da das Hochladen von Dateien aber für sog. DoS(Denial of Service)-Attacken missbraucht werden kann, ist `AttachFile` eine Aktion, die vom Wiki-Administrator aktiviert werden muss. Siehe HilfeZurKonfiguration für weitere Details.
+
+== Erzeugen von Anhängen ==
+
+Um einen neuen Anhang zu erzeugen, können Sie entweder einen Verweis auf einen Anhang zu einer beliebigen Seite hinzufügen (wie das geht siehe unten) oder auf  `AttachFile` unten auf der Seite klicken. Im ersten Fall bekommen Sie nach Speichern der Seite einen `Upload new attachment`-Verweis angezeigt. Wenn Sie darauf Klicken, werden Sie auf die Hochlade-Seite geleitet, genau wie wenn Sie direkt auf den `AttachFile`-Verweis klicken.
+
+Das Hochlade-Formular besteht aus drei Feldern, zusätzlich zur Eingabe für den Dateinamen gibt es zwei optionale Felder - eines, um den MIME-Typ der Datei anzugeben (was ansonsten automatisch detektiert wird), das zweite, um die Datei unter einem anderen Namen zu speichern, als auf Ihrem eigenen Computer.
+
+Eine hochgeladene Datei überschreibt niemals eine existierende Datei. Wenn es zu einem Namenskonflikt kommt, müssen Sie die hochzuladende Datei umbenennen.
+Ansonsten, wenn das "Rename to"-Feld leer ist, wird der originale Dateiname verwendet.
+
+Jedes Hochladen oder Löschen von Anhängen spiegelt sich in AktuelleÄnderungen wieder und unterliegt daher der allgemeinen Begutachtung. Anders als bei Seitenänderungen gibt es allerdings keine Historie, also behalten Sie ''lokale Kopien der Dateien'', so dass Sie möglichen Vandalismus rückgängig machen können.
+
+== Verweisen auf Anhänge ==
+
+Um auf Anhänge auf einer Seite zu verweisen, benutzen Sie `attachment:filename.ext`; ein Verweis dieser Art folgt allen Regeln für normale Verweise, d.h. Bilder werden automatisch eingebettet. 
+Verwenden Sie '''nicht''' die URL des `[get]`-Links, den Sie auf der Hochlade-Seite sehen, da sich diese Links ändern und daher leicht brechen könnten, wenn das Wiki umkonfiguriert wird.
+Um auf die angehängten Dateien einer anderen Seite zu verweisen, verwenden Sie `attachment:WikiName/filename.ext`.
+
+Anstatt von `attachment:` können Sie auch `inline:` benutzen, was versucht, den Dateiinhalt des Anhangs einzubetten. Bei Bildern macht dies keinen Unterschied.  Bei Python-Programmquellcode (d.h. Anhängen mit `.py`-Erweiterung) werden sie eingefärbt angezeigt. Bei allen anderen Dateien ist das Verhalten genauso wie bei einfachen `attachment:`-Verweisen.
+
+Der dritte Typ von Verweisen ist `drawing:` (Zeichnung) und wird im nächsten Abschnitt erklärt.
+
+== Editieren von Vektorgrafiken ==
+
+Ein Verweis wie `drawing:bildname` ermöglicht es Ihnen, ''interaktiv'' Vektorgrafiken zu editieren mit Hilfe des eingebauten Java-Applets. Das Applet speichert dann zwei Anhänge, "`bildname.draw`" und "`bildname.gif`". Nachdem Sie das erste mal eine Zeichnung abgespeichert haben, wird das erzeugte GIF-Bild anstatt des `drawing:`-Verweises angezeigt. Das bedeutet, dass Sie Java nur anschalten müssen, um zu editieren, während das Anzeigen der Bilder mit  jedem Browser funktioniert.
+
+Um eine Zeichnung nach dem erstmaligen Speichern zu editieren, klicken Sie auf `AttachFile` und benutzen Sie den `[edit]`-Link, der anstatt von `[view]` angezeigt wird, wenn es sich um einen `.draw`-Anhang handelt. Das abspeichern einer Zeichnung wird in AktuelleÄnderungen vermerkt.
+
+Details zur Benutzung des Vektorgrafik-Applets siehe  TWiki:Plugins/TWikiDrawPlugin.
+

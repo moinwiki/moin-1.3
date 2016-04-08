@@ -6,9 +6,9 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: setup.py,v 1.9 2001/07/05 00:31:00 uid31396 Exp $
+    $Id: setup.py,v 1.15 2002/02/07 01:03:32 jhermann Exp $
 """
-__version__ = "$Revision: 1.9 $"[11:-2]
+__version__ = "$Revision: 1.15 $"[11:-2]
 
 # Imports
 import glob, os, string, sys
@@ -16,6 +16,16 @@ import distutils
 from distutils.core import setup
 from distutils.command.build_scripts import build_scripts
 from MoinMoin.version import release, revision
+
+
+#############################################################################
+### Helper
+#############################################################################
+
+def pagefile_filter(f):
+    file = os.path.basename(f)
+    return file != 'CVS' and file[0] != '.'
+
 
 #############################################################################
 ### Build script files
@@ -130,9 +140,11 @@ only requiring a Web server and a Python installation.
         'MoinMoin.parser',
         'MoinMoin.py15',
         'MoinMoin.scripts',
+        'MoinMoin.stats',
         'MoinMoin.support',
         'MoinMoin.twisted',
         'MoinMoin.webapi',
+        'MoinMoin.wikixml',
     ],
 
     # Override certain command classes with our own ones
@@ -141,6 +153,32 @@ only requiring a Web server and a Python installation.
     },
 
     'scripts': moin_scripts,
+
+    'data_files': [
+        ('share/moin/cgi-bin',
+            glob.glob('wiki/cgi-bin/*.cgi') +
+            glob.glob('wiki/cgi-bin/*.py')  ),
+        ('share/moin/data',
+            ['wiki/data/intermap.txt']),
+        ('share/moin/data/text',
+            filter(pagefile_filter, glob.glob('wiki/data/text/*'))),
+        ('share/moin/data/backup', []),
+        ('share/moin/data/cache', []),
+        ('share/moin/data/pages', []),
+        ('share/moin/data/plugin', []),
+        ('share/moin/data/plugin/action', []),
+        ('share/moin/data/plugin/macro', []),
+        ('share/moin/data/user', []),
+        ('share/moin/htdocs',
+            glob.glob('wiki/htdocs/*.html')),
+        ('share/moin/htdocs/css',
+            glob.glob('wiki/htdocs/css/*.css')),
+        ('share/moin/htdocs/img',
+            glob.glob('wiki/htdocs/img/*.gif') +
+            glob.glob('wiki/htdocs/img/*.png')),
+        ('share/moin/htdocs/applets/TWikiDrawPlugin',
+            glob.glob('wiki/htdocs/applets/TWikiDrawPlugin/*.jar')),
+    ],
 }
 
 if hasattr(distutils.dist.DistributionMetadata, 'get_keywords'):

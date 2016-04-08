@@ -1,0 +1,9 @@
+##master-page:UserPreferences
+##master-date:2001-12-05 21:16:15
+[[UserPreferences]]
+
+Wenn Sie das erste Mal auf dieser Seite sind, sehen Sie das Formular, in das Sie Ihren Benutzernamen und einige andere Einstellungen (Passwort und e-mail werden gespeichert, aber derzeit nicht benutzt) eingeben können. Wenn Sie auf '''Create Profile''' klicken, wird ein Userprofil für Sie angelegt. Mit Ihren Antworten wird ein HTTP-Cookie zu Ihnen gesandt, das Ihre User-ID enthält, das es dem System ermöglicht, Sie zu erkennen. 
+
+ /!\ ''Diese "ID", die in der Antwortseite angezeigt wird, kann dazu benutzt werden, das selbe Cookie zu anderen Maschinen zu senden, die sie benutzen. Notieren Sie sie unbedingt! Oder benutzen Sie Kopieren&Einfügen mit der oben angezeigten URL, nachdem Sie Ihr Profil angelegt haben.''
+
+'''Logout''' löscht das Cookie. Wie oben beschrieben, ermöglicht '''Login''' Ihnen, Zugriff auf Ihr Userprofil zu bekommen, wenn Sie irgendwie das Cookie verloren haben oder auf einer anderen Maschine arbeiten. '''Save''' aktualisiert lediglich Ihr Profil.

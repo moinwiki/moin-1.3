@@ -1,15 +1,16 @@
 """
     MoinMoin - User Accounts
 
-    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: user.py,v 1.36 2001/07/16 21:45:22 jhermann Exp $
+    $Id: user.py,v 1.56 2002/02/13 21:13:52 jhermann Exp $
 """
 
 # Imports
 import os, string, time
-from MoinMoin import config, i18n, webapi
+from MoinMoin import config, webapi
+from MoinMoin.i18n import _
 
 try:
     import Cookie
@@ -37,6 +38,22 @@ def getUserList():
 class User:
     """A MoinMoin User"""
 
+    _checkbox_fields = [
+        ('edit_on_doubleclick', lambda _=_: _('Open editor on double click')),
+        ('remember_last_visit', lambda _=_: _('Remember last page visited')),
+        ('show_emoticons', lambda _=_: _('Show emoticons')),
+        ('show_fancy_links', lambda _=_: _('Show fancy links')),
+        ('show_nonexist_qm', lambda _=_: _('Show question mark for non-existing pagelinks')),
+        ('show_page_trail', lambda _=_: _('Show page trail')),
+        ('show_toolbar', lambda _=_: _('Show icon toolbar')),
+        ('show_topbottom', lambda _=_: _('Show top/bottom links in headings')),
+        ('show_fancy_diff', lambda _=_: _('Show fancy diffs')),
+        ('external_target', lambda _=_: _('Add "Open in new window" icon to pretty links')),
+        ('wikiname_add_spaces', lambda _=_: _('Add spaces to displayed wiki names')),
+    ]
+    _transient_fields =  ['id', 'valid', 'may']
+    _MAX_TRAIL = config.trail_size
+
     def __init__(self, id=None):
         """Init user with id"""
         self.valid      = 0
@@ -48,13 +65,30 @@ class User:
         self.edit_cols  = 80
         self.tz_offset  = 0
         self.last_saved = str(time.time())
-        self.datetime_fmt = ""
         self.css_url    = config.css_url
-        self._i18ntext  = None
+        self.datetime_fmt = ""
+        self.subscribed_pages = ""
+
+        # attrs not saved to profile
+        self._trail = []
+
+        # create checkbox fields (with default 0)
+        for key, label in self._checkbox_fields:
+            setattr(self, key, 0)
+        self.show_page_trail = 1
+        self.show_fancy_links = 1
+        self.show_emoticons = 1
+        self.show_toolbar = 1
+        self.show_nonexist_qm = config.nonexist_qm
+        self.show_fancy_diff = 1
 
         if not self.id:
-            cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
-            if cookie.has_key('MOIN_ID'):
+            try:
+                cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
+            except Cookie.CookieError:
+                # ignore invalid cookies, else user can't relogin
+                cookie = None
+            if cookie and cookie.has_key('MOIN_ID'):
                 self.id = cookie['MOIN_ID'].value
 
         if self.id:
@@ -88,13 +122,13 @@ class User:
         """
         if not self.exists(): return
 
-        data = open(self.__filename(), "rt").readlines()
+        data = open(self.__filename(), "r").readlines()
         for line in data:
             if line[0] == '#': continue
 
             try:
                 key, val = string.split(string.strip(line), '=', 1)
-                if key not in ['id', 'valid'] and key[0] != '_':
+                if key not in self._transient_fields and key[0] != '_':
                     vars(self)[key] = val
             except ValueError:
                 pass
@@ -102,9 +136,23 @@ class User:
         self.valid = 1
         self.tz_offset = int(self.tz_offset)
 
+        # make sure checkboxes are boolean
+        for key, label in self._checkbox_fields:
+            try:
+                setattr(self, key, int(getattr(self, key)))
+            except ValueError:
+                setattr(self, key, 0)
+
         # convert (old) hourly format to minutes
         if -24 <= self.tz_offset and self.tz_offset <= 24:
             self.tz_offset = self.tz_offset * 3600
+
+        # replace empty field by current default CSS
+        if not self.css_url:
+            self.css_url = config.css_url
+
+        # clear trail
+        self._trail = []
 
 
     def save(self):
@@ -121,12 +169,14 @@ class User:
 
         self.last_saved = str(time.time())
 
-        data = open(self.__filename(), "wt")
+        data = open(self.__filename(), "w")
         data.write("# Data saved '%s' for id '%s'\n" % (
             time.strftime(config.datetime_fmt, time.localtime(time.time())),
             self.id))
-        for key, value in vars(self).items():
-            if key not in ['id', 'valid'] and key[0] != '_':
+        attrs = vars(self).items()
+        attrs.sort()
+        for key, value in attrs:
+            if key not in self._transient_fields and key[0] != '_':
                 data.write("%s=%s\n" % (key, str(value)))
         data.close()
 
@@ -193,46 +243,96 @@ class User:
         """Return None or saved bookmark timestamp"""
         if self.valid and os.path.exists(self.__filename() + ".bookmark"):
             try:
-                return int(open(self.__filename() + ".bookmark", 'rt').readline())
+                return int(open(self.__filename() + ".bookmark", 'r').readline())
             except (OSError, ValueError):
                 return None
         return None
 
 
-    def getLang(self):
-        """Get a user's language"""
-        accepted = os.environ.get('HTTP_ACCEPT_LANGUAGE')
-        if accepted:
-            accepted = string.split(accepted, ',')
-            accepted = map(lambda x: string.split(x, '-')[0], accepted)
-            accepted = map(lambda x: string.split(x, ';')[0], accepted)
-
-            for lang in accepted:
-                if i18n.languages.has_key(lang):
-                    return lang
-
-        return 'en'
+    def getSubscriptionList(self):
+        """ Get list of pages this user has subscribed to.
+        """
+        subscrPages = string.split(self.subscribed_pages, ",")
+        subscrPages = map(string.strip, subscrPages)
+        subscrPages = filter(None, subscrPages)
+        return subscrPages
 
 
-    def text(self, str):
-        """Load a text in the user's language"""
-        # quick handling for english texts
-        lang = self.getLang()
-        if lang == "en": return str
+    def isSubscribedTo(self, pagelist):
+        """ Return TRUE if user subscription matches any page in pagelist.
+        """
+        import re
 
-        # load texts if needed
-        if not self._i18ntext:
-            self._i18ntext = i18n.loadLanguage(lang)
-            if not self._i18ntext:
-                return str
+        pagelist_lines = string.join(pagelist, '\n')
+        matched = 0
+        for pattern in self.getSubscriptionList():
+            # check if pattern matches one of the pages in pagelist
+            matched = pattern in pagelist
+            if matched: break
+            try:
+                rexp = re.compile(pattern, re.M)
+            except re.error:
+                # skip bad regex
+                continue
+            matched = rexp.search(pagelist_lines)
+            if matched: break
 
-        # check for text additions, if configured (only active in development setups)
-        if config.check_i18n and not self._i18ntext.has_key(str):
-            self._i18ntext[str] = str
-            i18n.saveLanguage(lang, self._i18ntext)
+        return matched
 
-        # return the matching entry in the mapping table
-        return self._i18ntext.get(str, str)
+
+    def subscribePage(self, pagename):
+        """ Subscribe to a wiki page, return TRUE if it was newly subscribed.
+
+            Note that you need to save the user data to make this stick!
+        """
+        subscrPages = self.getSubscriptionList()
+
+        # add page to subscribed pages property
+        if pagename not in subscrPages: 
+            subscrPages.append(pagename)
+            self.subscribed_pages = string.join(subscrPages, ",")
+            return 1
+
+        return 0
+
+
+    def addTrail(self, pagename):
+        """Add page to trail"""
+        if self.valid and (self.show_page_trail or self.remember_last_visit):
+            # load trail if not known
+            self.getTrail()      
+            
+            # don't append tail to trail ;)
+            if self._trail and self._trail[-1] == pagename: return
+
+            # append new page, limiting the length
+            self._trail = filter(lambda p, pn=pagename: p != pn, self._trail)
+            self._trail = self._trail[-(self._MAX_TRAIL-1):]
+            self._trail.append(pagename)
+
+            # save new trail
+            trailfile = open(self.__filename() + ".trail", "w")
+            trailfile.write(string.join(self._trail, '\n'))
+            trailfile.close()
+            try:
+                os.chmod(self.__filename() + ".trail", 0666 & config.umask)
+            except OSError:
+                pass
+
+
+    def getTrail(self):
+        """Return list of recently visited pages"""
+        if self.valid and (self.show_page_trail or self.remember_last_visit) \
+                and not self._trail \
+                and os.path.exists(self.__filename() + ".trail"):
+            try:
+                self._trail = open(self.__filename() + ".trail", 'r').readlines()
+            except (OSError, ValueError):
+                self._trail = []
+            else:
+                self._trail = filter(None, map(string.strip, self._trail))
+                self._trail = self._trail[-self._MAX_TRAIL:]
+        return self._trail
 
 
 # current user

@@ -1,0 +1,50 @@
+#pragma section-numbers off
+
+Diese HTML-Seite fasst die grundlegenden Installationsbeschreibungen von http://purl.net/wiki/moin/MoinMoin/InstallationsAnleitung zusammen.
+Sie enthält alle notwendigen Informationen, um Ihre eigene Wiki-Umbegung einzurichten, auch ohne online zu sein.
+Wenn Sie jedoch eine permanente Internet-Verbindung besitzen, können Sie auch die zuvor erwähnte Seite "Hilfe``Zur``Installation" in den Browser laden, die ggf. aktuellere Informationen enthält.
+
+Nachdem Sie gemäß der Anleitung Ihr Wiki zum Laufen gebracht haben, können Sie den Rest der Onlinehilfe direkt dort lesen.
+
+== Wie Sie ihr eigenes MoinMoin-Wiki installieren ==
+Diese Seite beschreibt, wie Sie vorgehen müssen, um MoinMoin:MoinMoin ab Version 0.11 zu installieren.
+Im nächsten Abschnitt finden Sie eine Liste von konkreten [#installscenarios Installationsszenarien],
+die Ihnen dabei helfen, diese Anleitung auf verschiedenen Plattformen umzusetzen.
+
+[#basic-install Basisinstallation] erklärt detailiert den ersten Schritt jeder Installation, den Aufruf von "`setup.py`".
+Dieser Schritt ist immer durchzuführen, deshalb empfiehlt es sich, die dort enthaltenen Information in jedem Fall durchzulesen, bevor Sie den Installationsvorgang beginnen.
+
+Nachdem Sie die Software erfolgreich aufgespielt haben, sollte der nächste Schritt darin bestehen, mehr über die Konfigurationsoptionen und optionale Erweiterungen zu erfahren, die Sie als Wikiadministrator einrichten können.
+Die Seite MoinMoin:HilfeZurAdministration enthält dazu Verweise auf weitere Seiten, die diese Themen abdecken.
+Insbesondere MoinMoin:HilfeZurKonfiguration und MoinMoin:HilfeZumUpdaten enthalten wertvolle Hinweise zur weiteren Konfiguration und Wartung Ihrer Wiki-Installation.
+
+MoinMoin:MoinMoinWinCvs und MoinMoin:MoinMoinUnixCvs beschreiben (in englischer Sprache), wie Sie ihr Wiki unter Verwendung der aktuellen Entwicklungsversion betreiben können, die sich im MoinMoin:SourceForge CVS-Repository befindet.
+
+[[Anchor(installscenarios)]]
+=== Beispiele für Installationsszenarien ===
+
+Die folgenden Verweise führen zu konkreten Beispielen für Installationsprozeduren auf verschiedenen Plattformen (Betriebssystem und Webserver), mit den notwendigen Kommandos und einer Beschreibung, was diese bewirken.
+Es wird dringend empfohlen, ''zunächst'' die allgemeinen Informationen auf [#basic-install Basisinstallation] durchzulesen, bevor Sie die zu Ihrer Umgebung passende Kombination von Betriebssysteme und Webserver auswählen.
+
+UNIX:
+ * [#unix-install UNIX Installation]
+
+Windows:
+ * [#win32apache-install Windows Installation mit Apache]
+ * [#win32iis-install Windows Installation mit Microsoft/IIS]
+
+
+[[Anchor(basic-install)]]
+[[Include(HilfeZurInstallation/BasisInstallation)]]
+------
+[[Anchor(unix-install)]]
+------
+[[Include(HilfeZurInstallation/ApacheAufUnix, "UNIX Installation", 1)]]
+------
+[[Anchor(win32apache-install)]]
+------
+[[Include(HilfeZurInstallation/ApacheAufWin32, "Windows Installation mit Apache", 1)]]
+------
+[[Anchor(win32iis-install)]]
+------
+[[Include(HilfeZurInstallation/InternetInformationServer, "Windows Installation mit Microsoft/IIS", 1)]]

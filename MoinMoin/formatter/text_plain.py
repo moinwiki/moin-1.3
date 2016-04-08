@@ -1,10 +1,10 @@
 """
     MoinMoin - "text/plain" Formatter
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_plain.py,v 1.8 2001/03/10 23:12:11 jhermann Exp $
+    $Id: text_plain.py,v 1.15 2002/02/13 21:13:53 jhermann Exp $
 """
 
 # Imports
@@ -20,6 +20,8 @@ class Formatter(FormatterBase):
     """
         Send text data.
     """
+
+    hardspace = ' '
 
     def __init__(self, **kw):
         apply(FormatterBase.__init__, (self,), kw)
@@ -70,6 +72,9 @@ class Formatter(FormatterBase):
         # !!! return number for ordered lists
         return ' * '
 
+    def sup(self, on):
+        return '^'
+
     def code(self, on):
         return ['`', '´'][not on]
 
@@ -81,16 +86,23 @@ class Formatter(FormatterBase):
         else:
             return snip + '\n'
 
-    def paragraph(self):
-        return '\n'
+    def paragraph(self, on):
+        FormatterBase.paragraph(self, on)
+        return ['\n', ''][not on]
 
     def linebreak(self, preformatted=1):
         return '\n'
 
-    def heading(self, depth, title):
+    def heading(self, depth, title, **kw):
         return '\n%s\n%s\n%s\n\n' % ('=' * len(title), title, '=' * len(title))
 
-    def table(self, on):
+    def table(self, on, attrs={}):
+        return ''
+
+    def table_row(self, on, attrs={}):
+        return ''
+
+    def table_cell(self, on, attrs={}):
         return ''
 
     def underline(self, on):
@@ -108,3 +120,7 @@ class Formatter(FormatterBase):
     def definition_desc(self, on):
         return ['    ', '\n'][not on]
 
+    def image(self, **kw):
+        if kw.has_key('alt'):
+            return kw['alt']
+        return ''

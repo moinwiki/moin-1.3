@@ -4,13 +4,14 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: WantedPages.py,v 1.5 2001/05/31 01:02:08 jhermann Exp $
+    $Id: WantedPages.py,v 1.6 2001/11/24 02:30:58 jhermann Exp $
 """
 
 # Imports
 import cgi, string
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
+from MoinMoin.i18n import _
 
 _guard = 0
 
@@ -36,7 +37,7 @@ def execute(macro, args):
 
     # check for the extreme case
     if not wanted:
-        return "<p><b>%s</b></p>" % user.current.text("No wanted pages in this wiki.")
+        return "<p><b>%s</b></p>" % _("No wanted pages in this wiki.")
 
     # return a list of page links
     wantednames = wanted.keys()

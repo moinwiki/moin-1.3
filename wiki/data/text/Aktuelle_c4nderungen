@@ -1,0 +1,9 @@
+##master-page:RecentChanges
+##master-date:2001-12-05 06:08:35
+Diese Seite enthält eine Liste der letzten Änderungen in diesem Wiki (Gesamtseitenzahl '''[[PageCount]]'''). Weitere System-Informationen siehe SystemInfo. Für eine Liste von Änderungen in anderen Wikis, siehe OpenWiki:WikiSites/Aggregation.
+----
+[[RecentChanges]]
+
+|||| [[Icon(moin-diff.gif)]] || markiert ältere Seiten, die mindestens eine Sicherheitskopie haben (draufklicken für Autoren-Differenzanzeige)||
+|||| [[Icon(moin-updated.gif)]] || markiert Seiten, die seit Ihrem letzten Lesezeichen geändert wurden (draufklicken für eine Lesezeichen-Differenzanzeige)||
+|||| [[Icon(moin-new.gif)]] || markiert Seiten, die seit Ihrem letzten Lesezeichen erzeugt worden sind und nicht danach geändert wurden||

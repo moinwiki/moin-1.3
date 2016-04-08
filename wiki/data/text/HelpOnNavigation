@@ -1,0 +1,19 @@
+== Navigation ==
+
+The header on each page allows you to go to the FrontPage (home), RecentChanges (recent modifications), TitleIndex (index of all the page titles), WordIndex (index of all the words in the page titles), SiteNavigation (list of navigation tools), and HelpContents (main help page).
+
+On the upper right you find icons for the most often used functions:
+  * [[Icon(moin-parent.gif)]] jumps to the parent page, and is only shown if you are on a subpage (see HelpOnEditing/SubPages)
+  * [[Icon(moin-show.gif)]] refreshes the current page
+  * [[Icon(moin-print.gif)]] shows a printable version of the page without the header or footer
+  * [[Icon(moin-xml.gif)]] creates a XML version of the page (currently still experimental, creates MoinMoin:StyleBook, a MoinMoin:DocBook variant)
+  * [[Icon(moin-email.gif)]]/[[Icon(moin-email-x.gif)]] allows to subscribe to email notifications for the current page, the brighter version means you have already subscribed to a page
+  * [[Icon(moin-edit.gif)]] allows you to say something, i.e. edit the page
+  * [[Icon(moin-info.gif)]] shows meta information about the page, especially the full version history
+  * [[Icon(moin-diff.gif)]] shows changes between the current version and the previous version of the page
+  * [[Icon(moin-search.gif)]] shows the search page.
+  * [[Icon(moin-help.gif)]] shows the help page
+  * [[Icon(moin-home.gif)]] links to a user's homepage, if the user is logged in and a page with his login name exists
+
+Clicking on the Page Title link located in the header above will show every page that references this page. A sample use of this back-referencing, inverted-links feature is the categorization of pages, i.e. CategoryHomepage.
+On the bottom of each page, you find the "traditional" edit and search links known from the original wiki, and in addition fields for quick-searching titles and the page texts, plus links to call any custom actions you have installed.
