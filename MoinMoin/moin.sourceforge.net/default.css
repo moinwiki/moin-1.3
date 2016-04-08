@@ -1,0 +1,38 @@
+/*
+    The default styles for the MoinMoin pages.
+
+    Copyright ® 2000 by J³rgen Hermann.
+    All rights reserved.
+*/
+body {
+        /* background-image:url(/img/background.jpg); */
+    background-color:#FFFFFF;
+    color:#000000;
+    font-family:Times New;
+    font-size:12pt;
+}
+h1 {
+    font-family:Helvetica;
+    font-size:20pt;
+}
+h2 {
+    color:#222222;
+    font-family:Helvetica;
+    font-size:16pt;
+    margin-bottom:6pt;
+}
+h3 {
+    color:#444444;
+    font-family:Helvetica;
+    font-size:12pt;
+    margin-bottom:2pt;
+}
+ul {
+    margin-top:0pt;
+}
+dl {
+    margin-top:0pt;
+}
+pre {
+    font-family:Lucida Console,Courier New,Courier,monospace;
+}

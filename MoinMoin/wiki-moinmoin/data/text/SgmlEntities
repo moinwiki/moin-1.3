@@ -1,0 +1,3 @@
+To support international characters even on generic (US) keyboards, SgmlEntities know from HTML are a good way. These can also be used to escape the WikiMarkup characters.
+
+See also: MoinMoinTodo

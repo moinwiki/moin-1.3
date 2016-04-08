@@ -1,0 +1,26 @@
+'''Please note that currently, no locking is done while editing. So, if you think you added considerable content, cut'n'paste to a local backup copy.'''
+
+You are encouraged to add to the MoinMoinTodo page, and edit the WikiSandBox whichever way you like. Please try to restrain yourself from other edits for now, as I want to keep this clean and part of the project documentation.
+
+----
+MoinMoin is a Python WikiClone, based on PikiPiki. The name MoinMoin is a common German slang expression, "Moin" meaning "Good Morning", and "MoinMoin" being an emphasis, i.e. "A ''Very'' Good Morning". The name was obviously choosen for its WikiWikiNess. 
+
+''No! Originally "MoinMoin" does '''not''' mean "Good Morning". "Moin" just means "good" or "nice" and in northern Germany it is used at any daytime, so "Good day" seems more appropriate.''
+
+We use it all day in the south too. I always thought it just morphed from a morning greeting to an all-day one. -- JuergenHermann
+
+----
+A WikiWikiWeb is a collaborative hypertext environment, with an emphasis on easy access to and modification of information.
+
+You can edit any page by pressing the link at the bottom of the page.  Capitalized words joined together form a WikiName, which hyperlinks to another page.  The highlighted title searches for all pages that link to the current page.  Pages which do not yet exist are linked with a question mark: just follow the link and you can add a definition.
+
+To learn more about what a WikiWikiWeb is, read about WhyWikiWorks and the WikiNature. Also, consult the WikiWikiWebFaq. 
+
+----
+Interesting starting points:
+
+  * RecentChanges: see where people are currently working
+  * TipsForBeginners: to get you going
+  * WikiSandBox: feel free to change this page and experiment with editing
+  * MoinMoinTodo: discussion about the improvement of MoinMoin
+  * FindPage: search or browse the database in various ways

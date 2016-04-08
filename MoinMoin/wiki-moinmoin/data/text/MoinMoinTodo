@@ -1,0 +1,29 @@
+See ExtensionGuidelines for a set of rules that should govern MoinMoin development.
+
+First things first, some kind of edit locking, with manual breaking & timeouts. The first version should add the page's timestamp to the FORM, and refuse the save if the timestamp changed between loading the editpage and saving.
+
+Write timings to a log file (cgi_log) when configured accordingly, so we can check for necessary optimizations.
+
+Also, make a backup of the page before saving (data/backup/pagename.yyymmddhhmmss).
+
+After editing, do a redirect so that a reload does work as expected (i.e. does not submit the form again).
+
+Other things:
+ * Support &''''''uuml; SgmlEntities
+ * Configuration ''outside'' the script proper
+ * Make it a package, with a small cgi driver (see configuration)
+ * Versioning (via CVS), optional
+ * Solve the problem of the Windows filesystem handling a WikiName case-indifferent (i.e. map all deriatives of an existing page to that page).
+ * HierarchicalWikiWiki's (grouping of different projects)
+ * Support for I18N, especially German WikiName's (JürgenHermann ;)
+ * Possibly make it a webserver (advantage: configuration is kept in memory)
+ * WikiName|s instead of the obsessive WikiName''''''s
+ * URLs of the form [http://.... text of the link] (like a "normal" anchor)
+ * [include WikiName] (textually include another page)
+
+Security (against the WikiNature, and possibly not needed when we have versioning):
+ * Some kind of access authorization, via pages with a special WikiName
+ * LockOutList''''''s, like IRC channel bans
+
+DONE:
+ * Do a '''chmod 666''' when saving (otherwise, it gets hard to edit, remove, and cvs checkin the pages).

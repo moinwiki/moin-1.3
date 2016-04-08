@@ -1,0 +1,29 @@
+MoinMoin Version History
+========================
+
+Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+All rights reserved, see COPYING for details.
+
+$Id: CHANGES,v 1.1 2000/07/28 22:59:46 jhermann Exp $
+
+
+-----------------------------------------------------------------------------
+Version 0.1 (2000-07-29)
+
+Improvements over PikiPiki 1.62:
+    * Moved configuration to "moin_config.py"
+    * Added "edit_rows" setting
+    * Added navigation bar
+    * Improved HTML formatting
+    * Added timing comment (page created in xx secs)
+    * ISO date and time formats by default
+    * Formatted RecentChanges with HTML tables
+    * Uppercase letters for the index pages
+    * Added PythonPowered logo
+
+Bugfixes:
+    * Javadoc comments now get formatted properly in {{{ }}} sections
+    * Remove \r from submitted pages (so we get PORTABLE wiki files)
+    * chmod(0666) eases manual changes to the data dir
+
+-----------------------------------------------------------------------------

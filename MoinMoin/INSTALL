@@ -1,0 +1,70 @@
+MoinMoin Installation Instructions
+==================================
+
+Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+All rights reserved, see COPYING for details.
+
+$Id: INSTALL,v 1.2 2000/07/28 22:30:58 jhermann Exp $
+
+
+###########################
+# INSTALLATION ON WINDOWS #
+###########################
+
+The following description applies to a setup using Windows/NT4, Apache 1.3.9
+and Python 1.5.2; you mileage may vary. MoinMoin is also tested with Apache
+1.3.12.
+
+We will setup the Wiki that comes with the distribution here; you should
+first try to get it to run unmodified (apart from configuration changes),
+and only when it works create your Wiki in its own directory.
+
+We assume that Apache is installed to "C:\Apache" (with the subdirs "conf",
+"cgi-bin", and "htdocs") and that you unpacked the MoinMoin distribution to
+"C:\MoinMoin" (i.e. the directory where this file is located). If your paths
+are different, please change them accordingly.
+
+The first step is to create a cgi-bin batch file that refers to the Wiki,
+so that it can be installed elsewhere. For this, we create the batch file
+"C:\Apache\cgi-bin\moin.bat" with the following content:
+
+    @echo off
+    C:
+    cd \MoinMoin\wiki-moinmoin
+    python moin.cgi
+
+The next step is to edit the file "C:\MoinMoin\wiki-moinmoin\moin_config.py"
+and adapt it to your particular setup. The only things we need to change to
+get things working are the values of the two variables "data_dir" and
+"url_prefix". For our situation, we need the following values:
+
+    data_dir = './data'
+    url_prefix = '/wiki-moinmoin'
+
+Incidently, those are the defaults. There is one last thing left to do, and
+that is to add this line to "httpd.conf":
+
+    Alias /wiki-moinmoin/ "C:/MoinMoin/wiki-moinmoin/"
+
+This enables Apache to find image and CSS files. In order to activate that
+change, restart your server.
+
+After that, it's time to test our Wiki at the URL (possibly replacing
+127.0.0.1 with your server's domain name)
+
+    http://127.0.0.1/cgi-bin/mointest.bat
+
+You should now look at the "FrontPage" of the MoinMoin Wiki. Rejoice! To
+further test your new Wiki, "EditText" the "FrontPage", save it and click
+on "RecentChanges". If your edit action shows there, you have a fully
+functional Wiki.
+
+
+########################
+# INSTALLATION ON UNIX #
+########################
+
+Similar... :)
+
+[add description of sourceforge setup here]
+

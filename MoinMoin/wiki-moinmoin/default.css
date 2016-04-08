@@ -1,0 +1,31 @@
+/*  MoinMoin Default Styles
+
+    Copyright (c) 2000 by Jürgen Hermann
+*/
+body {
+    background-color: #FFFFFF;
+    color:#000000;
+    font-family:Times New;
+    font-size:12pt;
+}
+td.headline {
+    font-family:Helvetica;
+    font-size:20pt;
+}
+a {
+    color: #CC7706
+}
+a.nonexistent {
+    font-weight: bold;
+    background-color: #F8F8F8;
+    color: #FF2222
+}
+dl {
+    margin-top: 1pt
+}
+ul {
+    margin-top: 1pt
+}
+ol {
+    margin-top: 1pt
+}

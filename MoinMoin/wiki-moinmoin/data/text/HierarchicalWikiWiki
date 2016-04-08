@@ -1,0 +1,15 @@
+HierarchicalWikiWiki''''''s could be done by having a lookup-table of WikiName''''''s to URL-Prefixes, i.e. OriginalWiki:RecentChanges would morph to http://www.c2.com/cgi/wiki?RecentChanges
+
+MeatBall does it like that (or very similar to that).
+
+----
+shapr's idea of using schemas (a little evolved): wiki://wiki-id/RecentChanges
+
+What about wiki1:RecentChanges or something like that? Even that seems too complex to me.
+
+wiki1RecentChanges? hm.
+
+1RecentChanges - that looks best to me. ''And obscure to me. :)''
+
+----
+See also: MoinMoinTodo

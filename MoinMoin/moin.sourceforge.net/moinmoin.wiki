@@ -1,0 +1,6 @@
+A PythonLanguage SourceForge project, based on PikiPiki. The project's homepage can be found at http://moin.sourceforge.net/''''''. Contact JuergenHermann if you want to contribute to the project.
+
+Major improvements will include the ability to support international WikiName''''''s (like JürgenHermann) and support for ConcurrentVersionsSystem.
+
+----
+WikiWikiClones TopicWiki
