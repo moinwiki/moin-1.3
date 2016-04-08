@@ -2,10 +2,8 @@
 """
     MoinMoin - File System Utilities
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: filesys.py,v 1.3 2003/11/09 21:01:15 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 import os
@@ -37,7 +35,6 @@ def makeDirs(name, mode=0777):
 # Code from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65203
 
 # portalocker.py - Cross-platform (posix/nt) API for flock-style file locking.
-#                  Requires python 1.5.2 or better.
 
 #!!! need to move this docs to the functions, or the class interface
 """Cross-platform (posix/nt) API for flock-style file locking.
@@ -90,14 +87,24 @@ except ImportError:
 
         # is there any reason not to reuse the following structure?
         __overlapped = pywintypes.OVERLAPPED()
-    
+        
+        __highbits = 0xffff0000  # XXX FIXME, gives Python2.3 warning.
+        
         def lock(file, flags):
             hfile = win32file._get_osfhandle(file.fileno())
-            win32file.LockFileEx(hfile, flags, 0, 0xffff0000, __overlapped)
+            
+            win32file.LockFileEx(hfile, flags, 0, __highbits, __overlapped)
+            #if you use Win9x, try this instead (no guarantee, untested!):
+            #win32file.LockFileEx(hfile, 0, 0, __highbits, 0)
     
         def unlock(file):
             hfile = win32file._get_osfhandle(file.fileno())
-            win32file.UnlockFileEx(hfile, 0, 0xffff0000, __overlapped)
+            
+            win32file.UnlockFileEx(hfile, 0, __highbits, __overlapped)
+            #if you use Win9x, try this instead (no guarantee, untested!):
+            #win32file.UnlockFileEx(hfile, 0, 0, __highbits, 0)
+
+                                                                    
     else:
         #!!! this will certainly break macs, before your scream, send code ;)
         # macostools.mkalias might help (if it's atomic)

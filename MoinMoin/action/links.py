@@ -2,16 +2,14 @@
 """
     MoinMoin - "links" action
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     Generate a link database like MeatBall:LinkDatabase.
 
-    $Id: links.py,v 1.11 2003/11/09 21:00:56 thomaswaldmann Exp $
+    @copyright: 2001 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import string, sys
-from MoinMoin import config, wikiutil, webapi
+from MoinMoin import config, wikiutil
+from MoinMoin.util import MoinMoinNoFooter
 
 
 def execute(pagename, request):
@@ -20,15 +18,15 @@ def execute(pagename, request):
 
     # get the MIME type
     if form.has_key('mimetype'):
-        mimetype = form['mimetype'].value
+        mimetype = form['mimetype'][0]
     else:
         mimetype = "text/html"
 
-    webapi.http_headers(request, ["Content-Type: " + mimetype])
+    request.http_headers(["Content-Type: " + mimetype])
 
     if mimetype == "text/html":
         wikiutil.send_title(request, _('Full Link List for "%s"') % config.sitename)
-        print '<pre>'
+        request.write('<pre>')
 
     pages = wikiutil.getPageDict(config.text_dir)
 
@@ -38,30 +36,30 @@ def execute(pagename, request):
 
     for name in pagelist:
         if mimetype == "text/html":
-            print pages[name].link_to(),
+            request.write(pages[name].link_to(request))
         else:
-            _emit(name)
+            _emit(request, name)
         for link in pages[name].getPageLinks(request):
             if mimetype == "text/html":
                 if pages.has_key(link):
-                    print pages[link].link_to(),
+                    request.write(pages[link].link_to(request))
                 else:
-                    _emit(link)
+                    _emit(request, link)
             else:
-                _emit(link)
-        print
+                _emit(request, link)
+        request.write('\n')
 
     if mimetype == "text/html":
-        print '</pre>'
+        request.write('</pre>')
         wikiutil.send_footer(request, pagename, editable=0, showactions=0, form=form)
     else:
-        sys.exit(0)
+        raise MoinMoinNoFooter
 
-def _emit(pagename):
+def _emit(request, pagename):
     """ Send pagename, encode it if it contains spaces
     """
-    if string.find(pagename, ' ') >= 0:
-        print wikiutil.quoteWikiname(pagename),
+    if pagename.find(' ') >= 0:
+        request.write(wikiutil.quoteWikiname(pagename))
     else:
-        print pagename,
+        request.write(pagename)
 

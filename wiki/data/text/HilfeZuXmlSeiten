@@ -2,7 +2,7 @@
 ##master-page:HelpOnXmlPages
 ##master-date:2002-02-27 15:16:34
 == XML-Seiten & XSLT-Verarbeitung ==
-Wenn Sie MoinMoin:Python4Suite auf Ihrem System installiert haben, ist es möglich, XML-Dokumente als Seiten abzuspeichern. Es ist wichtig, diese Seiten mit einer XML-Deklaration "{{{<?xml ...>}}}" in der ersten Zeile anzufangen. Außerdem müssen Sie das Stylesheet angeben, das benutzt werden soll, um das XML-Dokument zu HTML zu verarbeiten. Das wird realisiert, indem man eine [http://www.w3.org/TR/xml-stylesheet/ standard "xml-stylesheet" processing instruction] benutzt, mit einem "{{{href}}}"-Parameter mit dem Namen einer Seite, die das Stylesheet enthält.
+Wenn Sie [http://4suite.org/ Python4Suite] auf Ihrem System installiert haben, ist es möglich, XML-Dokumente als Seiten abzuspeichern. Es ist wichtig, diese Seiten mit einer XML-Deklaration "{{{<?xml ...>}}}" in der ersten Zeile anzufangen. Außerdem müssen Sie das Stylesheet angeben, das benutzt werden soll, um das XML-Dokument zu HTML zu verarbeiten. Das wird realisiert, indem man eine [http://www.w3.org/TR/xml-stylesheet/ standard "xml-stylesheet" processing instruction] benutzt, mit einem "{{{href}}}"-Parameter mit dem Namen einer Seite, die das Stylesheet enthält.
 
 Das folgende Beispiel zeigt die praktische Anwendung an einem sehr einfachen Stylesheet, das auf der Seite XsltVersion gefunden werden kann.
 

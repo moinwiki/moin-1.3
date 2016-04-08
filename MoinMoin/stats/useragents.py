@@ -2,27 +2,26 @@
 """
     MoinMoin - User-Agent Statistics
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This macro creates a pie chart of the type of user agents
     accessing the wiki.
 
-    $Id: useragents.py,v 1.8 2003/11/09 21:01:08 thomaswaldmann Exp $
+    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 _debug = 0
 
-import string
-from MoinMoin import config, wikiutil
+from MoinMoin import config, wikiutil, caching
+from MoinMoin.logfile import eventlog
 from MoinMoin.Page import Page
+from MoinMoin.util import MoinMoinNoFooter
 
 
 def linkto(pagename, request, params=''):
     _ = request.getText
 
     if not config.chart_options:
-        return _('<div class="message"><b>Charts are not available!</b></div>')
+        return request.formatter.sysmsg(_('Charts are not available!'))
 
     if _debug:
         return draw(pagename, request)
@@ -30,18 +29,17 @@ def linkto(pagename, request, params=''):
     page = Page(pagename)
     result = []
     data = {
-        'url': page.url("action=chart&type=useragents"),
+        'url': page.url(request, "action=chart&amp;type=useragents"),
     }
     data.update(config.chart_options)
-    result.append('<img src="%(url)s" border="0" '
-        'width="%(width)d" height="%(height)d">' % data)
+    result.append('<img src="%(url)s" border="0" width="%(width)d" height="%(height)d">' % data)
 
-    return string.join(result, '')
+    return ''.join(result)
 
 
 def draw(pagename, request):
-    import cgi, sys, shutil, cStringIO, operator
-    from MoinMoin import config, webapi
+    import shutil, cStringIO, operator
+    from MoinMoin import config
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     _ = request.getText
@@ -53,9 +51,23 @@ def draw(pagename, request):
               'blue', 'forestgreen', 'orange', 'cyan', 'fuchsia', 'lime']
     colors = ([Color(c) for c in colors])
 
-    data = {}
-    logdata = request.getEventLogger().read(['VIEWPAGE', 'SAVEPAGE'])
-    for event in logdata:
+    # get results from cache
+    cache = caching.CacheEntry('charts', 'useragents')
+    if cache.exists():
+        try:
+            cache_date, data = eval(cache.content())
+        except:
+            data = {}
+            cache_date = 0
+    else:
+        data = {}
+        cache_date = 0
+
+    logfile = eventlog.EventLog()
+    logfile.set_filter(['VIEWPAGE', 'SAVEPAGE'])
+    new_date = logfile.date()
+    for event in logfile.reverse():
+        if event[0] <= cache_date: break
         ua = event[2].get('HTTP_USER_AGENT')
         if ua:
             pos = ua.find(" (compatible; ")
@@ -63,6 +75,10 @@ def draw(pagename, request):
             else: ua = ua.split()[0]
             #ua = ua.replace(';', '\n')
             data[ua] = data.get(ua, 0) + 1
+
+    # write results to cache
+    cache.update("(%r, %r)" % (new_date, data))
+            
     data = [(cnt, ua) for ua, cnt in data.items()]
     data.sort()
     data.reverse()
@@ -81,7 +97,7 @@ def draw(pagename, request):
     # give us a chance to develop this
     if _debug:
         return "<p>data = %s</p>" % \
-            string.join(map(cgi.escape, map(repr, [labels, data])), '<br>')
+            '<br>'.join(map(wikiutil.escape, map(repr, [labels, data])))
 
     # create image
     image = cStringIO.StringIO()
@@ -110,10 +126,10 @@ def draw(pagename, request):
         "Content-Type: image/gif",
         "Content-Length: %d" % len(image.getvalue()),
     ]
-    webapi.http_headers(request, headers)
+    request.http_headers(headers)
 
     # copy the image
     image.reset()
-    shutil.copyfileobj(image, sys.stdout, 8192)
-    sys.exit(0)
+    shutil.copyfileobj(image, request, 8192)
+    raise MoinMoinNoFooter
 

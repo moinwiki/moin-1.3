@@ -2,484 +2,364 @@
 """
     MoinMoin - RecentChanges Macro
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
+    Parameter "ddiffs" by Ralf Zosel <ralf@zosel.com>, 04.12.2003.
 
-    $Id: RecentChanges.py,v 1.76 2003/11/09 21:01:03 thomaswaldmann Exp $
+    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import cgi, re, string, sys, time, cStringIO
-from MoinMoin import config, editlog, user, util, wikiutil, wikixml
+import re, time, cStringIO
+from MoinMoin import config, user, util, wikiutil, wikixml
 from MoinMoin.Page import Page
+from MoinMoin.logfile import editlog
 
-_DAYS_SELECTION = [1, 2, 3, 7, 14, 30, 90]
+_DAYS_SELECTION = [1, 2, 3, 7, 14, 30, 60, 90]
 _MAX_DAYS = 7
-_MAX_PAGENAME_LENGTH = 35
+_MAX_PAGENAME_LENGTH = 15 # 35
 
 #############################################################################
 ### RecentChanges Macro
 #############################################################################
 
-def execute(macro, args, **kw):
-    _ = macro.request.getText
-    pagename = macro.formatter.page.page_name
-    qpagename = wikiutil.quoteWikiname(pagename)
+Dependencies = ["time"] # ["user", "pages", "pageparams", "bookmark"]
 
-    abandoned = kw.get('abandoned', 0)
-    log = LogIterator(macro.request, reverse=abandoned)
+def format_comment(request, line):
+    comment = line.comment
+    _ = request.getText
+    if line.action[:3] == 'ATT':
+        import urllib
+        filename = urllib.unquote(comment)
+        if line.action == 'ATTNEW':
+            comment = _("Upload of attachment '%(filename)s'.") % {'filename': filename}
+        elif line.action == 'ATTDEL':
+            comment = _("Attachment '%(filename)s' deleted.") % {'filename': filename}
+        elif line.action == 'ATTDRW':
+            comment = _("Drawing '%(filename)s' saved.") % {'filename': filename}
+    elif line.action.find('/REVERT') != -1:
+        datestamp = request.user.getFormattedDateTime(float(comment))
+        comment = _("Revert to version dated %(datestamp)s.") % {'datestamp': datestamp}
+    return comment
 
-    # set max size in bytes and days
-    max_size = config.max_macro_size*1024
-    max_days = min(int(macro.request.form.getvalue('max_days', 0)), _DAYS_SELECTION[-1])
-    if max_days:
-        # make byte size unlimited when max_days is explicit
-        max_size = 0
+def format_page_edits(macro, lines, bookmark):
+    request = macro.request
+    _ = request.getText
+    d = {} # dict for passing stuff to theme
+    line = lines[0]
+    pagename = line.pagename
+    tnow = time.time()
+    is_new = lines[-1].action == 'SAVENEW'
+    # check whether this page is newer than the user's bookmark
+    hilite = line.ed_time > (bookmark or line.ed_time)
+    page = Page(line.pagename)
+
+    html_link = ''
+    if not page.exists():
+        # indicate page was deleted
+        html_link = request.theme.make_icon('deleted')
+    elif is_new:
+        # show "NEW" icon if page was created after the user's bookmark
+        if hilite:
+            if page.exists():
+                html_link = request.theme.make_icon('new')
+    elif hilite:
+        # show "UPDATED" icon if page was edited after the user's bookmark
+        img = request.theme.make_icon('updated')
+        html_link = wikiutil.link_tag(request,
+                                      wikiutil.quoteWikiname(pagename) + "?action=diff&date=" + str(bookmark),
+                                      img, formatter=macro.formatter, pretty_url=1)
     else:
-        # set to default
+        # show "DIFF" icon else
+        img = request.theme.make_icon('diffrc')
+        html_link = wikiutil.link_tag(request,
+                                      wikiutil.quoteWikiname(line.pagename) + "?action=diff",
+                                      img, formatter=macro.formatter, pretty_url=1)
+
+    # print name of page, with a link to it
+    force_split = len(page.page_name) > _MAX_PAGENAME_LENGTH
+    
+    d['icon_html'] = html_link
+    d['pagelink_html'] = page.link_to(request, text=page.split_title(request, force=force_split))
+    
+    # print time of change
+    d['time_html'] = None
+    if config.changed_time_fmt:
+        tdiff = int(tnow - line.ed_time) / 60
+        if tdiff < 1440:
+            d['time_html'] = _("%(hours)dh&nbsp;%(mins)dm&nbsp;ago") % {
+                'hours': int(tdiff/60), 'mins': tdiff%60}
+        else:
+            d['time_html'] = time.strftime(config.changed_time_fmt, line.time_tuple)
+    
+    # print editor name or IP
+    d['editors'] = None
+    if config.show_hosts:
+        if len(lines) > 1:
+            counters = {}
+            for idx in range(len(lines)):
+                name = lines[idx].getEditor(request)
+                if not counters.has_key(name): counters[name] = []
+                counters[name].append(idx+1)
+            poslist = map(None,  counters.values(), counters.keys())
+            poslist.sort()
+            ##request.write(repr(counters.items()))
+            d['editors'] = []
+            for positions, name in poslist:
+                d['editors'].append("%s&nbsp;[%s]" % (
+                    name, util.rangelist(positions)))
+        else:
+            d['editors'] = [line.getEditor(request)]
+
+    comments = []
+    for idx in range(len(lines)):
+        comment = format_comment(request, lines[idx])
+        if comment:
+            comments.append((idx+1, wikiutil.escape(comment)))
+    
+    d['changecount'] = len(lines)
+    d['comments'] = comments
+
+    img = request.theme.make_icon('info')
+    info_html = wikiutil.link_tag(request,
+                                  wikiutil.quoteWikiname(line.pagename) + "?action=info",
+                                  img, formatter=macro.formatter, pretty_url=1)
+    d['info_html'] = info_html
+    
+    return request.theme.recentchanges_entry(d)
+    
+def cmp_lines(first, second):
+    return cmp(first[0], second[0])
+
+def print_abandoned(macro, args, **kw):
+    request = macro.request
+    _ = request.getText
+    d = {}
+    pagename = macro.formatter.page.page_name
+    d['q_page_name'] = wikiutil.quoteWikiname(pagename)
+    msg = None
+
+    pages = wikiutil.getPageList(config.text_dir)
+    last_edits = []
+    for page in pages:
+        try:
+            last_edits.append(editlog.EditLog(
+                wikiutil.getPagePath(page, 'last-edited', check_create=0)).next())
+        except StopIteration:
+            pass
+        #   we don't want all Systempages at hte beginning of the abandoned list
+        #    line = editlog.EditLogLine({})
+        #    line.pagename = page
+        #    line.ed_time = 0
+        #    line.comment = 'not edited'
+        #    line.action = ''
+        #    line.userid = ''
+        #    line.hostname = ''
+        #    line.addr = ''
+        #    last_edits.append(line)
+    last_edits.sort()
+
+    # set max size in days
+    max_days = min(int(request.form.get('max_days', [0])[0]), _DAYS_SELECTION[-1])
+    # default to _MAX_DAYS for useres without bookmark
+    if not max_days:
         max_days = _MAX_DAYS
+    d['rc_max_days'] = max_days
+    
+    # give known user the option to extend the normal display
+    if request.user.valid:
+        d['rc_days'] = _DAYS_SELECTION
+    else:
+        d['rc_days'] = None
+    
+    d['rc_update_bookmark'] = d['rc_rss_link'] = None
+    request.write(request.theme.recentchanges_header(d))
+
+    length = len(last_edits)
+    
+    index = 0
+    last_index = 0
+    day_count = 0
+    
+    line = last_edits[index]
+    line.time_tuple = request.user.getTime(line.ed_time)
+    this_day = line.time_tuple[0:3]
+    day = this_day
+
+    while 1:
+
+        index += 1
+
+        if (index>length):
+            break    
+
+        if index < length:
+            line = last_edits[index]
+            line.time_tuple = request.user.getTime(line.ed_time)
+            day = line.time_tuple[0:3]
+
+        if (day != this_day) or (index==length):
+            d['bookmark_link_html'] = None
+            d['date'] = request.user.getFormattedDate(last_edits[last_index].ed_time)
+            request.write(request.theme.recentchanges_daybreak(d))
+            
+            for page in last_edits[last_index:index]:
+                request.write(format_page_edits(macro, [page], None))
+            last_index = index
+            day_count += 1
+            if (day_count >= max_days):
+                break
+
+    d['rc_msg'] = msg
+    request.write(request.theme.recentchanges_footer(d))
+    
+def execute(macro, args, **kw):
+    # handle abandoned keyword
+    if kw.get('abandoned', 0):
+        print_abandoned(macro, args, **kw)
+        return ''
+
+    request = macro.request
+    _ = request.getText
+    d = {}
+    pagename = macro.formatter.page.page_name
+    d['q_page_name'] = wikiutil.quoteWikiname(pagename)
+
+    log = editlog.EditLog()
 
     tnow = time.time()
     msg = ""
-    buf = cStringIO.StringIO()
 
-    # add rss link
-    if wikixml.ok and not abandoned:
-        img = macro.formatter.image(width=36, height=14, hspace=2, align="right",
-            border=0, src=config.url_prefix+"/img/moin-rss.gif", alt="[RSS]")
-        buf.write(macro.formatter.url(
-            wikiutil.quoteWikiname(macro.formatter.page.page_name) + "?action=macro&macro=RecentChanges&do=rss_rc",
-            img, unescaped=1))
+    # get bookmark from valid user
+    bookmark = request.user.getBookmark()
 
     # add bookmark link if valid user
-    if abandoned:
-        bookmark = None
+    d['rc_curr_bookmark'] = None
+    d['rc_update_bookmark'] = None
+    if request.user.valid:
+        d['rc_curr_bookmark'] = _('(no bookmark set)')
+        if bookmark:
+            d['rc_curr_bookmark'] = _('(currently set to %s)') % (
+                request.user.getFormattedDateTime(bookmark),)
+
+        d['rc_update_bookmark'] = wikiutil.link_tag(
+            request,
+            wikiutil.quoteWikiname(macro.formatter.page.page_name)
+                + "?action=bookmark&time=%d" % (tnow,),
+            _("Update my bookmark timestamp"),
+            formatter=macro.formatter)
+    
+    # set max size in days
+    max_days = min(int(request.form.get('max_days', [0])[0]), _DAYS_SELECTION[-1])
+    # default to _MAX_DAYS for useres without bookmark
+    if not max_days and not bookmark:
+        max_days = _MAX_DAYS
+    d['rc_max_days'] = max_days
+    
+    # give known user the option to extend the normal display
+    if request.user.valid:
+        d['rc_days'] = _DAYS_SELECTION
     else:
-        bookmark = macro.request.user.getBookmark()
-        if macro.request.user.valid:
-            bm_display = _('(no bookmark set)')
-            if bookmark:
-                bm_display = _('(currently set to %s)') % (
-                    macro.request.user.getFormattedDateTime(bookmark),)
+        d['rc_days'] = []
 
-            buf.write("%s %s<br>" % (
-                wikiutil.link_tag(
-                    wikiutil.quoteWikiname(macro.formatter.page.page_name)
-                        + "?action=bookmark&time=%d" % (tnow,),
-                    _("Update my bookmark timestamp"),
-                    formatter=macro.formatter),
-                bm_display,
-            ))
+    # add rss link
+    d['rc_rss_link'] = None
+    if wikixml.ok:
+        img = request.theme.make_icon("rss")
+        d['rc_rss_link'] = macro.formatter.url(
+            wikiutil.quoteWikiname(macro.formatter.page.page_name) + "?action=rss_rc",
+            img, unescaped=1)
 
-        # give known user the option to extend the normal display
-        if macro.request.user.valid:
-            days = []
-            for day in _DAYS_SELECTION:
-                if not max_size and day == max_days:
-                    days.append('<b>%d</b>' % day)
-                else:
-                    days.append(wikiutil.link_tag(
-                        '%s?max_days=%d' % (qpagename, day), str(day)
-                    ))
-            days = ' | '.join(days)
-            buf.write(_("Show all changes in the last %(days)s days<br>") % locals())
-            del day, days
+    request.write(request.theme.recentchanges_header(d))
+    
+    pages = {}
+    ignore_pages = {}
 
-    oldversions = wikiutil.getBackupList(config.backup_dir, None)
+    today = request.user.getTime(tnow)[0:3]
+    this_day = today
+    day_count = 0
 
-    # get the most recent date each page was edited
-    if abandoned:
-        # !!! TODO: add existing pages that do not appear in the edit log at all
-        last_edit = {}
-        while log.next():
-            last_edit[log.pagename] = log.ed_time
-        log.reset()
+    for line in log.reverse():
 
-    buf.write('<table border=0 cellspacing=2 cellpadding=0>')
-    while log.getNextChange():
-        if abandoned and log.ed_time < last_edit[log.pagename]:
+        if not request.user.may.read(line.pagename):
             continue
 
-        # CNC:2003-03-30
-        if not macro.request.user.may.read(log.pagename):
+        line.time_tuple = request.user.getTime(line.ed_time)
+        day = line.time_tuple[0:3]
+        hilite = line.ed_time > (bookmark or line.ed_time)
+        
+        if (((this_day != day or (not hilite and not max_days)))
+            and len(pages) > 0):
+            # new day or bookmark reached: print out stuff 
+            this_day = day
+            for page in pages:
+                ignore_pages[page] = None
+            pages = pages.values()
+            pages.sort(cmp_lines)
+            pages.reverse()
+            
+            d['bookmark_link_html'] = None
+            if request.user.valid:
+                d['bookmark_link_html'] = wikiutil.link_tag(
+                    request,
+                    wikiutil.quoteWikiname(
+                        macro.formatter.page.page_name) + "?action=bookmark&time=%d" % (pages[0][0].ed_time,),
+                        _("set bookmark"),
+                        formatter=macro.formatter)
+            d['date'] = request.user.getFormattedDate(pages[0][0].ed_time)
+            request.write(request.theme.recentchanges_daybreak(d))
+            
+            for page in pages:
+                request.write(format_page_edits(macro, page, bookmark))
+            day_count += 1
+            pages = {}
+            if max_days and (day_count >= max_days):
+                break
+
+        elif this_day != day:
+            # new day but no changes
+            this_day = day
+
+        if ignore_pages.has_key(line.pagename):
             continue
-
-        # check for configured max size
-        if max_size and buf.tell() > max_size:
-            msg = "<br><font size='-1'>%s</font>" % _('[Size limited to %dK]') % (max_size/1024)
-            break
-
-        # check whether this page is newer than the user's bookmark
-        hilite = log.ed_time > (bookmark or log.ed_time)
-
+        
         # end listing by default if user has a bookmark and we reached it
-        if max_size and bookmark and not hilite:
-            msg = "<br><font size='-1'>%s</font>" % _('[Bookmark reached]')
+        if not max_days and not hilite:
+            msg = _('[Bookmark reached]')
             break
 
-        # new day?
-        if log.dayChanged():
-            if log.daycount > max_days: break
-
-            set_bm = ''
-            if macro.request.user.valid and not abandoned:
-                set_bm = '&nbsp;<font size="1" face="Verdana">[%s]</font>' % (
-                    wikiutil.link_tag(
-                        wikiutil.quoteWikiname(macro.formatter.page.page_name)
-                            + "?action=bookmark&time=%d" % (log.ed_time,),
-                        _("set bookmark"), formatter=macro.formatter),)
-
-            buf.write('<tr><td colspan="%d"><br/><font size="+1"><b>%s</b></font>%s</td></tr>\n'
-                % (4+config.show_hosts, macro.request.user.getFormattedDate(log.ed_time), set_bm))
-
-        # check whether this is a new (no backup) page
-        # !!! the backup dir needs to be reorganized, one subdir per page, and the versions
-        # in the subdirs, i.e. data/backup/<pagename>/<timestamp>; this will do for now
-        backup_re = re.compile(r'^%s\.\d+(\.\d+)?$' % (wikiutil.quoteFilename(log.pagename),))
-        is_new = len(filter(backup_re.match, oldversions)) == 0
-        page = Page(log.pagename)
-
-        html_link = ''
-        if not page.exists():
-            # indicate page was deleted
-            html_link = '<img border="0" hspace="3" width="60" height="12" src="%s/img/moin-deleted.gif" alt="[DELETED]">' % (
-                config.url_prefix)
-        elif is_new:
-            # show "NEW" icon if page was created after the user's bookmark
-            if hilite:
-                if page.exists():
-                    html_link = '<img border="0" hspace="3" width="31" height="12" src="%s/img/moin-new.gif" alt="[NEW]">' % (
-                        config.url_prefix)
-        elif hilite:
-            # show "UPDATED" icon if page was edited after the user's bookmark
-            img = '<img border="0" hspace="3" width="60" height="12" src="%s/img/moin-updated.gif" alt="[UPDATED]">' % (
-                config.url_prefix)
-            html_link = wikiutil.link_tag(
-                wikiutil.quoteWikiname(log.pagename) + "?action=diff&date=" + str(bookmark),
-                img, formatter=macro.formatter, pretty_url=1)
+        if pages.has_key(line.pagename):
+            pages[line.pagename].append(line)
         else:
-            # show "DIFF" icon else
-            img = '<img border="0" hspace="11" width="15" height="11" src="%s/img/moin-diff.gif" alt="[DIFF]">' % (
-                config.url_prefix)
-            html_link = wikiutil.link_tag(
-                wikiutil.quoteWikiname(log.pagename) + "?action=diff",
-                img, formatter=macro.formatter, pretty_url=1)
+            pages[line.pagename] = [line]
+    else:
+        if len(pages) > 0:
+            # end of loop reached: print out stuff 
+            # XXX duplicated code from above
+            # but above does not trigger if have the first day in wiki history
+            for page in pages:
+                ignore_pages[page] = None
+            pages = pages.values()
+            pages.sort(cmp_lines)
+            pages.reverse()
+            
+            d['bookmark_link_html'] = None
+            if request.user.valid:
+                d['bookmark_link_html'] = wikiutil.link_tag(
+                    request,
+                    wikiutil.quoteWikiname(
+                        macro.formatter.page.page_name) + "?action=bookmark&time=%d" % (pages[0][0].ed_time,),
+                        _("set bookmark"),
+                        formatter=macro.formatter)
+            d['date'] = request.user.getFormattedDate(pages[0][0].ed_time)
+            request.write(request.theme.recentchanges_daybreak(d))
+            
+            for page in pages:
+                request.write(format_page_edits(macro, page, bookmark))
+    
 
-        # print name of page, with a link to it
-        force_split = len(page.page_name) > _MAX_PAGENAME_LENGTH
-        buf.write('<tr valign="top"><td>%s&nbsp;</td><td>%s</td><td>&nbsp;' % (
-            html_link, page.link_to(text=page.split_title(force=force_split)),))
+    d['rc_msg'] = msg
+    request.write(request.theme.recentchanges_footer(d))
 
-        # print time of change
-        if config.changed_time_fmt:
-            tdiff = int(tnow - log.ed_time) / 60
-            if tdiff < 1440:
-                buf.write(_("[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]") % {
-                    'hours': int(tdiff/60), 'mins': tdiff%60})
-            else:
-                buf.write(time.strftime(config.changed_time_fmt, log.time_tuple))
-            buf.write("&nbsp;</td><td>&nbsp;")
+    return ''
 
-        changelog   = log.changes[log.pagename]
-        changecount = len(changelog)
-
-        # print editor name or IP
-        if config.show_hosts:
-            if changecount > 1:
-                counters = {}
-                for idx in range(len(changelog)):
-                    name = changelog[idx][0]
-                    if not counters.has_key(name): counters[name] = []
-                    counters[name].append(idx+1)
-                poslist = map(None,  counters.values(), counters.keys())
-                poslist.sort()
-                ##buf.write(repr(counters.items()))
-                hardspace = ''
-                for positions, name in poslist:
-                    buf.write("%s%s[%s]<br>" % (
-                        hardspace, name, util.rangelist(positions)))
-                    hardspace = '&nbsp;'
-            else:
-                buf.write(log.getEditor())
-
-        if changecount > 1:
-            ##buf.write(repr(changelog))
-            comments = ''
-            for idx in range(changecount):
-                comment = changelog[idx][1]
-                if comment:
-                    comments = '%s%s<tt>#%02d</tt>&nbsp;<b>%s</b>' % (
-                        comments, comments and '<br>' or '', idx+1,
-                        cgi.escape(comment))
-
-            buf.write('&nbsp;</td><td nowrap align="right">&nbsp;%s&nbsp;&nbsp;'
-                      '</td><td width="70%%">%s&nbsp;' %
-                (_('%(changecount)s changes') % locals(), comments) )
-        else:
-            buf.write("&nbsp;</td><td></td><td><b>%s</b>&nbsp;" %
-                cgi.escape(changelog[0][1]))
-
-        buf.write('</td></tr>\n')
-
-    buf.write('</table>')
-    if msg: buf.write(msg)
-
-    return macro.formatter.rawHTML(buf.getvalue())
-
-
-#############################################################################
-### LogIterator
-#############################################################################
-
-class LogIterator(editlog.EditLog):
-
-    def __init__(self, request, **kw):
-        editlog.EditLog.__init__(self, request, **kw)
-        self.request = request
-        self.changes = {}
-        self.daycount = 0
-        self.ratchet_day = None
-        self.unique = kw.get('unique', 1)
-
-    def getNextChange(self):
-        if not self.next(): return 0
-        if not self.unique: return 1
-
-        _ = self.request.getText
-
-        # skip already processed pages
-        while self.changes.has_key(self.pagename):
-            if not self.next(): return 0
-
-        # we see this page for the first time, collect changes in this day
-        thispage = self.pagename
-        self.changes[thispage] = []
-        offset = 0
-        ratchet_day = None
-        while 1:
-            time_tuple = self.request.user.getTime(self.ed_time)
-            day = tuple(time_tuple[0:3])
-            if not ratchet_day: ratchet_day = day
-            if day != ratchet_day: break
-
-            # store comments for this page
-            if self.pagename == thispage:
-                comment = self.comment
-                if self.action[:3] == 'ATT':
-                    import urllib
-                    filename = urllib.unquote(comment)
-                    if self.action == 'ATTNEW':
-                        comment = _("Upload of attachment '%(filename)s'.") % locals()
-                    elif self.action == 'ATTDEL':
-                        comment = _("Attachment '%(filename)s' deleted.") % locals()
-                    elif self.action == 'ATTDRW':
-                        comment = _("Drawing '%(filename)s' saved.") % locals()
-                elif self.action.find('/REVERT') != -1:
-                    datestamp = self.request.user.getFormattedDateTime(float(comment))
-                    comment = _("Revert to version dated %(datestamp)s.") % locals()
-
-                self.changes[thispage].append((self.getEditor(), comment))
-            # peek for the next one
-            if not self.peek(offset): break
-            offset = offset + 1
-
-        # restore correct data
-        return self.peek(-1)
-
-    def dayChanged(self):
-        self.time_tuple = self.request.user.getTime(self.ed_time)
-        self.day = tuple(self.time_tuple[0:3])
-        if self.day != self.ratchet_day:
-            self.daycount = self.daycount + 1
-            self.ratchet_day = self.day
-            return 1
-        return 0
-
-
-#############################################################################
-### RSS Handling
-#############################################################################
-if wikixml.ok:
-
-    from MoinMoin.wikixml.util import RssGenerator
-
-    def do_rss_rc(pagename, request):
-        """ Send recent changes as an RSS document
-        """
-        from MoinMoin import webapi
-        import os, new
-
-        # get params
-        items_limit = 100
-        try:
-            max_items = int(request.form['items'].value)
-            max_items = min(max_items, items_limit) # not more than `items_limit`
-        except (KeyError, ValueError):
-            # not more than 15 items in a RSS file by default
-            max_items = 15
-        try:
-            unique = int(request.form.getvalue('unique', 0))
-        except ValueError:
-            unique = 0
-        try:
-            diffs = int(request.form.getvalue('diffs', 0))
-        except ValueError:
-            diffs = 0
-
-        # prepare output
-        out = cStringIO.StringIO()
-        handler = RssGenerator(out)
-
-        # get data
-        interwiki = webapi.getBaseURL()
-        if interwiki[-1] != "/": interwiki = interwiki + "/"
-
-        logo = re.search(r'src="([^"]*)"', config.logo_string)
-        if logo: logo = webapi.getQualifiedURL(logo.group(1))
-
-        log = LogIterator(request, unique=unique)
-        logdata = []
-        counter = 0
-        Bag = new.classobj('Bag', (), {})
-        while log.getNextChange():
-            # CNC:2003-03-30
-            if not request.user.may.read(log.pagename):
-                continue
-            if log.dayChanged() and log.daycount > _MAX_DAYS: break
-            if log.action[:4] != 'SAVE': continue
-            logdata.append(new.instance(Bag, {
-                'ed_time': log.ed_time,
-                'time': log.time_tuple,
-                'pagename': log.pagename,
-                'hostname': log.hostname,
-                'editor': log.getEditorData()[1],
-                'comment': log.comment,
-            }))
-
-            counter = counter + 1
-            if counter >= max_items: break
-        del log
-
-        # start SAX stream
-        handler.startDocument()
-        handler._out.write(
-            '<!--\n'
-            '    Add an "items=nnn" URL parameter to get more than the default 15 items.\n'
-            '    You cannot get more than %d items though.\n'
-            '    \n'
-            '    Add "unique=1" to get a list of changes where page names are unique,\n'
-            '    i.e. where only the latest change of each page is reflected.\n'
-            '    \n'
-            '    Add "diffs=1" to add change diffs to the description of each items.\n'
-            '-->\n' % items_limit
-        )
-
-        # emit channel description
-        handler.startNode('channel', {
-            (handler.xmlns['rdf'], 'about'): webapi.getBaseURL(),
-        })
-        handler.simpleNode('title', config.sitename)
-        handler.simpleNode('link', interwiki + wikiutil.quoteWikiname(pagename))
-        handler.simpleNode('description', 'RecentChanges at %s' % config.sitename)
-        if logo:
-            handler.simpleNode('image', None, {
-                (handler.xmlns['rdf'], 'resource'): logo,
-            })
-        if config.interwikiname:
-            handler.simpleNode(('wiki', 'interwiki'), config.interwikiname)
-
-        handler.startNode('items')
-        handler.startNode(('rdf', 'Seq'))
-        for item in logdata:
-            link = "%s%s#%04d%02d%02d%02d%02d%02d" % ((interwiki,
-                wikiutil.quoteWikiname(item.pagename),) + item.time[:6])
-            handler.simpleNode(('rdf', 'li'), None, attr={
-                (handler.xmlns['rdf'], 'resource'): unicode(link, config.charset),
-            })
-        handler.endNode(('rdf', 'Seq'))
-        handler.endNode('items')
-        handler.endNode('channel')
-
-        # emit logo data
-        if logo:
-            handler.startNode('image', attr={
-                (handler.xmlns['rdf'], 'about'): logo,
-            })
-            handler.simpleNode('title', config.sitename)
-            handler.simpleNode('link', interwiki)
-            handler.simpleNode('url', logo)
-            handler.endNode('image')
-
-        # emit items
-        for item in logdata:
-            page = Page(item.pagename)
-            link = interwiki + wikiutil.quoteWikiname(item.pagename)
-            rdflink = "%s#%04d%02d%02d%02d%02d%02d" % ((link,) + item.time[:6])
-            handler.startNode('item', attr={
-                (handler.xmlns['rdf'], 'about'): rdflink,
-            })
-
-            # general attributes
-            handler.simpleNode('title', item.pagename)
-            handler.simpleNode('link', link)
-            handler.simpleNode(('dc', 'date'), util.W3CDate(item.time))
-
-            # description
-            desc_text = item.comment
-            if diffs:
-                # !!! TODO: rewrite / extend wikiutil.pagediff
-                # searching for the matching pages doesn't really belong here
-                # also, we have a problem to get a diff between two backup versions
-                # so it's always a diff to the current version for now
-                oldversions = wikiutil.getBackupList(config.backup_dir, item.pagename)
-
-                for idx in range(len(oldversions)):
-                    oldpage = oldversions[idx]
-                    try:
-                        date = os.path.getmtime(os.path.join(config.backup_dir, oldpage))
-                    except EnvironmentError:
-                        continue
-                    if date <= item.ed_time:
-                        if idx+1 < len(oldversions):
-                            rc, page_file, backup_file, lines = wikiutil.pagediff(item.pagename, oldversions[idx+1], ignorews=1)
-                            if len(lines) > 20: lines = lines[20:] + ['...\n']
-                            desc_text = desc_text + '<pre>\n' + string.join(lines, '') + '</pre>'
-                        break
-            if desc_text:
-                handler.simpleNode('description', desc_text)
-
-            # contributor
-            edattr = {}
-            if config.show_hosts:
-                edattr[(handler.xmlns['wiki'], 'host')] = unicode(item.hostname, config.charset)
-            if isinstance(item.editor, Page):
-                edname = item.editor.page_name
-                edattr[(None, 'link')] = interwiki + wikiutil.quoteWikiname(edname)
-            else:
-                edname = item.editor
-                ##edattr[(None, 'link')] = link + "?action=info"
-            handler.startNode(('dc', 'contributor'))
-            handler.startNode(('rdf', 'Description'), attr=edattr)
-            handler.simpleNode(('rdf', 'value'), edname)
-            handler.endNode(('rdf', 'Description'))
-            handler.endNode(('dc', 'contributor'))
-
-            # wiki extensions
-            handler.simpleNode(('wiki', 'version'), "%04d-%02d-%02d %02d:%02d:%02d" % item.time[:6])
-            handler.simpleNode(('wiki', 'status'), ('deleted', 'updated')[page.exists()])
-            handler.simpleNode(('wiki', 'diff'), link + "?action=diff")
-            handler.simpleNode(('wiki', 'history'), link + "?action=info")
-            # handler.simpleNode(('wiki', 'importance'), ) # ( major | minor ) 
-            # handler.simpleNode(('wiki', 'version'), ) # ( #PCDATA ) 
-
-            handler.endNode('item')
-
-        # end SAX stream
-        handler.endDocument()
-
-        # send the generated XML document
-        webapi.http_headers(request, ["Content-Type: " + 'text/xml'] + webapi.nocache)
-        request.write(out.getvalue())
-
-        sys.exit(0)
 

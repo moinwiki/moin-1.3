@@ -2,16 +2,14 @@
 """
     MoinMoin - Python Source Parser
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: python.py,v 1.17 2003/11/09 21:01:05 thomaswaldmann Exp $
+    @copyright: 2001 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import cgi, string, sys, cStringIO
+import cStringIO
 import keyword, token, tokenize
-
+from MoinMoin import wikiutil
 
 #############################################################################
 ### Python Source Parser (does Hilighting)
@@ -39,12 +37,12 @@ class Parser:
     def __init__(self, raw, request, **kw):
         """ Store the source text.
         """
-        self.raw = string.rstrip(string.expandtabs(raw))
+        self.raw = raw.expandtabs().rstrip()
         self.request = request
         self.form = request.form
         self._ = request.getText
 
-        self.out = kw.get('out', sys.stdout)
+        self.out = kw.get('out', request)
 
     def format(self, formatter):
         """ Parse and send the colored source.
@@ -53,7 +51,7 @@ class Parser:
         self.lines = [0, 0]
         pos = 0
         while 1:
-            pos = string.find(self.raw, '\n', pos) + 1
+            pos = self.raw.find('\n', pos) + 1
             if not pos: break
             self.lines.append(pos)
         self.lines.append(len(self.raw))
@@ -119,7 +117,7 @@ class Parser:
 
         # send text
         self.out.write('<font color="%s"%s>' % (color, style))
-        self.out.write(cgi.escape(toktext))
+        self.out.write(wikiutil.escape(toktext))
         self.out.write('</font>')
 
 

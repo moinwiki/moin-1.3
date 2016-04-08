@@ -2,13 +2,11 @@
 """
     MoinMoin - HTML Widgets
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: html.py,v 1.6 2003/11/09 21:01:18 thomaswaldmann Exp $
+    @copyright: 2003 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import cgi
+from MoinMoin import wikiutil
 from MoinMoin.widget.base import Widget
 
 # sort attributes or not? (set to 1 by unit tests)
@@ -26,7 +24,7 @@ class Text:
         self.text = text
 
     def __str__(self):
-        return cgi.escape(self.text)
+        return wikiutil.escape(self.text)
 
         
 class Raw:
@@ -84,7 +82,7 @@ class Element:
             if self._BOOL_ATTRS.has_key(key):
                 if val: result.append(key)
             else:
-                result.append('%s="%s"' % (key, cgi.escape(str(val), 1)))
+                result.append('%s="%s"' % (key, wikiutil.escape(str(val), 1)))
         return ' '.join(result)
 
     def __str__(self):
@@ -96,7 +94,7 @@ class EmptyElement(Element):
     """
 
     def __str__(self):
-        return "<%s />" % self._openingtag()
+        return "<%s>" % self._openingtag()
 
 
 class CompositeElement(Element):
@@ -109,7 +107,7 @@ class CompositeElement(Element):
 
     def append(self, child):
         if isinstance(child, type('')):
-            child = cgi.escape(child)
+            child = wikiutil.escape(child)
         self.children.append(child)
         return self
 
@@ -147,7 +145,6 @@ class A(CompositeElement):
         'rev': None,
         'shape': None,
         'tabindex': None,
-        'target': None,
         'type': None,
     }
 
@@ -674,6 +671,7 @@ class FormWidget(Widget):
 
     def __init__(self, request, **kw):
         Widget.__init__(self, request)
+        # FIXME     vvvv
         self.form = form(**kw)
 
     def render(self):

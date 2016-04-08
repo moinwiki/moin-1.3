@@ -2,11 +2,6 @@
 """
     MoinMoin - RandomQuote Macro
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-    Originally written by Thomas Waldmann.
-    Gustavo Niemeyer added wiki markup parsing of the quotes.
-    
     Selects a random quote from FortuneCookies or a given page.
 
     Usage:
@@ -17,17 +12,24 @@
         It will look for list delimiters on the page in question.
         It will ignore anything that is not in an "*" list.
 
-    $Id: RandomQuote.py,v 1.6 2003/11/09 21:01:03 thomaswaldmann Exp $
+    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
+    
+    Originally written by Thomas Waldmann.
+    Gustavo Niemeyer added wiki markup parsing of the quotes.
 """
 
-import random, sys, cStringIO
-from MoinMoin.Page import Page
+import random, cStringIO
+from MoinMoin.Page import Page, wikiutil
+
+Dependencies = ["time"]
 
 def execute(macro, args):
     _ = macro.request.getText
 
     pagename = args or 'FortuneCookies'
-    raw = Page(pagename).get_raw_body()
+    page = Page(pagename)
+    raw = page.get_raw_body()
     if not macro.request.user.may.read(pagename):
         raw = ""
 
@@ -37,20 +39,18 @@ def execute(macro, args):
     quotes = [quote.strip() for quote in quotes]
     quotes = [quote[2:] for quote in quotes if quote.startswith('* ')]
     
-    quote = random.choice(quotes or [
-        macro.formatter.highlight(1) +
-        _('No quotes on %(pagename)s.') % locals() +
-        macro.formatter.highlight(0)
-        ])
-
-    page = Page(pagename)
-    page.set_raw_body(quote)
+    if not quotes:
+        return (macro.formatter.highlight(1) +
+                _('No quotes on %(pagename)s.') % {'pagename': pagename} +
+                macro.formatter.highlight(0))
+                
+    quote = random.choice(quotes)
+    page.set_raw_body(quote, 1)
     out = cStringIO.StringIO()
-    backup = sys.stdout, macro.request.write
-    sys.stdout, macro.request.write = out, out.write
-    page.send_page(macro.request, content_only=1)
-    sys.stdout, macro.request.write = backup
+    macro.request.redirect(out)
+    page.send_page(macro.request, content_only=1, content_id="RandomQuote_%s" % wikiutil.quoteWikiname(page.page_name) )
     quote = out.getvalue()
-
+    macro.request.redirect()
+    
     return quote
 

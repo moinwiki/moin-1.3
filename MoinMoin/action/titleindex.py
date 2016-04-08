@@ -2,18 +2,15 @@
 """
     MoinMoin - "titleindex" action
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This action generates a plain list of pages, so that other wikis
     can implement http://www.usemod.com/cgi-bin/mb.pl?MetaWiki more
     easily.
 
-    $Id: titleindex.py,v 1.8 2003/11/09 21:00:56 thomaswaldmann Exp $
+    @copyright: 2001 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import sys
-from MoinMoin import config, util, wikiutil, webapi
+from MoinMoin import config, util, wikiutil
 
 
 def execute(pagename, request):
@@ -21,27 +18,26 @@ def execute(pagename, request):
 
     # get the MIME type
     if form.has_key('mimetype'):
-        mimetype = form['mimetype'].value
+        mimetype = form['mimetype'][0]
     else:
         mimetype = "text/plain"
 
-    webapi.http_headers(request, ["Content-Type: " + mimetype])
+    request.http_headers(["Content-Type: " + mimetype])
 
     pages = list(wikiutil.getPageList(config.text_dir))
     pages.sort()
 
-    # CNC:2003-05-30
     pages = filter(request.user.may.read, pages)
 
     if mimetype == "text/xml":
-        print '<?xml version="1.0" encoding="%s"?>' % (config.charset,)
-        print '<TitleIndex>'
+        request.write('<?xml version="1.0" encoding="%s"?>' % (config.charset,))
+        request.write('<TitleIndex>')
         for name in pages:
-            print '  <Title>%s</Title>' % (util.TranslateCDATA(name),)
-        print '</TitleIndex>'
+            request.write('  <Title>%s</Title>' % (util.TranslateCDATA(name),))
+        request.write('</TitleIndex>')
     else:
         for name in pages:
-            print name
+            request.write(name)
 
-    sys.exit(0)
+    raise util.MoinMoinNoFooter
 

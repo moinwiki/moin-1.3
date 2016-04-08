@@ -2,12 +2,10 @@
 """
     MoinMoin - XML Utilities
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: util.py,v 1.3 2003/11/09 21:01:18 thomaswaldmann Exp $
+    @copyright: 2001 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.3 $"[11:-2]
+__version__ = "$Revision: 1.4 $"[11:-2]
 
 from xml.sax import saxutils
 from MoinMoin import config

@@ -2,11 +2,9 @@
 """
     MoinMoin - Extension Action Package
 
-    Copyright (c) 2000 by Richard Jones <richard@bizarsoftware.com.au>
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>  
-    All rights reserved, see COPYING for details.
-
-    $Id: __init__.py,v 1.7 2003/11/09 21:00:56 thomaswaldmann Exp $
+    @copyright: 2000 by Richard Jones <richard@bizarsoftware.com.au>
+    @copyright: 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>  
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin import config
@@ -22,3 +20,4 @@ for action in config.excluded_actions:
     except ValueError:
         pass
 
+modules = extension_actions

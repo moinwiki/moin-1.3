@@ -2,16 +2,14 @@
 """
     MoinMoin - Teud Macro
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This integrates the "Teud" documentation system into
     MoinMoin. Besides Teud, you need 4XSLT.
 
     Teud: http://purl.net/wiki/python/TeudProject
     4XSLT: http://4suite.org/
 
-    $Id: TeudView.py,v 1.4 2003/11/09 21:01:04 thomaswaldmann Exp $
+    @copyright: 2001 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 _imperr = None
@@ -24,9 +22,9 @@ try:
 except ImportError, _imperr:
     pass
 
-import cgi, string
-from MoinMoin import config
+from MoinMoin import config, wikiutil
 
+Dependencies = ["time"]
 
 def execute(macro, args):
     if _imperr: return "Error in TeudView macro: " + str(_imperr)
@@ -36,21 +34,21 @@ def execute(macro, args):
     pagename = macro.formatter.page.page_name
 
     if macro.form.has_key('module'):
-        modname = macro.form["module"].value
+        modname = macro.form["module"][0]
         try:
             object = pydoc.locate(modname)
         except pydoc.ErrorDuringImport, value:
-            return "Error while loading module %s: %s" % (module, value)
+            return "Error while loading module %s: %s" % (modname, value)
         else:
             xmlstr = xmldoc.xml.document(object, encoding=config.charset)
 
         navigation = '<a href="%s">Index</a>' % pagename
-        pathlen = string.count(modname, '.')
+        pathlen = modname.count('.')
         if pathlen:
             navigation = navigation + ' | '
-            modparts = string.split(modname, '.')
+            modparts = modname.split('.')
             for pathidx in range(pathlen):
-                path = string.join(modparts[:pathidx+1], '.')
+                path = '.'.join(modparts[:pathidx+1])
                 navigation = navigation + '<a href="%s?module=%s">%s</a>' % (
                     pagename, path, modparts[pathidx])
                 if pathidx < pathlen:
@@ -71,7 +69,7 @@ def execute(macro, args):
             }
         )
     except:
-        print cgi.escape(xmlstr)
+        print wikiutil.escape(xmlstr)
         raise
 
     return navigation + result

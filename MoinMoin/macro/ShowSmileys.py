@@ -2,14 +2,12 @@
 """
     MoinMoin - List all defined smileys
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     [[ShowSmileys]] will display a table of all the available smileys.
 
     Based on code by Nick Trout <trout@users.sf.net>
 
-    $Id: ShowSmileys.py,v 1.3 2003/11/09 21:01:04 thomaswaldmann Exp $
+    @copyright: 2003 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
@@ -18,6 +16,8 @@ from MoinMoin.util.dataset import TupleDataset, Column
 from MoinMoin.widget.browser import DataBrowserWidget
 
 COLUMNS = 3
+
+Dependencies = []
 
 def execute(macro, args):
     _ = macro.request.getText

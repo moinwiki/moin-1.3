@@ -2,46 +2,46 @@
 """
     MoinMoin - Hitcount Statistics
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This macro creates a hitcount chart from the data in "event.log".
 
-    $Id: hitcounts.py,v 1.12 2003/11/09 21:01:08 thomaswaldmann Exp $
+    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 _debug = 0
 
-import string
-from MoinMoin import config
+from MoinMoin import config, caching
 from MoinMoin.Page import Page
-
+from MoinMoin.util import MoinMoinNoFooter, datetime
+from MoinMoin.logfile import eventlog
+from MoinMoin.formatter.text_html import Formatter
 
 def linkto(pagename, request, params=''):
     _ = request.getText
 
     if not config.chart_options:
-        return _('<div class="message"><b>Charts are not available!</b></div>')
+        request.formatter = Formatter(request)
+        return request.formatter.sysmsg(_('Charts are not available!'))
 
     if _debug:
         return draw(pagename, request)
 
     page = Page(pagename)
     result = []
-    if params: params = '&' + params
+    if params:
+        params = '&amp;' + params
     data = {
-        'url': page.url("action=chart&type=hitcounts" + params),
+        'url': page.url(request, "action=chart&amp;type=hitcounts" + params),
     }
     data.update(config.chart_options)
-    result.append('<img src="%(url)s" border="0" '
-        'width="%(width)d" height="%(height)d">' % data)
+    result.append('<img src="%(url)s" border="0" width="%(width)d" height="%(height)d">' % data)
 
-    return string.join(result, '')
+    return ''.join(result)
 
 
 def draw(pagename, request):
-    import cgi, sys, shutil, cStringIO
-    from MoinMoin import config, webapi, user
+    import shutil, cStringIO
+    from MoinMoin import config, wikiutil
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     _ = request.getText
@@ -49,7 +49,29 @@ def draw(pagename, request):
     # check params
     filterpage = None
     if request and request.form and request.form.has_key('page'):
-        filterpage = request.form['page'].value
+        filterpage = request.form['page'][0]
+
+
+    # get results from cache
+    if filterpage:
+        key = 'hitcounts-' + filterpage
+    else:
+        key = 'hitcounts'
+    
+    cache = caching.CacheEntry('charts', key)
+    if cache.exists():
+        try:
+            cache_date, cache_days, cache_views, cache_edits = eval(cache.content())
+        except:
+            cache_days, cache_views, cache_edits = [], [], []
+            cache_date = 0
+    else:
+        cache_days, cache_views, cache_edits = [], [], []
+        cache_date = 0
+
+    logfile = eventlog.EventLog()
+    logfile.set_filter(['VIEWPAGE', 'SAVEPAGE'])
+    new_date = logfile.date()
 
     # prepare data
     days = []
@@ -57,21 +79,22 @@ def draw(pagename, request):
     edits = []
     ratchet_day = None
     ratchet_time = None
-    data = request.getEventLogger().read(['VIEWPAGE', 'SAVEPAGE'])
-    for event in data:
-        #print ">>>", cgi.escape(repr(event)), "<br>"
-        if filterpage and event[2]['pagename'] != filterpage:
+    for event in logfile.reverse():
+        #print ">>>", wikiutil.escape(repr(event)), "<br>"
+
+        if event[0] <=  cache_date:
+            break
+        
+        if filterpage and event[2].get('pagename','') != filterpage:
             continue
         time_tuple = request.user.getTime(event[0])
         day = tuple(time_tuple[0:3])
         if day != ratchet_day:
             # new day
-            # !!! this is not really correct, if we have days
-            # without data, we have to add more 0 values
             while ratchet_time:
-                ratchet_time += 86400
-                rday = request.user.getTime(ratchet_time)
-                if rday > day: break
+                ratchet_time -= 86400
+                rday = tuple(request.user.getTime(ratchet_time)[0:3])
+                if rday <= day: break
                 days.append(request.user.getFormattedDate(ratchet_time))
                 views.append(0)
                 edits.append(0)
@@ -88,7 +111,38 @@ def draw(pagename, request):
     # give us a chance to develop this
     if _debug:
         return "labels = %s<br>views = %s<br>edits = %s<br>" % \
-            tuple(map(cgi.escape, map(repr, [days, views, edits])))
+            tuple(map(wikiutil.escape, map(repr, [days, views, edits])))
+
+    days.reverse()
+    views.reverse()
+    edits.reverse()
+
+    # merge the day on the end of the cache
+    if cache_days and days and days[0] == cache_days[-1]:
+        cache_edits[-1] += edits[0]
+        cache_views[-1] += views[0]
+        days, views, edits = days[1:], views[1:], edits[1:]
+
+    cache_days.extend(days)
+    cache_views.extend(views)
+    cache_edits.extend(edits)
+
+    days, views, edits = cache_days, cache_views, cache_edits
+
+    # save to cache
+    cache.update("(%r, %r, %r, %r)" % (new_date, days, views, edits))
+
+    import math
+    
+    try:
+        scalefactor = float(max(views))/max(edits)
+    except ZeroDivisionError:
+        scalefactor = 1.0
+    else:
+        scalefactor = int(10 ** math.floor(math.log10(scalefactor)))
+
+    #scale edits up
+    edits = map(lambda x: x*scalefactor, edits)
 
     # create image
     image = cStringIO.StringIO()
@@ -98,11 +152,12 @@ def draw(pagename, request):
     chart_title = ''
     if config.sitename: chart_title = "%s: " % config.sitename
     chart_title = chart_title + _('Page hits and edits')
-    if filterpage: chart_title = _("%(chart_title)s for %(filterpage)s") % locals()
+    if filterpage: chart_title = _("%(chart_title)s for %(filterpage)s") % {
+        'chart_title': chart_title, 'filterpage': filterpage}
+    chart_title = "%s\n%sx%d" % (chart_title, _("green=view\nred=edit"), scalefactor)
     c.option(
-        annotation = (len(days)-1, Color('black'), _("green=view\nred=edit")),
         title = chart_title,
-        xtitle = _('date'),
+        xtitle = _('date') + ' (Server)',
         ytitle = _('# of hits'),
         title_font = c.GDC_GIANT,
         #thumblabel = 'THUMB', thumbnail = 1, thumbval = 10,
@@ -125,10 +180,10 @@ def draw(pagename, request):
         "Content-Type: image/gif",
         "Content-Length: %d" % len(image.getvalue()),
     ]
-    webapi.http_headers(request, headers)
+    request.http_headers(headers)
 
     # copy the image
     image.reset()
-    shutil.copyfileobj(image, sys.stdout, 8192)
-    sys.exit(0)
+    shutil.copyfileobj(image, request, 8192)
+    raise MoinMoinNoFooter
 

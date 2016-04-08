@@ -2,26 +2,24 @@
 """
     MoinMoin - Pagesize Statistics
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This macro creates a bar graph of page size classes.
 
-    $Id: pagesize.py,v 1.8 2003/11/09 21:01:08 thomaswaldmann Exp $
+    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 _debug = 0
 
-import string
 from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
+from MoinMoin.util import MoinMoinNoFooter
 
 
 def linkto(pagename, request, params=''):
     _ = request.getText
 
     if not config.chart_options:
-        return _('<div class="message"><b>Charts are not available!</b></div>')
+        return request.formatter.sysmsg(_('Charts are not available!'))
 
     if _debug:
         return draw(pagename, request)
@@ -29,13 +27,12 @@ def linkto(pagename, request, params=''):
     page = Page(pagename)
     result = []
     data = {
-        'url': page.url("action=chart&type=pagesize"),
+        'url': page.url(request, "action=chart&amp;type=pagesize"),
     }
     data.update(config.chart_options)
-    result.append('<img src="%(url)s" border="0" '
-        'width="%(width)d" height="%(height)d">' % data)
+    result.append('<img src="%(url)s" border="0" width="%(width)d" height="%(height)d">' % data)
 
-    return string.join(result, '')
+    return ''.join(result)
 
 
 def _slice(data, lo, hi):
@@ -46,8 +43,8 @@ def _slice(data, lo, hi):
 
 
 def draw(pagename, request):
-    import bisect, cgi, sys, shutil, cStringIO
-    from MoinMoin import config, webapi
+    import bisect, shutil, cStringIO
+    from MoinMoin import config
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     _ = request.getText
@@ -78,7 +75,7 @@ def draw(pagename, request):
     # give us a chance to develop this
     if _debug:
         return "<p>data = %s</p>" % \
-            string.join(map(cgi.escape, map(repr, [labels, data])), '<br>')
+            '<br>'.join(map(wikiutil.escape, map(repr, [labels, data])))
 
     # create image
     image = cStringIO.StringIO()
@@ -113,10 +110,10 @@ def draw(pagename, request):
         "Content-Type: image/gif",
         "Content-Length: %d" % len(image.getvalue()),
     ]
-    webapi.http_headers(request, headers)
+    request.http_headers(headers)
 
     # copy the image
     image.reset()
-    shutil.copyfileobj(image, sys.stdout, 8192)
-    sys.exit(0)
+    shutil.copyfileobj(image, request, 8192)
+    raise MoinMoinNoFooter
 

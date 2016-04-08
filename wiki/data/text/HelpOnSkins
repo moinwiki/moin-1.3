@@ -1,6 +1,8 @@
 ##language:en
 == Changing CSS styles ==
 
+/!\ With 1.2 this is a bit outdated, as we have theme support now.
+
 The best way to change the visual appearance of your wiki site is by inherting the default MoinMoin styles and only changing those things you want to adapt to your likings. This avoids the work involved in copying new styles added during development to your own stylesheets. To do this, we use the CSS `@import`  mechanism like this:
 {{{
 /*  #python wiki styles */
@@ -25,15 +27,3 @@ In the following lines, we change the background color of headlines and the colo
 For more, see HelpOnConfiguration/CascadingStyleSheets and the [http://css-discuss.incutio.com/ css-discuss] wiki.
 
 For a very clever idea to make CSS ''wiki editable'', see ESW:plain.css.
-
-== Changing the page layout ==
-
-While MoinMoin currently has no full support for HTML templates, and switching between several layouts, you can change the most important parts of the generated HTML code, and add your own HTML fragments.
-
-"`title1`" and "`title2`" are inserted into the output right before and after the system's title html code (`title1` is right after the <body> tag and normally undefined, `title2` defaults to the "`<hr>`" above the page contents). "`navi_bar`" is a list of page names[[FootNote(In versions prior to 0.11, navi_bar was a piece of HTML code.)]] that are added to the title area as quick links into the wiki; if it is `None`, no navigation bar is added.
-
-Similarly, the footer area can be changed by setting "`page_footer1`" and "`page_footer2`".
-
-"`html_head`" is added into the <head> element for ''all'' pages, while "`html_head_queries`" is sent only for edit and action pages (`html_head` is sent for those, too).
-
-New in 1.1: `title1`, `title2`, `page_footer1` and `page_footer2` can now be callables and will be called with the "request" object as a single argument (note that you should accept any keyword arguments in order to be compatible to future changes).

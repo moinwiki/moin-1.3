@@ -1,961 +1,787 @@
-# Text translations for zh-tw (Chinese/Taiwan)
-# Maintained by: "Chen Jian-ding" <dwight@ccns.ncku.edu.tw>
-# Encoding: big5
-# Direction: ltr
+# -*- coding: utf-8 -*-
+# Text translations for Chinese/Taiwan (zh_tw).
+# Automatically generated - DO NOT EDIT, edit zh_tw.po instead!
+meta = {
+  'language': 'Chinese/Taiwan',
+  'maintainer': 'Lin Zhemin <ljm@ljm.idv.tw>',
+  'encoding': 'utf-8',
+  'direction': 'ltr',
+}
 text = {
-'''
-<h2>New Attachment</h2>
-<p>An upload will never overwrite an existing file. If there is a name
-conflict, you have to rename the file that you want to upload.
-Otherwise, if "Rename to" is left blank, the original filename will be used.</p>
-''':
-'''
-<h2>·sªş¥ó</h2>
-<p>¤W¶Ç¤£·|ÂĞ¼g²{¦sÀÉ®×¡C ¦pªG¦³¦WºÙ½Ä¬ğ¡A±z¥²¶·§ïÅÜ«İ¤W¶ÇªºÀÉ®×¦WºÙ¡C
-§_«h¡A­Y"Rename to" Äæ¦ì¬°ªÅ¥Õ¡A±N·|¨Ï¥Î­ì¨ÓªºÀÉ®×¦WºÙ¡C</p>
-''',
-
-'''
-Sent a mail notification to these addresses: %s
-<br>Result was: ''':
-'''
-µo°e¤@«Ê´£¿ô¶l¥ó¨ì¥H¤U¦a§}: %s
-<br>µ²ªG¬O: ''',
-
-' (including %(localwords)d %(pagelink)s)':
-' (¥]§t %(localwords)d %(pagelink)s)',
-
-' (spanning %d versions)':
-' (¯A¤Î %d ª©¥»)',
-
-' Create Profile ':
-' «Ø¥ßProfile ',
-
-' Delete ':
-' §R°£ ',
-
-' Login ':
-' µn¤J ',
-
-' Logout ':
-' µn¥X ',
-
-' Mail me my account data ':
-' §â§Úªº±b¤á¸ê®Æ±Hµ¹§Ú ',
-
-' Save ':
-' Àx¦s ',
-
-' Slide %(pos)d of %(size)d ':
-' Slide %(pos)d of %(size)d ',
-
-' Upload ':
-' ¤W¶Ç ',
-
-' by browsing, searching, or an index<br>':
-' ÂÇ¥ÑÂsÄı¡A·j´M¡A©Î¯Á¤Ş<br>',
-
-' by browsing, title search %(titlesearch)s, text search %(textsearch)s or an index<br>':
-' ÂÇ¥ÑÂsÄı¡A¼ĞÃD·j´M %(titlesearch)s, ¤å¦r·j´M %(textsearch)s ©Î¯Á¤Ş<br>',
-
-' for this page (cached %(date)s)':
-' ¬°¥»­¶(cached %(date)s)',
-
-' match':
-' ¤Ç°t',
-
-' matches':
-' ¦¸¤Ç°t',
-
-' time':
-' ®É¶¡',
-
-' times':
-' ¦¸',
-
-'# of hits':
-'# of ÂIÀ»',
-
-'# of pages of this size':
-'# of ³o¼Ë¤j¤pªº­¶­±',
-
-'''## backup of page "%(pagename)s" submitted %(date)s
-''':
-'''## backup of page "%(pagename)s" submitted %(date)s
-''',
-
-'%(changecount)s changes':
-'%(changecount)s ¦¸§ïÅÜ',
-
-'%(chart_title)s for %(filterpage)s':
-'%(chart_title)s for %(filterpage)s',
-
-'%(errortype)s processing error':
-'%(errortype)s ³B²z¿ù»~',
-
-'%(hits)d hits out of %(pages)d pages searched.':
-'·j¯Á %(pages)d ­¶­±¡A§ä¨ì %(hits)d ¦¸.',
-
-'%(logcount)s (%(logsize)s bytes)':
-'%(logcount)s (%(logsize)s bytes)',
-
-'%(matchcount)d %(matches)s for "%(title)s"':
-'%(matchcount)d %(matches)s ¹ï "%(title)s"',
-
-'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]':
-'&nbsp;&nbsp; [current page size <b>%(size)d</b> bytes]',
-
-'("None" for disabling CSS)':
-'("None" °±¥Î CSS)',
-
-'(currently set to %s)':
-'(¥Ø«e³]¬° %s)',
-
-'(last edited %(time)s by %(editor)s)':
-'(last edited %(time)s by %(editor)s)',
-
-'(last modified %s)':
-'(¤W¦¸­×§ï %s)',
-
-'(no bookmark set)':
-'(¥¼³]©w®ÑÅÒ)',
-
-'4Suite Version':
-'4Suite Version',
-
-'<Browser setting>':
-'<Browser setting>',
-
-'<Default>':
-'<Default>',
-
-'<No addition>':
-'<No addition>',
-
-"<b>Attachment '%(filename)s' does not exist!</b>":
-"<b>ªş¥ó '%(filename)s' ¤£¦s¦b!</b>",
-
-'<b>Cookie deleted!</b>':
-'<b>Cookie ¤w§R°£!</b>',
-
-'<b>Differences between version dated %s and %s':
-'<b>¤é´Á %s ©M %s ªºª©¥»¶¡ªº®t§O',
-
-'<b>Filename of attachment not specified!</b>':
-'<b>ªş¥óªºÀÉ®×¦WºÙ¥¼«ü©w¡I</b>',
-
-"<b>Found no account matching the given email address '%(email)s'!</b>":
-"<b>¨S¦³§ä¨ì²Å¦Xµ¹©wemail¦a§} '%(email)s' ªº±b¤á!</b>",
-
-'<b>NONE</b>':
-'<b>µL</b>',
-
-'<b>No differences found!</b>':
-'<b>¥¼µo²{®t§O¡I</b>',
-
-'<b>No older revisions available!</b>':
-'<b>¥¼¦s¦bÂÂª©¥»¡I</b>',
-
-'<b>No spelling errors found!</b>':
-'<b>¨S§ä¨ì«÷¼g¿ù»~¡I</b>',
-
-'<b>Page is immutable!</b>':
-'<b>Page is immutable!</b>',
-
-'<b>Please provide a valid email address!</b>':
-'<b>½Ğ´£¨Ñ¤@­Ó¥i¥Îemail¦ì§}!</b>',
-
-"<b>Please use a more selective search term instead of '%(needle)s'!</b>":
-"<b>Please use a more selective search term instead of '%(needle)s'!</b>",
-
-'''<b>Sorry, someone else saved the page while you edited it.
-<p>Please do the following: Use the back button of your browser, and cut&paste
-your changes from there. Then go forward to here, and click EditText again.
-Now re-add your changes to the current page contents.
-<p><em>Do not just replace
-the content editbox with your version of the page, because that would
-delete the changes of the other person, which is excessively rude!</em></b>
-''':
-'''<b>«Ü©êºp, ¦b±z½s¿è®É¦³¨ä¥L¤H«O¦s¤Fºô­¶.
-<p>½Ğ«ö¦p¤U¨BÆJ: ¨Ï¥Î±zÂsÄı¾¹ªº­Ë°hÁä, ±q¨ºùØ cut&paste
-±z§ï°Êªº¤º®e. µM«á¦A«e¶i¨ì³oùØ, ­«·sÂIÀ» EditText .
-¦¹®É­«·s¥[¤J±z§ï°Êªº­¶­±¤º®e.
-<p><em>¤Á°O¤£­n¥u¬O±N¤º®e½s¿è®Ø
-´À´«¬°±z­è­×§ï¹Lªºª©¥», ¦]¬°³o¼Ë·|
-§R°£¨ä¥L¤H­×§ïªº¤º®e, ³o¬O«Ü²Ê³¥ªºÁ|°Ê!</em></b>
-''',
-
-'''<b>Thank you for your changes.
-Your attention to detail is appreciated.</b>''':
-'''<b>¦hÁÂ­×§ï.
-·q½Ğª`·N²Ó¸`.</b>''',
-
-'<b>Unsupported upload action: %s</b>':
-'<b>¥¼¤ä´©ªº¤W¶Ç°Ê§@: %s</b>',
-
-'<b>User preferences saved!</b>':
-'<b>¥Î¤á°¾¦n¤wÀx¦s!</b>',
-
-'<b>You are already subscribed to this page.</b>':
-'<b>±z¤w¸g­q¾\\¹L¦¹­¶.</b>',
-
-'<b>You are not allowed to delete attachments.</b>':
-'<b>±z¤£³Q¤¹³\\§R°£ªş¥ó.</b>',
-
-'<b>You are not allowed to upload files.</b>':
-'<b>±z¤£³Q¤¹³\\¤W¶ÇÀÉ®×.</b>',
-
-'<b>You cannot save empty pages.</b>':
-'<b>±z¤£¯à«O¦sªÅ¥Õ­¶.</b>',
-
-'<b>You cannot use LikePages on an extended pagename!</b>':
-'<b>±z¤£¯à¥Î LikePages ©óÂX¥Rªº­¶¦W¡I</b>',
-
-'<b>You did not change the page content, not saved!</b>':
-'<b>You did not change the page content, not saved!</b>',
-
-'<b>You have been subscribed to this page.</b>':
-'<b>±z­q¾\\¤F¦¹­¶.</b>',
-
-'''<br>
-<b>To unsubscribe, go to your profile and delete this page
-from the subscription list.</b>
-''':
-'''<br>
-<b>­n¨ú®ø­q¾\\, ½Ğ¨ì±zªºprofile­¶¡A±q­q¾\\¦Cªí¤¤§R°£¦¹­¶¡C</b>
-''',
-
-'<div class="message"><b>Bad chart type "%s"!</b></div>':
-'<div class="message"><b>¿ù»~¹ÏªíÃş«¬ "%s"!</b></div>',
-
-'<div class="message"><b>Charts are not available!</b></div>':
-'<div class="message"><b>¹Ïªí¤£¦s¦b!</b></div>',
-
-'<div class="message"><b>You need to provide a chart type!</b></div>':
-'<div class="message"><b>±z»İ­n´£¨Ñ¹ÏªíÃş«¬!</b></div>',
-
-'<h2>Attached Files</h2>':
-'<h2>ªş¥[ÀÉ®×</h2>',
-
-"<h2>Attachment '%(filename)s'</h2>":
-"<h2>ªş¥ó '%(filename)s'</h2>",
-
-'<h2>Edit drawing</h2>':
-'<h2>½s¿è drawing</h2>',
-
-"""<hr>
-<font face=\"Verdana\" size=\"-1\">
-<b>Emphasis:</b> ''<i>italics</i>''; '''<b>bold</b>'''; '''''<b><i>bold italics</i></b>''''';
-    ''<i>mixed '''<b>bold</b>''' and italics</i>''; ---- horizontal rule.<br>
-<b>Headings:</b> = Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.<br>
-<b>Lists:</b> space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.<br>
-<b>Links:</b> JoinCapitalizedWords; [\"brackets and double quotes\"];
-    url; [url]; [url label].<br>
-<b>Tables</b>: || cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.<br>
-</font>
-<hr>
-""":
-"""<hr>
-<font face=\"Verdana\" size=\"-1\">
-<b>±j½Õ:</b> ''<i>±×Åé</i>''; '''<b>²ÊÅé</b>''';
-'''''<b><i>²Ê±×Åé</i></b>''''';
-    ''<i>²V¦X'''<b>²Ê</b>'''±×Åé</i>''; ---- ¤ô¥­±ø.<br>
-<b>¼ĞÃD:</b> = ¼ĞÃD 1 =; == ¼ĞÃD 2 ==; === ¼ĞÃD 3 ===;
-    ==== ¼ĞÃD 4 ====; ===== ¼ĞÃD 5 =====.<br>
-<b>¦Cªí:</b> ªÅ¥Õ©M¤U­±¤§¤@¡G* ¬P¸¹; 1., a., A., i., I. §Ç¼Æ¶µ;
-    1.#n ¥Ñn¶}©l­p¼Æ; ªÅ¥Õ¥»¨­ ÁY¶i.<br>
-<b>³sµ²:</b> JoinCapitalizedWords; [\"¤è¬A¸¹¥[Âù¤Ş¸¹\"];
-    url; [url]; [url label].<br>
-<b>ªí®æ</b>: || ³æ¤¸¤å¦r |||| ³æ¤¸¤å¦r¸ó¨â¦C ||;
-    ªí®æ©Î¼ĞÃD«á¤£¥i¥H¦³ªÅ¥Õ.<br>
-</font>
-<hr>
-""",
-
-'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>':
-'<p><b>A backup of your changes is <a href="%(backup_url)s">here</a>.</b></p>',
-
-'<p><b>You will not be notified of your own changes!</b></p>':
-'<p><b>You will not be notified of your own changes!</b></p>',
-
+'''(last edited %(time)s by %(editor)s)''':
+'''(ä¸Šæ¬¡æ˜¯ç”± %(editor)s åœ¨ %(time)s ç·¨è¼¯çš„)''',
+'''(last modified %s)''':
+'''(ä¸Šæ¬¡ä¿®æ”¹æ™‚é–“ %s)''',
+'''The backupped content of this page is deprecated and will not be included in search results!''':
+'''å»ºè­°æ‚¨ä¸è¦ä½¿ç”¨æœ¬é çš„å‚™ä»½å…§å®¹ï¼Œå‚™ä»½ä¸æœƒå‡ºç¾åœ¨æœå°‹çµæœä¸­!''',
+'''Version as of %(date)s''':
+'''%(date)s ç‰ˆ''',
+'''Redirected from page "%(page)s"''':
+'''å¾ "%(page)s" é è½‰å‘éä¾†''',
+'''This page redirects to page "%(page)s"''':
+'''æœ¬é è½‰å‘åˆ° "%(page)s"''',
 '''<p><small>If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
-<br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
-macro call.</b></small></p>
+<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
+macro call.</small></p>
 ''':
-'''<p><small>¦pªG±z´£°e¥»ªí³æ¡A´£°eªº­È±N³QÅã¥Ü¥X¨Ó.
-­n¦b¨ä¥L­¶­±¨Ï¥Î¦¹ªí, ½Ğ´¡¤J¤@­Ó
+'''<p><small>å¦‚æœæ‚¨æäº¤æœ¬è¡¨å–®ï¼Œæäº¤çš„å€¼å°‡è¢«é¡¯ç¤ºå‡ºä¾†.
+è¦åœ¨å…¶ä»–é é¢ä½¿ç”¨æœ¬è¡¨å–®, è«‹æ’å…¥ä¸€å€‹
 <br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
-¥¨¶°©I¥s.</b></small></p>
+å·¨é›†å‘¼å«.</b></small></p>
 ''',
+'''You are not allowed to view this page.''':
+'''ä½ ä¸èƒ½é–±è®€æœ¬é ã€‚''',
+'''RefreshCache''':
+'''åˆ·æ–°å¿«å–å…§å®¹''',
+'''for this page (cached %(date)s)''':
+''' (æœ¬é å¿«å–æ™‚é–“: %(date)s)''',
+'''Create this page''':
+'''å»ºç«‹æœ¬é ''',
+'''Alternatively, use one of these templates:''':
+'''æˆ–æ˜¯ç”¨ä¸‹é¢å…¶ä¸­ä¸€å€‹ç¯„æœ¬:''',
+'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
+'''å¦‚æœè¦å»ºç«‹æ–°çš„ç¯„æœ¬, è«‹æ–°å¢ä¸€é , åå­—å¿…é ˆç¬¦åˆæ­£è¦è¡¨é”å¼ "%(page_template_regex)s", å¦‚ MyNewTemplate.''',
+'''The following pages with similar names already exist...''':
+'''ä¸‹é¢å¹¾é çš„åå­—å¾ˆæ¥è¿‘æœ¬é , æä¾›ä½ åšå€‹åƒè€ƒ...''',
+'''You are not allowed to edit this page.''':
+'''ä½ ä¸èƒ½ç·¨è¼¯æœ¬é .''',
+'''Page is immutable!''':
+'''æœ¬é ä¸èƒ½æ›´å‹•!''',
+'''Cannot edit old revisions!''':
+'''ä¸èƒ½ç·¨è¼¯èˆŠç‰ˆé é¢!''',
+'''The lock you held timed out, be prepared for editing conflicts!''':
+'''ç·¨è¼¯é–å®šé€¾æ™‚, è«‹æ³¨æ„å¤šäººåŒæ™‚ç·¨è¼¯å¯èƒ½ç™¼ç”Ÿè¡çª!''',
+'''Edit "%(pagename)s"''':
+'''ç·¨è¼¯ "%(pagename)s"''',
+'''Preview of "%(pagename)s"''':
+'''é é¢"%(pagename)s"çš„é è¦½''',
+'''Your edit lock on %(lock_page)s has expired!''':
+'''ä½ åœ¨ %(lock_page)s çš„ç·¨è¼¯é–å®šé€¾æ™‚äº†ï¼''',
+'''Your edit lock on %(lock_page)s will expire in # minutes.''':
+'''ä½ åœ¨ %(lock_page)s çš„ç·¨è¼¯é–å®š, é‚„å‰©ä¸‹ # åˆ†é˜.''',
+'''Your edit lock on %(lock_page)s will expire in # seconds.''':
+'''ä½ åœ¨ %(lock_page)s çš„ç·¨è¼¯é–å®š, åªå‰©ä¸‹ # ç§’äº†!''',
+'''Someone else deleted this page while you were editing!''':
+'''æœ‰äººåœ¨ä½ ç·¨è¼¯çš„æ™‚å€™åˆªæ‰æœ¬é äº†!''',
+'''Someone else changed this page while you were editing!''':
+'''æœ‰äººåœ¨ä½ ç·¨è¼¯çš„æ™‚å€™ä¿®æ”¹äº†æœ¬é !''',
+'''Someone else saved this page while you were editing!
+Please review the page and save then. Do not save this page as it is!
+Have a look at the diff of %(difflink)s to see what has been changed.''':
+'''æœ‰äººåœ¨ä½ ç·¨è¼¯çš„æ™‚å€™æŒ‰ä¸‹ã€Œå­˜æª”ã€äº†!
+è«‹å‹¿ç›´æ¥å„²å­˜æœ¬é ! è«‹å…ˆé»æ“Š %(difflink)s , çœ‹çœ‹å“ªè£¡ä¿®æ”¹éäº†,
+å†æ±ºå®šè¦ä¸è¦é€²ä¸€æ­¥ç·¨è¼¯ã€å„²å­˜æœ¬é .''',
+'''[Content of new page loaded from %s]''':
+'''[å¾ %s è¼‰å…¥æ–°é é¢çš„å…§å®¹]''',
+'''[Template %s not found]''':
+'''[æ‰¾ä¸åˆ°ç¯„æœ¬ %s ]''',
+'''Reduce editor size''':
+'''ç¸®å°ç·¨è¼¯æ¡†''',
+'''Skip to preview''':
+'''è·³è‡³é è¦½''',
+'''[current page size <strong>%(size)d</strong> bytes]''':
+'''[æœ¬é ç›®å‰å¤§å° <strong>%(size)d</strong> ä½å…ƒçµ„]''',
+'''Describe %s here.''':
+'''åœ¨é€™è£¡åŠ å…¥é—œæ–¼ %s çš„å…§å®¹.''',
+'''Optional comment about this change''':
+'''æœ¬æ¬¡ç·¨è¼¯å‚™è¨»:''',
+'''<No addition>''':
+'''<ä¸è®Š>''',
+'''Make this page belong to category %(category)s''':
+'''å°‡æœ¬é åŠƒå…¥é¡åˆ¥ %(category)s''',
+'''Check Spelling''':
+'''æ‹¼å­—æª¢æŸ¥''',
+'''Save Changes''':
+'''å­˜æª”''',
+'''Cancel''':
+'''å–æ¶ˆ''',
+'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
+If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
+'''æŒ‰ä¸‹ <strong>%(save_button_text)s</strong> è¡¨ç¤ºä½ åŒæ„ä¾ç…§%(license_link)s. ä¾†å®£å‘Šæœ¬æ¬¡ç·¨è¼¯çš„ç‰ˆæ¬Š.
+å¦‚æœä½ ä¸åŒæ„çš„è©±, è«‹æŒ‰ <strong>%(cancel_button_text)s</strong> ä»¥æ”¾æ£„æœ¬æ¬¡ç·¨è¼¯.''',
+'''Preview''':
+'''é è¦½''',
+'''Send mail notification''':
+'''ç™¼é€ç·¨è¼¯é€šçŸ¥''',
+'''Remove trailing whitespace from each line''':
+'''å»æ‰è¡Œå°¾ç©ºç™½''',
+'''<dt>Emphasis:</dt>
+<dd>\'\'<em>italics</em>\'\'; \'\'\'<strong>bold</strong>\'\'\'; \'\'\'\'\'<strong><em>bold italics</em></strong>\'\'\'\'\';
+    \'\'<em>mixed \'\'\'<strong>bold</strong>\'\'\' and italics</em>\'\'; ---- horizontal rule.</dd>
+<dt>Headings:</dt>
+<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;
+    ==== Title 4 ====; ===== Title 5 =====.</dd>
+<dt>Lists:</dt>
+<dd>space and one of * bullets; 1., a., A., i., I. numbered items;
+    1.#n start numbering at n; space alone indents.</dd>
+<dt>Links:</dt>
+<dd>JoinCapitalizedWords; ["brackets and double quotes"];
+    url; [url]; [url label].</dd>
+<dt>Tables:</dt>
+<dd>|| cell text |||| cell text spanning two columns ||;
+    no trailing white space allowed after tables or titles.</dd>
+''':
+'''<dt>å¼·èª¿:</dt>
+<dd>\'\'<i>æ–œé«”</i>\'\'; \'\'\'<b>ç²—é«”</b>\'\'\'; \'\'\'\'\'<b><i>ç²—æ–œé«”</i></b>\'\'\'\'\';
+    \'\'<i>æ··åˆ\'\'\'<b>ç²—</b>\'\'\'æ–œé«”</i>\'\'; ---- åˆ†éš”ç·š.</dd>
+<dt>æ¨™é¡Œ:</dt>
+<dd>= æ¨™é¡Œ 1 =; == æ¨™é¡Œ 2 ==; === æ¨™é¡Œ 3 ===;
+    ==== æ¨™é¡Œ 4 ====; ===== æ¨™é¡Œ 5 =====.</dd>
+<dt>åˆ—è¡¨:</dt>
+<dd>ç©ºç™½åŠ ä¸‹åˆ—ç¬¦è™Ÿä¹‹ä¸€ï¼š* è¡¨åœ“é»; 1., a., A., i., I. è¡¨åºæ•¸é …;
+    1.#n è¡¨ç”±né–‹å§‹è¨ˆæ•¸; ç©ºç™½ è¡¨ç¸®æ’.</dd>
+<dt>é€£çµ:</dt>
+<dd>JoinCapitalizedWords å…©å€‹ä»¥ä¸Šå¤§å¯«é–‹é ­å­—; ["æ–¹æ‹¬è™ŸåŠ é›™å¼•è™Ÿ"];
+    url; [url]; [url èªªæ˜].</dd>
+<dt>è¡¨æ ¼</dt>:
+<dd>|| å„²å­˜æ ¼å…§æ–‡ |||| è·¨å…©åˆ—çš„å„²å­˜æ ¼ ||;
+    è¡¨æ ¼æˆ–æ¨™é¡Œå°¾ç«¯ä¸å¯ä»¥æœ‰ç©ºç™½.</dd>
+''',
+'''Edit was cancelled.''':
+'''å–æ¶ˆç·¨è¼¯.''',
+'''Dear Wiki user,
 
-"<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>":
-'<p>¥»­¶¤º®eªºSHA digest¬°: <tt>%(digest)s</tt></p>',
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
 
-'<p>The following pages with similar names already exist...</p>':
-'<p>The following pages with similar names already exist...</p>',
+The following page has been changed by %(editor)s:
+%(pagelink)s
 
-'''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
+''':
+'''Wiki ä½¿ç”¨è€…ä½ å¥½,
+
+ä½ åœ¨ "%(sitename)s" è¨‚é–±äº† wiki é é¢æˆ– wiki é¡åˆ¥çš„ç·¨è¼¯é€šçŸ¥æœå‹™.
+
+ä»¥ä¸‹é é¢ç”± %(editor)s ç·¨è¼¯éäº†:
+%(pagelink)s
+
+''',
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''æœ¬æ¬¡ç·¨è¼¯æ˜¯é—œæ–¼:
+%(comment)s
+
+''',
+'''No older revisions of the page stored, diff not available.''':
+'''æœ¬é æ²’æœ‰å„²å­˜èˆŠç‰ˆå…§å®¹, æ‰€ä»¥æ²’è¾¦æ³•åšç‰ˆæœ¬æ¯”è¼ƒ.''',
+'''No differences found!
+''':
+'''æ–°èˆŠç‰ˆå®Œå…¨ç›¸åŒ!
+''',
+'''The diff function returned with error code %(rc)s!''':
+'''ç‰ˆæœ¬æ¯”è¼ƒå‡½å¼å‚³å›éŒ¯èª¤ä»£ç¢¼ %(rc)s!''',
+'''[%(sitename)s] Update of "%(pagename)s"''':
+'''[%(sitename)s] é é¢æ›´å‹•é€šçŸ¥: "%(pagename)s"''',
+'''You will not be notified of your own changes!''':
+'''å› ç‚ºä½ ç·¨è¼¯äº†æœ¬é , æ‰€ä»¥ç·¨è¼¯é€šçŸ¥ä¸æœƒå†å¯„ä¸€ä»½çµ¦ä½ !''',
+'''Status of sending notification mails:''':
+'''ç™¼é€ç·¨è¼¯é€šçŸ¥çš„æƒ…æ³:''',
+'''[%(lang)s] %(recipients)s: %(status)s''':
+'''[%(lang)s] %(recipients)s: %(status)s''',
+'''Nobody subscribed to this page, no mail sent.''':
+'''æ²’äººè¨‚é–±æœ¬é , æ²’æœ‰é€å‡ºé€šçŸ¥.''',
+'''## backup of page "%(pagename)s" submitted %(date)s''':
+'''## æœ¬é  "%(pagename)s" å·²ç¶“åœ¨ %(date)s å‚™ä»½å¥½äº†''',
+'''You are not allowed to edit this page!''':
+'''ä½ ä¸å¯ä»¥ç·¨è¼¯æœ¬é !''',
+'''You cannot save empty pages.''':
+'''ä½ ä¸èƒ½å„²å­˜ç©ºç™½é .''',
+'''Sorry, someone else saved the page while you edited it.
+<p>Please do the following: Use the back button of your browser, and cut&paste
+your changes from there. Then go forward to here, and click EditText again.
+Now re-add your changes to the current page contents.</p>
+<p><em>Do not just replace
+the content editbox with your version of the page, because that would
+delete the changes of the other person, which is excessively rude!</em></p>
+''':
+'''å¾ˆæŠ±æ­‰, æœ‰äººåœ¨ä½ ç·¨è¼¯çš„æ™‚å€™å„²å­˜äº†æœ¬é .
+<p>è«‹æŒ‰å¦‚ä¸‹æ­¥é©Ÿ: 1.æŒ‰ä¸‹ç€è¦½å™¨çš„å€’é€€éµ, å¾ç·¨è¼¯æ¡†è£¡æŠŠä½ ä¿®æ”¹çš„å…§å®¹å‰ªè²¼åˆ°åˆ¥åœ°æ–¹,
+2.å†æŒ‰ä¸‹å‰é€²éµ, é‡æ–°é»æ“Š ç·¨è¼¯æœ¬é .
+3.é‡æ–°åŠ å…¥æ‚¨æ”¹éçš„å…§å®¹.</p>
+<p><em>æ³¨æ„! ä¸è¦æŠŠæ•´å€‹å…§å®¹æ”¹æˆä½ å‰›å‰ªè²¼çš„ç‰ˆæœ¬, 
+é‚£æ¨£çš„è©±æœƒåˆªé™¤åˆ¥äººä¿®æ”¹çš„å…§å®¹, 
+é€™æ¨£å¾ˆæ²’ç¦®è²Œ!</em></p>
+''',
+'''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
+'''ä½ ä¿®æ”¹çš„å‚™ä»½å­˜åœ¨<a href="%(backup_url)s">é€™è£¡</a>.''',
+'''You did not change the page content, not saved!''':
+'''ä½ æ²’æœ‰æ›´å‹•æœ¬é å…§å®¹, æ‰€ä»¥æ²’æœ‰å­˜æª”!''',
+'''You can\'t change ACLs on this page since you have no admin rights on it!''':
+'''ä½ ä¸èƒ½ä¿®æ”¹æœ¬é çš„ ACL, å› ç‚ºä½ æ²’æœ‰ç®¡ç†æ¬Šé™!''',
+'''Thank you for your changes. Your attention to detail is appreciated.''':
+'''è¬è¬ä¿®æ”¹, æ•¬è«‹æ³¨æ„ç´°ç¯€.''',
+'''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
+'''%(owner)s å°æœ¬é çš„ç·¨è¼¯é–å®šåœ¨ %(mins_ago)d åˆ†é˜å‰å·²ç¶“å¤±æ•ˆäº†, ä½ å–å¾—äº†æœ¬é çš„ç·¨è¼¯é–å®š.''',
+'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
+'''å…¶ä»–ä½¿ç”¨è€…åœ¨ %(bumptime)s ä¹‹å‰, <em>ç„¡æ¬Š</em>ä¿®æ”¹æœ¬é .''',
+'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
+'''å…¶ä»–ä½¿ç”¨è€…åœ¨ %(bumptime)s ä¹‹å‰, ç³»çµ±æœƒ<em>æç¤ºä»–</em>ä½ åœ¨ä¿®æ”¹æœ¬é .''',
+'''Use the Preview button to extend the locking period.''':
+'''å¦‚æœè¦å»¶é•·é–å®šæœŸé–“, è«‹æŒ‰ç·¨è¼¯æ¡†ä¸‹é¢çš„ã€Œé è¦½ã€éµ.''',
+'''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''æœ¬é ç›®å‰<em>é–å®šä¸­</em>. %(owner)s æ­£åœ¨ä¿®æ”¹æœ¬é , ä»–å¯ä»¥ä¿®æ”¹åˆ°%(timestamp)s, ä¹Ÿå°±æ˜¯ %(mins_valid)d åˆ†é˜å¾Œ.''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
+<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.</strong><br>
+To leave the editor, press the Cancel button.''':
+'''%(owner)s å¾ %(timestamp)s é–‹å§‹ç·¨è¼¯æœ¬é .
+<strong class="highlight">ç‚ºäº†é¿å…ç·¨è¼¯è¡çª, <em>è«‹é¿å…</em>åœ¨ %(mins_valid)d åˆ†é˜å…§ç·¨è¼¯æœ¬é </strong>.<br>
+è«‹æŒ‰ä¸‹ã€Œå–æ¶ˆã€éµé›¢é–‹ç·¨è¼¯å™¨.''',
+'''<unknown>''':
+'''<ä¸æ˜>''',
+'''Diffs''':
+'''ç‰ˆæœ¬æ¯”è¼ƒ''',
+'''Info''':
+'''é—œæ–¼''',
+'''Edit''':
+'''ç·¨è¼¯''',
+'''UnSubscribe''':
+'''å–æ¶ˆè¨‚é–±''',
+'''Subscribe''':
+'''è¨‚é–±''',
+'''Raw''':
+'''åŸå§‹ç¢¼''',
+'''XML''':
+'''XML''',
+'''Print''':
+'''å‹å–„åˆ—å°''',
+'''View''':
+'''ç€è¦½''',
+'''Home''':
+'''é¦–é ''',
+'''Up''':
+'''ä¸Šå±¤''',
+'''Unknown action''':
+'''ä¸æ˜å‹•ä½œ''',
+'''Can\'t work out query''':
+'''ç„¡æ³•æŸ¥è©¢''',
+'''Open editor on double click''':
+'''é›™æ“Šæ‰“é–‹ç·¨è¼¯å™¨''',
+'''Remember last page visited''':
+'''è¨˜ä½æœ€å¾Œçœ‹å“ªä¸€é ''',
+'''Show emoticons''':
+'''é¡¯ç¤ºè¡¨æƒ…ç¬¦è™Ÿ''',
+'''Show fancy links''':
+'''é¡¯ç¤ºfancyçš„é€£çµ''',
+'''Show question mark for non-existing pagelinks''':
+'''ç‚ºä¸å­˜åœ¨çš„é é¢é€£çµé¡¯ç¤ºå•è™Ÿ''',
+'''Show page trail''':
+'''é¡¯ç¤ºé é¢è»Œè·¡è¨˜éŒ„''',
+'''Show icon toolbar''':
+'''é¡¯ç¤ºåœ–ç¤ºå·¥å…·åˆ—''',
+'''Show top/bottom links in headings''':
+'''åœ¨æ¨™é¡Œä¸­é¡¯ç¤ºé é¦–/é å°¾é€£çµ''',
+'''Show fancy diffs''':
+'''é¡¯ç¤ºæ˜“æ‡‚çš„ç‰ˆæœ¬æ¯”è¼ƒ''',
+'''Add spaces to displayed wiki names''':
+'''åœ¨é¡¯ç¤ºwikiåç¨±æ™‚åŠ ä¸Šç©ºæ ¼''',
+'''Remember login information forever''':
+'''æ°¸é è¨˜ä½ç™»å…¥è³‡è¨Š''',
+'''Disable this account forever''':
+'''æ°¸é åœç”¨æœ¬å¸³è™Ÿ''',
+'''Cookie deleted. You are now logged out.''':
+'''Cookie å·²ç¶“åˆªé™¤. ä½ ç™»å‡ºäº†.''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''æœ¬ wiki ä¸æ”¯æ´éƒµå¯„å·¥ä½œ, è«‹é€£çµ¡ç®¡ç†å“¡, ä»¥ä¾¿ä»–æ±ºå®šè¦å•Ÿå‹•éƒµå¯„åŠŸèƒ½, æˆ–æ˜¯ä¹¾è„†å»æ‰ã€Œè¨‚é–±ã€åœ–ç¤º.''',
+'''Please provide a valid email address!''':
+'''è«‹è¼¸å…¥åˆæ³•çš„ email åœ°å€!''',
+'''Found no account matching the given email address \'%(email)s\'!''':
+'''æ‰¾ä¸åˆ°ç™»è¨˜ç‚º \'%(email)s\' çš„å¸³æˆ¶!''',
+'''Unknown user name or password.''':
+'''ä½¿ç”¨è€…åç¨±æˆ–å¯†ç¢¼éŒ¯èª¤.''',
+'''Please enter a user name!''':
+'''è«‹è¼¸å…¥ä½¿ç”¨è€…åç¨±!''',
+'''User name already exists!''':
+'''ä½ å·²ç¶“è¨»å†Šéäº†!''',
+'''Passwords don\'t match!''':
+'''å…©æ¬¡è¼¸å…¥çš„å¯†ç¢¼ä¸ç¬¦!''',
+'''Please enter your name like that: FirstnameLastname''':
+'''è«‹è¼¸å…¥åƒé€™æ¨£çš„åç¨±: XingMing''',
+'''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
+'''è«‹è¼¸å…¥ä½ çš„ email åœ°å€ - ä¸ç„¶ä½ å¿˜è¨˜åç¨±æˆ–å¯†ç¢¼çš„æ™‚å€™, å°±ä¸èƒ½ç”¨ email å–å›äº†.''',
+'''This user name already belongs to somebody else.''':
+'''é€™å€‹ä½¿ç”¨è€…åç¨±åˆ¥äººå·²ç¶“ç”¨äº†.''',
+'''This email already belongs to somebody else.''':
+'''é€™å€‹ email åœ°å€æ˜¯åˆ¥äººçš„.''',
+'''User preferences saved!''':
+'''ä½¿ç”¨è€…è¨­å®šå„²å­˜å¥½äº†!''',
+'''Default''':
+'''é è¨­å€¼''',
+'''<Browser setting>''':
+'''<ä¾ç€è¦½å™¨è¨­å®š>''',
+'''Save''':
+'''å­˜æª”''',
+'''Logout''':
+'''ç™»å‡º''',
+'''Login''':
+'''ç™»å…¥''',
+'''Create Profile''':
+'''æ–°ä½¿ç”¨è€…è¨»å†Š''',
+'''Mail me my account data''':
+'''æŠŠå¸³è™Ÿè³‡æ–™å¯„çµ¦æˆ‘ ''',
+'''Name''':
+'''åç¨±''',
+'''(Use FirstnameLastname)''':
+'''(è«‹ç”¨ XingMing)''',
+'''Password''':
+'''å¯†ç¢¼''',
+'''Password repeat''':
+'''æ ¸å°å¯†ç¢¼''',
+'''(Only when changing passwords)''':
+'''(è®Šæ›´å¯†ç¢¼æ‰è¦é‡è¦†è¼¸å…¥)''',
+'''Email''':
+'''Email''',
+'''Preferred theme''':
+'''ä½ˆæ™¯ä¸»é¡Œ''',
+'''User CSS URL''':
+'''è‡ªè¨‚ CSS çš„ URL''',
+'''(Leave it empty for disabling user CSS)''':
+'''(ç©ºç™½è¡¨ç¤ºä¸è¦è‡ªè¨‚ CSS)''',
+'''Editor size''':
+'''ç·¨è¼¯å™¨å¤§å°''',
+'''Time zone''':
+'''æ™‚å€''',
+'''Your time is''':
+'''ç•¶åœ°æ™‚é–“''',
+'''Server time is''':
+'''ä¼ºæœå™¨æ™‚é–“''',
+'''Date format''':
+'''æ—¥æœŸæ ¼å¼''',
+'''Preferred language''':
+'''ä»‹é¢èªè¨€''',
+'''General options''':
+'''ä¸€èˆ¬é¸é …''',
+'''Quick links''':
+'''å¿«é€Ÿé€£çµ''',
+'''This list does not work, unless you have entered a valid email address!''':
+'''é™¤éæ‚¨æä¾›åˆæ³•çš„ email åœ°å€, ä¸ç„¶æœ¬è¨‚é–±åˆ—è¡¨å°±æ²’æœ‰ç”¨!''',
+'''Subscribed wiki pages (one regex per line)''':
+'''è¨‚é–±çš„ wiki é é¢ (æ¯è¡Œä¸€å€‹æ­£è¦è¡¨é”å¼)''',
+'''Action''':
+'''åŠŸèƒ½''',
+'''Please use a more selective search term instead of \'%(needle)s\'!''':
+'''\'%(needle)s\' æ‰¾åˆ°å¤ªå¤šæ±è¥¿, è«‹è¼¸å…¥æ›´ç²¾ç¢ºçš„é—œéµå­—!''',
+'''Full text search for "%s"''':
+'''å…¨æ–‡æª¢ç´¢ "%s"''',
+'''match''':
+'''ç­†''',
+'''matches''':
+'''ç­†''',
+'''Title search for "%s"''':
+'''æ¨™é¡Œæª¢ç´¢ "%s"''',
+'''%(hits)d hits out of %(pages)d pages searched.''':
+'''åœ¨ %(pages)d é ä¸­æ‰¾åˆ° %(hits)d é .''',
+'''Needed %(timer).1f seconds.''':
+'''ç”¨äº† %(timer).1f ç§’.''',
+'''No older revisions available!''':
+'''æ²’æœ‰èˆŠç‰ˆ!''',
+'''Diff for "%s"''':
+'''"%s" çš„ç‰ˆæœ¬æ¯”è¼ƒ''',
+'''Differences between versions dated %s and %s''':
+'''å¾ %s åˆ° %s ä¹‹é–“, å„ç‰ˆå·®ç•°å¦‚ä¸‹:''',
+'''(spanning %d versions)''':
+'''(è·¨è¶Š %d ç‰ˆ)''',
+'''No differences found!''':
+'''å®Œå…¨ç›¸åŒ!''',
+'''The page was saved %(count)d times, though!''':
+'''å¯æ˜¯æœ¬é å­˜æª”å­˜äº† %(count)d æ¬¡!''',
+'''Ignore changes in the amount of whitespace''':
+'''å¿½ç•¥ç©ºç™½''',
+'''General Information''':
+'''ä¸€èˆ¬è³‡è¨Š''',
+'''Page size: %d''':
+'''å¤§å°: %d''',
+'''SHA digest of this page\'s content is:''':
+'''æœ¬é å…§æ–‡çš„ SHA ç·¨ç¢¼:''',
+'''The following users subscribed to this page:''':
+'''è¨‚é–±æœ¬é çš„ä½¿ç”¨è€…:''',
+'''This page links to the following pages:''':
+'''æœ¬é é€£åˆ°ä»¥ä¸‹é é¢:''',
+'''Revision History''':
+'''ä¿®è¨‚è¨˜éŒ„''',
+'''Date''':
+'''æ—¥æœŸ''',
+'''Size''':
+'''å¤§å°''',
+'''Diff''':
+'''ç‰ˆæœ¬æ¯”è¼ƒ''',
+'''Editor''':
+'''ç·¨è¼¯è€…''',
+'''Comment''':
+'''è¨»è§£''',
+'''view''':
+'''è§€çœ‹''',
+'''raw''':
+'''åŸå§‹ç¢¼''',
+'''print''':
+'''å‹å–„åˆ—å°''',
+'''revert''':
+'''æ¢å¾©èˆŠç‰ˆ''',
+'''Revert to version dated %(datestamp)s.''':
+'''æ¢å¾©æˆ %(datestamp)s çš„ç‰ˆæœ¬.''',
+'''N/A''':
+'''ç„¡''',
+'''Info for "%s"''':
+'''é—œæ–¼ "%s"''',
+'''Show "%(title)s"''':
+'''é¡¯ç¤º "%(title)s"''',
+'''General Page Infos''':
+'''ä¸€èˆ¬è³‡è¨Š''',
+'''Show chart "%(title)s"''':
+'''"%(title)s" çš„åœ–è¡¨''',
+'''Page hits and edits''':
+'''æœ¬é äººæ°£å’Œç·¨è¼¯æ¬¡æ•¸''',
+'''You are not allowed to revert this page!''':
+'''ä½ ä¸èƒ½æŠŠæœ¬é æ¢å¾©æˆèˆŠç‰ˆ!''',
+'''An error occurred while reverting the page.''':
+'''æ¢å¾©èˆŠç‰ˆæ™‚ç™¼ç”ŸéŒ¯èª¤.''',
+'''You are not allowed to subscribe to a page you can\'t read.''':
+'''ä½ ä¸èƒ½è¨‚é–±ä¸èƒ½é–±è®€çš„é é¢.''',
+'''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
+'''ä½ é‚„æ²’è¨»å†Š. è«‹é»å³ä¸Šè§’çš„ ä½¿ç”¨è€…è¨­å®šä¸¦æŒ‰ä¸‹ã€Œæ–°ä½¿ç”¨è€…è¨»å†Šã€.''',
+'''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
+'''ä½ è¨»å†Šçš„æ™‚å€™æ²’æœ‰æä¾› email åœ°å€. è«‹åœ¨å³ä¸Šè§’é»ä¸€ä¸‹ä½ çš„åå­—(æˆ–æ˜¯ã€Œä½¿ç”¨è€…è¨­å®šã€) ä¸¦æä¾›åˆæ³•çš„ email åœ°å€.''',
+'''You are already subscribed to this page.''':
+'''æ‚¨å·²ç¶“è¨‚é–±æœ¬é äº†.''',
+'''To unsubscribe, go to your profile and delete this page from the subscription list.''':
+'''å¦‚æœè¦å–æ¶ˆè¨‚é–±, è«‹é»å³ä¸Šè§’ä¿®æ”¹å€‹äººè³‡æ–™, ä¸¦å¾è¨‚é–±æ¸…å–®ä¸­åˆªé™¤æœ¬é .''',
+'''You have been subscribed to this page.''':
+'''è¨‚é–±å¥½äº†.''',
+'''Required attribute "%(attrname)s" missing''':
+'''ç¼ºå°‘éœ€è¦çš„å±¬æ€§ "%(attrname)s"''',
+'''Submitted form data:''':
+'''æäº¤è¡¨å–®è³‡æ–™:''',
+'''Display context of search results''':
+'''é¡¯ç¤ºæ‰¾åˆ°é é¢çš„å…§å®¹''',
+'''Case-sensitive searching''':
+'''å€åˆ†å¤§å°å¯«''',
+'''Go''':
+'''Go!''',
+'''Include system pages''':
+'''åŒ…å«ç³»çµ±é ''',
+'''Exclude system pages''':
+'''æ’é™¤ç³»çµ±é ''',
+'''Plain title index''':
+'''æ¨™é¡Œç´¢å¼•''',
+'''XML title index''':
+'''XML æ¨™é¡Œç´¢å¼•''',
+'''Python Version''':
+'''Python ç‰ˆæœ¬''',
+'''MoinMoin Version''':
+'''MoinMoin ç‰ˆæœ¬''',
+'''Release %s [Revision %s]''':
+'''%s ç‰ˆ [ç¬¬ %s è™Ÿä¿®è¨‚]''',
+'''4Suite Version''':
+'''4Suite ç‰ˆæœ¬''',
+'''Number of pages''':
+'''ç¸½é é¢æ•¸''',
+'''Number of system pages''':
+'''ç³»çµ±é é¢æ•¸''',
+'''Number of backup versions''':
+'''å‚™ä»½ç‰ˆæœ¬æ•¸''',
+'''Accumulated page sizes''':
+'''ç´¯è¨ˆé é¢å¤§å°''',
+'''Entries in edit log''':
+'''ç·¨è¼¯æ—¥èªŒé …æ¬¡''',
+'''%(logcount)s (%(logsize)s bytes)''':
+'''%(logcount)s æ¬¡ (%(logsize)s ä½å…ƒçµ„)''',
+'''NONE''':
+'''ç„¡''',
+'''Global extension macros''':
+'''å…¨åŸŸæ“´å……å·¨é›†''',
+'''Local extension macros''':
+'''å€åŸŸæ“´å……å·¨é›†''',
+'''Global extension actions''':
+'''å…¨åŸŸæ“´å……åŠŸèƒ½''',
+'''Local extension actions''':
+'''å€åŸŸæ“´å……åŠŸèƒ½''',
+'''Installed processors''':
+'''æ“´å……çš„è™•ç†å™¨''',
+'''ERROR in regex \'%s\'''':
+'''æ­£è¦è¡¨é”å¼ \'%s\' éŒ¯èª¤''',
+'''Bad timestamp \'%s\'''':
+'''éŒ¯èª¤çš„æ™‚é–“æ¨™è¨˜ \'%s\'''',
+'''Expected "=" to follow "%(token)s"''':
+'''"%(token)s" å¾Œé¢æ‡‰è©²æœ‰å€‹ "="''',
+'''Expected a value for key "%(token)s"''':
+'''éµ "%(token)s" æ‡‰è©²æœ‰å°æ‡‰çš„å€¼''',
+'''[%d attachments]''':
+'''[%d å€‹é™„ä»¶]''',
+'''There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.''':
+'''æœ¬é åŒ…å« <a href="%(link)s">%(count)s å€‹é™„ä»¶</a>.''',
+'''Filename of attachment not specified!''':
+'''é™„ä»¶æ²’æŒ‡å®šæª”å!''',
+'''Attachment \'%(filename)s\' does not exist!''':
+'''é™„ä»¶ \'%(filename)s\' ä¸å­˜åœ¨!''',
+'''<p>To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, 
 as shown below in the list of files. 
-Do <b>NOT</b> use the URL of the <tt>[get]</tt> link, 
+Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, 
 since this is subject to change and can break easily.</p>''':
-'''<p>¬°¤Ş¥Î¬Y­¶­±ªºªş¥ó, ¥Î<b><tt>attachment:filename</tt></b>, 
-¦p¤U­±¤å¥ó¦Cªí©Ò¥Ü. 
-<b>¤£­n</b>¥Î³sµ² <tt>[get]</tt> ªºURL, 
-¦]¬°³o«Ü¥i¯à§ïÅÜ©Î¤£¦A¥i¥Î.</p>''',
-
-'<p>Unknown file type, cannot display this attachment inline.</p>':
-'<p>¥¼ª¾ÀÉ®×Ãş«¬, ¤£¯àÅã¥Ü¦¹ªş¥ó©ó¤º¤å¤¤.</p>',
-
-'<small>[goto %s]</small>':
-'<small>[Âà¨ì %s]</small>',
-
-'<unknown>':
-'<unknown>',
-
-'Accumulated page sizes':
-'Accumulated page sizes',
-
-'Action':
-'°Ê§@',
-
-'Add "Open in new window" icon to pretty links':
-'¥[ "¦b·sµøµ¡¥´¶}" ¹Ï¥Ü¨Ï³sµ²¦n¬İ',
-
-'Add checked words to dictionary':
-'±N¿ï¤¤ªºµü¥[¤Jµü¨å',
-
-'Add spaces to displayed wiki names':
-'µ¹Åã¥Üªºwiki¦WºÙ¥[ªÅ®æ',
-
-'Additions are marked like this.':
-'¥[¤J¤º®e¦p¤U¼Ğ°O.',
-
-'Alternatively, use one of these templates:':
-'©ÎªÌ¡A¥Î¤@­Ó¤U­±ªº½d¥»:',
-
-"Attachment '%(filename)s' deleted.":
-"ªş¥ó '%(filename)s' ¤w§R°£.",
-
-"Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes saved.":
-"ªş¥ó '%(target)s' (»·ºİ¦WºÙ '%(filename)s') ¦³ %(bytes)d ¦ì¤¸²ÕÀx¦s.",
-
-'Attachments for "%(pagename)s"':
-'­¶­±"%(pagename)s"ªºªş¥ó',
-
-"Bad timestamp '%s'":
-"¿ù»~ªº®É¶¡¼Ğ°O '%s'",
-
-'CSS URL':
-'CSS URL',
-
-"Can't work out query":
-'µLªk°õ¦æ¬d¸ß',
-
-'Cancel':
-'¨ú®ø',
-
-'Case-sensitive searching':
-'Case-sensitive searching',
-
-'Check Spelling':
-'ÀË¬d«÷¼g',
-
-'Clear message':
-'²M°£°T®§',
-
-'Click here to do a full-text search for this title':
-'ÂIÀ»³oùØ¶i¦æ¹ï¸Ó¼ĞÃDªº¥ş¤å·j¯Á',
-
-'Comment':
-'ª`ÄÀ',
-
-"Connection to mailserver '%(server)s' failed: %(reason)s":
-"Connection to mailserver '%(server)s' failed: %(reason)s",
-
-'Create new drawing "%(filename)s"':
-'«Ø¥ß·s drawing "%(filename)s"',
-
-'Create this page':
-'«Ø¥ß¥»­¶',
-
-'Date':
-'¤é´Á',
-
-'Date format':
-'¤é´Á®æ¦¡',
-
-'''Dear Wiki user,
-
-You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
-
-The following page has been changed by %(editor)s:
-%(pagelink)s
-
-''':
-'''Dear Wiki user,
-
-You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
-
-The following page has been changed by %(editor)s:
-%(pagelink)s
-
-''',
-
-'Default':
-'¹w³]',
-
-'Deletions are marked like this.':
-'§R°£¤º®e¼Ğ°O¦p¤U.',
-
-'Describe %s here.':
-'¦b³oùØ´y­z %s .',
-
-'Detailed Information':
-'Detailed Information',
-
-'Diff for "%s"':
-'"%s" ª©¥»®t§O',
-
-'Display context of search results':
-'Display context of search results',
-
-'Distribution of User-Agent Types':
-'¥Î¤á¥N²zÃş«¬¤À§G',
-
-'Download XML export of this wiki':
-'¤U¸ü¥»wikiªºXML¿é¥X',
-
-"Drawing '%(filename)s' saved.":
-"Drawing '%(filename)s' saved.",
-
-"ERROR in regex '%s'":
-"¥¿³Wªí¹F¦¡ '%s' ¦³¿ù",
-
-'Edit':
-'Edit',
-
-'Edit "%(pagename)s"':
-'½s¿è "%(pagename)s"',
-
-'Edit was cancelled.':
-'½s¿è³Q¨ú®ø¤F.',
-
-'EditText':
-'½s¿è¤å¦r',
-
-'Editor':
-'½s¿è¾¹',
-
-'Editor size':
-'½s¿è¾¹¤j¤p',
-
-'Email':
-'Email',
-
-'Entries in edit log':
-'½s¿è¤é»x¶µ',
-
-'Entries in event log':
-'Entries in event log',
-
-'Exactly one matching page for "%s" found!':
-'Exactly one matching page for "%s" found!',
-
-'Exclude system pages':
-'Exclude system pages',
-
-'Expected "=" to follow "%(token)s"':
-'´Á«İ "=" ¸òµÛ "%(token)s"',
-
-'Expected a value for key "%(token)s"':
-'´Á«İ¤@­Ó­È¹ïÀ³ key "%(token)s"',
-
-'File "%(filename)s for page "%(pagename)s':
-'ÀÉ "%(filename)s ©ó ­¶­± "%(pagename)s',
-
-'File to upload':
-'«İ¤W¶Ç¤å¥ó',
-
-'FindPage':
-'´M§ä­¶­±',
-
-'Fri':
-'¬P´Á¤­',
-
-'FrontPage':
-'FrontPage',
-
-'Full Link List for "%s"':
-'Full Link List for "%s"',
-
-'Full text search for "%s"':
-'¥ş¤å·j¯Á "%s"',
-
-'General Information':
-'¤@¯ë¸ê°T',
-
-'General options':
-'¤@¯ë¿ï¶µ',
-
-'Global extension actions':
-'¥ş§½ÂX¥R°Ê§@',
-
-'Global extension macros':
-'¥ş§½ÂX¥R¥¨¶°',
-
-'Go':
-'Go',
-
-'HelpContents':
-'»¡©ú¤º®e',
-
-'HelpOnFormatting':
-'Ãö©ó®æ¦¡ªº»¡©ú',
-
-'Ignore changes in the amount of whitespace':
-'©¿²¤ªÅ¥Õ¼Æ¶qªº§ïÅÜ',
-
-'Immutable page':
-'Immutable page',
-
-'Include system pages':
-'Include system pages',
-
-'Info for "%s"':
-'Ãö©ó "%s"',
-
-'Installed processors':
-'Installed processors',
-
-'InterWiki':
-'InterWiki',
-
-'Invalid include arguments "%s"!':
-'¥]§t°Ñ¼Æ "%s" ¤£¥i¥Î!',
-
-'Line':
-'Line',
-
-'Local Site Map for "%s"':
-'"%s" ªº¥»¦a¯¸ÂI¹Ï',
-
-'Local extension actions':
-'¥»¦aÂX¥R°Ê§@',
-
-'Local extension macros':
-'¥»¦aÂX¥R¥¨¶°',
-
-'LocalSpellingWords':
-'¥»¦a«÷¼gµü',
-
-'MIME Type (optional)':
-'MIME Ãş«¬ (¥i¿ï)',
-
-'Mail sent OK':
-'¶l¥óµo°e¦¨¥\\',
-
-'Make this page belong to category %(category)s':
-'Make this page belong to category %(category)s',
-
-'MoinMoin Version':
-'MoinMoin ª©¥»',
-
-'Mon':
-'¬P´Á¤@',
-
-'Multiple matches for "%s...%s"':
-'¹ï "%s...%s" ªº¦h¶µ¤Ç°t',
-
-'N/A':
-'µL',
-
-'Name':
-'¦WºÙ',
-
-'Needed %(timer).1f seconds.':
-'»İ­n %(timer).1f ¬í.',
-
-'No attachments stored for %(pagename)s':
-'%(pagename)s µLªş¥óÀx¦s',
-
-'''No differences found!
-''':
-'''No differences found!
-''',
-
-'No older revisions of the page stored, diff not available.':
-'No older revisions of the page stored, diff not available.',
-
-'No orphaned pages in this wiki.':
-'¥»wikiµL©t¥ß­¶.',
-
-'No pages match "%s"!':
-'µL¤Ç°t "%s" ªº­¶­±!',
-
-'No parent page found!':
-'No parent page found!',
-
-'No quotes on %(pagename)s.':
-'No quotes on %(pagename)s.',
-
-'No wanted pages in this wiki.':
-'¥»wiki¤¤µL©Ò»İ­¶.',
-
-'Nobody subscribed to this page, no mail sent.':
-'µL¤H­q¾\\¥»­¶, µL¶l¥óµo°e.',
-
-'Number of backup versions':
-'³Æ¥÷ª©¥»¼Æ',
-
-'Number of pages':
-'­¶­±¼Æ',
-
-'Number of system pages':
-'Number of system pages',
-
-'Open editor on double click':
-'ÂùÀ»¥´¶}½s¿è¾¹',
-
-'Optional comment about this change':
-'¦³Ãö¥»¦¸§ïÅÜ¥i¥[¤Jªºª`ÄÀ',
-
-'Optional reason for the deletion':
-'Optional reason for the deletion',
-
-'Or try one of these actions: ':
-'©Î¹Á¸Õ¥H¤U°Ê§@: ',
-
-'Others':
-'¨ä¥L',
-
-'Page "%s" was successfully deleted!':
-'Page "%s" was successfully deleted!',
-
-'Page "%s" was sucessfully deleted!':
-'­¶­± "%s" ³Q¦¨¥\\§R°£!',
-
-'Page Size Distribution':
-'­¶­±¤j¤p¤À§G',
-
-'Page hits and edits':
-'­¶­±ÂIÀ»¼Æ©M½s¿è¼Æ',
-
-'Password':
-'±K½X',
-
-'Plain title index':
-'¼ĞÃD¯Á¤Ş',
-
-'Please use the interactive user interface to delete pages!':
-'½Ğ¨Ï¥Î¥æ½Í¦¡¥Î¤á¤¶­±§R°£­¶­±!',
-
-'Preferred language':
-'Preferred language',
-
-'Preview':
-'¹wÄı',
-
-'Preview of "%(pagename)s"':
-'­¶­±"%(pagename)s"ªº¹wÄı',
-
-'Print View':
-'Print View',
-
-'Python Version':
-'Python ª©¥»',
-
-'Quick links':
-'Quick links',
-
-'Really delete this page?':
-'¯u­n§R°£¥»­¶?',
-
-'RecentChanges':
-'³Ì·s§ïÅÜ',
-
-'Redirected from page "%(page)s"':
-'±q "%(page)s" ­¶Âà¦V¹L¨Ó',
-
-'Reduce editor size':
-'ÁY¤p½s¿è¾¹¤j¤p',
-
-'RefreshCache':
-'§ó·sCache',
-
-'Release %s [Revision %s]':
-'ª©¥» %s [¤lª©¥» %s]',
-
-'Remember last page visited':
-'°O¦í¤W¦¸³y³Xªº­¶­±',
-
-'Remove trailing whitespace from each line':
-'±q¦U¦æ¥h±¼§À³¡ªÅ¥Õ',
-
-'Rename to (optional)':
-'§ï¦W¬°¡]¥i¿ï¡^',
-
-'Return to general page information':
-'Return to general page information',
-
-'Revert to version dated %(datestamp)s.':
-'Revert to version dated %(datestamp)s.',
-
-'Revision History':
-'ª©¥»¾ú¥v',
-
-'Sat':
-'¬P´Á¤»',
-
-'Save Changes':
-'Àx¦s­×§ï',
-
-'Send mail notification':
-'µo°e´£¿ô¶l¥ó',
-
-'Server time is':
-'¦øªA¾¹®É¶¡¬°',
-
-'Show "%(title)s"':
-'Show "%(title)s"',
-
-'Show all changes in the last %(days)s days<br>':
-'Show all changes in the last %(days)s days<br>',
-
-'Show chart "%(title)s"':
-'Show chart "%(title)s"',
-
-'Show emoticons':
-'Åã¥Üªí±¡²Å¸¹',
-
-'Show fancy diffs':
-'Åã¥Üfancyªºdiffs',
-
-'Show fancy links':
-'Åã¥Üfancyªº³sµ²',
-
-'Show icon toolbar':
-'Åã¥Ü¹Ï¥Ü¤u¨ã¦C',
-
-'Show page trail':
-'Åã¥Ü­¶­±­y¸ñ°O¿ı',
-
-'Show question mark for non-existing pagelinks':
-'¬°¤£¦s¦bªº­¶­±³sµ²Åã¥Ü°İ¸¹',
-
-'Show top/bottom links in headings':
-'¦b¼ĞÃD¤¤Åã¥Ü top/bottom ³sµ²',
-
-'ShowText':
-'Åã¥Ü¤å¦r',
-
-'SiteNavigation':
-'¯¸ÂI¾É¯è',
-
-'Size':
-'¤j¤p',
-
-'Skip to preview':
-'¸õ¦Ü¹wÄı',
-
-'Slideshow':
-'Slideshow',
-
-'Start':
-'Start',
-
-'Status of sending notification mails:':
-'Status of sending notification mails:',
-
-'Submitted form data:':
-'´£¥æªí³æ¸ê®Æ:',
-
-'Subscribed wiki pages<br>(one regex per line)':
-'­q¾\\ wiki ­¶<br>(one regex per line)',
-
-'Sun':
-'¬P´Á¤é',
-
-'The backupped content of this page is deprecated and will not be included in search results!':
-'¥»­¶ªº³Æ¥÷¤º®e¤£ÃÙ¦¨¨Ï¥Î¡A¨Ã¥B±N¤£¥X²{¦b·j¯Áµ²ªG¤¤!',
-
-'''The comment on the change is:
-%(comment)s
-
-''':
-'''The comment on the change is:
-%(comment)s
-
-''',
-
-'The external diff utility returned with error code %(rc)s!':
-'The external diff utility returned with error code %(rc)s!',
-
-'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
-'¥H¤U %(badwords)d µü¦b %(totalwords)d µüªºµü¨å¤¤µLªk§ä¨ì %(localwords)s ¨Ã¦b¤U­±°ª«G«×¼Ğ¥X:',
-
-'The following users subscribed to this page:':
-'The following users subscribed to this page:',
-
-'The page was saved %(count)d%(times)s, though!':
-'¥»­¶³QÀx¦s¤F %(count)d%(times)s!',
-
-'There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.':
-'¦³ <a href="%(link)s">%(count)s ªş¥ó</a> ¦b¦¹­¶¦s©ñ.',
-
-'This list does not work, unless you have entered a valid email address!':
-'¦¹¦Cªí¤£°_§@¥Î, °£«D±z¿é¤J¤@­Ó¥i¥Îemail¦ì§}!',
-
-'This page is already deleted or was never created!':
-'¥»­¶¤w³Q§R°£©Î±q¥¼«Ø¥ß¹L!',
-
-'This page links to the following pages:<br>':
-'¥»­¶³s¨ì¥H¤U­¶­±:<br>',
-
-'This page redirects to page "%(page)s"':
-'¥»­¶Âà¦V¨ì­¶­± "%(page)s"',
-
-'Thu':
-'¬P´Á¥|',
-
-'Time zone':
-'®É°Ï',
-
-'Title search for "%s"':
-'¹ï "%s" ¶i¦æ¼ĞÃD·j´M',
-
-'TitleIndex':
-'¼ĞÃD¯Á¤Ş',
-
-'To create you own templates, add a page with a name ending in Template.':
-'¬°«Ø¥ß±z¦Û¤vªº½d¥», ¥[¤J¤@­Ó¦W¦r¥H Template µ²§Àªº­¶­±.',
-
-'To create your own templates, add a page with a name ending in Template.':
-'To create your own templates, add a page with a name ending in Template.',
-
-'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".':
-'To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".',
-
-'To login from a different machine, use this URL: ':
-'To login from a different machine, use this URL: ',
-
-'To login on a different machine, use this URL: ':
-'­n±q¨ä¥L¾÷¾¹µn¤J, ¥Î¦¹ URL: ',
-
-'Tue':
-'¬P´Á¤G',
-
-'Unknown action':
-'¥¼ª¾°Ê§@',
-
-'Update my bookmark timestamp':
-'§ó·s§Ú®ÑÅÒªº®É¶¡¼Ğ°O',
-
-'Upload new attachment "%(filename)s"':
-'¤W¶Ç·sªş¥ó "%(filename)s"',
-
-"Upload of attachment '%(filename)s'.":
-"¤W¶Çªş¥ó '%(filename)s'.",
-
-'UserPreferences':
-'¥Î¤á°¾¦n',
-
-'Version as of %(date)s':
-'%(date)s ªºª©¥»',
-
-'Wed':
-'¬P´Á¤T',
-
-'Wiki':
-'Wiki',
-
-'Wiki Markup':
-'Wiki Markup',
-
-'WordIndex':
-'Ãã·J¯Á¤Ş',
-
-'XML title index':
-'XML ¼ĞÃD¯Á¤Ş',
-
-'XSLT option disabled!':
-'XSLT option disabled!',
-
-'You are not allowed to delete pages in this wiki!':
-'¦b¥»wiki±z¤£¤¹³\\§R°£­¶­±!',
-
-'You are not allowed to revert this page!':
-'You are not allowed to revert this page!',
-
-'Your email address':
-'±zªºemail¦a§}',
-
-'Your time is':
-'±zªº®É¶¡¬O',
-
-'[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]':
-'[%(hours)d¤p®É&nbsp;%(mins)d¤À&nbsp;¥H«e]',
-
-'[%(lang)s] %(recipients)s: %(status)s':
-'[%(lang)s] %(recipients)s: %(status)s',
-
-'[%(sitename)s] Update of "%(pagename)s"':
-'[%(sitename)s] Update of "%(pagename)s"',
-
-'[Bookmark reached]':
-'[Bookmark reached]',
-
-'[Content of new page loaded from %s]':
-'[·s­¶­±ªº¤º®e±q %s ¸ü¤J]',
-
-'[New window]':
-'[·sµøµ¡]',
-
-'[Size limited to %dK]':
-'[Size limited to %dK]',
-
-'[Template %s not found]':
-'[½d¥» %s ¥¼§ä¨ì]',
-
-'attachment:%(filename)s of %(pagename)s':
-'ªş¥ó:%(filename)s of %(pagename)s',
-
-'date':
-'¤é´Á',
-
-'del':
-'del',
-
-'diff':
-'diff',
-
-'edit':
-'edit',
-
-'get':
-'get',
-
+'''<p>å¦‚æœè¦åœ¨å…§æ–‡ä¸­å¼•ç”¨é™„ä»¶, è«‹åƒè€ƒä¸‹è¡¨, è¼¸å…¥<strong><tt>attachment:filename</tt></strong> é€™ç¨®æ ¼å¼, 
+<strong>è«‹ä¸è¦</strong>ç”¨ <tt>[å–å¾—]</tt> æŒ‡å‘çš„ URL, 
+å› ç‚ºé‚£å€‹ä½ç½®å¯èƒ½æœƒè®Š, åˆ°æ™‚å€™å°±ä¸èƒ½ç”¨äº†.</p>''',
+'''del''':
+'''åˆªé™¤''',
+'''get''':
+'''å–å¾—''',
+'''edit''':
+'''ä¿®æ”¹''',
+'''No attachments stored for %(pagename)s''':
+'''%(pagename)s æ²’æœ‰é™„ä»¶''',
+'''Edit drawing''':
+'''ç·¨è¼¯åœ–ç‰‡''',
+'''Attached Files''':
+'''é™„ä»¶''',
+'''You are not allowed to attach a file to this page.''':
+'''ä½ ä¸èƒ½åœ¨æœ¬é æ’å…¥é™„ä»¶.''',
+'''New Attachment''':
+'''åŠ å…¥é™„ä»¶''',
+'''An upload will never overwrite an existing file. If there is a name
+conflict, you have to rename the file that you want to upload.
+Otherwise, if "Rename to" is left blank, the original filename will be used.''':
+'''ä¸Šå‚³çµ•å°ä¸æœƒè¦†è“‹ç¾æœ‰é™„ä»¶, å¦‚æœè¦ä¸Šå‚³çš„é™„ä»¶æª”åå’Œç¾æœ‰çš„ä¸€æ¨£çš„è©±, 
+å°±ä¸€å®šè¦åœ¨ã€Œæ”¹åç‚ºã€å¡«ä¸Šæ–°çš„æª”å. å¦‚æœæª”åä¸ä¸€æ¨£, ã€Œæ”¹åç‚ºã€å¯ä»¥ä¸å¡«, 
+é€™æ¨£å°±æœƒæ¡ç”¨åŸæœ¬çš„æª”å.''',
+'''File to upload''':
+'''è¦ä¸Šå‚³çš„æª”æ¡ˆ''',
+'''MIME Type (optional)''':
+'''MIME é¡å‹ (å¯é¸)''',
+'''Save as''':
+'''å¦å­˜æ–°æª”''',
+'''Upload''':
+'''ä¸Šå‚³''',
+'''File attachments are not allowed in this wiki!''':
+'''æœ¬ wiki ä¸é–‹æ”¾ä½¿ç”¨é™„ä»¶!''',
+'''You are not allowed to save a drawing on this page.''':
+'''æœ¬é ä¸èƒ½å„²å­˜åœ–ç‰‡.''',
+'''You are not allowed to delete attachments on this page.''':
+'''æœ¬é é™„ä»¶ä¸èƒ½åˆªé™¤.''',
+'''You are not allowed to get attachments from this page.''':
+'''ä½ ä¸èƒ½å–å¾—æœ¬é é™„ä»¶.''',
+'''You are not allowed to view attachments of this page.''':
+'''ä½ ä¸èƒ½è§€çœ‹æœ¬é é™„ä»¶.''',
+'''Unsupported upload action: %s''':
+'''æœªæ”¯æ´çš„ä¸Šå‚³åŠŸèƒ½: %s''',
+'''Attachments for "%(pagename)s"''':
+'''"%(pagename)s" çš„é™„ä»¶''',
+'''Attachment \'%(target)s\' (remote name \'%(filename)s\') already exists.''':
+'''é™„ä»¶ \'%(target)s\' å·²ç¶“å­˜åœ¨ (é ç«¯åç¨± \'%(filename)s\')''',
+'''Attachment \'%(target)s\' (remote name \'%(filename)s\') with %(bytes)d bytes saved.''':
+'''é™„ä»¶ \'%(target)s\' (é ç«¯åç¨± \'%(filename)s\') å„²å­˜å¥½äº†, å…±è¨ˆ %(bytes)d ä½å…ƒçµ„.''',
+'''Attachment \'%(filename)s\' deleted.''':
+'''é™„ä»¶ \'%(filename)s\' å·²åˆªé™¤.''',
+'''Attachment \'%(filename)s\'''':
+'''é™„ä»¶ \'%(filename)s\'''',
+'''Unknown file type, cannot display this attachment inline.''':
+'''ä¸æ˜çš„æª”æ¡ˆé¡å‹, ä¸èƒ½å…§åµŒåœ¨å…§æ–‡ä¸­.''',
+'''attachment:%(filename)s of %(pagename)s''':
+'''%(pagename)s çš„é™„ä»¶:%(filename)s''',
+'''You are not allowed to delete this page.''':
+'''ä½ ä¸èƒ½åˆªé™¤æœ¬é .''',
+'''This page is already deleted or was never created!''':
+'''æœ¬é å·²ç¶“åˆªé™¤æˆ–é‚„æ²’å»ºç«‹!''',
+'''Please use the interactive user interface to delete pages!''':
+'''è«‹ä½¿ç”¨äº’å‹•å¼ä»‹é¢åˆªé™¤é é¢!''',
+'''Page "%s" was successfully deleted!''':
+'''é é¢ "%s" åˆªæ‰äº†!''',
+'''Really delete this page?''':
+'''çœŸçš„è¦åˆªé™¤æœ¬é ?''',
+'''Delete''':
+'''åˆªé™¤''',
+'''Optional reason for the deletion''':
+'''åˆªé™¤æœ¬é çš„ç†ç”±:''',
+'''No pages match "%s"!''':
+'''æ²’æœ‰é€£çµ "%s" çš„é é¢!''',
+'''Exactly one matching page for "%s" found!''':
+'''é€£çµ "%s" çš„å‰›å¥½å°±é€™éº¼ä¸€é !''',
+'''Multiple matches for "%s...%s"''':
+'''æœ‰å¾ˆå¤šé€£å‘ "%s...%s" çš„é é¢''',
+'''You cannot use LikePages on an extended pagename!''':
+'''æ“´å……é åä¸èƒ½ä½¿ç”¨ LikePages åŠŸèƒ½!''',
+'''%(matchcount)d %(matches)s for "%(title)s"''':
+'''å…±æœ‰ %(matchcount)d%(matches)s é€£å‘ "%(title)s"''',
+'''Local Site Map for "%s"''':
+'''é—œæ–¼ "%s" çš„é€£çµåœ°åœ–''',
+'''You are not allowed to rename pages in this wiki!''':
+'''æœ¬ wiki ä¸é–‹æ”¾é é¢é‡æ–°å‘½å!''',
+'''Please use the interactive user interface to rename pages!''':
+'''è«‹ä½¿ç”¨äº’å‹•å¼ä»‹é¢ç‚ºé é¢é‡æ–°å‘½å!''',
+'''A page with the name "%s" already exists!''':
+'''å·²ç¶“æœ‰ä¸€é å«åš "%s" äº†!''',
+'''Page "%s" was successfully renamed to "%s"!''':
+'''"%s" å·²ç¶“æ”¹åç‚º "%s" äº†!''',
+'''Rename''':
+'''é‡æ–°å‘½å''',
+'''New name''':
+'''æ–°çš„åç¨±''',
+'''Optional reason for the renaming''':
+'''é‡æ–°å‘½åçš„ç†ç”±:''',
+'''(including %(localwords)d %(pagelink)s)''':
+'''å…¶ä¸­åŒ…æ‹¬ %(localwords)d å€‹ %(pagelink)s''',
+'''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
+'''ä¸‹åˆ— %(badwords)d å€‹è©, æ²’æœ‰æ”¶éŒ„åœ¨è©å…¸ä¸­ (ç¸½è©æ•¸ %(totalwords)d è©, %(localwords)s). ä¸æ˜çš„è©åœ¨å…§æ–‡ä¸­æœƒç‰¹åˆ¥æ¨™å‡º:''',
+'''Add checked words to dictionary''':
+'''æŠŠå‹¾é¸çš„è©åŠ é€²è©å…¸''',
+'''No spelling errors found!''':
+'''æ²’æœ‰æ‹¼å­—éŒ¯èª¤!''',
+'''You can\'t check spelling on a page you can\'t read.''':
+'''ä¸èƒ½æª¢æŸ¥ä¸èƒ½é–±è®€çš„é é¢.''',
+'''Full Link List for "%s"''':
+'''é€£å‘ "%s" çš„é é¢''',
+'''Invalid include arguments "%s"!''':
+'''éŒ¯èª¤çš„æ’å…¥åƒæ•¸ "%s"!''',
+'''Nothing found for "%s"!''':
+'''æ‰¾ä¸åˆ° "%s"!''',
+'''Unsupported navigation scheme \'%(scheme)s\'!''':
+'''ä¸æ”¯æ´çš„å°è¦½æ–¹æ¡ˆ \'%(scheme)s\'!''',
+'''No parent page found!''':
+'''æ‰¾ä¸åˆ°ä¸Šå±¤é é¢!''',
+'''Wiki''':
+'''Wikiæ¨¡å¼''',
+'''Slideshow''':
+'''å¹»ç‡ˆç‰‡æ¨¡å¼''',
+'''Start''':
+'''é–‹å§‹''',
+'''Slide %(pos)d of %(size)d''':
+'''å¹»ç‡ˆç‰‡ %(pos)d/%(size)d''',
+'''No orphaned pages in this wiki.''':
+'''æœ¬ wiki æ²’æœ‰å­¤ç«‹é .''',
+'''No quotes on %(pagename)s.''':
+'''%(pagename)s ä¸­æ²’æœ‰å¯å¼•ç”¨çš„æ ¼è¨€''',
+'''Upload of attachment \'%(filename)s\'.''':
+'''å‚³ä¸Š \'%(filename)s\' é™„ä»¶.''',
+'''Drawing \'%(filename)s\' saved.''':
+'''å„²å­˜ \'%(filename)s\' åœ–ç‰‡.''',
+'''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
+'''[%(hours)då°æ™‚&nbsp;%(mins)dåˆ†&nbsp;å‰]''',
+'''(no bookmark set)''':
+'''(æœªè¨­å®šæ›¸ç±¤)''',
+'''(currently set to %s)''':
+'''(ç›®å‰è¨­ç‚º %s)''',
+'''Update my bookmark timestamp''':
+'''æŠŠæ›¸ç±¤è¨­æˆç¾åœ¨''',
+'''set bookmark''':
+'''è¨­å®šæ›¸ç±¤''',
+'''[Bookmark reached]''':
+'''[æ›¸ç±¤çµå°¾]''',
+'''Markup''':
+'''æ¨™è¨˜''',
+'''Display''':
+'''é¡¯ç¤º''',
+'''Filename''':
+'''æª”å''',
+'''You need to provide a chart type!''':
+'''è«‹æŒ‡å®šåœ–è¡¨é¡å‹!''',
+'''Bad chart type "%s"!''':
+'''éŒ¯èª¤çš„åœ–è¡¨é¡å‹ "%s"!''',
+'''Download XML export of this wiki''':
+'''åŒ¯å‡ºä¸¦ä¸‹è¼‰æœ¬ wiki (XML æ ¼å¼)''',
+'''No wanted pages in this wiki.''':
+'''æœ¬ wiki æ²’æœ‰æœªå®šç¾©çš„é é¢.''',
+'''Create new drawing "%(filename)s"''':
+'''å»ºç«‹æ–°åœ– "%(filename)s"''',
+'''Upload new attachment "%(filename)s"''':
+'''ä¸Šå‚³æ–°é™„ä»¶ "%(filename)s"''',
+'''Edit drawing %(filename)s''':
+'''ç·¨è¼¯åœ–ç‰‡ "%(filename)s"''',
+'''Expected "%(wanted)s" after "%(key)s", got "%(token)s"''':
+'''"%(key)s" å¾Œé¢æ‡‰è©²æ¥ "%(wanted)s", ä½†å»æ¥è‘— "%(token)s"''',
+'''Expected an integer "%(key)s" before "%(token)s"''':
+'''"%(token)s" å‰é¢è¦çš„æ˜¯æ•´æ•¸ "%(key)s"''',
+'''Expected an integer "%(arg)s" after "%(key)s"''':
+'''"%(key)s" å¾Œé¢è¦çš„æ˜¯æ•´æ•¸ "%(arg)s"''',
+'''Expected a color value "%(arg)s" after "%(key)s"''':
+'''"%(key)s" å¾Œé¢è¦æ¥é¡è‰²å€¼ "%(arg)s"''',
+'''XSLT option disabled!''':
+'''XSLT åŠŸèƒ½åœç”¨!''',
+'''XSLT processing is not available!''':
+'''æ²’æœ‰ XSLT è™•ç†å¥—ä»¶!''',
+'''%(errortype)s processing error''':
+'''%(errortype)s è™•ç†éŒ¯èª¤''',
+'''Charts are not available!''':
+'''ä¸èƒ½ç¹ªè£½åœ–è¡¨!''',
+'''%(chart_title)s for %(filterpage)s''':
+'''%(filterpage)s çš„ %(chart_title)s åœ–''',
 '''green=view
 red=edit''':
-'''green=view
-red=edit''',
-
-'of this page':
-'©ó ¥»­¶',
-
-'page size upper bound [bytes]':
-'­¶­±¤j¤p¤W¬É [¦ì¤¸²Õ]',
-
-'revert':
-'revert',
-
-'set bookmark':
-'³]©w®ÑÅÒ',
-
-'view':
-'Æ[¬İ',
-
+'''ç¶ =äººæ°£
+ç´…=ç·¨è¼¯''',
+'''date''':
+'''æ—¥æœŸ''',
+'''# of hits''':
+'''äººæ°£æŒ‡æ•¸''',
+'''Page Size Distribution''':
+'''é é¢å¤§å°åˆ†ä½ˆ''',
+'''page size upper bound [bytes]''':
+'''é é¢å¤§å°ä¸Šç•Œ [ä½å…ƒçµ„]''',
+'''# of pages of this size''':
+'''ç›¸åŒå¤§å°çš„é é¢æ•¸''',
+'''Others''':
+'''å…¶ä»–''',
+'''Distribution of User-Agent Types''':
+'''ç€è¦½å™¨é¡å‹åˆ†ä½ˆ''',
+'''Click here to do a full-text search for this title''':
+'''é»ä¸€ä¸‹: å°æœ¬é æ¨™é¡Œåšå…¨æ–‡æª¢ç´¢''',
+'''Clear message''':
+'''é—œé–‰è¨Šæ¯è¦–çª—''',
+'''ShowText''':
+'''é–±è®€æœ¬é å…§æ–‡''',
+'''of this page''':
+''' ''',
+'''EditText''':
+'''ç·¨è¼¯æœ¬é ''',
+'''Immutable page''':
+'''æœ¬é ä¸å¯æ›´æ”¹''',
+'''FindPage''':
+'''å°‹æ‰¾é é¢''',
+'''SiteNavigation''':
+'''æœ¬ç«™å°è¦½''',
+'''or search titles %(titlesearch)s, full text %(textsearch)s or''':
+''', å°‹æ‰¾æ¨™é¡Œ %(titlesearch)s , å…¨æ–‡æª¢ç´¢ %(textsearch)s æˆ–''',
+'''Or try one of these actions:''':
+'''æˆ–ä½¿ç”¨ä¸‹åˆ—åŠŸèƒ½: ''',
+'''Show all changes in the last %s days.''':
+'''é¡¯ç¤º %s å¤©ä»¥å…§çš„æ‰€æœ‰æ›´å‹•.''',
+'''Line''':
+'''è¡Œè™Ÿ''',
+'''Deletions are marked like this.''':
+'''åˆªé™¤çš„æ¨™é€™å€‹é¡è‰².''',
+'''Additions are marked like this.''':
+'''åŠ å…¥çš„æ¨™é€™å€‹é¡è‰².''',
+'''Connection to mailserver \'%(server)s\' failed: %(reason)s''':
+'''ç„¡æ³•é€£æ¥éƒµä»¶ä¼ºæœå™¨ \'%(server)s\': %(reason)s''',
+'''Mail sent OK''':
+'''éƒµä»¶å·²é€å‡º''',
+'''FrontPage''':
+'''é¦–é ''',
+'''RecentChanges''':
+'''æœ€æ–°æ›´å‹•''',
+'''TitleIndex''':
+'''æ¨™é¡Œç´¢å¼•''',
+'''WordIndex''':
+'''è©å½™ç´¢å¼•''',
+'''HelpContents''':
+'''èªªæ˜''',
+'''HelpOnFormatting''':
+'''èªªæ˜-æ’ç‰ˆ''',
+'''UserPreferences''':
+'''ä½¿ç”¨è€…è¨­å®š''',
+'''WikiLicense''':
+'''Wikiç‰ˆæ¬Š''',
+'''Mon''':
+'''æ˜ŸæœŸä¸€''',
+'''Tue''':
+'''æ˜ŸæœŸäºŒ''',
+'''Wed''':
+'''æ˜ŸæœŸä¸‰''',
+'''Thu''':
+'''æ˜ŸæœŸå››''',
+'''Fri''':
+'''æ˜ŸæœŸäº”''',
+'''Sat''':
+'''æ˜ŸæœŸå…­''',
+'''Sun''':
+'''æ˜ŸæœŸæ—¥''',
 }

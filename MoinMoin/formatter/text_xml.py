@@ -2,21 +2,14 @@
 """
     MoinMoin - "text/xml" Formatter
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    Note that this formatter needs either PyXML installed for
-    Python 1.5.2, or Python 2.0 or higher.
-
-    $Id: text_xml.py,v 1.31 2003/11/09 21:00:57 thomaswaldmann Exp $
+    @copyright: 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import string
 from xml.sax import saxutils
-
 from MoinMoin.formatter.base import FormatterBase
-from MoinMoin import wikiutil
+from MoinMoin import wikiutil, config
 from MoinMoin.Page import Page
 
 
@@ -29,7 +22,7 @@ class Formatter(FormatterBase):
         Send XML data.
     """
 
-    hardspace = '&#160;'
+    hardspace = '&nbsp;' # was: '&#160;' but that breaks utf-8 XXX
 
     def __init__(self, request, **kw):
         apply(FormatterBase.__init__, (self, request), kw)
@@ -41,7 +34,7 @@ class Formatter(FormatterBase):
         return saxutils.escape(text, extra_mapping)
 
     def startDocument(self, pagename):
-        encoding = 'ISO-8859-1'
+        encoding = config.charset
         return '<?xml version="1.0" encoding="%s"?>\n<s1 title="%s">' % (
             encoding, self._escape(pagename))
 
@@ -56,11 +49,11 @@ class Formatter(FormatterBase):
         return '<!-- %s -->' % self._escape(text).replace('--', '==')
 
     def rawHTML(self, markup):
-        return '<![CDATA[' + string.replace(markup, ']]>', ']]>]]&gt;<![CDATA[') + ']]>'
+        return '<![CDATA[' + markup.replace(']]>', ']]>]]&gt;<![CDATA[') + ']]>'
 
     def pagelink(self, pagename, text=None, **kw):
         apply(FormatterBase.pagelink, (self, pagename, text), kw)
-        return Page(pagename, formatter=self).link_to(text)
+        return Page(pagename, formatter=self).link_to(self.request, text)
 
     def url(self, url, text=None, css=None, **kw):
         if text is None: text = url
@@ -77,7 +70,7 @@ class Formatter(FormatterBase):
 
     def text(self, text):
         if self.in_pre:
-            return string.replace(text, ']]>', ']]>]]&gt;<![CDATA[')
+            return text.replace(']]>', ']]>]]&gt;<![CDATA[')
         return self._escape(text)
 
     def rule(self, size=0):
@@ -131,7 +124,7 @@ class Formatter(FormatterBase):
     def linebreak(self, preformatted=1):
         return ['\n', '<br/>'][not preformatted]
 
-    def heading(self, depth, title, **kw):
+    def heading(self, depth, title, id = None, **kw):
         # remember depth of first heading, and adapt current depth accordingly
         if not self._base_depth:
             self._base_depth = depth
@@ -144,7 +137,11 @@ class Formatter(FormatterBase):
             self._current_depth = self._current_depth - 1
         self._current_depth = depth
 
-        return result + '<s%d title="%s">\n' % (depth, self._escape(title))
+        id_text = ''
+        if id:
+          id_text = ' id="%s"' % id
+
+        return result + '<s%d title="%s"%s>\n' % (depth, self._escape(title), id_text)
 
     def table(self, on, attrs={}):
         return ['<table>', '</table>'][not on]
@@ -155,8 +152,8 @@ class Formatter(FormatterBase):
     def table_cell(self, on, attrs={}):
         return ['<td>', '</td>'][not on]
 
-    def anchordef(self, name):
-        return '<anchor name="%s"/>' % name
+    def anchordef(self, id):
+        return '<anchor id="%s"/>' % id
 
     def anchorlink(self, name, text):
         return '<link anchor="%s">%s</link>' % (name, self._escape(text, {}))
@@ -176,7 +173,7 @@ class Formatter(FormatterBase):
         return ['<item>', '</item>'][not on]
 
     def image(self, **kw):
-        valid_attrs = ['src', 'width', 'height', 'alt', 'vspace', 'hspace', 'align']
+        valid_attrs = ['src', 'width', 'height', 'alt']
         attrs = {}
         for key, value in kw.items():
             if key in valid_attrs:

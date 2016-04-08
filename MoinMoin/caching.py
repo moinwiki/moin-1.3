@@ -1,19 +1,15 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin
+    MoinMoin caching module
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: caching.py,v 1.5 2003/11/09 21:00:48 thomaswaldmann Exp $
+    @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.5 $"[11:-2]
 
 # Imports
 import os, shutil
 
 from MoinMoin import config
-
 
 class CacheEntry:
     def __init__(self, arena, key):
@@ -43,16 +39,26 @@ class CacheEntry:
         except IOError:
             return 0
 
-    def needsUpdate(self, filename):
+    def needsUpdate(self, filename, attachdir=None):
         if not self.exists(): return 1
 
         try:
             ctime = os.path.getmtime(self._filename())
             ftime = os.path.getmtime(filename)
-        except IOError:
+        except os.error:
             return 1
 
-        return ftime > ctime
+        needsupdate = ftime > ctime
+        
+        # if a page depends on the attachment dir, we check this, too:
+        if not needsupdate and attachdir:
+            try:
+                ftime2 = os.path.getmtime(attachdir)
+            except os.error:
+                ftime2 = 0
+            needsupdate = ftime2 > ctime
+                
+        return needsupdate
 
     def copyto(self, filename):
         shutil.copyfile(filename, self._filename())

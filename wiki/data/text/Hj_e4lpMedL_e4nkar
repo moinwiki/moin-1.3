@@ -14,9 +14,9 @@ Om du skriver en `URL` i normal text så kan det bli ett problem att avgöra om de
  * använd undantagssekvensen SexCitationsTecken.
  * sätt `URL:en` innanför hakparenteser.
 
-De godtagna URLschemorna är: `http`, `https`, `ftp`, `nntp`, `news`, `mailto`, `telnet` och `file`. Wikiadministratören för platen kan lägga till fler `URL-scheman` genom att använda anpassningsvariabeln {{{config.url_schemas}}} (se HjälpMedAnpassning).
+De godtagna URLschemorna är: `http`, `https`, `ftp`, `nntp`, `news`, `mailto`, `telnet` och `file`. Wikiadministratören för platsen kan lägga till fler `URL-scheman` genom att använda anpassningsvariabeln {{{config.url_schemas}}} (se HjälpMedAnpassning).
 
-Förutom dessa standardscheman finns det också några MoinMoin-specifika: `wiki`, `attachment`, `inline` och `drawing`. "`wiki`" står för en InterWiki-länk, så `MoinMoin:Frontpage` och `wiki:MoinMoin:Frontpage` är ekvivalenta. Normalt använder man den kortare formen. "`wiki`"-schemat är viktigt när du använder länkar innanför hakparenteser, eftersom du alltid behöver ett URL-schema i det fallet. De andra tre URL-schemorna är för att bifoga filer och beskrivs i HjälpMedÅtgärder/BifogaFil.
+Förutom dessa standardscheman finns det också några MoinMoin-specifika: `wiki`, `attachment`, `inline` och `drawing`. "`wiki`" står för en InterWiki-länk, så `MoinMoin:FrontPage` och `wiki:MoinMoin:FrontPage` är ekvivalenta. Normalt använder man den kortare formen. "`wiki`"-schemat är viktigt när du använder länkar innanför hakparenteser, eftersom du alltid behöver ett URL-schema i det fallet. De andra tre URL-schemorna är för att bifoga filer och beskrivs i HjälpMedÅtgärder/BifogaFil.
 
 Om anpassningsalternativet `bang_meta`är satt, så kan WikiNamn-länkning undvikas genom att sätta ett utropstecken (''bang'') före WikiNamn''''''et. ex. `!WikiNamn`. Detta alternativ är normalt avslaget.
 

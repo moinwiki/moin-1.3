@@ -1,5 +1,5 @@
 ##language:en
-`SecurityPolicy` is a config option that allows wiki admins to dynamically enable or disable certain key actions in a MoinMoin wiki, most notably editing and deleting content.
+`SecurityPolicy` is a config option that allows wiki admins to dynamically enable or disable certain key actions in a MoinMoin wiki, most notably editing and deleting content. See also HelpOnAccessControlLists for an easier way.
 
 == Mechanics ==
 

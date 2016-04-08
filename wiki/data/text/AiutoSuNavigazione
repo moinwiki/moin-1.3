@@ -10,17 +10,17 @@ l'esplorazione) e su AiutoContenuti (pagina principale dell'aiuto in
 linea).
 
 In alto a destra ci sono delle icone per le funzionalità più usate:
-  * [[Icon(moin-parent.gif)]] vai alla pagina superiore, è visibile solo nelle sottopagine (vedi AiutoSuModificaPagina/SottoPagine)
-  * [[Icon(moin-show.gif)]] aggiorna la pagina corrente
-  * [[Icon(moin-print.gif)]] mostra una versione della pagina stampabile, senza intestazione e pié di pagina
-  * [[Icon(moin-xml.gif)]] crea una versione XML della pagina (attualmente in sperimentazione, crea MoinMoin:StyleBook, una variante di MoinMoin:DocBook)
-  * [[Icon(moin-email.gif)]]/[[Icon(moin-email-x.gif)]] consente di iscriverti a ricevere via email notifica delle modifiche apportate alla pagina, l'icona piu' luminosa segnala che sei gia' iscritto alla pagina corrente
-  * [[Icon(moin-edit.gif)]] ti consente di dire la tua, cioè di modificare la pagina
-  * [[Icon(moin-info.gif)]] mostra le informazioni relative alla pagina, in particolare la storia delle sue revisioni
-  * [[Icon(moin-diff.gif)]] mostra le modifiche tra la versione precedente della pagina e quella corrente
-  * [[Icon(moin-search.gif)]] ti porta alla pagina di ricerca
-  * [[Icon(moin-help.gif)]] mostra la pagina di aiuto
-  * [[Icon(moin-home.gif)]] collegamento alla pagina personale dell'utente, se questo si è collegato e ha effettivamente una pagina col suo nome di login
+  * [[Icon(up)]] vai alla pagina superiore, è visibile solo nelle sottopagine (vedi AiutoSuModificaPagina/SottoPagine)
+  * [[Icon(view)]] aggiorna la pagina corrente
+  * [[Icon(print)]] mostra una versione della pagina stampabile, senza intestazione e pié di pagina
+  * [[Icon(xml)]] crea una versione XML della pagina (attualmente in sperimentazione, crea MoinMoin:StyleBook, una variante di MoinMoin:DocBook)
+  * [[Icon(subscribe)]]/[[Icon(unsubscribe)]] consente di iscriverti a ricevere via email notifica delle modifiche apportate alla pagina, l'icona piu' luminosa segnala che sei gia' iscritto alla pagina corrente
+  * [[Icon(edit)]] ti consente di dire la tua, cioè di modificare la pagina
+  * [[Icon(info)]] mostra le informazioni relative alla pagina, in particolare la storia delle sue revisioni
+  * [[Icon(diff)]] mostra le modifiche tra la versione precedente della pagina e quella corrente
+  * [[Icon(find)]] ti porta alla pagina di ricerca
+  * [[Icon(help)]] mostra la pagina di aiuto
+  * [[Icon(home)]] collegamento alla pagina personale dell'utente, se questo si è collegato e ha effettivamente una pagina col suo nome di login
 
 Cliccando sul Titolo della Pagina nell'intestazione mostrerà l'elenco
 delle pagine che referenziano la pagina corrente. Un possibile

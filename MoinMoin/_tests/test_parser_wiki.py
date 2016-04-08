@@ -2,17 +2,14 @@
 """
     MoinMoin - MoinMoin.parser.wiki Tests
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: test_parser_wiki.py,v 1.6 2003/11/09 21:00:54 thomaswaldmann Exp $
+    @copyright: 2003-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 import unittest, re
 from MoinMoin import _tests
 from MoinMoin.Page import Page
 from MoinMoin.parser.wiki import Parser
-
 
 class ExpectTest(unittest.TestCase):
     BODY = None
@@ -27,6 +24,7 @@ class ExpectTest(unittest.TestCase):
 
         from MoinMoin.formatter.text_html import Formatter
         pg.formatter = Formatter(_tests.request)
+        _tests.request.formatter = pg.formatter
         pg.formatter.setPage(pg)
         pg.hilite_re = None
 
@@ -42,7 +40,6 @@ class ExpectTest(unittest.TestCase):
             _tests.request.write = saved_write
 
         output = ''.join(output).replace('<p>', '\n<p>')
-        #print output
         for pattern in self.EXPECTED:
            regex = re.compile(pattern)
            self.failUnless(regex.search(output), msg='Expected %r in: %s' % (pattern, output))
@@ -62,13 +59,13 @@ __underline__
 
     EXPECTED = [
         '<em>em</em>',
-        '<b>bold</b>',
+        '<strong>bold</strong>',
         '<u>underline</u>',
 
-        '<em><b>Mix</b> at start</em>',
-        '<b><em>Mix</em> at start</b>',
-        '<b>Mix at <em>end</em></b>',
-        '<em>Mix at <b>end</b></em>',
+        '<em><strong>Mix</strong> at start</em>',
+        '<strong><em>Mix</em> at start</strong>',
+        '<strong>Mix at <em>end</em></strong>',
+        '<em>Mix at <strong>end</strong></em>',
     ]
 
 class WikiMacroTestCase(ExpectTest):

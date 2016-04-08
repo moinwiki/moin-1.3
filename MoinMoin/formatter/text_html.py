@@ -1,17 +1,16 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - "text/html" Formatter
+    MoinMoin - "text/html+css" Formatter
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
+    This is a cleaned up version of text_html.py.
 
-    $Id: text_html.py,v 1.57 2003/11/09 21:00:56 thomaswaldmann Exp $
+    @copyright: 2000 - 2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import cgi, string, sys, time
 from MoinMoin.formatter.base import FormatterBase
-from MoinMoin import wikiutil, config, user, i18n
+from MoinMoin import wikiutil, config, i18n
 from MoinMoin.Page import Page
 
 
@@ -24,19 +23,7 @@ class Formatter(FormatterBase):
         Send HTML data.
     """
 
-    hardspace = '&#160;'
-
-    _allowed_table_attrs = {
-        'table': ['border', 'cellspacing', 'cellpadding', 'width', 'bgcolor', ],
-        'row': ['width', 'align', 'valign', 'bgcolor', ],
-        '': ['width', 'align', 'valign', 'colspan', 'rowspan', 'bgcolor', ],
-    }
-    _table_defaults = [
-        ('tableborder', '"1"'),
-        ('tablecellspacing', '"0"'),
-        ('tablecellpadding', '"3"'),
-    ]
-
+    hardspace = '&nbsp;' # XXX was: '&#160;', but that breaks utf-8
 
     def __init__(self, request, **kw):
         apply(FormatterBase.__init__, (self, request), kw)
@@ -52,95 +39,89 @@ class Formatter(FormatterBase):
         result = ''
         lang = self.request.current_lang
         if lang != config.default_lang:
-            result += ' lang="%s" dir="%s"' % (
-                lang, i18n.getDirection(self.request, lang))
+            result = ' lang="%s" dir="%s"' % (lang, i18n.getDirection(lang))
 
         return result
 
+    def lang(self, lang_name, text):
+        """ Insert text with specific lang and direction.
+        
+            Enclose within span tag if lang_name is different from
+            the current lang    
+        """
+        
+        if lang_name != self.request.current_lang:
+            dir = i18n.getDirection(lang_name)
+            text = wikiutil.escape(text)
+            return '<span lang="%(lang_name)s" dir="%(dir)s">%(text)s</span>' % {
+                'lang_name': lang_name, 'dir': dir, 'text': text}
+        
+        return text            
+                
     def sysmsg(self, text, **kw):
-        return '<div class="message"><b>%s</b></div>' % cgi.escape(text)
+        return '\n<div class="message">%s</div>\n' % wikiutil.escape(text)
 
+    
+    # Links ##############################################################
+    
     def pagelink(self, pagename, text=None, **kw):
         """ Link to a page.
 
             See wikiutil.link_tag() for possible keyword parameters.
         """
         apply(FormatterBase.pagelink, (self, pagename, text), kw)
-        return Page(pagename).link_to(text, **kw)
+        return Page(pagename).link_to(self.request, text, **kw)
 
     def url(self, url, text=None, css=None, **kw):
         """
             Keyword params:
                 title - title attribute
-                target - target attribute
                 ... some more (!!! TODO) 
         """
         url = wikiutil.mapURL(url)
         pretty = kw.get('pretty_url', 0)
-        target = kw.get('target', None)
+        title = kw.get('title', None)
 
         if not pretty and wikiutil.isPicture(url):
-            return '<img src="%s" border="0">' % (url,)
+            return '<img src="%s" alt="%s">' % (url,url)
 
         if text is None: text = url
-        str = ''
-
-        # add popup icon if user asked for it or a target is set
-        if pretty and (self.request.user.external_target or target is not None):
-            str = ('%s<a target="_blank" href="%s"><img src="%s/img/moin-popup.gif"'
-                ' border="0" width="15" height="9" alt="%s" title="%s"></a>') % (
-                str, cgi.escape(url, 1), config.url_prefix, self._('[New window]'), self._('[New window]'))
 
         # create link
-        str = str + '<a'
+        str = '<a'
         if css: str = '%s class="%s"' % (str, css)
-
-        title = kw.get('title', None)
         if title: str = '%s title="%s"' % (str, title)
-        if target: str = '%s target="%s"' % (str, target)
-
-        str = '%s href="%s">%s</a>' % (str, cgi.escape(url, 1), text)
+        str = '%s href="%s">%s</a>' % (str, wikiutil.escape(url, 1), text)
 
         return str
 
+    def anchordef(self, id):
+        return '<a id="%s">' % id
+
+    def anchorlink(self, name, text, id = None):
+        extra = ''
+        if id:
+            extra = ' id="%s"' % id
+        return '<a href="#%s"%s>%s</a>' % (name, extra, wikiutil.escape(text))
+
+    # Text and Text Attributes ###########################################
+    
     def text(self, text):
         if self._in_code:
-            return string.replace(cgi.escape(text), ' ', self.hardspace)
-        return cgi.escape(text)
-
-    def rule(self, size=0):
-        if size:
-            return '<hr size="%d">\n' % (size,)
-        else:
-            return '<hr>\n'
+            return wikiutil.escape(text).replace(' ', self.hardspace)
+        return wikiutil.escape(text)
 
     def strong(self, on):
-        return ['<b>', '</b>'][not on]
+        return ['<strong>', '</strong>'][not on]
 
     def emphasis(self, on):
         return ['<em>', '</em>'][not on]
 
+    def underline(self, on):
+        return ['<u>', '</u>'][not on]
+
     def highlight(self, on):
         return ['<strong class="highlight">', '</strong>'][not on]
-
-    def number_list(self, on, type=None, start=None):
-        if not on: return '</ol>'
-
-        result = '<ol'
-        if type: result = result + ' type="%s"' % (type,)
-        if start is not None: result = result + ' start="%d"' % (start,)
-
-        return result + '>'
-
-    def bullet_list(self, on):
-        return ['<ul>', '</ul>'][not on]
-
-    def listitem(self, on, **kw):
-        self._in_li = on != 0
-        css = ''
-        css_class = kw.get('css_class', None)
-        if css_class: css += ' class="%s"' % css_class
-        return ['<li%s%s>' % (css, self._langAttr()), '</li>'][not on]
 
     def sup(self, on):
         return ['<sup>', '</sup>'][not on]
@@ -150,24 +131,69 @@ class Formatter(FormatterBase):
 
     def code(self, on):
         self._in_code = on
-        return ['<tt class="wiki">', '</tt>'][not on]
+        return ['<tt>', '</tt>'][not on]
 
     def preformatted(self, on):
         FormatterBase.preformatted(self, on)
-        return ['<pre class="code">', '</pre>'][not on]
+        return ['<pre>', '</pre>'][not on]
+
+    # Paragraphs, Lines, Rules ###########################################
+    
+    def linebreak(self, preformatted=1):
+        return ['\n', '<br>\n'][not preformatted]
 
     def paragraph(self, on):
         FormatterBase.paragraph(self, on)
         if self._in_li:
             self._in_li = self._in_li + 1
-            return ['', '<p%s>' % self._langAttr()][on and self._in_li > 2]
+        result = ['<p%s>' % self._langAttr(), '\n</p>'][not on]
+        return '%s\n' % result
+    
+    def rule(self, size=0):
+        if size:
+            return '<hr size="%d">\n' % (size,)
         else:
-            return ['<p%s>' % self._langAttr(), ''][not on]
+            return '<hr>\n'
 
-    def linebreak(self, preformatted=1):
-        return ['\n', '<br>'][not preformatted]
+    # Lists ##############################################################
 
-    def heading(self, depth, title, **kw):
+    def number_list(self, on, type=None, start=None):
+        if on:
+            attrs = ''
+            if type: attrs += ' type="%s"' % (type,)
+            if start is not None: attrs += ' start="%d"' % (start,)
+            result = '<ol%s%s>' % (self._langAttr(), attrs)
+        else:    
+            result = '</ol>\n'
+        return '%s\n' % result
+    
+    def bullet_list(self, on):
+        result = ['<ul%s>' % self._langAttr(), '</ul>\n'][not on]
+        return '%s\n' % result
+
+    def listitem(self, on, **kw):
+        """ List item inherit its lang from the list. """
+        self._in_li = on != 0
+        if on:
+            css_class = kw.get('css_class', None)
+            attrs = ''
+            if css_class: attrs += ' class="%s"' % (css_class,)
+            result = '<li%s>' % (attrs,)
+        else:
+            result = '</li>'
+        return '%s\n' % result
+
+    def definition_list(self, on):
+        result = ['<dl>', '</dl>'][not on]
+        return '%s\n' % result
+
+    def definition_term(self, on):
+        return ['<dt%s>' % (self._langAttr()), '</dt>'][not on]
+
+    def definition_desc(self, on):
+        return ['<dd%s>\n' % self._langAttr(), '</dd>\n'][not on]
+
+    def heading(self, depth, title, id = None, **kw):
         # remember depth of first heading, and adapt counting depth accordingly
         if not self._base_depth:
             self._base_depth = depth
@@ -176,7 +202,7 @@ class Formatter(FormatterBase):
         # check numbering, possibly changing the default
         if self._show_section_numbers is None:
             self._show_section_numbers = config.show_section_numbers
-            numbering = string.lower(self.request.getPragma('section-numbers', ''))
+            numbering = self.request.getPragma('section-numbers', '').lower()
             if numbering in ['0', 'off']:
                 self._show_section_numbers = 0
             elif numbering in ['1', 'on']:
@@ -194,17 +220,33 @@ class Formatter(FormatterBase):
                 self.request._fmt_hd_counters.append(0)
             self.request._fmt_hd_counters[-1] = self.request._fmt_hd_counters[-1] + 1
             number = '.'.join(map(str, self.request._fmt_hd_counters[self._show_section_numbers-1:]))
-            # CNC:2003-05-30
             if number: number += ". "
 
+        id_text = ''
+        if id:
+          id_text = ' id="%s"' % id
+
+        heading_depth = depth + 1
         if kw.has_key('on'):
             if kw['on']:
-                return '<H%d>' % depth
+                result = '<h%d%s>' % (heading_depth, id_text)
             else:
-                return '</H%d>' % depth
+                result = '</h%d>' % heading_depth
         else:
-            return '<H%d%s>%s%s%s</H%d>\n' % (
-                depth, self._langAttr(), kw.get('icons', ''), number, title, depth)
+            result = '<h%d%s%s>%s%s%s</h%d>\n' % (
+                heading_depth, self._langAttr(), id_text, kw.get('icons', ''), number, title, heading_depth)
+        return result
+    
+    # Tables #############################################################
+
+    # XXX TODO find better solution for bgcolor, align, valign (deprecated in html4)
+    # do not remove current code before making working compliant code
+
+    _allowed_table_attrs = {
+        'table': ['class', 'width', 'bgcolor'],
+        'row': ['class', 'width', 'align', 'valign', 'bgcolor'],
+        '': ['colspan', 'rowspan', 'class', 'width', 'align', 'valign', 'bgcolor'],
+    }
 
     def _checkTableAttr(self, attrs, prefix):
         if not attrs: return ''
@@ -215,47 +257,32 @@ class Formatter(FormatterBase):
             key = key[len(prefix):]
             if key not in self._allowed_table_attrs[prefix]: continue
             result = '%s %s=%s' % (result, key, val)
-
         return result
 
     def table(self, on, attrs={}):
         if on:
+            # Enclose table inside a div to get correct alignment
+            # when using language macros
             attrs = attrs and attrs.copy() or {}
-            for key, val in self._table_defaults:
-                if not attrs.has_key(key): attrs[key] = val
-            on = '<table class="wiki"%s>' % self._checkTableAttr(attrs, 'table')
-        return [on, '</table>'][not on]
-
+            result = '\n<div%(lang)s>\n<table%(tableAttr)s>' % {
+                'lang': self._langAttr(),
+                'tableAttr': self._checkTableAttr(attrs, 'table')
+            }
+        else:
+            result = '</table>\n</div>'
+        return '%s\n' % result
+    
     def table_row(self, on, attrs={}):
         if on:
-            on = '<tr class="wiki"%s>' % self._checkTableAttr(attrs, 'row')
-        return [on, '</tr>'][not on]
+            result = '<tr%s>' % self._checkTableAttr(attrs, 'row')
+        else:
+            result = '</tr>'
+        return '%s\n' % result
 
     def table_cell(self, on, attrs={}):
         if on:
-            on = '<td class="wiki"%s%s>' % (
-                self._langAttr(),
-                self._checkTableAttr(attrs, ''))
-        return [on, '</td>'][not on]
-
-    def anchordef(self, name):
-        return '<a name="%s"></a>' % name
-
-    def anchorlink(self, name, text):
-        return '<a href="#%s">%s</a>' % (name, cgi.escape(text))
-
-    def underline(self, on):
-        return ['<u>', '</u>'][not on]
-
-    def definition_list(self, on):
-        return ['<dl>', '</dl>'][not on]
-
-    def definition_term(self, on, compact=0):
-        extra = ''
-        if compact:
-            extra = ' compact'
-        return ['<dt%s%s><b>' % (extra, self._langAttr()), '</b></dt>'][not on]
-
-    def definition_desc(self, on):
-        return ['<dd%s>' % self._langAttr(), '</dd>'][not on]
+            result = '<td%s>' % self._checkTableAttr(attrs, '')
+        else:
+            result = '</td>'
+        return '%s\n' % result
 

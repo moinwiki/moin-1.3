@@ -1,0 +1,14 @@
+##language:zh_tw
+##master-page:RecentChanges
+##master-date:2003-11-29 11:51:58
+||<tablewidth="100%" #FFFFA0> [[RandomQuote()]]||
+
+[[RecentChanges]]
+
+隨機選出最近更新的頁面: [[RandomPage(1)]]
+
+||<:> [[Icon(diffrc)]] || 標示至少有一份備份的舊頁面 (點選查閱增刪記錄)||
+||<:> [[Icon(updated)]] || 標示你打上書籤以後修改頁面 (點選查閱書籤異動)||
+||<:> [[Icon(new)]] || 標示你打上書籤後新增卻沒有填進內容的頁面||
+----
+本頁列出本站最近修改的頁面。本站共有 '''[[PageCount]] 頁'''. 請參考 ["系統資訊"]. 其他站點的更新，可以在 OpenWiki:WikiSites/Aggregation 看到。

@@ -2,10 +2,6 @@
 """  
     MoinMoin - Spelling Action
      
-    Copyright (c) 2001 by Richard Jones <richard@bizarsoftware.com.au>  
-    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>  
-    All rights reserved, see COPYING for details.  
-
     Word adding based on code by Christian Bird <chris.bird@lineo.com> 
 
     This action checks for spelling errors in a page using one or several
@@ -19,12 +15,14 @@
     Additionally, all words on the page "LocalSpellingWords" are added to
     the list of valid words, if that page exists.
 
-    $Id: SpellCheck.py,v 1.31 2003/11/09 21:00:55 thomaswaldmann Exp $  
+    @copyright: 2001 by Richard Jones <richard@bizarsoftware.com.au>  
+    @copyright: 2001, 2002 by Jürgen Hermann <jh@web.de>  
+    @license: GNU GPL, see COPYING for details.  
 """
 
 # Imports
-import cgi, os, re, string, sys
-from MoinMoin import config, user, util, wikiutil
+import os, re
+from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
 
 
@@ -57,7 +55,7 @@ def _loadWordsFile(request, dict, filename):
             lines = file.readlines(32768)
             if not lines: break
             for line in lines:
-                words = string.split(line)
+                words = line.split()
                 for word in words: dict[word] = ''
     finally:
         file.close()
@@ -103,9 +101,7 @@ def _addLocalWords(request):
     except KeyError:
         # no new words checked
         return
-    if type(newwords) is not types.ListType:
-        newwords = [newwords]
-    newwords = string.join(map(lambda w: w.value, newwords), ' ')
+    newwords = ' '.join(newwords)
 
     # get the page contents
     lsw_page = PageEditor(config.page_local_spelling_words, request)
@@ -147,15 +143,15 @@ def checkSpelling(page, request, own_form=1):
         if len(word) == 1:
             return ""
         if not (wordsdict.has_key(word) or
-                wordsdict.has_key(string.lower(word)) or
+                wordsdict.has_key(word.lower()) or
                 localwords.has_key(word) or
-                localwords.has_key(string.lower(word)) ):
+                localwords.has_key(word.lower()) ):
             if not num_re.match(word):
                 badwords[word] = 1
         return ""
 
     # do the checking
-    for line in string.split(text, '\n'):
+    for line in text.split('\n'):
         if line == '' or line[0] == '#': continue
         word_re.sub(checkword, line)
 
@@ -165,17 +161,18 @@ def checkSpelling(page, request, own_form=1):
 
         # build regex recognizing the bad words
         badwords_re = r'(^|(?<!\w))(%s)(?!\w)'
-        badwords_re = badwords_re % (string.join(map(re.escape, badwords), "|"),)
+        badwords_re = badwords_re % ("|".join(map(re.escape, badwords)),)
         badwords_re = re.compile(badwords_re)
 
         lsw_msg = ''
         if localwords:
-            lsw_msg = _(' (including %(localwords)d %(pagelink)s)') % {
-                'localwords': len(localwords), 'pagelink': lsw_page.link_to()}
-        msg = "<b>" + _('The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:') % {
+            lsw_msg = ' ' + _('(including %(localwords)d %(pagelink)s)') % {
+                'localwords': len(localwords), 'pagelink': lsw_page.link_to(request)}
+        msg = _('The following %(badwords)d words could not be found in the dictionary of '
+                '%(totalwords)d words%(localwords)s and are highlighted below:') % {
             'badwords': len(badwords),
             'totalwords': len(wordsdict)+len(localwords),
-            'localwords': lsw_msg} + "</b><br>"
+            'localwords': lsw_msg} + "<br>"
 
         # figure out what this action is called
         action_name = os.path.splitext(os.path.basename(__file__))[0]
@@ -188,15 +185,15 @@ def checkSpelling(page, request, own_form=1):
                 % (wikiutil.quoteWikiname(page.page_name), action_name,))
         checkbox = '<input type="checkbox" name="newwords" value="%(word)s">%(word)s&nbsp;&nbsp;'
         msg = msg + (
-            string.join(map(lambda w, cb=checkbox: cb % {'word': cgi.escape(w),}, badwords)) +
-            '<p><input type="submit" name="button_newwords" value="%s">' %
+            " ".join(map(lambda w, cb=checkbox: cb % {'word': wikiutil.escape(w),}, badwords)) +
+            '<p><input type="submit" name="button_newwords" value="%s"></p>' %
                 _('Add checked words to dictionary')
         )
         if own_form:
             msg = msg + '</form>'
     else:
         badwords_re = None
-        msg = _("<b>No spelling errors found!</b>")
+        msg = _("No spelling errors found!")
 
     request.clock.stop('spellcheck')
 
@@ -204,14 +201,13 @@ def checkSpelling(page, request, own_form=1):
 
 
 def execute(pagename, request):
-    # CNC:2003-06-06
     _ = request.getText
     page = Page(pagename)
     if request.user.may.read(pagename):
         badwords, badwords_re, msg = checkSpelling(page, request)
     else:
         badwords = []
-        msg = _("<b>You can't check spelling on a page you can't read.</b>")
+        msg = _("You can't check spelling on a page you can't read.")
 
     if badwords:
         page.send_page(request, msg=msg, hilite_re=badwords_re)

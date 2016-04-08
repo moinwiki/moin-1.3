@@ -25,7 +25,7 @@
 
     ICON_URL:   URL to the icon you want to use for marking links
 
-    $Id: IncludeFile.py,v 1.1 2001/11/09 00:25:20 jhermann Exp $
+    $Id: IncludeFile.py,v 1.2 2004/01/30 21:29:58 thomaswaldmann Exp $
 """
 
 ###############################################################################
@@ -33,7 +33,7 @@
 FILE_PATH='/local/webserver/html/atpFiles/WikiWiki'   # Path to file storage
 URL_PATH='/atpFiles/WikiWiki'                         # URL to file storage
 UPLOAD_URL='/cgi-bin/MoinMoin/macro/UploadFile.cgi'   # URL to Upload script
-ICON_URL="/wiki-moinmoin/img/moin-www.gif"            # Icon for links
+ICON_URL="/wiki/classic/img/moin-www.png"            # Icon for links
 
 ###############################################################################
 # Imports

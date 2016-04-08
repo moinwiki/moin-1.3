@@ -1,13 +1,18 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - Configuration
-
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
+    MoinMoin - Configuration defaults and handling
 
     Load moin_config.py and add any missing values with their defaults.
+    
+    !!! DO NOT EDIT THIS EXCEPT IF YOU ARE A MOIN DEVELOPER !!!
+    
+    This file is moinmoin code (it sets the default values for all
+    config values) and NOT a configuration file.
+    
+    Please use moin_config.py to configure your wiki.
 
-    $Id: config.py,v 1.97 2003/11/09 21:00:49 thomaswaldmann Exp $
+    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Try to import moin_config. If it fails, either someone forgot moin_config,
@@ -24,18 +29,17 @@ except ImportError, e:
     default_config = 1
     msg = 'import of moin_config failed due to "%s";' \
           ' default configuration used instead.' % e
-    try:
-        import warnings # new in Python 2.1
-        warnings.warn(msg)
-        del warnings
-    except ImportError:
-        import sys
-        sys.stderr.write(msg + '\n')
-        del sys
+    import warnings
+    warnings.warn(msg)
+    del warnings
     del msg
 
 if not vars().has_key('url_prefix'):
     url_prefix = '.'
+
+# this is a trick to mark some text for the gettext tools so that they dont
+# get orphaned. See http://www.python.org/doc/current/lib/node278.html.
+def _(text): return text
 
 # default config values
 _cfg_defaults = {
@@ -50,36 +54,33 @@ _cfg_defaults = {
     'allowed_actions': [],
     'allow_xslt': 0,
     'attachments': None, # {'dir': path, 'url': url-prefix}
+    'auth_http_enabled': 0,
     'bang_meta': 0,
     'backtick_meta': 1,
-    'changed_time_fmt': '&nbsp;[%H:%M]',
+    'caching_formats' : ['text_html'],
+    'changed_time_fmt': '%H:%M',
     'charset': 'iso-8859-1',
     # if you have gdchart, add something like
     # chart_options = {'width': 720, 'height': 540}
     'chart_options': None,
-    'check_i18n': 0,
-    'css_url': '%s/css/moinmoin.css' % (url_prefix,),
-    'data_dir': './data/',
+    'cookie_lifetime': 12, # 12 hours from now
+    'data_dir': './wiki/data/',
     'date_fmt': '%Y-%m-%d',
     'datetime_fmt': '%Y-%m-%d %H:%M:%S',
     'default_lang': 'en',
     'default_markup': 'wiki',
     'edit_locking': 'warn 10', # None, 'warn <timeout mins>', 'lock <timeout mins>'
     'edit_rows': 30,
-    'external_diff': 'diff',
     'hosts_deny': [],
-    'html_head': '''
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=iso-8859-1">
-<META NAME="MSSmartTagsPreventParsing" CONTENT="true">''',
-    'html_head_queries': '''
-<META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">''',
+    'html_head': '',
+    'html_head_queries': '''<meta name="robots" content="noindex,nofollow">\n''',
     'html_pagetitle': None,
     'httpd_host': 'localhost',
     'httpd_port': 8080,
     'httpd_user': 'nobody',
     'httpd_docs': './wiki-moinmoin',
     'interwikiname': None,
-    'logo_string': '<img src="/wiki-moinmoin/moinmoin.gif" border=0 alt="MoinMoin">',
+    'logo_string': '<img src="/wiki/classic/img/moinmoin.png" alt="MoinMoin">',
     'lowerletters': '0-9a-z\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf2\xf3\xf4\xf5\xf6\xf8\xf9\xfa\xfb\xfc\xfd\xff\xb5\xdf\xe7\xf0\xf1\xfe',
     'mail_login': None, # or "user pwd" if you need to use SMTP AUTH
     'mail_smarthost': None,
@@ -88,62 +89,74 @@ _cfg_defaults = {
     'navi_bar': [
         'FrontPage',
         'RecentChanges',
-        'TitleIndex',
-        'WordIndex',
-        'SiteNavigation',
-        '^HelpContents',
-        '[^http://moin.sf.net/ moin.sf.net]',
+        'FindPage',
+        'HelpContents',
     ],
     'nonexist_qm': 0,
 
-    # page names
+    'page_credits': """<p>
+    <a href="http://moinmoin.wikiwikiweb.de/">MoinMoin Powered</a><br>
+    <a href="http://www.python.org/">
+        <img src="%s/classic/img/PythonPowered.png" width="55" height="22" alt="PythonPowered">
+    </a>
+</p>""" % (url_prefix,),
+    
+    'page_footer1': '',
+    'page_footer2': '',
+
+    'page_header1': '',
+    'page_header2': '',
+    
     'page_front_page': 'FrontPage',
-    'page_template_regex': '[a-z]Template$',
-    'page_form_regex': '[a-z]Form$',
-    'page_category_regex': '^Category[A-Z]',
     'page_local_spelling_words': 'LocalSpellingWords',
-    'page_group_regex': ".*Group$",
+    'page_category_regex': '^Category[A-Z]',
+    'page_dict_regex': '[a-z]Dict$',
+    'page_form_regex': '[a-z]Form$',
+    'page_group_regex': '[a-z]Group$',
+    'page_template_regex': '[a-z]Template$',
 
     'page_license_enabled': 0,
     'page_license_page': 'WikiLicense',
-    'page_license_text': """<br>
-<em>By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.</em>
-""",
-    'page_footer1': """<br><br>
-<a href="http://www.python.org/"><img align="right" vspace="10" hspace="3"
-src="%s/img/PythonPowered.gif" width="55" height="22" border="0"
-alt="PythonPowered"></a>""" % (url_prefix,),
-    'page_footer2': '',
-    'page_icons': '''
-<a href="%(scriptname)s/%(page_help_contents)s" target="_blank" title="%(page_help_contents)s"><img src="%(url)s/img/moin-help.gif" alt="%(page_help_contents)s" width="12" height="11" border="0" hspace="2" align="right"></a>
-<a href="%(scriptname)s/%(page_find_page)s?value=%(pagename)s" title="%(page_find_page)s"><img src="%(url)s/img/moin-search.gif" alt="%(page_find_page)s" width="12" height="12" border="0" hspace="2" align="right"></a>
-<a href="%(scriptname)s/%(pagename)s?action=diff" title="Diffs"><img src="%(url)s/img/moin-diff.gif" alt="Diffs" width="15" height="11" border="0" hspace="2" align="right"></a>
-<a href="%(scriptname)s/%(pagename)s?action=info" title="Info"><img src="%(url)s/img/moin-info.gif" alt="Info" width="12" height="11" border="0" hspace="2" align="right"></a>
-<a href="%(scriptname)s/%(pagename)s?action=edit" title="Edit"><img src="%(url)s/img/moin-edit.gif" alt="Edit" width="12" height="12" border="0" hspace="2" align="right"></a>
-<a href="%(scriptname)s/%(pagename)s?action=subscribe" title="Subscribe"><img src="%(url)s/img/moin-email.gif" alt="Subscribe" width="14" height="10" border="0" hspace="2" vspace="1" align="right"></a>
-<a href="%(scriptname)s/%(pagename)s?action=format&mimetype=text/xml" title="XML"><img src="%(url)s/img/moin-xml.gif" alt="XML" width="20" height="13" border="0" hspace="2" align="right"></a>
-<a href="%(scriptname)s/%(pagename)s?action=print" title="Print"><img src="%(url)s/img/moin-print.gif" alt="Print" width="16" height="14" border="0" hspace="2" align="right"></a>
-<a href="%(scriptname)s/%(pagename)s" title="View"><img src="%(url)s/img/moin-show.gif" alt="View" width="12" height="13" border="0" hspace="2" align="right"></a>
-''',
-    'page_icons_home': '<img src="%(url)s/img/moin-home.gif" alt="Home" width="13" height="12" border="0" hspace="2" align="right">',
-    'page_icons_up': '<img src="%(url)s/img/moin-parent.gif" alt="Up" width="15" height="13" border="0" hspace="2" align="right">',
+
+    # These icons will show in this order in the iconbar, unless they
+    # are not relevant, e.g email icon when the wiki is not configured
+    # for email.
+    'page_iconbar': ["up", "edit", "view", "diff", "info", "subscribe", "raw", "print", "home",],
+
+    # Standard buttons in the iconbar
+    'page_icons_table': {
+        # key           last part of url, title, icon-key
+        'help':        ("%(q_page_help_contents)s", "%(page_help_contents)s", "help"),
+        'find':        ("%(q_page_find_page)s?value=%(q_page_name)s", "%(page_find_page)s", "find"),
+        'diff':        ("%(q_page_name)s?action=diff", _("Diffs"), "diff"),
+        'info':        ("%(q_page_name)s?action=info", _("Info"), "info"),
+        'edit':        ("%(q_page_name)s?action=edit", _("Edit"), "edit"),
+        'unsubscribe': ("%(q_page_name)s?action=subscribe", _("UnSubscribe"), "unsubscribe"),
+        'subscribe':   ("%(q_page_name)s?action=subscribe", _("Subscribe"), "subscribe"),
+        'raw':         ("%(q_page_name)s?action=raw", _("Raw"), "raw"),
+        'xml':         ("%(q_page_name)s?action=format&amp;mimetype=text/xml", _("XML"), "xml"),
+        'print':       ("%(q_page_name)s?action=print", _("Print"), "print"),
+        'view':        ("%(q_page_name)s", _("View"), "view"),
+        'home':        ("%(q_page_home_page)s", _("Home"), "home"),
+        'up':          ("%(q_page_parent_page)s", _("Up"), "up"),
+        },
+    'refresh': None, # (minimum_delay, type), e.g.: (2, 'internal')
     'shared_intermap': None, # can be string or list of strings (filenames)
-    'shared_metadb': None,
     'show_hosts': 1,
     'show_section_numbers': 1,
     'show_timings': 0,
     'show_version': 0,
     'sitename': 'An Unnamed MoinMoin Wiki',
     'smileys': {},
-    'title1': None,
-    'title2': '<hr>',
+    'theme_default': 'classic',
+    'theme_force': False,
     'trail_size': 5,
+    'tz_offset': 0.0, # default time zone offset in hours from UTC
     # a regex of HTTP_USER_AGENTS that should be excluded from logging,
     # and receive a FORBIDDEN for anything except viewing a page
     'ua_spiders': 'archiver|crawler|google|htdig|httrack|jeeves|larbin|leech|linkbot' +
                   '|linkmap|linkwalk|mercator|mirror|robot|scooter|search|sitecheck|spider|wget',
-    'umask': 0777,
+    'umask': 0770, # with 0777 ACLs are rather pointless!
     'upperletters': 'A-Z\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd2\xd3\xd4\xd5\xd6\xd8\xd9\xda\xdb\xdc\xdd\xc7\xd0\xd1\xde',
     'url_prefix': '/wiki',
     'url_schemas': [],
@@ -153,70 +166,72 @@ alt="PythonPowered"></a>""" % (url_prefix,),
 }
 
 smiley_defaults = {
-    "X-(":  (15, 15, 0, "angry.gif"),
-    ":D":   (15, 15, 0, "biggrin.gif"),
-    "<:(":  (15, 15, 0, "frown.gif"),
-    ":o":   (15, 15, 0, "redface.gif"),
-    ":(":   (15, 15, 0, "sad.gif"),
-    ":)":   (15, 15, 0, "smile.gif"),
-    "B)":   (15, 15, 0, "smile2.gif"),
-    ":))":  (15, 15, 0, "smile3.gif"),
-    ";)":   (15, 15, 0, "smile4.gif"),
-    "/!\\": (15, 15, 0, "alert.gif"),
-    "<!>":  (15, 15, 0, "attention.gif"),
-    "(!)":  (15, 15, 0, "idea.gif"),
+    "X-(":  (15, 15, 0, "angry.png"),
+    ":D":   (15, 15, 0, "biggrin.png"),
+    "<:(":  (15, 15, 0, "frown.png"),
+    ":o":   (15, 15, 0, "redface.png"),
+    ":(":   (15, 15, 0, "sad.png"),
+    ":)":   (15, 15, 0, "smile.png"),
+    "B)":   (15, 15, 0, "smile2.png"),
+    ":))":  (15, 15, 0, "smile3.png"),
+    ";)":   (15, 15, 0, "smile4.png"),
+    "/!\\": (15, 15, 0, "alert.png"),
+    "<!>":  (15, 15, 0, "attention.png"),
+    "(!)":  (15, 15, 0, "idea.png"),
 
     # copied 2001-11-16 from http://pikie.darktech.org/cgi/pikie.py?EmotIcon
-    ":-?":  (15, 15, 0, "tongue.gif"),
-    ":\\":  (15, 15, 0, "ohwell.gif"),
-    ">:>":  (15, 15, 0, "devil.gif"),
-    "%)":   (15, 15, 0, "eyes.gif"),
-    "@)":   (15, 15, 0, "eek.gif"),
-    "|)":   (15, 15, 0, "tired.gif"),
-    ";))":  (15, 15, 0, "lol.gif"),
+    ":-?":  (15, 15, 0, "tongue.png"),
+    ":\\":  (15, 15, 0, "ohwell.png"),
+    ">:>":  (15, 15, 0, "devil.png"),
+    "|)":   (15, 15, 0, "tired.png"),
     
     # some folks use noses in their emoticons
-    ":-(":  (15, 15, 0, "sad.gif"),
-    ":-)":  (15, 15, 0, "smile.gif"),
-    "B-)":  (15, 15, 0, "smile2.gif"),
-    ":-))": (15, 15, 0, "smile3.gif"),
-    ";-)":  (15, 15, 0, "smile4.gif"),
-    "%-)":  (15, 15, 0, "eyes.gif"),
-    "@-)":  (15, 15, 0, "eek.gif"),
-    "|-)":  (15, 15, 0, "tired.gif"),
-    ";-))": (15, 15, 0, "lol.gif"),
+    ":-(":  (15, 15, 0, "sad.png"),
+    ":-)":  (15, 15, 0, "smile.png"),
+    "B-)":  (15, 15, 0, "smile2.png"),
+    ":-))": (15, 15, 0, "smile3.png"),
+    ";-)":  (15, 15, 0, "smile4.png"),
+    "|-)":  (15, 15, 0, "tired.png"),
     
     # version 1.0
-    "(./)":  (20, 15, 0, "checkmark.gif"),
-    "{OK}":  (14, 12, 0, "thumbs-up.gif"),
-    "{X}":   (16, 16, 0, "icon-error.gif"),
-    "{i}":   (16, 16, 0, "icon-info.gif"),
-    "{1}":   (15, 13, 0, "prio1.gif"),
-    "{2}":   (15, 13, 0, "prio2.gif"),
-    "{3}":   (15, 13, 0, "prio3.gif"),
+    "(./)":  (20, 15, 0, "checkmark.png"),
+    "{OK}":  (14, 12, 0, "thumbs-up.png"),
+    "{X}":   (16, 16, 0, "icon-error.png"),
+    "{i}":   (16, 16, 0, "icon-info.png"),
+    "{1}":   (15, 13, 0, "prio1.png"),
+    "{2}":   (15, 13, 0, "prio2.png"),
+    "{3}":   (15, 13, 0, "prio3.png"),
 
     # version 1.1 (flags)
     # flags for the languages in MoinMoin.i18n
-    "{da}":  (18, 12, 1, "flag-da.gif"),
-    "{de}":  (18, 12, 1, "flag-de.gif"),
-    "{en}":  (24, 12, 0, "flag-en.gif"),
-    "{es}":  (18, 12, 0, "flag-es.gif"),
-    "{fi}":  (18, 12, 1, "flag-fi.gif"),
-    "{fr}":  (18, 12, 1, "flag-fr.gif"),
-    "{it}":  (18, 12, 1, "flag-it.gif"),
-    "{ja}":  (18, 12, 1, "flag-ja.gif"),
-    "{ko}":  (18, 12, 1, "flag-ko.gif"),
-    "{nl}":  (18, 12, 1, "flag-nl.gif"),
-    "{pt}":  (18, 12, 0, "flag-pt.gif"),
-    "{sv}":  (18, 12, 0, "flag-sv.gif"),
-    "{us}":  (20, 12, 0, "flag-us.gif"),
-    "{zh}":  (18, 12, 0, "flag-zh.gif"),
+    "{da}":  (18, 12, 1, "flag-da.png"),
+    "{de}":  (18, 12, 1, "flag-de.png"),
+    "{en}":  (24, 12, 0, "flag-en.png"),
+    "{es}":  (18, 12, 0, "flag-es.png"),
+    "{fi}":  (18, 12, 1, "flag-fi.png"),
+    "{fr}":  (18, 12, 1, "flag-fr.png"),
+    "{it}":  (18, 12, 1, "flag-it.png"),
+    "{ja}":  (18, 12, 1, "flag-ja.png"),
+    "{ko}":  (18, 12, 1, "flag-ko.png"),
+    "{nl}":  (18, 12, 1, "flag-nl.png"),
+    "{pt}":  (18, 12, 0, "flag-pt.png"),
+    "{sv}":  (18, 12, 0, "flag-sv.png"),
+    "{us}":  (20, 12, 0, "flag-us.png"),
+    "{zh}":  (18, 12, 0, "flag-zh.png"),
 }
+
+# remove that hack again
+del _
 
 # Iterate through defaults, setting any absent variables
 for key, val in _cfg_defaults.items():
     if not vars().has_key(key):
         vars()[key] = val
+
+# Validate configuration - in case of admin errors
+# Set charset and language code to lowercase
+charset = charset.lower()
+default_lang = default_lang.lower()
 
 # Mix in std smileys
 smileys.update(smiley_defaults)
@@ -225,22 +240,10 @@ del smiley_defaults
 del key
 del val
 
-### def _smartrepr(str):
-###     """Create multi-line string repr if necessary"""
-###     rep = repr(str)
-###     if rep.count(r'\n'):
-###         rep = rep[0] * 2 + rep.replace(r'\n', '\n') + rep[0] * 2
-###     return rep
-### 
-### _l = vars().items()
-### _l.sort()
-### for key, val in _l:
-###     if key[0] == '_': continue
-###     print "    " + `key`+':', _smartrepr(val) + ','
 
 # create list of excluded actions by first listing all "dangerous"
 # actions, and then selectively remove those the user allows
-excluded_actions = ['DeletePage', 'AttachFile']
+excluded_actions = ['DeletePage', 'AttachFile', 'RenamePage',]
 for _action in allowed_actions:
     try:
         excluded_actions.remove(_action)
@@ -248,7 +251,7 @@ for _action in allowed_actions:
         pass
 
 # define directories
-import os
+import os, sys
 data_dir = os.path.normpath(data_dir)
 moinmoin_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -257,5 +260,7 @@ for _dirname in ('text', 'user', 'cache', 'backup', 'plugin'):
     if not vars().has_key(_varname):
         vars()[_varname] = os.path.join(data_dir, _dirname)
 
-del os, _dirname, _varname
+sys.path.append(data_dir)
+
+del os, sys, _dirname, _varname
 

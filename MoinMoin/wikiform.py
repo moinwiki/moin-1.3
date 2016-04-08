@@ -2,14 +2,11 @@
 """
     MoinMoin - User Forms
 
-    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: wikiform.py,v 1.8 2003/11/09 21:00:52 thomaswaldmann Exp $
+    @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import cgi, string
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
 
@@ -25,7 +22,7 @@ def parseDefinition(request, fielddef, fieldlist):
     """
     _ = request.getText
 
-    row = '<tr><td nowrap valign="top">&nbsp;<b>%s</b>&nbsp;</td><td>%s</td></tr>\n'
+    row = '<tr><td nowrap="nowrap" valign="top">&nbsp;%s&nbsp;</td><td>%s</td></tr>\n'
     fields, msg = wikiutil.parseAttributes(request, fielddef)
 
     if not msg:
@@ -40,7 +37,7 @@ def parseDefinition(request, fielddef, fieldlist):
         result = row % (msg, fielddef)
     elif fields['type'] == '"caption"':
         # create a centered, bold italic caption
-        result = '<tr><td colspan="2" align="center"><i><b>%s</b></I></td></tr>\n' % (
+        result = '<tr><td colspan="2" align="center"><em><strong>%s</strong></em></td></tr>\n' % (
             fields['label'][1:-1])
     else:
         # for submit buttons, use `label` as the value
@@ -62,7 +59,7 @@ def parseDefinition(request, fielddef, fieldlist):
             result = '%s %s=%s' % (result, key, val)
         result = result + wrapper[1]
 
-        #result = result + cgi.escape(`fields`)
+        #result = result + wikiutil.escape(`fields`)
 
         if fields['type'] == '"submit"':
             result = '<tr><td colspan="2" align="center">%s</td></tr>\n' % result
@@ -77,10 +74,10 @@ def _get_formvalues(form):
     for key in form.keys():
         if key[:5] != 'form_': continue
 
-        val = string.replace(form.getvalue(key, "<empty>"), '\r', '')
+        val = form.get(key, ["<empty>"])
         if type(val) is type([]):
             # Multiple username fields specified
-            val = string.join(val, "|")
+            val = "|".join(val).replace('\r','')
 
         result[key] = val
 
@@ -92,12 +89,10 @@ def do_formtest(pagename, request):
     """
     _ = request.getText
 
-    msg = _('Submitted form data:') + '<ul>\n'
+    result = []
     for key, val in _get_formvalues(request.form).items():
-        msg = msg + '<li><em>%s</em> = %s</li>\n' % (
-            string.upper(key), repr(cgi.escape(val))
-        )
-    msg = msg + '</ul>\n'
+        result.append('<li><em>%s</em> = %s</li>' % (key.upper(), repr(wikiutil.escape(val))))
+    msg = '%s<ul>\n%s</ul>\n' % (_('Submitted form data:'), '\n'.join(result))
 
     Page(pagename).send_page(request, msg=msg)
 

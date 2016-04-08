@@ -1,12 +1,122 @@
 MoinMoin Version History
 ========================
 
-Copyright (c) 2000, 2001, 2002, 2003 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000-2004 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: CHANGES,v 1.164 2003/11/29 16:52:22 thomaswaldmann Exp $
-
 -----------------------------------------------------------------------------
+
+Version 1.2 (2004-02-20, Revision 1.183)
+
+New features:
+    * MoinMoin now requires Python 2.2! We recommend using >=2.2.2.
+      You get even better results with Python2.3 (20-30% more speed,
+      sometimes even much more).
+    * by refactoring request processing, we made it possible to run moin under
+      persistent environments:
+        * twisted-web (http://twistedmatrix.com)
+        * httpdmain.py (use moin.py for starting this mini server)
+        * mod_python
+        * FastCGI
+      Of course, CGI is still possible.
+    * wiki pages will be compiled to bytecode now (by default), so no need for
+      slow parsing/formatting on every view ("WASP", see caching_formats)
+    * when using a persistent environment (like twisted) and WASP, you get up
+      to 20x speed - compared to CGI and moin 1.1
+    * added support for diffs between arbitrary revisions.
+    * removed requirement of the external diff utility
+    * config.auth_http_enabled (defaults to 0) - use this to enable moin
+      getting your authenticated user name from apache (http basic auth,
+      htpasswd) - if you enable this, your basic auth username has to be the
+      same as your wiki username.
+      Should work with CGI, FCGI and maybe even with mod_python.
+      Does not change behaviour of moin under twisted or standalone server.
+    * config.tz_offset = 0.0 sets a default timezone offset (in hours
+      from UTC)
+    * config.cookie_lifetime (int, in hours, default 12) sets the lifetime of
+      the MOIN_ID cookie:
+        == 0  --> cookie will live forever (no matter what user has configured!)
+        > 0   --> cookie will live for n hours (or forever when "remember_me")
+        < 0   --> cookie will live for -n hours (forced, ignore "remember_me"!)
+    * added themeing and some themes (if you improve the existing themes or
+      make nice new ones, please contribute your stuff!). The default theme is
+      set by config.theme_default (and defaults to 'classic').
+    * now supporting plugin directory for parsers, processors, themes, xmlrpc.
+    * action=info now defaults to showing page revision history again
+    * all actions accessing the logfile (as RecentChanges or history) are now
+      much faster
+    * #refresh processing instruction, config.refresh
+        * config.refresh = (minimum_delay, target_allowed)
+            * minimum delay is the minimum waiting time (in seconds) allowed
+            * target_allowed is either 'internal' or 'external', depending on
+              whether you want to allow only internal redirects or also
+              external ones. For internal redirects, just use the Wiki pagename,
+              for external, use http://... url.
+        * #refresh 3                    == refresh this page every 3 seconds
+        * #refresh 5 FrontPage          == internal redirect to FrontPage in 5s
+        * #refresh 5 http://google.com/ == redirect to google in 5s
+      Use very carefully! Allowing a low minimum_delay and putting a #refresh
+      on RecentChanges might slow down your wiki significantly, when some
+      people just let their browser refresh and refresh again. Also, it does
+      cause quite some traffic long-term. So better do not use this without
+      good reason! Default is None (switched off).
+    * hide most UserPreferences options before user has logged in, less
+      confusing for new users
+    * "config.page_dict_regex" defines what pages are dictionary definitions
+      Currently dictionaries are used for UserHomePage/MyDict where you can
+      define key:: value pairs that get processed like @DATE@ expansion when
+      saving a page. The 2 "@" will be added to your keys automatically.
+      Please do not use @xxx@ strings on the right side (value), results may
+      vary if you do.
+      You can also access wiki dictionaries by using the internal macro
+      [[GetVal(page,key)]]" - that will go to page "page" and return the
+      value (right side) corresponding to "key".
+      Implementation note: groups are a subset of the dictionary functionality.
+    * standalone server should work now (see cgi-bin/moin.py), so you don't
+      need to setup apache or twisted for a local personal wiki, you only need
+      python and moin for that now, no additional stuff any more!
+    * if you run your wiki with charset = "utf-8" (the default is still
+      iso8859-1), you might want to have a look at contributions/utf8-pages/
+      to see if there are already translated system pages for your language.
+
+Fixes:
+    * new importPlugin routine (the old one didn't work correctly)
+    * removed 0xA0 characters breaking utf-8
+    * system page recognition now uses wiki groups (see AllSystemPagesGroup),
+      fixing the long-time broken system page exclusion on TitleIndex.
+    * mostly HTML 4.01 Strict compliant HTML
+    * design is done by CSS now, HTML is semantic markup only 
+    * removed target attribute from links, also [^NewWindow] markup - this
+      is a HTML 3.2 feature and not valid in HTML 4.01
+    * updated TWikiDrawPlugin to 20021003 version, with further modifications
+      including source. It can draw imagemaps now!
+    * fixed email headers and encoding
+    * Changed moin-usercheck to adhere to scripting standards; no
+      proprietary config changes needed any more (added --config);
+      --wikinames is now part of the usage message.
+    * config.umask now defaults to 0770 - if you give world r/w access, ACLs
+      could be rather pointless...
+
+Other:
+    * lots of internal code refactoring and optimization
+    * began moving src code documentation to epydoc, see "make epydoc"
+
+Known problems:
+    * theme support is neither complete (although covering most important
+      stuff) nor perfect - work on that will continue...
+    * we removed some html from system messages (the boxes at top of page you
+      get after some actions), so it currently looks less nice than before.
+    * html is not completely validating and it is not xhtml - this will be
+      fixed as soon as we have the infrastructure for that (other parser, DOM)
+    * problems with rtl (right-to-left) languages, will be fixed in 1.3
+    * if you change moin_config or switch themes, moin will still use already
+      cached page content. For the config this can be fixed by touching
+      MoinMoin/version.py (or simply deleting everything in
+      data/cache/Page.py). If you get more annoyed by this than pleased by
+      caching speedup, you can also switch off caching (see docs on
+      caching_formats).
+
+
 Version 1.1 (2003-11-29, Revision 1.178)
 
 New features:

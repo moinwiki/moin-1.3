@@ -1,3 +1,4 @@
+##language: en
 #pragma section-numbers 2
 
 = Access Control Lists =
@@ -24,7 +25,7 @@ The syntax for each line is as follows:
 
 Where:
 
- * '''User''' is a user name and triggers only if the user matches.
+ * '''User''' is a user name and triggers only if the user matches. 
  * '''Some``Group''' is a page name matching {{{page_group_regex}}} (see [#Configuration]) with some lines in the form " * Member" (see [#Groups]).
  * '''Trusted''' is a special group containig all authenticated users (like when using password login).
  * '''Known''' is a special group containing all valid users (like when using the cookie).

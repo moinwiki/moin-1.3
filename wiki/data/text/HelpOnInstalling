@@ -29,3 +29,8 @@ Windows:
 
 Macintosh:
  * /ApacheOnMacOsx
+
+Long-Running-Process Setup:
+ * /ApacheWithFastCgi
+ * /ApacheWithModPython
+ * /TwistedWeb

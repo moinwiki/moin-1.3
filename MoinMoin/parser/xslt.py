@@ -2,18 +2,16 @@
 """
     MoinMoin - XML Parser
 
-    Copyright (c) 2001, 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This code works with 4Suite 1.0a1 or higher only!
 
-    $Id: xslt.py,v 1.22 2003/11/09 21:01:06 thomaswaldmann Exp $
+    @copyright: 2001, 2003 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import cgi, string, cStringIO
+import cStringIO
 
-from MoinMoin import caching, config, user, util, webapi, wikiutil, Page
+from MoinMoin import caching, config, wikiutil, Page
 
 
 #############################################################################
@@ -35,9 +33,10 @@ class Parser:
     def format(self, formatter):
         """ Send the text.
         """
+        _ = self._
         if not config.allow_xslt:
             from MoinMoin.parser import plain
-            print formatter.sysmsg(self._('XSLT option disabled!'))
+            self.request.write(formatter.sysmsg(_('XSLT option disabled!')))
             plain.Parser(self.raw, self.request).format(formatter)
             return
 
@@ -45,7 +44,7 @@ class Parser:
         key   = wikiutil.quoteFilename(formatter.page.page_name)
         cache = caching.CacheEntry(arena, key)
         if not cache.needsUpdate(formatter.page._text_filename()):
-            print cache.content()
+            self.request.write(cache.content())
             self._add_refresh(formatter, cache, arena, key)
             return
 
@@ -54,11 +53,7 @@ class Parser:
             from Ft.Xml import __version__ as ft_version
             assert ft_version.startswith('1.')
         except (ImportError, AssertionError):
-            self.request.write(self._(
-                '<div class="message"><strong>'
-                'XSLT processing is not available!'
-                '</strong></div>'
-            ))
+            self.request.write(self.request.formatter.sysmsg(_('XSLT processing is not available!')))
         else:
             import xml.sax
             from Ft.Lib import Uri
@@ -131,23 +126,27 @@ class Parser:
                 etype = "I/O"
 
             if msg:
-                text = cgi.escape(self.raw)
-                text = string.expandtabs(text)
-                text = string.replace(text, '\n', '<br>\n')
-                text = string.replace(text, ' ', '&nbsp;')
-                print "<b>%s: %s</b><p>" % (
-                    self._('%(errortype)s processing error') % {'errortype': etype},
-                    msg,), text
+                text = wikiutil.escape(self.raw)
+                text = text.expandtabs()
+                text = text.replace('\n', '<br>\n')
+                text = text.replace(' ', '&nbsp;')
+                self.request.write("<strong>%s: %s</strong><p>" % (
+                    _('%(errortype)s processing error') % {'errortype': etype},
+                    msg,) + text)
             else:
-                print result
+                self.request.write(result)
                 cache.update(result)
                 self._add_refresh(formatter, cache, arena, key)
 
     def _add_refresh(self, formatter, cache, arena, key):
+        _ = self._
         refresh = wikiutil.link_tag(
-            wikiutil.quoteWikiname(formatter.page.page_name) +
-                "?action=refresh&arena=%s&key=%s" % (arena, key),
-            self._("RefreshCache")) + self._(' for this page (cached %(date)s)') % {
-                'date': formatter.request.user.getFormattedDateTime(cache.mtime()),} + '<br>'
+            formatter.request,
+            wikiutil.quoteWikiname(formatter.page.page_name) + "?action=refresh&arena=%s&key=%s" % (arena, key),
+            _("RefreshCache")
+        ) + ' ' + _('for this page (cached %(date)s)') % {
+            'date': formatter.request.user.getFormattedDateTime(cache.mtime()),
+        } + '<br>'
         self.request.add2footer('RefreshCache', refresh)
+
 

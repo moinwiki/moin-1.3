@@ -19,9 +19,9 @@ Description des différents champs des User''Preferences, ci-dessous, rien que po
    * '''[[GetText(Add spaces to displayed wiki names)]]''' : Si vous cochez, les '''Wiki``Names''' ressembleront à des '''Wiki Names'''.
    * '''[[GetText(Open editor on double click)]]''' : Ouvre l'éditeur sur un double clic. Pratique pour éditer un grand nombre de pages.
    * '''[[GetText(Remember last page visited)]]''' : Pour se souvenir de la dernière page visitée. En dirigeant votre navigateur vers l'URL de base du wiki(celui qui ne mentionne aucune page), vous verrez la dernirèe page que vous avez visitée. Pratique si vous lisez ou éditez toujours la même page.
-   * '''[[GetText(Show emoticons)]]''' : Les émoticônes c'est mignon! On affiche /!\ et ;)) à la place de `/!\` et `;))`.
+   * '''[[GetText(Show emoticons)]]''' : Les émoticônes c'est mignon! On affiche /!\ et ;-) à la place de `/!\` et `;-)`.
    * '''[[GetText(Show fancy diffs)]]''' : Affiche les différences de façon plus claire sur la page.
-   * '''[[GetText(Show fancy links)]]''' : affiche les petits dessins qui indiquent le type de lien, [[Icon(moin-www.gif)]] pour WWW, [[Icon(moin-ftp.gif)]] pour FTP, etc.
+   * '''[[GetText(Show fancy links)]]''' : affiche les petits dessins qui indiquent le type de lien, [[Icon(www)]] pour WWW, [[Icon(ftp)]] pour FTP, etc.
    * '''[[GetText(Show icon toolbar)]]''' : Fournit une rangée d'icônes-liens dans le coin supérieur droit.
    * '''[[GetText(Show question mark for non-existing pagelinks)]]''' : affiche un '''?''' en surbrillance en tête des pagesinexistantes à la place du nom en code couleur.
    * '''[[GetText(Show page trail)]]''' : Liste les 5 dernière pages visitées en haut depage, pour que vous puissiez retourner en arrière de plusieurs pages facilement.

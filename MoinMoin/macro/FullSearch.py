@@ -2,9 +2,6 @@
 """
     MoinMoin - FullSearch Macro
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     [[FullSearch]]
         displays a search dialog, as it always did
 
@@ -17,15 +14,17 @@
         embeds a search result into a page, as if you entered
         "HelpContents" into the search dialog
 
-    $Id: FullSearch.py,v 1.10 2003/11/09 21:01:02 thomaswaldmann Exp $
+    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
 import re, urllib
-from MoinMoin import config, user, wikiutil
+from MoinMoin import wikiutil
 
 _args_re_pattern = r'((?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))|'
 
+Dependencies = ["pages"]
 
 def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     _ = macro.request.getText
@@ -51,20 +50,22 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     pagecount, hits = wikiutil.searchPages(needle, literal=literal, context=0)
 
     # generate the result
-    result = macro.formatter.number_list(1)
+    result = []
+    result.append(macro.formatter.number_list(1))
     for (count, pagename, dummy) in hits:
-        # CNC:2003-05-30
         if not macro.request.user.may.read(pagename):
             continue
-        result = result + macro.formatter.listitem(1)
-        result = result + wikiutil.link_tag('%s?action=highlight&value=%s' %
-            (wikiutil.quoteWikiname(pagename), urllib.quote_plus(needle)),
-            pagename)
-        result = result + ' . . . . ' + `count` + [
-            _(' match'),
-            _(' matches')][count != 1]
-        result = result + macro.formatter.listitem(0)
-    result = result + macro.formatter.number_list(0)
+        result.append(macro.formatter.listitem(1))
+        result.append(wikiutil.link_tag(macro.request,
+            '%s?action=highlight&value=%s' % (
+                wikiutil.quoteWikiname(pagename),
+                urllib.quote_plus(needle)),
+            pagename))
+        result.append(' . . . . ' + `count` + ' ' + [
+            _('match'),
+            _('matches')][count != 1])
+        result.append(macro.formatter.listitem(0))
+    result.append(macro.formatter.number_list(0))
 
-    return result
+    return ''.join(result)
 

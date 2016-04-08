@@ -2,10 +2,6 @@
 """
     MoinMoin - LocalSiteMap action
 
-    Copyright (c) 2001 by Steve Howell <showell@zipcon.com>
-    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     The LocalSiteMap action gives you a page that shows 
     nearby links.  This is an example of what appears on the 
     page (names are linkable on the real page):
@@ -25,31 +21,32 @@
     TODO:
         - add missing docs (docstrings, inline comments)
 
-    $Id: LocalSiteMap.py,v 1.12 2003/11/09 21:00:55 thomaswaldmann Exp $
+    @copyright: 2001 by Steve Howell <showell@zipcon.com>
+    @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
     
 
 # Imports
-import string
-from MoinMoin import config, wikiutil, webapi, user
+from MoinMoin import wikiutil
 from MoinMoin.Page import Page
 
 
 def execute(pagename, request):
     _ = request.getText
-    webapi.http_headers(request)
+    request.http_headers()
     wikiutil.send_title(request, _('Local Site Map for "%s"') % (pagename),  
         pagename=pagename)
 
     """
-    caller = os.environ.get('HTTP_REFERER')
+    caller = request.http_referer
     if caller:
         parts = urlparse.urlparse(caller)
-        print "Back to", Page(string.split(parts[2], "/")[-1]).link_to()
-        print "<br><br>"
+        request.write("Back to" + Page(parts[2].split("/")[-1]).link_to(request) +
+                      "<br><br>")
     """
 
-    print LocalSiteMap(pagename).output(request)
+    request.write(LocalSiteMap(pagename).output(request))
     wikiutil.send_footer(request, pagename)
 
 
@@ -61,19 +58,19 @@ class LocalSiteMap:
     def output(self, request):
         tree = PageTreeBuilder(request).build_tree(self.name)
         #self.append("<small>")
-        tree.depth_first_visit(self)
+        tree.depth_first_visit(request, self)
         #self.append("</small>")
-        return string.join(self.result, '')
+        return ''.join(self.result)
 
-    def visit(self, name, depth):
+    def visit(self, request, name, depth):
         """ Visit a page, i.e. create a link.
         """
         if not name: return
         self.append('&nbsp;' * (5*depth))
-        self.append('&nbsp;' + wikiutil.link_tag('%s?action=%s' %
-            (wikiutil.quoteWikiname(name), string.split(__name__, '.')[-1]), name))
+        self.append('&nbsp;' + wikiutil.link_tag(request, '%s?action=%s' %
+            (wikiutil.quoteWikiname(name), __name__.split('.')[-1]), name))
         self.append("&nbsp;<small>[")
-        self.append(Page(name).link_to('view'))
+        self.append(Page(name).link_to(request, 'view'))
         self.append("</small>]<br>")
 
     def append(self, text):
@@ -95,7 +92,6 @@ class PageTreeBuilder:
 
     def is_ok(self, child):
         if not self.child_marked(child):
-            # CNC:2003-05-30
             if not self.request.user.may.read(child):
                 return 0
             if Page(child).exists():
@@ -145,8 +141,8 @@ class Tree:
     def append(self, node):
         self.children.append(node)
  
-    def depth_first_visit(self, visitor, depth=0):
-        visitor.visit(self.node, depth)
+    def depth_first_visit(self, request, visitor, depth=0):
+        visitor.visit(request, self.node, depth)
         for c in self.children:
-            c.depth_first_visit(visitor, depth+1)
+            c.depth_first_visit(request, visitor, depth+1)
 

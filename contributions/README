@@ -1,20 +1,27 @@
 MoinMoin Contributions
 ======================
 
-$Id: README,v 1.2 2001/11/27 20:14:35 jhermann Exp $
-
------------------------------------------------------------------------------
-
 This directory contains extensions contributed by MoinMoin users and
-that are considered either too exotic or need too much work to be
-integrated into the core sources. Another reason of not adding them is
-that modules in the core have to be maintained when structural changes
-happen, which is a constant burden. 
+that are considered either too exotic or need too much work or features
+not done yet to be integrated into the core sources.
+
+Another reason of not adding them is that modules in the core have to be
+maintained when structural changes happen, which is a constant burden. 
 
 Thus, these sources are here for you to try them out and take advantage
 of a feature someone found useful enough to write code for, but you
 cannot expect that they always work with the current distribution.
 Contributors are encouraged to send updates... 
+
+-----------------------------------------------------------------------------
+"utf8-pages" contains wiki pages in utf-8 character set. We can not put them
+into wiki/data/text yet, as everything else there is currently iso8859-1. If
+you run your wiki with utf-8 charset, you can copy these pages to your text
+directory. If you mix them with iso8859-1 pages, expect some weird wrong
+characters on non-english iso8859-1 pages.
+
+We plan to move to utf-8 as default wiki charset soon, so these pages can
+be integrated and not kept separate.
 
 -----------------------------------------------------------------------------
 "plugin" contains one-file contributed macros that can be copied to

@@ -1,24 +1,26 @@
 ##language:en
 #pragma section-numbers off
 
-This HTML page contains the basic install docs that can be found on http://purl.net/wiki/moin/MoinMoin/InstallDocs. It contains all necessary information to get your wiki up and running, even without being online. If you have a permanent internet connection, you might want to browse the docs on the Help``On``Installing page, which might contain more up-to-date information.
+This HTML page contains the basic install docs that can be found on http://moinmaster.wikiwikiweb.de/MoinMoin/InstallDocs. It contains all necessary information to get your wiki up and running, even without being online. If you have a permanent internet connection, you might want to browse the docs on the Help``On``Installing page, which might contain more up-to-date information.
 
 After following the procedures on this page, you should have a working wiki and can browse the rest of the online docs there.
 
 == How to install your own MoinMoin Wiki ==
-This page describes the installation procedure applying to MoinMoin:MoinMoin version 0.11 and up. In the next section, there is a list of real-world [#installscenarios Installation Scenarios] that help you to understand how to apply the instructions in different environments.
+This page describes the installation procedure applying to MoinMaster:MoinMoin version 1.1 and up. In the next section, there is a list of real-world [#installscenarios Installation Scenarios] that help you to understand how to apply the instructions in different environments.
 
 [#basic-install Basic Installation] explains the "`setup.py`" step of the installation in more detail. This applies equally to all scenarios, and you should read it before trying a live installation.
 
 [#trouble-shooting Trouble-shooting] helps with fixing any general problems you might encounter, which apply to any installation platform.
 
-After a successful installation, you might want to read more about configuration and other options that you, as the wiki administrator, can set up. MoinMoin:HelpOnAdministration contains links to pages that cover these topics.
-Especially, the MoinMoin:HelpOnConfiguration and MoinMoin:HelpOnUpdating pages provide additional information regarding wiki setup and maintenance. MoinMoin:MoinMoinWinCvs and MoinMoin:MoinMoinUnixCvs describe how to run your wiki using the current development version from the MoinMoin:SourceForge CVS repository.
+After a successful installation, you might want to read more about configuration and other options that you, as the wiki administrator, can set up. MoinMaster:HelpOnAdministration contains links to pages that cover these topics.
+Especially, the MoinMaster:HelpOnConfiguration and MoinMaster:HelpOnUpdating pages provide additional information regarding wiki setup and maintenance. MoinMoin:MoinMoinWinCvs and MoinMoin:MoinMoinUnixCvs describe how to run your wiki using the current development version from the MoinMoin:SourceForge CVS repository.
+
+||<tablewidth="100%" #FFA0A0> Please '''make sure''' that you do '''not''' accidently put your wiki's '''`data/`''' directory under a directory directly accessible by your web server (like below document root). Or at least forbid your web server serving anything below `data/` to a user - this is neither needed nor wanted! Your web server needs to serve moin.cgi and the stuff below htdocs '''only'''. ||
 
 [[Anchor(installscenarios)]]
 === Sample Installation Scenarios ===
 
-The following links lead you to concrete examples of installation sessions, showing the commands used and explaining what they do. It is highly recommended that you ''first'' read the general information on installing (especially the next section of this page) before choosing an installation scenario that best fits your intended use of MoinMoin:MoinMoin.
+The following links lead you to concrete examples of installation sessions, showing the commands used and explaining what they do. It is highly recommended that you ''first'' read the general information on installing (especially the next section of this page) before choosing an installation scenario that best fits your intended use of MoinMaster:MoinMoin.
 
 UNIX:
  * [#unix-install UNIX Installation]
@@ -26,6 +28,14 @@ UNIX:
 Windows:
  * [#win32apache-install Windows Installation using Apache]
  * [#win32iis-install Windows Installation using IIS]
+
+Mac OS X:
+ * [#macosx-install Mac OS X Installation]
+
+Long-Running-Process Setup:
+ * [#fastcgi-install FastCGI Setup using Apache]
+ * [#modpy-install mod_python Setup using Apache]
+ * [#twisted-install Setup using twisted]
 
 [[Anchor(basic-install)]]
 [[Include(HelpOnInstalling/BasicInstallation)]]
@@ -45,3 +55,19 @@ Windows:
 [[Anchor(win32iis-install)]]
 ------
 [[Include(HelpOnInstalling/InternetInformationServer, "Windows Installation using IIS", 1)]]
+------
+[[Anchor(macosx-install)]]
+------
+[[Include(HelpOnInstalling/ApacheOnMacOsx, "Mac OS X Installation using Apache", 1)]]
+------
+[[Anchor(fastcgi-install)]]
+------
+[[Include(HelpOnInstalling/ApacheWithFastCgi, "FastCGI Setup using Apache", 1)]]
+------
+[[Anchor(modpy-install)]]
+------
+[[Include(HelpOnInstalling/ApacheWithModPython, "mod_python Setup using Apache", 1)]]
+------
+[[Anchor(twisted-install)]]
+------
+[[Include(HelpOnInstalling/TwistedWeb, "Setup using Twisted", 1)]]

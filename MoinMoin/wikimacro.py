@@ -2,25 +2,23 @@
 """
     MoinMoin - Macro Implementation
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     These macros are used by the parser/wiki.py module
     to implement complex and/or dynamic page content.
 
     The sub-package "MoinMoin.macro" contains external
     macros, you can place your extensions there.
 
-    $Id: wikimacro.py,v 1.69 2003/11/09 21:00:52 thomaswaldmann Exp $
+    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import os, re, string, sys, time
-from MoinMoin import action, config, editlog, macro, user, util
+import re, time
+from MoinMoin import action, config, macro, util
 from MoinMoin import version, wikiutil, wikiaction, i18n
 from MoinMoin.Page import Page
 from MoinMoin.util import pysupport
-
+from MoinMoin.logfile import editlog, eventlog
 
 #############################################################################
 ### Globals
@@ -29,22 +27,14 @@ from MoinMoin.util import pysupport
 names = ["TitleSearch", "WordIndex", "TitleIndex",
          "GoTo", "InterWiki", "SystemInfo", "PageCount", "UserPreferences",
          # Macros with arguments
-         "Icon", "PageList", "Date", "DateTime", "Anchor", "MailTo"
+         "Icon", "PageList", "Date", "DateTime", "Anchor", "MailTo", "GetVal",
 ]
 
 # external macros
-names.extend(macro.extension_macros)
+names.extend(wikiutil.getPlugins('macro'))
 
 # languages
 names.extend(i18n.languages.keys())
-
-# plugins
-_plugins = os.path.join(config.plugin_dir, 'macro')
-plugin_macros = []
-if os.path.isdir(_plugins):
-    plugin_macros = pysupport.getPackageModules(os.path.join(_plugins, 'dummy'))
-    names.extend(plugin_macros)
-
 
 #############################################################################
 ### Helpers
@@ -52,32 +42,11 @@ if os.path.isdir(_plugins):
 
 def _make_index_key(index_letters, additional_html=""):
     index_letters.sort()
-    s = '<p><center>'
     links = map(lambda ch:
                     '<a href="#%s">%s</a>' %
-                    (wikiutil.quoteWikiname(ch), string.replace(ch, '~', 'Others')),
+                    (wikiutil.quoteWikiname(ch), ch.replace('~', 'Others')),
                 index_letters)
-    s = s + string.join(links, ' | ')
-    s = s + additional_html + '</center><p>'
-    return s
-
-
-def execute_external_macro(macro_name, function, args):
-    """ Call `function` with `args` in an external macro `macro_name`.
-    """
-    # load extension macro
-    if macro_name in macro.extension_macros:
-        execute = pysupport.importName("MoinMoin.macro." + macro_name, function)
-        return execute(*args)
-
-    # try plugin dir
-    # !!! plugin dir should prolly take precedence, but changing this should
-    # be done uniformly to all extensions (actions, etc.)
-    if macro_name in plugin_macros:
-        execute = pysupport.importPlugin(_plugins, "MoinMoin.plugin.macro", macro_name, function)
-        return execute(*args)
-
-    raise ImportError("Cannot load macro %s" % macro_name)
+    return "<p>%s%s</p>" % (' | '.join(links), additional_html)
 
 
 #############################################################################
@@ -85,60 +54,115 @@ def execute_external_macro(macro_name, function, args):
 #############################################################################
 
 class Macro:
-    """ Macro handler """
+    """ Macro handler 
+    
+        There are three kinds of macros: 
+            **Builtin Macros** -- implemented in this file and named _macro_[name]
+            **Language Psaudo Macros** -- any lang the wiki knows can be use as macro
+                and is implemented here by _m_lang() 
+            **External macros** -- implemented in either MoinMoin.macro package, or
+                in the specific wiki instance in the plugin/macro directory
+    """
+
+    Dependencies = {
+        "TitleSearch" : ["namespace"],
+        "Goto"        : [],
+        "WordIndex"   : ["namespace"],
+        "TitleIndex"  : ["namespace"],
+        "InterWiki"   : ["pages"],  # if interwikimap is editable
+        "SystemInfo"  : ["pages"],
+        "PageCount"   : ["namespace"],
+        "Icon"        : [],
+        "PageList"    : ["namespace"],
+        "Date"        : ["time"],
+        "DateTime"    : ["time"],
+        "UserPreferences" :["time"],
+        "Anchor"      : [],
+        "Mailto"      : ["user"],
+        "GetVal"      : ["pages"],
+        }
+
+    # we need the lang macros to execute when html is generated,
+    # to have correct dir and lang html attributes
+    for lang in i18n.languages.keys():
+        Dependencies[lang] = []
+    
 
     def __init__(self, parser):
         self.parser = parser
-        self.formatter = self.parser.formatter
         self.form = self.parser.form
         self.request = self.parser.request
+        self.formatter = self.request.formatter
         self._ = self.request.getText
 
-        # make formatter available in request, so macros
-        # can rely on that
-        self.request.formatter = self.formatter
-
     def execute(self, macro_name, args):
+        macro = wikiutil.importPlugin('macro', macro_name)
+        if macro:
+            return macro(self, args)
+
         builtins = vars(self.__class__)
+        # builtin macro
         if builtins.has_key('_macro_' + macro_name):
             return builtins['_macro_' + macro_name](self, args)
 
-        # language macro
+        # language pseudo macro
         if i18n.languages.has_key(macro_name):
-            self.request.current_lang = macro_name
-            return ''
+            return self._m_lang(macro_name, args)
 
-        return execute_external_macro(macro_name, "execute", (self, args))
+        raise ImportError("Cannot load macro %s" % macro_name)
+
+    def _m_lang(self, lang_name, text):
+        """ Set the current language for page content.
+        
+            Language macro are used in two ways:
+                **[lang]** -- set the current language untill next lang macro
+                **[lang(text)]** -- insert text with specific lang inside page
+        """
+
+        if text:
+            return self.formatter.lang(lang_name, text)
+
+        self.request.current_lang = lang_name
+        return ''
+  
+    def get_dependencies(self, macro_name):
+        if self.Dependencies.has_key(macro_name):
+            return self.Dependencies[macro_name]
+        result = wikiutil.importPlugin('macro', macro_name, 'Dependencies')
+        if result != None:
+            return result
+        else:
+            return ["time"]
 
     def _macro_TitleSearch(self, args):
         return self._m_search("titlesearch")
 
     def _m_search(self, type):
-        import cgi
-
+        _ = self._
         if self.form.has_key('value'):
-            default = self.form["value"].value
+            default = wikiutil.unquoteWikiname(self.form["value"][0])
         else:
             default = ''
         boxes = ''
         if type == "fullsearch":
             boxes = (
-                  '<br><input type="checkbox" name="context" value="40" checked>'
-                + self._('Display context of search results')
+                  '<br><input type="checkbox" name="context" value="40" checked="checked">'
+                + _('Display context of search results')
                 + '<br><input type="checkbox" name="case" value="1">'
-                + self._('Case-sensitive searching')
+                + _('Case-sensitive searching')
             )
         return self.formatter.rawHTML((
             '<form method="GET">'
             '<input type="hidden" name="action" value="%s">'
             '<input name="value" size="30" value="%s">&nbsp;'
             '<input type="submit" value="%s">'
-            '%s</form>') % (type, cgi.escape(default, quote=1), self._("Go"), boxes))
+            '%s</form>') % (type, wikiutil.escape(default, quote=1), _("Go"), boxes))
 
     def _macro_GoTo(self, args):
+        _ = self._
         return self.formatter.rawHTML("""<form method="get"><input name="goto" size="30">
         <input type="submit" value="%s">
-        </form>""" % self._("Go"))
+        </form>""" % _("Go"))
 
     def _macro_WordIndex(self, args):
         index_letters = []
@@ -158,37 +182,44 @@ class Macro:
         all_words = map.keys()
         all_words.sort()
         last_letter = None
+        html = []
         for word in all_words:
             if wikiutil.isUnicodeName(word): continue
 
             letter = word[0]
             if letter <> last_letter:
-                s = s + '<a name="%s"><h3>%s</h3></a>' % (wikiutil.quoteWikiname(letter), letter)
+                #html.append(self.formatter.anchordef()) # XXX no text param available!
+                html.append('<a name="%s">\n<h3>%s</h3>\n' % (wikiutil.quoteWikiname(letter), letter))
                 last_letter = letter
             if letter not in index_letters:
                 index_letters.append(letter)
 
-            s = s + '<b>%s</b><ul>' % word
+            html.append(self.formatter.strong(1))
+            html.append(word)
+            html.append(self.formatter.strong(0))
+            html.append(self.formatter.bullet_list(1))
             links = map[word]
             links.sort()
             last_page = None
             for name in links:
                 if name == last_page: continue
-                s = s + '<li>' + Page(name).link_to()
-            s = s + '</ul>\n'
-        return _make_index_key(index_letters) + s
+                html.append(self.formatter.listitem(1))
+                html.append(Page(name).link_to(self.request))
+                html.append(self.formatter.listitem(0))
+            html.append(self.formatter.bullet_list(0))
+        return '%s%s' % (_make_index_key(index_letters), ''.join(html))
 
 
     def _macro_TitleIndex(self, args):
         from MoinMoin import wikixml
-
-        s = ''
+        _ = self._
+        html = []
         index_letters = []
-        allpages = int(self.form.getvalue('allpages', 0)) != 0
+        allpages = int(self.form.get('allpages', [0])[0]) != 0
         pages = list(wikiutil.getPageList(config.text_dir))
         pages = filter(self.request.user.may.read, pages)
         if not allpages:
-            pages = [p for p in pages if not wikiutil.isSystemPage(p)]
+            pages = [p for p in pages if not wikiutil.isSystemPage(self.request, p)]
         pages.sort()
         current_letter = None
         for name in pages:
@@ -203,18 +234,17 @@ class Macro:
             if letter not in index_letters:
                 index_letters.append(letter)
             if letter <> current_letter:
-                s = s + '<a name="%s"><h3>%s</h3></a>' % (
-                    wikiutil.quoteWikiname(letter), string.replace(letter, '~', 'Others'))
+                html.append('<a name="%s"><h3>%s</h3></a>' % (
+                    wikiutil.quoteWikiname(letter), letter.replace('~', 'Others')))
                 current_letter = letter
             else:
-                s = s + '<br>'
-            s = s + Page(name).link_to(attachment_indicator=1) + '\n'
+                html.append('<br>')
+            html.append('%s\n' % Page(name).link_to(self.request, attachment_indicator=1))
 
         # add rss link
         index = ''
         if 0 and wikixml.ok: # !!! currently switched off (not implemented)
-            img = self.formatter.image(width=36, height=14, hspace=2, align="right",
-                border=0, src=config.url_prefix+"/img/moin-rss.gif", alt="[RSS]")
+            img = self.request.theme.make_icon("rss")
             index = index + self.formatter.url(
                 wikiutil.quoteWikiname(self.formatter.page.page_name) + "?action=rss_ti",
                 img, unescaped=1)
@@ -223,42 +253,41 @@ class Macro:
         index = index + _make_index_key(index_letters, """<br>
 <a href="%s?allpages=%d">%s</a>&nbsp;|
 <a href="%s?action=titleindex">%s</a>&nbsp;|
-<a href="%s?action=titleindex&mimetype=text/xml">%s</a>
-""" % (qpagename, not allpages, (self._('Include system pages'), self._('Exclude system pages'))[allpages],
-       qpagename, self._('Plain title index'),
-       qpagename, self._('XML title index')) )
+<a href="%s?action=titleindex&amp;mimetype=text/xml">%s</a>
+""" % (qpagename, not allpages, (_('Include system pages'), _('Exclude system pages'))[allpages],
+       qpagename, _('Plain title index'),
+       qpagename, _('XML title index')) )
 
-        return index + s
+        return '%s%s' % (index, ''.join(html)) 
 
 
     def _macro_InterWiki(self, args):
         from cStringIO import StringIO
 
         # load interwiki list
-        dummy = wikiutil.resolve_wiki('')
+        dummy = wikiutil.resolve_wiki(self.request, '')
 
         buf = StringIO()
-        buf.write('<table border=0 cellspacing=2 cellpadding=0>')
+        buf.write('<dl>')
         list = wikiutil._interwiki_list.items()
         list.sort()
         for tag, url in list:
-            buf.write('<tr><td><tt><a href="%s">%s</a>&nbsp;&nbsp;</tt></td>' % (
+            buf.write('<dt><tt><a href="%s">%s</a></tt></dt>' % (
                 wikiutil.join_wiki(url, 'RecentChanges'), tag))
-            if string.find(url, '$PAGE') == -1:
-                buf.write('<td><tt><a href="%s">%s</a></tt></td>' % (url, url))
+            if url.find('$PAGE') == -1:
+                buf.write('<dd><tt><a href="%s">%s</a></tt></dd>' % (url, url))
             else:
-                buf.write('<td><tt>%s</tt></td>' % url)
-            buf.write('</tr>\n')
-        buf.write('</table>')
+                buf.write('<dd><tt>%s</tt></dd>' % url)
+        buf.write('</dl>')
 
         return self.formatter.rawHTML(buf.getvalue())
 
 
     def _macro_SystemInfo(self, args):
-        import operator
+        import operator, sys
         from cStringIO import StringIO
         from MoinMoin import processor
-
+        _ = self._
         # check for 4XSLT
         try:
             import Ft
@@ -273,41 +302,41 @@ class Macro:
 
         buf = StringIO()
         row = lambda label, value, buf=buf: buf.write(
-            '<tr><td valign="top" nowrap><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>' %
+            '<dt>%s</dt><dd>%s</dd>' %
             (label, value))
 
-        buf.write('<table border=0 cellspacing=2 cellpadding=0>')
-        row(self._('Python Version'), sys.version)
-        row(self._('MoinMoin Version'), self._('Release %s [Revision %s]') % (version.release, version.revision))
+        buf.write('<dl>')
+        row(_('Python Version'), sys.version)
+        row(_('MoinMoin Version'), _('Release %s [Revision %s]') % (version.release, version.revision))
         if ftversion:
-            row(self._('4Suite Version'), ftversion)
-        row(self._('Number of pages'), len(pagelist))
-        row(self._('Number of system pages'), len(filter(wikiutil.isSystemPage, pagelist)))
-        row(self._('Number of backup versions'), len(wikiutil.getBackupList(config.backup_dir, None)))
-        row(self._('Accumulated page sizes'), totalsize)
+            row(_('4Suite Version'), ftversion)
+        row(_('Number of pages'), len(pagelist))
+        row(_('Number of system pages'), len(filter(lambda p,r=self.request: wikiutil.isSystemPage(r,p), pagelist)))
+        row(_('Number of backup versions'), len(wikiutil.getBackupList(config.backup_dir, None)))
+        row(_('Accumulated page sizes'), totalsize)
 
-        edlog = editlog.EditLog(self.request)
-        row(self._('Entries in edit log'), self._("%(logcount)s (%(logsize)s bytes)") %
-            {'logcount': len(edlog), 'logsize': edlog.size()})
+        edlog = editlog.EditLog()
+        row(_('Entries in edit log'),
+            _("%(logcount)s (%(logsize)s bytes)") %
+            {'logcount': edlog.lines(), 'logsize': edlog.size()})
 
         # !!! This puts a heavy load on the server when the log is large,
         # and it can appear on normal pages ==> so disable it for now.
-        if 0:
-            eventlogger = self.request.getEventLogger()
-            row(self._('Entries in event log'), self._("%(logcount)s (%(logsize)s bytes)") %
-                {'logcount': len(eventlogger.read()), 'logsize': eventlogger.size()})
-
-        row(self._('Global extension macros'), 
-            string.join(macro.extension_macros, ', ') or self._("<b>NONE</b>"))
-        row(self._('Local extension macros'), 
-            string.join(plugin_macros, ', ') or self._("<b>NONE</b>"))
-        row(self._('Global extension actions'), 
-            string.join(action.extension_actions, ', ') or self._("<b>NONE</b>"))
-        row(self._('Local extension actions'), 
-            string.join(wikiaction.getPlugins()[1], ', ') or self._("<b>NONE</b>"))
-        row(self._('Installed processors'), 
-            string.join(processor.processors, ', ') or self._("<b>NONE</b>"))
-        buf.write('</table>')
+        eventlogger = eventlog.EventLog()
+        nonestr = _("NONE")
+        row('Event log',
+            "%s bytes" % eventlogger.size())
+        row(_('Global extension macros'), 
+            ', '.join(macro.extension_macros) or nonestr)
+        row(_('Local extension macros'), 
+            ', '.join(wikiutil.extensionPlugins('macro')) or nonestr)
+        row(_('Global extension actions'), 
+            ', '.join(action.extension_actions) or nonestr)
+        row(_('Local extension actions'), 
+            ', '.join(wikiaction.getPlugins()[1]) or nonestr)
+        row(_('Installed processors'), 
+            ', '.join(processor.processors) or nonestr)
+        buf.write('</dl')
 
         return self.formatter.rawHTML(buf.getvalue())
 
@@ -317,32 +346,34 @@ class Macro:
 
 
     def _macro_Icon(self, args):
-        return self.formatter.image(border=0, hspace=2,
-            src="%s/img/%s" % (config.url_prefix, args))
-
+        icon = args.lower()
+        return self.request.theme.make_icon(icon)
 
     def _macro_PageList(self, args):
+        _ = self._
         try:
             needle_re = re.compile(args or '', re.IGNORECASE)
         except re.error, e:
-            return "<b>%s: %s</b>" % (
-                self._("ERROR in regex '%s'") % (args,), e)
+            return "<strong>%s: %s</strong>" % (
+                _("ERROR in regex '%s'") % (args,), e)
 
         all_pages = wikiutil.getPageList(config.text_dir)
         hits = filter(needle_re.search, all_pages)
         hits.sort()
         hits = filter(self.request.user.may.read, hits)
 
-        result = self.formatter.bullet_list(1)
+        result = []
+        result.append(self.formatter.bullet_list(1))
         for filename in hits:
-            result = result + self.formatter.listitem(1)
-            result = result + self.formatter.pagelink(filename, generated=1)
-            result = result + self.formatter.listitem(0)
-        result = result + self.formatter.bullet_list(0)
-        return result
+            result.append(self.formatter.listitem(1))
+            result.append(self.formatter.pagelink(filename, generated=1))
+            result.append(self.formatter.listitem(0))
+        result.append(self.formatter.bullet_list(0))
+        return ''.join(result)
 
 
     def __get_Date(self, args, format_date):
+        _ = self._
         if not args:
             tm = time.time() # always UTC
         elif len(args) >= 19 and args[4] == '-' and args[7] == '-' \
@@ -360,18 +391,18 @@ class Macro:
                     0, 0, 0
                 )
             except ValueError, e:
-                return "<b>%s: %s</b>" % (
-                    self._("Bad timestamp '%s'") % (args,), e)
-     	    # as mktime wants a localtime argument (but we only have UTC),
+                return "<strong>%s: %s</strong>" % (
+                    _("Bad timestamp '%s'") % (args,), e)
+            # as mktime wants a localtime argument (but we only have UTC),
             # we adjust by our local timezone's offset
-     	    tm = time.mktime(tm) - time.timezone
+            tm = time.mktime(tm) - time.timezone
         else:
             # try raw seconds since epoch in UTC
             try:
                 tm = float(args)
             except ValueError, e:
-                return "<b>%s: %s</b>" % (
-                    self._("Bad timestamp '%s'") % (args,), e)
+                return "<strong>%s: %s</strong>" % (
+                    _("Bad timestamp '%s'") % (args,), e)
         return format_date(tm)
 
     def _macro_Date(self, args):
@@ -418,4 +449,15 @@ class Macro:
                 result = email
 
         return result
+
+
+    def _macro_GetVal(self, args):
+        page,key = args.split(',')
+        d = self.request.dicts.dict(page)
+        if d:
+            try:
+                result = d[key]
+            except KeyError:
+                result = ''
+        return self.formatter.text(result)
 

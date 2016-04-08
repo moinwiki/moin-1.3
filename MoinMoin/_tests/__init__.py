@@ -2,13 +2,11 @@
 """
     MoinMoin - Unit tests
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     Subpackage containing all unit tests. This is currently NOT
     installed.
 
-    $Id: __init__.py,v 1.8 2003/11/09 21:00:53 thomaswaldmann Exp $
+    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 import os, sys, unittest
@@ -60,18 +58,17 @@ def run(provided_request=None):
     if provided_request:
         request = provided_request
     else:
-        from MoinMoin import cgimain
-        request = cgimain.createRequest()
-
-        import cgi
-        request.form = cgi.FieldStorage(environ = {'QUERY_STRING': 'action=print'})
+        from MoinMoin.request import RequestCLI
+        request = RequestCLI()
+    
+        request.form = request.args = request.setup_args()
+        # {'query_string': 'action=print'}
 
     for cfgval in _FORCED_DEFAULTS:
         setattr(config, cfgval, config._cfg_defaults[cfgval])
 
-    os.environ['HTTP_COOKIE'] = ''
     request.user = user.User(request)
 
     suite = makeSuite()
-    unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+    unittest.TextTestRunner(stream=request, verbosity=2).run(suite)
 

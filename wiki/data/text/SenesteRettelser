@@ -7,6 +7,6 @@ Denne side indeholder en liste over nyeste rettelser i denne wiki på '''[[PageCo
 ----
 [[RecentChanges]]
 
-|||| [[Icon(moin-diff.gif)]] || markerer ældre sider med mindst én backup arkiveret (klik for skribent diff)||
-|||| [[Icon(moin-updated.gif)]] || markerer sider redigeret siden du satte dit bogmærke (klik for bogmærke-diff)||
-|||| [[Icon(moin-new.gif)]] || markerer sider oprettet siden du satte dit bogmærke, og ikke er blevet redigeret efter oprettelesen||
+|||| [[Icon(diff)]] || markerer ældre sider med mindst én backup arkiveret (klik for skribent diff)||
+|||| [[Icon(updated)]] || markerer sider redigeret siden du satte dit bogmærke (klik for bogmærke-diff)||
+|||| [[Icon(new)]] || markerer sider oprettet siden du satte dit bogmærke, og ikke er blevet redigeret efter oprettelesen||

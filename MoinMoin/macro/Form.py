@@ -2,9 +2,6 @@
 """
     MoinMoin - Form Macro
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     Displays a form definition on a page, and also processes the
     POSTed inputs.
 
@@ -14,12 +11,14 @@
     TODO:
         * Much of the code here is duplicated from Page.py (bad!)
     
-    $Id: Form.py,v 1.3 2003/11/09 21:01:02 thomaswaldmann Exp $
+    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin import wikiutil, wikiform
 from MoinMoin.Page import Page
 
+Dependencies = ["time"]
 
 def execute(macro, args):
     _ = macro.request.getText

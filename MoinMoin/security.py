@@ -2,9 +2,6 @@
 """
     MoinMoin - Wiki Security Interface
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This implements the basic interface for user permissions and
     system policy. If you want to define your own policy, inherit
     from the base class 'Permissions', so that when new permissions
@@ -13,7 +10,8 @@
     Then assign your new class to "SecurityPolicy" in moin_config;
     and I mean the class, not an instance of it!
 
-    $Id: security.py,v 1.14 2003/11/09 21:00:50 thomaswaldmann Exp $
+    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 #############################################################################
@@ -42,7 +40,7 @@ class Permissions:
             `kw` allows passing more information without breaking user
             policies and is not used currently.
         """
-        return self.getACL(pagename).may(self.user.name, "read")
+        return self.getACL(pagename).may(self.user._request, "read")
 
     def edit(self, pagename, **kw):
         """ Check whether user may edit this page.
@@ -50,7 +48,7 @@ class Permissions:
             `kw` allows passing more information without breaking user
             policies and is not used currently.
         """
-        return self.getACL(pagename).may(self.user.name, "write")
+        return self.getACL(pagename).may(self.user._request, "write")
 
     def save(self, editor, newtext, datestamp, **kw):
         """ Check whether user may save a page.
@@ -70,7 +68,7 @@ class Permissions:
             `kw` allows passing more information without breaking user
             policies and is not used currently.
         """
-        return self.getACL(pagename).may(self.user.name, "delete")
+        return self.getACL(pagename).may(self.user._request, "delete")
 
     def revert(self, pagename, **kw):
         """ Check whether user may revert this page.
@@ -78,10 +76,18 @@ class Permissions:
             `kw` allows passing more information without breaking user
             policies and is not used currently.
         """
-        return self.getACL(pagename).may(self.user.name, "revert")
+        return self.getACL(pagename).may(self.user._request, "revert")
+
+    def admin(self, pagename, **kw):
+        """ Check whether user may administrate this page.
+
+            `kw` allows passing more information without breaking user
+            policies and is not used currently.
+        """
+        return self.getACL(pagename).may(self.user._request, "admin")
 
     def getACL(self, pagename, **kw):
-        return self.Page(pagename).getACL(self.user._request)
+        return self.Page(pagename).getACL()
 
 # make an alias for the default policy
 Default = Permissions

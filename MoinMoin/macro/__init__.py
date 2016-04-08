@@ -2,9 +2,6 @@
 """
     MoinMoin - Macro Package
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     The canonical interface to macros is their execute() function,
     which gets passed an instance of the Macro class. Such an instance
     has the four members parser, formatter, form and request.
@@ -16,10 +13,11 @@
     functions to offer services to other macros or actions. A few
     actually do that, e.g. AttachFile.
 
-    $Id: __init__.py,v 1.4 2003/11/09 21:01:04 thomaswaldmann Exp $
+    @copyright: 2000 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin.util import pysupport
 
 extension_macros = pysupport.getPackageModules(__file__)
-
+modules = extension_macros

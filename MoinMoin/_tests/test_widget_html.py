@@ -2,25 +2,23 @@
 """
     MoinMoin - MoinMoin.widget.html Tests
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: test_widget_html.py,v 1.6 2003/11/09 21:00:54 thomaswaldmann Exp $
+    @copyright: 2003-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import cgi, unittest
+import unittest
 from MoinMoin.widget import html
-
+from MoinMoin import wikiutil
 
 class TextTestCase(unittest.TestCase):
     def runTest(self):
-        markup = '<br /> &'
-        self.failUnlessEqual(str(html.Text(markup)), cgi.escape(markup))
+        markup = '<br> &'
+        self.failUnlessEqual(str(html.Text(markup)), wikiutil.escape(markup))
 
 
 class RawTestCase(unittest.TestCase):
     def runTest(self):
-        markup = '<br /> &amp;'
+        markup = '<br> &amp;'
         self.failUnlessEqual(str(html.Raw(markup)), markup)
 
 
@@ -33,8 +31,8 @@ class EmptyElementTestCase(unittest.TestCase):
     def runTest(self):
         html._SORT_ATTRS = 1
 
-        self.failUnlessEqual(str(html.BR()), '<br />')
-        self.failUnlessEqual(str(html.HR()), '<hr />')
+        self.failUnlessEqual(str(html.BR()), '<br>')
+        self.failUnlessEqual(str(html.HR()), '<hr>')
 
 
 class CompositeElementTestCase(unittest.TestCase):

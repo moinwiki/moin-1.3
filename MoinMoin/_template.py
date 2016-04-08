@@ -2,12 +2,11 @@
 """
     MoinMoin
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
+    <what this stuff does ... - verbose enough>
 
-    $Id: _template.py,v 1.4 2003/11/09 21:00:47 thomaswaldmann Exp $
+    @copyright: 2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.4 $"[11:-2]
 
 # Imports
 

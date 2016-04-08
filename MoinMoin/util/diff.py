@@ -2,18 +2,13 @@
 """
     MoinMoin - Side by side diffs
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    Copyright (c) 2002 by Scott Moonen <smoonen@andstuff.org>
-    All rights reserved, see COPYING for details.
-
-    $Id: diff.py,v 1.6 2003/11/09 21:01:14 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @copyright: 2002 by Scott Moonen <smoonen@andstuff.org>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import cgi
 from MoinMoin.support import difflib
-
-
-escape = cgi.escape
+from MoinMoin.wikiutil import escape
 
 def indent(line):
     eol = ''
@@ -43,23 +38,26 @@ def diff(request, old, new):
 
     if len(seq1) == len(seq2) and linematch[0] == (0, 0, len(seq1)):
         # No differences.
-        return _("<b>No differences found!</b>")
+        return _("No differences found!")
 
     lastmatch = (0, 0)
     end       = (len(seq1), len(seq2))
 
-    result = (
-           "<table class='diff'>\n"
-         + "<tr><td colspan='2' class='diff-removed'>"
-         + "<del class='diff-removed'>"
-         + _('Deletions are marked like this.')
-         + "</del>"
-         + "</td><td colspan='2' class='diff-added'>"
-         + "<ins class='diff-added'>"
-         + _('Additions are marked like this.')
-         + "</ins>"
-         + "</td></tr>\n"
-    )
+    result = """
+<table class="diff">
+<tr>
+<td class="diff-removed">
+<span>
+%s
+</span>
+</td>
+<td class="diff-added">
+<span>
+%s
+</span>
+</td>
+</tr>
+""" % (_('Deletions are marked like this.'), _('Additions are marked like this.'),)
 
     # Print all differences
     for match in linematch:
@@ -68,14 +66,18 @@ def diff(request, old, new):
             lastmatch = (match[0] + match[2], match[1] + match[2])
             continue
 
-        result += (
-               "<tr><td colspan='2' class='diff-title'><strong>"
-             + t_line + str(lastmatch[0] + 1) + ":"
-             + "</strong></td><td colspan='2' class='diff-title'><strong>"
-             + t_line + " " + str(lastmatch[1] + 1) + ":"
-             + "</strong></td></tr>\n"
-        )
-
+        result += """
+<tr class="diff-title">
+<td>
+%s %s:
+</td>
+<td>
+%s %s:
+</td>
+</tr>
+""" % ( t_line, str(lastmatch[0] + 1),
+        t_line, str(lastmatch[1] + 1),)
+        
         leftpane  = ''
         rightpane = ''
         linecount = max(match[0] - lastmatch[0], match[1] - lastmatch[1])
@@ -95,12 +97,12 @@ def diff(request, old, new):
         if charobj.ratio() < 0.5:
             # Insufficient similarity.
             if leftpane:
-                leftresult = "<del class='diff-removed'>" + indent(escape(leftpane)) + "</del>"
+                leftresult = """<span>%s</span>""" % indent(escape(leftpane))
             else:
                 leftresult = ''
 
             if rightpane:
-                rightresult = "<ins class='diff-added'>" + indent(escape(rightpane)) + "</ins>"
+                rightresult = """<span>%s</span>""" % indent(escape(rightpane))
             else:
                 rightresult = ''
         else:
@@ -112,31 +114,29 @@ def diff(request, old, new):
             rightresult = ''
             for thismatch in charmatch:
                 if thismatch[0] - charlast[0] != 0:
-                    leftresult += (
-                         "<del class='diff-removed'>"
-                       + indent(escape(leftpane[charlast[0]:thismatch[0]]))
-                       + "</del>"
-                    )
+                    leftresult += """<span>%s</span>""" % indent(
+                        escape(leftpane[charlast[0]:thismatch[0]]))
                 if thismatch[1] - charlast[1] != 0:
-                    rightresult += (
-                          "<ins class='diff-added'>"
-                        + indent(escape(rightpane[charlast[1]:thismatch[1]]))
-                        + "</ins>"
-                    )
+                    rightresult += """<span>%s</span>""" % indent(
+                        escape(rightpane[charlast[1]:thismatch[1]]))
                 leftresult += escape(leftpane[thismatch[0]:thismatch[0] + thismatch[2]])
                 rightresult += escape(rightpane[thismatch[1]:thismatch[1] + thismatch[2]])
                 charlast = (thismatch[0] + thismatch[2], thismatch[1] + thismatch[2])
 
-        leftpane  = '<br />\n'.join(map(indent, leftresult.splitlines()))
-        rightpane = '<br />\n'.join(map(indent, rightresult.splitlines()))
+        leftpane  = '<br>\n'.join(map(indent, leftresult.splitlines()))
+        rightpane = '<br>\n'.join(map(indent, rightresult.splitlines()))
 
-        result += (
-               "<tr><td colspan='2' class='diff-removed' width='50%'>"
-             + leftpane
-             + "</td><td colspan='2' class='diff-added' width='50%'>"
-             + rightpane
-             + "</td></tr>\n"
-        )
+        # removed width="50%%"
+        result += """
+<tr>
+<td class="diff-removed">
+%s
+</td>
+<td class="diff-added">
+%s
+</td>
+</tr>
+""" % (leftpane, rightpane)
 
         lastmatch = (match[0] + match[2], match[1] + match[2])
 

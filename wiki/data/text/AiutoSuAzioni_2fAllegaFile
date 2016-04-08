@@ -39,7 +39,7 @@ The third type of link is `drawing:`, explained in the next section.
 
 == Editing vector drawings ==
 
-A link looking like `drawing:picturename` will allow you to ''interactively'' edit vector diagrams via the built-in Java applet. The applet will then store two attachments, "`picturename.draw`" and "`picturename.gif`". After you first saved a drawing, the generated GIF picture is displayed for the `drawing:` link. This means that you only need Java enabled for editing, while displaying the results works with any browser.
+A link looking like `drawing:picturename` will allow you to ''interactively'' edit vector diagrams via the built-in Java applet. The applet will then store two attachments, "`picturename.draw`" and "`picturename.png`". After you first saved a drawing, the generated PNG picture is displayed for the `drawing:` link. This means that you only need Java enabled for editing, while displaying the results works with any browser.
 
 To edit a drawing after the first save, click on `AttachFile` and use the `[edit]` link that is displayed instead of `[view]` for the `.draw` attachment. Saving a drawing is reflected in RecentChanges.
 

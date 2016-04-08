@@ -2,25 +2,28 @@
 """
     MoinMoin - Helper functions for WWW stuff
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: web.py,v 1.11 2003/11/09 21:01:15 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import cgi
-from MoinMoin import config, webapi
+from MoinMoin import config
 
 _ua_match = None
 
-def isSpiderAgent(ua=None):
+def isSpiderAgent(**kw):
     """ Return True if user agent appears to be a spider.
     """
     if not config.ua_spiders:
         return 0
 
-    if ua is None:
-        ua = webapi.getUserAgent()
+    request = kw.get('request', None)
+    if request:
+        ua = request.getUserAgent()
+    else:
+        ua = kw.get('ua', None)
+    
+    if not ua:
+        return 0
 
     global _ua_match
     if _ua_match is None:
@@ -36,7 +39,7 @@ def parseQueryString(qstr):
     import urllib
 
     values = {}
-    pairs = qstr.split('&')
+    pairs = qstr.split('&') # XXX
     for pair in pairs:
         key, val = pair.split('=')
         values[urllib.unquote(key)] = urllib.unquote(val)
@@ -54,7 +57,7 @@ def makeQueryString(qstr={}, **kw):
     if isinstance(qstr, type({})):
         import urllib
 
-        qstr = '&'.join([
+        qstr = '&amp;'.join([
             urllib.quote_plus(name) + "=" + urllib.quote_plus(str(value))
                 for name, value in qstr.items() + kw.items()
         ])
@@ -70,7 +73,7 @@ def getIntegerInput(request, fieldname, default=None, minval=None, maxval=None):
         is missing).
     """
     try:
-        result = int(request.form[fieldname].value)
+        result = int(request.form[fieldname][0])
     except (KeyError, ValueError):
         return default
     else:
@@ -82,27 +85,16 @@ def getIntegerInput(request, fieldname, default=None, minval=None, maxval=None):
 
 
 def getLinkIcon(request, formatter, scheme):
-    """ Get icon for fancy links, or '' if user doesn't
-        want them.
+    """ Get icon for fancy links, or '' if user doesn't want them.
     """
     if not request.user.show_fancy_links: return ''
 
-    icon = ("www", 11, 11)
-    if scheme == "mailto": icon = ("email", 14, 10)
-    if scheme == "news": icon = ("news", 10, 11)
-    if scheme == "telnet": icon = ("telnet", 10, 11)
-    if scheme == "ftp": icon = ("ftp", 11, 11)
-    if scheme == "file": icon = ("ftp", 11, 11)
-    #!!! use a map?
-    # http|https|ftp|nntp|news|mailto|wiki|file
+    if scheme in ["mailto", "news", "telnet", "ftp", "file"]:
+        icon = scheme
+    else:
+        icon = "www"
 
-    return formatter.image(
-        src="%s/img/moin-%s.gif" % (config.url_prefix, icon[0]),
-        width=icon[1], height=icon[2], border=0, hspace=4,
-        alt="[%s]" % icon[0].upper(),
-        title="[%s]" % icon[0].upper(),
-        )
-
+    return request.theme.make_icon(icon)
 
 def makeSelection(name, values, selectedval=None):
     """ Make a HTML <select> element named `name` from a value list.

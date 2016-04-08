@@ -7,7 +7,7 @@
 
     General helper functions that are not directly wiki related.
 
-    $Id: __init__.py,v 1.6 2003/11/09 21:01:13 thomaswaldmann Exp $
+    $Id: __init__.py,v 1.8 2004/02/10 21:01:56 thomaswaldmann Exp $
 """
 
 # Imports
@@ -51,6 +51,14 @@ def TranslateText(text):
 
 
 #############################################################################
+### Exceptions
+#############################################################################
+
+class MoinMoinNoFooter(Exception):
+    """Raised by actions to prevent output of a page footer (with timings)."""
+    pass
+
+#############################################################################
 ### Misc
 #############################################################################
 
@@ -92,7 +100,7 @@ def W3CDate(tm=None):
     """
     if not tm: tm = time.time()
     return time.strftime("%Y-%m-%dT%H:%M:%S", tm) + "%s%02d:%02d" % (
-        "+-"[time.timezone < 0],
+        "+-"[time.timezone > 0], # timezone is positive in the US, negative in most of europe!
         abs(time.timezone) / 3600,
         abs(time.timezone) / 60 % 60
     )
@@ -101,15 +109,13 @@ def W3CDate(tm=None):
 def dumpFormData(form):
     """ Dump the form data for debugging purposes
     """
-    import cgi
+    from MoinMoin import wikiutil
 
-    result = '<dt><b>Form entries</b></dt>'
+    result = '<dt><strong>Form entries</strong></dt>'
     for k in form.keys():
-        v = form.getvalue(k, "<empty>")
-        if type(v) is type([]):
-            # Multiple username fields specified
-            v = "|".join(v) 
-        result = result + '<dd><em>%s</em>=%s</dd>' % (k, cgi.escape(v))
+        v = form.get(k, ["<empty>"])
+        v = "|".join(v) 
+        result = result + '<dd><em>%s</em>=%s</dd>' % (k, wikiutil.escape(v))
 
     return result
 

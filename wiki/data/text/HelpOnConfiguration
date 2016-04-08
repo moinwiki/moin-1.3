@@ -27,12 +27,15 @@ The following table contains default values and a short description for all conf
 || allow_xslt || 0|| ''true'' to enable XSLT processing via 4Suite (note that this enables anyone with enough know-how to insert '''arbitrary HTML''' into your wiki, which is why it defaults to 0) ||
 || allowed_actions || [] || allow unsafe actions (list of strings) ||
 || attachments || None || If {{{None}}}, send attachments via CGI; else this has to be a dictionary with the path to attachment storage (key ''dir'') and the equivalent URL prefix to that same dir (key ''url'')||
+|| auth_http_enabled || 0 || ''true'' to enable moin using the username of a user already authenticated by http basic auth ||
 || backtick_meta || 1 || ''true'' to enable {{{`inline literal`}}} markup ||
 || bang_meta || 0 || ''true'' to enable {{{!NoWikiName}}} markup ||
-|| changed_time_fmt || '&nbsp; [%H:%M]' || Time format used on RecentChanges  for page edits within the last 24 hours ||
+|| caching_formats || ['text_html'] || output formats that are cached; set to [] to turn off caching (useful for development) ||
+|| changed_time_fmt || '%H:%M' || Time format used on RecentChanges  for page edits within the last 24 hours ||
 || charset || 'iso-8859-1' || The encoding / character set your system uses ||
+|| chart_options || None || if you have gdchart, use something like chart_options = {'width': 720, 'height': 540} ||
 || check_i18n || 0 || Set to 1 only in development systems, or on a translator's system ||
-|| css_url || "''<url_prefix>''/css/moinmoin.css" || URL for the default CSS definitions, make this a server-relative URL (start with a slash) ||
+|| cookie_lifetime || 12 || 12 hours from now until the MoinMoin cookie expires and you get logged out ||
 || data_dir || './data/' || Path to the data directory, the default is OK if you place the data directory right besides your `moin.cgi` ||
 || date_fmt || '%Y-%m-%d' || System date format, used mostly in RecentChanges ||
 || datetime_fmt || '%Y-%m-%d %H:%M:%S' || Default format for dates and times (when the user has no preferences or chose the "default" date format) ||
@@ -40,9 +43,8 @@ The following table contains default values and a short description for all conf
 || default_markup || 'wiki' || Default page parser / format (name of module in `MoinMoin.parser`)  ||
 || edit_locking || 'warn 10' || Editor locking policy: `None`, `'warn <timeout in minutes>'`, or `'lock <timeout in minutes>'` ||
 || edit_rows || 30 || Default height of the edit box ||
-|| external_diff || 'diff' || Allows you to set an exact path to the command, or change the name to for example "gdiff" if GNU diff is not a native command in your UNIX flavour ||
 || hosts_deny || `[]` || List of denied IPs; if an IP ends with a dot, it denies a whole subnet (class A, B or C) ||
-|| html_head || ''META-Tag with Content-Type'' || Additional <HEAD> tags for all pages (see HelpOnSkins) ||
+|| html_head || '' || Additional <HEAD> tags for all pages (see HelpOnSkins) ||
 || html_head_queries || ''META-Tag with "NOINDEX,NOFOLLOW" for robots'' || Additional <HEAD> tags for edit and action pages (`html_head` is sent, too; see HelpOnSkins) ||
 || html_pagetitle || None || Allows you to set a specific HTML page title (if not set, it defaults to the value of `sitename`) ||
 || httpd_docs || './wiki-moinmoin' || directory with public files, when using the stand-alone server ||
@@ -54,32 +56,41 @@ The following table contains default values and a short description for all conf
 || logo_url || ''MoinMoin logo'' || The URL path to the logo used by `logo_string` above ||
 || lowerletters || ''Latin 1 alphabetic characters and digits'' || Lowercase letters, used to define what is a WikiName ||
 || mail_from || None || `From:` header used in sent mails ||
+|| mail_login || None || "user pwd" if you need to use SMTP AUTH ||
 || mail_smarthost || None || IP or domain name of an SMTP-enabled server; note that email features (notification, mailing of login data) works only if this variable is set ||
 || max_macro_size || 50 || Maximum size of some macro pages in KB, especially used to limits the size of RecentChanges; use `0` to disable that feature ||
 || navi_bar || list of default quick links || Most important links in text form (these links can be over-ridden by the user's quick links); to link to any URL, use a free-form link of the form "`[url text]`" ||
 || nonexist_qm || 0 || Default for displaying WantedPages with a question mark, like in the original wiki (changeable by the user) ||
-|| page_category_regex || '^Category[A-Z]' || Pages matching this regex are regarded as Wiki categories ||
-|| page_footer1 || ''Python Powered logo'' || Custom HTML markup sent ''before'' the system footer (see HelpOnSkins) ||
-|| page_footer2 || "" || Custom HTML markup sent ''after'' the system footer (see HelpOnSkins) ||
-|| page_form_regex || '[a-z]Form$' || Pages matching this regex are regarded as containing form definitions ||
+|| page_category_regex || '^Category[A-Z]' || Pagenames containing a match for this regex are regarded as Wiki categories ||
+|| page_credits || MoinMoin and PythonPowered || html fragment with logos or strings for crediting ||
+|| page_dict_regex || '[a-z]Dict$' || Pagenames containing a match for this regex are regarded as containing variable dictionary definitions ||
+|| page_footer1 || '' || Custom HTML markup sent ''before'' the system footer (see HelpOnSkins) ||
+|| page_footer2 || '' || Custom HTML markup sent ''after'' the system footer (see HelpOnSkins) ||
+|| page_form_regex || '[a-z]Form$' || Pagenames containing a match for this regex are regarded as containing form definitions ||
 || page_front_page || 'FrontPage' || Name of the front page ||
-|| page_icons || ''large HTML fragment'' || The top-right icons on each page ||
-|| page_icons_up || ''icon for link to parent'' || This icon is shown on subpages and links to the parent page ||
+|| page_group_regex || '[a-z]Group$' || Pagenames containing a match for this regex are regarded as containing group definitions ||
+|| page_header1 || '' || Custom HTML markup sent ''before'' the system header / title area (see HelpOnSkins) ||
+|| page_header2 || '' || Custom HTML markup sent ''after'' the system header / title area (see HelpOnSkins) ||
+|| page_iconbar || ["view", ...] || list of icons to show in iconbar ||
+|| page_icons_table || dict || dict of {'iconname': (url, title, icon-img-key), ...} ||
+|| page_license_enabled || 0 || Show a license hint in page editor. ||
+|| page_license_page || 'WikiLicense' || Page linked from the license hint. ||
 || page_local_spelling_words || 'LocalSpellingWords' || Name of the page containing user-provided spellchecker words ||
-|| page_template_regex || '[a-z]Template$' || Pages matching this regex are regarded as templates for new pages ||
+|| page_template_regex || '[a-z]Template$' || Pagenames containing a match for this regex are regarded as templates for new pages ||
+|| refresh || None || refresh = (minimum_delay_s, targets_allowed) enables use of `#refresh 5 PageName` processing instruction, targets_allowed must be either `'internal'` or `'external'` ||
 || shared_intermap || None || path to a file containing global InterWiki definitions (or a list of such filenames) ||
-|| shared_metadb || None || path to a file containing a global InterWiki pagelist (''not yet implemented'') ||
 || show_hosts || 1 || ''true'' to show hostname in RecentChanges ||
 || show_section_numbers || 1 || ''true'' to show section numbers in headings by default ||
-|| show_timings || 0 || used for development ||
+|| show_timings || 0 || shows some timing values at bottom of page - used for development ||
 || show_version || 0 || show MoinMoin's version at the bottom of each page ||
 || sitename || 'An Unnamed MoinMoin Wiki' || Short description of your wiki site, displayed below the logo on each page, and used in RSS documents as the channel title ||
 || smileys || {} || User-defined smileys (a dict with the markup as the key and a tuple of width, height, border, image name as the value) ||
-|| title1 || None || HTML fragment before title area (see HelpOnSkins) ||
-|| title2 || '<hr>' || HTML fragment after title area (see HelpOnSkins) ||
+|| theme_default || 'classic' || the name of the theme that is used by default (see HelpOnThemes) ||
+|| theme_force || False || if True, do not allow to change the theme ||
 || trail_size || 5 || Number of pages in the trail of visited pages ||
+|| tz_offset || 0.0 || default time zone offset in hours from UTC ||
 || ua_spiders || ...|google|wget|... || A regex of HTTP_USER_AGENTs that should be excluded from logging ||
-|| umask || 0777 || umask used on all open(), mkdir() and similar calls ||
+|| umask || 0770 || umask used on all open(), mkdir() and similar calls ||
 || upperletters || ''Latin 1 alphabetic characters'' || Uppercase letters, used to define what is a WikiName ||
 || url_mappings || {} || lookup table to remap URL prefixes (dict of {{{'prefix': 'replacement'}}}); especially useful in intranets, when whole trees of externally hosted documents move around ||
 || url_prefix || '/wiki' || Used as the base URL for all public documents served by the wiki, especially the image files for the icons ||
@@ -88,17 +99,12 @@ The following table contains default values and a short description for all conf
 
 === Changing character sets ===
 
-If you want to use MoinMoin with a character set other than Latin-1, you
-might or even have to change the default character sets for WikiName``s in
-"moin_config.py". A safe default is US-ASCII, i.e. {{{
+If you want to use MoinMoin with a character set other than Latin-1, you might or even have to change the default character sets for WikiName``s in "moin_config.py". A safe default is US-ASCII, i.e. {{{
 upperletters = "A-Z"
 lowerletters = "0-9a-z"
 }}}
 
-With that setting, you need to set "`allow_extended_names=1`" and use the
-special markup for extended WikiName``s `["extended name"]` to get any names
-with characters outside the core latin alphabet.
-
+With that setting, you need to set "`allow_extended_names=1`" and use the special markup for extended WikiName``s `["extended name"]` to get any names with characters outside the core latin alphabet.
 
 [[Anchor(file-attachments)]]
 === File attachments ===
@@ -137,4 +143,5 @@ Moin``Moin must still do the work of uploading file attachments. The ''dir'' val
 
 After you have completed the configuration changes, test by uploading an attachment for WikiSandBox. Then modify the WikiSandBox page to display the uploaded image or download the file. If there were existing attachments before this change, verify the old attachments are still available.  Finally, review the Apache ''access.log'' file to verify you have a log entry showing the expected file access:
 
-  * ''"...GET /drawikiattach/Wiki``Sand``Box/attachments/mypix.jpg HTTP/1.1..."''.
+  * ''"...GET /mywikiattach/Wiki``Sand``Box/attachments/mypix.jpg HTTP/1.1..."''.
+

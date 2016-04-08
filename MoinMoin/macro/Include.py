@@ -2,21 +2,19 @@
 """
     MoinMoin - Include macro
 
-    Copyright (c) 2000, 2001, 2002, 2003 by Jürgen Hermann <jh@web.de>
-    Copyright (c) 2000, 2001 by Richard Jones <richard@bizarsoftware.com.au>
-    All rights reserved, see COPYING for details.
-
     This macro includes the formatted content of the given page(s). See
 
         http://purl.net/wiki/moinmaster/HelpOnMacros/Include
 
     for detailed docs.
     
-    $Id: Include.py,v 1.25 2003/11/09 21:01:02 thomaswaldmann Exp $
+    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
+    @copyright: 2000-2001 by Richard Jones <richard@bizarsoftware.com.au>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import sys, re, cStringIO
-from MoinMoin import config, user, wikiutil
+import re, cStringIO
+from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
 
 _sysmsg = '<p><strong class="%s">%s</strong></p>'
@@ -26,14 +24,12 @@ _arg_from = r'(,\s*from=(?P<fquote>[\'"])(?P<from>.+?)(?P=fquote))?'
 _arg_to = r'(,\s*to=(?P<tquote>[\'"])(?P<to>.+?)(?P=tquote))?'
 _arg_sort = r'(,\s*sort=(?P<sort>(ascending|descending)))?'
 _arg_items = r'(,\s*items=(?P<items>\d+))?'
-# CNC:2003-10-09
 _arg_jumpitems = r'(,\s*jumpitems=(?P<jumpitems>\d+))?'
 _arg_titlesonly = r'(,\s*(?P<titlesonly>titlesonly))?'
 _args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s)?$' % (
     _arg_heading, _arg_level, _arg_from, _arg_to, _arg_sort, _arg_items,
     _arg_jumpitems, _arg_titlesonly)
 
-# CNC:2003-10-09
 TITLERE = re.compile("^(?P<heading>\s*(?P<hmarker>=+)\s.*\s(?P=hmarker))$", 
                      re.M)
 def extract_titles(body):
@@ -46,6 +42,8 @@ def extract_titles(body):
         title_text = h[level:-level].strip()
         titles.append((title_text, level))
     return titles
+
+Dependencies = ["pages"] # included page
 
 def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     _ = macro.request.getText
@@ -61,13 +59,13 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
 
     # prepare including page
     result = []
-    print_mode = macro.form.has_key('action') and macro.form['action'].value == "print"
+    print_mode = macro.form.has_key('action') and macro.form['action'][0] == "print"
     this_page = macro.formatter.page
     if not hasattr(this_page, '_macroInclude_pagelist'):
         this_page._macroInclude_pagelist = {}
 
     # get list of pages to include
-    inc_name = wikiutil.AbsPageName(macro.request, this_page.page_name, args.group('name'))
+    inc_name = wikiutil.AbsPageName(this_page.page_name, args.group('name'))
     pagelist = [inc_name]
     if inc_name.startswith("^"):
         try:
@@ -87,7 +85,6 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     if max_items:
         pagelist = pagelist[:int(max_items)]
 
-    # CNC:2003-10-09
     jumpitems = 0
     if args.group("jumpitems"):
         jumpitems = int(args.group("jumpitems"))
@@ -95,13 +92,11 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
 
     # iterate over pages
     for inc_name in pagelist:
-        # CNC:2003-05-30
         if not macro.request.user.may.read(inc_name):
             continue
         if this_page._macroInclude_pagelist.has_key(inc_name):
             result.append('<p><strong class="error">Recursive include of "%s" forbidden</strong></p>' % (inc_name,))
             continue
-        # CNC:2003-05-30
         if jumpitems:
             jumpitems -= 1
             continue
@@ -134,7 +129,6 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
             else:
                 result.append(_sysmsg % ('warning', 'Include: ' + _('Nothing found for "%s"!')) % to_re)
 
-        # CNC:2003-10-09
         if titlesonly:
             newbody = []
             levelstack = []
@@ -167,16 +161,16 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         ##result.append("*** f=%d t=%d ***" % (from_pos, to_pos))
 
         # edit icon
-        edit_icon = inc_page.link_to(
-            macro.formatter.image(border=0, hspace=2,
-                src="%s/img/moin-edit.gif" % (config.url_prefix,)),
+        edit_icon = inc_page.link_to(macro.request,
+            macro.request.theme.make_icon("edit"),
             css_class="include-edit-link",
             querystr={'action': 'edit', 'backto': this_page.page_name})
-
+        edit_icon = edit_icon.replace('&amp;','&')
+        
         # do headings
         level = None
-        if args.group('htext'):
-            heading = args.group('htext') or inc_page.split_title()
+        if args.group('heading'):
+            heading = args.group('htext') or inc_page.split_title(macro.request)
             level = 1
             if args.group('level'):
                 level = int(args.group('level'))
@@ -184,22 +178,21 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
                 result.append(macro.formatter.heading(level, heading))
             else:
                 result.append(macro.formatter.heading(level,
-                    inc_page.link_to(heading, css_class="include-heading-link"),
-                    icons=edit_icon.replace('<img ', '<img align="right" ')
-                                   .replace('&amp;', '&')))
+                    inc_page.link_to(macro.request, heading, css_class="include-heading-link"),
+                    icons=edit_icon.replace('<img ', '<img align="right" ')))
 
         # set or increment include marker
         this_page._macroInclude_pagelist[inc_name] = \
             this_page._macroInclude_pagelist.get(inc_name, 0) + 1
 
         # output the included page
-        stdout = sys.stdout
-        sys.stdout = cStringIO.StringIO()
+        strfile = cStringIO.StringIO()
+        macro.request.redirect(strfile)
         try:
-            inc_page.send_page(macro.request, content_only=1)
-            result.append(sys.stdout.getvalue())
+            inc_page.send_page(macro.request, content_only=1, content_id="Include_%s" % wikiutil.quoteWikiname(inc_page.page_name) )
+            result.append(strfile.getvalue())
         finally:
-            sys.stdout = stdout
+            macro.request.redirect()
 
         # decrement or remove include marker
         if this_page._macroInclude_pagelist[inc_name] > 1:
@@ -212,7 +205,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         if not (level or print_mode):
             result.extend([
                 '<div class="include-link">',
-                inc_page.link_to('[%s]' % (inc_name,), css_class="include-page-link"),
+                inc_page.link_to(macro.request, '[%s]' % (inc_name,), css_class="include-page-link"),
                 edit_icon,
                 '</div>',
             ])

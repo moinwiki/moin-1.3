@@ -12,7 +12,7 @@ Diese Seite beschreibt, wie Sie vorgehen müssen, um MoinMoin:MoinMoin ab Version
 Im nächsten Abschnitt finden Sie eine Liste von konkreten [#installscenarios Installationsszenarien],
 die Ihnen dabei helfen, diese Anleitung auf verschiedenen Plattformen umzusetzen.
 
-[#basic-install Basisinstallation] erklärt detailiert den ersten Schritt jeder Installation, den Aufruf von "`setup.py`".
+[#basic-install Basisinstallation] erklärt detailliert den ersten Schritt jeder Installation, den Aufruf von "`setup.py`".
 Dieser Schritt ist immer durchzuführen, deshalb empfiehlt es sich, die dort enthaltenen Information in jedem Fall durchzulesen, bevor Sie den Installationsvorgang beginnen.
 
 [#trouble-shooting Fehlerbehebung] hilft bei der Beseitigung von allgemeinen Fehlern, die auf jeder Plattform auftreten können.

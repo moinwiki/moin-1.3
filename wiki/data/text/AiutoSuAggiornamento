@@ -36,7 +36,7 @@ Questo è particolarmente vero per:
 == Aggiornamento dei file ==
 
  Immagini:: On every update, you should copy the content of the "wiki-moinmoin/img" directory 
- to your "data/img" directory, normally a new release has some new GIFs in it. 
+ to your "data/img" directory, normally a new release has some new Icons in it. 
 
  Pagine di sistema:: When upgrading to a new version, copy at least the help pages ("Help*") to
  your existing directory. Then check whether you miss any new system pages. 

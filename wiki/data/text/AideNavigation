@@ -4,17 +4,17 @@
 L'en-tête de chaque page vous permet d'aller à la Frontpage (accueil), aux The header on each page allows you to go to the FrontPage (home), ChangementsRécents, TitleIndex (index de tous les titres de pages, voir IndexTitre en français), WordIndex (index de tous les mots contenus dans les titres, voir IndexMot en français), SiteNavigation (liste des outils de navigation), et SommaireAide.
 
 Dans le coin en haut à droite se trouvent les icônes des fonctions les plus utiles:
-  * [[Icon(moin-parent.gif)]] mène à la page parent, et s'affiche seulement si on est sur une sous-page (voir AideÉdition ou HelpOnEditing/SubPages)
-  * [[Icon(moin-show.gif)]] recharge la page courante
-  * [[Icon(moin-print.gif)]] affiche une version imprimable de la page, sans l'en-tête ou le pied de page.
-  * [[Icon(moin-xml.gif)]] crée une version XML de la page (encore au stade expérimental, crée MoinMoin:StyleBook, une variante de MoinMoin:DocBook)
-  * [[Icon(moin-email.gif)]]/[[Icon(moin-email-x.gif)]] permet de s'inscrire aux notifications par mail pour la page courante. La version couleur claire signifie qu'on est déjà inscrit(e).
-  * [[Icon(moin-edit.gif)]] permet de s'exprimer : d'éditer la page
-  * [[Icon(moin-info.gif)]] montre les méta-informations sur la page, notamment l'historique version longue
-  * [[Icon(moin-diff.gif)]] montre les changements entre la version courante de la page et la version précédente
-  * [[Icon(moin-search.gif)]] affiche la page de recherche
-  * [[Icon(moin-help.gif)]] affiche la page d'aide
-  * [[Icon(moin-home.gif)]] est un lien vers la page perso d'un utilisateur, si l'utilisateur est logué et que la page avec son login existe
+  * [[Icon(up)]] mène à la page parent, et s'affiche seulement si on est sur une sous-page (voir AideÉdition ou HelpOnEditing/SubPages)
+  * [[Icon(view)]] recharge la page courante
+  * [[Icon(print)]] affiche une version imprimable de la page, sans l'en-tête ou le pied de page.
+  * [[Icon(xml)]] crée une version XML de la page (encore au stade expérimental, crée MoinMoin:StyleBook, une variante de MoinMoin:DocBook)
+  * [[Icon(subscribe)]]/[[Icon(unsubscribe)]] permet de s'inscrire aux notifications par mail pour la page courante. La version couleur claire signifie qu'on est déjà inscrit(e).
+  * [[Icon(edit)]] permet de s'exprimer : d'éditer la page
+  * [[Icon(info)]] montre les méta-informations sur la page, notamment l'historique version longue
+  * [[Icon(diff)]] montre les changements entre la version courante de la page et la version précédente
+  * [[Icon(find)]] affiche la page de recherche
+  * [[Icon(help)]] affiche la page d'aide
+  * [[Icon(home)]] est un lien vers la page perso d'un utilisateur, si l'utilisateur est logué et que la page avec son login existe
 
 Cliquer sur le titre de la page dans l'en-tête ci-dessus va lister toutes les pages qui contiennent un lien vers cette page. Un exemple d'utilisation de ce rétro-référencement en lien inverse, est la catégorisation des pages, CategoryHomepage.
 En bas de chaque page, on trouve les liens "traditionnels" Edit et Search classiques du wiki , et de liens pour recherche rapide sur les titres et les textes, ainsi que des liens appelant les éventuelles actions customisées que vous pourriez avoir installées.

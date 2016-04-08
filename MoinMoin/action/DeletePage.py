@@ -2,24 +2,21 @@
 """
     MoinMoin - DeletePage action
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This action allows you to delete a page. Note that the standard
     config lists this action as excluded!
 
-    $Id: DeletePage.py,v 1.23 2003/11/09 21:00:54 thomaswaldmann Exp $
+    @copyright: 2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import string
-from MoinMoin import config, user, webapi, wikiutil
+from MoinMoin import config, wikiutil
 from MoinMoin.PageEditor import PageEditor
 
 
 def execute(pagename, request):
     _ = request.getText
-    actname = string.split(__name__, '.')[-1]
+    actname = __name__.split('.')[-1]
     page = PageEditor(pagename, request)
 
     # be extra paranoid in dangerous actions
@@ -27,38 +24,34 @@ def execute(pagename, request):
             or not request.user.may.edit(pagename) \
             or not request.user.may.delete(pagename):
         return page.send_page(request,
-            # CNC:2003-06-03
-            msg=_('<b>You are not allowed to delete this page.</b>'))
+            msg = _('You are not allowed to delete this page.'))
 
 
     # check whether page exists at all
     if not page.exists():
         return page.send_page(request,
-            msg='<strong>%s</strong>' %
-                _('This page is already deleted or was never created!'))
+            msg = _('This page is already deleted or was never created!'))
 
     # check whether the user clicked the delete button
     if request.form.has_key('button') and request.form.has_key('ticket'):
         # check whether this is a valid deletion request (make outside
         # attacks harder by requiring two full HTTP transactions)
-        if not _checkTicket(request.form['ticket'].value):
+        if not _checkTicket(request.form['ticket'][0]):
             return page.send_page(request,
-                msg='<strong>%s</strong>' %
-                    _('Please use the interactive user interface to delete pages!'))
+                msg = _('Please use the interactive user interface to delete pages!'))
 
         # Delete the page
-        page.deletePage(request.form.getvalue('comment'))
+        page.deletePage(request.form.get('comment', [''])[0])
 
         # Redirect to RecentChanges
         return page.send_page(request,
-                msg='<strong>%s</strong>' %
-                    (_('Page "%s" was successfully deleted!') % (pagename,)))
+                msg = _('Page "%s" was successfully deleted!') % (pagename,))
 
     # send deletion form
     wikiname = wikiutil.quoteWikiname(pagename)
     ticket = _createTicket()
     querytext = _('Really delete this page?')
-    button = _(' Delete ')
+    button = _('Delete')
     comment_label = _("Optional reason for the deletion")
     formhtml = """
 <form method="GET" action="%(wikiname)s">
@@ -69,7 +62,14 @@ def execute(pagename, request):
 <p>
 %(comment_label)s<br>
 <input type="text" name="comment" size="60" maxlength="80">
-</form>""" % locals()
+</form>""" % {
+    'wikiname': wikiname,
+    'querytext': querytext,
+    'actname': actname,
+    'ticket': ticket,
+    'button': button,
+    'comment_label': comment_label,
+}
 
     return page.send_page(request, msg=formhtml)
 
@@ -91,7 +91,7 @@ def _createTicket(tm = None):
 
 def _checkTicket(ticket):
     """Check validity of a previously created ticket"""
-    timestamp = string.split(ticket, '.')[0]
+    timestamp = ticket.split('.')[0]
     ourticket = _createTicket(timestamp)
     return ticket == ourticket
 

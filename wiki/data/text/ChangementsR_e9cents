@@ -5,6 +5,6 @@ Cette page contient la liste des dernières modifications de ce Wiki contenant ''
 ----
 [[RecentChanges]]
 
-|||| [[Icon(moin-diff.gif)]] || marque les anciennes pages qui ont au moins une version de sauvegarde enregistrée (click for an author diff)||
-|||| [[Icon(moin-updated.gif)]] || marque les pages éditées depuis que vous avez mis votre signet (click for a bookmark diff)||
-|||| [[Icon(moin-new.gif)]] || marque les pages créées depuis que vous avez mis votre signet, et qui n'ont pas été éditées depuis la création||
+||<:> [[Icon(diff)]] || marque les anciennes pages qui ont au moins une version de sauvegarde enregistrée (click for an author diff)||
+||<:> [[Icon(updated)]] || marque les pages éditées depuis que vous avez mis votre signet (click for a bookmark diff)||
+||<:> [[Icon(new)]] || marque les pages créées depuis que vous avez mis votre signet, et qui n'ont pas été éditées depuis la création||

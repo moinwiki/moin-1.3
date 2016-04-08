@@ -2,15 +2,12 @@
 """
     MoinMoin - MoinMoin.wikiutil Tests
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: test_wikiutil.py,v 1.4 2003/11/09 21:00:54 thomaswaldmann Exp $
+    @copyright: 2003-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 import unittest
 from MoinMoin import wikiutil
-
 
 # test works only for default config
 class isTemplatePageTestCase(unittest.TestCase):
@@ -32,7 +29,6 @@ class isTemplatePageTestCase(unittest.TestCase):
         for name in self.BAD:
             self.failIf(wikiutil.isTemplatePage(name))
 
-
 # test works only for default config
 class isFormPageTestCase(unittest.TestCase):
     GOOD = [
@@ -52,4 +48,5 @@ class isFormPageTestCase(unittest.TestCase):
             self.failUnless(wikiutil.isFormPage(name))
         for name in self.BAD:
             self.failIf(wikiutil.isFormPage(name))
+
 

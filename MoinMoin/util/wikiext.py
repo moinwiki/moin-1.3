@@ -2,16 +2,14 @@
 """
     MoinMoin - Utilities for writing extensions
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     The stuff in this module is especially geared towards
     writing extensions / plugins, i.e. additional actions,
     macros, processors, parsers and formatters.
 
     See MoinMoin.wikiutil for more.
 
-    $Id: wikiext.py,v 1.3 2003/11/09 21:01:15 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 #############################################################################
@@ -33,7 +31,7 @@ def parseParameters(parameters, arglist):
         form also.
     """
     import shlex, cStringIO
-
+    # XXX FIXME we need _ here!
     QUOTES = "\"'"
     DIGITS = "0123456789"
     parser = shlex.shlex(cStringIO.StringIO(parameters))
@@ -70,13 +68,13 @@ def parseParameters(parameters, arglist):
 
         """
         -----------------------------
-        key = cgi.escape(key) # make sure nobody cheats
+        key = wikiutil.escape(key) # make sure nobody cheats
 
         # safely escape and quote value
         if val[0] in :
-            val = cgi.escape(val)
+            val = wikiutil.escape(val)
         else:
-            val = '"%s"' % cgi.escape(val, 1)
+            val = '"%s"' % wikiutil.escape(val, 1)
         """
 
         result[key.lower()] = val

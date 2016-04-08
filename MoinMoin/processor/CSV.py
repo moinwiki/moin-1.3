@@ -2,18 +2,16 @@
 """
     MoinMoin - Processor for CSV data
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: CSV.py,v 1.4 2003/11/09 21:01:06 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import string, sys
+Dependencies = []
 
 def process(request, formatter, lines):
     # parse bangpath for arguments
     exclude = []
-    for arg in string.split(lines[0])[1:]:
+    for arg in lines[0].split()[1:]:
         if arg[0] == '-':
             try:
                 idx = int(arg[1:])
@@ -37,7 +35,7 @@ def process(request, formatter, lines):
     output.append(formatter.table(1))
     for line in lines:
         output.append(formatter.table_row(1))
-        cells = string.split(line, ';')
+        cells = line.split(';')
         for idx in range(len(cells)):
             if idx in exclude: continue
             output.append(formatter.table_cell(1))
@@ -49,5 +47,5 @@ def process(request, formatter, lines):
         first = 0
     output.append(formatter.table(0))
 
-    request.write(string.join(output, ''))
+    request.write(''.join(output))
 

@@ -2,12 +2,10 @@
 """
     MoinMoin - System Administration
 
-    Copyright (c) 2001, 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     Web interface to do MoinMoin system administration tasks.
 
-    $Id: SystemAdmin.py,v 1.11 2003/11/09 21:01:04 thomaswaldmann Exp $
+    @copyright: 2001, 2003 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin import wikiutil
@@ -15,6 +13,7 @@ from MoinMoin.util import pysupport
 from MoinMoin.userform import do_user_browser
 from MoinMoin.action.AttachFile import do_admin_browser
 
+Dependencies = ["time"]
 
 def execute(macro, args):
     _ = macro.request.getText
@@ -22,7 +21,7 @@ def execute(macro, args):
     # do not show system admin to not admin users
     # !!! add ACL stuff here - meanwhile do this ugly hack:
     try: 
-        if not macro.request.user.may._admin():
+        if not macro.request.user.may.admin(macro.formatter.page.page_name):
             return ''
     except AttributeError: # we do not have _admin in SecurityPolicy, so we give up
         return ''
@@ -32,14 +31,15 @@ def execute(macro, args):
         'attachments': (("File attachment browser"), do_admin_browser),
         'users': (("User account browser"), do_user_browser),
     }
-    choice = macro.request.form.getvalue('sysadm', None)
+    choice = macro.request.form.get('sysadm', [None])[0]
 
-    # !! unfinished!
-    """
-    result = wikiutil.link_tag("?action=export", _("Download XML export of this wiki"))
-    if pysupport.isImportable('gzip'):
-        result += " [%s]" % wikiutil.link_tag("?action=export&compression=gzip", "gzip")
-    """
+    # XXX !! unfinished!
+    if 0:
+        result = wikiutil.link_tag(macro.request,
+            "?action=export", _("Download XML export of this wiki"))
+        if pysupport.isImportable('gzip'):
+            result += " [%s]" % wikiutil.link_tag(macro.request,
+            "?action=export&compression=gzip", "gzip")
 
     # create menu
     menuitems = [(label, id) for id, (label, handler) in _MENU.items()]
@@ -50,8 +50,8 @@ def execute(macro, args):
             result.append(macro.formatter.text(label))
             result.append(macro.formatter.strong(0))
         else:
-            result.append(wikiutil.link_tag("%s?sysadm=%s" % (
-                macro.formatter.page.page_name, id), label))
+            result.append(wikiutil.link_tag(macro.request,
+                "%s?sysadm=%s" % (macro.formatter.page.page_name, id), label))
         result.append('<br>')
     result.append('<br>')
 

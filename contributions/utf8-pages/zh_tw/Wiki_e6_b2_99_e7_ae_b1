@@ -1,0 +1,45 @@
+##language:zh_tw
+##master-page:WikiSandBox
+##master-date:2003-06-04 21:39:58
+你可以在這裡盡情嘗試 wiki 的各項功能, 但是別把四個減號上面的說明(就是本段!)改掉了... 還有, 請 '''*不要*''' 只是因為想試試看, 就新增沒有內容/意義的頁面.
+
+'''提示:''' 按住 Shift 鍵再點選 "HelpOnFormatting" 就可以在另一個視窗裡打開編輯說明. IE 用戶請在 "HelpOnFormatting" 上點右鍵, 選「在新視窗開啟」.
+----
+== 文字格式 ==
+
+''斜體'' '''粗體''' {{{等寬字}}}
+
+`倒單引號帶出的等寬字` (這個功能可能會關掉)
+
+{{{
+預先排好格式的段落
+}}}
+
+== 連結 ==
+
+HelpOnEditing MoinMoin:InterWiki ["中文的MoinMoin"]
+
+http://purl.net/wiki/moin/ [http://www.python.org/ Python]
+
+someone@the.inter.net
+
+
+=== 圖片連結 ===
+http://c2.com/sig/wiki.gif
+
+== 清單 ==
+
+=== 圓點 ===
+ * 第一點
+   1. 帶編號的巢狀清單
+   1. 編號會一直往上加
+ * 第二點
+
+ 縮排
+   再縮排
+
+=== 辭彙 ===
+ 專有名詞:: 定義
+
+=== 畫圖 ===
+drawing:mytest

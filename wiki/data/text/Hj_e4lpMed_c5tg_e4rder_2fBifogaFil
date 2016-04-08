@@ -29,7 +29,7 @@ Den tredje typens länk `drawing:` förklaras i nästa avdelning.
 
 == Redigering av linjegrafik ==
 
-En länk som ser ut som `drawing:picturename` tillåter att man ''interaktivit'' kan redigera vektorgrafik genom det inbyggda Java-programmet. Det programmet sparar sedan två filbifogningar, "`bildnamn.draw`" och "`bildnamn.gif`". Efter att du första gången har sparat en sådan linjegrafikbild så visas den genererade GIF-filen med `drawing:`-länken. Detta betyder att Java bara behöver vara påslagen vid själva redigeringen av bilden, inte när den senare visas.
+En länk som ser ut som `drawing:picturename` tillåter att man ''interaktivit'' kan redigera vektorgrafik genom det inbyggda Java-programmet. Det programmet sparar sedan två filbifogningar, "`bildnamn.draw`" och "`bildnamn.png`". Efter att du första gången har sparat en sådan linjegrafikbild så visas den genererade PNG-filen med `drawing:`-länken. Detta betyder att Java bara behöver vara påslagen vid själva redigeringen av bilden, inte när den senare visas.
 
 För att senare redigera en linjegrafikbild, klicka på `AttachFile` och använd `[edit]`-länken som visas, istället för `[view]` fär `.draw`-filbifogningen. Sparandet av en linjegrafikbild kan ses i [[GetText(LatestChanges)]].
 

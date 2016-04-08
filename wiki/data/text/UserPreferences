@@ -1,12 +1,22 @@
 ##language:en
-If you are coming to this page for the first time, you'll see the form into which you can enter your username and some other settings. It is best to choose a WikiName (like Firstname``Lastname) as username to get your changes and signatures link back to your Wiki``Homepage. Entering your email will enable you to get notifications on page changes and recover lost login data.
-
-If you click on '''[[GetText( Create Profile )]]''', a user profile will be created for you.
-
-/!\ If you are creating a ''new profile'' then please ignore the first entry. Only the '''[[GetText(Name)]]''', '''[[GetText(Password)]]''', '''[[GetText(Password repeat)]]''' and '''[[GetText(Email)]]''' fields are required, and if providing '''[[GetText(Email)]]''' please use the second '''[[GetText(Email)]]''' field.
-
 [[UserPreferences]]
 
- /!\ The "ID", shown in the response page, gets saved as a cookie in your browser for the system to temporarily recognize you. It will expire next midnight - except if you choose '''[[GetText(Remember login information forever)]]''', then the cookie won't expire. To re-login after expiry, use the name and password you provided in this form - and don't forget them! If you forget them, you can have the system send you the login data later by email (so provide a working email address or you will be in big trouble in that case).
+= First time =
+Please fill out '''[[GetText(Name)]]''', '''[[GetText(Password)]]''', '''[[GetText(Password repeat)]]''' and '''[[GetText(Email)]]'''.
 
-'''Logout''' clears the cookie created at login. '''Login''' enables you to gain access to your user profile if you somehow lost the cookie or are on another machine. '''Save''' just updates your profile.
+(!) It is best to choose a WikiName (like Firstname``Lastname) as username to get your changes and signatures link back to your Wiki``Homepage. Your email is needed for you to be able to get notifications on page changes and to recover lost login data.
+
+If you click on '''[[GetText(Create Profile)]]''', a user profile will be created for you and you will be logged in immediately.
+
+= Logging in =
+If want to re-login, just use '''[[GetText(Name)]]''' and '''[[GetText(Password)]]''' and click on '''[[GetText(Login)]]'''. If you forgot your password, provide your email address and click on '''[[GetText(Mail me my account data)]]'''.
+
+= Changing settings =
+'''[[GetText(Save)]]''' updates your profile (stored on the wiki server).
+
+= Logging out =
+'''[[GetText(Logout)]]''' clears the cookie created at login.
+
+= The Cookie =
+/!\ The "ID", shown in the response page, gets saved as a cookie in your browser for the system to temporarily recognize you. It will expire next midnight - except if you choose '''[[GetText(Remember login information forever)]]''' (after being logged in), then the cookie won't expire.
+

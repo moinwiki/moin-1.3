@@ -2,22 +2,10 @@
 """
     MoinMoin - Command line utilities
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    $Id: _util.py,v 1.5 2003/11/09 21:01:07 thomaswaldmann Exp $
+    @copyright: 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.5 $"[11:-2]
+__version__ = "$Revision: 1.6 $"[11:-2]
 
 # Imports
 import os, sys
@@ -77,7 +65,7 @@ class Script:
                 "%(cmd)s %(usage)s\n"
                 "\n"
                 "%(cmd)s v%(ver)s, Copyright (c) 2002, 2003 by Jürgen Hermann <jh@web.de>"
-                % locals(),
+                % {'cmd': cmd, 'usage': usage, 'ver': ver},
             version=rev)
         self.parser.add_option(
             "-q", "--quiet", 

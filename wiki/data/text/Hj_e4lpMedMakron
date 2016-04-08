@@ -7,7 +7,7 @@
 [[TableOfContents]]
 
 == Makron ==
-Med makron kan du göra vissa systemomperationer på normala wikisidor. Det enda som gör dessa sidor speciella är att de innehåller makron. Om du redigerar en sida som SenasteÄndringar eller SystemInformation, så ser du exempel på det.
+Med makron kan du göra vissa systemomperationer på normala wikisidor. Det enda som gör dessa sidor speciella är att de innehåller makron. Om du redigerar en sida som SenasteÄndringar eller SystemInfo, så ser du exempel på det.
 
 För mer information om olika märkkoder se HjälpMedÄndringar.
 
@@ -36,11 +36,11 @@ För mer information om olika märkkoder se HjälpMedÄndringar.
 === Systeminformation ===
 ||'''Makro'''||'''Beskrivning'''||'''Exempel'''||
 ||{{{[[InterWiki]]}}}       || ger en lista på alla kända InterWiki-namn || InterWiki ||
-||{{{[[SystemInfo]]}}}      || ger information om den här `wiki:n`, om pythontolken och systemet || SystemInformation ||
+||{{{[[SystemInfo]]}}}      || ger information om den här `wiki:n`, om pythontolken och systemet || SystemInfo ||
 ||{{{[[PageCount]]}}}       || ger antalet sidor || [[PageCount]] sidor ||
 ||{{{[[PageSize]]}}}        || listar storleken på alla sidor || Se SidStorlek ||
 ||{{{[[StatsChart(type)]]}}} || ger statistiska tabeller (tillåtna typer för närvarande är: hitcounts, pagesize, useragents) || Se HändelseStatistik med undersidor  ||
-||{{{[[SystemAdmin]]}}} || Web-interface till wiki-administration (inte färdig ännu med version 1.0) || Se SystemInformation ||
+||{{{[[SystemAdmin]]}}} || Web-interface till wiki-administration (inte färdig ännu med version 1.0) || Se SystemInfo ||
 
 === Annat ===
 ||'''Makro'''||'''Beskrivning'''||'''Exempel'''||

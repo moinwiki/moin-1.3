@@ -27,7 +27,7 @@ Note that saving template or form definition pages and using preview does ''not'
 
 = Editor backup =
 
-If the user has a homepage[[FootNote(Having a homepage means you're logged in under a name that is also the name of an existing wiki page.)]] indicated by the [[Icon(moin-home.gif)]] icon, a backup of save/preview text is saved either as subpage `Home``Page``Name/Moin``Editor``Backup` (if subpages are allowed) or as page `Home``Page``Name``Moin``Editor``Backup` (if subpages are not allowed).
+If the user has a homepage[[FootNote(Having a homepage means you're logged in under a name that is also the name of an existing wiki page.)]] indicated by the [[Icon(home)]] icon, a backup of save/preview text is saved either as subpage `Home``Page``Name/Moin``Editor``Backup` (if subpages are allowed) or as page `Home``Page``Name``Moin``Editor``Backup` (if subpages are not allowed).
 
 So if you preview often, you will keep your changes, even if your browser crashes.
 

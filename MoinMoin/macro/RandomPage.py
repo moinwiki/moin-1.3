@@ -2,16 +2,15 @@
 """
     MoinMoin - RandomPage Macro
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: RandomPage.py,v 1.7 2003/11/09 21:01:03 thomaswaldmann Exp $
+    @copyright: 2000 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
 import whrandom
 from MoinMoin import config, wikiutil
 
+Dependencies = ["time"]
 
 def execute(macro, args):
     # get number of wanted links        

@@ -2,15 +2,12 @@
 """
     MoinMoin - Formatter Base Class
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: base.py,v 1.27 2003/11/09 21:00:56 thomaswaldmann Exp $
+    @copyright: 2000 - 2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import sys, cgi
-
+from MoinMoin import wikiutil
 
 #############################################################################
 ### Formatter Base
@@ -35,33 +32,29 @@ class FormatterBase:
         self.in_p = 0
         self.in_pre = 0
 
+    def lang(self, lang_name, text):
+        raise NotImplementedError
+
     def setPage(self, page):
         self.page = page
 
     def sysmsg(self, text, **kw):
         """ Emit a system message (embed it into the page).
 
-            Normally used to indicate disabled options, or invalid
-            markup.
+            Normally used to indicate disabled options, or invalid markup.
         """
         return text
 
+    # Document Level #####################################################
+    
     def startDocument(self, pagename):
         return ""
 
     def endDocument(self):
         return ""
 
-    def rawHTML(self, markup):
-        """ This allows emitting pre-formatted HTML markup, and should be
-            used wisely (i.e. very seldom).
-
-            Using this event while generating content results in unwanted
-            effects, like loss of markup or insertion of CDATA sections
-            when output goes to XML formats.
-        """
-        return markup
-
+    # Links ##############################################################
+    
     def pagelink(self, pagename, text=None, **kw):
         if kw.get('generated', 0): return
         if self._store_pagelinks and pagename not in self.pagelinks:
@@ -70,10 +63,27 @@ class FormatterBase:
     def url(self, url, text=None, css=None, **kw):
         raise NotImplementedError
 
-    def text(self, text):
-        raise NotImplementedError
+    def anchordef(self, name):
+        return ""
 
-    def rule(self, size=0):
+    def anchorlink(self, name, text):
+        return text
+
+    def image(self, **kw):
+        """ Take HTML <IMG> tag attributes in `attr`.
+
+            Attribute names have to be lowercase!
+        """
+        result = '<img'
+        for attr, value in kw.items():
+            if attr=='html_class':
+                attr='class'
+            result = result + ' %s="%s"' % (attr, wikiutil.escape(str(value)))
+        return result + '>'
+
+    # Text and Text Attributes ########################################### 
+    
+    def text(self, text):
         raise NotImplementedError
 
     def strong(self, on):
@@ -82,16 +92,10 @@ class FormatterBase:
     def emphasis(self, on):
         raise NotImplementedError
 
+    def underline(self, on):
+        raise NotImplementedError
+
     def highlight(self, on):
-        raise NotImplementedError
-
-    def number_list(self, on, type=None, start=None):
-        raise NotImplementedError
-
-    def bullet_list(self, on):
-        raise NotImplementedError
-
-    def listitem(self, on, **kw):
         raise NotImplementedError
 
     def sup(self, on):
@@ -106,31 +110,26 @@ class FormatterBase:
     def preformatted(self, on):
         self.in_pre = on != 0
 
-    def paragraph(self, on):
-        self.in_p = on != 0
+    # Paragraphs, Lines, Rules ###########################################
 
     def linebreak(self, preformatted=1):
         raise NotImplementedError
 
-    def heading(self, depth, title, **kw):
+    def paragraph(self, on):
+        self.in_p = on != 0
+
+    def rule(self, size=0):
         raise NotImplementedError
 
-    def table(self, on, attrs={}):
+    # Lists ##############################################################
+
+    def number_list(self, on, type=None, start=None):
         raise NotImplementedError
 
-    def table_row(self, on, attrs={}):
+    def bullet_list(self, on):
         raise NotImplementedError
 
-    def table_cell(self, on, attrs={}):
-        raise NotImplementedError
-
-    def anchordef(self, name):
-        return ""
-
-    def anchorlink(self, name, text):
-        return text
-
-    def underline(self, on):
+    def listitem(self, on, **kw):
         raise NotImplementedError
 
     def definition_list(self, on):
@@ -142,13 +141,52 @@ class FormatterBase:
     def definition_desc(self, on):
         raise NotImplementedError
 
-    def image(self, **kw):
-        """ Take HTML <IMG> tag attributes in `attr`.
+    def heading(self, depth, title, **kw):
+        raise NotImplementedError
 
-            Attribute names have to be lowercase!
+    # Tables #############################################################
+    
+    def table(self, on, attrs={}):
+        raise NotImplementedError
+
+    def table_row(self, on, attrs={}):
+        raise NotImplementedError
+
+    def table_cell(self, on, attrs={}):
+        raise NotImplementedError
+
+    # Dynamic stuff / Plugins ############################################
+    
+    def macro(self, macro_obj, name, args):
+        # call the macro
+        return macro_obj.execute(name, args)    
+
+    def processor(self, processor_name, lines):
+        """ processor_name MUST be valid!
+            writes out the result instead of returning it!
         """
-        result = '<img'
-        for attr, value in kw.items():
-            result = result + ' %s="%s"' % (attr, cgi.escape(str(value)))
-        return result + '>'
+        processor = wikiutil.importPlugin("processor",
+                                          processor_name, "process")
+        processor(self.request, self, lines)
+        return ''
+
+    def dynamic_content(self, parser, callback, arg_list = [], arg_dict = {},
+                        returns_content = 1):
+        content = parser[callback](*arg_list, **arg_dict)
+        if returns_content:
+            return content
+        else:
+            return ''
+
+    # Other ##############################################################
+    
+    def rawHTML(self, markup):
+        """ This allows emitting pre-formatted HTML markup, and should be
+            used wisely (i.e. very seldom).
+
+            Using this event while generating content results in unwanted
+            effects, like loss of markup or insertion of CDATA sections
+            when output goes to XML formats.
+        """
+        return markup
 

@@ -2,13 +2,11 @@
 """
     MoinMoin - ReStructured Text Parser
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: rst.py,v 1.8 2003/11/09 21:01:05 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import cgi, sys
+import sys
 from docutils import core, nodes, utils
 from docutils.parsers import rst
 
@@ -42,18 +40,18 @@ class Parser:
 
         if 1:
             document.walkabout(MoinTranslator(self.request, formatter, document))
-
+""" replace print by request.write if you use this:
         if 0:
             dom = document.asdom()
             print '<pre>'
-            print cgi.escape(dom.toprettyxml(indent='  '))
+            print wikiutil.escape(dom.toprettyxml(indent='  '))
             print '</pre>'
 
         if 0:
             print '<pre>'
-            print cgi.escape(document.astext())
+            print wikiutil.escape(document.astext())
             print '</pre>'
-
+"""
 
 class MoinTranslator(nodes.GenericNodeVisitor):
 

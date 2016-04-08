@@ -2,9 +2,6 @@
 """
     MoinMoin - Processor Package
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     Processors need to define a process() function that gets
     passed the current formatter and a list of lines to be
     processed. A processor is allowed to manipulate that list,
@@ -13,10 +10,11 @@
     The first line of the list is always the bang path, so
     you can place arguments there and parse them.
 
-    $Id: __init__.py,v 1.4 2003/11/09 21:01:07 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin.util import pysupport
 
 processors = pysupport.getPackageModules(__file__)
-
+modules = processors

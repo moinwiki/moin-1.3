@@ -68,7 +68,7 @@ Ett sammansatt namn med blandade versaler och gemena som inte har någon sida, vi
 
 ==== Hur lägger jag till ny information, eller ändrar något som är felaktigt? ====
 
-Om du ser någonting som du vill kommentera på, addera på eller ändra, klicka bara på {{{RedigeraText}}}-länken längst ner på sidan eller klicka på [[Icon(moin-edit.gif)]]-ikonen högst upp på sidan. Då kommer sideditorn upp med sidan och du kan enkelt göra ändringar. Wiki-formateraren vill oftast göra "den rätta saken" med texten du matar in. Om du vill göra något snofsigt tillåter wikimärkspråket att du kan göra den mesta formatering som HTML tillåter dig att göra. Se HjälpMedFormatering för några tips och för exempel.
+Om du ser någonting som du vill kommentera på, addera på eller ändra, klicka bara på {{{RedigeraText}}}-länken längst ner på sidan eller klicka på [[Icon(edit)]]-ikonen högst upp på sidan. Då kommer sideditorn upp med sidan och du kan enkelt göra ändringar. Wiki-formateraren vill oftast göra "den rätta saken" med texten du matar in. Om du vill göra något snofsigt tillåter wikimärkspråket att du kan göra den mesta formatering som HTML tillåter dig att göra. Se HjälpMedFormatering för några tips och för exempel.
 
 ==== Finns det några konventionen jag ska följa när jag lägger till information? ====
 Nej, inte många. Det hjälper att hålla olika typer av information formaterad på ett liknande sätt. En viktig konvention som hjälper dig att vara följdriktig är användandet av "Mall"-sidor.

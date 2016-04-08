@@ -11,7 +11,7 @@ Downloading and installing all of the required components will require almost 10
 ||<rowbgcolor="#EEDDAA">Product||Download MB||Installation MB||
 ||Apache||<:>5||<:>20||
 ||Python||<:>10-15||<:>40-60||
-||win32all||<:>4||<:>?||
+||win32all||<:>4||<:>20||
 ||Moin``Moin||<:>0.5||<:>10||
 
 Many users prefer to install software products in a folder other than the installation default. Python typically changes the default installation folder name with each point release, and Apache has changed the default installation folder name with the release of version 2.  Instead of enumerating all the possibilities at each step, this procedure will use the '''Reference''' name in the table below as the installed location for each product. Substitute your real installation location when editing configuration files and entering commands.
@@ -34,7 +34,7 @@ Moin``Moin is distributed in a zipped format for Windows users. Some versions of
 === WinCVS, TortoiseCVS, or Neither ===
 Because development snapshots of the ''Nightly CVS tarball'' and ''Stable CVS tarball'' of Moin``Moin are now downloadable directly from Source``Forge, few users will need to install a CVS utility. In general, the latest Moin``Moin release will be the most stable and best documented choice for new users, ''Stable CVS'' should be trouble free and may have useful new features but may lack corresponding documentation, and ''Nightly CVS'' should be chosen only if you are a Python programmer and want to help test freshly coded features.
 
-CVS utilities are discussed here only because they are uncommon in the Windows environment, and many Windows users may not be familiar with them. If you intend to modify Moin``Moin source code to add your own new features, then you may want to consider installing a CVS utility. CVS utilities allow you modify your local Moin``Moin source code and automatically merge your changes with changes made by other developers when you update your local copy of the Moin``Moin source code from the ''CVS Head''. Even better, if you wish to submit your nifty new feature to the Moin``Moin developers for inclusion in a future Moin``Moin release, you can create a ''patch'' of your enhancement which a Moin``Moin developer can easily install and test on their own local copy of the Moin``Moin source.
+CVS utilities are discussed here only because they are uncommon in the Windows environment, and many Windows users may not be familiar with them. If you intend to modify Moin``Moin source code to add your own new features, then you may want to consider installing a CVS utility. CVS utilities allow you modify your local Moin``Moin source code and automatically merge your changes with changes made by other developers when you update your local copy of the Moin``Moin source code from the ''CVS Head''. Even better, if you wish to submit your nifty new feature to the Moin``Moin developers for inclusion in a future Moin``Moin release, you can create a ''patch'' of your enhancement that a Moin``Moin developer can easily install and test on their own local copy of the Moin``Moin source.
 
 If you are unfamiliar with CVS or are not a Python programmer, your choice for now should definitely be '''Neither'''. You can always revisit this step later. While either CVS utility is easy to install, you should expect to spend a few days learning CVS concepts.
 
@@ -82,7 +82,7 @@ cd \TEMP\moin-x.x
 C:\Python\python setup.py install --record=install.log
 }}}
 
-The above commands will add Moin``Moin to your `C:\Python` installation and create an `install.log` file in `C:\temp\moin-x.x` listing all the copied files. You may use Windows Explorer to examine the newly created folders within `C:\Python`. You should find a `C:\Python\share\moin` folder with subfolders `cgi-bin`, `data`, and `htdocs`. If you have Python 2.0 or 2.1 you will find a folder `C:\Python\MoinMoin`, but with Python 2.2 and later it will be `C:\Python\Lib\site-packages\MoinMoin`. The `MoinMoin` folder contains many Python scripts and several subfolders.
+The above commands will add Moin``Moin to your `C:\Python` installation and create an `install.log` file in {{{C:\temp\moin-x.x}}} listing all the copied files. You may use Windows Explorer to examine the newly created folders within `C:\Python`. You should find a `C:\Python\share\moin` folder with subfolders `cgi-bin`, `data`, and `htdocs`. If you have Python 2.0 or 2.1 you will find a folder `C:\Python\MoinMoin`, but with Python 2.2 and later it will be `C:\Python\Lib\site-packages\MoinMoin`. The `MoinMoin` folder contains many Python scripts and several subfolders.
 
 You are now ready to create a wiki instance.
 
@@ -96,7 +96,7 @@ You may replace the name `mywiki` with almost any name you wish, but do not use 
 Start an MS-DOS or console window and enter the commands below. This will create a clone of the Moin``Moin wiki in the mywiki folder. The `wikidata` folder will be used later for mywiki customization, such as logos and style sheets. 
 
 {{{
-cd C:\
+cd C:\ 
 md Moin
 md Moin\wikidata
 md Moin\mywiki
@@ -109,7 +109,7 @@ copy  cgi-bin\*.* C:\Moin\mywiki\*.*
 If your server is going to run multiple wikis, you need to create additional clones. The commands below will create mywiki2.  The `wikidata` folder created above can contain custom logos and style sheets for all your wikis.
 
 {{{
-cd C:\
+cd C:\ 
 md Moin\mywiki2
 md Moin\mywiki2\data
 cd \Python\share\moin
@@ -126,11 +126,11 @@ The next step is to tell Apache that is has more work to do.
 Use your editor to append the following lines to `C:\Apache\conf\httpd.conf`. Note the presence and absence of trailing slashes, it is important to enter the lines exactly as shown below.
 {{{
 Alias       /wiki/     "C:/Python/share/moin/htdocs/"
-Alias       /wikidata/ "C:/Moin/wikidata"
+Alias       /wikidata/ "C:/Moin/wikidata/"
 ScriptAlias /mywiki    "C:/Moin/mywiki/moin.cgi"
 }}}
 
-The '''Alias''' lines for `wiki` and `wikidata` above instructs Apache to serve GIF images, style sheets, etc. from the specified folders and subfolders. The '''Script``Alias''' line is needed once for each wiki instance, so if you have multiple wikis, repeat the statement using mywiki2, mywiki3, etc. The Script``Alias statement instructs Apache to execute scripts from the specified folder. See the Apache docs for a complete explanation.
+The '''Alias''' lines for `wiki` and `wikidata` above instructs Apache to serve images, style sheets, etc. from the specified folders and subfolders. The '''Script``Alias''' line is needed once for each wiki instance, so if you have multiple wikis, repeat the statement using mywiki2, mywiki3, etc. The Script``Alias statement instructs Apache to execute scripts from the specified folder. See the Apache docs for a complete explanation.
 
 Test your changes by restarting your Apache server and try to access your newborn wiki with the URL `http://127.0.0.1/mywiki`. You should see the Front``Page, try to edit and save it, and if that works, verify your edit is reflected on the Recent``Changes page.
 

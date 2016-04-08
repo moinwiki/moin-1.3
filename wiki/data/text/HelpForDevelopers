@@ -1,8 +1,4 @@
 ##language:en
-'''Related Topics'''
- * MoinMoin:MoinDev
- * MoinMoin:MoinMoinWinCvs
-
 '''Contents'''
 [[TableOfContents]]
 
@@ -10,9 +6,10 @@
 
 MoinMoin would miss quite some features were it not for the help of some of its users. What you can do to improve MoinMoin, also for your own benefit:
  * develop new extensions (macros, actions, processors, parsers)
- * run the CVS version and help testing the new features
+ * run the development version and help testing the new features
  * test MoinMoin on a certain platform, or with certain Python versions
  * help with the translation efforts, especially adding new languages
+ * help developping new themes, CSS and icons
  * ...
 
 In any case, you should subscribe to the [http://lists.sourceforge.net/lists/listinfo/moin-devel MoinMoin Developer List]. More information on MoinMoin source code and other developer issues can be found in the MoinMoin main wiki, on MoinMoin:MoinDev and its subpages.
@@ -31,10 +28,5 @@ of a feature someone found useful enough to write code for, but you
 cannot expect that they always work with the current distribution.
 Contributors are encouraged to send updates... 
 
-Another source of user contributions are the 
-MoinMoin:ActionMarket,
-MoinMoin:MacroMarket,
-MoinMoin:ParserMarket, and
-MoinMoin:ProcessorMarket
-pages.
+Other sources of user contributions are linked from MoinMoin:MoinMoinExtensions.
 

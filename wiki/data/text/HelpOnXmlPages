@@ -1,6 +1,6 @@
 ##language:en
 == XML Pages & XSLT Processing ==
-If you have Python4Suite installed in your system, it is possible to save XML documents as pages. It's important to start those pages with an XML declaration "{{{<?xml ...>}}}" in the very first line. Also, you have to specify the stylesheet that is to be used to process the XML document to HTML. This is done using a [http://www.w3.org/TR/xml-stylesheet/ standard "xml-stylesheet" processing instruction], with the name of a page containing the stylesheet as the "{{{href}}}" parameter.
+If you have [http://4suite.org/ Python4Suite] installed in your system, it is possible to save XML documents as pages. It's important to start those pages with an XML declaration "{{{<?xml ...>}}}" in the very first line. Also, you have to specify the stylesheet that is to be used to process the XML document to HTML. This is done using a [http://www.w3.org/TR/xml-stylesheet/ standard "xml-stylesheet" processing instruction], with the name of a page containing the stylesheet as the "{{{href}}}" parameter.
 
 See the following example for details, which can also be found on the XsltVersion page.
 

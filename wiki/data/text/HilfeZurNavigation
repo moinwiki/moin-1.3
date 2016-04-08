@@ -6,16 +6,16 @@
 Der Kopfbereich auf jeder Seite ermöglicht es Ihnen, folgende Seiten aufzurufen: StartSeite, AktuelleÄnderungen, TitelIndex (Index aller Seitentitel), WortIndex (Index aller Teilworte in den Seitentiteln), WegWeiser (Liste von Navigationshilfen) und HilfeInhalt (Haupt-Hilfeseite).
 
 Oben rechts sieht man einige Icons für die am häufigsten benutzten Funktionen:
-  * [[Icon(moin-parent.gif)]] springt zu der übergeordneten Seite und wird nur dann angezeigt, wenn Sie sich auf einer Unterseite befinden (siehe HilfeZumEditieren/UnterSeiten)
-  * [[Icon(moin-show.gif)]] aktuelle Seite neu laden
-  * [[Icon(moin-print.gif)]] Anzeigen einer Druckversion der Seite ohne Kopf- und Fußbereich
-  * [[Icon(moin-xml.gif)]] erzeugt eine XML-Version der Seite (momentan noch experimentell, erzeugt MoinMoin:StyleBook, eine MoinMoin:DocBook-Variante)
-  * [[Icon(moin-email.gif)]]/[[Icon(moin-email-x.gif)]] ermöglicht es, Email-Benachrichtigungen für die aktuelle Seite anzuschalten, die hellere Version bedeutet, dass man bereits Benachrichtigungen erhält
-  * [[Icon(moin-edit.gif)]] erlaubt es, die Seite zu editieren ("etwas zu sagen")
-  * [[Icon(moin-info.gif)]] zeigt Metadaten über die Seite an, insbesondere die gesamte Versions-Historie
-  * [[Icon(moin-diff.gif)]] zeigt Änderungen zwischen der aktuellen und der vorherigen Version der Seite an
-  * [[Icon(moin-search.gif)]] zeigt die Suchseite an
-  * [[Icon(moin-help.gif)]] zeigt die Hilfeseite
+  * [[Icon(up)]] springt zu der übergeordneten Seite und wird nur dann angezeigt, wenn Sie sich auf einer Unterseite befinden (siehe HilfeZumEditieren/UnterSeiten)
+  * [[Icon(view)]] aktuelle Seite neu laden
+  * [[Icon(print)]] Anzeigen einer Druckversion der Seite ohne Kopf- und Fußbereich
+  * [[Icon(xml)]] erzeugt eine XML-Version der Seite (momentan noch experimentell, erzeugt MoinMoin:StyleBook, eine MoinMoin:DocBook-Variante)
+  * [[Icon(subscribe)]]/[[Icon(unsubscribe)]] ermöglicht es, Email-Benachrichtigungen für die aktuelle Seite anzuschalten, die hellere Version bedeutet, dass man bereits Benachrichtigungen erhält
+  * [[Icon(edit)]] erlaubt es, die Seite zu editieren ("etwas zu sagen")
+  * [[Icon(info)]] zeigt Metadaten über die Seite an, insbesondere die gesamte Versions-Historie
+  * [[Icon(diff)]] zeigt Änderungen zwischen der aktuellen und der vorherigen Version der Seite an
+  * [[Icon(find)]] zeigt die Suchseite an
+  * [[Icon(help)]] zeigt die Hilfeseite
 
 Wenn man auf den Seitentitel im Kopfbereich klickt, bekommt man jede Seite angezeigt, die auf die aktuelle Seite verweist. Eine Beispielanwendung dieser rückwärts zeigenden, invertierten Verweise ist die Kategorisierung von Seiten, z.B. KategorieHomepage.
 

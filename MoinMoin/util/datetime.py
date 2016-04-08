@@ -2,10 +2,8 @@
 """
     MoinMoin - Date & Time Utilities
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: datetime.py,v 1.3 2003/11/09 21:01:14 thomaswaldmann Exp $
+    @copyright: 2003 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # we guarantee that time is always imported!

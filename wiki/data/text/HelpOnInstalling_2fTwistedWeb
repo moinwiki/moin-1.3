@@ -1,0 +1,21 @@
+##language:en
+
+== Using MoinMoin with Twisted ==
+
+[http://twistedmatrix.com Twisted] is a standalone python framework for many kinds of applications.
+For MoinMoin, we use twisted as a python web server that just imports MoinMoin persistently.
+
+This has the advantage that the Python interpreter and all Python scripts (including twisted itself and also MoinMoin) is only loaded and initialized one time, and that data can be cached in memory from request to request, enhancing the performance of MoinMoin.
+
+Another advantage is that this is all based on Python. ;)
+
+=== Deploying MoinMoin with Twisted ===
+
+First install twisted (see URL above). Many Linux distributions have twisted packages.
+Please refer to the documentation of twisted how to install it.
+
+Now see `wiki/cgi-bin/moin_twisted.sh` - maybe you have to slightly adapt the command in there.
+
+Also check `wiki/cgi-bin/moin_twisted.py` - change the settings in the upper script section to fit your needs.
+
+After setting up your own data directory somewhere, try starting moin_twisted.sh - your wiki should be running now.

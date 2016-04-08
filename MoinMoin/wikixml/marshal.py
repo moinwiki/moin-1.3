@@ -2,10 +2,8 @@
 """
     MoinMoin - XML Serialization
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: marshal.py,v 1.3 2003/11/09 21:01:18 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 import types

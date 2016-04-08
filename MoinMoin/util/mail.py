@@ -2,10 +2,8 @@
 """
     MoinMoin - Helper functions for email stuff
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: mail.py,v 1.7 2003/11/09 21:01:15 thomaswaldmann Exp $
+    @copyright: 2003 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
@@ -19,19 +17,40 @@ _transdict = {"AT": "@", "DOT": ".", "DASH": "-"}
 #############################################################################
 
 def sendmail(request, to, subject, text, **kw):
-    """ Send a mail to the address(es) in 'to', with the given subject and
-        mail body 'text'. Return a tuple of success or error indicator and
-        message.
+    """
+    Send a mail to the address(es) in 'to', with the given subject and
+    mail body 'text'.
+    
+    Return a tuple of success or error indicator and message.
 
-        Set a different "From" address with "mail_from=<email>".
+    Set a different "From" address with "mail_from=<email>".
+    @param request: the request object
+    @param to: target email address
+    @param subject: subject of email
+    @param text: email body text
+    @rtype: tuple
+    @return: (is_ok, msg)
     """
     import smtplib, socket
+    from email.MIMEText import MIMEText
+    from email.Header import Header
+    from email.Utils import formatdate
     from MoinMoin import config
 
     _ = request.getText
-
+    # should not happen, but who knows ...
+    if not config.mail_smarthost:
+        return (0, _('''This wiki is not enabled for mail processing. '''
+                '''Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.'''))
     mail_from = kw.get('mail_from', config.mail_from) or config.mail_from
 
+    # Create a text/plain message
+    msg = MIMEText(text, 'plain', config.charset)
+    msg['From'] = mail_from
+    msg['To'] = ', '.join(to)
+    msg['Subject'] = Header(subject, config.charset)
+    msg['Date'] = formatdate()
+    
     try:
         server = smtplib.SMTP(config.mail_smarthost)
         try:
@@ -39,9 +58,7 @@ def sendmail(request, to, subject, text, **kw):
             if config.mail_login:
                 user, pwd = config.mail_login.split()
                 server.login(user, pwd)
-            header = "From: %s\r\nTo: %s\r\nSubject: %s\r\n\r\n" %(
-                mail_from, ', '.join(to), subject)
-            server.sendmail(mail_from, to, header + text)
+            server.sendmail(mail_from, to, msg.as_string())
         finally:
             try:
                 server.quit()
@@ -59,20 +76,23 @@ def sendmail(request, to, subject, text, **kw):
     return (1, _("Mail sent OK"))
 
 
-# code originally by Thomas Waldmann
 def decodeSpamSafeEmail(address):
-    """ Decode a spam-safe email address in `address` by applying the
-        following rules.
+    """
+    Decode a spam-safe email address in `address` by applying the following rules.
     
-        Known all-uppercase words and their translation:
-            "DOT"   -> "."
-            "AT"    -> "@"
-            "DASH"  -> "-"
+    Known all-uppercase words and their translation:
+        "DOT"   -> "."
+        "AT"    -> "@"
+        "DASH"  -> "-"
 
-        Any unknown all-uppercase words simply get stripped.
-        Use that to make it even harder for spam bots!
+    Any unknown all-uppercase words simply get stripped.
+    Use that to make it even harder for spam bots!
 
-        Blanks (spaces) simply get stripped.
+    Blanks (spaces) simply get stripped.
+    
+    @param address: obfuscated email address string
+    @rtype: string
+    @return: decoded email address
     """
     email = []
 

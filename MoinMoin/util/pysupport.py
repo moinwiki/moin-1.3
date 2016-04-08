@@ -2,10 +2,8 @@
 """
     MoinMoin - Supporting function for Python magic
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: pysupport.py,v 1.4 2003/11/09 21:01:15 thomaswaldmann Exp $
+    @copyright: 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 #############################################################################
@@ -43,33 +41,10 @@ def importName(modulename, name):
         Return None on failure.
     """
     try:
-        module = __import__(modulename, globals(), locals(), [name])
+        module = __import__(modulename, globals(), {}, [name]) # {} was: locals()
     except ImportError:
         return None
-
     return getattr(module, name, None)
 
-
-def importPlugin(path, package, modulename, name):
-    """ Import a named object from a module in the context of this function,
-        located in the given path.
-
-        Return None on failure.
-    """
-    import imp
-
-    try:
-        file = None
-        try:
-            file, filename, description = imp.find_module(modulename, [path])
-            assert file is not None
-            module = imp.load_module(package + "." + modulename,
-                file, filename, description)
-        finally:
-            if file: file.close()
-    except ImportError:
-        return None
-
-    return getattr(module, name, None)
-
+# if you look for importPlugin: see wikiutil.importPlugin
 

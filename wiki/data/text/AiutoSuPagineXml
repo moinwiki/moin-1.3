@@ -1,7 +1,7 @@
 ##language:it
 == Pagine XML & Elaborazione XSLT ==
 
-Se il modulo Python4Suite è installato sul sistema, è possibile
+Se il modulo [http://4suite.org/ Python4Suite] è installato sul sistema, è possibile
 salvare documenti XML come pagine. E' importante che la pagina inizi
 con una dichiarazione XML "{{{<?xml ...>}}}" nella sua prima
 riga. Deve anche specificare lo stylesheet che deve essere usato per

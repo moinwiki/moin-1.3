@@ -1,14 +1,12 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Package installer
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: setup.py,v 1.25 2003/11/09 21:00:45 thomaswaldmann Exp $
+    @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.25 $"[11:-2]
+__version__ = "$Revision: 1.29 $"[11:-2]
 
 # Imports
 import glob, os, string, sys
@@ -127,19 +125,20 @@ setup_args = {
     'description': "MoinMoin %s.%s is a Python clone of WikiWiki" % (release, revision),
     'author': "Jürgen Hermann",
     'author_email': "jh@web.de",
-    'url': "http://moin.sf.net/",
-    'licence': "GNU GPL",
+    'url': "http://moinmoin.wikiwikiweb.de/",
+    'license': "GNU GPL",
     'long_description': """
 A WikiWikiWeb is a collaborative hypertext environment, with an
 emphasis on easy access to and modification of information. MoinMoin
 is a Python WikiClone that allows you to easily set up your own wiki,
-only requiring a Web server and a Python installation. 
+only requiring a Python installation. 
 """,
     'packages': [
         'MoinMoin',
         'MoinMoin.action',
         'MoinMoin.formatter',
         'MoinMoin.i18n',
+        'MoinMoin.logfile',
         'MoinMoin.macro',
         'MoinMoin.parser',
         'MoinMoin.processor',
@@ -147,11 +146,12 @@ only requiring a Web server and a Python installation.
         'MoinMoin.stats',
         'MoinMoin.support',
         'MoinMoin.support.optik',
-        'MoinMoin.twisted',
+        'MoinMoin.theme',
         'MoinMoin.util',
         'MoinMoin.webapi',
         'MoinMoin.widget',
         'MoinMoin.wikixml',
+        'MoinMoin.xmlrpc',
 
         # if we get *massive* amounts of test, this should probably be left out
         'MoinMoin._tests',
@@ -166,26 +166,31 @@ only requiring a Web server and a Python installation.
 
     'data_files': [
         ('share/moin/cgi-bin',
-            glob.glob('wiki/cgi-bin/*.cgi') +
-            glob.glob('wiki/cgi-bin/*.py')  ),
+            glob.glob('wiki/cgi-bin/*') ),
         ('share/moin/data',
             ['wiki/data/intermap.txt']),
         ('share/moin/data/text',
             filter(pagefile_filter, glob.glob('wiki/data/text/*'))),
-        ('share/moin/data/backup', []),
-        ('share/moin/data/cache', []),
-        ('share/moin/data/pages', []),
-        ('share/moin/data/plugin', []),
-        ('share/moin/data/plugin/action', []),
-        ('share/moin/data/plugin/macro', []),
-        ('share/moin/data/user', []),
+        ('share/moin/data/plugin/action', ['wiki/data/plugin/action/__init__.py']),
+        ('share/moin/data/plugin/macro', ['wiki/data/plugin/macro/__init__.py']),
+        ('share/moin/data/plugin/formatter', ['wiki/data/plugin/formatter/__init__.py']),
+        ('share/moin/data/plugin/parser', ['wiki/data/plugin/parser/__init__.py']),
+        ('share/moin/data/plugin/processor', ['wiki/data/plugin/processor/__init__.py']),
+        ('share/moin/data/plugin/theme', ['wiki/data/plugin/theme/__init__.py']),
+        ('share/moin/data/plugin/xmlrpc', ['wiki/data/plugin/xmlrpc/__init__.py']),
+        ('share/moin/data/user', ['wiki/data/user/README']),
         ('share/moin/htdocs',
             glob.glob('wiki/htdocs/*.html')),
-        ('share/moin/htdocs/css',
-            glob.glob('wiki/htdocs/css/*.css')),
-        ('share/moin/htdocs/img',
-            glob.glob('wiki/htdocs/img/*.gif') +
-            glob.glob('wiki/htdocs/img/*.png')),
+        ('share/moin/htdocs/classic/css',
+            glob.glob('wiki/htdocs/classic/css/*.css')),
+        ('share/moin/htdocs/classic/img',
+            glob.glob('wiki/htdocs/classic/img/*.gif') +
+            glob.glob('wiki/htdocs/classic/img/*.png')),
+        ('share/moin/htdocs/starshine/css',
+            glob.glob('wiki/htdocs/starshine/css/*.css')),
+        ('share/moin/htdocs/starshine/img',
+            glob.glob('wiki/htdocs/starshine/img/*.gif') +
+            glob.glob('wiki/htdocs/starshine/img/*.png')),
         ('share/moin/htdocs/applets/TWikiDrawPlugin',
             glob.glob('wiki/htdocs/applets/TWikiDrawPlugin/*.jar')),
     ],
@@ -214,3 +219,4 @@ called "python%d.%d-dev(el)".
 Please contact the system administrator to have it installed.
 """ % sys.version_info[:2]
     sys.exit(1)
+

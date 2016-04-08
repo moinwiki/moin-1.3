@@ -1,5 +1,8 @@
 ##language:en
 == Modifying the MoinMoin Default Style Sheets ==
+
+/!\ In 1.2, this is a bit outdated, as we have themes now. But the basics still apply...
+
 If you wish to modify the default Moin``Moin style sheet, it is a good practice to create a new '''.css''' file and use the @import function to import the original `moinmoin.css` file. Override only those attributes you wish to change. Then, if you later upgrade to a newer version of Moin``Moin, any changes to the original `moinmoin.css` file will be incorporated automatically.
 
 The following example assumes you have followed the installation instructions and created an Apache or IIS alias called '''wiki''' pointing to `~/share/moin/htdocs` and another alias called '''wikidata''' pointing to `~/Moin/wikidata` for holding your logos and style sheets.

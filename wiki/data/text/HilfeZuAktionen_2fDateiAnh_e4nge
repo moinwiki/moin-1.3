@@ -29,9 +29,10 @@ Der dritte Typ von Verweisen ist `drawing:` (Zeichnung) und wird im nächsten Abs
 
 == Editieren von Vektorgrafiken ==
 
-Ein Verweis wie `drawing:bildname` ermöglicht es Ihnen, ''interaktiv'' Vektorgrafiken zu editieren mit Hilfe des eingebauten Java-Applets. Das Applet speichert dann zwei Anhänge, "`bildname.draw`" und "`bildname.gif`". Nachdem Sie das erste mal eine Zeichnung abgespeichert haben, wird das erzeugte GIF-Bild anstatt des `drawing:`-Verweises angezeigt. Das bedeutet, dass Sie Java nur anschalten müssen, um zu editieren, während das Anzeigen der Bilder mit  jedem Browser funktioniert.
+Ein Verweis wie `drawing:bildname` ermöglicht es Ihnen, ''interaktiv'' Vektorgrafiken zu editieren mit Hilfe des eingebauten Java-Applets. Das Applet speichert dann drei Anhänge, "`bildname.draw`", "`bildname.png`" und "`bildname.map`". Nachdem Sie das erste mal eine Zeichnung abgespeichert haben, wird das erzeugte PNG-Bild anstatt des `drawing:`-Verweises angezeigt. Die MAP-Datei wird benutzt um Bereiche des Bildes als Verweise zu aktivieren. Das bedeutet, dass Sie Java nur anschalten müssen, um zu editieren, während das Anzeigen der Bilder mit  jedem Browser funktioniert.
 
-Um eine Zeichnung nach dem erstmaligen Speichern zu editieren, klicken Sie auf `AttachFile` und benutzen Sie den `[edit]`-Link, der anstatt von `[view]` angezeigt wird, wenn es sich um einen `.draw`-Anhang handelt. Das abspeichern einer Zeichnung wird in AktuelleÄnderungen vermerkt.
+Um eine Zeichnung nach dem erstmaligen Speichern zu editieren, klicken Sie auf `AttachFile` und benutzen Sie den `[edit]`-Link, der anstatt von `[view]` angezeigt wird, wenn es sich um einen `.draw`-Anhang handelt. Alternativ können Sie auch auf den unsichtbaren, 5 Punkte schmalen Rahmen klicken um den Bearbeiten Modus zu erreichen. Das abspeichern einer Zeichnung wird in AktuelleÄnderungen vermerkt.
 
-Details zur Benutzung des Vektorgrafik-Applets siehe  TWiki:Plugins/TWikiDrawPlugin.
+  /!\ Hinweis: das Applet kennt keine WikiNamen. Sie müssen echte (entweder relative oder absolute) URLs als Links verwenden.
 
+Details zur Benutzung des Vektorgrafik-Applets siehe TWiki:Plugins/TWikiDrawPlugin.

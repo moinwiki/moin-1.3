@@ -2,17 +2,16 @@
 """
     MoinMoin - Navigation Macro
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: Navigation.py,v 1.14 2003/11/09 21:01:02 thomaswaldmann Exp $
+    @copyright: 2003 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import re, sys
+import re
 from MoinMoin import config
 from MoinMoin.Page import Page
 
+Dependencies = ["namespace"]
 
 # helpers
 #!!! refactor these to an util module?
@@ -75,12 +74,12 @@ class Navigation:
         """
         self.macro = macro
         self.args = args.split(',')
-        self._ = macro.request.getText
+        self._ = self.macro.request.getText
 
         self.pagename = self.macro.formatter.page.page_name
         self.print_mode = self.macro.request.form.has_key('action') \
-            and self.macro.request.form['action'].value == 'print'
-        self.media = self.macro.request.form.getvalue('media', None)
+            and self.macro.request.form['action'][0] == 'print'
+        self.media = self.macro.request.form.get('media', [None])[0]
         self.querystr = self.print_mode and self.PROJECTION or ''
 
 
@@ -98,9 +97,10 @@ class Navigation:
     def badscheme(self):
         """ Bad scheme argument.
         """
+        _ = self._
         scheme = self.args[0]
         return self.macro.formatter.sysmsg(
-            self._("Unsupported navigation scheme '%(scheme)s'!") % locals())
+            _("Unsupported navigation scheme '%(scheme)s'!") % {'scheme': scheme})
 
 
     def do_children(self):
@@ -113,10 +113,11 @@ class Navigation:
     def do_siblings(self, root=None):
         """ Navigate from a subpage to its siblings.
         """
+        _ = self._
         # get parent page name
         parent = root or _getParent(self.pagename)
         if not parent:
-            return self.macro.formatter.sysmsg(self._('No parent page found!'))
+            return self.macro.formatter.sysmsg(_('No parent page found!'))
 
         try:
             depth = int(self.args[1])
@@ -129,7 +130,7 @@ class Navigation:
         for child in children:
             # display short page name, leaving out the parent path
             # (and make sure the name doesn't get wrapped)
-            shortname = child[len(parent):].replace(' ', '\xA0')
+            shortname = child[len(parent):]   # .replace(' ', '\xA0') <- breaks utf-8 XXX
 
             # possibly limit depth
             if depth and shortname.count('/') > depth:
@@ -140,7 +141,7 @@ class Navigation:
                 result.append(self.macro.formatter.text(shortname))
             else:
                 # link to sibling / child
-                result.append(Page(child).link_to(text=shortname, querystr=self.querystr))
+                result.append(Page(child).link_to(self.macro.request, text=shortname, querystr=self.querystr))
             result.append(' &nbsp; ')
 
         return ''.join(result)
@@ -152,22 +153,23 @@ class Navigation:
             If `focus` is set, it is the name of a slide page; these only
             get the mode toggle and edit links.
         """
+        _ = self._
         curpage = focus or self.pagename
         result = []
 
         if self.print_mode:
             # projection mode
-            label = self._('Wiki')
+            label = _('Wiki')
             toggle = ''
-            result.append(Page(curpage).link_to(text=self._('Edit'), querystr='action=edit'))
+            result.append(Page(curpage).link_to(self.macro.request, text=_('Edit'), querystr='action=edit'))
             result.append(' &nbsp; ')
         else:
             # wiki mode
-            label = self._('Slideshow')
+            label = _('Slideshow')
             toggle = self.PROJECTION
 
         # add mode toggle link
-        result.append(Page(curpage).link_to(text=label, querystr=toggle))
+        result.append(Page(curpage).link_to(self.macro.request, text=label, querystr=toggle))
 
         # leave out the following on slide pages
         if focus is None:
@@ -175,7 +177,7 @@ class Navigation:
             if children:
                 # add link to first child if one exists
                 result.append(' &nbsp; ')
-                result.append(Page(children[0]).link_to(text=self._('Start'), querystr=self.querystr))
+                result.append(Page(children[0]).link_to(self.macro.request, text=_('Start'), querystr=self.querystr))
 
         return ''.join(result)
 
@@ -183,9 +185,10 @@ class Navigation:
     def do_slides(self, root=None):
         """ Navigate within a slide show.
         """
+        _ = self._
         parent = root or _getParent(self.pagename)
         if not parent:
-            return self.macro.formatter.sysmsg(self._('No parent page found!'))
+            return self.macro.formatter.sysmsg(_('No parent page found!'))
 
         # prepare link generation
         result = []
@@ -197,18 +200,18 @@ class Navigation:
 
         # generate links to neighborhood
         for label, name in links:
-            result.append(' &nbsp; ')
+            result.append(' ')
             if name:
                 # active link
-                result.append(Page(name).link_to(text=label, querystr=self.querystr))
+                result.append(Page(name).link_to(self.macro.request, text=label, querystr=self.querystr))
             else:
                 # ghosted link
                 result.append(self.macro.formatter.text(label))
-            result.append(' &nbsp; ')
+            result.append(' ')
 
             # position indicator in the middle
             if label == labels[2]:
-                result.append(self._(' Slide %(pos)d of %(size)d ') % locals())
+                result.append(_('Slide %(pos)d of %(size)d') % {'pos': pos, 'size': size})
 
         return self.do_slideshow(focus=self.pagename) + ''.join(result)
 

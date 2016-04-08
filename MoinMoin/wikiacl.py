@@ -2,105 +2,98 @@
 """
     MoinMoin Access Control Lists
 
-    Written 2003 by Thomas Waldmann, http://linuxwiki.de/ThomasWaldmann
-    and Gustavo Niemeyer, http://moin.conectiva.com.br/GustavoNiemeyer
-
-    GNU GPL licensed
-
-    $Id: wikiacl.py,v 1.6 2003/11/09 21:00:51 thomaswaldmann Exp $
+    @copyright: 2003 by Thomas Waldmann, http://linuxwiki.de/ThomasWaldmann
+    @copyright: 2003 by Gustavo Niemeyer, http://moin.conectiva.com.br/GustavoNiemeyer
+    @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.6 $"[11:-2]
-
-# CNC:2003-06-03
 
 from MoinMoin import config
-from MoinMoin.Page import Page
 import re
 
 GROUPRE = re.compile(config.page_group_regex)
 
 class AccessControlList:
-    """Access Control List
+    """
+    Access Control List
 
-        Control who may do what on or with a wiki page.
+    Control who may do what on or with a wiki page.
 
-        Syntax of an ACL string:
-            [+|-]User[,User,...]:[right[,right,...]] [[+|-]SomeGroup:...] ...
-            ... [[+|-]Known:...] [[+|-]All:...]
+    Syntax of an ACL string:
+        [+|-]User[,User,...]:[right[,right,...]] [[+|-]SomeGroup:...] ...
+        ... [[+|-]Known:...] [[+|-]All:...]
 
-            "User" is a WikiUsername and triggers only if the user matches.
+        "User" is a WikiUsername and triggers only if the user matches.
 
-            "SomeGroup" is a page name matching config.page_group_regex with
-             some lines in the form " * Member", defining the group members.
+        "SomeGroup" is a page name matching config.page_group_regex with
+         some lines in the form " * Member", defining the group members.
 
-            "Known" is a group containing all valid / known users.
+        "Known" is a group containing all valid / known users.
 
-            "All" is a group containing all users (Known and Anonymous users).
+        "All" is a group containing all users (Known and Anonymous users).
 
-            "right" may be an arbitrary word like read, write, delete, admin.
-            Only words in config.acl_validrights are accepted, others are
-            ignored. It is allowed to specify no rights, which means that no
-            rights are given.
+        "right" may be an arbitrary word like read, write, delete, admin.
+        Only words in config.acl_validrights are accepted, others are
+        ignored. It is allowed to specify no rights, which means that no
+        rights are given.
 
-            When some user is trying to access some ACL-protected resource,
-            the ACLs will be processed in the order they're found. The first
-            matching ACL will tell if the user has access to that resource
-            or not.
+        When some user is trying to access some ACL-protected resource,
+        the ACLs will be processed in the order they're found. The first
+        matching ACL will tell if the user has access to that resource
+        or not.
 
-            For example, the following ACL tells that SomeUser is able to
-            read and write the resources protected by that ACL, while any
-            member of SomeGroup (besides SomeUser, if part of that group)
-            may also admin that, and every other user is able to read it.
+        For example, the following ACL tells that SomeUser is able to
+        read and write the resources protected by that ACL, while any
+        member of SomeGroup (besides SomeUser, if part of that group)
+        may also admin that, and every other user is able to read it.
 
-                SomeUser:read,write SomeGroup:read,write,admin All:read
+            SomeUser:read,write SomeGroup:read,write,admin All:read
 
-            To make the system more flexible, there are also two modifiers:
-            the prefixes '+' and '-'. When they are used, the given ACL
-            entry will *only* match if the user is requesting the given
-            rights. As an example, the above ACL could also be written
-            as:
+        To make the system more flexible, there are also two modifiers:
+        the prefixes '+' and '-'. When they are used, the given ACL
+        entry will *only* match if the user is requesting the given
+        rights. As an example, the above ACL could also be written
+        as:
 
-                -SomeUser:admin SomeGroup:read,write,admin All:read
+            -SomeUser:admin SomeGroup:read,write,admin All:read
 
-            Or even:
+        Or even:
 
-                +All:read -SomeUser:admin SomeGroup:read,write,admin
+            +All:read -SomeUser:admin SomeGroup:read,write,admin
 
-            Notice that you probably won't want to use the second and
-            third examples in ACL entries of some page. They're very
-            useful on the moin configuration entries though.
+        Notice that you probably won't want to use the second and
+        third examples in ACL entries of some page. They're very
+        useful on the moin configuration entries though.
 
-       Config:
-           config.acl_enabled
-               If true will enable ACL support.
-               Default: 0
+   Config:
+       config.acl_enabled
+           If true will enable ACL support.
+           Default: 0
 
-           config.acl_rights_default
-               It is is ONLY used when no other ACLs are given.
-               Default: "Known:read,write,delete All:read,write",
+       config.acl_rights_default
+           It is is ONLY used when no other ACLs are given.
+           Default: "Known:read,write,delete All:read,write",
 
-           config.acl_rights_before
-               When the page has ACL entries, this will be inserted BEFORE
-               any page entries.
-               Default: ""
+       config.acl_rights_before
+           When the page has ACL entries, this will be inserted BEFORE
+           any page entries.
+           Default: ""
 
-           config.acl_rights_after
-               When the page has ACL entries, this will be inserted AFTER
-               any page entries.
-               Default: ""
-           
-           config.acl_rights_valid
-               These are the acceptable (known) rights (and the place to
-               extend, if necessary).
-               Default: ['read','write','delete','admin']
+       config.acl_rights_after
+           When the page has ACL entries, this will be inserted AFTER
+           any page entries.
+           Default: ""
+       
+       config.acl_rights_valid
+           These are the acceptable (known) rights (and the place to
+           extend, if necessary).
+           Default: ['read','write','delete','admin']
     """
 
     special_users = ["All", "Known", "Trusted"]
 
-    def __init__(self, request, lines=[]):
+    def __init__(self, lines=[]):
         """Initialize an ACL, starting from <nothing>.
         """
-        self.request = request
         self.setLines(lines)
 
     def clean(self):
@@ -144,7 +137,7 @@ class AccessControlList:
                 if entries and entries[0] in ['+','-']:
                     c = entries[0]
                     for entry in entries[1:].split(','):
-                        if GROUPRE.match(entry):
+                        if GROUPRE.search(entry):
                             self._is_group[entry] = 1
                         rightsdict = {}
                         for right in rights:
@@ -152,31 +145,31 @@ class AccessControlList:
                         self.acl.append((entry, rightsdict))
                 else:
                     for entry in entries.split(','):
-                        if GROUPRE.match(entry):
+                        if GROUPRE.search(entry):
                             self._is_group[entry] = 1
                         rightsdict = {}
                         for right in config.acl_rights_valid:
                             rightsdict[right] = (right in rights)
                         self.acl.append((entry, rightsdict))
 
-    def may(self, name, dowhat):
+    def may(self, request, dowhat):
         """May <name> <dowhat>?
            Returns boolean answer.
         """
         if not config.acl_enabled:
             # Preserve default behavior of allowing only valid
             # users to delete.
-            if dowhat == "delete" and not self.request.user.valid:
+            if dowhat == "delete" and not request.user.valid:
                 return 0
             return 1
 
-        is_group_member = self.request.groups.hasmember
-        name = name.replace(' ', '')
+        is_group_member = request.dicts.has_member
+        name = request.user.name.replace(' ', '')
         allowed = None
         for entry, rightsdict in self.acl:
             if entry in self.special_users:
                 handler = getattr(self, "_special_"+entry, None)
-                allowed = handler(dowhat, rightsdict)
+                allowed = handler(request, dowhat, rightsdict)
             elif self._is_group.get(entry) and is_group_member(entry, name):
                 allowed = rightsdict.get(dowhat)
             elif entry == name:
@@ -189,16 +182,16 @@ class AccessControlList:
         """print the acl strings we were fed with"""
         return ''.join(["%s%s%s" % (b,l,e) for l in self.acl_lines])
 
-    def _special_All(self, dowhat, rightsdict):
+    def _special_All(self, request, dowhat, rightsdict):
         return rightsdict.get(dowhat)
 
-    def _special_Known(self, dowhat, rightsdict):
-        if self.request.user.valid:
+    def _special_Known(self, request, dowhat, rightsdict):
+        if request.user.valid:
             return rightsdict.get(dowhat)
         return None
 
-    def _special_Trusted(self, dowhat, rightsdict):
-        if self.request.user.trusted:
+    def _special_Trusted(self, request, dowhat, rightsdict):
+        if request.user.trusted:
             return rightsdict.get(dowhat)
         return None
 
@@ -207,9 +200,9 @@ class AccessControlList:
     def __ne__(self, other):
         return self.acl_lines != other.acl_lines
 
-def parseACL(request, body):
+def parseACL(body):
     if not config.acl_enabled:
-        return AccessControlList(request)
+        return AccessControlList()
 
     acl_lines = []
     while body and body[0] == '#':
@@ -235,6 +228,5 @@ def parseACL(request, body):
             else:
                 args = ""
             acl_lines.append(args)
-
-    return AccessControlList(request, acl_lines)
+    return AccessControlList(acl_lines)
 

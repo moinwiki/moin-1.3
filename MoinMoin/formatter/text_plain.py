@@ -2,16 +2,12 @@
 """
     MoinMoin - "text/plain" Formatter
 
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: text_plain.py,v 1.22 2003/11/09 21:00:56 thomaswaldmann Exp $
+    @copyright: 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 # Imports
-import sys
 from MoinMoin.formatter.base import FormatterBase
-
 
 #############################################################################
 ### Plain Text Formatter
@@ -132,3 +128,6 @@ class Formatter(FormatterBase):
         if kw.has_key('alt'):
             return kw['alt']
         return ''
+
+    def lang(self, lang_name, text):
+        return text  

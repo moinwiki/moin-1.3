@@ -3,7 +3,7 @@
 ##master-date:2002-03-05 10:00:33
 ##translated-by:Karolina Lindqvist, Shakti Wiki
 == XML-sidor och XSLT-processning ==
-Om du har Python4Suite installerat på ditt system så är det möjligt att spara XML-dokument som sidor. Det är viktigt att dessa sidor börjar med en XML-deklaration "{{{<?xml ...>}}}" på sidans allra första rad. Det "stylesheet" som ska användas måste också specificeras. Detta görs genom att använda ett [http://www.w3.org/TR/xml-stylesheet/ standard-xml-stilmall skript-instruktion], med namnet på sidan som innehåller stilmallen som parameter till "{{{href}}}".
+Om du har [http://4suite.org/ Python4Suite] installerat på ditt system så är det möjligt att spara XML-dokument som sidor. Det är viktigt att dessa sidor börjar med en XML-deklaration "{{{<?xml ...>}}}" på sidans allra första rad. Det "stylesheet" som ska användas måste också specificeras. Detta görs genom att använda ett [http://www.w3.org/TR/xml-stylesheet/ standard-xml-stilmall skript-instruktion], med namnet på sidan som innehåller stilmallen som parameter till "{{{href}}}".
 
 Se följande exempel för detaljer. Det kan också ses på XsltVersion-sidan.
 

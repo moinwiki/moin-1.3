@@ -2,19 +2,17 @@
 """
     MoinMoin - LikePages action
 
-    Copyright (c) 2001 by Richard Jones <richard@bizarsoftware.com.au>
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This action generates a list of pages that either start or end
     with the same word as the current pagename. If only one matching
     page is found, that page is displayed directly.
 
-    $Id: LikePages.py,v 1.22 2003/11/09 21:00:55 thomaswaldmann Exp $
+    @copyright: (c) 2001 by Richard Jones <richard@bizarsoftware.com.au>
+    @copyright: (c) 2001 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
-import re, cgi
-from MoinMoin import config, user, util, wikiutil, webapi
+import re
+from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
 
 
@@ -30,17 +28,17 @@ def execute(pagename, request):
     # no matches :(
     if not matches:
         Page(pagename).send_page(request,
-            msg='<strong>' + _('No pages match "%s"!') % (pagename,) + '</strong>')
+            msg = _('No pages match "%s"!') % (pagename,))
         return
 
     # one match - display it
     if len(matches) == 1:
         Page(matches.keys()[0]).send_page(request,
-            msg='<strong>' + _('Exactly one matching page for "%s" found!') % (pagename,) + '</strong>')
+            msg =  _('Exactly one matching page for "%s" found!') % (pagename,))
         return
 
     # more than one match, list 'em
-    webapi.http_headers(request)
+    request.http_headers()
     wikiutil.send_title(request, _('Multiple matches for "%s...%s"') % (start, end),
         pagename=pagename)
 
@@ -64,7 +62,7 @@ def findMatches(pagename, request,
     s_match = s_re.match(pagename)
     e_match = e_re.search(pagename)
     if not (s_match and e_match or similar):
-        return None, None, _('<b>You cannot use LikePages on an extended pagename!</b>')
+        return None, None, _('You cannot use LikePages on an extended pagename!')
 
     start = None
     end = None
@@ -98,7 +96,6 @@ def findMatches(pagename, request,
                 continue
             matches[pagemap[anypage]] = 8
 
-    # CNC:2003-05-30
     for pagename in matches.keys():
         if not request.user.may.read(pagename):
             del matches[pagename]
@@ -121,17 +118,17 @@ def _showMatchGroup(request, matches, keys, match, title):
     matchcount = matches.values().count(match)
 
     if matchcount:
-        print '<b>' + _('%(matchcount)d %(matches)s for "%(title)s"') % {
+        request.write('<p><strong>' + _('%(matchcount)d %(matches)s for "%(title)s"') % {
             'matchcount': matchcount,
-            'matches': (_(' match'), _(' matches'))[matchcount != 1],
-            'title': cgi.escape(title)} + '</b>'
-        print "<ul>"
+            'matches': ' ' + (_('match'), _('matches'))[matchcount != 1],
+            'title': wikiutil.escape(title)} + '</strong></p>')
+        request.write("<ul>")
         for key in keys:
             if matches[key] == match:
                 page = Page(key)
-                print '<li><a href="%s/%s">%s</a>' % (
-                    webapi.getScriptname(),
+                request.write('<li><a href="%s/%s">%s</a>' % (
+                    request.getScriptname(),
                     wikiutil.quoteWikiname(page.page_name),
-                    page.split_title())
-        print "</ul>"
+                    page.split_title(request)))
+        request.write("</ul>")
 

@@ -2,21 +2,18 @@
 """
     MoinMoin - MoinMoin.util.web Tests
 
-    Copyright (c) 2003 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: test_util_web.py,v 1.5 2003/11/09 21:00:54 thomaswaldmann Exp $
+    @copyright: 2003-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 import unittest
 from MoinMoin.util import web
 from MoinMoin.widget import html
 
-
 class makeQueryStringTestCase(unittest.TestCase):
     def runTest(self):
         # keep string as string
-        val = 'a=b&c=d'
+        val = 'a=b&amp;c=d'
         self.failUnlessEqual(web.makeQueryString(val), val)
 
         # single value
@@ -30,7 +27,7 @@ class makeQueryStringTestCase(unittest.TestCase):
         # multiple values
         val = {'a': 'b', 'c': 'd'}
         qstr = web.makeQueryString(val)
-        self.failUnless(qstr == 'a=b&c=d' or qstr == 'c=d&a=b')
+        self.failUnless(qstr == 'a=b&amp;c=d' or qstr == 'c=d&amp;a=b')
 
         # keyword variant
         self.failUnlessEqual(web.makeQueryString(a=1), 'a=1')

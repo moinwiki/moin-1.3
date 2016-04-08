@@ -2,9 +2,6 @@
 """
     MoinMoin - Charts
 
-    Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     This is a wrapper for the "gdchart" module.
 
     Example:
@@ -14,7 +11,8 @@
         c.option(title = 'gdchart Demo')
         c.draw(Chart.GDC_LINE, (600, 300), 'test.gif')
 
-    $Id: chart.py,v 1.2 2003/11/09 21:01:08 thomaswaldmann Exp $
+    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 import gdchart
@@ -26,10 +24,11 @@ class ChartData:
         properties like the color of that line.
     """
     def __init__(self, data, color='black'):
-        """ Create a data set.
+        """
+        Create a data set.
         
-            `data` -- tuple / list of numbers
-            `color` -- rendering color (triple, "#RRGGBB" or color name)
+        @param data: tuple / list of numbers
+        @param color: rendering color (triple, "#RRGGBB" or color name)
         """
         self.data = data
         self.color = color

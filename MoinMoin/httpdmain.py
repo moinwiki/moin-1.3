@@ -2,25 +2,29 @@
 """
     MoinMoin - Stand-alone HTTP Server
 
-    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
+    You can use this for private, single-user wikis (like when installing on
+    your private PC or notebook).
+    
+    Usage for public wikis with multiple users is not recommended, use cgi,
+    fastcgi or twisted in that case.
+    
+    @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 
     Significant contributions to this module by R. Church <rc@ghostbitch.org>
-
-    RUN THIS AT YOUR OWN RISK, IT HAS BUGS AND IS UNTESTED!
-
-    $Id: httpdmain.py,v 1.17 2003/11/09 21:00:50 thomaswaldmann Exp $
 """
-__version__ = "$Revision: 1.17 $"[11:-2]
 
 # Imports
-import os, signal, sys, time, thread, urllib, string
-import BaseHTTPServer
-import SimpleHTTPServer
-from MoinMoin import config
-
+import os, signal, sys, time, thread, urllib
+import BaseHTTPServer, SimpleHTTPServer
+from MoinMoin import config, version
+from MoinMoin.request import RequestStandAlone
+from email.Utils import formatdate
+    
 allowed_extensions = ['.gif', '.jpg', '.png', '.css', '.js']
 
+httpd = None
+    
 # Classes
 class MoinServer(BaseHTTPServer.HTTPServer):
     def __init__(self, server_address, htdocs):
@@ -54,9 +58,10 @@ class MoinServer(BaseHTTPServer.HTTPServer):
 
 class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
-    server_version = "MoinMoin/" + __version__
+    server_version = "MoinMoin/" + version.revision
 
     def __init__(self, request, client_address, server):
+        self.expires = 0
         SimpleHTTPServer.SimpleHTTPRequestHandler.__init__(self, request, client_address, server)
 
     def do_DIE(self):
@@ -68,7 +73,12 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         dummy, extension = os.path.splitext(self.path)
+        # XXX FIXME it might be a bit too simple to just use the extension to decide if
+        # we should call the static server or get a wiki page. As long as wiki page URLs
+        # translate ".png" -> "_2Epng" (if anybody makes such a strange page), this is no
+        # problem, though.
         if extension.lower() in allowed_extensions:
+            self.expires = 7*24*3600 # 1 week expiry for png, css
             SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
         else:
             self.doRequest()
@@ -102,95 +112,20 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             
         return path
 
+    def end_headers(self):
+        """overload the default end_headers, inserting expires header"""
+        if self.expires:
+            now = time.time()
+            expires = now + self.expires
+            self.send_header('Expires', formatdate(expires))
+        SimpleHTTPServer.SimpleHTTPRequestHandler.end_headers(self)
+        
     def doRequest(self):
         """Serve a request."""
-        rest = self.path
-        i = string.rfind(rest, '?')
-        if i >= 0:
-            rest, query = rest[:i], rest[i+1:]
-        else:
-            query = ''
-
-        env = {}
-        env['SERVER_SOFTWARE'] = self.version_string()
-        env['SERVER_NAME'] = self.server.server_name
-        env['GATEWAY_INTERFACE'] = 'CGI/1.1'
-        env['SERVER_PROTOCOL'] = self.protocol_version
-        env['SERVER_PORT'] = str(self.server.server_port)
-        env['REQUEST_METHOD'] = self.command
-        uqrest = urllib.unquote(rest)
-        env['PATH_INFO'] = uqrest
-        env['PATH_TRANSLATED'] = uqrest #self.translate_path(uqrest)
-        env['SCRIPT_NAME'] = '' #scriptname
-        env['QUERY_STRING'] = query or ''
-        host = self.address_string()
-        if host != self.client_address[0]:
-            env['REMOTE_HOST'] = host
-        env['REMOTE_ADDR'] = self.client_address[0]
-        # XXX AUTH_TYPE
-        # XXX REMOTE_USER
-        # XXX REMOTE_IDENT
-        if self.headers.typeheader is None:
-            env['CONTENT_TYPE'] = self.headers.type
-        else:
-            env['CONTENT_TYPE'] = self.headers.typeheader
-        length = self.headers.getheader('content-length')
-        env['CONTENT_LENGTH'] = length or ''
-
-        # HTTP headers
-        for hline in self.headers.headers:
-            key = self.headers.isheader(hline)
-            if key:
-                env['HTTP_'+key.replace('-', '_')] = self.headers.getheader(key)
-        accept = []
-        for line in self.headers.getallmatchingheaders('accept'):
-            if line[:1] in string.whitespace:
-                accept.append(string.strip(line))
-            else:
-                accept = accept + string.split(line[7:], ',')
-        env['HTTP_ACCEPT'] = string.joinfields(accept, ',')
-        ua = self.headers.getheader('user-agent')
-        env['HTTP_USER_AGENT'] = ua or ''
-        co = filter(None, self.headers.getheaders('cookie'))
-        env['HTTP_COOKIE'] = string.join(co, ', ') or ''
-
-        save_env = os.environ
-        save_stdin = sys.stdin
-        save_stdout = sys.stdout
-        save_stderr = sys.stderr
-
-        from MoinMoin import cgimain
-
-        try:
-            try:
-                os.environ.update(env)
-                sys.__stdout__ = sys.stdout = self.wfile
-                sys.stdin = self.rfile
-                self.send_response(200)
-
-                properties = {'standalone': 1}
-
-                if env.get('QUERY_STRING') == 'test':
-                    print "Content-Type: text/plain\n\nMoinMoin CGI Diagnosis\n======================\n"
-                    request = cgimain.test(properties)
-                else:
-                    request = cgimain.run(properties)
-
-                sys.stdout.flush()
-            finally:
-                os.environ = save_env
-                sys.stdin = save_stdin
-                sys.stdout = save_stdout
-                sys.stderr = save_stderr
-        except SystemExit, sts:
-            self.log_error("CGI script exit status %s", str(sts))
-        else:
-            #request.clock.stop('total')
-            self.log_error("CGI script exited OK, taking %s secs" %
-                request.clock.value('total'))
-
-        sys.stdout.flush()
-        sys.stderr.flush()
+        self.expires = 0 # don't make an Expires header for wiki pages
+        self.send_response(200)
+        req = RequestStandAlone(self)
+        req.run()
 
 
 # Functions
@@ -204,7 +139,6 @@ def quit(signo, stackframe):
 def run():
     # set globals (only on first import, save from reloads!)
     global httpd
-    httpd = None
 
     # register signal handler
     signal.signal(signal.SIGABRT, quit)

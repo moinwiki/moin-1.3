@@ -115,8 +115,6 @@ Admin stuff:
 
 Command-line tools:
  * "moin-dump" command line tool to create a static copy of the wiki content
- * though not extensively tested, the standalone server now does POST requests, i.e. you can save pages; there are still problems with persistent global variables! It only works for Python >= 2.0.
 
 Compatibility:
- * Statistical features are NOT designed to work with Python 1.5.2 and require Python 2.0 or higher. Overall, MoinMoin 0.11 is not explicitely tested for 1.5.2 compatibility. The lowest ''recommended'' Python version is 2.0!
  * RSS features require a recent PyXML (CVS or 0.7) due to bugs in the namespace handling of xml.sax.saxutils in earlier versions. This is (hopefully) automatically detected on every installation.

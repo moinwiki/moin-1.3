@@ -19,7 +19,7 @@ Before creating a wiki instance, you have to download and install the basic Moin
 Open a shell and enter the following commands:
 {{{
 cd /tmp
-tar xfz moin-1.1.tgz
+tar xzf moin-1.1.tgz
 cd moin-1.1
 python setup.py install --record=install.log
 }}}
@@ -58,7 +58,7 @@ chmod a+rx mywiki/*.cgi
 Then, append these lines to "`/etc/httpd/httpd.conf`":
 {{{
 Alias /wiki/ "/usr/local/share/moin/htdocs/"
-ScriptAlias /mywiki "/usr/local/share/moin/mywiki/moin.cgi/"
+ScriptAlias /mywiki "/usr/local/share/moin/mywiki/moin.cgi"
 }}}
 
 The first line you only need once; the second line is needed once for each wiki instance (of course, each one with another wiki name and path).
@@ -152,20 +152,18 @@ IT WORKS
 
 If you see anything else than "`IT WORKS`", then you are not allowed to execute CGI scripts. How you get that to work is not in the scope of this description, ask your webmaster!
 
-A working Python installation, and a working `diff` command is also assumed.
+A working Python installation is also assumed.
 {{{
 jh@localhost:~ > python -V
 Python 2.3
-jh@localhost:~ > diff --version
-diff - GNU diffutils version 2.7
 }}}
 
 (!) The command line examples show your input after the prompt (`jh@localhost:~ >`). The examples use "`jh`" as the user's name, which means you have to replace your own one whereever "`jh`" appears. The same is true for version numbers (`1.1`) and download URLs.
 
 
-=== Getting the distribution archive and doing the basic installation ===
+=== Doing the basic installation ===
 
-The following commands will fetch and install the ''nightly CVS tarball'', i.e. the current development version. To get the official distribution version, use an appropriate URL.
+The following commands will fetch and install a moin tarball. Use an appropriate URL to the version you want to install.
 
 {{{
 mkdir ~/tmp
@@ -202,7 +200,7 @@ The last command starts the editor, you need to at least change the "`data_dir`"
 -url_prefix = '/wiki'
 +data_dir = '/home/jh/wiki/data/'
 +url_prefix = '/~jh/wiki'
- logo_url = url_prefix + '/img/moinmoin.gif'
+ logo_url = url_prefix + '/img/moinmoin.png'
 }}}
 
 

@@ -2,30 +2,28 @@
 #
 # Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
 # All rights reserved, see COPYING for details.
-#
-# $Id: MANIFEST.in,v 1.12 2003/03/30 16:09:48 jhermann Exp $
 
 # additional files not known by setup.py
-include CHANGES COPYING INSTALL.html UPDATE.html README TODO
-include MANIFEST.in moinlogo.bmp setup.cfg
+include README CHANGES COPYING INSTALL.html UPDATE.html
+include MANIFEST.in moinlogo.bmp setup.cfg LICENSE.Python
 
 # "wiki" directory
-recursive-include   wiki/cgi-bin *.cgi *.py
+recursive-include   wiki/cgi-bin *
 include             wiki/data/intermap.txt
 recursive-include   wiki/data/text *
+recursive-include   wiki/data/plugin __init__.py
+include             wiki/data/user/README
 include             wiki/htdocs/index.html
-recursive-include   wiki/htdocs/css *.css
-recursive-include   wiki/htdocs/img *.gif *.png
+recursive-include   wiki/htdocs/classic/css *.css
+recursive-include   wiki/htdocs/classic/img *.gif *.png
+recursive-include   wiki/htdocs/starshine/css *.css
+recursive-include   wiki/htdocs/starshine/img *.gif *.png
 recursive-include   wiki/htdocs/applets *.jar
-
-# include MoinMoin/wiki-moinmoin/default.css
-# include MoinMoin/wiki-moinmoin/data/editlog
-# recursive-include MoinMoin/wiki-moinmoin/img *
-# recursive-include MoinMoin/wiki-moinmoin/data/text *
 
 # contributions
 recursive-include contributions *
 
 # omit CVS directories
 global-exclude */CVS/*
+global-exclude */.cvsignore
 
