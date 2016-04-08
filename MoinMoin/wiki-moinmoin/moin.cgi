@@ -6,9 +6,10 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: moin.cgi,v 1.52 2000/08/26 23:16:45 jhermann Exp $
+    $Id: moin.cgi,v 1.68 2000/10/26 02:50:33 jhermann Exp $
 """
-__version__ = '$Revision: 1.52 $'[11:-2]
+__version__ = '$Revision: 1.68 $'[11:-2]
+__release__ = '0.3'
 
 
 #############################################################################
@@ -48,6 +49,14 @@ clock.start('config')
 from moin_config import *
 clock.stop('config')
 
+# defaults for older config files
+if not vars().has_key("allow_extended_names"):
+    allow_extended_names=0 
+if not vars().has_key("html_head"):
+    html_head='' 
+if not vars().has_key("max_macro_size"):
+    max_macro_size=0 
+
 # define directories
 data_dir = path.normpath(data_dir)
 text_dir = path.join(data_dir, 'text')
@@ -66,14 +75,48 @@ interwiki = None
 ### Misc utilities
 #############################################################################
 
-# Quoting stuff, works reliable only for WikiNames
+# Quoting stuff
 def quote_filename(filename):
-    return string.replace(urllib.quote(filename), '%', '_')
+    safe = string.letters + string.digits
+    res = list(filename)
+    for i in range(len(res)):
+        c = res[i]
+        if c not in safe:
+            res[i] = '_%02x' % ord(c)
+    return string.joinfields(res, '')
+    #return string.replace(urllib.quote(filename, ''), '%', '_')
 
 def unquote_filename(filename):
     return urllib.unquote(string.replace(filename, '_', '%'))
 
+quote_wikiname = quote_filename
+unquote_wikiname = unquote_filename
+
+def isUnicodeName(name):
+    """Try to determine if the quoted wikiname is a special, pure unicode name"""
+    # escape name if not escaped
+    text = name
+    if not string.count(name, '_'):
+        text = quote_wikiname(name)
+
+    # check if every character is escaped
+    return len(string.replace(text,'_','')) == len(text) * 2/3
+
 # interwiki support
+def split_wiki(wikiurl):
+    """ return tuple of wikitag, wikitail"""
+    # !!! use a regex here!
+    try:
+        wikitag, tail = string.split(wikiurl, ":", 1)
+    except:
+        try:
+            wikitag, tail = string.split(wikiurl, "/", 1)
+        except:
+            wikitag = None
+            tail = None
+
+    return (wikitag, tail)
+
 def resolve_wiki(wikiurl):
     """ return tuple of wikitag, wikiurl, wikitail """
     # load map (once)
@@ -89,18 +132,12 @@ def resolve_wiki(wikiurl):
                 pass
         ##import pprint; print '<pre>'; pprint.pprint(interwiki); print '</pre>'
         
-    # split wiki url (!!! use a regex here!)
-    try:
-        wikitag, tail = string.split(wikiurl, "/", 1)
-    except:
-        try:
-            wikitag, tail = string.split(wikiurl, ":", 1)
-        except:
-            wikitag = None
+    # split wiki url
+    wikitag, tail = split_wiki(wikiurl)
 
     # return resolved url
     if wikitag and interwiki.has_key(wikitag):
-        return (wikitag, interwiki[wikitag], tail)
+        return (wikitag, interwiki[wikitag], urllib.quote(tail))
     else:
         return ("BadWikiTag", get_scriptname(), "/InterWiki")
 
@@ -141,7 +178,7 @@ def editlog_add(page_name, host):
     try: 
         # fcntl.flock(editlog.fileno(), fcntl.LOCK_EX)
         editlog.seek(0, 2)                  # to end
-        editlog.write(string.join((page_name, host, `time.time()`, hostname), "\t") + "\n")
+        editlog.write(string.join((quote_filename(page_name), host, `time.time()`, hostname), "\t") + "\n")
     finally:
         # fcntl.flock(editlog.fileno(), fcntl.LOCK_UN)
         editlog.close()
@@ -174,7 +211,7 @@ def send_title(text, **keywords):
             pagename='PageName'
             print_mode=1 (or 0)
     """
-    print "<head><title>%s</title>" % text
+    print "<head>%s<title>%s</title>" % (html_head, text)
     if css_url:
         print '<link rel="stylesheet" type="text/css" href="%s">' % css_url
     print "</head>"
@@ -188,7 +225,7 @@ def send_title(text, **keywords):
     print '<table><tr><td>'
 
     if logo_string:
-        print link_tag(urllib.quote_plus(front_page), logo_string)
+        print link_tag(quote_wikiname(front_page), logo_string)
     print '</td><td valign="middle" class="headline"><font size="+3">&nbsp;<b>'
     if keywords.get('link'):
         print '<a href="%s">%s</a>' % (keywords['link'], text)
@@ -200,7 +237,7 @@ def send_title(text, **keywords):
             print page_icons % {
                 'scriptname': get_scriptname(),
                 'url': url_prefix,
-                'pagename': urllib.quote(keywords['pagename'])}
+                'pagename': quote_wikiname(keywords['pagename'])}
         print navi_bar % {'scriptname': get_scriptname()}
     if keywords.get('msg'):
         print "<br>", keywords['msg']
@@ -213,10 +250,10 @@ def link_tag(params, text=None, css_class=None):
     if text is None:
         text = params                   # default
     if css_class:
-        classattr = 'class="%s" ' % css_class
+        classattr = ' class="%s"' % css_class
     else:
         classattr = ''
-    return ('<a %s href="%s/%s">%s</a>'
+    return ('<a%s href="%s/%s">%s</a>'
         % (classattr, get_scriptname(), params, text))
 
 
@@ -232,12 +269,22 @@ def do_fullsearch(pagename):
 
     send_title('Full text search for "%s"' % (needle,))
 
-    needle_re = re.compile(needle, re.IGNORECASE)
+    try:
+        needle_re = re.compile(needle, re.IGNORECASE)
+    except:
+        needle_re = re.compile(re.escape(needle), re.IGNORECASE)
+
+    ##print "<pre>", needle, "</pre>", "<hr>"
+
     hits = []
     all_pages = page_list()
     for page_name in all_pages:
         body = Page(page_name).get_raw_body()
-        count = len(needle_re.findall(body))
+        if form.has_key('literal'):
+            count = string.count(body, needle)
+            ##print "#", count, "#" , "<pre>", body, "</pre>", "<hr>"
+        else:
+            count = len(needle_re.findall(body))
         if count:
             hits.append((count, page_name))
 
@@ -393,12 +440,12 @@ def do_info(pagename):
             actions = '%s&nbsp;<a href="%s/%s?action=recall&date=%s">view</a>' % (
                 actions,
                 get_scriptname(),
-                urllib.quote_plus(pagename),
+                quote_wikiname(pagename),
                 path.basename(file)[len(quote_filename(pagename))+1:])
             actions = '%s&nbsp;<a href="%s/%s?action=diff&date=%s">diff</a>' % (
                 actions,
                 get_scriptname(),
-                urllib.quote_plus(pagename),
+                quote_wikiname(pagename),
                 path.basename(file)[len(quote_filename(pagename))+1:])
         print '<tr><td align="right">%d</td><td>&nbsp;%s</td><td align="right">&nbsp;%d</td><td>&nbsp;%s</td></tr>\n' % (
             count,
@@ -452,7 +499,9 @@ def do_savepage(pagename):
 def make_index_key(index_letters):
     index_letters.sort()
     s = '<p><center>'
-    links = map(lambda ch: '<a href="#%s">%s</a>' % (ch, ch),
+    links = map(lambda ch:
+                    '<a href="#%s">%s</a>' %
+                    (quote_wikiname(ch), string.replace(ch, '~', 'Others')),
                 index_letters)
     s = s + string.join(links, ' | ')
     s = s + '</center><p>'
@@ -460,8 +509,16 @@ def make_index_key(index_letters):
 
 
 def page_list():
-    return filter(word_anchored_re.match, map(unquote_filename, os.listdir(text_dir)))
-
+    # List all pages, except for "CVS" directories,
+    # hidden files (leading '.') and temp files (leading '#')
+    pages = os.listdir(text_dir)
+    result = []
+    for file in pages:
+        if file[0] in ['.', '#'] or file in ['CVS']: continue
+        result.append(file)
+    return map(unquote_filename, result)
+    ##return filter(word_anchored_re.match, map(unquote_filename, os.listdir(text_dir)))
+    
 
 def print_footer(pagename, mod_string=None, **keywords):
     """ Print the page footer.
@@ -477,15 +534,15 @@ def print_footer(pagename, mod_string=None, **keywords):
     print '<a href="http://www.python.org/"><img align="right" vspace="10" src="%s/PythonPowered.gif" width="55" height="22" border="0" alt="PythonPowered"></a>' % (url_prefix,)
 
     if keywords.get('showpage', 0):
-        print link_tag(urllib.quote_plus(pagename), "ShowText")
+        print link_tag(quote_wikiname(pagename), "ShowText")
         print 'of this page<br>'
     if keywords.get('editable', 1):
-        print link_tag(urllib.quote_plus(pagename)+'?action=edit', 'EditText')
+        print link_tag(quote_wikiname(pagename)+'?action=edit', 'EditText')
         print "of this page"
         if mod_string:
             print "(last modified %s)" % mod_string
         print '<br>'
-    print link_tag('FindPage?value='+urllib.quote_plus(pagename), 'FindPage')
+    print link_tag('FindPage?value='+urllib.quote_plus(pagename, ''), 'FindPage')
     print " by browsing, searching, or an index<br>"
 
     if show_version: print '<p><font size="1" face="Verdana">MoinMoin %s, Copyright © 2000 by Jürgen Hermann</font></p>' % (__version__,)
@@ -526,7 +583,8 @@ def _macro_WordIndex():
     for name in pages:
         for word in word_re.findall(name):
             try:
-                map[word].append(name)
+                if not map[word].count(name):
+                    map[word].append(name)
             except KeyError:
                 map[word] = [name]
 
@@ -534,9 +592,11 @@ def _macro_WordIndex():
     all_words.sort()
     last_letter = None
     for word in all_words:
+        if isUnicodeName(word): continue
+
         letter = word[0]
         if letter <> last_letter:
-            s = s + '<a name="%s"><h3>%s</h3></a>' % (letter, letter)
+            s = s + '<a name="%s"><h3>%s</h3></a>' % (quote_wikiname(letter), letter)
             last_letter = letter
         if letter not in index_letters:
             index_letters.append(letter)
@@ -560,10 +620,13 @@ def _macro_TitleIndex():
     current_letter = None
     for name in pages:
         letter = name[0]
+        if isUnicodeName(name):
+            letter = "~"
         if letter not in index_letters:
             index_letters.append(letter)
         if letter <> current_letter:
-            s = s + '<a name="%s"><h3>%s</h3></a>' % (letter, letter)
+            s = s + '<a name="%s"><h3>%s</h3></a>' % (
+                quote_wikiname(letter), string.replace(letter, '~', 'Others'))
             current_letter = letter
         else:
             s = s + '<br>'
@@ -581,17 +644,25 @@ def _macro_RecentChanges():
     daycount = 0
     ratchet_day = None
     done_words = {}
+    msg = ""
     buf = StringIO()
     buf.write('<table border=0 cellspacing=2 cellpadding=0>')
     for line in lines:
+        # parse the editlog line
         try:
             page_name, addr, ed_time, hostname = string.split(line, '\t')
         except:
             page_name, addr, ed_time = string.split(line, '\t')
             hostname = addr
+        page_name = unquote_filename(page_name)
 
         if done_words.has_key(page_name):
             continue
+
+        # check for configured max size
+        if max_macro_size and buf.tell() > max_macro_size*1024:
+            msg = "<br><font size='-1'>[Size limited to %dK]</font>" % (max_macro_size,)
+            break
 
         # year, month, day, DoW
         time_tuple = time.localtime(float(ed_time))
@@ -606,7 +677,7 @@ def _macro_RecentChanges():
 
         done_words[page_name] = 1
         buf.write('<tr><td>&nbsp;&nbsp;[%s]&nbsp;</td><td>%s</td><td>&nbsp;' % (
-            link_tag(urllib.quote_plus(page_name) + "?action=diff", "diff"),
+            link_tag(quote_wikiname(page_name) + "?action=diff", "diff"),
             Page(page_name).link_to(),))
 
         if changed_time_fmt:
@@ -623,6 +694,7 @@ def _macro_RecentChanges():
         buf.write('</td></tr>\n')
 
     buf.write('</table>')
+    if msg: buf.write(msg)
 
     return buf.getvalue()
 
@@ -636,9 +708,23 @@ def _macro_InterWiki():
     list = interwiki.items()
     list.sort()
     for tag, url in list:
-            buf.write('<tr><td><tt><a href="%sRecentChanges">%s</a>&nbsp;&nbsp;</tt></td>' % (url, tag))
-            buf.write('<td><tt><a href="%s">%s</a></tt></td>' % (url, url))
-            buf.write('</tr>\n')
+        buf.write('<tr><td><tt><a href="%sRecentChanges">%s</a>&nbsp;&nbsp;</tt></td>' % (url, tag))
+        buf.write('<td><tt><a href="%s">%s</a></tt></td>' % (url, url))
+        buf.write('</tr>\n')
+    buf.write('</table>')
+
+    return buf.getvalue()
+
+
+def _macro_SystemInfo():
+    from cStringIO import StringIO
+
+    row = '<tr><td><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>'
+    buf = StringIO()
+    buf.write('<table border=0 cellspacing=2 cellpadding=0>')
+    buf.write(row % ('Python Version', sys.version))
+    buf.write(row % ('MoinMoin Version', 'Release %s [Revision %s]' % (__release__, __version__)))
+    buf.write(row % ('Number of pages', len(page_list())))
     buf.write('</table>')
 
     return buf.getvalue()
@@ -662,7 +748,8 @@ class PageFormatter:
     formatting_rules = r"""(?:(?P<emph_ibb>'''''(?=[^']+'''))
 (?P<emph>'{2,3})
 (?P<ent>[<>&])
-(?P<interwiki>[A-Z][a-zA-Z]+\:[^\s'\"]+)
+(?P<tt>\{\{\{.*?\}\}\})
+(?P<interwiki>[A-Z][a-zA-Z]+\:[^\s'\"\:][^\s'\"]+)
 (?P<word>(?:[%(u)s][%(l)s]+){2,})
 (?P<rule>-{4,})
 (?P<url_bracket>\[(%(url)s)\:[^\s\]]+(\s[^\]]+)?\])
@@ -671,8 +758,8 @@ class PageFormatter:
 (?P<li>^\s+\*)
 (?P<ol>^\s+\d\.\s)
 (?P<pre>(\{\{\{|\}\}\}))
-(?P<macro>\[\[(TitleSearch|FullSearch|WordIndex|TitleIndex|RecentChanges|GoTo|InterWiki)\]\]))"""  % {
-        'url': 'http|https|ftp|nntp|news|mailto|wiki',
+(?P<macro>\[\[(TitleSearch|FullSearch|WordIndex|TitleIndex|RecentChanges|GoTo|InterWiki|SystemInfo)\]\]))"""  % {
+        'url': 'http|https|ftp|nntp|news|mailto|telnet|wiki',
         'u': upperletters,
         'l': lowerletters}
 
@@ -680,6 +767,7 @@ class PageFormatter:
         self.raw = raw
         self.is_em = self.is_b = 0
         self.in_pre = 0
+        self.lineno = 0
 
         # holds the nesting level (in chars) of open lists
         self.list_indents = []
@@ -702,21 +790,23 @@ class PageFormatter:
         else:
             url, text = url_and_text
 
-        url = url[5:]
+        url = url[5:] # remove "wiki:"
         if text is None:
-            try: # !!! use a regex here, or even better make a split_interwiki()
-                tag, tail = string.split(url, "/", 1)
+            tag, tail = split_wiki(url)
+            if tag:
                 text = tail
-            except:
-                try:
-                    tag, tail = string.split(url, ":", 1)
-                    text = tail
-                except:
-                    text = url
-                    url = ""
+            else:
+                text = url
+                url = ""
 
         wikitag, wikiurl, wikitail = resolve_wiki(url)
 
+        # check for image URL, and possibly return IMG tag
+        extpos = string.rfind(wikitail, ".")
+        if extpos > 0 and wikitail[extpos:] in ['.gif', '.jpg', '.png']:
+            return '<img src="%s%s" border="0">' % (wikiurl, wikitail)
+
+        # return InterWiki hyperlink
         return '<a href="%s"><img src="%s/img/moin-inter.gif" width="16" height="16" hspace="2" border="%d" alt="[%s]"></a><a href="%s%s">%s</a>' % (
             wikiurl, url_prefix, wikitag == "BadWikiTag", wikitag, wikiurl, wikitail, text)
 
@@ -763,6 +853,10 @@ class PageFormatter:
         else:
             return '<a href="%s">%s</a>' % (word, word)
 
+    def _wikiname_bracket_repl(self, word):
+        """Handle special-char wikinames."""
+        wikiname = word[2:-2]
+        return Page(wikiname).link_to()
 
     def _url_bracket_repl(self, word):
         """Handle bracketed URLs."""
@@ -775,6 +869,7 @@ class PageFormatter:
         icon = ("www", 11, 11)
         if scheme == "mailto": icon = ("email", 14, 10)
         if scheme == "news": icon = ("news", 10, 11)
+        if scheme == "telnet": icon = ("telnet", 10, 11)
         if scheme == "ftp": icon = ("ftp", 11, 11)
         #!!! use a map?
         # http|https|ftp|nntp|news|mailto|wiki
@@ -805,16 +900,22 @@ class PageFormatter:
         return '<li>'
 
 
+    def _tt_repl(self, word):
+        """Handle inline code."""
+        return "<tt>%s</tt>" % (word[3:-3],)
+
+
     def _pre_repl(self, word):
         """Handle code displays."""
         if word == '{{{' and not self.in_pre:
             self.in_pre = 1
             return '<pre class="code">'
-        elif self.in_pre:
+        elif word == '}}}' and self.in_pre:
             self.in_pre = 0
             return '</pre>'
         else:
             return ''
+
 
     def _macro_repl(self, word):
         """Handle macros ([[macroname]])."""
@@ -826,6 +927,7 @@ class PageFormatter:
     def _indent_level(self):
         """Return current char-wise indent level."""
         return len(self.list_indents) and self.list_indents[-1]
+
 
     def _indent_to(self, new_level, list_type):
         """Close and open lists."""
@@ -869,25 +971,47 @@ class PageFormatter:
         
 
     def print_html(self):
-        # For each line, we scan through looking for magic
-        # strings, outputting verbatim any intervening text
-        scan_re = re.compile(string.replace(PageFormatter.formatting_rules, '\n', '|'))
+        """ For each line, scan through looking for magic
+            strings, outputting verbatim any intervening text.
+        """
+
+        # prepare regex patterns
+        rules = string.replace(PageFormatter.formatting_rules, '\n', '|')
+        if allow_extended_names:
+            rules = rules + r'|(?P<wikiname_bracket>\[".*"\])'
+        scan_re = re.compile(rules)
         number_re = re.compile("^\s+\d\.\s")
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
+
+        # get text and replaces TABs
         raw = string.expandtabs(self.raw)
+
+        # go through the lines
+        self.lineno = 0
         for line in eol_re.split(raw):
+            self.lineno = self.lineno + 1
+
             if not self.in_pre:
+                # paragraph break on empty lines
                 if not string.strip(line):
                     print '<p>'
                     continue
+
+                # check indent level
                 indent = indent_re.match(line)
                 indlen = len(indent.group(0))
                 indtype = "ul"
                 if indlen and number_re.match(line):
                     indtype = "ol"
+
+                # output proper indentation tags
                 print self._indent_to(indlen, indtype)
+
+            # convert line from wiki markup to HTML and print it            
             print re.sub(scan_re, self.replace, line)
+
+        # close code displays and open lists
         if self.in_pre: print '</pre>'
         print self._undent()
         
@@ -907,6 +1031,9 @@ class Page:
 
 
     def split_title(self):
+        # Python 1.6's "re" is buggy
+        if sys.version[:3] == "1.6": return self.page_name
+
         # look for the end of words and the start of a new word,
         # and insert a space there
         return re.sub('([%s])([%s])' % (lowerletters, upperletters), r'\1 \2', self.page_name)
@@ -930,12 +1057,12 @@ class Page:
     def link_to(self):
         word = self.page_name
         if self.exists():
-            return link_tag(urllib.quote_plus(word), word)
+            return link_tag(quote_wikiname(word), word)
         else:
             if nonexist_qm:
-                return link_tag(urllib.quote_plus(word), '?', 'nonexistent') + word
+                return link_tag(quote_wikiname(word), '?', 'nonexistent') + word
             else:
-                return link_tag(urllib.quote_plus(word), word, 'nonexistent')
+                return link_tag(quote_wikiname(word), word, 'nonexistent')
 
 
     def get_raw_body(self):
@@ -951,10 +1078,10 @@ class Page:
 
     def send_page(self, msg=None, print_mode=0):
         clock.start('send_page')
-        link = '%s/%s?action=fullsearch&value=%s' % (
+        link = '%s/%s?action=fullsearch&value=%s&literal=1' % (
             get_scriptname(),
-            urllib.quote_plus(self.page_name),
-            urllib.quote_plus(self.page_name))
+            quote_wikiname(self.page_name),
+            urllib.quote_plus(self.page_name, ''))
         title = self.split_title()
         if self.prev_date:
             if msg is None: msg = ""
@@ -979,7 +1106,7 @@ class Page:
 
         # send header stuff
         send_title('Edit ' + self.split_title(), pagename=self.page_name)
-        print '<a href="%s?action=edit&rows=10&cols=60">Reduce editor size</a>' % (self.page_name,)
+        print '<a href="%s?action=edit&rows=10&cols=60">Reduce editor size</a>' % (quote_wikiname(self.page_name),)
         print "|", Page('EditingTips').link_to()
 
         # send form
@@ -993,7 +1120,7 @@ class Page:
         except:
             text_cols = 80
 
-        print '<form method="post" action="%s/%s">' % (get_scriptname(), urllib.quote_plus(self.page_name))
+        print '<form method="post" action="%s/%s">' % (get_scriptname(), quote_wikiname(self.page_name))
         print '<input type="hidden" name="action" value="savepage">' 
         if path.isfile(self._text_filename()):
             mtime = path.getmtime(self._text_filename())
@@ -1002,7 +1129,7 @@ class Page:
         print '<input type="hidden" name="datestamp" value="%d">' % (mtime,)
         raw_body = string.replace(self.get_raw_body(), '\r\n', '\n')
         print ('<textarea wrap="virtual" name="savetext" rows="%d" cols="%d" style="width:100%%">%s</textarea>'
-            % (text_rows, text_cols, raw_body))
+            % (text_rows, text_cols, cgi.escape(raw_body)))
         print '<div style="margin-top:6pt;"><input type="submit" value="Save Changes">'
         ##<input type=reset value="Reset">"""
         print "<br>"
@@ -1074,7 +1201,7 @@ try:
 
     pagename = None
     if len(path_info) and path_info[0] == '/':
-        pagename = path_info[1:] or front_page
+        pagename = unquote_wikiname(path_info[1:]) or front_page
 except:
     print "Content-type: text/html"
     print
@@ -1119,14 +1246,17 @@ try:
         elif pagename:
             query = pagename
         else:       
-            query = environ.get('QUERY_STRING', '') or front_page
+            query = unquote_wikiname(environ.get('QUERY_STRING', '')) or front_page
 
-        word_match = re.match(word_re_str, query)
-        if word_match:
-            word = word_match.group(0)
-            Page(word).send_page()
+        if allow_extended_names:
+            Page(query).send_page()
         else:
-            print "<p>Can't work out query \"<pre>" + query + "</pre>\""
+            word_match = re.match(word_re_str, query)
+            if word_match:
+                word = word_match.group(0)
+                Page(word).send_page()
+            else:
+                print "<p>Can't work out query \"<pre>" + query + "</pre>\""
 
     # generate page footer
     clock.stop('total')

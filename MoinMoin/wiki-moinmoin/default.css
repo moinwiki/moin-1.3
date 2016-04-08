@@ -39,6 +39,10 @@ ul {
 ol {
     margin-top: 1pt;
 }
+tt {
+    font-family: Lucida Console,Courier New,Courier,monotype;
+    font-size: 10pt;
+}
 pre.code {
     font-family: Lucida Console,Courier New,Courier,monotype;
     font-size: 10pt;

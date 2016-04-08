@@ -4,8 +4,30 @@ MoinMoin Version History
 Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: CHANGES,v 1.11 2000/08/27 00:38:09 jhermann Exp $
+$Id: CHANGES,v 1.17 2000/10/26 03:04:22 jhermann Exp $
 
+-----------------------------------------------------------------------------
+Version 0.3 (2000-10-25)
+
+New features:
+    * Check for inline images with InterWiki links (Spam:eggs.gif)
+    * New config variable "allow_extended_names", which enables markup for
+      wiki names containing ANY character like this: ["any chars"] 
+    * New config variable "html_head"
+    * New macro [[SystemInfo]]
+    * Added inline code ("{{{" and "}}}" on the same line)
+    * Support for new config variable "max_macro_size"
+
+Bugfixes:
+    * Don't treat sequences with a double colon (CPP::Namespace) as an
+      InterWiki link
+    * The local part of InterWiki links is now correctly URL-escaped
+    * Quickfix for a bug in 1.6's regular expressions
+    * Fixed "SpamSpamSpam" bug (multiple entries in word list)
+    * Anchor names get quoted in WordIndex and TitleIndex
+    * Filtering of filenames in page_list() corrected
+    * Escape &, <, > when sending the editor
+    * Final(?) fix for japanese wiki names
 
 -----------------------------------------------------------------------------
 Version 0.2 (2000-08-26)

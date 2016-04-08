@@ -4,7 +4,7 @@ MoinMoin Installation Instructions
 Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: INSTALL,v 1.3 2000/08/25 01:44:07 jhermann Exp $
+$Id: INSTALL,v 1.5 2000/10/26 03:04:22 jhermann Exp $
 
 
 ###########################
@@ -13,7 +13,8 @@ $Id: INSTALL,v 1.3 2000/08/25 01:44:07 jhermann Exp $
 
 The following description applies to a setup using Windows/NT4, Apache 1.3.9
 and Python 1.5.2; you mileage may vary. MoinMoin is also tested with Apache
-1.3.12.
+1.3.12. Starting with release 0.3, the development happens using Python 2.0,
+and support for Python 1.5.2 will be kept up for a while.
 
 We will setup the Wiki that comes with the distribution here; you should
 first try to get it to run unmodified (apart from configuration changes),
@@ -88,5 +89,28 @@ in there is public anyway).
 
 Similar... :)
 
-[add description of sourceforge setup here]
+We will setup the Wiki that comes with the distribution here; you should
+first try to get it to run unmodified (apart from configuration changes),
+and only when it works create your Wiki in its own directory.
+
+Quick description:
+    cd
+    cd public_html
+    tar zxvf MoinMoin-0.3.tgz
+    chmod -R g+rwX MoinMoin-0.3 # might need other rights at your site!
+
+Then edit "moin_config.py", namely:
+
+    url_prefix = '/~YOUR-USERNAME/MoinMoin-0.3/wiki-moinmoin'
+
+Finally, give it a try with the URL
+
+    http://127.0.0.1/~YOUR-USERNAME/MoinMoin-0.3/wiki-moinmoin/moin.cgi
+
+For the above to work, the extension ".cgi" must be activated so that it
+starts the CGI script handler (ask you webmaster). If you are the webmaster,
+you can do all of this directly in your "htdocs", and you have to adapt
+the URL accordingly (no ~username).
+
+Have fun!
 

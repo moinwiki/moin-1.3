@@ -23,4 +23,12 @@ DolphinWiki http://www.object-arts.com/wiki/html/Dolphin/
 LegoWiki http://www.object-arts.com/wiki/html/Lego-Robotics/
 TWiki http://twiki.sourceforge.net/cgi-bin/view/
 VisualWorks http://wiki.cs.uiuc.edu/VisualWorks/
+StrikiWiki http://ch.twi.tudelft.nl/~mostert/striki/teststriki.pl?
+BridgesWiki http://c2.com/w2/bridges/
+IMDB http://us.imdb.com/Title?
+JiniWiki http://www.cdegroot.com/cgi-bin/jini?
+Dictionary http://www.dictionary.com/cgi-bin/dict.pl?term=
 ISBN http://www.amazon.com/exec/obidos/ISBN=
+FreshMeat http://freshmeat.net/
+BrainBench http://www.brainbench.com/transcript.jsp?pid=
+EfnetCeeWiki http://rm-f.net/~jh/c-wiki/moin.cgi/

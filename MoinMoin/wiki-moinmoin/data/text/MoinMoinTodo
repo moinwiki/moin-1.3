@@ -6,17 +6,16 @@ MoinMoinRelease describes how to build a release from the SourceForge repository
 ------
 '''CURRENT''' (what to do before a 1.0 release)
 
- * Inline code sections (triple-brace open and close on the same line)
+ * #REDIRECT (see Meatball) or #PRAGMA REDIRECT (also use # as a comment character?)
+ * Add display of config params (lower/uppercase letterns) to the SystemInfo macro.
+ * Support some (all?) of StructuredText ('''TABLES''')
+ * Support URNs, see http://www.ietf.org/internet-drafts/draft-daigle-uri-std-00.txt and http://www.ietf.org/internet-drafts/draft-hakala-isbn-00.txt
  * Add ISBN links
     * IsbnInfo page and ISBN macro
+    * pattern d{3}-d{8}-d{8}-[0-9xX]
+    * calculate checksum
     * Link icon to IsbnInfo page, and the ISBN number itself to the main URL
- * Add a means to add meta tags to the page header, like: {{{
-<meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=euc-jp">
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=x-euc-jp">
-<META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
-}}}
  * Create MoinMoinI18n master sets (and while doing that, document all the new features)
- * Document unix installation (any volunteers?)
  * Document all MoinMoinUrlSchemes (i.e. action=whatever)
 
 ----
@@ -27,6 +26,11 @@ MoinMoinRelease describes how to build a release from the SourceForge repository
 ----
 '''FEATURES'''
 
+ * Support for -- (&dash; ?) and possibly any (Latin-1) SGML entity.
+ * A RegisterInterest macro
+ * Add a "news item" macro (edit page shows a special form)
+ * Implement http://sunir.org/apps/visits.pl
+ * Make a sitemap using Wiki:GraphViz
  * Page info: links to / from page.
  * System Info: number of pages, edits, views, whatever.
  * Add hidden field to editor, for two purposes:
@@ -39,6 +43,6 @@ MoinMoinRelease describes how to build a release from the SourceForge repository
  * Support &''''''uuml; SgmlEntities
  * Configuration ''outside'' the script proper (config file instead of moin_config.py)
  * Make it a package, with a small cgi driver (see configuration)
- * After editing, do a redirect so that a reload does work as expected (i.e. does not submit the form again).
  * When a save is in conflict with another update, use the rcs/cvs merge process to create the new page, so the conflicts can be refactored. Warn the user of this!
  * Write timings to a log file (cgi_log) when configured accordingly, so we can check for necessary optimizations.
+ * Wiki:WikiWordStatistics (or just add counters to the WordIndex?)

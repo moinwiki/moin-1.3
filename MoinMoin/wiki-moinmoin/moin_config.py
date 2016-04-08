@@ -4,9 +4,9 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: moin_config.py,v 1.12 2000/08/25 23:10:30 jhermann Exp $
+    $Id: moin_config.py,v 1.15 2000/10/26 02:50:33 jhermann Exp $
 """
-__version__ = "$Revision: 1.12 $"[11:-2]
+__version__ = "$Revision: 1.15 $"[11:-2]
 
 # basic options
 data_dir = './data/'
@@ -26,6 +26,12 @@ nonexist_qm = 0                         # show '?' for nonexistent?
 edit_rows = 30
 show_timings=0
 show_version=0
+allow_extended_names=1
+max_macro_size=50 # max size of RecentChanges in KB (0=unlimited)
+html_head="""
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=iso-8859-1">
+<META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
+"""
 
 # page names
 front_page      = 'FrontPage'
@@ -33,7 +39,7 @@ recent_changes  = 'RecentChanges'
 
 # char sets (WikiNames)
 upperletters = "A-ZÀÁÂÃÄÅÆÈÉÊËÌÍÎÏÒÓÔÕÖØÙÚÛÜÝÇÐÑÞ"
-lowerletters = "a-zàáâãäåæèéêëìíîïòóôõöøùúûüýÿµßçðñþ"
+lowerletters = "0-9a-zàáâãäåæèéêëìíîïòóôõöøùúûüýÿµßçðñþ"
 
 # navigation bar (should be generated in the script, from a dictionary or list)
 navi_bar="""

@@ -1,5 +1,15 @@
 Things from MoinMoinTodo that got implemented.
 
+ * Check for a (configurable) max size in bytes of the RecentChanges page while building it
+ * Inline code sections (triple-brace open and close on the same line, {{{like this}}} or {{{ThisFunctionWhichIsNotaWikiName()}}})
+ * SGML-Entities were replaced when saving them a second time, i.e. & #160; without the space had a problem.
+ * SpamSpamSpam appeared 3 times in WordIndex. Too much Spam!
+ * Added a means to add meta tags to the page header, like: {{{
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=euc-jp">
+<META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
+}}}
+ * MoinMoin:JürgenHermann is now url-escaped
+ * You can now have ["Really special page names äöüÄÖÜß\{[]}/,.-;:_!§$%&/()="?´+*#'~<><|^°@"] if you set "allow_extended_names" to 1 in the config file.
  * Added "action=raw" to send the raw wiki markup as text/plain
  * Added InterWiki links (and now also "normal" MeatBall:InterWiki links)
  * Do a '''chmod 666''' when saving (otherwise, it gets hard to edit, remove, and cvs checkin the pages).
@@ -12,4 +22,4 @@ Things from MoinMoinTodo that got implemented.
  * First change regarding URLs is to remove " from the URL pattern. Then you can put URLs into quotes, which makes nice reading.
  * Numbered lists (PikiPiki seems to have omitted those)
 
-Also look at the [http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/MoinMoin/CHANGES?cvsroot=moin&only_with_tag=HEAD CHANGES file] (click on "download").
+Also look at the [http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/MoinMoin/CHANGES?cvsroot=moin&only_with_tag=HEAD CHANGES file] (click on "download"), which lists all the changes in the most recent developer version (only available via CVS).

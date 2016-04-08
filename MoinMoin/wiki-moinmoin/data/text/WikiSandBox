@@ -1,14 +1,23 @@
+Please feel free to experiment here...
+                                                       or here...
+----
 Hey there, little bear. Isn't a nice ''sandbox'' '''nice'''?
 
  * One
- * Two
-    * Two One
+ * Two -Buckle My Shoe-
+    * One Two 
     * Two Two
  * Three
 
-MoinMoin
 
-Please feel free to experiment here...
+ * There is something cool here.{{{This is cool}}}
+   I like to be able to continue it here.
+   * sub list
+   * sublist.
+   * {{{ e = mc^2 }}}
+   * sublist.
+
+MoinMoin
 
 Komisch somehow nothing really works, ''blub'', '''blub'''.
 
@@ -45,14 +54,68 @@ li iiuh dsfuip dfsiouh iuiu piudfs
 oi oi u
 osd oiu oi usdf
 
+[so where's rot13 when you need it?] 
 
 iopj df
 disfjoidf j po p
 -----
 
+It's just that easy?
+
+''Seems so. ;)''
 
 {{{ public static void and surprisingly this has a gray background
         (looks quite, nice though) {} }}}
 
+-------------
+Hello there, I want to link to DjembeUniverse page
 -----
-I like plastic
+I like plastic (with lots of '''polyester''')!
+-----
+I'm ''not'' so sure that I do, at least not in my food ;-)
+----
+Is there some kind of revision control on this wiki. I am interested in
+Wikis for project diocumentation use and Version Control is very useful
+in this context.
+
+I looked at the info-page of this page and : yes there is a version log,
+_but_ User-Ids would be great.
+
+mailto:Norbert.Klamann@klamann-software.de
+
+Cookie-Based user id & prefs will be supported in some later release. No time-frame, though.
+
+krs-one {{{boogie down}}} krs-one
+
+get down
+
+would be nice to see some editing instructions right here though.
+
+Yeah, EditingTips is such an obscure name for that. :>
+
+----------
+
+http://www.encrypted.net/~jh/moinmoin/moinmoin.gif
+
+'''Where are the clones?! Send in the clones!!'''
+
+http://www.encrypted.net/~jh/moinmoin/moinmoin.gif
+
+---------
+
+{{{just another BoringTest http://www.kalab.com }}}
+This is YetAnotherBoringTest
+
+Testing MoinMoin. Also please visit http://www.kalab.com
+
+{{{test1}}}
+{{{
+test2
+}}}
+ {{{test3}}}
+{{{ {{{ test4 }}} }}}
+
+  * a
+      * b
+hello
+          * c

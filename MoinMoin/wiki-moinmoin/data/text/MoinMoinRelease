@@ -4,12 +4,18 @@ This describes how to create a release tarball for MoinMoin. It's of minor inter
  1. Commit the current status of the MoinMoin wiki.
  1. Validate the CHANGES file (insert current date and new version number).
  1. Tag the repository:
- {{{cvs tag ...}}}
- 1. Create an export directory:
- {{{cvs export ...}}}
- 1. Create the tarball:
- {{{...}}}
- 1. Upload the tarball:
- {{{...}}}
+ {{{cvs tag rel-MAJOR-MINOR}}}
+ 1. Create an export directory: {{{
+cvs -z3 -d :pserver:anonymous@cvs.moin.sourceforge.net:/cvsroot/moin export -D 2000-12-31 MoinMoin
+mv MoinMoin MoinMoin-MAJOR.MINOR
+}}}
+ 1. Create the tarball (or zip): {{{
+tar cvfz MoinMoin-MAJOR.MINOR.tgz MoinMoin-MAJOR.MINOR
 
-...
+zip -r9 MoinMoin-MAJOR.MINOR.zip MoinMoin-MAJOR.MINOR
+}}}
+ 1. Upload the tarball (or zip):
+    * [http://sourceforge.net/project/admin/editpackages.php?group_id=8482 SourceForge / Project Admin / Release Files]
+    * Follow the forms
+    * See also [http://sfdocs.sourceforge.net/sfdocs/display_topic.php?topicid=22 Making File Releases]
+ 1. Download from SourceForge and give it a test run.

@@ -28,3 +28,6 @@ It is very likely that cookies will not be available on the majority of internet
 Some regex for wiki markup are at http://www.c2.com/cgi/wiki?TextFormattingRegularExpressions
 
 ''The c2 markup is really very bad from an accessibility point of view. It requires the use of the TAB character (ASCII 009) which is not available in many cases. UseMod/MeatballWiki have more optimal WikiMarkup in most cases, at least with the common cases. It even does indenting in an easy way. See [wiki:MeatBall/TextFormattingRules]. -- SunirShah''
+
+----
+In MoinMoin, it would be nice for a macro that would allow users to input text, and when they hit submit, it would append their message (along with the date & time) to the end of the file.  You could use this in a News page, etc.  --KeithNaas
