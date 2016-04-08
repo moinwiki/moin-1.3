@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-18 22:57+0100\n"
+"POT-Creation-Date: 2004-05-07 03:19+0200\n"
 "PO-Revision-Date: 2004-01-11 22:09+0100\n"
 "Last-Translator: Christian Sunesson <noss@rm-f.net>\n"
 "Language-Team: Swedish <moin-devel@lists.sourceforge.net>\n"
@@ -13,18 +13,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
 "X-Language: Svenska\n"
+"X-Language-in-English: Swedish\n"
 
-#: Page.py:153
 #, python-format
 msgid "(last edited %(time)s by %(editor)s)"
 msgstr ""
 
-#: Page.py:159
 #, python-format
 msgid "(last modified %s)"
 msgstr "(senast ändrad %s)"
 
-#: Page.py:485
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
@@ -32,22 +30,18 @@ msgstr ""
 "Reservkopians innehåll av den här sidan är oönskad och kommer inte att "
 "finnas med i sökresultat!"
 
-#: Page.py:544
 #, python-format
 msgid "Version as of %(date)s"
 msgstr "Version vid datum %(date)s"
 
-#: Page.py:554
 #, python-format
 msgid "Redirected from page \"%(page)s\""
 msgstr "Omdirigerad från sida \"%(page)s\""
 
-#: Page.py:560
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
 msgstr "Den här sidan är omdirigerad till \"%(page)s\""
 
-#: Page.py:581
 #, fuzzy, python-format
 msgid ""
 "<p><small>If you submit this form, the submitted values will be displayed.\n"
@@ -63,29 +57,23 @@ msgstr ""
 "b><br><br>\n"
 "makroanrop.</b></small></p>\n"
 
-#: Page.py:606 action/AttachFile.py:296
 #, fuzzy
 msgid "You are not allowed to view this page."
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: Page.py:707 parser/xslt.py:146
 msgid "RefreshCache"
 msgstr "UpdateraCache"
 
-#: Page.py:708 parser/xslt.py:147
 #, fuzzy, python-format
 msgid "for this page (cached %(date)s)"
 msgstr " för den här sidan (cachad %(date)s)"
 
-#: Page.py:726
 msgid "Create this page"
 msgstr "Skapa den här sidan"
 
-#: Page.py:736
 msgid "Alternatively, use one of these templates:"
 msgstr "Alternativt, använd en av dessa mallar::"
 
-#: Page.py:751
 #, fuzzy, python-format
 msgid ""
 "To create your own templates, add a page with a name matching the regex \"%"
@@ -93,61 +81,48 @@ msgid ""
 msgstr ""
 "För att skapa en egen mall, ge den ett namn som slutar med \"Template\"."
 
-#: Page.py:759
 msgid "The following pages with similar names already exist..."
 msgstr ""
 
-#: PageEditor.py:149 wikiaction.py:579 wikiaction.py:613
 #, fuzzy
 msgid "You are not allowed to edit this page."
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: PageEditor.py:151 PageEditor.py:724
 msgid "Page is immutable!"
 msgstr ""
 
-#: PageEditor.py:155
 msgid "Cannot edit old revisions!"
 msgstr ""
 
-#: PageEditor.py:162
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 
-#: PageEditor.py:178
 #, python-format
 msgid "Edit \"%(pagename)s\""
 msgstr "Redigera \"%(pagename)s\""
 
-#: PageEditor.py:180
 #, python-format
 msgid "Preview of \"%(pagename)s\""
 msgstr "Förhandsgranskning av \"%(pagename)s\""
 
-#: PageEditor.py:186
 #, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
 msgstr ""
 
-#: PageEditor.py:187
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
 msgstr ""
 
-#: PageEditor.py:188
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
 msgstr ""
 
-#: PageEditor.py:224
 msgid "Someone else deleted this page while you were editing!"
 msgstr ""
 
-#: PageEditor.py:226
 msgid "Someone else changed this page while you were editing!"
 msgstr ""
 
-#: PageEditor.py:239 wikiaction.py:674
 #, python-format
 msgid ""
 "Someone else saved this page while you were editing!\n"
@@ -155,60 +130,47 @@ msgid ""
 "Have a look at the diff of %(difflink)s to see what has been changed."
 msgstr ""
 
-#: PageEditor.py:266
 #, python-format
 msgid "[Content of new page loaded from %s]"
 msgstr "[Den nya sidans innehåll laddad från %s]"
 
-#: PageEditor.py:268
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[Mall %s ej funnen]"
 
-#: PageEditor.py:278
 msgid "Reduce editor size"
 msgstr "Minska editorns storlek"
 
-#: PageEditor.py:282
 msgid "Skip to preview"
 msgstr "Hoppa till förhandsgransking"
 
-#: PageEditor.py:284
 #, python-format
 msgid "[current page size <strong>%(size)d</strong> bytes]"
 msgstr ""
 
-#: PageEditor.py:300
 #, python-format
 msgid "Describe %s here."
 msgstr "Beskriv %s här."
 
-#: PageEditor.py:318
 msgid "Optional comment about this change"
 msgstr "Kommentar om sidändringar (valfri)"
 
-#: PageEditor.py:325
 msgid "<No addition>"
 msgstr ""
 
-#: PageEditor.py:326
 #, python-format
 msgid "Make this page belong to category %(category)s"
 msgstr ""
 
-#: PageEditor.py:333
 msgid "Check Spelling"
 msgstr "Stavningskoll"
 
-#: PageEditor.py:335
 msgid "Save Changes"
 msgstr "Spara ändringar"
 
-#: PageEditor.py:336
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: PageEditor.py:342
 #, python-format
 msgid ""
 "By hitting <strong>%(save_button_text)s</strong> you put your changes under "
@@ -217,19 +179,15 @@ msgid ""
 "cancel your changes."
 msgstr ""
 
-#: PageEditor.py:356
 msgid "Preview"
 msgstr "Förhandsgranska"
 
-#: PageEditor.py:361
 msgid "Send mail notification"
 msgstr "Skicka epostuppdatering"
 
-#: PageEditor.py:369
 msgid "Remove trailing whitespace from each line"
 msgstr "Eleminera efterföljande mellanslag från varje rad"
 
-#: PageEditor.py:382
 #, fuzzy
 msgid ""
 "<dt>Emphasis:</dt>\n"
@@ -268,11 +226,9 @@ msgstr ""
 "</font>\n"
 "<hr>\n"
 
-#: PageEditor.py:422
 msgid "Edit was cancelled."
 msgstr "Redigeringen avbröts."
 
-#: PageEditor.py:467
 #, fuzzy, python-format
 msgid ""
 "Dear Wiki user,\n"
@@ -289,7 +245,6 @@ msgstr ""
 "Följande sidor har ändrats av %(editor)s:\n"
 "%(pagelink)s\n"
 
-#: PageEditor.py:478
 #, fuzzy, python-format
 msgid ""
 "The comment on the change is:\n"
@@ -299,58 +254,46 @@ msgstr ""
 "Ändringens kommentar är:\n"
 "%(comment)s\n"
 
-#: PageEditor.py:483
 msgid "No older revisions of the page stored, diff not available."
 msgstr "Inga äldre versioner av sidan lagrade, diff inte tillgänglig."
 
-#: PageEditor.py:493
 msgid "No differences found!\n"
 msgstr "Inga skillnader funna!\n"
 
-#: PageEditor.py:496
 #, fuzzy, python-format
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Extern program <b>diff</b> returnerade med felkod %(rc)s!"
 
-#: PageEditor.py:499
 #, python-format
 msgid "[%(sitename)s] Update of \"%(pagename)s\""
 msgstr "[%(sitename)s] uppdatering av \"%(pagename)s\""
 
-#: PageEditor.py:518
 msgid "You will not be notified of your own changes!"
 msgstr ""
 
-#: PageEditor.py:525
 msgid "Status of sending notification mails:"
 msgstr "Status för sändning av uppdateringsepost:"
 
-#: PageEditor.py:531
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
 msgstr ""
 
-#: PageEditor.py:536
 msgid "Nobody subscribed to this page, no mail sent."
 msgstr ""
 "Ingen registrerad för ändringar på den här sidan, updateringar ej skickade."
 
-#: PageEditor.py:647
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr ""
 
-#: PageEditor.py:721
 #, fuzzy
 msgid "You are not allowed to edit this page!"
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: PageEditor.py:727
 #, fuzzy
 msgid "You cannot save empty pages."
 msgstr "<b>Du kan inte spara tomma sidor.</b>"
 
-#: PageEditor.py:730
 #, fuzzy
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
@@ -370,58 +313,48 @@ msgstr ""
 "den andre personens ändringar, och det skulle vara mycket olämpligt!</em></"
 "b>\n"
 
-#: PageEditor.py:741
 #, python-format
 msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
 msgstr ""
 
-#: PageEditor.py:744
 msgid "You did not change the page content, not saved!"
 msgstr ""
 
-#: PageEditor.py:751
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
 
-#: PageEditor.py:757
 #, fuzzy
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr "<b>Tack för dina ändringar. Ditt sinne för detaljer är uppskattat.</b>"
 
-#: PageEditor.py:853
 #, python-format
 msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
 "granted the lock for this page."
 msgstr ""
 
-#: PageEditor.py:859
 #, python-format
 msgid ""
 "Other users will be <em>blocked</em> from editing this page until %(bumptime)"
 "s."
 msgstr ""
 
-#: PageEditor.py:863
 #, python-format
 msgid ""
 "Other users will be <em>warned</em> until %(bumptime)s that you are editing "
 "this page."
 msgstr ""
 
-#: PageEditor.py:866
 msgid "Use the Preview button to extend the locking period."
 msgstr ""
 
-#: PageEditor.py:874
 #, python-format
 msgid ""
 "This page is currently <em>locked</em> for editing by %(owner)s until %"
 "(timestamp)s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
 
-#: PageEditor.py:880
 #, python-format
 msgid ""
 "This page was opened for editing or last previewed at %(timestamp)s by %"
@@ -432,491 +365,388 @@ msgid ""
 "To leave the editor, press the Cancel button."
 msgstr ""
 
-#: PageEditor.py:914 user.py:77
 msgid "<unknown>"
 msgstr "<okänd>"
 
-#: config.py:131
 msgid "Diffs"
 msgstr ""
 
-#: config.py:132
 msgid "Info"
 msgstr ""
 
-#: config.py:133 macro/Navigation.py:164
 #, fuzzy
 msgid "Edit"
 msgstr "ändra"
 
-#: config.py:134
 msgid "UnSubscribe"
 msgstr ""
 
-#: config.py:135
 msgid "Subscribe"
 msgstr ""
 
-#: config.py:136
 msgid "Raw"
 msgstr ""
 
-#: config.py:137
 msgid "XML"
 msgstr ""
 
-#: config.py:138
 msgid "Print"
 msgstr ""
 
-#: config.py:139
 #, fuzzy
 msgid "View"
 msgstr "visa"
 
-#: config.py:140
 msgid "Home"
 msgstr ""
 
-#: config.py:141
 msgid "Up"
 msgstr ""
 
-#: request.py:394
 msgid "Unknown action"
 msgstr "Okänd <i>action</i>"
 
-#: request.py:415
 msgid "Can't work out query"
 msgstr "Kan inte förstå förfrågan"
 
-#: user.py:100
 msgid "Open editor on double click"
 msgstr "Öppna editorn vid dubbelklick"
 
-#: user.py:101
 msgid "Remember last page visited"
 msgstr "Kom ihåg senaste besökta sidan"
 
-#: user.py:102
 msgid "Show emoticons"
 msgstr "Visa smilies"
 
-#: user.py:103
 msgid "Show fancy links"
 msgstr "Visa detaljerade länkar"
 
-#: user.py:104
 msgid "Show question mark for non-existing pagelinks"
 msgstr "Visa frågetecken för brutna sidlänkar"
 
-#: user.py:105
 msgid "Show page trail"
 msgstr "Visa senaste besökta sidor"
 
-#: user.py:106
 msgid "Show icon toolbar"
 msgstr "Visa knapprad"
 
-#: user.py:107
 msgid "Show top/bottom links in headings"
 msgstr "Visa topp/fot-länkar i huvudet"
 
-#: user.py:108
 msgid "Show fancy diffs"
 msgstr "Visa detaljerade diffar"
 
-#: user.py:109
 msgid "Add spaces to displayed wiki names"
 msgstr "Addera mellanslag till visade wiki-namn"
 
-#: user.py:110
 msgid "Remember login information forever"
 msgstr ""
 
-#: user.py:111
 msgid "Disable this account forever"
 msgstr ""
 
-#: userform.py:59
 msgid "Cookie deleted. You are now logged out."
 msgstr ""
 
-#: userform.py:63 wikiaction.py:705 util/mail.py:43
 msgid ""
 "This wiki is not enabled for mail processing. Contact the owner of the wiki, "
 "who can either enable email, or remove the \"Subscribe\" icon."
 msgstr ""
 
-#: userform.py:68
 #, fuzzy
 msgid "Please provide a valid email address!"
 msgstr "<b>Ange en korrekt epostadress tack!</b>"
 
-#: userform.py:79
 #, fuzzy, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "<b>Kunde inte hitta konto med epostadress '%(email)s'!</b>"
 
-#: userform.py:104
 msgid "Unknown user name or password."
 msgstr ""
 
-#: userform.py:117
 msgid "Please enter a user name!"
 msgstr ""
 
-#: userform.py:123
 msgid "User name already exists!"
 msgstr ""
 
-#: userform.py:133
 msgid "Passwords don't match!"
 msgstr ""
 
-#: userform.py:192
+msgid "Please specify a password!"
+msgstr ""
+
 msgid "Please enter your name like that: FirstnameLastname"
 msgstr ""
 
-#: userform.py:194
+msgid "You must not use a group name as your user name."
+msgstr ""
+
 msgid ""
 "Please provide your email address - without that you could not get your "
 "login data via email just in case you lose it."
 msgstr ""
 
-#: userform.py:202
 msgid "This user name already belongs to somebody else."
 msgstr ""
 
-#: userform.py:204
 msgid "This email already belongs to somebody else."
 msgstr ""
 
-#: userform.py:211
 #, fuzzy
 msgid "User preferences saved!"
 msgstr "<b>Användarprofil sparad!</b>"
 
-#: userform.py:273
 msgid "Default"
 msgstr "Förvalt värde"
 
-#: userform.py:286
 msgid "<Browser setting>"
 msgstr ""
 
-#: userform.py:339
 #, fuzzy
 msgid "Save"
 msgstr " Spara "
 
-#: userform.py:340
 #, fuzzy
 msgid "Logout"
 msgstr " Logga ut"
 
-#: userform.py:344
 #, fuzzy
 msgid "Login"
 msgstr " Logga in"
 
-#: userform.py:345
 #, fuzzy
 msgid "Create Profile"
 msgstr " Skapa Profil "
 
-#: userform.py:348
 #, fuzzy
 msgid "Mail me my account data"
 msgstr " Eposta mig information om mitt konto "
 
-#: userform.py:352
 msgid "Name"
 msgstr "Namn"
 
-#: userform.py:356
 msgid "(Use FirstnameLastname)"
 msgstr ""
 
-#: userform.py:359
 msgid "Password"
 msgstr "Lösenord"
 
-#: userform.py:365
 #, fuzzy
 msgid "Password repeat"
 msgstr "Lösenord"
 
-#: userform.py:369
 msgid "(Only when changing passwords)"
 msgstr ""
 
-#: userform.py:372
 msgid "Email"
 msgstr "Epost"
 
-#: userform.py:383
 #, fuzzy
 msgid "Preferred theme"
 msgstr "Önskat språk"
 
-#: userform.py:385
 #, fuzzy
 msgid "User CSS URL"
 msgstr "CSS-URL"
 
-#: userform.py:389
 #, fuzzy
 msgid "(Leave it empty for disabling user CSS)"
 msgstr "(Skriv \"None\" för att slå av CSS)"
 
-#: userform.py:392
 msgid "Editor size"
 msgstr "Editorstorlek"
 
-#: userform.py:400
 msgid "Time zone"
 msgstr "Tidszon"
 
-#: userform.py:401
 msgid "Your time is"
 msgstr "Din tid är"
 
-#: userform.py:404
 msgid "Server time is"
 msgstr "Servertiden är"
 
-#: userform.py:409
 msgid "Date format"
 msgstr "Datumformat"
 
-#: userform.py:411
 msgid "Preferred language"
 msgstr "Önskat språk"
 
-#: userform.py:424
 msgid "General options"
 msgstr "Översiktiga alternativ"
 
-#: userform.py:426
 msgid "Quick links"
 msgstr "Snabblänkar"
 
-#: userform.py:441
 msgid "This list does not work, unless you have entered a valid email address!"
 msgstr ""
 "Den här listan fungerar inte om du inte skriver in en korrekt epostadress!"
 
-#: userform.py:446
 #, fuzzy
 msgid "Subscribed wiki pages (one regex per line)"
 msgstr "Registrerade wikisidor <br>(en regex per rad)"
 
-#: userform.py:485 wikiaction.py:407 action/AttachFile.py:593
 msgid "Action"
 msgstr "Anrop"
 
-#: wikiaction.py:57 wikiaction.py:108
 #, fuzzy, python-format
 msgid "Please use a more selective search term instead of '%(needle)s'!"
 msgstr ""
 "Var god använd det interaktiva användargränsnittet för att radera sidor!"
 
-#: wikiaction.py:61
 #, python-format
 msgid "Full text search for \"%s\""
 msgstr "Fulltextsökning på \"%s\""
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
 #, fuzzy
 msgid "match"
 msgstr " träff"
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
 #, fuzzy
 msgid "matches"
 msgstr " träffar"
 
-#: wikiaction.py:111
 #, python-format
 msgid "Title search for \"%s\""
 msgstr "Titelsökning för \"%s\""
 
-#: wikiaction.py:155
 #, python-format
 msgid "%(hits)d hits out of %(pages)d pages searched."
 msgstr "%(hits)d träffar av %(pages)d sökta sidor."
 
-#: wikiaction.py:156
 #, python-format
 msgid "Needed %(timer).1f seconds."
 msgstr "Krävde %(timer).1f sekunder"
 
-#: wikiaction.py:227
 #, fuzzy
 msgid "No older revisions available!"
 msgstr "<b>Inga äldre versioner funna!</b>"
 
-#: wikiaction.py:231
 #, python-format
 msgid "Diff for \"%s\""
 msgstr "Diff för \"%s\""
 
-#: wikiaction.py:283
 #, fuzzy, python-format
 msgid "Differences between versions dated %s and %s"
 msgstr "<b>Skillnader mellan versioner daterade %s och %s"
 
-#: wikiaction.py:286
 #, fuzzy, python-format
 msgid "(spanning %d versions)"
 msgstr " (sträcker sig över %d versioner)"
 
-#: wikiaction.py:296 util/diff.py:41
 #, fuzzy
 msgid "No differences found!"
 msgstr "Inga skillnader funna!\n"
 
-#: wikiaction.py:298
 #, fuzzy, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "Sidan sparades %(count)d%(times)s!"
 
-#: wikiaction.py:309
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignorera ändringar i mängden blanktecken"
 
-#: wikiaction.py:330
 msgid "General Information"
 msgstr "Översiktlig information"
 
-#: wikiaction.py:333
 #, python-format
 msgid "Page size: %d"
 msgstr ""
 
-#: wikiaction.py:339
 #, fuzzy
 msgid "SHA digest of this page's content is:"
 msgstr "<p>SHA-digest för den här sidans innehåll är: <tt>%(digest)s</tt></p>"
 
-#: wikiaction.py:350
 #, fuzzy
 msgid "The following users subscribed to this page:"
 msgstr "<b>Du hålls nu uppdaterad om den här sidan.</b>"
 
-#: wikiaction.py:365
 #, fuzzy
 msgid "This page links to the following pages:"
 msgstr "Den här sidan länkar till följande sidor:<br>"
 
-#: wikiaction.py:376 wikiaction.py:515
 msgid "Revision History"
 msgstr "Revisionshistorik"
 
-#: wikiaction.py:401
 msgid "Date"
 msgstr "Datum"
 
-#: wikiaction.py:402 action/AttachFile.py:592
 msgid "Size"
 msgstr "Storlek"
 
-#: wikiaction.py:403
 msgid "Diff"
 msgstr ""
 
-#: wikiaction.py:405
 #, fuzzy
 msgid "Editor"
 msgstr "Editorstorlek"
 
-#: wikiaction.py:406
 msgid "Comment"
 msgstr "Kommentar"
 
-#: wikiaction.py:445 wikiaction.py:456 action/AttachFile.py:188
 msgid "view"
 msgstr "visa"
 
-#: wikiaction.py:448 wikiaction.py:459
 msgid "raw"
 msgstr ""
 
-#: wikiaction.py:451 wikiaction.py:462
 msgid "print"
 msgstr ""
 
-#: wikiaction.py:466
 #, fuzzy
 msgid "revert"
 msgstr "Förhandsgranska"
 
-#: wikiaction.py:477 macro/RecentChanges.py:41
 #, python-format
 msgid "Revert to version dated %(datestamp)s."
 msgstr ""
 
-#: wikiaction.py:484
 msgid "N/A"
 msgstr "Ej tillgänglig"
 
-#: wikiaction.py:512
 #, python-format
 msgid "Info for \"%s\""
 msgstr "Info om \"%s\""
 
-#: wikiaction.py:515 wikiaction.py:517
 #, python-format
 msgid "Show \"%(title)s\""
 msgstr ""
 
-#: wikiaction.py:517
 #, fuzzy
 msgid "General Page Infos"
 msgstr "Översiktlig information"
 
-#: wikiaction.py:519
 #, python-format
 msgid "Show chart \"%(title)s\""
 msgstr ""
 
-#: wikiaction.py:519 stats/hitcounts.py:154
 msgid "Page hits and edits"
 msgstr "Sidträffar och ändringar"
 
-#: wikiaction.py:591
 #, fuzzy
 msgid "You are not allowed to revert this page!"
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: wikiaction.py:601
 msgid "An error occurred while reverting the page."
 msgstr ""
 
-#: wikiaction.py:701
 #, fuzzy
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: wikiaction.py:710
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr ""
 
-#: wikiaction.py:715
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
 msgstr ""
 
-#: wikiaction.py:720
 #, fuzzy
 msgid "You are already subscribed to this page."
 msgstr "<b>Du är redan registrerad för updateringar av den här sidan.</b>"
 
-#: wikiaction.py:721 wikiaction.py:728
 #, fuzzy
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
@@ -927,149 +757,115 @@ msgstr ""
 "sidan\n"
 "från uppdateringslistan.</b>\n"
 
-#: wikiaction.py:727
 #, fuzzy
 msgid "You have been subscribed to this page."
 msgstr "<b>Du hålls nu uppdaterad om den här sidan.</b>"
 
-#: wikiform.py:31
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
 msgstr ""
 
-#: wikiform.py:95
 msgid "Submitted form data:"
 msgstr "Skickade formulärinfo:"
 
-#: wikimacro.py:150
 msgid "Display context of search results"
 msgstr "Visa sökningsträffarnas sammanhang"
 
-#: wikimacro.py:152
 msgid "Case-sensitive searching"
 msgstr "Sökning känslig för gemener/VERSALER"
 
-#: wikimacro.py:159 wikimacro.py:165
 msgid "Go"
 msgstr "Fortsätt"
 
-#: wikimacro.py:257
 msgid "Include system pages"
 msgstr ""
 
-#: wikimacro.py:257
 msgid "Exclude system pages"
 msgstr ""
 
-#: wikimacro.py:258
 msgid "Plain title index"
 msgstr "Titelindex i textform"
 
-#: wikimacro.py:259
 msgid "XML title index"
 msgstr "XML-titelindex"
 
-#: wikimacro.py:309
 msgid "Python Version"
 msgstr "Python-version"
 
-#: wikimacro.py:310
 msgid "MoinMoin Version"
 msgstr "MoinMoin-version"
 
-#: wikimacro.py:310
 #, python-format
 msgid "Release %s [Revision %s]"
 msgstr ""
 
-#: wikimacro.py:312
 msgid "4Suite Version"
 msgstr "4Suite-Version"
 
-#: wikimacro.py:313
 msgid "Number of pages"
 msgstr "Antal sidor"
 
-#: wikimacro.py:314
 #, fuzzy
 msgid "Number of system pages"
 msgstr "Antal sidor"
 
-#: wikimacro.py:315
 msgid "Number of backup versions"
 msgstr "Antal backupversioner"
 
-#: wikimacro.py:316
 msgid "Accumulated page sizes"
 msgstr ""
 
-#: wikimacro.py:319
 msgid "Entries in edit log"
 msgstr "Poster i editloggen"
 
-#: wikimacro.py:320
 #, python-format
 msgid "%(logcount)s (%(logsize)s bytes)"
 msgstr "%(logcount)s (%(logsize)s byte)"
 
-#: wikimacro.py:326
 msgid "NONE"
 msgstr ""
 
-#: wikimacro.py:329
 msgid "Global extension macros"
 msgstr "Globala utökningsmakron"
 
-#: wikimacro.py:331
 msgid "Local extension macros"
 msgstr "Lokala utökningsmakron"
 
-#: wikimacro.py:333
 msgid "Global extension actions"
 msgstr "Globala utökningsaktioner"
 
-#: wikimacro.py:335
 msgid "Local extension actions"
 msgstr "Lokala utökningsaktioner"
 
-#: wikimacro.py:337
 msgid "Installed processors"
 msgstr "Installerade processare"
 
-#: wikimacro.py:358
 #, python-format
 msgid "ERROR in regex '%s'"
 msgstr "Fel i regex '%s'"
 
-#: wikimacro.py:395 wikimacro.py:405
 #, python-format
 msgid "Bad timestamp '%s'"
 msgstr "Inkorrekt tidsstämpel '%s'"
 
-#: wikiutil.py:600 util/wikiext.py:61
 #, python-format
 msgid "Expected \"=\" to follow \"%(token)s\""
 msgstr "Förväntade \"=\" följa \"%(token)s\""
 
-#: wikiutil.py:605 util/wikiext.py:66
 #, python-format
 msgid "Expected a value for key \"%(token)s\""
 msgstr "Förväntade ett värde för nyckel \"%(token)s\""
 
-#: wikiutil.py:908
 msgid "Wiki Markup"
 msgstr ""
 
-#: wikiutil.py:910
 msgid "Print View"
 msgstr ""
 
-#: action/AttachFile.py:102
 #, python-format
 msgid "[%d attachments]"
 msgstr ""
 
-#: action/AttachFile.py:120
 #, python-format
 msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
@@ -1078,17 +874,14 @@ msgstr ""
 "Det finns <a href=\"%(link)s\">%(count)s bifogade filer(s)</a> lagrade på "
 "den här sidan."
 
-#: action/AttachFile.py:152 action/AttachFile.py:417
 #, fuzzy
 msgid "Filename of attachment not specified!"
 msgstr "<b>Filnamnet för filen ej specifierat!</b>"
 
-#: action/AttachFile.py:159
 #, fuzzy, python-format
 msgid "Attachment '%(filename)s' does not exist!"
 msgstr "<b>Bifogad fil '%(filename)s' finns inte!</b>"
 
-#: action/AttachFile.py:177
 #, fuzzy
 msgid ""
 "<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
@@ -1103,43 +896,34 @@ msgstr ""
 "Använd <b>INTE</b> <tt>[get]</tt> länkens URL, \n"
 "eftersom den inte är permanent och kan ändras.</p>"
 
-#: action/AttachFile.py:185
 msgid "del"
 msgstr ""
 
-#: action/AttachFile.py:186
 msgid "get"
 msgstr "hämta"
 
-#: action/AttachFile.py:187
 msgid "edit"
 msgstr "ändra"
 
-#: action/AttachFile.py:225
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "Inga bifogade filer på %(pagename)s"
 
-#: action/AttachFile.py:267
 #, fuzzy
 msgid "Edit drawing"
 msgstr "<h2>Redigera ritning</h2>"
 
-#: action/AttachFile.py:299
 #, fuzzy
 msgid "Attached Files"
 msgstr "<h2>Bifogade filer</h2>"
 
-#: action/AttachFile.py:303 action/AttachFile.py:367
 #, fuzzy
 msgid "You are not allowed to attach a file to this page."
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: action/AttachFile.py:310
 msgid "New Attachment"
 msgstr ""
 
-#: action/AttachFile.py:311
 #, fuzzy
 msgid ""
 "An upload will never overwrite an existing file. If there is a name\n"
@@ -1154,67 +938,54 @@ msgstr ""
 "Annars, då \"Döp om\" är lämnad blank, kommer orginalfilnamnet att användas "
 "istället.</p>\n"
 
-#: action/AttachFile.py:334
 msgid "File to upload"
 msgstr "Fil att ladda upp"
 
-#: action/AttachFile.py:335
 msgid "MIME Type (optional)"
 msgstr "MIME-type (valfri)"
 
-#: action/AttachFile.py:336
 #, fuzzy
 msgid "Save as"
 msgstr " Spara "
 
-#: action/AttachFile.py:338
 #, fuzzy
 msgid "Upload"
 msgstr " Ladda upp "
 
-#: action/AttachFile.py:353
 #, fuzzy
 msgid "File attachments are not allowed in this wiki!"
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: action/AttachFile.py:360
 #, fuzzy
 msgid "You are not allowed to save a drawing on this page."
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: action/AttachFile.py:372
 #, fuzzy
 msgid "You are not allowed to delete attachments on this page."
 msgstr "<b>Du har inte rättigheter att radera bifogade filer.</b>"
 
-#: action/AttachFile.py:377
 #, fuzzy
 msgid "You are not allowed to get attachments from this page."
 msgstr "<b>Du har inte rättigheter att radera bifogade filer.</b>"
 
-#: action/AttachFile.py:382
 #, fuzzy
 msgid "You are not allowed to view attachments of this page."
 msgstr "<b>Du har inte rättigheter att radera bifogade filer.</b>"
 
-#: action/AttachFile.py:384
 #, fuzzy, python-format
 msgid "Unsupported upload action: %s"
 msgstr "<b>Okänd uppladningsförfrågan: %s</b>"
 
-#: action/AttachFile.py:394
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
 msgstr "Bifogade filer för \"%(pagename)s\""
 
-#: action/AttachFile.py:444
 #, fuzzy, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
 msgstr ""
 "Bifogad fil '%(target)s' (fjärrnamn '%(filename)s') med %(bytes)d byte "
 "sparade."
 
-#: action/AttachFile.py:455
 #, python-format
 msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
@@ -1223,129 +994,103 @@ msgstr ""
 "Bifogad fil '%(target)s' (fjärrnamn '%(filename)s') med %(bytes)d byte "
 "sparade."
 
-#: action/AttachFile.py:506 macro/RecentChanges.py:36
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
 msgstr "Bifogad fil '%(filename)s' raderad."
 
-#: action/AttachFile.py:539
 #, fuzzy, python-format
 msgid "Attachment '%(filename)s'"
 msgstr "Bifogad fil '%(filename)s' raderad."
 
-#: action/AttachFile.py:554
 #, fuzzy
 msgid "Unknown file type, cannot display this attachment inline."
 msgstr "<p>Okänd filtyp, kan inte visa bifogad fil direkt.</p>"
 
-#: action/AttachFile.py:567
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
 msgstr "bifogad fil:%(filename)s för %(pagename)s"
 
-#: action/DeletePage.py:27
 #, fuzzy
 msgid "You are not allowed to delete this page."
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: action/DeletePage.py:33 action/RenamePage.py:29
 msgid "This page is already deleted or was never created!"
 msgstr "Den här sidan är redan raderad eller existerade aldrig!"
 
-#: action/DeletePage.py:41
 msgid "Please use the interactive user interface to delete pages!"
 msgstr ""
 "Var god använd det interaktiva användargränsnittet för att radera sidor!"
 
-#: action/DeletePage.py:48
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
 msgstr "Sidan \"%s\" raderades korrekt."
 
-#: action/DeletePage.py:53
 msgid "Really delete this page?"
 msgstr "Radera den här sidan, är du säker?"
 
-#: action/DeletePage.py:54
 #, fuzzy
 msgid "Delete"
 msgstr " Radera "
 
-#: action/DeletePage.py:55
 msgid "Optional reason for the deletion"
 msgstr "Anledning för borttagande (valfri)"
 
-#: action/LikePages.py:31
 #, python-format
 msgid "No pages match \"%s\"!"
 msgstr "Inga sidor matchar \"%s\"!"
 
-#: action/LikePages.py:37
 #, python-format
 msgid "Exactly one matching page for \"%s\" found!"
 msgstr ""
 
-#: action/LikePages.py:42
 #, python-format
 msgid "Multiple matches for \"%s...%s\""
 msgstr "Flera träffar för \"%s...%s\""
 
-#: action/LikePages.py:65
 #, fuzzy
 msgid "You cannot use LikePages on an extended pagename!"
 msgstr "<b>Du kan inte använda \"LikePages\" på ett utökat sidnamn!</b>"
 
-#: action/LikePages.py:121
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
 msgstr "%(matchcount)d %(matches)s för \"%(title)s\""
 
-#: action/LocalSiteMap.py:38
 #, python-format
 msgid "Local Site Map for \"%s\""
 msgstr "Lokal Sajtkarta för \"%s\""
 
-#: action/RenamePage.py:25
 #, fuzzy
 msgid "You are not allowed to rename pages in this wiki!"
 msgstr "Du är inte tillåten att radera sidor i den här wikin!"
 
-#: action/RenamePage.py:37
 #, fuzzy
 msgid "Please use the interactive user interface to rename pages!"
 msgstr ""
 "Var god använd det interaktiva användargränsnittet för att radera sidor!"
 
-#: action/RenamePage.py:45
 #, python-format
 msgid "A page with the name \"%s\" already exists!"
 msgstr ""
 
-#: action/RenamePage.py:55
 #, fuzzy, python-format
 msgid "Page \"%s\" was successfully renamed to \"%s\"!"
 msgstr "Sidan \"%s\" raderades korrekt."
 
-#: action/RenamePage.py:61
 msgid "Rename"
 msgstr ""
 
-#: action/RenamePage.py:62
 #, fuzzy
 msgid "New name"
 msgstr "Namn"
 
-#: action/RenamePage.py:63
 #, fuzzy
 msgid "Optional reason for the renaming"
 msgstr "Anledning för borttagande (valfri)"
 
-#: action/SpellCheck.py:169
 #, fuzzy, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
 msgstr " (inklusive %(localwords)d %(pagelink)s)"
 
-#: action/SpellCheck.py:171
 #, python-format
 msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
@@ -1354,196 +1099,162 @@ msgstr ""
 "Följande %(badwords)d ord kunde inte hittas i ordlistan av %(totalwords)d "
 "antal ord  s%(localwords)s och de är markerade här under:"
 
-#: action/SpellCheck.py:190
 msgid "Add checked words to dictionary"
 msgstr "Addera förkryssade ord till ordlistan"
 
-#: action/SpellCheck.py:196
 #, fuzzy
 msgid "No spelling errors found!"
 msgstr "<b>Inga felstavningar funna!</b>"
 
-#: action/SpellCheck.py:210
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
 
-#: action/links.py:28
 #, python-format
 msgid "Full Link List for \"%s\""
 msgstr "Full länklista för \"%s\""
 
-#: macro/Include.py:58
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Felaktigt inkluderingsargument \"%s\"!"
 
-#: macro/Include.py:120 macro/Include.py:130
 #, fuzzy, python-format
 msgid "Nothing found for \"%s\"!"
 msgstr "Info om \"%s\""
 
-#: macro/Navigation.py:103
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
 msgstr ""
 
-#: macro/Navigation.py:120 macro/Navigation.py:191
 #, fuzzy
 msgid "No parent page found!"
 msgstr "Inga skillnader funna!\n"
 
-#: macro/Navigation.py:162
 msgid "Wiki"
 msgstr ""
 
-#: macro/Navigation.py:168
 msgid "Slideshow"
 msgstr ""
 
-#: macro/Navigation.py:180
 #, fuzzy
 msgid "Start"
 msgstr "lör"
 
-#: macro/Navigation.py:214
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr ""
 
-#: macro/OrphanedPages.py:43
 msgid "No orphaned pages in this wiki."
 msgstr "Inga ickerefererade sidor i den här wikin."
 
-#: macro/RandomQuote.py:44
 #, fuzzy, python-format
 msgid "No quotes on %(pagename)s."
 msgstr "Inga bifogade filer på %(pagename)s"
 
-#: macro/RecentChanges.py:34
 #, python-format
 msgid "Upload of attachment '%(filename)s'."
 msgstr "Uppladdning av bifogad fil '%(filename)s'."
 
-#: macro/RecentChanges.py:38
 #, python-format
 msgid "Drawing '%(filename)s' saved."
 msgstr "Teckningen '%(filename)s' sparad."
 
-#: macro/RecentChanges.py:89
 #, fuzzy, python-format
 msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
 msgstr "[%(hours)dh&nbsp;%(mins)dm&nbsp;sedan]"
 
-#: macro/RecentChanges.py:239
 msgid "(no bookmark set)"
 msgstr "(inget bokmärke satt)"
 
-#: macro/RecentChanges.py:241
 #, python-format
 msgid "(currently set to %s)"
 msgstr "(för närvarande satt till %s)"
 
-#: macro/RecentChanges.py:248
+#, fuzzy
+msgid "Delete Bookmark"
+msgstr "sätt bokmärke"
+
+#, fuzzy
+msgid "Really delete bookmark?"
+msgstr "Radera den här sidan, är du säker?"
+
 msgid "Update my bookmark timestamp"
 msgstr "Updatera mitt bokmärke"
 
-#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
 msgid "set bookmark"
 msgstr "sätt bokmärke"
 
-#: macro/RecentChanges.py:327
 msgid "[Bookmark reached]"
 msgstr ""
 
-#: macro/ShowSmileys.py:31
 msgid "Markup"
 msgstr ""
 
-#: macro/ShowSmileys.py:32
 msgid "Display"
 msgstr ""
 
-#: macro/ShowSmileys.py:33
 #, fuzzy
 msgid "Filename"
 msgstr "SökSida"
 
-#: macro/StatsChart.py:19
 #, fuzzy
 msgid "You need to provide a chart type!"
 msgstr "<div class=\"message\"><b>Du måste ange en tabelltyp!</b></div>"
 
-#: macro/StatsChart.py:23
 #, python-format
 msgid "Bad chart type \"%s\"!"
 msgstr ""
 
-#: macro/SystemAdmin.py:39
 msgid "Download XML export of this wiki"
 msgstr "Ladda ner den här wikin som XML"
 
-#: macro/WantedPages.py:48
 msgid "No wanted pages in this wiki."
 msgstr "Inga önskade sidor i den här wikin."
 
-#: parser/wiki.py:225
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Skapa ny ritning \"%(filename)s\""
 
-#: parser/wiki.py:227
 #, python-format
 msgid "Upload new attachment \"%(filename)s\""
 msgstr "Ladda upp ny bifogad fil \"%(filename)s\""
 
-#: parser/wiki.py:258 parser/wiki.py:268
 #, fuzzy, python-format
 msgid "Edit drawing %(filename)s"
 msgstr "Skapa ny ritning \"%(filename)s\""
 
-#: parser/wiki.py:624
 #, fuzzy, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
 msgstr "Förväntade ett värde för nyckel \"%(token)s\""
 
-#: parser/wiki.py:630
 #, fuzzy, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
 msgstr "Förväntade ett värde för nyckel \"%(token)s\""
 
-#: parser/wiki.py:639 parser/wiki.py:648
 #, fuzzy, python-format
 msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
 msgstr "Förväntade ett värde för nyckel \"%(token)s\""
 
-#: parser/wiki.py:668
 #, fuzzy, python-format
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Förväntade ett värde för nyckel \"%(token)s\""
 
-#: parser/xslt.py:39
 msgid "XSLT option disabled!"
 msgstr "XSLT avslagen!"
 
-#: parser/xslt.py:56
 msgid "XSLT processing is not available!"
 msgstr ""
 
-#: parser/xslt.py:134
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s process fel"
 
-#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
 msgid "Charts are not available!"
 msgstr ""
 
-#: stats/hitcounts.py:155
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
 msgstr "%(chart_title)s för %(filterpage)s"
 
-#: stats/hitcounts.py:157
 msgid ""
 "green=view\n"
 "red=edit"
@@ -1551,165 +1262,155 @@ msgstr ""
 "grön=visa\n"
 "röd=ändra"
 
-#: stats/hitcounts.py:160
 msgid "date"
 msgstr "datum"
 
-#: stats/hitcounts.py:161
 msgid "# of hits"
 msgstr "# träffar"
 
-#: stats/pagesize.py:93
 msgid "Page Size Distribution"
 msgstr "Sidstorleksfördelning"
 
-#: stats/pagesize.py:97
 msgid "page size upper bound [bytes]"
 msgstr "övre sidstorleksgräns [byte]"
 
-#: stats/pagesize.py:98
 msgid "# of pages of this size"
 msgstr "# sidor av den här storleken"
 
-#: stats/useragents.py:88
 msgid "Others"
 msgstr "Andra"
 
-#: stats/useragents.py:109
 msgid "Distribution of User-Agent Types"
 msgstr "Fördelning av \"User-Agent\"-typer"
 
-#: theme/classic.py:154
 msgid "Click here to do a full-text search for this title"
 msgstr "Klicka här för att göra en fulltextsökning på den här titeln"
 
-#: theme/classic.py:294
 msgid "Clear message"
 msgstr "Ta bort meddelande"
 
-#: theme/classic.py:429
 msgid "ShowText"
 msgstr "VisaText"
 
-#: theme/classic.py:430 theme/classic.py:450
 msgid "of this page"
 msgstr "på den här sidan"
 
-#: theme/classic.py:449
 msgid "EditText"
 msgstr "RedigeraText"
 
-#: theme/classic.py:453
 msgid "Immutable page"
 msgstr ""
 
-#: theme/classic.py:481 i18n/dummy.py:14
 msgid "FindPage"
 msgstr "SökSida"
 
-#: theme/classic.py:482 i18n/dummy.py:15
-msgid "SiteNavigation"
-msgstr "PlatsNavigering"
-
-#: theme/classic.py:483
 #, fuzzy, python-format
 msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
 msgstr ""
 " genom att bläddra, titelsöka %(titlesearch)s, fritextsöka %(textsearch)s "
 "eller indexuppslag<br>"
 
-#: theme/classic.py:513
 #, fuzzy
 msgid "Or try one of these actions:"
 msgstr "Eller försök någon av de här: "
 
-#: theme/classic.py:666
 #, python-format
 msgid "Show all changes in the last %s days."
 msgstr ""
 
-#: util/diff.py:31
+msgid "User"
+msgstr ""
+
+#, fuzzy
+msgid "Site"
+msgstr "Storlek"
+
+#, fuzzy
+msgid "Page"
+msgstr "SökSida"
+
+msgid "Search"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
+msgstr ""
+" genom att bläddra, titelsöka %(titlesearch)s, fritextsöka %(textsearch)s "
+"eller indexuppslag<br>"
+
+#, fuzzy
+msgid "Actions"
+msgstr "Anrop"
+
 #, fuzzy
 msgid "Line"
 msgstr " Logga in"
 
-#: util/diff.py:60
 msgid "Deletions are marked like this."
 msgstr "Raderingar markeras som den här."
 
-#: util/diff.py:60
 msgid "Additions are marked like this."
 msgstr "Bidrag är markerade som den här."
 
-#: util/mail.py:71
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr "Anslutning till mailserver '%(server)s' misslyckades: %(reason)s"
 
-#: util/mail.py:76
 msgid "Mail sent OK"
 msgstr "Epost skickad korrekt"
 
-#: i18n/dummy.py:10
 msgid "FrontPage"
 msgstr "FramSida"
 
-#: i18n/dummy.py:11
 msgid "RecentChanges"
 msgstr "SenasteÄndringar"
 
-#: i18n/dummy.py:12
 msgid "TitleIndex"
 msgstr "TitelRegister"
 
-#: i18n/dummy.py:13
 msgid "WordIndex"
 msgstr "OrdRegister"
 
-#: i18n/dummy.py:16
+msgid "SiteNavigation"
+msgstr "PlatsNavigering"
+
 msgid "HelpContents"
 msgstr "HjälpInnehåll"
 
-#: i18n/dummy.py:17
 msgid "HelpOnFormatting"
 msgstr "HjälpMedFormatering"
 
-#: i18n/dummy.py:18
 msgid "UserPreferences"
 msgstr "AnvändarInställningar"
 
-#: i18n/dummy.py:19
 msgid "WikiLicense"
 msgstr ""
 
-#: i18n/dummy.py:21
 msgid "Mon"
 msgstr "mån"
 
-#: i18n/dummy.py:21
 msgid "Tue"
 msgstr "tis"
 
-#: i18n/dummy.py:21
 msgid "Wed"
 msgstr "ons"
 
-#: i18n/dummy.py:21
 msgid "Thu"
 msgstr "tor"
 
-#: i18n/dummy.py:21
 msgid "Fri"
 msgstr "fre"
 
-#: i18n/dummy.py:21
 #, fuzzy
 msgid "Sat"
 msgstr "lör"
 
-#: i18n/dummy.py:21
 msgid "Sun"
 msgstr "sön"
+
+#, fuzzy
+#~ msgid "Account"
+#~ msgstr "Anrop"
 
 #, fuzzy
 #~ msgid "time"

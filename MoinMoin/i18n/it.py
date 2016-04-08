@@ -454,8 +454,6 @@ rosso=Mod''',
 '''Pagina non alterabile''',
 '''FindPage''':
 '''CercaPagina''',
-'''SiteNavigation''':
-'''NavigaIlSito''',
 '''Deletions are marked like this.''':
 '''Le cancellazioni sono marcate in questo modo.''',
 '''Additions are marked like this.''':
@@ -472,6 +470,8 @@ rosso=Mod''',
 '''IndiceDeiTitoli''',
 '''WordIndex''':
 '''IndicePerParola''',
+'''SiteNavigation''':
+'''NavigaIlSito''',
 '''HelpContents''':
 '''AiutoContenuti''',
 '''HelpOnFormatting''':

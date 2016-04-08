@@ -28,6 +28,21 @@ def makeDirs(name, mode=0777):
     os.chmod(name, mode & config.umask)
 
 
+def rename(oldname, newname):
+    """ We need our own rename wrapper here because win32 rename sucks (it
+        doesn't behave POSIX compliant, removing target file if it exists).
+
+        Problem: this "rename" isn't atomic any more on win32. Oh well...
+    """
+    if os.name == 'nt':
+        if os.path.isfile(newname):
+            try:
+                os.remove(newname)
+            except OSError, er:
+                pass # let os.rename give us the error (if any)
+    return os.rename(oldname, newname)
+
+
 #############################################################################
 ### File Locking
 #############################################################################
@@ -140,3 +155,4 @@ else:
     #~ dummy = sys.stdin.readline()
 
     #~ log.close()
+

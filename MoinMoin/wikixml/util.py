@@ -37,7 +37,9 @@ class XMLGenerator(saxutils.XMLGenerator):
 
     def simpleNode(self, tag, value, attr={}):
         self.startNode(tag, attr)
-        if value: self.characters(unicode(value, config.charset))
+        if value:
+            # self.characters(value) # crashes with umlauts in RC edit comment
+            self.characters(unicode(value, config.charset))
         self.endNode(tag)
 
     def startDocument(self):

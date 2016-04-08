@@ -62,7 +62,7 @@ def getAttachDir(pagename, create=0):
     return attach_dir
 
 
-def getAttachUrl(pagename, filename, request, addts=0):
+def getAttachUrl(pagename, filename, request, addts=0, escaped=0):
     """ Get URL that points to attachment `filename` of page `pagename`.
 
         If 'addts' is true, a timestamp with the file's modification time
@@ -78,15 +78,18 @@ def getAttachUrl(pagename, filename, request, addts=0):
             except IOError:
                 pass
 
-        return "%s/%s/attachments/%s%s" % (
+        url = "%s/%s/attachments/%s%s" % (
             config.attachments['url'], wikiutil.quoteFilename(pagename),
             urllib.quote(filename), timestamp)
     else:
         # send file via CGI
-        return "%s/%s?action=%s&amp;do=get&amp;target=%s" % (
-            request.getBaseURL(), wikiutil.quoteWikiname(pagename),
+        url = "%s/%s?action=%s&do=get&target=%s" % (
+            request.getScriptname(), wikiutil.quoteWikiname(pagename),
             action_name, urllib.quote_plus(filename) )
 
+    if escaped:
+        url = wikiutil.escape(url)
+    return url
 
 def getIndicator(request, pagename):
     """ Get an attachment indicator for a page (linked clip image) or
@@ -190,13 +193,13 @@ def _get_filelist(request, pagename):
         for file in files:
             fsize = os.stat(os.path.join(attach_dir,file))[6] # in byte
             fsize = float(int(float(fsize)/102.4))/10.0
-            baseurl = request.getBaseURL()
+            baseurl = request.getScriptname()
             action = action_name
             urlpagename = wikiutil.quoteWikiname(pagename)
             urlfile = urllib.quote_plus(file)
 
             base, ext = os.path.splitext(file)
-            get_url = getAttachUrl(pagename, file, request)
+            get_url = getAttachUrl(pagename, file, request, escaped=1)
             parmdict = {'baseurl': baseurl, 'urlpagename': urlpagename, 'action': action,
                         'urlfile': urlfile, 'label_del': label_del,
                         'base': base, 'label_edit': label_edit,
@@ -241,7 +244,7 @@ def send_link_rel(request, pagename):
         files = os.listdir(attach_dir)
         files.sort()
         for file in files:
-            get_url = getAttachUrl(pagename, file, request)
+            get_url = getAttachUrl(pagename, file, request, escaped=1)
             request.write('<link rel="Appendix" title="%s" href="%s">\n' % (
                 wikiutil.escape(file), get_url))
 
@@ -252,8 +255,8 @@ def send_hotdraw(pagename, request):
     now = time.time()
     pubpath = config.url_prefix + "/applets/TWikiDrawPlugin"
     basename = request.form['drawing'][0]
-    drawpath = getAttachUrl(pagename, request.form['drawing'][0] + '.draw', request)
-    pngpath = getAttachUrl(pagename, request.form['drawing'][0] + '.png', request)
+    drawpath = getAttachUrl(pagename, request.form['drawing'][0] + '.draw', request, escaped=1)
+    pngpath = getAttachUrl(pagename, request.form['drawing'][0] + '.png', request, escaped=1)
     pagelink = wikiutil.quoteWikiname(pagename) + "?action=AttachFile&amp;ts=%s" % now 
     savelink = Page(pagename).url(request) # XXX include target filename param here for twisted
                                            # request, {'savename': request.form['drawing'][0]+'.draw'}
@@ -291,7 +294,7 @@ def send_uploadform(pagename, request):
         the file upload form.
     """
     _ = request.getText
-
+    
     if not request.user.may.read(pagename):
         request.write('<p>%s</p>' % _('You are not allowed to view this page.'))
         return
@@ -328,7 +331,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.""")
 </p>
 </form>
 """ % {
-    'baseurl': request.getBaseURL(),
+    'baseurl': request.getScriptname(),
     'pagename': wikiutil.quoteWikiname(pagename),
     'action_name': action_name,
     'upload_label_file': _('File to upload'),
@@ -392,7 +395,9 @@ def upload_form(pagename, request, msg=''):
 
     request.http_headers()
     wikiutil.send_title(request, _('Attachments for "%(pagename)s"') % {'pagename': pagename}, pagename=pagename, msg=msg)
+    request.write('<div id="content">\n') # start content div
     send_uploadform(pagename, request)
+    request.write('</div>\n') # end content div
     wikiutil.send_footer(request, pagename, showpage=1)
 
  
@@ -543,7 +548,7 @@ def send_viewfile(pagename, request):
         if type[:5] == 'image':
             timestamp = htdocs_access and "?%s" % time.time() or ''
             request.write('<img src="%s%s" alt="%s">' % (
-                getAttachUrl(pagename, filename, request), timestamp, wikiutil.escape(filename, 1)))
+                getAttachUrl(pagename, filename, request, escaped=1), timestamp, wikiutil.escape(filename, 1)))
             return
         elif type[:4] == 'text': 
             request.write("<pre>")
@@ -553,7 +558,7 @@ def send_viewfile(pagename, request):
 
     request.write('<p>' + _("Unknown file type, cannot display this attachment inline.") + '</p>')
     request.write('<a href="%s">%s</a>' % (
-        getAttachUrl(pagename, filename, request), wikiutil.escape(filename)))
+        getAttachUrl(pagename, filename, request, escaped=1), wikiutil.escape(filename)))
 
     
 def view_file(pagename, request):
@@ -568,8 +573,10 @@ def view_file(pagename, request):
         'filename': filename, 'pagename': pagename}, pagename=pagename)
 
     # send body
+    request.write('<div id="content">\n') # start content div
     send_viewfile(pagename, request)
     send_uploadform(pagename, request)
+    request.write('</div>\n') # end content div
 
     # send footer
     wikiutil.send_footer(request, pagename)

@@ -296,8 +296,12 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Diesen Benutzernamen gibt es schon!''',
 '''Passwords don\'t match!''':
 '''Die Passworte sind nicht gleich!''',
+'''Please specify a password!''':
+'''Bitte geben Sie ein Passwort an!''',
 '''Please enter your name like that: FirstnameLastname''':
 '''Bitte schreiben Sie Ihren Namen auf folgende Art: VornameNachname''',
+'''You must not use a group name as your user name.''':
+'''Sie dürfen nicht einen Gruppennamen als Ihren Benutzernamen wählen.''',
 '''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
 '''Bitte geben Sie Ihre E-Mail-Adresse an - ohne diese Angabe könnten Sie Ihre Login-Daten nicht per E-Mail bekommen, falls Sie sie verlieren.''',
 '''This user name already belongs to somebody else.''':
@@ -665,6 +669,10 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''(kein Lesezeichen gesetzt)''',
 '''(currently set to %s)''':
 '''(derzeit %s)''',
+'''Delete Bookmark''':
+'''Lesezeichen löschen''',
+'''Really delete bookmark?''':
+'''Lesezeichen wirklich löschen?''',
 '''Update my bookmark timestamp''':
 '''Lesezeichen neu setzen''',
 '''set bookmark''':
@@ -741,14 +749,24 @@ rot=Änderungen''',
 '''Geschützte Seite''',
 '''FindPage''':
 '''SeiteFinden''',
-'''SiteNavigation''':
-'''WegWeiser''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
 '''oder Titelsuche %(titlesearch)s, Volltextsuche %(textsearch)s oder''',
 '''Or try one of these actions:''':
 '''Oder benutze eine dieser Aktionen:''',
 '''Show all changes in the last %s days.''':
 '''Alle Änderungen der letzten %s Tage anzeigen.''',
+'''User''':
+'''Benutzer''',
+'''Site''':
+'''Site''',
+'''Page''':
+'''Seite''',
+'''Search''':
+'''Suche''',
+'''Title: %(titlesearch)s<br/>Text: %(textsearch)s''':
+'''Titel: %(titlesearch)s<br/>Text: %(textsearch)s''',
+'''Actions''':
+'''Aktionen''',
 '''Line''':
 '''Zeile''',
 '''Deletions are marked like this.''':
@@ -767,6 +785,8 @@ rot=Änderungen''',
 '''TitelIndex''',
 '''WordIndex''':
 '''WortIndex''',
+'''SiteNavigation''':
+'''WegWeiser''',
 '''HelpContents''':
 '''HilfeInhalt''',
 '''HelpOnFormatting''':

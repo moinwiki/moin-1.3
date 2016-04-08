@@ -6,6 +6,93 @@ All rights reserved, see COPYING for details.
 
 -----------------------------------------------------------------------------
 
+Version 1.2.2 (2004-06-06, Revision 1.185)
+
+Fixes:
+    * python related:
+     * own copy of difflib removed
+       Until moin 1.2.1 we had our own copy of python 2.2.3's difflib coming
+       with moin. This was to work around some problems with broken older 2.2
+       python installations. We removed this now because if you have py 2.3,
+       there is even a better difflib coming with python (and that fixes an
+       extremely slow diff calculation happening in some rare cases).
+       So the good news is that when you run python 2.3, you don't need to do
+       anything and it will run great. If you run python 2.2.3, it will mostly
+       work good and you also don't need to do anything. The bad news is that
+       if you run an old and broken 2.2 installation (2.2.1, maybe 2.2.2) you
+       will have to fix it on your own (just copy difflib.py from python 2.2.3
+       over to your python 2.2.x installation).
+       But better upgrade to python 2.3 (for debian woody, there's a backport),
+       as 2.3 generally runs better and faster than 2.2.
+     * scripts changed to use #!/usr/bin/env python (not /usr/bin/python2.2)
+
+    * user accounts and ACLs:
+     * we now require the user to specify a password for a new account (you
+       were not able to login without a password anyway)
+     * it is not allowed any more to create user accounts with user names
+       matching config.page_group_regex - please check manually that you do
+       not already have such users existing (like a user named "AdminGroup"):
+       cd data/user ; grep name=.*Group *  # there should be no output!
+     * subscription email sending now honours ACLs correctly
+
+    * markup / rendering / user interface fixes:
+     * fixed merging multiple lines indented by the same amount of blanks
+     * ## comments don't break tables in two parts
+     * added a "remove bookmark" link to RecentChanges
+     * fixed DeletePage / RenamePage / SpellCheck to work on subpages, too
+     * fixed action=titleindex (added \n after each entry)
+
+    * RSS fixes:
+     * non-ASCII characters should work now
+     * RSS feed (Recentchanges?action=rss_rc) gives UTC timestamps now
+     * removed attribute breaking RSS feed on RecentChanges
+
+    * better email generation:
+     * if you use python >=2.2.2, we add a Message-ID header to emails
+     * if you use python 2.2.1, there is no email.Header. Instead of crashing
+       (like previous moin 1.2.x releases), we just use the subject "as is" in
+       that case. If it is not ASCII, this is not standards compliant.
+     * If you have >=2.2.2 it will use email.Header to make standards compliant
+       subject lines.
+     * use config.mail_from as sender address when sending "lost my password"
+       emails
+
+    * file attachments:
+     * fixed for standalone server
+     * attachment URLs (when handled by moin) don't include server name
+     * fixed some wrong &amp;amp; in html src
+    
+    * better themeability:
+     * some entries in dict "d" where only present in header theme calls, some
+       only in footer theme calls. Now almost all is present in both calls.
+     * added some missing "content" divs so sidebar themes look better
+
+    * fixed some crashes producing backtraces:
+     * no IOError when diffing against deleted page
+     * no backtrace in xml footnote generation
+     * no SystemInfo crash when no editlog exists in new wikis
+     * xmlrpc.getRecentChanges fixed
+
+    * MoinMoin.util.filesys.rename is now a wrapper around os.rename that
+      fixes os.rename on broken win32 api semantics
+
+Other Changes:
+    * saving traffic and load by improved robot meta tag generation:
+     * "noindex,nofollow" on queries and POSTs
+     * "index,follow" on FrontPage and TitleIndex (give robots a chance ;))
+     * "index,nofollow" on all other pages (hopefully saving lots of senseless
+       requests for page?action=...) 
+     * removed config.html_head_queries (was used for same stuff)
+    * added russian i18n (utf-8)
+    * misc. other translation updates / fixes
+    * added rightsidebar theme
+    * TitleIndex now folds case, so "APage" and "anotherPage" are both under
+      letter "A".
+    * added macro/PageHits.py - it calculates the hits each page gets since
+      beginning of logging
+
+
+
 Version 1.2.1 (2004-03-08, Revision 1.184)
 
 Fixes:

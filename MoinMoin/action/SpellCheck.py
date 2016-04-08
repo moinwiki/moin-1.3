@@ -185,7 +185,7 @@ def checkSpelling(page, request, own_form=1):
             msg = msg + (
                 '<form method="POST" action="%s">'
                 '<input type="hidden" name="action" value="%s">'
-                % (wikiutil.quoteWikiname(page.page_name), action_name,))
+                % (page.url(request), action_name,))
         checkbox = '<input type="checkbox" name="newwords" value="%(word)s">%(word)s&nbsp;&nbsp;'
         msg = msg + (
             " ".join(map(lambda w, cb=checkbox: cb % {'word': wikiutil.escape(w),}, badwords)) +

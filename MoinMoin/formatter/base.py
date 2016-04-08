@@ -66,7 +66,7 @@ class FormatterBase:
     def anchordef(self, name):
         return ""
 
-    def anchorlink(self, name, text):
+    def anchorlink(self, name, text, id=None):
         return text
 
     def image(self, **kw):

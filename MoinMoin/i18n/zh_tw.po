@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-18 22:57+0100\n"
+"POT-Creation-Date: 2004-05-07 03:19+0200\n"
 "PO-Revision-Date: 2004-01-11 22:09+0100\n"
 "Last-Translator: Lin Zhemin <ljm@ljm.idv.tw>\n"
 "Language-Team: Chinese/Taiwan <moin-devel@lists.sourceforge.net>\n"
@@ -15,39 +15,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
 "X-Language: Chinese/Taiwan\n"
+"X-Language-in-English: Chinese/Taiwan\n"
 
-#: Page.py:153
 #, python-format
 msgid "(last edited %(time)s by %(editor)s)"
 msgstr "(上次是由 %(editor)s 在 %(time)s 編輯的)"
 
-#: Page.py:159
 #, python-format
 msgid "(last modified %s)"
 msgstr "(上次修改時間 %s)"
 
-#: Page.py:485
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
 msgstr "建議您不要使用本頁的備份內容，備份不會出現在搜尋結果中!"
 
-#: Page.py:544
 #, python-format
 msgid "Version as of %(date)s"
 msgstr "%(date)s 版"
 
-#: Page.py:554
 #, python-format
 msgid "Redirected from page \"%(page)s\""
 msgstr "從 \"%(page)s\" 頁轉向過來"
 
-#: Page.py:560
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
 msgstr "本頁轉向到 \"%(page)s\""
 
-#: Page.py:581
 #, python-format
 msgid ""
 "<p><small>If you submit this form, the submitted values will be displayed.\n"
@@ -62,28 +56,22 @@ msgstr ""
 "b><br><br>\n"
 "巨集呼叫.</b></small></p>\n"
 
-#: Page.py:606 action/AttachFile.py:296
 msgid "You are not allowed to view this page."
 msgstr "你不能閱讀本頁。"
 
-#: Page.py:707 parser/xslt.py:146
 msgid "RefreshCache"
 msgstr "刷新快取內容"
 
-#: Page.py:708 parser/xslt.py:147
 #, python-format
 msgid "for this page (cached %(date)s)"
 msgstr " (本頁快取時間: %(date)s)"
 
-#: Page.py:726
 msgid "Create this page"
 msgstr "建立本頁"
 
-#: Page.py:736
 msgid "Alternatively, use one of these templates:"
 msgstr "或是用下面其中一個範本:"
 
-#: Page.py:751
 #, python-format
 msgid ""
 "To create your own templates, add a page with a name matching the regex \"%"
@@ -92,60 +80,47 @@ msgstr ""
 "如果要建立新的範本, 請新增一頁, 名字必須符合正規表達式 \"%"
 "(page_template_regex)s\", 如 MyNewTemplate."
 
-#: Page.py:759
 msgid "The following pages with similar names already exist..."
 msgstr "下面幾頁的名字很接近本頁, 提供你做個參考..."
 
-#: PageEditor.py:149 wikiaction.py:579 wikiaction.py:613
 msgid "You are not allowed to edit this page."
 msgstr "你不能編輯本頁."
 
-#: PageEditor.py:151 PageEditor.py:724
 msgid "Page is immutable!"
 msgstr "本頁不能更動!"
 
-#: PageEditor.py:155
 msgid "Cannot edit old revisions!"
 msgstr "不能編輯舊版頁面!"
 
-#: PageEditor.py:162
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "編輯鎖定逾時, 請注意多人同時編輯可能發生衝突!"
 
-#: PageEditor.py:178
 #, python-format
 msgid "Edit \"%(pagename)s\""
 msgstr "編輯 \"%(pagename)s\""
 
-#: PageEditor.py:180
 #, python-format
 msgid "Preview of \"%(pagename)s\""
 msgstr "頁面\"%(pagename)s\"的預覽"
 
-#: PageEditor.py:186
 #, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
 msgstr "你在 %(lock_page)s 的編輯鎖定逾時了！"
 
-#: PageEditor.py:187
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
 msgstr "你在 %(lock_page)s 的編輯鎖定, 還剩下 # 分鐘."
 
-#: PageEditor.py:188
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
 msgstr "你在 %(lock_page)s 的編輯鎖定, 只剩下 # 秒了!"
 
-#: PageEditor.py:224
 msgid "Someone else deleted this page while you were editing!"
 msgstr "有人在你編輯的時候刪掉本頁了!"
 
-#: PageEditor.py:226
 msgid "Someone else changed this page while you were editing!"
 msgstr "有人在你編輯的時候修改了本頁!"
 
-#: PageEditor.py:239 wikiaction.py:674
 #, python-format
 msgid ""
 "Someone else saved this page while you were editing!\n"
@@ -156,60 +131,47 @@ msgstr ""
 "請勿直接儲存本頁! 請先點擊 %(difflink)s , 看看哪裡修改過了,\n"
 "再決定要不要進一步編輯、儲存本頁."
 
-#: PageEditor.py:266
 #, python-format
 msgid "[Content of new page loaded from %s]"
 msgstr "[從 %s 載入新頁面的內容]"
 
-#: PageEditor.py:268
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[找不到範本 %s ]"
 
-#: PageEditor.py:278
 msgid "Reduce editor size"
 msgstr "縮小編輯框"
 
-#: PageEditor.py:282
 msgid "Skip to preview"
 msgstr "跳至預覽"
 
-#: PageEditor.py:284
 #, python-format
 msgid "[current page size <strong>%(size)d</strong> bytes]"
 msgstr "[本頁目前大小 <strong>%(size)d</strong> 位元組]"
 
-#: PageEditor.py:300
 #, python-format
 msgid "Describe %s here."
 msgstr "在這裡加入關於 %s 的內容."
 
-#: PageEditor.py:318
 msgid "Optional comment about this change"
 msgstr "本次編輯備註:"
 
-#: PageEditor.py:325
 msgid "<No addition>"
 msgstr "<不變>"
 
-#: PageEditor.py:326
 #, python-format
 msgid "Make this page belong to category %(category)s"
 msgstr "將本頁劃入類別 %(category)s"
 
-#: PageEditor.py:333
 msgid "Check Spelling"
 msgstr "拼字檢查"
 
-#: PageEditor.py:335
 msgid "Save Changes"
 msgstr "存檔"
 
-#: PageEditor.py:336
 msgid "Cancel"
 msgstr "取消"
 
-#: PageEditor.py:342
 #, python-format
 msgid ""
 "By hitting <strong>%(save_button_text)s</strong> you put your changes under "
@@ -222,19 +184,15 @@ msgstr ""
 "如果你不同意的話, 請按 <strong>%(cancel_button_text)s</strong> 以放棄本次編"
 "輯."
 
-#: PageEditor.py:356
 msgid "Preview"
 msgstr "預覽"
 
-#: PageEditor.py:361
 msgid "Send mail notification"
 msgstr "發送編輯通知"
 
-#: PageEditor.py:369
 msgid "Remove trailing whitespace from each line"
 msgstr "去掉行尾空白"
 
-#: PageEditor.py:382
 msgid ""
 "<dt>Emphasis:</dt>\n"
 "<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
@@ -270,11 +228,9 @@ msgstr ""
 "<dd>|| 儲存格內文 |||| 跨兩列的儲存格 ||;\n"
 "    表格或標題尾端不可以有空白.</dd>\n"
 
-#: PageEditor.py:422
 msgid "Edit was cancelled."
 msgstr "取消編輯."
 
-#: PageEditor.py:467
 #, python-format
 msgid ""
 "Dear Wiki user,\n"
@@ -294,7 +250,6 @@ msgstr ""
 "%(pagelink)s\n"
 "\n"
 
-#: PageEditor.py:478
 #, python-format
 msgid ""
 "The comment on the change is:\n"
@@ -305,55 +260,43 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-#: PageEditor.py:483
 msgid "No older revisions of the page stored, diff not available."
 msgstr "本頁沒有儲存舊版內容, 所以沒辦法做版本比較."
 
-#: PageEditor.py:493
 msgid "No differences found!\n"
 msgstr "新舊版完全相同!\n"
 
-#: PageEditor.py:496
 #, python-format
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "版本比較函式傳回錯誤代碼 %(rc)s!"
 
-#: PageEditor.py:499
 #, python-format
 msgid "[%(sitename)s] Update of \"%(pagename)s\""
 msgstr "[%(sitename)s] 頁面更動通知: \"%(pagename)s\""
 
-#: PageEditor.py:518
 msgid "You will not be notified of your own changes!"
 msgstr "因為你編輯了本頁, 所以編輯通知不會再寄一份給你!"
 
-#: PageEditor.py:525
 msgid "Status of sending notification mails:"
 msgstr "發送編輯通知的情況:"
 
-#: PageEditor.py:531
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
 msgstr "[%(lang)s] %(recipients)s: %(status)s"
 
-#: PageEditor.py:536
 msgid "Nobody subscribed to this page, no mail sent."
 msgstr "沒人訂閱本頁, 沒有送出通知."
 
-#: PageEditor.py:647
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## 本頁 \"%(pagename)s\" 已經在 %(date)s 備份好了"
 
-#: PageEditor.py:721
 msgid "You are not allowed to edit this page!"
 msgstr "你不可以編輯本頁!"
 
-#: PageEditor.py:727
 msgid "You cannot save empty pages."
 msgstr "你不能儲存空白頁."
 
-#: PageEditor.py:730
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
 "<p>Please do the following: Use the back button of your browser, and "
@@ -373,25 +316,20 @@ msgstr ""
 "那樣的話會刪除別人修改的內容, \n"
 "這樣很沒禮貌!</em></p>\n"
 
-#: PageEditor.py:741
 #, python-format
 msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
 msgstr "你修改的備份存在<a href=\"%(backup_url)s\">這裡</a>."
 
-#: PageEditor.py:744
 msgid "You did not change the page content, not saved!"
 msgstr "你沒有更動本頁內容, 所以沒有存檔!"
 
-#: PageEditor.py:751
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr "你不能修改本頁的 ACL, 因為你沒有管理權限!"
 
-#: PageEditor.py:757
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr "謝謝修改, 敬請注意細節."
 
-#: PageEditor.py:853
 #, python-format
 msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
@@ -400,25 +338,21 @@ msgstr ""
 "%(owner)s 對本頁的編輯鎖定在 %(mins_ago)d 分鐘前已經失效了, 你取得了本頁的編"
 "輯鎖定."
 
-#: PageEditor.py:859
 #, python-format
 msgid ""
 "Other users will be <em>blocked</em> from editing this page until %(bumptime)"
 "s."
 msgstr "其他使用者在 %(bumptime)s 之前, <em>無權</em>修改本頁."
 
-#: PageEditor.py:863
 #, python-format
 msgid ""
 "Other users will be <em>warned</em> until %(bumptime)s that you are editing "
 "this page."
 msgstr "其他使用者在 %(bumptime)s 之前, 系統會<em>提示他</em>你在修改本頁."
 
-#: PageEditor.py:866
 msgid "Use the Preview button to extend the locking period."
 msgstr "如果要延長鎖定期間, 請按編輯框下面的「預覽」鍵."
 
-#: PageEditor.py:874
 #, python-format
 msgid ""
 "This page is currently <em>locked</em> for editing by %(owner)s until %"
@@ -427,7 +361,6 @@ msgstr ""
 "本頁目前<em>鎖定中</em>. %(owner)s 正在修改本頁, 他可以修改到%(timestamp)s, "
 "也就是 %(mins_valid)d 分鐘後."
 
-#: PageEditor.py:880
 #, python-format
 msgid ""
 "This page was opened for editing or last previewed at %(timestamp)s by %"
@@ -442,115 +375,87 @@ msgstr ""
 "d 分鐘內編輯本頁</strong>.<br>\n"
 "請按下「取消」鍵離開編輯器."
 
-#: PageEditor.py:914 user.py:77
 msgid "<unknown>"
 msgstr "<不明>"
 
-#: config.py:131
 msgid "Diffs"
 msgstr "版本比較"
 
-#: config.py:132
 msgid "Info"
 msgstr "關於"
 
-#: config.py:133 macro/Navigation.py:164
 msgid "Edit"
 msgstr "編輯"
 
-#: config.py:134
 msgid "UnSubscribe"
 msgstr "取消訂閱"
 
-#: config.py:135
 msgid "Subscribe"
 msgstr "訂閱"
 
-#: config.py:136
 msgid "Raw"
 msgstr "原始碼"
 
-#: config.py:137
 msgid "XML"
 msgstr "XML"
 
-#: config.py:138
 msgid "Print"
 msgstr "友善列印"
 
-#: config.py:139
 msgid "View"
 msgstr "瀏覽"
 
-#: config.py:140
 msgid "Home"
 msgstr "首頁"
 
-#: config.py:141
 msgid "Up"
 msgstr "上層"
 
-#: request.py:394
 msgid "Unknown action"
 msgstr "不明動作"
 
-#: request.py:415
 msgid "Can't work out query"
 msgstr "無法查詢"
 
-#: user.py:100
 msgid "Open editor on double click"
 msgstr "雙擊打開編輯器"
 
-#: user.py:101
 msgid "Remember last page visited"
 msgstr "記住最後看哪一頁"
 
-#: user.py:102
 msgid "Show emoticons"
 msgstr "顯示表情符號"
 
-#: user.py:103
 msgid "Show fancy links"
 msgstr "顯示fancy的連結"
 
-#: user.py:104
 msgid "Show question mark for non-existing pagelinks"
 msgstr "為不存在的頁面連結顯示問號"
 
-#: user.py:105
 msgid "Show page trail"
 msgstr "顯示頁面軌跡記錄"
 
-#: user.py:106
 msgid "Show icon toolbar"
 msgstr "顯示圖示工具列"
 
-#: user.py:107
 msgid "Show top/bottom links in headings"
 msgstr "在標題中顯示頁首/頁尾連結"
 
-#: user.py:108
 msgid "Show fancy diffs"
 msgstr "顯示易懂的版本比較"
 
-#: user.py:109
 msgid "Add spaces to displayed wiki names"
 msgstr "在顯示wiki名稱時加上空格"
 
-#: user.py:110
 msgid "Remember login information forever"
 msgstr "永遠記住登入資訊"
 
-#: user.py:111
 msgid "Disable this account forever"
 msgstr "永遠停用本帳號"
 
-#: userform.py:59
 msgid "Cookie deleted. You are now logged out."
 msgstr "Cookie 已經刪除. 你登出了."
 
-#: userform.py:63 wikiaction.py:705 util/mail.py:43
 msgid ""
 "This wiki is not enabled for mail processing. Contact the owner of the wiki, "
 "who can either enable email, or remove the \"Subscribe\" icon."
@@ -558,339 +463,266 @@ msgstr ""
 "本 wiki 不支援郵寄工作, 請連絡管理員, 以便他決定要啟動郵寄功能, 或是乾脆去掉"
 "「訂閱」圖示."
 
-#: userform.py:68
 msgid "Please provide a valid email address!"
 msgstr "請輸入合法的 email 地址!"
 
-#: userform.py:79
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "找不到登記為 '%(email)s' 的帳戶!"
 
-#: userform.py:104
 msgid "Unknown user name or password."
 msgstr "使用者名稱或密碼錯誤."
 
-#: userform.py:117
 msgid "Please enter a user name!"
 msgstr "請輸入使用者名稱!"
 
-#: userform.py:123
 msgid "User name already exists!"
 msgstr "你已經註冊過了!"
 
-#: userform.py:133
 msgid "Passwords don't match!"
 msgstr "兩次輸入的密碼不符!"
 
-#: userform.py:192
+msgid "Please specify a password!"
+msgstr ""
+
 msgid "Please enter your name like that: FirstnameLastname"
 msgstr "請輸入像這樣的名稱: XingMing"
 
-#: userform.py:194
+msgid "You must not use a group name as your user name."
+msgstr ""
+
 msgid ""
 "Please provide your email address - without that you could not get your "
 "login data via email just in case you lose it."
 msgstr ""
 "請輸入你的 email 地址 - 不然你忘記名稱或密碼的時候, 就不能用 email 取回了."
 
-#: userform.py:202
 msgid "This user name already belongs to somebody else."
 msgstr "這個使用者名稱別人已經用了."
 
-#: userform.py:204
 msgid "This email already belongs to somebody else."
 msgstr "這個 email 地址是別人的."
 
-#: userform.py:211
 msgid "User preferences saved!"
 msgstr "使用者設定儲存好了!"
 
-#: userform.py:273
 msgid "Default"
 msgstr "預設值"
 
-#: userform.py:286
 msgid "<Browser setting>"
 msgstr "<依瀏覽器設定>"
 
-#: userform.py:339
 msgid "Save"
 msgstr "存檔"
 
-#: userform.py:340
 msgid "Logout"
 msgstr "登出"
 
-#: userform.py:344
 msgid "Login"
 msgstr "登入"
 
-#: userform.py:345
 msgid "Create Profile"
 msgstr "新使用者註冊"
 
-#: userform.py:348
 msgid "Mail me my account data"
 msgstr "把帳號資料寄給我 "
 
-#: userform.py:352
 msgid "Name"
 msgstr "名稱"
 
-#: userform.py:356
 msgid "(Use FirstnameLastname)"
 msgstr "(請用 XingMing)"
 
-#: userform.py:359
 msgid "Password"
 msgstr "密碼"
 
-#: userform.py:365
 msgid "Password repeat"
 msgstr "核對密碼"
 
-#: userform.py:369
 msgid "(Only when changing passwords)"
 msgstr "(變更密碼才要重覆輸入)"
 
-#: userform.py:372
 msgid "Email"
 msgstr "Email"
 
-#: userform.py:383
 msgid "Preferred theme"
 msgstr "佈景主題"
 
-#: userform.py:385
 msgid "User CSS URL"
 msgstr "自訂 CSS 的 URL"
 
-#: userform.py:389
 msgid "(Leave it empty for disabling user CSS)"
 msgstr "(空白表示不要自訂 CSS)"
 
-#: userform.py:392
 msgid "Editor size"
 msgstr "編輯器大小"
 
-#: userform.py:400
 msgid "Time zone"
 msgstr "時區"
 
-#: userform.py:401
 msgid "Your time is"
 msgstr "當地時間"
 
-#: userform.py:404
 msgid "Server time is"
 msgstr "伺服器時間"
 
-#: userform.py:409
 msgid "Date format"
 msgstr "日期格式"
 
-#: userform.py:411
 msgid "Preferred language"
 msgstr "介面語言"
 
-#: userform.py:424
 msgid "General options"
 msgstr "一般選項"
 
-#: userform.py:426
 msgid "Quick links"
 msgstr "快速連結"
 
-#: userform.py:441
 msgid "This list does not work, unless you have entered a valid email address!"
 msgstr "除非您提供合法的 email 地址, 不然本訂閱列表就沒有用!"
 
-#: userform.py:446
 msgid "Subscribed wiki pages (one regex per line)"
 msgstr "訂閱的 wiki 頁面 (每行一個正規表達式)"
 
-#: userform.py:485 wikiaction.py:407 action/AttachFile.py:593
 msgid "Action"
 msgstr "功能"
 
-#: wikiaction.py:57 wikiaction.py:108
 #, python-format
 msgid "Please use a more selective search term instead of '%(needle)s'!"
 msgstr "'%(needle)s' 找到太多東西, 請輸入更精確的關鍵字!"
 
-#: wikiaction.py:61
 #, python-format
 msgid "Full text search for \"%s\""
 msgstr "全文檢索 \"%s\""
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
 msgid "match"
 msgstr "筆"
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
 msgid "matches"
 msgstr "筆"
 
-#: wikiaction.py:111
 #, python-format
 msgid "Title search for \"%s\""
 msgstr "標題檢索 \"%s\""
 
-#: wikiaction.py:155
 #, python-format
 msgid "%(hits)d hits out of %(pages)d pages searched."
 msgstr "在 %(pages)d 頁中找到 %(hits)d 頁."
 
-#: wikiaction.py:156
 #, python-format
 msgid "Needed %(timer).1f seconds."
 msgstr "用了 %(timer).1f 秒."
 
-#: wikiaction.py:227
 msgid "No older revisions available!"
 msgstr "沒有舊版!"
 
-#: wikiaction.py:231
 #, python-format
 msgid "Diff for \"%s\""
 msgstr "\"%s\" 的版本比較"
 
-#: wikiaction.py:283
 #, python-format
 msgid "Differences between versions dated %s and %s"
 msgstr "從 %s 到 %s 之間, 各版差異如下:"
 
-#: wikiaction.py:286
 #, python-format
 msgid "(spanning %d versions)"
 msgstr "(跨越 %d 版)"
 
-#: wikiaction.py:296 util/diff.py:41
 msgid "No differences found!"
 msgstr "完全相同!"
 
-#: wikiaction.py:298
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "可是本頁存檔存了 %(count)d 次!"
 
-#: wikiaction.py:309
 msgid "Ignore changes in the amount of whitespace"
 msgstr "忽略空白"
 
-#: wikiaction.py:330
 msgid "General Information"
 msgstr "一般資訊"
 
-#: wikiaction.py:333
 #, python-format
 msgid "Page size: %d"
 msgstr "大小: %d"
 
-#: wikiaction.py:339
 msgid "SHA digest of this page's content is:"
 msgstr "本頁內文的 SHA 編碼:"
 
-#: wikiaction.py:350
 msgid "The following users subscribed to this page:"
 msgstr "訂閱本頁的使用者:"
 
-#: wikiaction.py:365
 msgid "This page links to the following pages:"
 msgstr "本頁連到以下頁面:"
 
-#: wikiaction.py:376 wikiaction.py:515
 msgid "Revision History"
 msgstr "修訂記錄"
 
-#: wikiaction.py:401
 msgid "Date"
 msgstr "日期"
 
-#: wikiaction.py:402 action/AttachFile.py:592
 msgid "Size"
 msgstr "大小"
 
-#: wikiaction.py:403
 msgid "Diff"
 msgstr "版本比較"
 
-#: wikiaction.py:405
 msgid "Editor"
 msgstr "編輯者"
 
-#: wikiaction.py:406
 msgid "Comment"
 msgstr "註解"
 
-#: wikiaction.py:445 wikiaction.py:456 action/AttachFile.py:188
 msgid "view"
 msgstr "觀看"
 
-#: wikiaction.py:448 wikiaction.py:459
 msgid "raw"
 msgstr "原始碼"
 
-#: wikiaction.py:451 wikiaction.py:462
 msgid "print"
 msgstr "友善列印"
 
-#: wikiaction.py:466
 msgid "revert"
 msgstr "恢復舊版"
 
-#: wikiaction.py:477 macro/RecentChanges.py:41
 #, python-format
 msgid "Revert to version dated %(datestamp)s."
 msgstr "恢復成 %(datestamp)s 的版本."
 
-#: wikiaction.py:484
 msgid "N/A"
 msgstr "無"
 
-#: wikiaction.py:512
 #, python-format
 msgid "Info for \"%s\""
 msgstr "關於 \"%s\""
 
-#: wikiaction.py:515 wikiaction.py:517
 #, python-format
 msgid "Show \"%(title)s\""
 msgstr "顯示 \"%(title)s\""
 
-#: wikiaction.py:517
 msgid "General Page Infos"
 msgstr "一般資訊"
 
-#: wikiaction.py:519
 #, python-format
 msgid "Show chart \"%(title)s\""
 msgstr "\"%(title)s\" 的圖表"
 
-#: wikiaction.py:519 stats/hitcounts.py:154
 msgid "Page hits and edits"
 msgstr "本頁人氣和編輯次數"
 
-#: wikiaction.py:591
 msgid "You are not allowed to revert this page!"
 msgstr "你不能把本頁恢復成舊版!"
 
-#: wikiaction.py:601
 msgid "An error occurred while reverting the page."
 msgstr "恢復舊版時發生錯誤."
 
-#: wikiaction.py:701
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr "你不能訂閱不能閱讀的頁面."
 
-#: wikiaction.py:710
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr "你還沒註冊. 請點右上角的 使用者設定並按下「新使用者註冊」."
 
-#: wikiaction.py:715
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
@@ -898,173 +730,134 @@ msgstr ""
 "你註冊的時候沒有提供 email 地址. 請在右上角點一下你的名字(或是「使用者設"
 "定」) 並提供合法的 email 地址."
 
-#: wikiaction.py:720
 msgid "You are already subscribed to this page."
 msgstr "您已經訂閱本頁了."
 
-#: wikiaction.py:721 wikiaction.py:728
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
 "subscription list."
 msgstr "如果要取消訂閱, 請點右上角修改個人資料, 並從訂閱清單中刪除本頁."
 
-#: wikiaction.py:727
 msgid "You have been subscribed to this page."
 msgstr "訂閱好了."
 
-#: wikiform.py:31
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
 msgstr "缺少需要的屬性 \"%(attrname)s\""
 
-#: wikiform.py:95
 msgid "Submitted form data:"
 msgstr "提交表單資料:"
 
-#: wikimacro.py:150
 msgid "Display context of search results"
 msgstr "顯示找到頁面的內容"
 
-#: wikimacro.py:152
 msgid "Case-sensitive searching"
 msgstr "區分大小寫"
 
-#: wikimacro.py:159 wikimacro.py:165
 msgid "Go"
 msgstr "Go!"
 
-#: wikimacro.py:257
 msgid "Include system pages"
 msgstr "包含系統頁"
 
-#: wikimacro.py:257
 msgid "Exclude system pages"
 msgstr "排除系統頁"
 
-#: wikimacro.py:258
 msgid "Plain title index"
 msgstr "標題索引"
 
-#: wikimacro.py:259
 msgid "XML title index"
 msgstr "XML 標題索引"
 
-#: wikimacro.py:309
 msgid "Python Version"
 msgstr "Python 版本"
 
-#: wikimacro.py:310
 msgid "MoinMoin Version"
 msgstr "MoinMoin 版本"
 
-#: wikimacro.py:310
 #, python-format
 msgid "Release %s [Revision %s]"
 msgstr "%s 版 [第 %s 號修訂]"
 
-#: wikimacro.py:312
 msgid "4Suite Version"
 msgstr "4Suite 版本"
 
-#: wikimacro.py:313
 msgid "Number of pages"
 msgstr "總頁面數"
 
-#: wikimacro.py:314
 msgid "Number of system pages"
 msgstr "系統頁面數"
 
-#: wikimacro.py:315
 msgid "Number of backup versions"
 msgstr "備份版本數"
 
-#: wikimacro.py:316
 msgid "Accumulated page sizes"
 msgstr "累計頁面大小"
 
-#: wikimacro.py:319
 msgid "Entries in edit log"
 msgstr "編輯日誌項次"
 
-#: wikimacro.py:320
 #, python-format
 msgid "%(logcount)s (%(logsize)s bytes)"
 msgstr "%(logcount)s 次 (%(logsize)s 位元組)"
 
-#: wikimacro.py:326
 msgid "NONE"
 msgstr "無"
 
-#: wikimacro.py:329
 msgid "Global extension macros"
 msgstr "全域擴充巨集"
 
-#: wikimacro.py:331
 msgid "Local extension macros"
 msgstr "區域擴充巨集"
 
-#: wikimacro.py:333
 msgid "Global extension actions"
 msgstr "全域擴充功能"
 
-#: wikimacro.py:335
 msgid "Local extension actions"
 msgstr "區域擴充功能"
 
-#: wikimacro.py:337
 msgid "Installed processors"
 msgstr "擴充的處理器"
 
-#: wikimacro.py:358
 #, python-format
 msgid "ERROR in regex '%s'"
 msgstr "正規表達式 '%s' 錯誤"
 
-#: wikimacro.py:395 wikimacro.py:405
 #, python-format
 msgid "Bad timestamp '%s'"
 msgstr "錯誤的時間標記 '%s'"
 
-#: wikiutil.py:600 util/wikiext.py:61
 #, python-format
 msgid "Expected \"=\" to follow \"%(token)s\""
 msgstr "\"%(token)s\" 後面應該有個 \"=\""
 
-#: wikiutil.py:605 util/wikiext.py:66
 #, python-format
 msgid "Expected a value for key \"%(token)s\""
 msgstr "鍵 \"%(token)s\" 應該有對應的值"
 
-#: wikiutil.py:908
 msgid "Wiki Markup"
 msgstr ""
 
-#: wikiutil.py:910
 msgid "Print View"
 msgstr ""
 
-#: action/AttachFile.py:102
 #, python-format
 msgid "[%d attachments]"
 msgstr "[%d 個附件]"
 
-#: action/AttachFile.py:120
 #, python-format
 msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
 "page."
 msgstr "本頁包含 <a href=\"%(link)s\">%(count)s 個附件</a>."
 
-#: action/AttachFile.py:152 action/AttachFile.py:417
 msgid "Filename of attachment not specified!"
 msgstr "附件沒指定檔名!"
 
-#: action/AttachFile.py:159
 #, python-format
 msgid "Attachment '%(filename)s' does not exist!"
 msgstr "附件 '%(filename)s' 不存在!"
 
-#: action/AttachFile.py:177
 msgid ""
 "<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
 "tt></strong>, \n"
@@ -1077,40 +870,31 @@ msgstr ""
 "<strong>請不要</strong>用 <tt>[取得]</tt> 指向的 URL, \n"
 "因為那個位置可能會變, 到時候就不能用了.</p>"
 
-#: action/AttachFile.py:185
 msgid "del"
 msgstr "刪除"
 
-#: action/AttachFile.py:186
 msgid "get"
 msgstr "取得"
 
-#: action/AttachFile.py:187
 msgid "edit"
 msgstr "修改"
 
-#: action/AttachFile.py:225
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "%(pagename)s 沒有附件"
 
-#: action/AttachFile.py:267
 msgid "Edit drawing"
 msgstr "編輯圖片"
 
-#: action/AttachFile.py:299
 msgid "Attached Files"
 msgstr "附件"
 
-#: action/AttachFile.py:303 action/AttachFile.py:367
 msgid "You are not allowed to attach a file to this page."
 msgstr "你不能在本頁插入附件."
 
-#: action/AttachFile.py:310
 msgid "New Attachment"
 msgstr "加入附件"
 
-#: action/AttachFile.py:311
 msgid ""
 "An upload will never overwrite an existing file. If there is a name\n"
 "conflict, you have to rename the file that you want to upload.\n"
@@ -1121,58 +905,45 @@ msgstr ""
 "就一定要在「改名為」填上新的檔名. 如果檔名不一樣, 「改名為」可以不填, \n"
 "這樣就會採用原本的檔名."
 
-#: action/AttachFile.py:334
 msgid "File to upload"
 msgstr "要上傳的檔案"
 
-#: action/AttachFile.py:335
 msgid "MIME Type (optional)"
 msgstr "MIME 類型 (可選)"
 
-#: action/AttachFile.py:336
 msgid "Save as"
 msgstr "另存新檔"
 
-#: action/AttachFile.py:338
 msgid "Upload"
 msgstr "上傳"
 
-#: action/AttachFile.py:353
 msgid "File attachments are not allowed in this wiki!"
 msgstr "本 wiki 不開放使用附件!"
 
-#: action/AttachFile.py:360
 msgid "You are not allowed to save a drawing on this page."
 msgstr "本頁不能儲存圖片."
 
-#: action/AttachFile.py:372
 msgid "You are not allowed to delete attachments on this page."
 msgstr "本頁附件不能刪除."
 
-#: action/AttachFile.py:377
 msgid "You are not allowed to get attachments from this page."
 msgstr "你不能取得本頁附件."
 
-#: action/AttachFile.py:382
 msgid "You are not allowed to view attachments of this page."
 msgstr "你不能觀看本頁附件."
 
-#: action/AttachFile.py:384
 #, python-format
 msgid "Unsupported upload action: %s"
 msgstr "未支援的上傳功能: %s"
 
-#: action/AttachFile.py:394
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
 msgstr "\"%(pagename)s\" 的附件"
 
-#: action/AttachFile.py:444
 #, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
 msgstr "附件 '%(target)s' 已經存在 (遠端名稱 '%(filename)s')"
 
-#: action/AttachFile.py:455
 #, python-format
 msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
@@ -1180,119 +951,93 @@ msgid ""
 msgstr ""
 "附件 '%(target)s' (遠端名稱 '%(filename)s') 儲存好了, 共計 %(bytes)d 位元組."
 
-#: action/AttachFile.py:506 macro/RecentChanges.py:36
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
 msgstr "附件 '%(filename)s' 已刪除."
 
-#: action/AttachFile.py:539
 #, python-format
 msgid "Attachment '%(filename)s'"
 msgstr "附件 '%(filename)s'"
 
-#: action/AttachFile.py:554
 msgid "Unknown file type, cannot display this attachment inline."
 msgstr "不明的檔案類型, 不能內嵌在內文中."
 
-#: action/AttachFile.py:567
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
 msgstr "%(pagename)s 的附件:%(filename)s"
 
-#: action/DeletePage.py:27
 msgid "You are not allowed to delete this page."
 msgstr "你不能刪除本頁."
 
-#: action/DeletePage.py:33 action/RenamePage.py:29
 msgid "This page is already deleted or was never created!"
 msgstr "本頁已經刪除或還沒建立!"
 
-#: action/DeletePage.py:41
 msgid "Please use the interactive user interface to delete pages!"
 msgstr "請使用互動式介面刪除頁面!"
 
-#: action/DeletePage.py:48
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
 msgstr "頁面 \"%s\" 刪掉了!"
 
-#: action/DeletePage.py:53
 msgid "Really delete this page?"
 msgstr "真的要刪除本頁?"
 
-#: action/DeletePage.py:54
 msgid "Delete"
 msgstr "刪除"
 
-#: action/DeletePage.py:55
 msgid "Optional reason for the deletion"
 msgstr "刪除本頁的理由:"
 
-#: action/LikePages.py:31
 #, python-format
 msgid "No pages match \"%s\"!"
 msgstr "沒有連結 \"%s\" 的頁面!"
 
-#: action/LikePages.py:37
 #, python-format
 msgid "Exactly one matching page for \"%s\" found!"
 msgstr "連結 \"%s\" 的剛好就這麼一頁!"
 
-#: action/LikePages.py:42
 #, python-format
 msgid "Multiple matches for \"%s...%s\""
 msgstr "有很多連向 \"%s...%s\" 的頁面"
 
-#: action/LikePages.py:65
 msgid "You cannot use LikePages on an extended pagename!"
 msgstr "擴充頁名不能使用 LikePages 功能!"
 
-#: action/LikePages.py:121
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
 msgstr "共有 %(matchcount)d%(matches)s 連向 \"%(title)s\""
 
-#: action/LocalSiteMap.py:38
 #, python-format
 msgid "Local Site Map for \"%s\""
 msgstr "關於 \"%s\" 的連結地圖"
 
-#: action/RenamePage.py:25
 msgid "You are not allowed to rename pages in this wiki!"
 msgstr "本 wiki 不開放頁面重新命名!"
 
-#: action/RenamePage.py:37
 msgid "Please use the interactive user interface to rename pages!"
 msgstr "請使用互動式介面為頁面重新命名!"
 
-#: action/RenamePage.py:45
 #, python-format
 msgid "A page with the name \"%s\" already exists!"
 msgstr "已經有一頁叫做 \"%s\" 了!"
 
-#: action/RenamePage.py:55
 #, python-format
 msgid "Page \"%s\" was successfully renamed to \"%s\"!"
 msgstr "\"%s\" 已經改名為 \"%s\" 了!"
 
-#: action/RenamePage.py:61
 msgid "Rename"
 msgstr "重新命名"
 
-#: action/RenamePage.py:62
 msgid "New name"
 msgstr "新的名稱"
 
-#: action/RenamePage.py:63
 msgid "Optional reason for the renaming"
 msgstr "重新命名的理由:"
 
-#: action/SpellCheck.py:169
 #, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
 msgstr "其中包括 %(localwords)d 個 %(pagelink)s"
 
-#: action/SpellCheck.py:171
 #, python-format
 msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
@@ -1301,191 +1046,157 @@ msgstr ""
 "下列 %(badwords)d 個詞, 沒有收錄在詞典中 (總詞數 %(totalwords)d 詞, %"
 "(localwords)s). 不明的詞在內文中會特別標出:"
 
-#: action/SpellCheck.py:190
 msgid "Add checked words to dictionary"
 msgstr "把勾選的詞加進詞典"
 
-#: action/SpellCheck.py:196
 msgid "No spelling errors found!"
 msgstr "沒有拼字錯誤!"
 
-#: action/SpellCheck.py:210
 msgid "You can't check spelling on a page you can't read."
 msgstr "不能檢查不能閱讀的頁面."
 
-#: action/links.py:28
 #, python-format
 msgid "Full Link List for \"%s\""
 msgstr "連向 \"%s\" 的頁面"
 
-#: macro/Include.py:58
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "錯誤的插入參數 \"%s\"!"
 
-#: macro/Include.py:120 macro/Include.py:130
 #, python-format
 msgid "Nothing found for \"%s\"!"
 msgstr "找不到 \"%s\"!"
 
-#: macro/Navigation.py:103
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
 msgstr "不支援的導覽方案 '%(scheme)s'!"
 
-#: macro/Navigation.py:120 macro/Navigation.py:191
 msgid "No parent page found!"
 msgstr "找不到上層頁面!"
 
-#: macro/Navigation.py:162
 msgid "Wiki"
 msgstr "Wiki模式"
 
-#: macro/Navigation.py:168
 msgid "Slideshow"
 msgstr "幻燈片模式"
 
-#: macro/Navigation.py:180
 msgid "Start"
 msgstr "開始"
 
-#: macro/Navigation.py:214
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "幻燈片 %(pos)d/%(size)d"
 
-#: macro/OrphanedPages.py:43
 msgid "No orphaned pages in this wiki."
 msgstr "本 wiki 沒有孤立頁."
 
-#: macro/RandomQuote.py:44
 #, python-format
 msgid "No quotes on %(pagename)s."
 msgstr "%(pagename)s 中沒有可引用的格言"
 
-#: macro/RecentChanges.py:34
 #, python-format
 msgid "Upload of attachment '%(filename)s'."
 msgstr "傳上 '%(filename)s' 附件."
 
-#: macro/RecentChanges.py:38
 #, python-format
 msgid "Drawing '%(filename)s' saved."
 msgstr "儲存 '%(filename)s' 圖片."
 
-#: macro/RecentChanges.py:89
 #, python-format
 msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
 msgstr "[%(hours)d小時&nbsp;%(mins)d分&nbsp;前]"
 
-#: macro/RecentChanges.py:239
 msgid "(no bookmark set)"
 msgstr "(未設定書籤)"
 
-#: macro/RecentChanges.py:241
 #, python-format
 msgid "(currently set to %s)"
 msgstr "(目前設為 %s)"
 
-#: macro/RecentChanges.py:248
+#, fuzzy
+msgid "Delete Bookmark"
+msgstr "設定書籤"
+
+#, fuzzy
+msgid "Really delete bookmark?"
+msgstr "真的要刪除本頁?"
+
 msgid "Update my bookmark timestamp"
 msgstr "把書籤設成現在"
 
-#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
 msgid "set bookmark"
 msgstr "設定書籤"
 
-#: macro/RecentChanges.py:327
 msgid "[Bookmark reached]"
 msgstr "[書籤結尾]"
 
-#: macro/ShowSmileys.py:31
 msgid "Markup"
 msgstr "標記"
 
-#: macro/ShowSmileys.py:32
 msgid "Display"
 msgstr "顯示"
 
-#: macro/ShowSmileys.py:33
 msgid "Filename"
 msgstr "檔名"
 
-#: macro/StatsChart.py:19
 msgid "You need to provide a chart type!"
 msgstr "請指定圖表類型!"
 
-#: macro/StatsChart.py:23
 #, python-format
 msgid "Bad chart type \"%s\"!"
 msgstr "錯誤的圖表類型 \"%s\"!"
 
-#: macro/SystemAdmin.py:39
 msgid "Download XML export of this wiki"
 msgstr "匯出並下載本 wiki (XML 格式)"
 
-#: macro/WantedPages.py:48
 msgid "No wanted pages in this wiki."
 msgstr "本 wiki 沒有未定義的頁面."
 
-#: parser/wiki.py:225
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "建立新圖 \"%(filename)s\""
 
-#: parser/wiki.py:227
 #, python-format
 msgid "Upload new attachment \"%(filename)s\""
 msgstr "上傳新附件 \"%(filename)s\""
 
-#: parser/wiki.py:258 parser/wiki.py:268
 #, python-format
 msgid "Edit drawing %(filename)s"
 msgstr "編輯圖片 \"%(filename)s\""
 
-#: parser/wiki.py:624
 #, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
 msgstr "\"%(key)s\" 後面應該接 \"%(wanted)s\", 但卻接著 \"%(token)s\""
 
-#: parser/wiki.py:630
 #, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
 msgstr "\"%(token)s\" 前面要的是整數 \"%(key)s\""
 
-#: parser/wiki.py:639 parser/wiki.py:648
 #, python-format
 msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
 msgstr "\"%(key)s\" 後面要的是整數 \"%(arg)s\""
 
-#: parser/wiki.py:668
 #, python-format
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "\"%(key)s\" 後面要接顏色值 \"%(arg)s\""
 
-#: parser/xslt.py:39
 msgid "XSLT option disabled!"
 msgstr "XSLT 功能停用!"
 
-#: parser/xslt.py:56
 msgid "XSLT processing is not available!"
 msgstr "沒有 XSLT 處理套件!"
 
-#: parser/xslt.py:134
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s 處理錯誤"
 
-#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
 msgid "Charts are not available!"
 msgstr "不能繪製圖表!"
 
-#: stats/hitcounts.py:155
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
 msgstr "%(filterpage)s 的 %(chart_title)s 圖"
 
-#: stats/hitcounts.py:157
 msgid ""
 "green=view\n"
 "red=edit"
@@ -1493,157 +1204,145 @@ msgstr ""
 "綠=人氣\n"
 "紅=編輯"
 
-#: stats/hitcounts.py:160
 msgid "date"
 msgstr "日期"
 
-#: stats/hitcounts.py:161
 msgid "# of hits"
 msgstr "人氣指數"
 
-#: stats/pagesize.py:93
 msgid "Page Size Distribution"
 msgstr "頁面大小分佈"
 
-#: stats/pagesize.py:97
 msgid "page size upper bound [bytes]"
 msgstr "頁面大小上界 [位元組]"
 
-#: stats/pagesize.py:98
 msgid "# of pages of this size"
 msgstr "相同大小的頁面數"
 
-#: stats/useragents.py:88
 msgid "Others"
 msgstr "其他"
 
-#: stats/useragents.py:109
 msgid "Distribution of User-Agent Types"
 msgstr "瀏覽器類型分佈"
 
-#: theme/classic.py:154
 msgid "Click here to do a full-text search for this title"
 msgstr "點一下: 對本頁標題做全文檢索"
 
-#: theme/classic.py:294
 msgid "Clear message"
 msgstr "關閉訊息視窗"
 
-#: theme/classic.py:429
 msgid "ShowText"
 msgstr "閱讀本頁內文"
 
-#: theme/classic.py:430 theme/classic.py:450
 msgid "of this page"
 msgstr " "
 
-#: theme/classic.py:449
 msgid "EditText"
 msgstr "編輯本頁"
 
-#: theme/classic.py:453
 msgid "Immutable page"
 msgstr "本頁不可更改"
 
-#: theme/classic.py:481 i18n/dummy.py:14
 msgid "FindPage"
 msgstr "尋找頁面"
 
-#: theme/classic.py:482 i18n/dummy.py:15
-msgid "SiteNavigation"
-msgstr "本站導覽"
-
-#: theme/classic.py:483
 #, python-format
 msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
 msgstr ", 尋找標題 %(titlesearch)s , 全文檢索 %(textsearch)s 或"
 
-#: theme/classic.py:513
 msgid "Or try one of these actions:"
 msgstr "或使用下列功能: "
 
-#: theme/classic.py:666
 #, python-format
 msgid "Show all changes in the last %s days."
 msgstr "顯示 %s 天以內的所有更動."
 
-#: util/diff.py:31
+msgid "User"
+msgstr ""
+
+#, fuzzy
+msgid "Site"
+msgstr "大小"
+
+#, fuzzy
+msgid "Page"
+msgstr "尋找頁面"
+
+msgid "Search"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
+msgstr ", 尋找標題 %(titlesearch)s , 全文檢索 %(textsearch)s 或"
+
+#, fuzzy
+msgid "Actions"
+msgstr "功能"
+
 msgid "Line"
 msgstr "行號"
 
-#: util/diff.py:60
 msgid "Deletions are marked like this."
 msgstr "刪除的標這個顏色."
 
-#: util/diff.py:60
 msgid "Additions are marked like this."
 msgstr "加入的標這個顏色."
 
-#: util/mail.py:71
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr "無法連接郵件伺服器 '%(server)s': %(reason)s"
 
-#: util/mail.py:76
 msgid "Mail sent OK"
 msgstr "郵件已送出"
 
-#: i18n/dummy.py:10
 msgid "FrontPage"
 msgstr "首頁"
 
-#: i18n/dummy.py:11
 msgid "RecentChanges"
 msgstr "最新更動"
 
-#: i18n/dummy.py:12
 msgid "TitleIndex"
 msgstr "標題索引"
 
-#: i18n/dummy.py:13
 msgid "WordIndex"
 msgstr "詞彙索引"
 
-#: i18n/dummy.py:16
+msgid "SiteNavigation"
+msgstr "本站導覽"
+
 msgid "HelpContents"
 msgstr "說明"
 
-#: i18n/dummy.py:17
 msgid "HelpOnFormatting"
 msgstr "說明-排版"
 
-#: i18n/dummy.py:18
 msgid "UserPreferences"
 msgstr "使用者設定"
 
-#: i18n/dummy.py:19
 msgid "WikiLicense"
 msgstr "Wiki版權"
 
-#: i18n/dummy.py:21
 msgid "Mon"
 msgstr "星期一"
 
-#: i18n/dummy.py:21
 msgid "Tue"
 msgstr "星期二"
 
-#: i18n/dummy.py:21
 msgid "Wed"
 msgstr "星期三"
 
-#: i18n/dummy.py:21
 msgid "Thu"
 msgstr "星期四"
 
-#: i18n/dummy.py:21
 msgid "Fri"
 msgstr "星期五"
 
-#: i18n/dummy.py:21
 msgid "Sat"
 msgstr "星期六"
 
-#: i18n/dummy.py:21
 msgid "Sun"
 msgstr "星期日"
+
+#, fuzzy
+#~ msgid "Account"
+#~ msgstr "功能"

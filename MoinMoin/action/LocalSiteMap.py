@@ -45,8 +45,9 @@ def execute(pagename, request):
         request.write("Back to" + Page(parts[2].split("/")[-1]).link_to(request) +
                       "<br><br>")
     """
-
+    request.write('<div id="content">\n') # start content div
     request.write(LocalSiteMap(pagename).output(request))
+    request.write('</div>\n') # end content div
     wikiutil.send_footer(request, pagename)
 
 

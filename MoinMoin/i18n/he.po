@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-18 22:57+0100\n"
+"POT-Creation-Date: 2004-05-07 03:19+0200\n"
 "PO-Revision-Date: 2004-02-17 19:00+0200\n"
 "Last-Translator: Nir Soffer <nirs@freeshell.org>\n"
 "Language-Team: Hebrew <moin-devel@lists.sourceforge.net>\n"
@@ -13,39 +13,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: rtl\n"
 "X-Language: Hebrew\n"
+"X-Language-in-English: Hebrew\n"
 
-#: Page.py:153
 #, python-format
 msgid "(last edited %(time)s by %(editor)s)"
 msgstr "(נערך לאחרונה ב–%(time)s על ידי %(editor)s)"
 
-#: Page.py:159
 #, python-format
 msgid "(last modified %s)"
 msgstr "(השתנה לאחרונה ב–%s)"
 
-#: Page.py:485
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
 msgstr "גרסאות הגיבוי של הדף לא יכללו בתוצאות החיפוש"
 
-#: Page.py:544
 #, python-format
 msgid "Version as of %(date)s"
 msgstr "גרסה מ–%(date)s"
 
-#: Page.py:554
 #, python-format
 msgid "Redirected from page \"%(page)s\""
 msgstr "הפנייה מדף \"%(page)s\""
 
-#: Page.py:560
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
 msgstr "דף זה מפנה לדף \"%(page)s\""
 
-#: Page.py:581
 #, python-format
 msgid ""
 "<p><small>If you submit this form, the submitted values will be displayed.\n"
@@ -57,28 +51,22 @@ msgstr ""
 "<p>אם תשלחו את הטופס, הערכים ששלחתם יוצגו. כדי להשתמש בטופס הזה בדפים אחרים, "
 "הכניסו פקודת מקרו <tt>[[Form(\"%(pagename)s\")]]</tt></p>\n"
 
-#: Page.py:606 action/AttachFile.py:296
 msgid "You are not allowed to view this page."
 msgstr "אין לכם הרשאות לצפות בדף"
 
-#: Page.py:707 parser/xslt.py:146
 msgid "RefreshCache"
 msgstr "רענן מטמון"
 
-#: Page.py:708 parser/xslt.py:147
 #, python-format
 msgid "for this page (cached %(date)s)"
 msgstr "(רוענן לאחרונה ב–%(date)s)"
 
-#: Page.py:726
 msgid "Create this page"
 msgstr "צרו דף חדש"
 
-#: Page.py:736
 msgid "Alternatively, use one of these templates:"
 msgstr "או השתמשו באחת מהתבניות האלו:"
 
-#: Page.py:751
 #, python-format
 msgid ""
 "To create your own templates, add a page with a name matching the regex \"%"
@@ -87,60 +75,47 @@ msgstr ""
 "על מנת ליצור קבצי תבנית חדשים, הוסיפו דף עם שם המתאים לביטוי הרגולרי \"%"
 "(page_template_regex)s\"."
 
-#: Page.py:759
 msgid "The following pages with similar names already exist..."
 msgstr "דפים אלו עם שמות דומים כבר קיימים:"
 
-#: PageEditor.py:149 wikiaction.py:579 wikiaction.py:613
 msgid "You are not allowed to edit this page."
 msgstr "אין לכם הרשאות לערוך את הדף"
 
-#: PageEditor.py:151 PageEditor.py:724
 msgid "Page is immutable!"
 msgstr "הדף לא ניתן לשינוי"
 
-#: PageEditor.py:155
 msgid "Cannot edit old revisions!"
 msgstr "אין אפשרות לערוך גרסאות קודמות"
 
-#: PageEditor.py:162
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "נעילת הדף עבורך הסתיימה, אחרים עלולים לערוך את הדף במקביל"
 
-#: PageEditor.py:178
 #, python-format
 msgid "Edit \"%(pagename)s\""
 msgstr "ערוך \"%(pagename)s\""
 
-#: PageEditor.py:180
 #, python-format
 msgid "Preview of \"%(pagename)s\""
 msgstr "תצוגה מקדימה של \"%(pagename)s\""
 
-#: PageEditor.py:186
 #, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
 msgstr "נעילת העריכה שלך ל–%(lock_page)s הסתיימה"
 
-#: PageEditor.py:187
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
 msgstr "נעילת העריכה שלך לדף %(lock_page)s תסתיים בעוד # דקות"
 
-#: PageEditor.py:188
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
 msgstr "נעילת העריכה שלך לדף %(lock_page)s תסתיים בעוד # שניות"
 
-#: PageEditor.py:224
 msgid "Someone else deleted this page while you were editing!"
 msgstr "מישהו מחק את הדף בשעה שערכת אותו"
 
-#: PageEditor.py:226
 msgid "Someone else changed this page while you were editing!"
 msgstr "מישהו שינה את הדף בשעה שערכת אותו"
 
-#: PageEditor.py:239 wikiaction.py:674
 #, python-format
 msgid ""
 "Someone else saved this page while you were editing!\n"
@@ -151,60 +126,47 @@ msgstr ""
 "כפי שהוא!\n"
 "בדוק את ההבדלים %(difflink)s כדי לראות מה השתנה"
 
-#: PageEditor.py:266
 #, python-format
 msgid "[Content of new page loaded from %s]"
 msgstr "[תוכן הדף החדש נלקח מ–%s]"
 
-#: PageEditor.py:268
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[תבנית %s לא נמצאה]"
 
-#: PageEditor.py:278
 msgid "Reduce editor size"
 msgstr "הקטן תיבת עריכה"
 
-#: PageEditor.py:282
 msgid "Skip to preview"
 msgstr "תצוגה מקדימה"
 
-#: PageEditor.py:284
 #, python-format
 msgid "[current page size <strong>%(size)d</strong> bytes]"
 msgstr "&nbsp;&nbsp; [גודל הדף %(size)d בתים]"
 
-#: PageEditor.py:300
 #, python-format
 msgid "Describe %s here."
 msgstr "תארו את %s כאן."
 
-#: PageEditor.py:318
 msgid "Optional comment about this change"
 msgstr "הערה על השינוי"
 
-#: PageEditor.py:325
 msgid "<No addition>"
 msgstr "ללא קטגוריה"
 
-#: PageEditor.py:326
 #, python-format
 msgid "Make this page belong to category %(category)s"
 msgstr "שייך את הדף לקטגוריה %(category)s"
 
-#: PageEditor.py:333
 msgid "Check Spelling"
 msgstr "בדוק איות"
 
-#: PageEditor.py:335
 msgid "Save Changes"
 msgstr "שמור שינויים"
 
-#: PageEditor.py:336
 msgid "Cancel"
 msgstr "בטל"
 
-#: PageEditor.py:342
 #, python-format
 msgid ""
 "By hitting <strong>%(save_button_text)s</strong> you put your changes under "
@@ -215,19 +177,15 @@ msgstr ""
 "לחיצה על %(save_button_text)s תשמור את השינויים שלך תחת %(license_link)s.\n"
 "אם אתה לא מסכים לכך, לחץ על %(cancel_button_text)s."
 
-#: PageEditor.py:356
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
-#: PageEditor.py:361
 msgid "Send mail notification"
 msgstr "שלח הודעה על השינוי למנויים לדף זה"
 
-#: PageEditor.py:369
 msgid "Remove trailing whitespace from each line"
 msgstr "הסר שטח לבן מסופי שורות"
 
-#: PageEditor.py:382
 msgid ""
 "<dt>Emphasis:</dt>\n"
 "<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
@@ -266,11 +224,9 @@ msgstr ""
 "<dd>|| תא טבלה |||| תא טבלה שנפרס על שתי עמודות ||; \n"
 "אין להשאיר רווחים אחרי כותרות וטבלאות</dd>\n"
 
-#: PageEditor.py:422
 msgid "Edit was cancelled."
 msgstr "עריכה בוטלה."
 
-#: PageEditor.py:467
 #, python-format
 msgid ""
 "Dear Wiki user,\n"
@@ -288,7 +244,6 @@ msgstr ""
 "שונה על ידי %(editor)s:\n"
 "\n"
 
-#: PageEditor.py:478
 #, python-format
 msgid ""
 "The comment on the change is:\n"
@@ -298,55 +253,43 @@ msgstr ""
 "הערה על השינוי:\n"
 "%(comment)s\n"
 
-#: PageEditor.py:483
 msgid "No older revisions of the page stored, diff not available."
 msgstr "אין גרסאות קודמות של הדף, הבדלים לא זמינים."
 
-#: PageEditor.py:493
 msgid "No differences found!\n"
 msgstr "לא נמצאו הבדלים.\n"
 
-#: PageEditor.py:496
 #, python-format
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "שגיאה בחישוב הבדלים: %(rc)s"
 
-#: PageEditor.py:499
 #, python-format
 msgid "[%(sitename)s] Update of \"%(pagename)s\""
 msgstr "[%(sitename)s] עידכון של \"%(pagename)s\""
 
-#: PageEditor.py:518
 msgid "You will not be notified of your own changes!"
 msgstr "לא תקבלו הודעה על שינויים שלכם."
 
-#: PageEditor.py:525
 msgid "Status of sending notification mails:"
 msgstr "הודעות על השינוי:"
 
-#: PageEditor.py:531
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
 msgstr "[%(lang)s] %(recipients)s: %(status)s"
 
-#: PageEditor.py:536
 msgid "Nobody subscribed to this page, no mail sent."
 msgstr "אין מנויים לדף זה, לא נשלחו הודעות."
 
-#: PageEditor.py:647
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## גיבוי של דף \"%(pagename)s\" מתאריך %(date)s"
 
-#: PageEditor.py:721
 msgid "You are not allowed to edit this page!"
 msgstr "אין לכם הרשאות לערוך את הדף."
 
-#: PageEditor.py:727
 msgid "You cannot save empty pages."
 msgstr "אי אפשר לשמור דף ריק, הוסיפו תוכן ושימרו שוב."
 
-#: PageEditor.py:730
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
 "<p>Please do the following: Use the back button of your browser, and "
@@ -363,25 +306,20 @@ msgstr ""
 "אחר כך ערכו את הדף שוב והוסיפו את השינויים. אל תחליפו את התוכן בתיבת העריכה "
 "בגרסה שלכם של הדף, כי זה ימחק את השינויים שמישהו אחר עשה!</p>\n"
 
-#: PageEditor.py:741
 #, python-format
 msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
 msgstr "גיבוי של השינויים שלכם <a href=\"%(backup_url)s\">נמצא כאן</a>."
 
-#: PageEditor.py:744
 msgid "You did not change the page content, not saved!"
 msgstr "תוכן הדף לא השתנה."
 
-#: PageEditor.py:751
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr "אין לכם אפשרות לשנות הרשאות בדף כי אין לכם הרשאת מנהל לדף."
 
-#: PageEditor.py:757
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr "תודה על השינויים שעשיתם."
 
-#: PageEditor.py:853
 #, python-format
 msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
@@ -389,25 +327,21 @@ msgid ""
 msgstr ""
 "הנעילה של %(owner)s הסתיימה לפני %(mins_ago)d דקות, וקבלתם את נעילת העריכה"
 
-#: PageEditor.py:859
 #, python-format
 msgid ""
 "Other users will be <em>blocked</em> from editing this page until %(bumptime)"
 "s."
 msgstr "משתמשים אחרים לא יוכלו לערוך את הדף עד %(bumptime)s."
 
-#: PageEditor.py:863
 #, python-format
 msgid ""
 "Other users will be <em>warned</em> until %(bumptime)s that you are editing "
 "this page."
 msgstr "משתמשים אחרים יקבלו אזהרה שאתם עורכים את הדף עד %(bumptime)s."
 
-#: PageEditor.py:866
 msgid "Use the Preview button to extend the locking period."
 msgstr "לחצו על כפתור \"תצוגה מקדימה\" כדי להאריך את נעילת העריכה."
 
-#: PageEditor.py:874
 #, python-format
 msgid ""
 "This page is currently <em>locked</em> for editing by %(owner)s until %"
@@ -415,7 +349,6 @@ msgid ""
 msgstr ""
 "הדף נעול לעריכה על ידי %(owner)s עד ל–%(timestamp)s במשך %(mins_valid)d דקות."
 
-#: PageEditor.py:880
 #, python-format
 msgid ""
 "This page was opened for editing or last previewed at %(timestamp)s by %"
@@ -428,150 +361,120 @@ msgstr ""
 "הדף ננעל לעריכה לאחרונה ב–%(timestamp)s על ידי %(owner)s. הימנעו מעריכה של "
 "הדף לפחות עוד %(mins_valid)d דקות על מנת למנוע התנגשויות עריכה"
 
-#: PageEditor.py:914 user.py:77
 msgid "<unknown>"
 msgstr "<לא ידוע>"
 
-#: config.py:131
 msgid "Diffs"
 msgstr "הבדלים"
 
-#: config.py:132
 msgid "Info"
 msgstr "מידע"
 
-#: config.py:133 macro/Navigation.py:164
 msgid "Edit"
 msgstr "ערוך"
 
-#: config.py:134
 msgid "UnSubscribe"
 msgstr "בטל מנוי"
 
-#: config.py:135
 msgid "Subscribe"
 msgstr "עשה מנוי"
 
-#: config.py:136
 msgid "Raw"
 msgstr "מלל"
 
-#: config.py:137
 msgid "XML"
 msgstr "XML"
 
-#: config.py:138
 msgid "Print"
 msgstr "תצוגת הדפסה"
 
-#: config.py:139
 msgid "View"
 msgstr "רענן"
 
-#: config.py:140
 msgid "Home"
 msgstr "דף בית"
 
-#: config.py:141
 msgid "Up"
 msgstr "חזרה לדף אב"
 
-#: request.py:394
 msgid "Unknown action"
 msgstr "פעולה לא ידועה"
 
-#: request.py:415
 msgid "Can't work out query"
 msgstr "לא מסוגל לבצע שאילתה"
 
-#: user.py:100
 msgid "Open editor on double click"
 msgstr "ערוך דף בלחיצה כפולה"
 
-#: user.py:101
 msgid "Remember last page visited"
 msgstr "זכור את הדף אחרון שביקרתי בו"
 
-#: user.py:102
 msgid "Show emoticons"
 msgstr "הצג סמיילים"
 
-#: user.py:103
 msgid "Show fancy links"
 msgstr "הצג קישורים יפים"
 
-#: user.py:104
 msgid "Show question mark for non-existing pagelinks"
 msgstr "הצג סימני שאלה בקישורים לדפים לא קיימים"
 
-#: user.py:105
 msgid "Show page trail"
 msgstr "הצג דפים אחרונים שביקרתי בהם"
 
-#: user.py:106
 msgid "Show icon toolbar"
 msgstr "הצג שורת כלים"
 
-#: user.py:107
 msgid "Show top/bottom links in headings"
 msgstr "הצג קישורים למעלה ולמטה בכותרות"
 
-#: user.py:108
 msgid "Show fancy diffs"
 msgstr "הצג הבדלים יפים"
 
-#: user.py:109
 msgid "Add spaces to displayed wiki names"
 msgstr "הצג שמות וויקי עם רווחים Wiki Name With Spaces"
 
-#: user.py:110
 msgid "Remember login information forever"
 msgstr "זכור פרטי חיבור תמיד"
 
-#: user.py:111
 msgid "Disable this account forever"
 msgstr "בטל חשבון משתמש"
 
-#: userform.py:59
 msgid "Cookie deleted. You are now logged out."
 msgstr "קוקית נמחקה, אתם מנותקים."
 
-#: userform.py:63 wikiaction.py:705 util/mail.py:43
 msgid ""
 "This wiki is not enabled for mail processing. Contact the owner of the wiki, "
 "who can either enable email, or remove the \"Subscribe\" icon."
 msgstr "דואר אלקטרוני לא מאופשר בוויקי הזה. פנה למנהל המערכת."
 
-#: userform.py:68
 msgid "Please provide a valid email address!"
 msgstr "אנא רשום כתובת דואר אלקטרוני אמיתית."
 
-#: userform.py:79
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "לא נמצא חשבון עם כתובת הדואר האלקטרוני \"%(email)s\"."
 
-#: userform.py:104
 msgid "Unknown user name or password."
 msgstr "שם משתמש לא ידוע או סיסמה שגויה."
 
-#: userform.py:117
 msgid "Please enter a user name!"
 msgstr "רשום שם משתמש."
 
-#: userform.py:123
 msgid "User name already exists!"
 msgstr "שם המשתמש כבר קיים."
 
-#: userform.py:133
 msgid "Passwords don't match!"
 msgstr "הסיסמאות לא תואמות."
 
-#: userform.py:192
+msgid "Please specify a password!"
+msgstr ""
+
 msgid "Please enter your name like that: FirstnameLastname"
 msgstr "בחר שם משתמש בפורמט זה: FirstnameLastname"
 
-#: userform.py:194
+msgid "You must not use a group name as your user name."
+msgstr ""
+
 msgid ""
 "Please provide your email address - without that you could not get your "
 "login data via email just in case you lose it."
@@ -579,297 +482,227 @@ msgstr ""
 "רשום כתובת דואר אלקטרוני אמיתית, אחרת לא תוכל לקבל את פרטי הרישום במקרה "
 "שתאבד אותם."
 
-#: userform.py:202
 msgid "This user name already belongs to somebody else."
 msgstr "שם המשתמש שייך למישהו אחר."
 
-#: userform.py:204
 msgid "This email already belongs to somebody else."
 msgstr "כתובת הדואר האלקטרוני הזאת שייכת למישהו אחר."
 
-#: userform.py:211
 msgid "User preferences saved!"
 msgstr "העדפות משתמש נשמרו."
 
-#: userform.py:273
 msgid "Default"
 msgstr "ברירת מחדל"
 
-#: userform.py:286
 msgid "<Browser setting>"
 msgstr "העדפת דפדפן"
 
-#: userform.py:339
 msgid "Save"
 msgstr "שמור"
 
-#: userform.py:340
 msgid "Logout"
 msgstr "התנתק"
 
-#: userform.py:344
 msgid "Login"
 msgstr "התחבר"
 
-#: userform.py:345
 msgid "Create Profile"
 msgstr "צור חשבון משתמש"
 
-#: userform.py:348
 msgid "Mail me my account data"
 msgstr "שלח לי בדואר את פרטי חשבון המשתמש"
 
-#: userform.py:352
 msgid "Name"
 msgstr "שם"
 
-#: userform.py:356
 msgid "(Use FirstnameLastname)"
 msgstr "(השתמש במבנה FirstnameLastname)"
 
-#: userform.py:359
 msgid "Password"
 msgstr "סיסמה"
 
-#: userform.py:365
 msgid "Password repeat"
 msgstr "הסיסמה שוב"
 
-#: userform.py:369
 msgid "(Only when changing passwords)"
 msgstr "(רק כאשר מחליפים סיסמה)"
 
-#: userform.py:372
 msgid "Email"
 msgstr "דואר אלקטרוני"
 
-#: userform.py:383
 msgid "Preferred theme"
 msgstr "עיצוב"
 
-#: userform.py:385
 msgid "User CSS URL"
 msgstr "קובץ CSS אישי"
 
-#: userform.py:389
 msgid "(Leave it empty for disabling user CSS)"
 msgstr "השאר ריק לברירת מחדל"
 
-#: userform.py:392
 msgid "Editor size"
 msgstr "גודל תיבת עריכה"
 
-#: userform.py:400
 msgid "Time zone"
 msgstr "איזור זמן"
 
-#: userform.py:401
 msgid "Your time is"
 msgstr "הזמן אצלך הוא"
 
-#: userform.py:404
 msgid "Server time is"
 msgstr "זמן השרת הוא"
 
-#: userform.py:409
 msgid "Date format"
 msgstr "מבנה תאריך"
 
-#: userform.py:411
 msgid "Preferred language"
 msgstr "שפה מועדפת"
 
-#: userform.py:424
 msgid "General options"
 msgstr "אפשרויות כלליות"
 
-#: userform.py:426
 msgid "Quick links"
 msgstr "סימניות"
 
-#: userform.py:441
 msgid "This list does not work, unless you have entered a valid email address!"
 msgstr "תקבל הודעות על שינויים רק אם רשמת כתובת דואר אמיתית"
 
-#: userform.py:446
 msgid "Subscribed wiki pages (one regex per line)"
 msgstr "מנוי לדפים (שם אחד לשורה)"
 
-#: userform.py:485 wikiaction.py:407 action/AttachFile.py:593
 msgid "Action"
 msgstr "פעולה"
 
-#: wikiaction.py:57 wikiaction.py:108
 #, python-format
 msgid "Please use a more selective search term instead of '%(needle)s'!"
 msgstr "השתמשו במונח חיפוש בררני יותר מאשר \"%(needle)s\"."
 
-#: wikiaction.py:61
 #, python-format
 msgid "Full text search for \"%s\""
 msgstr "חיפוש מלל: \"%s\""
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
 msgid "match"
 msgstr "התאמה"
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
 msgid "matches"
 msgstr "התאמות"
 
-#: wikiaction.py:111
 #, python-format
 msgid "Title search for \"%s\""
 msgstr "חיפוש כותרות: \"%s\""
 
-#: wikiaction.py:155
 #, python-format
 msgid "%(hits)d hits out of %(pages)d pages searched."
 msgstr "%(hits)d תוצאות מתוך %(pages)d דפים."
 
-#: wikiaction.py:156
 #, python-format
 msgid "Needed %(timer).1f seconds."
 msgstr "הושלם ב–%(timer).1f שניות."
 
-#: wikiaction.py:227
 msgid "No older revisions available!"
 msgstr "אין גרסאות ישנות יותר."
 
-#: wikiaction.py:231
 #, python-format
 msgid "Diff for \"%s\""
 msgstr "הבדלים: \"%s\""
 
-#: wikiaction.py:283
 #, python-format
 msgid "Differences between versions dated %s and %s"
 msgstr "הבדלים בין הגרסה מתאריך %s לבין הגרסה מתאריך %s"
 
-#: wikiaction.py:286
 #, python-format
 msgid "(spanning %d versions)"
 msgstr "(מקיף %d גרסאות)"
 
-#: wikiaction.py:296 util/diff.py:41
 msgid "No differences found!"
 msgstr "לא נמצאו הבדלים."
 
-#: wikiaction.py:298
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "הדף נשמר %(count)d פעמים."
 
-#: wikiaction.py:309
 msgid "Ignore changes in the amount of whitespace"
 msgstr "התעלם משינויים בכמות השטח הלבן (White Space)"
 
-#: wikiaction.py:330
 msgid "General Information"
 msgstr "מידע כללי"
 
-#: wikiaction.py:333
 #, python-format
 msgid "Page size: %d"
 msgstr "גודל דף: %d בתים"
 
-#: wikiaction.py:339
 msgid "SHA digest of this page's content is:"
 msgstr "חתימה דיגטלית:"
 
-#: wikiaction.py:350
 msgid "The following users subscribed to this page:"
 msgstr "משתמשים אלו מנויים לדף:"
 
-#: wikiaction.py:365
 msgid "This page links to the following pages:"
 msgstr "הדף מקושר לדפים הבאים:"
 
-#: wikiaction.py:376 wikiaction.py:515
 msgid "Revision History"
 msgstr "הסטוריה של שינויים"
 
-#: wikiaction.py:401
 msgid "Date"
 msgstr "תאריך"
 
-#: wikiaction.py:402 action/AttachFile.py:592
 msgid "Size"
 msgstr "גודל"
 
-#: wikiaction.py:403
 msgid "Diff"
 msgstr "הבדלים"
 
-#: wikiaction.py:405
 msgid "Editor"
 msgstr "עורך"
 
-#: wikiaction.py:406
 msgid "Comment"
 msgstr "הערה"
 
-#: wikiaction.py:445 wikiaction.py:456 action/AttachFile.py:188
 msgid "view"
 msgstr "הצג"
 
-#: wikiaction.py:448 wikiaction.py:459
 msgid "raw"
 msgstr "מלל"
 
-#: wikiaction.py:451 wikiaction.py:462
 msgid "print"
 msgstr "הדפסה"
 
-#: wikiaction.py:466
 msgid "revert"
 msgstr "שחזר"
 
-#: wikiaction.py:477 macro/RecentChanges.py:41
 #, python-format
 msgid "Revert to version dated %(datestamp)s."
 msgstr "שחזר לגרסה מתאריך %(datestamp)s."
 
-#: wikiaction.py:484
 msgid "N/A"
 msgstr "לא זמין"
 
-#: wikiaction.py:512
 #, python-format
 msgid "Info for \"%s\""
 msgstr "מידע על \"%s\""
 
-#: wikiaction.py:515 wikiaction.py:517
 #, python-format
 msgid "Show \"%(title)s\""
 msgstr "הצג \"%(title)s\""
 
-#: wikiaction.py:517
 msgid "General Page Infos"
 msgstr "מידע כללי"
 
-#: wikiaction.py:519
 #, python-format
 msgid "Show chart \"%(title)s\""
 msgstr "הצג גרף \"%(title)s\""
 
-#: wikiaction.py:519 stats/hitcounts.py:154
 msgid "Page hits and edits"
 msgstr "כניסות ופעולות עריכה"
 
-#: wikiaction.py:591
 msgid "You are not allowed to revert this page!"
 msgstr "אין לכם הרשאות לחזור לשחזר את הדף."
 
-#: wikiaction.py:601
 msgid "An error occurred while reverting the page."
 msgstr "סליחה, קרתה שגיאה בנסיון לשחזר את הדף."
 
-#: wikiaction.py:701
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr "אין לכם הרשאות לעשות מנוי לדף."
 
-#: wikiaction.py:710
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
@@ -877,7 +710,6 @@ msgstr ""
 "אין לכם חשבון משתמש. לחצו על הקישור UserPreferences בראש הדף כדי ליצור חשבון "
 "משתמש."
 
-#: wikiaction.py:715
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
@@ -885,11 +717,9 @@ msgstr ""
 "לא הכנסתם כתובת דואר אלקטרוני בהעדפות המשתמש. לחצו על שמכם בראש הדף והוסיפו "
 "את כתובת הדואר שלכם בטופס."
 
-#: wikiaction.py:720
 msgid "You are already subscribed to this page."
 msgstr "כבר יש לכם מנוי לדף זה."
 
-#: wikiaction.py:721 wikiaction.py:728
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
 "subscription list."
@@ -897,163 +727,126 @@ msgstr ""
 "כדי לבטל את המנוי לדף גשו לדף UserPreferences ומחקו את שם הדף מרשימת הדפים "
 "המנויים."
 
-#: wikiaction.py:727
 msgid "You have been subscribed to this page."
 msgstr "יש לכם עכשיו מנוי לדף."
 
-#: wikiform.py:31
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
 msgstr "ערך חובה \"%(attrname)s\" חסר"
 
-#: wikiform.py:95
 msgid "Submitted form data:"
 msgstr "תוכן הטופס נשלח:"
 
-#: wikimacro.py:150
 msgid "Display context of search results"
 msgstr "הצג את ההקשר של תוצאות חיפוש"
 
-#: wikimacro.py:152
 msgid "Case-sensitive searching"
 msgstr "הבדל בין אותיות גדולות וקטנות"
 
-#: wikimacro.py:159 wikimacro.py:165
 msgid "Go"
 msgstr "לך"
 
-#: wikimacro.py:257
 msgid "Include system pages"
 msgstr "כלול דפי מערכת"
 
-#: wikimacro.py:257
 msgid "Exclude system pages"
 msgstr "אל תכלול דפי מערכת"
 
-#: wikimacro.py:258
 msgid "Plain title index"
 msgstr "אינדקס פשוט לפי כותרות"
 
-#: wikimacro.py:259
 msgid "XML title index"
 msgstr "אינדקס כותרות במבנה XML"
 
-#: wikimacro.py:309
 msgid "Python Version"
 msgstr "גרסת פיתון"
 
-#: wikimacro.py:310
 msgid "MoinMoin Version"
 msgstr "גרסת מוין מוין"
 
-#: wikimacro.py:310
 #, python-format
 msgid "Release %s [Revision %s]"
 msgstr "גרסה %s [תת גרסה %s]"
 
-#: wikimacro.py:312
 msgid "4Suite Version"
 msgstr "גרסת 4Suite"
 
-#: wikimacro.py:313
 msgid "Number of pages"
 msgstr "מספר דפים"
 
-#: wikimacro.py:314
 msgid "Number of system pages"
 msgstr "מספר דפי מערכת"
 
-#: wikimacro.py:315
 msgid "Number of backup versions"
 msgstr "מספר גרסאות גיבוי"
 
-#: wikimacro.py:316
 msgid "Accumulated page sizes"
 msgstr "גודל דפים מצטבר"
 
-#: wikimacro.py:319
 msgid "Entries in edit log"
 msgstr "רשומות בדו\"ח העריכה"
 
-#: wikimacro.py:320
 #, python-format
 msgid "%(logcount)s (%(logsize)s bytes)"
 msgstr "%(logcount)s (%(logsize)s בתים)"
 
-#: wikimacro.py:326
 msgid "NONE"
 msgstr "אין"
 
-#: wikimacro.py:329
 msgid "Global extension macros"
 msgstr "פקודות מקרו כלליות"
 
-#: wikimacro.py:331
 msgid "Local extension macros"
 msgstr "פקודות מקרו מקומיות"
 
-#: wikimacro.py:333
 msgid "Global extension actions"
 msgstr "פעולות כלליות"
 
-#: wikimacro.py:335
 msgid "Local extension actions"
 msgstr "פעולות מקומיות"
 
-#: wikimacro.py:337
 msgid "Installed processors"
 msgstr "מעבדים מותקנים"
 
-#: wikimacro.py:358
 #, python-format
 msgid "ERROR in regex '%s'"
 msgstr "טעות בביטוי רגולרי '%s'"
 
-#: wikimacro.py:395 wikimacro.py:405
 #, python-format
 msgid "Bad timestamp '%s'"
 msgstr "חתימת זמן שגוייה '%s'"
 
-#: wikiutil.py:600 util/wikiext.py:61
 #, python-format
 msgid "Expected \"=\" to follow \"%(token)s\""
 msgstr "ציפיתי ל \"=\" אחרי \"%(token)s\""
 
-#: wikiutil.py:605 util/wikiext.py:66
 #, python-format
 msgid "Expected a value for key \"%(token)s\""
 msgstr "ציפיתי לערך למפתח \"%(token)s\""
 
-#: wikiutil.py:908
 msgid "Wiki Markup"
 msgstr "תיוג וויקי"
 
-#: wikiutil.py:910
 msgid "Print View"
 msgstr "תצוגת הדפסה"
 
-#: action/AttachFile.py:102
 #, python-format
 msgid "[%d attachments]"
 msgstr "[%d קבצים מצורפים]"
 
-#: action/AttachFile.py:120
 #, python-format
 msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
 "page."
 msgstr "<a href=\"%(link)s\">%(count)s קבצים מצורפים</a> לדף"
 
-#: action/AttachFile.py:152 action/AttachFile.py:417
 msgid "Filename of attachment not specified!"
 msgstr "לא בחרתם שם לקובץ מצורף."
 
-#: action/AttachFile.py:159
 #, python-format
 msgid "Attachment '%(filename)s' does not exist!"
 msgstr "קובץ מצורף '%(filename)s' לא קיים!"
 
-#: action/AttachFile.py:177
 msgid ""
 "<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
 "tt></strong>, \n"
@@ -1065,40 +858,31 @@ msgstr ""
 "שאפשר לראות למטה ברשימת הקבצים. אל תשתמשו בכתובת של הקובץ, היא עלולה להשתנות "
 "והקישור ישבר.</p>"
 
-#: action/AttachFile.py:185
 msgid "del"
 msgstr "מחק"
 
-#: action/AttachFile.py:186
 msgid "get"
 msgstr "קבל"
 
-#: action/AttachFile.py:187
 msgid "edit"
 msgstr "ערוך"
 
-#: action/AttachFile.py:225
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "אין קבצים מצורפים ל–%(pagename)s"
 
-#: action/AttachFile.py:267
 msgid "Edit drawing"
 msgstr "ערוך איור"
 
-#: action/AttachFile.py:299
 msgid "Attached Files"
 msgstr "קבצים מצורפים"
 
-#: action/AttachFile.py:303 action/AttachFile.py:367
 msgid "You are not allowed to attach a file to this page."
 msgstr "אין לכם הרשאות לצרף קבצים לדף."
 
-#: action/AttachFile.py:310
 msgid "New Attachment"
 msgstr "קובץ מצורף חדש"
 
-#: action/AttachFile.py:311
 msgid ""
 "An upload will never overwrite an existing file. If there is a name\n"
 "conflict, you have to rename the file that you want to upload.\n"
@@ -1109,58 +893,45 @@ msgstr ""
 "צריכים לשנות את שמו של הקובץ אותו אתם מעלים. אם שדה \"שמור בשם\" נשאר ריק, "
 "הקובץ המקורי לא יוחלף."
 
-#: action/AttachFile.py:334
 msgid "File to upload"
 msgstr "קובץ לשליחה"
 
-#: action/AttachFile.py:335
 msgid "MIME Type (optional)"
 msgstr "סוג קובץ (רשות)"
 
-#: action/AttachFile.py:336
 msgid "Save as"
 msgstr "שמור בשם"
 
-#: action/AttachFile.py:338
 msgid "Upload"
 msgstr "שלח"
 
-#: action/AttachFile.py:353
 msgid "File attachments are not allowed in this wiki!"
 msgstr "קבצים מצורפים אינם מורשים בוויקי הזה."
 
-#: action/AttachFile.py:360
 msgid "You are not allowed to save a drawing on this page."
 msgstr "אין לכם הרשאות לשמור איור בדף."
 
-#: action/AttachFile.py:372
 msgid "You are not allowed to delete attachments on this page."
 msgstr "אין לכם הרשאות למחוק קבצים מצורפים לדף."
 
-#: action/AttachFile.py:377
 msgid "You are not allowed to get attachments from this page."
 msgstr "אין לכם הרשאות לקבל קבצים מצורפים מהדף"
 
-#: action/AttachFile.py:382
 msgid "You are not allowed to view attachments of this page."
 msgstr "אין לכם הרשאות לצפות בקבצים מצורפים בדף"
 
-#: action/AttachFile.py:384
 #, python-format
 msgid "Unsupported upload action: %s"
 msgstr "שליחת קובץ לא נתמכת: %s"
 
-#: action/AttachFile.py:394
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
 msgstr "קבצים מצורפים ל–\"%(pagename)s\""
 
-#: action/AttachFile.py:444
 #, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
 msgstr "קובץ מצורף \"%(target)s\" (שם מרוחק \"%(filename)s\") כבר קיים."
 
-#: action/AttachFile.py:455
 #, python-format
 msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
@@ -1169,119 +940,93 @@ msgstr ""
 "קובץ מצורף \"%(target)s\" (שם מרוחק \"%(filename)s\") בגודל %(bytes)d בתים "
 "נשמר."
 
-#: action/AttachFile.py:506 macro/RecentChanges.py:36
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
 msgstr "קובץ מצורף \"%(filename)s\" נמחק."
 
-#: action/AttachFile.py:539
 #, python-format
 msgid "Attachment '%(filename)s'"
 msgstr "קובץ מצורף \"%(filename)s\"."
 
-#: action/AttachFile.py:554
 msgid "Unknown file type, cannot display this attachment inline."
 msgstr "סוג קובץ לא ידוע, אי אפשר להציג אותו בתוך הדף."
 
-#: action/AttachFile.py:567
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
 msgstr "קובץ מצורף: %(filename)s של %(pagename)s"
 
-#: action/DeletePage.py:27
 msgid "You are not allowed to delete this page."
 msgstr "אין לכם הרשאות למחוק את הדף."
 
-#: action/DeletePage.py:33 action/RenamePage.py:29
 msgid "This page is already deleted or was never created!"
 msgstr "דף זה כבר נמחק או שמעולם לא נוצר."
 
-#: action/DeletePage.py:41
 msgid "Please use the interactive user interface to delete pages!"
 msgstr "השתמשו במנשק המשתמש למחיקת דפים."
 
-#: action/DeletePage.py:48
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
 msgstr "דף \"%s\" נמחק בהצלחה."
 
-#: action/DeletePage.py:53
 msgid "Really delete this page?"
 msgstr "באמת למחוק את הדף?"
 
-#: action/DeletePage.py:54
 msgid "Delete"
 msgstr "מחק"
 
-#: action/DeletePage.py:55
 msgid "Optional reason for the deletion"
 msgstr "סיבה למחיקה"
 
-#: action/LikePages.py:31
 #, python-format
 msgid "No pages match \"%s\"!"
 msgstr "אין דפים דומים ל–\"%s\"."
 
-#: action/LikePages.py:37
 #, python-format
 msgid "Exactly one matching page for \"%s\" found!"
 msgstr "בדיוק דף אחד מתאים ל–\"%s\"."
 
-#: action/LikePages.py:42
 #, python-format
 msgid "Multiple matches for \"%s...%s\""
 msgstr "התאמות ל–\"%s:%s\""
 
-#: action/LikePages.py:65
 msgid "You cannot use LikePages on an extended pagename!"
 msgstr "אי אפשר להשתמש ב–LikePages בדפים עם שמות מיוחדים."
 
-#: action/LikePages.py:121
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
 msgstr "%(matchcount)d %(matches)s ל-\"%(title)s\""
 
-#: action/LocalSiteMap.py:38
 #, python-format
 msgid "Local Site Map for \"%s\""
 msgstr "מפת אתר מקומית של \"%s\""
 
-#: action/RenamePage.py:25
 msgid "You are not allowed to rename pages in this wiki!"
 msgstr "אין לכם הרשאות לשנות שם דפים בוויק הזה."
 
-#: action/RenamePage.py:37
 msgid "Please use the interactive user interface to rename pages!"
 msgstr "השתמשו במנשק המשתמש לשינוי שמות דפים."
 
-#: action/RenamePage.py:45
 #, python-format
 msgid "A page with the name \"%s\" already exists!"
 msgstr "דף בשם \"%s\" כבר קיים."
 
-#: action/RenamePage.py:55
 #, python-format
 msgid "Page \"%s\" was successfully renamed to \"%s\"!"
 msgstr "דף \"%s\" שונה ל–\"%s\"."
 
-#: action/RenamePage.py:61
 msgid "Rename"
 msgstr "שנה שם"
 
-#: action/RenamePage.py:62
 msgid "New name"
 msgstr "שם חדש"
 
-#: action/RenamePage.py:63
 msgid "Optional reason for the renaming"
 msgstr "סיבה לשינוי שם"
 
-#: action/SpellCheck.py:169
 #, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
 msgstr " (כולל %(localwords)d %(pagelink)s)"
 
-#: action/SpellCheck.py:171
 #, python-format
 msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
@@ -1290,191 +1035,157 @@ msgstr ""
 "%(badwords)d מילים אלו לא נמצאו במילון הכולל %(totalwords)d מילים %"
 "(localwords)s:"
 
-#: action/SpellCheck.py:190
 msgid "Add checked words to dictionary"
 msgstr "הוסף למילון"
 
-#: action/SpellCheck.py:196
 msgid "No spelling errors found!"
 msgstr "לא נמצאו טעויות איות."
 
-#: action/SpellCheck.py:210
 msgid "You can't check spelling on a page you can't read."
 msgstr "אתה לא יכול לבדוק איות בדף שאין לך הרשאות קריאה."
 
-#: action/links.py:28
 #, python-format
 msgid "Full Link List for \"%s\""
 msgstr "רשימת קישורים מלאה של \"%s\""
 
-#: macro/Include.py:58
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "ארגומנטים לא חוקיים \"%s\"."
 
-#: macro/Include.py:120 macro/Include.py:130
 #, python-format
 msgid "Nothing found for \"%s\"!"
 msgstr "לא נמצא \"%s\"."
 
-#: macro/Navigation.py:103
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
 msgstr "סכימת ניווט לא נתמכת \"%(scheme)s\"."
 
-#: macro/Navigation.py:120 macro/Navigation.py:191
 msgid "No parent page found!"
 msgstr "לא נמצא דף אב."
 
-#: macro/Navigation.py:162
 msgid "Wiki"
 msgstr "וויקי"
 
-#: macro/Navigation.py:168
 msgid "Slideshow"
 msgstr "מצגת שקפים"
 
-#: macro/Navigation.py:180
 msgid "Start"
 msgstr "התחל"
 
-#: macro/Navigation.py:214
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "שקף %(pos)d מתוך %(size)d"
 
-#: macro/OrphanedPages.py:43
 msgid "No orphaned pages in this wiki."
 msgstr "אין דפים יתומים בוויקי הזה."
 
-#: macro/RandomQuote.py:44
 #, python-format
 msgid "No quotes on %(pagename)s."
 msgstr "אין ציטוטים ב–%(pagename)s."
 
-#: macro/RecentChanges.py:34
 #, python-format
 msgid "Upload of attachment '%(filename)s'."
 msgstr "צירוף קובץ \"%(filename)s\"."
 
-#: macro/RecentChanges.py:38
 #, python-format
 msgid "Drawing '%(filename)s' saved."
 msgstr "איור \"%(filename)s\" נשמר."
 
-#: macro/RecentChanges.py:89
 #, python-format
 msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
 msgstr "לפני&nbsp;%(hours)d&nbsp;שעות&nbsp;%(mins)d&nbsp;דקות"
 
-#: macro/RecentChanges.py:239
 msgid "(no bookmark set)"
 msgstr "(אין סימנייה)"
 
-#: macro/RecentChanges.py:241
 #, python-format
 msgid "(currently set to %s)"
 msgstr "(כרגע מכוון ל–%s)"
 
-#: macro/RecentChanges.py:248
+#, fuzzy
+msgid "Delete Bookmark"
+msgstr "קבע סימנייה"
+
+#, fuzzy
+msgid "Really delete bookmark?"
+msgstr "באמת למחוק את הדף?"
+
 msgid "Update my bookmark timestamp"
 msgstr "עדכן סימנייה"
 
-#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
 msgid "set bookmark"
 msgstr "קבע סימנייה"
 
-#: macro/RecentChanges.py:327
 msgid "[Bookmark reached]"
 msgstr "[סימנייה]"
 
-#: macro/ShowSmileys.py:31
 msgid "Markup"
 msgstr "תיוג"
 
-#: macro/ShowSmileys.py:32
 msgid "Display"
 msgstr "תצוגה"
 
-#: macro/ShowSmileys.py:33
 msgid "Filename"
 msgstr "שם קובץ"
 
-#: macro/StatsChart.py:19
 msgid "You need to provide a chart type!"
 msgstr "בחרו בסוג גרף."
 
-#: macro/StatsChart.py:23
 #, python-format
 msgid "Bad chart type \"%s\"!"
 msgstr "סוג גרף שגוי \"%s\""
 
-#: macro/SystemAdmin.py:39
 msgid "Download XML export of this wiki"
 msgstr "יצא את תוכן הוויקי במבנה XML"
 
-#: macro/WantedPages.py:48
 msgid "No wanted pages in this wiki."
 msgstr "אין בוויקי הזה קישורים לדפים חסרים."
 
-#: parser/wiki.py:225
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "צור איור חדש \"%(filename)s\""
 
-#: parser/wiki.py:227
 #, python-format
 msgid "Upload new attachment \"%(filename)s\""
 msgstr "שליחת קובץ מצורף חדש \"%(filename)s\""
 
-#: parser/wiki.py:258 parser/wiki.py:268
 #, python-format
 msgid "Edit drawing %(filename)s"
 msgstr "ערוך איור \"%(filename)s\""
 
-#: parser/wiki.py:624
 #, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
 msgstr "ציפיתי ל–\"%(wanted)s\" לאחר \"%(key)s\", קיבלתי \"%(token)s\""
 
-#: parser/wiki.py:630
 #, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
 msgstr "ציפיתי למספר שלם \"%(key)s\" לפני \"%(token)s\""
 
-#: parser/wiki.py:639 parser/wiki.py:648
 #, python-format
 msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
 msgstr "ציפיתי למספר שלם \"%(arg)s\" אחרי \"%(key)s\""
 
-#: parser/wiki.py:668
 #, python-format
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "ציפיתי לערך של צבע \"%(arg)s\" אחרי \"%(key)s\""
 
-#: parser/xslt.py:39
 msgid "XSLT option disabled!"
 msgstr "אפשרות XSLT מבוטלת."
 
-#: parser/xslt.py:56
 msgid "XSLT processing is not available!"
 msgstr "עיבוד XSLT לא זמין."
 
-#: parser/xslt.py:134
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s טעות בעיבוד"
 
-#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
 msgid "Charts are not available!"
 msgstr "גרפים אינם זמינים."
 
-#: stats/hitcounts.py:155
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
 msgstr "%(chart_title)s של %(filterpage)s"
 
-#: stats/hitcounts.py:157
 msgid ""
 "green=view\n"
 "red=edit"
@@ -1482,157 +1193,145 @@ msgstr ""
 "ירוק=הצג\n"
 "אדום=ערוך"
 
-#: stats/hitcounts.py:160
 msgid "date"
 msgstr "תאריך"
 
-#: stats/hitcounts.py:161
 msgid "# of hits"
 msgstr "# כניסות"
 
-#: stats/pagesize.py:93
 msgid "Page Size Distribution"
 msgstr "פיזור גודל דפים"
 
-#: stats/pagesize.py:97
 msgid "page size upper bound [bytes]"
 msgstr "גודל דף מקסימלי [בתים]"
 
-#: stats/pagesize.py:98
 msgid "# of pages of this size"
 msgstr "# דפים בגודל זה"
 
-#: stats/useragents.py:88
 msgid "Others"
 msgstr "אחרים"
 
-#: stats/useragents.py:109
 msgid "Distribution of User-Agent Types"
 msgstr "פיזור סוגי דפדפנים"
 
-#: theme/classic.py:154
 msgid "Click here to do a full-text search for this title"
 msgstr "חפשו דפים הקשורים לדף זה"
 
-#: theme/classic.py:294
 msgid "Clear message"
 msgstr "סגור הודעה"
 
-#: theme/classic.py:429
 msgid "ShowText"
 msgstr "הצג דף"
 
-#: theme/classic.py:430 theme/classic.py:450
 msgid "of this page"
 msgstr " "
 
-#: theme/classic.py:449
 msgid "EditText"
 msgstr "ערוך דף"
 
-#: theme/classic.py:453
 msgid "Immutable page"
 msgstr "דף לא ניתן לשינוי"
 
-#: theme/classic.py:481 i18n/dummy.py:14
 msgid "FindPage"
 msgstr "חיפוש"
 
-#: theme/classic.py:482 i18n/dummy.py:15
-msgid "SiteNavigation"
-msgstr "ניווט באתר"
-
-#: theme/classic.py:483
 #, python-format
 msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
 msgstr " חיפוש כותרות:%(titlesearch)s חיפוש מלל:%(textsearch)s"
 
-#: theme/classic.py:513
 msgid "Or try one of these actions:"
 msgstr "פעולות נוספות:"
 
-#: theme/classic.py:666
 #, python-format
 msgid "Show all changes in the last %s days."
 msgstr "הצג שינויים ב–%s ימים אחרונים"
 
-#: util/diff.py:31
+msgid "User"
+msgstr ""
+
+#, fuzzy
+msgid "Site"
+msgstr "גודל"
+
+#, fuzzy
+msgid "Page"
+msgstr "חיפוש"
+
+msgid "Search"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
+msgstr " חיפוש כותרות:%(titlesearch)s חיפוש מלל:%(textsearch)s"
+
+#, fuzzy
+msgid "Actions"
+msgstr "פעולה"
+
 msgid "Line"
 msgstr "שורה"
 
-#: util/diff.py:60
 msgid "Deletions are marked like this."
 msgstr "מחיקות מסומנות כך."
 
-#: util/diff.py:60
 msgid "Additions are marked like this."
 msgstr "הוספות מסומנות כך."
 
-#: util/mail.py:71
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr "החיבור לשרת הדואר \"%(server)s\" נכשל: %(reason)s"
 
-#: util/mail.py:76
 msgid "Mail sent OK"
 msgstr "דואר נשלח בהצלחה."
 
-#: i18n/dummy.py:10
 msgid "FrontPage"
 msgstr "פתיחה"
 
-#: i18n/dummy.py:11
 msgid "RecentChanges"
 msgstr "שינויים אחרונים"
 
-#: i18n/dummy.py:12
 msgid "TitleIndex"
 msgstr "מפתח כותרות"
 
-#: i18n/dummy.py:13
 msgid "WordIndex"
 msgstr "מפתח מילים"
 
-#: i18n/dummy.py:16
+msgid "SiteNavigation"
+msgstr "ניווט באתר"
+
 msgid "HelpContents"
 msgstr "עזרה"
 
-#: i18n/dummy.py:17
 msgid "HelpOnFormatting"
 msgstr "עזרה בעריכה"
 
-#: i18n/dummy.py:18
 msgid "UserPreferences"
 msgstr "העדפות משתמש"
 
-#: i18n/dummy.py:19
 msgid "WikiLicense"
 msgstr "רישיון וויקי"
 
-#: i18n/dummy.py:21
 msgid "Mon"
 msgstr "שני"
 
-#: i18n/dummy.py:21
 msgid "Tue"
 msgstr "שלישי"
 
-#: i18n/dummy.py:21
 msgid "Wed"
 msgstr "רביעי"
 
-#: i18n/dummy.py:21
 msgid "Thu"
 msgstr "חמישי"
 
-#: i18n/dummy.py:21
 msgid "Fri"
 msgstr "שישי"
 
-#: i18n/dummy.py:21
 msgid "Sat"
 msgstr "שבת"
 
-#: i18n/dummy.py:21
 msgid "Sun"
 msgstr "ראשון"
+
+#, fuzzy
+#~ msgid "Account"
+#~ msgstr "פעולה"

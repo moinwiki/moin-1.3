@@ -128,7 +128,11 @@ class LogFile:
         @rtype: Int
         """
         import os.path
-        return os.path.getsize(self.__filename)
+        try:
+            size = os.path.getsize(self.__filename)
+        except OSError:
+            size = 0
+        return size
 
     def lines(self):
         """
@@ -136,11 +140,14 @@ class LogFile:
         @return: size of logfile in lines
         @rtype: Int
         """
-        f = open(self.__filename, 'r')
-        i = 0
-        for line in f:
-            i += 1
-        f.close()
+        try:
+            f = open(self.__filename, 'r')
+            i = 0
+            for line in f:
+                i += 1
+            f.close()
+        except IOError:
+            i = 0
         return i
 
     def date(self):

@@ -12,10 +12,6 @@
     cgitb
         from python 2.2 + patches (see XXX)
 
-    difflib
-        from python 2.2.3 as the one in 2.2.1 is buggy and debian
-        stable still has python 2.2.1 8(
-        
     optik
         powerful, flexible, extensible, easy-to-use command-line
         parsing library for Python, by Greg Ward <gward@python.net>,

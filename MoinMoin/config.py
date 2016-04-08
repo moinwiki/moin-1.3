@@ -73,7 +73,6 @@ _cfg_defaults = {
     'edit_rows': 30,
     'hosts_deny': [],
     'html_head': '',
-    'html_head_queries': '''<meta name="robots" content="noindex,nofollow">\n''',
     'html_pagetitle': None,
     'httpd_host': 'localhost',
     'httpd_port': 8080,
@@ -95,12 +94,10 @@ _cfg_defaults = {
     ],
     'nonexist_qm': 0,
 
-    'page_credits': """<p>
-    <a href="http://moinmoin.wikiwikiweb.de/">MoinMoin Powered</a><br>
+    'page_credits': """<a href="http://moinmoin.wikiwikiweb.de/">MoinMoin Powered</a><br>
     <a href="http://www.python.org/">
         <img src="%s/classic/img/PythonPowered.png" width="55" height="22" alt="PythonPowered">
-    </a>
-</p>""" % (url_prefix,),
+    </a>""" % (url_prefix,),
     
     'page_footer1': '',
     'page_footer2': '',

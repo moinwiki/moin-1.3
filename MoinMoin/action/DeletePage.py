@@ -48,13 +48,13 @@ def execute(pagename, request):
                 msg = _('Page "%s" was successfully deleted!') % (pagename,))
 
     # send deletion form
-    wikiname = wikiutil.quoteWikiname(pagename)
+    url = page.url(request)
     ticket = _createTicket()
     querytext = _('Really delete this page?')
     button = _('Delete')
     comment_label = _("Optional reason for the deletion")
     formhtml = """
-<form method="GET" action="%(wikiname)s">
+<form method="GET" action="%(url)s">
 <strong>%(querytext)s</strong>
 <input type="hidden" name="action" value="%(actname)s">
 <input type="hidden" name="ticket" value="%(ticket)s">
@@ -63,7 +63,7 @@ def execute(pagename, request):
 %(comment_label)s<br>
 <input type="text" name="comment" size="60" maxlength="80">
 </form>""" % {
-    'wikiname': wikiname,
+    'url': url,
     'querytext': querytext,
     'actname': actname,
     'ticket': ticket,

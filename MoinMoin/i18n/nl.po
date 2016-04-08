@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-18 22:57+0100\n"
+"POT-Creation-Date: 2004-05-07 03:19+0200\n"
 "PO-Revision-Date: 2004-01-11 22:09+0100\n"
 "Last-Translator: Bart Koppers <bart@opencare.net>\n"
 "Language-Team: Dutch <moin-devel@lists.sourceforge.net>\n"
@@ -13,18 +13,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
 "X-Language: Nederlands\n"
+"X-Language-in-English: Dutch\n"
 
-#: Page.py:153
 #, python-format
 msgid "(last edited %(time)s by %(editor)s)"
 msgstr ""
 
-#: Page.py:159
 #, python-format
 msgid "(last modified %s)"
 msgstr "(laatste wijziging op %s)"
 
-#: Page.py:485
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
@@ -32,22 +30,18 @@ msgstr ""
 "De reservekopie van de inhoud van deze pagina is achterhaald, en wordt niet "
 "opgenomen in zoekresultaten!"
 
-#: Page.py:544
 #, python-format
 msgid "Version as of %(date)s"
 msgstr "Versie zoals per %(date)s"
 
-#: Page.py:554
 #, python-format
 msgid "Redirected from page \"%(page)s\""
 msgstr "Doorgestuurd vanaf pagina \"%(page)s\""
 
-#: Page.py:560
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
 msgstr "Deze pagina leidt om naar pagina \"%(page)s\""
 
-#: Page.py:581
 #, fuzzy, python-format
 msgid ""
 "<p><small>If you submit this form, the submitted values will be displayed.\n"
@@ -63,29 +57,23 @@ msgstr ""
 "b><br><br>\n"
 "macro call toe.</b></small></p>\n"
 
-#: Page.py:606 action/AttachFile.py:296
 #, fuzzy
 msgid "You are not allowed to view this page."
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: Page.py:707 parser/xslt.py:146
 msgid "RefreshCache"
 msgstr "VerversCache"
 
-#: Page.py:708 parser/xslt.py:147
 #, fuzzy, python-format
 msgid "for this page (cached %(date)s)"
 msgstr " voor deze pagina (cached %(date)s)"
 
-#: Page.py:726
 msgid "Create this page"
 msgstr "Maak deze pagina aan"
 
-#: Page.py:736
 msgid "Alternatively, use one of these templates:"
 msgstr "Of gebruik één van deze sjablonen:"
 
-#: Page.py:751
 #, fuzzy, python-format
 msgid ""
 "To create your own templates, add a page with a name matching the regex \"%"
@@ -94,63 +82,50 @@ msgstr ""
 "Om uw eigen sjabloon te maken, voeg een pagina toe waarvan de naam eindigt "
 "op Template."
 
-#: Page.py:759
 #, fuzzy
 msgid "The following pages with similar names already exist..."
 msgstr "<p>De volgende pagina's met vergelijkbare namen bestaan al...</p>"
 
-#: PageEditor.py:149 wikiaction.py:579 wikiaction.py:613
 #, fuzzy
 msgid "You are not allowed to edit this page."
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: PageEditor.py:151 PageEditor.py:724
 #, fuzzy
 msgid "Page is immutable!"
 msgstr "<b>Pagina kan niet gewijzigd worden!</b>"
 
-#: PageEditor.py:155
 msgid "Cannot edit old revisions!"
 msgstr ""
 
-#: PageEditor.py:162
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 
-#: PageEditor.py:178
 #, python-format
 msgid "Edit \"%(pagename)s\""
 msgstr "Wijzig \"%(pagename)s\""
 
-#: PageEditor.py:180
 #, python-format
 msgid "Preview of \"%(pagename)s\""
 msgstr "Voorbeeld van \"%(pagename)s\""
 
-#: PageEditor.py:186
 #, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
 msgstr ""
 
-#: PageEditor.py:187
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
 msgstr ""
 
-#: PageEditor.py:188
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
 msgstr ""
 
-#: PageEditor.py:224
 msgid "Someone else deleted this page while you were editing!"
 msgstr ""
 
-#: PageEditor.py:226
 msgid "Someone else changed this page while you were editing!"
 msgstr ""
 
-#: PageEditor.py:239 wikiaction.py:674
 #, python-format
 msgid ""
 "Someone else saved this page while you were editing!\n"
@@ -158,60 +133,47 @@ msgid ""
 "Have a look at the diff of %(difflink)s to see what has been changed."
 msgstr ""
 
-#: PageEditor.py:266
 #, python-format
 msgid "[Content of new page loaded from %s]"
 msgstr "[Inhoud van nieuwe pagina geladen van %s]"
 
-#: PageEditor.py:268
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[Sjabloon %s niet gevonden]"
 
-#: PageEditor.py:278
 msgid "Reduce editor size"
 msgstr "Verminder grootte van de editor"
 
-#: PageEditor.py:282
 msgid "Skip to preview"
 msgstr "Direct naar voorbeeld"
 
-#: PageEditor.py:284
 #, fuzzy, python-format
 msgid "[current page size <strong>%(size)d</strong> bytes]"
 msgstr "&nbsp;&nbsp; [huidige pagina grootte <b>%(size)d</b> bytes]"
 
-#: PageEditor.py:300
 #, python-format
 msgid "Describe %s here."
 msgstr "Omschrijf %s hier."
 
-#: PageEditor.py:318
 msgid "Optional comment about this change"
 msgstr "Eventueel commentaar over deze wijziging"
 
-#: PageEditor.py:325
 msgid "<No addition>"
 msgstr ""
 
-#: PageEditor.py:326
 #, python-format
 msgid "Make this page belong to category %(category)s"
 msgstr ""
 
-#: PageEditor.py:333
 msgid "Check Spelling"
 msgstr "Controleer de spelling"
 
-#: PageEditor.py:335
 msgid "Save Changes"
 msgstr "Bewaar Wijzingen"
 
-#: PageEditor.py:336
 msgid "Cancel"
 msgstr "Annuleer"
 
-#: PageEditor.py:342
 #, python-format
 msgid ""
 "By hitting <strong>%(save_button_text)s</strong> you put your changes under "
@@ -220,19 +182,15 @@ msgid ""
 "cancel your changes."
 msgstr ""
 
-#: PageEditor.py:356
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: PageEditor.py:361
 msgid "Send mail notification"
 msgstr "Stuur mail notificatie"
 
-#: PageEditor.py:369
 msgid "Remove trailing whitespace from each line"
 msgstr "Verwijder witruimte aan het einde van elke regel"
 
-#: PageEditor.py:382
 #, fuzzy
 msgid ""
 "<dt>Emphasis:</dt>\n"
@@ -275,11 +233,9 @@ msgstr ""
 "</font>\n"
 "<hr>\n"
 
-#: PageEditor.py:422
 msgid "Edit was cancelled."
 msgstr "Wijziging is geannuleerd."
 
-#: PageEditor.py:467
 #, fuzzy, python-format
 msgid ""
 "Dear Wiki user,\n"
@@ -297,7 +253,6 @@ msgstr ""
 "De volgende pagina is gewijzigd door %(editor)s:\n"
 "%(pagelink)s\n"
 
-#: PageEditor.py:478
 #, fuzzy, python-format
 msgid ""
 "The comment on the change is:\n"
@@ -307,59 +262,47 @@ msgstr ""
 "Het commentaar bij de wijziging is:\n"
 "%(comment)s\n"
 
-#: PageEditor.py:483
 msgid "No older revisions of the page stored, diff not available."
 msgstr ""
 "Geen eerdere revisies van de pagina opgeslagen, vergelijking daarom niet "
 "beschikbaar."
 
-#: PageEditor.py:493
 msgid "No differences found!\n"
 msgstr "Geen verschillen gevonden!\n"
 
-#: PageEditor.py:496
 #, fuzzy, python-format
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Het externe diff programma gaf deze foutcode terug %(rc)s!"
 
-#: PageEditor.py:499
 #, python-format
 msgid "[%(sitename)s] Update of \"%(pagename)s\""
 msgstr "[%(sitename)s] verversing van \"%(pagename)s\""
 
-#: PageEditor.py:518
 msgid "You will not be notified of your own changes!"
 msgstr ""
 
-#: PageEditor.py:525
 msgid "Status of sending notification mails:"
 msgstr "Status van verzenden notificatie email:"
 
-#: PageEditor.py:531
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
 msgstr ""
 
-#: PageEditor.py:536
 msgid "Nobody subscribed to this page, no mail sent."
 msgstr "Niemand is geabonneerd op deze pagina, er is geen mail verzonden."
 
-#: PageEditor.py:647
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr ""
 
-#: PageEditor.py:721
 #, fuzzy
 msgid "You are not allowed to edit this page!"
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: PageEditor.py:727
 #, fuzzy
 msgid "You cannot save empty pages."
 msgstr "<b>U kunt een lege pagina niet opslaan.</b>"
 
-#: PageEditor.py:730
 #, fuzzy
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
@@ -383,60 +326,50 @@ msgstr ""
 "pagina te vervangen met uw versie van de pagina, en zodoende maar de "
 "wijzigingen van een ander ongedaan te maken!</em></b>\n"
 
-#: PageEditor.py:741
 #, python-format
 msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
 msgstr ""
 
-#: PageEditor.py:744
 msgid "You did not change the page content, not saved!"
 msgstr ""
 
-#: PageEditor.py:751
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
 
-#: PageEditor.py:757
 #, fuzzy
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr ""
 "<b>Dank voor de wijzigingen.\n"
 "Uw aandacht voor details wordt gewaardeerd.</b>"
 
-#: PageEditor.py:853
 #, python-format
 msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
 "granted the lock for this page."
 msgstr ""
 
-#: PageEditor.py:859
 #, python-format
 msgid ""
 "Other users will be <em>blocked</em> from editing this page until %(bumptime)"
 "s."
 msgstr ""
 
-#: PageEditor.py:863
 #, python-format
 msgid ""
 "Other users will be <em>warned</em> until %(bumptime)s that you are editing "
 "this page."
 msgstr ""
 
-#: PageEditor.py:866
 msgid "Use the Preview button to extend the locking period."
 msgstr ""
 
-#: PageEditor.py:874
 #, python-format
 msgid ""
 "This page is currently <em>locked</em> for editing by %(owner)s until %"
 "(timestamp)s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
 
-#: PageEditor.py:880
 #, python-format
 msgid ""
 "This page was opened for editing or last previewed at %(timestamp)s by %"
@@ -447,490 +380,387 @@ msgid ""
 "To leave the editor, press the Cancel button."
 msgstr ""
 
-#: PageEditor.py:914 user.py:77
 msgid "<unknown>"
 msgstr "<onbekend>"
 
-#: config.py:131
 msgid "Diffs"
 msgstr ""
 
-#: config.py:132
 msgid "Info"
 msgstr ""
 
-#: config.py:133 macro/Navigation.py:164
 #, fuzzy
 msgid "Edit"
 msgstr "wijzig"
 
-#: config.py:134
 msgid "UnSubscribe"
 msgstr ""
 
-#: config.py:135
 msgid "Subscribe"
 msgstr ""
 
-#: config.py:136
 msgid "Raw"
 msgstr ""
 
-#: config.py:137
 msgid "XML"
 msgstr ""
 
-#: config.py:138
 msgid "Print"
 msgstr ""
 
-#: config.py:139
 #, fuzzy
 msgid "View"
 msgstr "bekijk"
 
-#: config.py:140
 msgid "Home"
 msgstr ""
 
-#: config.py:141
 msgid "Up"
 msgstr ""
 
-#: request.py:394
 msgid "Unknown action"
 msgstr "Onbekende actie"
 
-#: request.py:415
 msgid "Can't work out query"
 msgstr "Deze query kan niet uitgevogeld worden"
 
-#: user.py:100
 msgid "Open editor on double click"
 msgstr "Open editor na een dubbelklik"
 
-#: user.py:101
 msgid "Remember last page visited"
 msgstr "Onthoudt de laatst bezochte pagina"
 
-#: user.py:102
 msgid "Show emoticons"
 msgstr "Toon emoticons"
 
-#: user.py:103
 msgid "Show fancy links"
 msgstr "Toon opgeleukte links"
 
-#: user.py:104
 msgid "Show question mark for non-existing pagelinks"
 msgstr "Toon het vraagteken voor links naar niet bestaande pagina's"
 
-#: user.py:105
 msgid "Show page trail"
 msgstr "Toon pagina trail"
 
-#: user.py:106
 msgid "Show icon toolbar"
 msgstr "Toon de icon toolbar"
 
-#: user.py:107
 msgid "Show top/bottom links in headings"
 msgstr "Toon begin/einde links in koppen"
 
-#: user.py:108
 msgid "Show fancy diffs"
 msgstr "Toon opgeleukte verschillen"
 
-#: user.py:109
 msgid "Add spaces to displayed wiki names"
 msgstr "Voeg spaties toe aan getoonde wiki namen"
 
-#: user.py:110
 msgid "Remember login information forever"
 msgstr ""
 
-#: user.py:111
 msgid "Disable this account forever"
 msgstr ""
 
-#: userform.py:59
 msgid "Cookie deleted. You are now logged out."
 msgstr ""
 
-#: userform.py:63 wikiaction.py:705 util/mail.py:43
 msgid ""
 "This wiki is not enabled for mail processing. Contact the owner of the wiki, "
 "who can either enable email, or remove the \"Subscribe\" icon."
 msgstr ""
 
-#: userform.py:68
 #, fuzzy
 msgid "Please provide a valid email address!"
 msgstr "<b>Geef a.u.b. een geldig email adres op!</b>"
 
-#: userform.py:79
 #, fuzzy, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr ""
 "<b>Geen account gevonden dat overeenkomt met het opgegeven email adres '%"
 "(email)s'!</b>"
 
-#: userform.py:104
 msgid "Unknown user name or password."
 msgstr ""
 
-#: userform.py:117
 msgid "Please enter a user name!"
 msgstr ""
 
-#: userform.py:123
 msgid "User name already exists!"
 msgstr ""
 
-#: userform.py:133
 msgid "Passwords don't match!"
 msgstr ""
 
-#: userform.py:192
+msgid "Please specify a password!"
+msgstr ""
+
 msgid "Please enter your name like that: FirstnameLastname"
 msgstr ""
 
-#: userform.py:194
+msgid "You must not use a group name as your user name."
+msgstr ""
+
 msgid ""
 "Please provide your email address - without that you could not get your "
 "login data via email just in case you lose it."
 msgstr ""
 
-#: userform.py:202
 msgid "This user name already belongs to somebody else."
 msgstr ""
 
-#: userform.py:204
 msgid "This email already belongs to somebody else."
 msgstr ""
 
-#: userform.py:211
 #, fuzzy
 msgid "User preferences saved!"
 msgstr "<b>Gebruikersinstellingen opgeslagen!</b>"
 
-#: userform.py:273
 msgid "Default"
 msgstr "Standaard"
 
-#: userform.py:286
 msgid "<Browser setting>"
 msgstr ""
 
-#: userform.py:339
 #, fuzzy
 msgid "Save"
 msgstr " Opslaan "
 
-#: userform.py:340
 #, fuzzy
 msgid "Logout"
 msgstr " Uitloggen "
 
-#: userform.py:344
 #, fuzzy
 msgid "Login"
 msgstr " Inloggen "
 
-#: userform.py:345
 #, fuzzy
 msgid "Create Profile"
 msgstr " Maak Profiel aan"
 
-#: userform.py:348
 #, fuzzy
 msgid "Mail me my account data"
 msgstr " Stuur me mijn account gegevens per email"
 
-#: userform.py:352
 msgid "Name"
 msgstr "Naam"
 
-#: userform.py:356
 msgid "(Use FirstnameLastname)"
 msgstr ""
 
-#: userform.py:359
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: userform.py:365
 #, fuzzy
 msgid "Password repeat"
 msgstr "Wachtwoord"
 
-#: userform.py:369
 msgid "(Only when changing passwords)"
 msgstr ""
 
-#: userform.py:372
 msgid "Email"
 msgstr ""
 
-#: userform.py:383
 #, fuzzy
 msgid "Preferred theme"
 msgstr "Voorkeurstaal"
 
-#: userform.py:385
 msgid "User CSS URL"
 msgstr ""
 
-#: userform.py:389
 #, fuzzy
 msgid "(Leave it empty for disabling user CSS)"
 msgstr "(\"Geen\" om CSS uit te zetten)"
 
-#: userform.py:392
 #, fuzzy
 msgid "Editor size"
 msgstr "Verminder grootte van de editor"
 
-#: userform.py:400
 msgid "Time zone"
 msgstr "Tijdzone"
 
-#: userform.py:401
 msgid "Your time is"
 msgstr "Uw tijd is"
 
-#: userform.py:404
 msgid "Server time is"
 msgstr "Tijd op webserver is"
 
-#: userform.py:409
 msgid "Date format"
 msgstr "Datum formaat"
 
-#: userform.py:411
 msgid "Preferred language"
 msgstr "Voorkeurstaal"
 
-#: userform.py:424
 msgid "General options"
 msgstr "Algemene opties"
 
-#: userform.py:426
 msgid "Quick links"
 msgstr "Snelkoppelingen"
 
-#: userform.py:441
 msgid "This list does not work, unless you have entered a valid email address!"
 msgstr "De lijst werkt alleen als u een geldig email-adres hebt ingevoerd!"
 
-#: userform.py:446
 #, fuzzy
 msgid "Subscribed wiki pages (one regex per line)"
 msgstr "Geabonneerd op wiki pagina's<br>(een per regel)"
 
-#: userform.py:485 wikiaction.py:407 action/AttachFile.py:593
 msgid "Action"
 msgstr "Actie"
 
-#: wikiaction.py:57 wikiaction.py:108
 #, fuzzy, python-format
 msgid "Please use a more selective search term instead of '%(needle)s'!"
 msgstr ""
 "<b>Gebruik a.u.b. een meer selectieve term om mee te zoeken dan '%(needle)s'!"
 "</b>"
 
-#: wikiaction.py:61
 #, python-format
 msgid "Full text search for \"%s\""
 msgstr "Full text zoeken op \"%s\""
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
 #, fuzzy
 msgid "match"
 msgstr " overeenkomst"
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
 #, fuzzy
 msgid "matches"
 msgstr " overeenkomsten"
 
-#: wikiaction.py:111
 #, python-format
 msgid "Title search for \"%s\""
 msgstr "In titel zoeken op \"%s\""
 
-#: wikiaction.py:155
 #, python-format
 msgid "%(hits)d hits out of %(pages)d pages searched."
 msgstr "%(hits)d resultaten in totaal %(pages)d pagina's ."
 
-#: wikiaction.py:156
 #, python-format
 msgid "Needed %(timer).1f seconds."
 msgstr "Nodig %(timer).1f seconds."
 
-#: wikiaction.py:227
 #, fuzzy
 msgid "No older revisions available!"
 msgstr "<b>Geen oudere versies aanwezig!</b>"
 
-#: wikiaction.py:231
 #, python-format
 msgid "Diff for \"%s\""
 msgstr "Verschillen voor \"%s\""
 
-#: wikiaction.py:283
 #, fuzzy, python-format
 msgid "Differences between versions dated %s and %s"
 msgstr "<b>Verschillen tussen de versie gedateerd %s en %s"
 
-#: wikiaction.py:286
 #, fuzzy, python-format
 msgid "(spanning %d versions)"
 msgstr " (omvat %d versies)"
 
-#: wikiaction.py:296 util/diff.py:41
 #, fuzzy
 msgid "No differences found!"
 msgstr "Geen verschillen gevonden!\n"
 
-#: wikiaction.py:298
 #, fuzzy, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "De pagina is %(count)d%(keer)s opgeslagen, dat wel!"
 
-#: wikiaction.py:309
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Negeer wijzigingen in de hoeveelheid witruimte"
 
-#: wikiaction.py:330
 msgid "General Information"
 msgstr "Algemene Informatie"
 
-#: wikiaction.py:333
 #, python-format
 msgid "Page size: %d"
 msgstr ""
 
-#: wikiaction.py:339
 msgid "SHA digest of this page's content is:"
 msgstr ""
 
-#: wikiaction.py:350
 msgid "The following users subscribed to this page:"
 msgstr "De volgende gebruikers zijn geabonneerd op deze pagina:"
 
-#: wikiaction.py:365
 #, fuzzy
 msgid "This page links to the following pages:"
 msgstr "Deze pagina heeft links naar de volgende pagina's:<br>"
 
-#: wikiaction.py:376 wikiaction.py:515
 msgid "Revision History"
 msgstr "Revisie Geschiedenis"
 
-#: wikiaction.py:401
 msgid "Date"
 msgstr "Datum"
 
-#: wikiaction.py:402 action/AttachFile.py:592
 msgid "Size"
 msgstr "Grootte"
 
-#: wikiaction.py:403
 msgid "Diff"
 msgstr ""
 
-#: wikiaction.py:405
 msgid "Editor"
 msgstr ""
 
-#: wikiaction.py:406
 msgid "Comment"
 msgstr "Commentaar"
 
-#: wikiaction.py:445 wikiaction.py:456 action/AttachFile.py:188
 msgid "view"
 msgstr "bekijk"
 
-#: wikiaction.py:448 wikiaction.py:459
 msgid "raw"
 msgstr ""
 
-#: wikiaction.py:451 wikiaction.py:462
 msgid "print"
 msgstr ""
 
-#: wikiaction.py:466
 #, fuzzy
 msgid "revert"
 msgstr "Voorbeeld"
 
-#: wikiaction.py:477 macro/RecentChanges.py:41
 #, python-format
 msgid "Revert to version dated %(datestamp)s."
 msgstr ""
 
-#: wikiaction.py:484
 msgid "N/A"
 msgstr ""
 
-#: wikiaction.py:512
 #, python-format
 msgid "Info for \"%s\""
 msgstr "Info voor \"%s\""
 
-#: wikiaction.py:515 wikiaction.py:517
 #, python-format
 msgid "Show \"%(title)s\""
 msgstr ""
 
-#: wikiaction.py:517
 #, fuzzy
 msgid "General Page Infos"
 msgstr "Algemene Informatie"
 
-#: wikiaction.py:519
 #, python-format
 msgid "Show chart \"%(title)s\""
 msgstr ""
 
-#: wikiaction.py:519 stats/hitcounts.py:154
 msgid "Page hits and edits"
 msgstr "Aantal raadplegingen en wijzigingen"
 
-#: wikiaction.py:591
 #, fuzzy
 msgid "You are not allowed to revert this page!"
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: wikiaction.py:601
 msgid "An error occurred while reverting the page."
 msgstr ""
 
-#: wikiaction.py:701
 #, fuzzy
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: wikiaction.py:710
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr ""
 
-#: wikiaction.py:715
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
 msgstr ""
 
-#: wikiaction.py:720
 #, fuzzy
 msgid "You are already subscribed to this page."
 msgstr "<b>U bent al geabonneerd op deze pagina.</b>"
 
-#: wikiaction.py:721 wikiaction.py:728
 #, fuzzy
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
@@ -940,149 +770,115 @@ msgstr ""
 "<b>Om abonnement af te melden, ga naar je voorkeursinstellingen (profiel) en "
 "verwijder deze pagina dan uit de lijst.</b>\n"
 
-#: wikiaction.py:727
 #, fuzzy
 msgid "You have been subscribed to this page."
 msgstr "<b>U bent op deze pagina geabonneerd.</b>"
 
-#: wikiform.py:31
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
 msgstr ""
 
-#: wikiform.py:95
 msgid "Submitted form data:"
 msgstr "Verstuurde gegevens in het formulier:"
 
-#: wikimacro.py:150
 msgid "Display context of search results"
 msgstr "Toon context van de zoekresultaten"
 
-#: wikimacro.py:152
 msgid "Case-sensitive searching"
 msgstr "Hoodletter-gevoelig zoeken"
 
-#: wikimacro.py:159 wikimacro.py:165
 msgid "Go"
 msgstr "Ga"
 
-#: wikimacro.py:257
 msgid "Include system pages"
 msgstr ""
 
-#: wikimacro.py:257
 msgid "Exclude system pages"
 msgstr ""
 
-#: wikimacro.py:258
 msgid "Plain title index"
 msgstr "Eenvoudige titel index"
 
-#: wikimacro.py:259
 msgid "XML title index"
 msgstr "XML titel index"
 
-#: wikimacro.py:309
 msgid "Python Version"
 msgstr "Python Versie"
 
-#: wikimacro.py:310
 msgid "MoinMoin Version"
 msgstr "MoinMoin Versie"
 
-#: wikimacro.py:310
 #, python-format
 msgid "Release %s [Revision %s]"
 msgstr "Release %s [Revisie %s]"
 
-#: wikimacro.py:312
 msgid "4Suite Version"
 msgstr "4Suite Versie"
 
-#: wikimacro.py:313
 msgid "Number of pages"
 msgstr "Aantal pagina's"
 
-#: wikimacro.py:314
 #, fuzzy
 msgid "Number of system pages"
 msgstr "Aantal pagina's"
 
-#: wikimacro.py:315
 msgid "Number of backup versions"
 msgstr "Aantal backup versies"
 
-#: wikimacro.py:316
 msgid "Accumulated page sizes"
 msgstr ""
 
-#: wikimacro.py:319
 msgid "Entries in edit log"
 msgstr ""
 
-#: wikimacro.py:320
 #, python-format
 msgid "%(logcount)s (%(logsize)s bytes)"
 msgstr ""
 
-#: wikimacro.py:326
 msgid "NONE"
 msgstr ""
 
-#: wikimacro.py:329
 msgid "Global extension macros"
 msgstr "Globale uitbreiding macros"
 
-#: wikimacro.py:331
 msgid "Local extension macros"
 msgstr "Lokale uitbreiding macros"
 
-#: wikimacro.py:333
 msgid "Global extension actions"
 msgstr "Globale uitbreiding acties"
 
-#: wikimacro.py:335
 msgid "Local extension actions"
 msgstr "Lokale uitbreiding acties"
 
-#: wikimacro.py:337
 msgid "Installed processors"
 msgstr "Geïnstalleerde processors"
 
-#: wikimacro.py:358
 #, python-format
 msgid "ERROR in regex '%s'"
 msgstr "FOUT in regex '%s'"
 
-#: wikimacro.py:395 wikimacro.py:405
 #, python-format
 msgid "Bad timestamp '%s'"
 msgstr "Onjuist datumkenmerk '%s'"
 
-#: wikiutil.py:600 util/wikiext.py:61
 #, python-format
 msgid "Expected \"=\" to follow \"%(token)s\""
 msgstr "Verwacht \"=\" volgend op \"%(token)s\""
 
-#: wikiutil.py:605 util/wikiext.py:66
 #, python-format
 msgid "Expected a value for key \"%(token)s\""
 msgstr "Verwacht een waarde voor sleutel \"%(token)s\""
 
-#: wikiutil.py:908
 msgid "Wiki Markup"
 msgstr ""
 
-#: wikiutil.py:910
 msgid "Print View"
 msgstr ""
 
-#: action/AttachFile.py:102
 #, python-format
 msgid "[%d attachments]"
 msgstr ""
 
-#: action/AttachFile.py:120
 #, python-format
 msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
@@ -1091,17 +887,14 @@ msgstr ""
 "Er zijn <a href=\"%(link)s\">%(count)s bijlagen(s)</a> opgeslagen voor deze "
 "pagina."
 
-#: action/AttachFile.py:152 action/AttachFile.py:417
 #, fuzzy
 msgid "Filename of attachment not specified!"
 msgstr "<b>Bestandsnaam van bijlage niet gespecificeerd!</b>"
 
-#: action/AttachFile.py:159
 #, fuzzy, python-format
 msgid "Attachment '%(filename)s' does not exist!"
 msgstr "<b>Bijlage '%(filename)s' bestaat niet!</b>"
 
-#: action/AttachFile.py:177
 #, fuzzy
 msgid ""
 "<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
@@ -1116,43 +909,34 @@ msgstr ""
 "Gebruik <b>NIET</b> de URL van de link naar <tt>[get]</tt>,\n"
 "omdat deze kan veranderen.</p>"
 
-#: action/AttachFile.py:185
 msgid "del"
 msgstr ""
 
-#: action/AttachFile.py:186
 msgid "get"
 msgstr "ophalen"
 
-#: action/AttachFile.py:187
 msgid "edit"
 msgstr "wijzig"
 
-#: action/AttachFile.py:225
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "Geen bijlagen opgeslagen voor %(pagename)s"
 
-#: action/AttachFile.py:267
 #, fuzzy
 msgid "Edit drawing"
 msgstr "<h2>Wijzig tekening</h2>"
 
-#: action/AttachFile.py:299
 #, fuzzy
 msgid "Attached Files"
 msgstr "<h2>Bijgesloten bestanden</h2>"
 
-#: action/AttachFile.py:303 action/AttachFile.py:367
 #, fuzzy
 msgid "You are not allowed to attach a file to this page."
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: action/AttachFile.py:310
 msgid "New Attachment"
 msgstr ""
 
-#: action/AttachFile.py:311
 #, fuzzy
 msgid ""
 "An upload will never overwrite an existing file. If there is a name\n"
@@ -1167,67 +951,54 @@ msgstr ""
 "Anders, als \"Naam wijzigen naar\" leeg wordt gelaten wordt de "
 "oorspronkelijke bestandsnaam gebruikt.</p>\n"
 
-#: action/AttachFile.py:334
 msgid "File to upload"
 msgstr "Bestand om in te zenden als bijlage"
 
-#: action/AttachFile.py:335
 msgid "MIME Type (optional)"
 msgstr "MIME Type (optioneel)"
 
-#: action/AttachFile.py:336
 #, fuzzy
 msgid "Save as"
 msgstr " Opslaan "
 
-#: action/AttachFile.py:338
 #, fuzzy
 msgid "Upload"
 msgstr " Insturen "
 
-#: action/AttachFile.py:353
 #, fuzzy
 msgid "File attachments are not allowed in this wiki!"
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: action/AttachFile.py:360
 #, fuzzy
 msgid "You are not allowed to save a drawing on this page."
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: action/AttachFile.py:372
 #, fuzzy
 msgid "You are not allowed to delete attachments on this page."
 msgstr "<b>Het is u niet toegestaan op bijlages te verwijderen.</b>"
 
-#: action/AttachFile.py:377
 #, fuzzy
 msgid "You are not allowed to get attachments from this page."
 msgstr "<b>Het is u niet toegestaan op bijlages te verwijderen.</b>"
 
-#: action/AttachFile.py:382
 #, fuzzy
 msgid "You are not allowed to view attachments of this page."
 msgstr "<b>Het is u niet toegestaan op bijlages te verwijderen.</b>"
 
-#: action/AttachFile.py:384
 #, fuzzy, python-format
 msgid "Unsupported upload action: %s"
 msgstr "<b>Niet-ondersteunde verstuur actie : %s</b>"
 
-#: action/AttachFile.py:394
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
 msgstr "Bijlages voor \"%(pagename)s\""
 
-#: action/AttachFile.py:444
 #, fuzzy, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
 msgstr ""
 "Bijlage '%(target)s' (remote name '%(filename)s') van %(bytes)d bytes "
 "opgeslagen."
 
-#: action/AttachFile.py:455
 #, python-format
 msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
@@ -1236,135 +1007,109 @@ msgstr ""
 "Bijlage '%(target)s' (remote name '%(filename)s') van %(bytes)d bytes "
 "opgeslagen."
 
-#: action/AttachFile.py:506 macro/RecentChanges.py:36
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
 msgstr "Bijlage '%(filename)s' verwijderd."
 
-#: action/AttachFile.py:539
 #, fuzzy, python-format
 msgid "Attachment '%(filename)s'"
 msgstr "Bijlage '%(filename)s' verwijderd."
 
-#: action/AttachFile.py:554
 #, fuzzy
 msgid "Unknown file type, cannot display this attachment inline."
 msgstr ""
 "<p>Onbekend type bestand, kan deze bijlage niet in deze pagina laten zien.</"
 "p>"
 
-#: action/AttachFile.py:567
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
 msgstr "bijlage:%(filename)s bij %(pagename)s"
 
-#: action/DeletePage.py:27
 #, fuzzy
 msgid "You are not allowed to delete this page."
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: action/DeletePage.py:33 action/RenamePage.py:29
 msgid "This page is already deleted or was never created!"
 msgstr "Deze pagina is al gewist of heeft nooit bestaan!"
 
-#: action/DeletePage.py:41
 msgid "Please use the interactive user interface to delete pages!"
 msgstr ""
 "Gebruik a.u.b. de interactieve gebruikers interface om pagina's te "
 "verwijderen!"
 
-#: action/DeletePage.py:48
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
 msgstr "Verwijderen van pagina \"%s\" is gelukt!"
 
-#: action/DeletePage.py:53
 msgid "Really delete this page?"
 msgstr "Deze pagina werkelijk verwijderen?"
 
-#: action/DeletePage.py:54
 #, fuzzy
 msgid "Delete"
 msgstr " Verwijder "
 
-#: action/DeletePage.py:55
 msgid "Optional reason for the deletion"
 msgstr "Eventuele reden van deze verwijdering"
 
-#: action/LikePages.py:31
 #, python-format
 msgid "No pages match \"%s\"!"
 msgstr "Geen pagina's gevonden \"%s\"!"
 
-#: action/LikePages.py:37
 #, python-format
 msgid "Exactly one matching page for \"%s\" found!"
 msgstr "Precies een overeenkomstige pagina voor \"%s\" gevonden!"
 
-#: action/LikePages.py:42
 #, python-format
 msgid "Multiple matches for \"%s...%s\""
 msgstr "Meerdere overeenkomsten voor \"%s...%s\""
 
-#: action/LikePages.py:65
 #, fuzzy
 msgid "You cannot use LikePages on an extended pagename!"
 msgstr ""
 "<b>Je kunt de functie VergelijkbarePaginas niet gebruiken op een uitgebreide "
 "paginanaam!</b>"
 
-#: action/LikePages.py:121
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
 msgstr "%(matchcount)d %(matches)s op \"%(title)s\""
 
-#: action/LocalSiteMap.py:38
 #, python-format
 msgid "Local Site Map for \"%s\""
 msgstr "Lokale sitemap van \"%s\""
 
-#: action/RenamePage.py:25
 #, fuzzy
 msgid "You are not allowed to rename pages in this wiki!"
 msgstr "U bent niet gerechtigd om pagina's in deze wiki te verwijderen!"
 
-#: action/RenamePage.py:37
 #, fuzzy
 msgid "Please use the interactive user interface to rename pages!"
 msgstr ""
 "Gebruik a.u.b. de interactieve gebruikers interface om pagina's te "
 "verwijderen!"
 
-#: action/RenamePage.py:45
 #, fuzzy, python-format
 msgid "A page with the name \"%s\" already exists!"
 msgstr "<p>De volgende pagina's met vergelijkbare namen bestaan al...</p>"
 
-#: action/RenamePage.py:55
 #, fuzzy, python-format
 msgid "Page \"%s\" was successfully renamed to \"%s\"!"
 msgstr "Verwijderen van pagina \"%s\" is gelukt!"
 
-#: action/RenamePage.py:61
 msgid "Rename"
 msgstr ""
 
-#: action/RenamePage.py:62
 #, fuzzy
 msgid "New name"
 msgstr "Naam"
 
-#: action/RenamePage.py:63
 #, fuzzy
 msgid "Optional reason for the renaming"
 msgstr "Eventuele reden van deze verwijdering"
 
-#: action/SpellCheck.py:169
 #, fuzzy, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
 msgstr " (inclusief %(localwords)d %(pagelink)s)"
 
-#: action/SpellCheck.py:171
 #, python-format
 msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
@@ -1374,197 +1119,163 @@ msgstr ""
 "woordenboek van %(totalwords)d words%(localwords)s en zijn hieronder "
 "weergegeven:"
 
-#: action/SpellCheck.py:190
 msgid "Add checked words to dictionary"
 msgstr "Voeg geselecteerde woorden toe aan het woordenboek"
 
-#: action/SpellCheck.py:196
 #, fuzzy
 msgid "No spelling errors found!"
 msgstr "<b>Geen spelvouten :) gevonden!</b>"
 
-#: action/SpellCheck.py:210
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
 
-#: action/links.py:28
 #, python-format
 msgid "Full Link List for \"%s\""
 msgstr "Volledige linklijst voor \"%s\""
 
-#: macro/Include.py:58
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Ongeldig include arguments \"%s\"!"
 
-#: macro/Include.py:120 macro/Include.py:130
 #, fuzzy, python-format
 msgid "Nothing found for \"%s\"!"
 msgstr "Info voor \"%s\""
 
-#: macro/Navigation.py:103
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
 msgstr ""
 
-#: macro/Navigation.py:120 macro/Navigation.py:191
 #, fuzzy
 msgid "No parent page found!"
 msgstr "Geen verschillen gevonden!\n"
 
-#: macro/Navigation.py:162
 msgid "Wiki"
 msgstr ""
 
-#: macro/Navigation.py:168
 msgid "Slideshow"
 msgstr ""
 
-#: macro/Navigation.py:180
 #, fuzzy
 msgid "Start"
 msgstr "Zat"
 
-#: macro/Navigation.py:214
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr ""
 
-#: macro/OrphanedPages.py:43
 msgid "No orphaned pages in this wiki."
 msgstr "Geen weespagina's in deze wiki."
 
-#: macro/RandomQuote.py:44
 #, python-format
 msgid "No quotes on %(pagename)s."
 msgstr "Geen verwijzingen op %(pagename)s."
 
-#: macro/RecentChanges.py:34
 #, python-format
 msgid "Upload of attachment '%(filename)s'."
 msgstr "Versturen van bijlage '%(filename)s'."
 
-#: macro/RecentChanges.py:38
 #, python-format
 msgid "Drawing '%(filename)s' saved."
 msgstr "Tekening '%(filename)s' opgeslagen."
 
-#: macro/RecentChanges.py:89
 #, fuzzy, python-format
 msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
 msgstr "[%(hours)du&nbsp;%(mins)dm&nbsp;geleden]"
 
-#: macro/RecentChanges.py:239
 msgid "(no bookmark set)"
 msgstr "(geen bookmark ingesteld)"
 
-#: macro/RecentChanges.py:241
 #, python-format
 msgid "(currently set to %s)"
 msgstr "(staat op dit moment op %s)"
 
-#: macro/RecentChanges.py:248
+#, fuzzy
+msgid "Delete Bookmark"
+msgstr "bookmark instellen"
+
+#, fuzzy
+msgid "Really delete bookmark?"
+msgstr "Deze pagina werkelijk verwijderen?"
+
 msgid "Update my bookmark timestamp"
 msgstr "Ververs de tijd van mijn bookmark"
 
-#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
 msgid "set bookmark"
 msgstr "bookmark instellen"
 
-#: macro/RecentChanges.py:327
 msgid "[Bookmark reached]"
 msgstr ""
 
-#: macro/ShowSmileys.py:31
 msgid "Markup"
 msgstr ""
 
-#: macro/ShowSmileys.py:32
 msgid "Display"
 msgstr ""
 
-#: macro/ShowSmileys.py:33
 #, fuzzy
 msgid "Filename"
 msgstr "ZoekPagina"
 
-#: macro/StatsChart.py:19
 #, fuzzy
 msgid "You need to provide a chart type!"
 msgstr ""
 "<div class=\"message\"><b>U dient een grafiektype op te geven!</b></div>"
 
-#: macro/StatsChart.py:23
 #, python-format
 msgid "Bad chart type \"%s\"!"
 msgstr ""
 
-#: macro/SystemAdmin.py:39
 msgid "Download XML export of this wiki"
 msgstr "Download een XML export van deze wiki"
 
-#: macro/WantedPages.py:48
 msgid "No wanted pages in this wiki."
 msgstr "Geen gewenste pagina's in deze wiki."
 
-#: parser/wiki.py:225
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Nieuwe tekening maken \"%(filename)s\""
 
-#: parser/wiki.py:227
 #, python-format
 msgid "Upload new attachment \"%(filename)s\""
 msgstr "Verstuur een nieuwe bijlage \"%(filename)s\""
 
-#: parser/wiki.py:258 parser/wiki.py:268
 #, fuzzy, python-format
 msgid "Edit drawing %(filename)s"
 msgstr "Nieuwe tekening maken \"%(filename)s\""
 
-#: parser/wiki.py:624
 #, fuzzy, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
 msgstr "Verwacht een waarde voor sleutel \"%(token)s\""
 
-#: parser/wiki.py:630
 #, fuzzy, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
 msgstr "Verwacht een waarde voor sleutel \"%(token)s\""
 
-#: parser/wiki.py:639 parser/wiki.py:648
 #, fuzzy, python-format
 msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
 msgstr "Verwacht een waarde voor sleutel \"%(token)s\""
 
-#: parser/wiki.py:668
 #, fuzzy, python-format
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Verwacht een waarde voor sleutel \"%(token)s\""
 
-#: parser/xslt.py:39
 msgid "XSLT option disabled!"
 msgstr "XSLT optie uitgeschakeld!"
 
-#: parser/xslt.py:56
 msgid "XSLT processing is not available!"
 msgstr ""
 
-#: parser/xslt.py:134
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s fout bij verwerking"
 
-#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
 msgid "Charts are not available!"
 msgstr ""
 
-#: stats/hitcounts.py:155
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
 msgstr "%(chart_title)s voor %(filterpage)s"
 
-#: stats/hitcounts.py:157
 msgid ""
 "green=view\n"
 "red=edit"
@@ -1572,165 +1283,155 @@ msgstr ""
 "groen=bekijken\n"
 "rood=wijzigen"
 
-#: stats/hitcounts.py:160
 msgid "date"
 msgstr "datum"
 
-#: stats/hitcounts.py:161
 msgid "# of hits"
 msgstr "# over"
 
-#: stats/pagesize.py:93
 msgid "Page Size Distribution"
 msgstr "Verdeling van de pagina-grootte "
 
-#: stats/pagesize.py:97
 msgid "page size upper bound [bytes]"
 msgstr "pagina grootte bovengrens [bytes]"
 
-#: stats/pagesize.py:98
 msgid "# of pages of this size"
 msgstr "# pagina's van deze grootte"
 
-#: stats/useragents.py:88
 msgid "Others"
 msgstr "Andere"
 
-#: stats/useragents.py:109
 msgid "Distribution of User-Agent Types"
 msgstr "Verdeling van User-Agent Types"
 
-#: theme/classic.py:154
 msgid "Click here to do a full-text search for this title"
 msgstr "Klik hier om in de hele tekst te zoeken naar deze titel"
 
-#: theme/classic.py:294
 msgid "Clear message"
 msgstr "Gezien, dit bericht schonen"
 
-#: theme/classic.py:429
 msgid "ShowText"
 msgstr "ToonTekst"
 
-#: theme/classic.py:430 theme/classic.py:450
 msgid "of this page"
 msgstr "van deze pagina"
 
-#: theme/classic.py:449
 msgid "EditText"
 msgstr "WijzigTekst"
 
-#: theme/classic.py:453
 msgid "Immutable page"
 msgstr ""
 
-#: theme/classic.py:481 i18n/dummy.py:14
 msgid "FindPage"
 msgstr "ZoekPagina"
 
-#: theme/classic.py:482 i18n/dummy.py:15
-msgid "SiteNavigation"
-msgstr "SiteNavigatie"
-
-#: theme/classic.py:483
 #, fuzzy, python-format
 msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
 msgstr ""
 " doorbladeren, zoeken in de titel op %(titlesearch)s, of zoeken naar tekst "
 "of in de index naar %(textsearch)s<br>"
 
-#: theme/classic.py:513
 #, fuzzy
 msgid "Or try one of these actions:"
 msgstr "Of probeer een van deze acties: "
 
-#: theme/classic.py:666
 #, python-format
 msgid "Show all changes in the last %s days."
 msgstr ""
 
-#: util/diff.py:31
+msgid "User"
+msgstr ""
+
+#, fuzzy
+msgid "Site"
+msgstr "Grootte"
+
+#, fuzzy
+msgid "Page"
+msgstr "ZoekPagina"
+
+msgid "Search"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
+msgstr ""
+" doorbladeren, zoeken in de titel op %(titlesearch)s, of zoeken naar tekst "
+"of in de index naar %(textsearch)s<br>"
+
+#, fuzzy
+msgid "Actions"
+msgstr "Actie"
+
 #, fuzzy
 msgid "Line"
 msgstr " Inloggen "
 
-#: util/diff.py:60
 msgid "Deletions are marked like this."
 msgstr "Verwijderingen worden zoals deze aangegeven."
 
-#: util/diff.py:60
 msgid "Additions are marked like this."
 msgstr "Toevoegingen worden op deze manier weergegeven."
 
-#: util/mail.py:71
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr "Verbinding met de mailserver '%(server)s' mislukt: %(reason)s"
 
-#: util/mail.py:76
 msgid "Mail sent OK"
 msgstr "Mail correct verzonden"
 
-#: i18n/dummy.py:10
 msgid "FrontPage"
 msgstr "StartPagina"
 
-#: i18n/dummy.py:11
 msgid "RecentChanges"
 msgstr "LaatsteWijzigingen"
 
-#: i18n/dummy.py:12
 msgid "TitleIndex"
 msgstr "TitelIndex"
 
-#: i18n/dummy.py:13
 msgid "WordIndex"
 msgstr "WoordIndex"
 
-#: i18n/dummy.py:16
+msgid "SiteNavigation"
+msgstr "SiteNavigatie"
+
 msgid "HelpContents"
 msgstr "HelpInhoud"
 
-#: i18n/dummy.py:17
 msgid "HelpOnFormatting"
 msgstr "HelpOverOpmaak"
 
-#: i18n/dummy.py:18
 msgid "UserPreferences"
 msgstr "GebruikersInstellingen"
 
-#: i18n/dummy.py:19
 msgid "WikiLicense"
 msgstr ""
 
-#: i18n/dummy.py:21
 msgid "Mon"
 msgstr "Maa"
 
-#: i18n/dummy.py:21
 msgid "Tue"
 msgstr "Din"
 
-#: i18n/dummy.py:21
 msgid "Wed"
 msgstr "Woe"
 
-#: i18n/dummy.py:21
 msgid "Thu"
 msgstr "Don"
 
-#: i18n/dummy.py:21
 msgid "Fri"
 msgstr "Vrij"
 
-#: i18n/dummy.py:21
 #, fuzzy
 msgid "Sat"
 msgstr "Zat"
 
-#: i18n/dummy.py:21
 msgid "Sun"
 msgstr "Zon"
+
+#, fuzzy
+#~ msgid "Account"
+#~ msgstr "Actie"
 
 #, fuzzy
 #~ msgid "time"

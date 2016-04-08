@@ -55,7 +55,7 @@ placeres på siderne.</b></small></p>
 '''Edit "%(pagename)s"''':
 '''Redigér "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
-'''Preview af "%(pagename)s"''',
+'''Forhåndsvisning af "%(pagename)s"''',
 '''Your edit lock on %(lock_page)s has expired!''':
 '''Din redigeringslås på %(lock_page)s er udløbet!''',
 '''Your edit lock on %(lock_page)s will expire in # minutes.''':
@@ -79,7 +79,7 @@ Kig på ændringerne pr. %(difflink)s for at se hvad der er blevet ændret.''',
 '''Reduce editor size''':
 '''Formindsk størrelsen på redigeringsvinduet''',
 '''Skip to preview''':
-'''Skift til preview''',
+'''Skift til forhåndsvisning''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
 '''[nuværende sidestørrelse <strong>%(size)d</strong> bytes]''',
 '''Describe %s here.''':
@@ -101,7 +101,7 @@ If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel y
 '''Ved at trykke <strong>%(save_button_text)s</strong> lægger du dine ændringer under %(license_link)s.
 Hvis du ikke ønsker dette,·så tryk·<strong>%(cancel_button_text)s</strong>·for·at annullere dine ændringer.''',
 '''Preview''':
-'''Vis''',
+'''Forhåndsvis''',
 '''Send mail notification''':
 '''Send email-orientering''',
 '''Remove trailing whitespace from each line''':
@@ -741,8 +741,6 @@ rød=redigér''',
 '''Ikke-redigérbar side''',
 '''FindPage''':
 '''FindSide''',
-'''SiteNavigation''':
-'''SiteNavigering''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
 '''eller søg på titel %(titlesearch)s, al tekst %(textsearch)s eller''',
 '''Or try one of these actions:''':
@@ -767,6 +765,8 @@ rød=redigér''',
 '''TitelListe''',
 '''WordIndex''':
 '''OrdListe''',
+'''SiteNavigation''':
+'''SiteNavigering''',
 '''HelpContents''':
 '''HjælpIndhold''',
 '''HelpOnFormatting''':

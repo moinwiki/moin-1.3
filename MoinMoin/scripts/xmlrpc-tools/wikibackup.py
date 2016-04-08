@@ -1,4 +1,4 @@
-#!/usr/bin/python2.2
+#!/usr/bin/env python
 """
 This script gets all Pages from a wiki via xmlrpc and
 stores them into a backup file. We use wiki rpc v2 here.

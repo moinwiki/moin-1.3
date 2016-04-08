@@ -24,11 +24,11 @@ _arg_from = r'(,\s*from=(?P<fquote>[\'"])(?P<from>.+?)(?P=fquote))?'
 _arg_to = r'(,\s*to=(?P<tquote>[\'"])(?P<to>.+?)(?P=tquote))?'
 _arg_sort = r'(,\s*sort=(?P<sort>(ascending|descending)))?'
 _arg_items = r'(,\s*items=(?P<items>\d+))?'
-_arg_jumpitems = r'(,\s*jumpitems=(?P<jumpitems>\d+))?'
+_arg_skipitems = r'(,\s*skipitems=(?P<skipitems>\d+))?'
 _arg_titlesonly = r'(,\s*(?P<titlesonly>titlesonly))?'
 _args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s)?$' % (
     _arg_heading, _arg_level, _arg_from, _arg_to, _arg_sort, _arg_items,
-    _arg_jumpitems, _arg_titlesonly)
+    _arg_skipitems, _arg_titlesonly)
 
 TITLERE = re.compile("^(?P<heading>\s*(?P<hmarker>=+)\s.*\s(?P=hmarker))$", 
                      re.M)
@@ -85,9 +85,9 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     if max_items:
         pagelist = pagelist[:int(max_items)]
 
-    jumpitems = 0
-    if args.group("jumpitems"):
-        jumpitems = int(args.group("jumpitems"))
+    skipitems = 0
+    if args.group("skipitems"):
+        skipitems = int(args.group("skipitems"))
     titlesonly = args.group('titlesonly')
 
     # iterate over pages
@@ -97,8 +97,8 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         if this_page._macroInclude_pagelist.has_key(inc_name):
             result.append('<p><strong class="error">Recursive include of "%s" forbidden</strong></p>' % (inc_name,))
             continue
-        if jumpitems:
-            jumpitems -= 1
+        if skipitems:
+            skipitems -= 1
             continue
         inc_page = Page(inc_name, formatter=macro.formatter.__class__(macro.request))
         inc_page._macroInclude_pagelist = this_page._macroInclude_pagelist

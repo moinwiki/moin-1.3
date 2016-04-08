@@ -736,8 +736,6 @@ red=edit''':
 '''本頁不可更改''',
 '''FindPage''':
 '''尋找頁面''',
-'''SiteNavigation''':
-'''本站導覽''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
 ''', 尋找標題 %(titlesearch)s , 全文檢索 %(textsearch)s 或''',
 '''Or try one of these actions:''':
@@ -762,6 +760,8 @@ red=edit''':
 '''標題索引''',
 '''WordIndex''':
 '''詞彙索引''',
+'''SiteNavigation''':
+'''本站導覽''',
 '''HelpContents''':
 '''說明''',
 '''HelpOnFormatting''':

@@ -1,4 +1,4 @@
-#!/usr/bin/python2.2
+#!/usr/bin/env python
 """
 This script is a hack because moinmaster wiki does not support
 xmlrpc due to unknown reasons. It gets all SystemPages from srcwiki

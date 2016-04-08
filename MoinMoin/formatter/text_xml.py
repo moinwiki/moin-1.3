@@ -155,8 +155,11 @@ class Formatter(FormatterBase):
     def anchordef(self, id):
         return '<anchor id="%s"/>' % id
 
-    def anchorlink(self, name, text):
-        return '<link anchor="%s">%s</link>' % (name, self._escape(text, {}))
+    def anchorlink(self, name, text, id=None):
+        extra = ''
+        if id:
+            extra = ' id="%s"' % id
+        return '<link anchor="%s"%s>%s</link>' % (name, extra, self._escape(text, {}))
 
     def underline(self, on):
         return self.strong(on) # no underline in StyleBook

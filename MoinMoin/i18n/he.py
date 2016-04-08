@@ -725,8 +725,6 @@ red=edit''':
 '''דף לא ניתן לשינוי''',
 '''FindPage''':
 '''חיפוש''',
-'''SiteNavigation''':
-'''ניווט באתר''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
 ''' חיפוש כותרות:%(titlesearch)s חיפוש מלל:%(textsearch)s''',
 '''Or try one of these actions:''':
@@ -751,6 +749,8 @@ red=edit''':
 '''מפתח כותרות''',
 '''WordIndex''':
 '''מפתח מילים''',
+'''SiteNavigation''':
+'''ניווט באתר''',
 '''HelpContents''':
 '''עזרה''',
 '''HelpOnFormatting''':

@@ -79,7 +79,7 @@ class UserSettingsHandler:
                 return _("Found no account matching the given email address '%(email)s'!") % {'email': email}
     
             mailok, msg = util.mail.sendmail(self.request, [email], 
-                'Your wiki account data', text, mail_from=email)
+                'Your wiki account data', text, mail_from=config.mail_from)
             return wikiutil.escape(msg)
     
         if form.has_key('login') or form.has_key('uid'):
@@ -124,14 +124,16 @@ class UserSettingsHandler:
                 else:
                     newuser = 0
 
-            # try to get the (optional) password and pw repeat
+            # try to get the password and pw repeat
             password = form.get('password', [''])[0]
             password2 = form.get('password2',[''])[0]
 
-            # Check if password and password repeat match
+            # Check if password is given and matches with password repeat
             if password != password2:
                 return _("Passwords don't match!")
-            elif password and not password.startswith('{SHA}'):
+            if not password and newuser:
+                return _("Please specify a password!")
+            if password and not password.startswith('{SHA}'):
                 theuser.enc_password = user.encodePassword(password)
 
             # try to get the (optional) email
@@ -185,11 +187,14 @@ class UserSettingsHandler:
             
             # if we use ACLs, name and email are required to be unique
             # further, name is required to be a WikiName (CamelCase!)
+            # we also must forbid the username to match page_group_regex
             # see also MoinMoin/scripts/moin_usercheck.py
             if config.acl_enabled:
                 theuser.name = theuser.name.replace(' ','') # strip spaces, we don't allow them anyway
                 if not re.match("(?:[%(u)s][%(l)s]+){2,}" % {'u': config.upperletters, 'l': config.lowerletters}, theuser.name):
                     return _("Please enter your name like that: FirstnameLastname")
+                if re.search(config.page_group_regex, theuser.name):
+                    return _("You must not use a group name as your user name.")
                 if not theuser.email or not re.match(".+@.+\..{2,}", theuser.email):
                     return _("Please provide your email address - without that you could not "
                              "get your login data via email just in case you lose it.")

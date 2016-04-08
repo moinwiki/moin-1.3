@@ -6,7 +6,6 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-from MoinMoin import config
 from classic import Theme as ThemeBase
 
 class Theme(ThemeBase):

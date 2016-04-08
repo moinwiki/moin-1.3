@@ -67,7 +67,6 @@ stats/useragents.py
 
 support/BasicAuthTransport.py
 support/cgitb.py
-support/difflib.py
 support/optik/errors.py
 support/optik/help.py
 support/optik/option.py
@@ -76,6 +75,8 @@ support/thfcgi.py
 
 theme/classic.py
 theme/starshine.py
+theme/rightsidebar.py
+theme/viewonly.py
 
 webapi/color.py
 

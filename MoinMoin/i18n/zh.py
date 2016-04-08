@@ -52,8 +52,6 @@ macro call.</small></p>
 '''不能编辑旧版页面''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
 '''编辑锁定超时, 多人同时编辑时可能会发生冲突''',
-'''Edit"%(pagename)s"''':
-'''编辑"%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
 '''"%(pagename)s"的预览''',
 '''Your edit lock on %(lock_page)s has expired!''':
@@ -737,8 +735,6 @@ red=edit''':
 '''本页不可更改''',
 '''FindPage''':
 '''查找页面''',
-'''SiteNavigation''':
-'''站点导航''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
 ''', 寻找标题 %(titlesearch)s, 全文检索 %(textsearch)s 或''',
 '''Or try one of these actions:''':
@@ -763,6 +759,8 @@ red=edit''':
 '''标题索引''',
 '''WordIndex''':
 '''词汇索引''',
+'''SiteNavigation''':
+'''站点导航''',
 '''HelpContents''':
 '''帮助内容''',
 '''HelpOnFormatting''':

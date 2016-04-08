@@ -7,7 +7,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-from MoinMoin.support import difflib
+import difflib
 from MoinMoin.wikiutil import escape
 
 def indent(line):
@@ -32,7 +32,7 @@ def diff(request, old, new):
 
     seq1 = old.splitlines()
     seq2 = new.splitlines()
-
+    
     seqobj = difflib.SequenceMatcher(None, seq1, seq2)
     linematch = seqobj.get_matching_blocks()
 
@@ -41,7 +41,6 @@ def diff(request, old, new):
         return _("No differences found!")
 
     lastmatch = (0, 0)
-    end       = (len(seq1), len(seq2))
 
     result = """
 <table class="diff">
@@ -93,7 +92,7 @@ def diff(request, old, new):
 
         charobj   = difflib.SequenceMatcher(None, leftpane, rightpane)
         charmatch = charobj.get_matching_blocks()
-
+        
         if charobj.ratio() < 0.5:
             # Insufficient similarity.
             if leftpane:
@@ -108,7 +107,6 @@ def diff(request, old, new):
         else:
             # Some similarities; markup changes.
             charlast = (0, 0)
-            charend  = (len(leftpane), len(rightpane))
 
             leftresult  = ''
             rightresult = ''
@@ -141,6 +139,5 @@ def diff(request, old, new):
         lastmatch = (match[0] + match[2], match[1] + match[2])
 
     result += '</table>\n'
-
     return result
 

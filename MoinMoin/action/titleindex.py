@@ -37,7 +37,7 @@ def execute(pagename, request):
         request.write('</TitleIndex>')
     else:
         for name in pages:
-            request.write(name)
+            request.write(name+'\n')
 
     raise util.MoinMoinNoFooter
 

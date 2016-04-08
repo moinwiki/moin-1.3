@@ -44,6 +44,7 @@ POTFILES: POTFILES.in
 $(DOMAIN).pot-update: $(POTFILES) POTFILES
 	xgettext --default-domain=$(DOMAIN) --directory=.. \
 	  --files-from=POTFILES.in \
+	  --no-location \
 	  --add-comments=TRANSLATORS:
 	@test ! -f $(DOMAIN).po || { \
 	  if test -f $(DOMAIN).pot; then \

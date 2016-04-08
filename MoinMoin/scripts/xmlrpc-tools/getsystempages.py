@@ -1,4 +1,4 @@
-#!/usr/bin/python2.2
+#!/usr/bin/env python
 """
 This script gets all SystemPages from srcwiki via xmlrpc and
 stores them into dstwiki via xmlrpc. We use wiki rpc v1 here.

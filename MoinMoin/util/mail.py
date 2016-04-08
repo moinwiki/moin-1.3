@@ -33,8 +33,8 @@ def sendmail(request, to, subject, text, **kw):
     """
     import smtplib, socket
     from email.MIMEText import MIMEText
-    from email.Header import Header
     from email.Utils import formatdate
+    
     from MoinMoin import config
 
     _ = request.getText
@@ -48,9 +48,17 @@ def sendmail(request, to, subject, text, **kw):
     msg = MIMEText(text, 'plain', config.charset)
     msg['From'] = mail_from
     msg['To'] = ', '.join(to)
-    msg['Subject'] = Header(subject, config.charset)
     msg['Date'] = formatdate()
     
+    try: # only python >= 2.2.2 has this:
+        from email.Header import Header
+        from email.Utils import make_msgid
+        msg['Message-ID'] = make_msgid() 
+        msg['Subject'] = Header(subject, config.charset)
+    except ImportError:
+        msg['Subject'] = subject # this is not standards compliant, but mostly works
+        # no message-id. if you still have py 2.2.1, you like it old and broken
+        
     try:
         server = smtplib.SMTP(config.mail_smarthost)
         try:

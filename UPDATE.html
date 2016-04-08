@@ -21,10 +21,7 @@
 
 <body lang="en" dir="ltr">
 <div id="content" lang="en" dir="ltr">
-<p>
-<a href="http://moinmaster.wikiwikiweb.de/HelpContents">HelpContents</a> &gt; <a href="http://moinmaster.wikiwikiweb.de/HelpOnAdministration">HelpOnAdministration</a> &gt; HelpOnUpdating  
-</p>
-<p>
+<a href="http://moinmaster.wikiwikiweb.de/HelpContents">HelpContents</a> &gt; <a href="http://moinmaster.wikiwikiweb.de/HelpOnAdministration">HelpOnAdministration</a> &gt; HelpOnUpdating  <p>
 <strong>Index</strong> <ol>
 <li>
 <a href="#head-61e315ba11650973301814fad5511351f6f9b71a">General procedures</a></li>
@@ -54,6 +51,10 @@
 <a href="#head-b7238b18233914a27637a58322ad1e229a7760ee">Version 1.2</a></li>
 <li>
 <a href="#head-15119df63931db715d6b476cf60568e46323d11c">Version 1.2.1</a></li>
+<li>
+<a href="#head-dab6351f783eb4f435c6399f31207e803984295b">Version 1.2.2</a></li>
+<li>
+<a href="#head-70b3ea26d8f548fb49dbe2b972df2f9b29675477">Version 1.3 (not released yet)</a></li>
 </ol>
 
 </ol>
@@ -63,15 +64,17 @@
 <h3 id="head-61e315ba11650973301814fad5511351f6f9b71a">General procedures</h3>
 <h4 id="head-dd96994d01e723dd6f9b0bdb6119722dbeb9faf0">Backup</h4>
 <p>
-<img src="wiki/htdocs/classic/img/alert.png" alt="/!\" height="15" width="15"> <strong>Before you update an existing wiki, MAKE A BACKUP!</strong> 
+<img src="/wiki/rightsidebar/img/alert.png" alt="/!\" height="15" width="15"> <strong>Before you update an existing wiki, MAKE A BACKUP!</strong> 
 </p>
 <p>
-You have been warned, and it's not our fault when you end up like this: <img src="wiki/htdocs/classic/img/angry.png" alt="X-(" height="15" width="15">  
+You have been warned, and it's not our fault when you end up like this: <img src="/wiki/rightsidebar/img/angry.png" alt="X-(" height="15" width="15">  
 </p>
 <p>
 There are two directory trees which you should backup: 
 </p>
+
                 <ul>
+
                 <li>
 <p>
  The one containing the <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> executable files (e.g. <tt>/usr/lib/python*.*/site-packages/MoinMoin</tt>) 
@@ -82,7 +85,9 @@ There are two directory trees which you should backup:
  and the one containing the data (e.g. <tt>/usr/share/moin/wikiname/data</tt> - see data_dir in your moin_config.py).  
 </p>
 </li>
+
                 </ul>
+
 
 <p>
 The paths depend on your installation. 
@@ -101,7 +106,9 @@ After upgrading, your existing wiki should continue to work (the goal is to have
 <p>
 This is especially true for: 
 </p>
+
     <ul>
+
     <li>
 <p>
  somewhat dangerous macros that won't be activated by default, because they're not advisable for public wikis. You need to explicitely activate those by adding an <tt>allowed_actions</tt> list to the config. Currently, the actions <tt>DeletePage</tt> and <tt>AttachFile</tt> are considered unsafe. 
@@ -117,10 +124,14 @@ This is especially true for:
  new pages icons: to get new icons like "XML", "Subscribe" etc. it's best to just delete the <tt>page_icons</tt> setting, now that "config.py" has a default for it. If you changed it in the past, add new icons from the "config.py" default to your "moin_config.py". 
 </p>
 </li>
+
     </ul>
 
+
 <h4 id="head-217754d96e10e6cb5c552a8afb72478768e880b9">Updating files</h4>
+
     <dl>
+
     <dt> Images</dt><dd>
 <p>
 On every update, you should copy the content of the "share/moin/htdocs/img" directory to the image directory visible to your web server, normally a new release has some new images in it. If you use the default distutils setup scheme, this is no longer necessary (distutils updates the files for you, and your webserver gets the files from the installed images). 
@@ -136,7 +147,9 @@ When upgrading to a new version, copy at least the help pages ("Help*") to your 
 Check that you have the newest "intermap.txt" file; If you have your own entries, you can point "shared_intermap" at a file loaded <em>before</em> the file in your data directory, which takes precedence (i.e. have global entries in the shared one, private entries the data dir file). 
 </p>
 </dd>
+
     </dl>
+
 <h4 id="head-285ec850c11d78bac10f6bfa31b69a37f1b257c9">Troubleshooting</h4>
 <p>
 A good idea is to do a request for "moin.cgi?test" (which calls an internal diagnosis feature) after you installed a new release, which will spot some common errors. 
@@ -153,12 +166,14 @@ The following sections provide information pertaining to specific versions of th
 
 </p>
 <p>
-<img src="wiki/htdocs/classic/img/idea.png" alt="(!)" height="15" width="15"> It is strongly recommended that you change any installation prior to 0.11 to the new distutils scheme, this will make any future upgrades much easier. 
+<img src="/wiki/rightsidebar/img/idea.png" alt="(!)" height="15" width="15"> It is strongly recommended that you change any installation prior to 0.11 to the new distutils scheme, this will make any future upgrades much easier. 
 </p>
 <p>
 You should follow the instructions on <a href="http://moinmaster.wikiwikiweb.de/HelpOnInstalling">HelpOnInstalling</a> regarding basic installation, until you come to the "Creating a wiki instance" step. Then you have two options: 
 </p>
+
     <ol type="1">
+
     <li>
 <p>
 simply adapt your old instance to the new situation, this especially means to create an alias that points to the <tt>.../share/moin/htdocs</tt> directory; you have to change <tt>url_prefix</tt> to <tt>/wiki</tt> then. The positive effect is that you automatically get any new icons and CSS files of version 0.11 and any future version, because distutils will update them in that location. 
@@ -169,7 +184,9 @@ simply adapt your old instance to the new situation, this especially means to cr
 create a new instance as per the instructions, copy the data directory from your old instance, and merge the configuration files. 
 </p>
 </li>
+
     </ol>
+
 
 <p>
 Check your configuration against the provided default <tt>moin_config.py</tt> that you find in <tt>.../share/moin/cgi-bin/moin_config.py</tt> after installation with distutils. You should add the <tt>sitename</tt> setting, which gets added to the page title, to RSS feeds and the like. 
@@ -187,7 +204,7 @@ Due to I18N support for system pages, the only remaining configurable page name 
 Finally, copy any new system pages to your wiki data directory. The current system pages are in the directory <tt>.../share/moin/data/text</tt>. The minimal set to copy is the new help pages ("<tt>Help*</tt>"). If you are sure you have not modified any system pages, you can simply copy all of them to your instance <tt>data/text</tt> directory. 
 </p>
 <p>
-<img src="wiki/htdocs/classic/img/alert.png" alt="/!\" height="15" width="15"> <strong>When copying all system pages with one command, be sure to delete pages from the following list of pages that are likely changed by your users.</strong> 
+<img src="/wiki/rightsidebar/img/alert.png" alt="/!\" height="15" width="15"> <strong>When copying all system pages with one command, be sure to delete pages from the following list of pages that are likely changed by your users.</strong> 
 </p>
 The following pages are very likely to change once a wiki is in use, and it is advisable to delete them from the master system page directory <tt>.../share/moin/data/text</tt> before any instance update; they are only included to seed new wikis: 
 <pre>CategoryCategory
@@ -260,7 +277,9 @@ The next version (1.2) will require Python 2.2.2 or newer.
 <p>
 <strong>Upgrading your configuration</strong> 
 </p>
+
     <ul>
+
     <li>
 <p>
  If you changed the default for <tt>page_template_ending</tt>, this is now called <tt>page_template_regex</tt> and must contain a regex (defaults to '[a-z]Template$'). 
@@ -281,12 +300,16 @@ The next version (1.2) will require Python 2.2.2 or newer.
  If you have added your own <tt>SecurityPolicy</tt>, the class interface for that has changed (see <tt>security.py</tt>). 
 </p>
 </li>
+
     </ul>
+
 
 <p>
 <strong>Enabling new features</strong> 
 </p>
+
     <ul>
+
     <li>
 <p>
  <tt>default_lang</tt> (default: 'en') - If user does not set a language in his user settings, this will be used. 
@@ -322,7 +345,9 @@ The next version (1.2) will require Python 2.2.2 or newer.
  don't forget to read the CHANGES file in the distribution archive 
 </p>
 </li>
+
     </ul>
+
 
 <p>
 <a id="update-1-2"> <h4 id="head-b7238b18233914a27637a58322ad1e229a7760ee">Version 1.2</h4>
@@ -331,7 +356,9 @@ The next version (1.2) will require Python 2.2.2 or newer.
 <p>
 <strong>Version 1.2 requires Python 2.2.2 or higher</strong>, we recommend to use Python &gt;=2.3.2 (with 2.3.x, <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> runs about 20-30% faster). 
 </p>
+
     <ul>
+
     <li>
 <p>
  the URL for the <a href="http://moinmaster.wikiwikiweb.de/RecentChanges">RecentChanges</a> RSS feed changed. It now only works with <tt>?action=rss_rc</tt>. 
@@ -360,7 +387,9 @@ done
  Themeing and HTML/CSS cleanup 
 </p>
 </li>
+
         <ul>
+
         <li>
 <p>
  Browsers with completely broken CSS support (like e.g. Netscape 4.x) are no longer supported. If you still need to support them, do not upgrade to moin 1.2. If you still use these browsers, we recommend that you upgrade your browser first (Mozilla 1.5 has nice and standards compliant HTML and CSS support and is available as Free Software for Windows, Linux and Mac). 
@@ -376,7 +405,9 @@ done
  because of the new theme support the layout of the <tt>htdocs</tt> directory changed: 
 </p>
 </li>
+
             <ul>
+
             <li>
 <p>
  Instead of using icons under <tt>img/</tt> and css under <tt>css/</tt>, there will be an additional <tt>themename/</tt> directory in between, e.g. <tt>classic/img/</tt> and <tt>classic/css/</tt>. If you added own icons, you may have to copy them to the themes directory. 
@@ -387,14 +418,18 @@ done
  The filename of the CSS file has changed to the media type, so the normal one used for screen output has changed name from <tt>moinmoin.css</tt> to <tt>screen.css</tt>. There also were quite some changes and enhancements to the CSS files, so better use the new ones. 
 </p>
 </li>
+
             </ul>
+
 
         <li>
 <p>
  config.css_url was removed 
 </p>
 </li>
+
         </ul>
+
 
     <li class="gap">
 <p>
@@ -411,7 +446,9 @@ done
  removed config variables: 
 </p>
 </li>
+
         <ul>
+
         <li>
 <p>
  external_diff (not needed any more, we have internal diff now) 
@@ -432,14 +469,18 @@ done
  page_icons_up 
 </p>
 </li>
+
         </ul>
+
 
     <li class="gap">
 <p>
  changed config variables: 
 </p>
 </li>
+
         <ul>
+
         <li>
 <p>
  changed_time_fmt (removed some html and brackets around time from default) 
@@ -465,14 +506,18 @@ done
  umask (default is 0770 now, not world r/w any more == more secure) 
 </p>
 </li>
+
         </ul>
+
 
     <li class="gap">
 <p>
- new config variables (see <a class="interwiki" title="MoinMaster" href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration"><img src="wiki/htdocs/classic/img/moin-inter.png" alt="[MoinMaster]" width="16" height="16">HelpOnConfiguration</a>): 
+ new config variables (see <a class="interwiki" title="MoinMaster" href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration"><img src="/wiki/rightsidebar/img/moin-inter.png" alt="[MoinMaster]" width="16" height="16">HelpOnConfiguration</a>): 
 </p>
 </li>
+
         <ul>
+
         <li>
 <p>
  cookie_lifetime 
@@ -538,9 +583,13 @@ done
  tz_offset  
 </p>
 </li>
+
         </ul>
 
+
+
     </ul>
+
 
 <p>
 <a id="update-1-2-1"> <h4 id="head-15119df63931db715d6b476cf60568e46323d11c">Version 1.2.1</h4>
@@ -554,6 +603,35 @@ In any case, read the <tt>CHANGES</tt> file in the toplevel directory of your mo
 </p>
 <p>
 Be aware that except code fixes, there were also fixes in the data and htdocs directory - so please selectively copy them over to your running wiki installation. 
+</p>
+<p>
+<a id="update-1-2-2"> <h4 id="head-dab6351f783eb4f435c6399f31207e803984295b">Version 1.2.2</h4>
+As 1.2.2 is primarily a bug-fix release for 1.2.1, there is not much special if you run 1.2.1 and want to update to 1.2.2. 
+</p>
+<p>
+If you run a version previous to 1.2, please read above about upgrading to 1.2 first. 
+</p>
+<p>
+In any case, read the <tt>CHANGES</tt> file in the toplevel directory of your moin archive - all fixes are described there and also some few new features. 
+</p>
+<p>
+Be aware that except code fixes, there were also fixes in the data and htdocs directory - so please selectively copy them over to your running wiki installation. 
+</p>
+<p>
+<a id="update-1-3"> <h4 id="head-70b3ea26d8f548fb49dbe2b972df2f9b29675477">Version 1.3 (not released yet)</h4>
+
+</p>
+<p>
+<img src="/wiki/rightsidebar/img/alert.png" alt="/!\" height="15" width="15"> Upgrading to moin 1.3 will be non-trivial. It will definitely take you more than 5 minutes. <img src="/wiki/rightsidebar/img/alert.png" alt="/!\" height="15" width="15"> 
+</p>
+<p>
+This is because of the wiki default charset change to utf-8 and the change to class based configuration settings. 
+</p>
+<p>
+In any case, make a backup or you risk destroying your wiki's content. 
+</p>
+<p>
+Please read the <tt>CHANGES</tt> file in the toplevel directory of your moin archive for details on what changed and how to upgrade. 
 </p>
 </div>
 </body>

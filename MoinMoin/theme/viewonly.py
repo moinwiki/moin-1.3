@@ -114,7 +114,7 @@ class Theme(ThemeBase):
             'config_page_footer1_html': self.emit_custom_html(config.page_footer1),
             'config_page_footer2_html': self.emit_custom_html(config.page_footer2),
             'showtext_html': '',
-            'edittext_html': self.edittext_link(d),
+            'edittext_html': self.edittext_link(d, **keywords),
             'search_form_html': self.searchform(d),
             'available_actions_html': '',
             'credits_html': self.emit_custom_html(config.page_credits),

@@ -46,7 +46,7 @@ imenom koje odgovara regularnom izrazu "%(page_template_regex)s".''',
 '''The following pages with similar names already exist...''':
 '''Sledeće stranice sa sličnim naslovima već postoje...''',
 '''You are not allowed to edit this page.''':
-'''Vama nije dozvoljeno da obrađujete ovu stranicu.''',
+'''Nije Vam dozvoljeno da obrađujete ovu stranicu.''',
 '''Page is immutable!''':
 '''Ova stranica je neizmenljiva!''',
 '''Cannot edit old revisions!''':
@@ -88,7 +88,7 @@ izmenilo.''',
 '''Describe %s here.''':
 '''Opišite %s ovde.''',
 '''Optional comment about this change''':
-'''Opcionalni komentar o izmeni ove stranice.''',
+'''Doadtni komentar o izmeni ove stranice.''',
 '''<No addition>''':
 '''<Nema dodataka>''',
 '''Make this page belong to category %(category)s''':
@@ -102,11 +102,11 @@ izmenilo.''',
 '''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
 If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
 '''Ako kliknete na <strong>%(save_button_text)s</strong> postavljate vaše promene pod %(license_link)s.
-Ako to ne želite, kliknite na <strong>%(cancel_button_text)s</strong>, da biste Vaše promene povratili.''',
+Ako to ne želite, kliknite na <strong>%(cancel_button_text)s</strong>, da biste Vaše promene poništili.''',
 '''Preview''':
 '''Predgled''',
 '''Send mail notification''':
-'''Poslati ''',
+'''Poslati mejl''',
 '''Remove trailing whitespace from each line''':
 '''Skini blankove sa kraja svake linije''',
 '''<dt>Emphasis:</dt>
@@ -177,9 +177,9 @@ dostupan.''',
 '''The diff function returned with error code %(rc)s!''':
 '''Dif funkcija je javila grešku sa kodom %(rc)s!''',
 '''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] Obnova od "%(pagename)s"''',
+'''[%(sitename)s] Obnova za "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
-'''Dobićete poruku sa vašim sopstvenim izmenama!''',
+'''Vi nećete dobiti poruku sa vašim sopstvenim izmenama!''',
 '''Status of sending notification mails:''':
 '''Status o slanju podsetničkih mejlova:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
@@ -187,9 +187,9 @@ dostupan.''',
 '''Nobody subscribed to this page, no mail sent.''':
 '''Niko se nije pretpisao na ovu stranicu, mejl nije poslat.''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
-'''## rezervna kopija ove stranice "%(pagename)s" je kreirana %(date)s''',
+'''## rezervna kopija ove stranice "%(pagename)s" je od %(date)s''',
 '''You are not allowed to edit this page!''':
-'''Vama nije dozvoljeno da editirate ovu stranicu!''',
+'''Vama nije dozvoljeno da obrađujete ovu stranicu!''',
 '''You cannot save empty pages.''':
 '''Prazne stranice se ne mogu snimiti.''',
 '''Sorry, someone else saved the page while you edited it.
@@ -203,27 +203,27 @@ delete the changes of the other person, which is excessively rude!</em></p>
 '''Nažalost, neko je već izmenio ovu stranicu dok ste je obrađivali.
 <p>Uradite sledeće: koristite dugme "Nazad" u vašem Brauzeru da bi ste se vratili u  Editor i tako ubacili promene u klipbord.
 Onda kliknite "Napred" i kliknite na "Obrađivati" ponovo.
-I vaše promene iz klipborda možete u aktuelnu stranicu ponovo da ubacite.</p>
-<p><em>Nemojte izmene drugih autora jednostavno da menjate, to
+Vaše promene iz klipborda možete ponovo da ubacite u aktuelnu stranicu.</p>
+<p><em>Nemojte izmene drugih autora bez razloga da menjate, to
 je vrlo nepristojno!</em></p>
 ''',
 '''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
-'''Rezervna kopija vaših promena je <a href="%(backup_url)s">ovde</a>.''',
+'''Rezervna kopija vaših promena je ovde, <a href="%(backup_url)s"></a>.''',
 '''You did not change the page content, not saved!''':
 '''Sadržaj stranice nije izmenjen, ništa nije snimljeno!''',
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
 '''Ne možete menjati korisnička prava - ACL na ovoj stranici pošto
 nemate administratorska prava za nju!''',
 '''Thank you for your changes. Your attention to detail is appreciated.''':
-'''Hvala za vaše izmene. Vašu pažnju cenimo.''',
+'''Hvala za vaše izmene. Cenimo Vašu pažnju.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
-'''Blokada od %(owner)s je istekla pre %(mins_ago)d minuta, i vi ste dobili blokadu za ovu stranicu.''',
+'''Blokada od %(owner)s je istekla pre %(mins_ago)d minuta, i vi ste dobili sada blokadu za ovu stranicu.''',
 '''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
 '''Drugi korisnici <em>neće moći</em> da prepravljaju ovu stranicu do %(bumptime)s.''',
 '''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
 '''Drugi korisnici će biti <em>upozoreni</em> do %(bumptime)s da vi obrađujete ovu stranicu.''',
 '''Use the Preview button to extend the locking period.''':
-'''Koristite dugme Pregled da produžite vreme blokade.''',
+'''Koristite dugme Pregled da biste tako produžili vreme blokade.''',
 '''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
 '''Ova stranica je trenutno <em>blokirana</em> radi obrade, od %(owner)s do %(timestamp)s, tačnije još %(mins_valid)d minuta.''',
 '''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
@@ -243,15 +243,15 @@ Koristite "Prekinuti" da bi ste napustili Editor.''',
 '''Edit''':
 '''Obrada''',
 '''UnSubscribe''':
-'''IsPisati''',
+'''IsPisati se''',
 '''Subscribe''':
-'''Pretpisati''',
+'''Pretpisati se''',
 '''Raw''':
-'''Neobrađen''',
+'''Neobrađen izgled''',
 '''XML''':
 '''XML''',
 '''Print''':
-'''Štampati''',
+'''Verzija za štampu''',
 '''View''':
 '''Videti''',
 '''Home''':
@@ -289,9 +289,9 @@ Koristite "Prekinuti" da bi ste napustili Editor.''',
 '''Cookie deleted. You are now logged out.''':
 '''Kolačić izbrisan. Vi ste sada odjavljeni iz sistema''',
 '''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''Ovaj viki nije aktiviran za obradu mejlova. Kontaktirajte vlasnika ovogvikija, koji ili može da uključi mejl opcije, ili da skloni "Pretpisati" icon.''',
+'''Ovaj viki nije aktiviran za obradu mejlova. Kontaktirajte vlasnika ovog vikija, koji ili može da uključi mejl opcije, ili da skloni "Pretpisati" icon.''',
 '''Please provide a valid email address!''':
-'''Molim vas da upišete ispravnu mejl adresu!''',
+'''Molimo vas da upišete ispravnu mejl adresu!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Nalog koji odgovara datoj mejl adresi , \'%(email)s\' , ne postoji!''',
 '''Unknown user name or password.''':
@@ -311,7 +311,7 @@ Koristite "Prekinuti" da bi ste napustili Editor.''',
 '''This email already belongs to somebody else.''':
 '''Neko drugi već poseduje ovu mejl adresu''',
 '''User preferences saved!''':
-'''Lična podešenja snimljena!''',
+'''Korisničke Postavke snimljene!''',
 '''Default''':
 '''Standard''',
 '''<Browser setting>''':
@@ -363,7 +363,7 @@ Koristite "Prekinuti" da bi ste napustili Editor.''',
 '''This list does not work, unless you have entered a valid email address!''':
 '''Ova lista ne funkcioniše ako niste ukucali pravilnu mejl adresu!''',
 '''Subscribed wiki pages (one regex per line)''':
-'''Pretpisane viki stranice (jedna u redu)''',
+'''Pretpisane viki stranice (jedan regularni izraz u redu)''',
 '''Action''':
 '''Akcija''',
 '''Please use a more selective search term instead of \'%(needle)s\'!''':
@@ -515,11 +515,11 @@ Koristite "Prekinuti" da bi ste napustili Editor.''',
 '''Wiki Markup''':
 '''Wiki izvorni tekst''',
 '''Print View''':
-'''Pregled štampanja''',
+'''Pregled za štampanje''',
 '''[%d attachments]''':
 '''[%d priloga]''',
 '''There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.''':
-'''<a href="%(link)s">%(count)s prilog(a) </a> je zakačeno na ovoj stranici.''',
+'''<a href="%(link)s">%(count)s prilog(a) </a> je zakačen(o) na ovoj stranici.''',
 '''Filename of attachment not specified!''':
 '''Ime fajla ili priloga nije određeno!''',
 '''Attachment \'%(filename)s\' does not exist!''':
@@ -671,12 +671,16 @@ Inače, možete polje "Snimit kao" ostaviti praznim, i tako će originalno ime f
 '''(obeleživač nije aktiviran)''',
 '''(currently set to %s)''':
 '''(trenutno postavljen na %s)''',
+'''Delete Bookmark''':
+'''deaktiviraj obeleživač''',
+'''Really delete bookmark?''':
+'''Stvarno deaktivirati obeleživač?''',
 '''Update my bookmark timestamp''':
 '''Obnoviti datum za moj obeleživač''',
 '''set bookmark''':
 '''aktiviraj obeleživač''',
 '''[Bookmark reached]''':
-'''[Obeleživač je dostignut]''',
+'''[Kraj obeleživača]''',
 '''Markup''':
 '''Izvorni tekst''',
 '''Display''':
@@ -728,7 +732,7 @@ crveno=obrade''',
 '''page size upper bound [bytes]''':
 '''gornja granica veličine stranica [u bajtovima]''',
 '''# of pages of this size''':
-'''# stranice ove veličine''',
+'''# stranica ove veličine''',
 '''Others''':
 '''Ostali''',
 '''Distribution of User-Agent Types''':
@@ -747,8 +751,6 @@ crveno=obrade''',
 '''Neizmenjljiva stranica''',
 '''FindPage''':
 '''NađiStranicu''',
-'''SiteNavigation''':
-'''NavigacijaStrane''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
 '''ili odmah ovde: naslove %(titlesearch)s, ili reči %(textsearch)s ili''',
 '''Or try one of these actions:''':
@@ -773,12 +775,14 @@ crveno=obrade''',
 '''IndeksNaslova''',
 '''WordIndex''':
 '''IndeksReči''',
+'''SiteNavigation''':
+'''PutoKazi''',
 '''HelpContents''':
 '''PomoćniTekstovi''',
 '''HelpOnFormatting''':
 '''PomoćPriFormatiranju''',
 '''UserPreferences''':
-'''MojePostavke''',
+'''KorisničkePostavke''',
 '''WikiLicense''':
 '''VikiLicencija''',
 '''Mon''':

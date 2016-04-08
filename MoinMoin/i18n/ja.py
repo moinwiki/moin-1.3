@@ -35,7 +35,7 @@ macro call.</small></p>
 '''RefreshCache''':
 '''キャッシュの更新''',
 '''for this page (cached %(date)s)''':
-'''このページのキャッシュ(%(date)s)''',
+'''(キャッシュ作成日時 %(date)s)''',
 '''Create this page''':
 '''このページを作成''',
 '''Alternatively, use one of these templates:''':
@@ -292,8 +292,12 @@ To leave the editor, press the Cancel button.''':
 '''指定されたユーザ名はすでに存在します。''',
 '''Passwords don\'t match!''':
 '''パスワードが一致していません。''',
+'''Please specify a password!''':
+'''パスワードを入力してください。''',
 '''Please enter your name like that: FirstnameLastname''':
 '''名前は"FirstnameLastname"のように入力してください。''',
+'''You must not use a group name as your user name.''':
+'''グループ名をユーザ名として指定することはできません。''',
 '''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
 '''メールアドレスを入力してください。ログイン情報を忘れてしまった際、メールにてお知らせするために必要となります。''',
 '''This user name already belongs to somebody else.''':
@@ -655,6 +659,10 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''(ブックマークなし)''',
 '''(currently set to %s)''':
 '''(%sにセットされています)''',
+'''Delete Bookmark''':
+'''ブックマークを削除''',
+'''Really delete bookmark?''':
+'''ブックマークを本当に削除しますか？''',
 '''Update my bookmark timestamp''':
 '''ブックマークのタイムスタンプを更新''',
 '''set bookmark''':
@@ -737,6 +745,18 @@ red=edit''':
 '''アクション一覧:''',
 '''Show all changes in the last %s days.''':
 '''%s日以内の変更をすべて表示''',
+'''User''':
+'''ユーザ''',
+'''Site''':
+'''サイト''',
+'''Page''':
+'''ページ''',
+'''Search''':
+'''検索''',
+'''Title: %(titlesearch)s<br/>Text: %(textsearch)s''':
+'''タイトル: %(titlesearch)s<br/>テキスト: %(textsearch)s''',
+'''Actions''':
+'''アクション''',
 '''Line''':
 '''行''',
 '''Deletions are marked like this.''':
@@ -747,6 +767,24 @@ red=edit''':
 '''メールサーバ\'%(server)s\'への接続に失敗しました(理由: %(reason)s)。''',
 '''Mail sent OK''':
 '''メール送信完了。''',
+'''FrontPage''':
+'''フロントページ''',
+'''RecentChanges''':
+'''更新履歴''',
+'''TitleIndex''':
+'''タイトルインデックス''',
+'''WordIndex''':
+'''ワードインデックス''',
+'''SiteNavigation''':
+'''サイトナビ''',
+'''HelpContents''':
+'''ヘルプの目次''',
+'''HelpOnFormatting''':
+'''書式のヘルプ''',
+'''UserPreferences''':
+'''プレファレンス''',
+'''WikiLicense''':
+'''Wikiライセンス''',
 '''Mon''':
 '''月''',
 '''Tue''':

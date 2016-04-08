@@ -291,7 +291,7 @@ class Formatter(FormatterBase):
     def anchordef(self, name):
         return self._add_tag('anchor', name=name)
 
-    def anchorlink(self, name, text):
+    def anchorlink(self, name, text): # XXX TODO add missing id keyword parameter
         return self.url("#" + name, text)
 
     def underline(self, on):

@@ -4,27 +4,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-18 22:57+0100\n"
-"PO-Revision-Date: 2004-01-11 22:08+0100\n"
-"Last-Translator: ***vacant***\n"
+"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"PO-Revision-Date: 2004-03-14 09:42+0100\n"
+"Last-Translator: Vincent Bernat <bernat@free.fr>\n"
 "Language-Team: French <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
 "X-Language: Français\n"
+"X-Language-in-English: French\n"
 
-#: Page.py:153
 #, python-format
 msgid "(last edited %(time)s by %(editor)s)"
 msgstr "(édité en dernier le %(time)s par %(editor)s)"
 
-#: Page.py:159
 #, python-format
 msgid "(last modified %s)"
 msgstr "(Dernière modification&nbsp;: %s)"
 
-#: Page.py:485
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
@@ -32,23 +30,19 @@ msgstr ""
 "Le contenu sauvegardé de cette page est obsolète et ne sera pas inclus dans "
 "les résultats d'une recherche&nbsp;!"
 
-#: Page.py:544
 #, python-format
 msgid "Version as of %(date)s"
 msgstr "Version du %(date)s"
 
-#: Page.py:554
 #, python-format
 msgid "Redirected from page \"%(page)s\""
 msgstr "Redirection depuis la page \"%(page)s\""
 
-#: Page.py:560
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
 msgstr "Cette page vous redirige vers la page \"%(page)s\""
 
-#: Page.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<p><small>If you submit this form, the submitted values will be displayed.\n"
 "To use this form on other pages, insert a\n"
@@ -60,33 +54,26 @@ msgstr ""
 "affichées.\n"
 "Pour utiliser ce formulaire sur d'autres pages, insérez l'appel "
 "macro&nbsp;:\n"
-"<br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
+"<br><br><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
 "b><br><br>\n"
-".</b></small></p>\n"
+".</small></p>\n"
 
-#: Page.py:606 action/AttachFile.py:296
-#, fuzzy
 msgid "You are not allowed to view this page."
-msgstr "<b>Vous n'êtes pas autorisé à voir cette page.</b>"
+msgstr "Vous n'êtes pas autorisé à voir cette page."
 
-#: Page.py:707 parser/xslt.py:146
 msgid "RefreshCache"
 msgstr "MettreÀJour"
 
-#: Page.py:708 parser/xslt.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "for this page (cached %(date)s)"
-msgstr " pour cette page (Dans le cache depuis %(date)s)"
+msgstr " pour cette page (dans le cache depuis %(date)s)"
 
-#: Page.py:726
 msgid "Create this page"
 msgstr "Créer cette page"
 
-#: Page.py:736
 msgid "Alternatively, use one of these templates:"
 msgstr "Alternativement, vous pouvez utiliser un de ces modèles :"
 
-#: Page.py:751
 #, python-format
 msgid ""
 "To create your own templates, add a page with a name matching the regex \"%"
@@ -95,127 +82,101 @@ msgstr ""
 "Pour créer vos propres modèles, ajoutez une page avec un nom s'appariant "
 "avec l'expression régulière \"%(page_template_regex)s\"."
 
-#: Page.py:759
-#, fuzzy
 msgid "The following pages with similar names already exist..."
-msgstr "<p>Les pages suivantes avec un nom similaire existent...</p>"
+msgstr "Les pages suivantes avec un nom similaire existent..."
 
-#: PageEditor.py:149 wikiaction.py:579 wikiaction.py:613
-#, fuzzy
 msgid "You are not allowed to edit this page."
-msgstr "<b>Vous n'êtes pas autorisé à éditer cette page.</b>"
+msgstr "Vous n'êtes pas autorisé à éditer cette page."
 
-#: PageEditor.py:151 PageEditor.py:724
-#, fuzzy
 msgid "Page is immutable!"
-msgstr "<b>Page non modifiable&nbsp;!</b>"
+msgstr "Page non modifiable&nbsp;!"
 
-#: PageEditor.py:155
 msgid "Cannot edit old revisions!"
-msgstr ""
+msgstr "Impossible d'éditer une ancienne version"
 
-#: PageEditor.py:162
-#, fuzzy
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
-"<strong class=\"highlight\">Le verrou que vous déteniez à expiré, préparez "
-"vous à des conflits d'éditions&nbsp;!</strong><br>"
+"Le verrou que vous déteniez à expiré, préparez vous à des conflits "
+"d'éditions&nbsp;!"
 
-#: PageEditor.py:178
 #, python-format
 msgid "Edit \"%(pagename)s\""
 msgstr "Éditer \"%(pagename)s\""
 
-#: PageEditor.py:180
 #, python-format
 msgid "Preview of \"%(pagename)s\""
 msgstr "Prévisualisation de \"%(pagename)s\""
 
-#: PageEditor.py:186
-#, fuzzy, python-format
+#, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
 msgstr "Votre verrou exclusif sur %(lock_page)s a expiré !"
 
-#: PageEditor.py:187
-#, fuzzy, python-format
+#, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
-msgstr "Votre verrou exclusif sur %(lock_page)s a expiré !"
+msgstr "Votre verrou exclusif sur %(lock_page)s expirera dans # minutes."
 
-#: PageEditor.py:188
-#, fuzzy, python-format
+#, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
-msgstr "Votre verrou exclusif sur %(lock_page)s a expiré !"
+msgstr "Votre verrou exclusif sur %(lock_page)s expirera dans # secondes."
 
-#: PageEditor.py:224
 msgid "Someone else deleted this page while you were editing!"
-msgstr ""
+msgstr "Quelqu'un a effacé la page pendant que vous l'éditiez !"
 
-#: PageEditor.py:226
 msgid "Someone else changed this page while you were editing!"
-msgstr ""
+msgstr "Quelqu'un a modifié la page pendant que vous l'éditiez !"
 
-#: PageEditor.py:239 wikiaction.py:674
 #, python-format
 msgid ""
 "Someone else saved this page while you were editing!\n"
 "Please review the page and save then. Do not save this page as it is!\n"
 "Have a look at the diff of %(difflink)s to see what has been changed."
 msgstr ""
+"Quelqu'un a sauvegardé cette page pendant que vous l'éditiez !\n"
+"Regardez les changemenets avant de sauvegarder. Ne sauvez pas cette page "
+"telle quelle !\n"
+"Regardez les différences de %(difflink)s pour voir ce qui a été modifié."
 
-#: PageEditor.py:266
 #, python-format
 msgid "[Content of new page loaded from %s]"
 msgstr "[Le contenu de cette nouvelle page a été chargé de %s]"
 
-#: PageEditor.py:268
 #, python-format
 msgid "[Template %s not found]"
 msgstr "[Le modèle %s n'a pas été trouvé]"
 
-#: PageEditor.py:278
 msgid "Reduce editor size"
 msgstr "Réduire la taille de l'éditeur"
 
-#: PageEditor.py:282
 msgid "Skip to preview"
 msgstr "Avancer jusqu'à la prévisualisation"
 
-#: PageEditor.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "[current page size <strong>%(size)d</strong> bytes]"
-msgstr "&nbsp;&nbsp; [taille de la page courante <b>%(size)d</b> octets]"
+msgstr "[taille de la page courante <strong>%(size)d</strong> octets]"
 
-#: PageEditor.py:300
 #, python-format
 msgid "Describe %s here."
 msgstr "Décrire %s ici."
 
-#: PageEditor.py:318
 msgid "Optional comment about this change"
 msgstr "Commentaire optionnel à propos de ce changement"
 
-#: PageEditor.py:325
 msgid "<No addition>"
 msgstr "<Pas d'ajout>"
 
-#: PageEditor.py:326
 #, python-format
 msgid "Make this page belong to category %(category)s"
 msgstr "Faire appartenir cette page à la catégorie %(category)s"
 
-#: PageEditor.py:333
 msgid "Check Spelling"
 msgstr "Vérifier l'orthographe"
 
-#: PageEditor.py:335
 msgid "Save Changes"
 msgstr "Sauvegarder les modifications"
 
-#: PageEditor.py:336
 msgid "Cancel"
 msgstr "Annuler"
 
-#: PageEditor.py:342
 #, python-format
 msgid ""
 "By hitting <strong>%(save_button_text)s</strong> you put your changes under "
@@ -223,21 +184,20 @@ msgid ""
 "If you don't want that, hit <strong>%(cancel_button_text)s</strong> to "
 "cancel your changes."
 msgstr ""
+"En pressant <strong>%(save_button_text)s</strong>, vous diffusez vos "
+"changements sous %(license_link)s.\n"
+"Si vous ne le souhaitez pas, utilisez <strong>%(cancel_button_text)s</"
+"strong> pour annuler vos changements."
 
-#: PageEditor.py:356
 msgid "Preview"
 msgstr "Prévisualisation"
 
-#: PageEditor.py:361
 msgid "Send mail notification"
 msgstr "Indication d'envoi de mail"
 
-#: PageEditor.py:369
 msgid "Remove trailing whitespace from each line"
 msgstr "Supprimer les espaces à la fin de chaque ligne."
 
-#: PageEditor.py:382
-#, fuzzy
 msgid ""
 "<dt>Emphasis:</dt>\n"
 "<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
@@ -257,32 +217,30 @@ msgid ""
 "<dd>|| cell text |||| cell text spanning two columns ||;\n"
 "    no trailing white space allowed after tables or titles.</dd>\n"
 msgstr ""
-"<hr>\n"
-"<font face=\"Verdana\" size=\"-1\">\n"
-"<b>Accentuation&nbsp;:</b> ''<i>Italique</i>''; '''<b>gras</b>'''; "
-"'''''<b><i>italique gras</i></b>''''';\n"
-"    ''<i>mélange de '''<b>gras</b>''' et italique</i>''; ---- règle "
-"horizontale.<br>\n"
-"<b>Titres :</b> = Titre 1 =; == Titre 2 ==; === Titre 3 ===;\n"
-"    ==== Titre 4 ====; ===== Titre 5 =====.<br>\n"
-"<b>Listes&nbsp;:</b> un espace et une des puces *; 1., a., A., i., I. "
-"énumérations;\n"
-"    1.#n Commence à partir de n; L'espace seul provoque une indentation."
-"<br>\n"
-"<b>Liens&nbsp;:</b> MotsAttachesEnMajuscules; [\"crochets et guillemets\"];\n"
-"    url; [url]; [url label].<br>\n"
-"<b>Tableaux&nbsp;:</b> || cellule de texte |||| cellule de texte s'étendant "
-"sur deux colonnes ||;\n"
-"    Les espaces après un tableau ou un titre ne sont pas autorisés.<br>\n"
-"</font>\n"
-"<hr>\n"
+"<dt>Mise en valeur :</dt>\n"
+"<dd>''<em>italique</em>''; '''<strong>gras</strong>'''; "
+"'''''<strong><em>gras italique</em></strong>''''';\n"
+"    ''<em>mélange '''<strong>gras</strong>''' et italique</em>''; ---- règle "
+"horizontale.</dd>\n"
+"<dt>Titres :</dt>\n"
+"<dd>= Titre 1 =; == Titre 2 ==; === Titre 3 ===;\n"
+"    ==== Titre 4 ====; ===== Titre 5 =====.</dd>\n"
+"<dt>Listes :</dt>\n"
+"<dd>un espace et une des puces *; 1., a., A., i., I. énumérations;\n"
+"    1.#n commence à partir de n; l'espace seul provoque une identation.</"
+"dd>\n"
+"<dt>Liens :</dt>\n"
+"<dd>MotsAttachésEnMajuscules; [\"crochets et guillemets\"];\n"
+"    url; [url]; [étiquette url].</dd>\n"
+"<dt>Tableaux :</dt>\n"
+"<dd>|| cellule de texte |||| cellule de texte s'étendant sur deux colonnes "
+"||;\n"
+"    Les espaces après un tableau ou un titre ne sont pas autorisés.</dd>\n"
 
-#: PageEditor.py:422
 msgid "Edit was cancelled."
 msgstr "Édition annulée."
 
-#: PageEditor.py:467
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Dear Wiki user,\n"
 "\n"
@@ -293,14 +251,15 @@ msgid ""
 "%(pagelink)s\n"
 "\n"
 msgstr ""
-"Cher Wiki utilisateur,\n"
-"Vous avez souscrit aux notifications de changements de la wiki page et de la "
-"wiki catégorie\"%(sitename)s\" \n"
+"Cher utilisateur Wiki,\n"
+"\n"
+"Vous avez souscrit aux notifications de changements de la page wiki ou de la "
+"catégorie wiki \"%(sitename)s\" .\n"
+"\n"
 "La page suivante a été modifiée par %(editor)s&nbsp;:\n"
 "%(pagelink)s\n"
 
-#: PageEditor.py:478
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The comment on the change is:\n"
 "%(comment)s\n"
@@ -308,65 +267,49 @@ msgid ""
 msgstr ""
 "Le commentaire sur le changement est&nbsp;:\n"
 "%(comment)s\n"
+"\n"
 
-#: PageEditor.py:483
 msgid "No older revisions of the page stored, diff not available."
 msgstr ""
 "Pas de révisions de cette page plus anciennes stockées, pas de diff "
 "disponibles."
 
-#: PageEditor.py:493
 msgid "No differences found!\n"
 msgstr "Pas de différences trouvées&nbsp;!\n"
 
-#: PageEditor.py:496
-#, fuzzy, python-format
+#, python-format
 msgid "The diff function returned with error code %(rc)s!"
-msgstr "L'utilitaire diff externe a retourné le code d'erreur %(rc)s&nbsp;!"
+msgstr "La fonction diff a retourné le code d'erreur %(rc)s&nbsp;!"
 
-#: PageEditor.py:499
 #, python-format
 msgid "[%(sitename)s] Update of \"%(pagename)s\""
 msgstr "[%(sitename)s] Mise à jour de \"%(pagename)s\""
 
-#: PageEditor.py:518
-#, fuzzy
 msgid "You will not be notified of your own changes!"
-msgstr ""
-"<p><b>Vous ne serez pas averti de vos propres modifications&nbsp;!</b></p>"
+msgstr "Vous ne serez pas averti de vos propres modifications&nbsp;!"
 
-#: PageEditor.py:525
 msgid "Status of sending notification mails:"
 msgstr "Status d'envoi des notifications des mails&nbsp;:"
 
-#: PageEditor.py:531
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
 msgstr "[%(lang)s] %(recipients)s&nbsp;: %(status)s"
 
-#: PageEditor.py:536
 msgid "Nobody subscribed to this page, no mail sent."
 msgstr "Personne n'est inscrit sur cette page, pas de mail envoyé."
 
-#: PageEditor.py:647
-#, fuzzy, python-format
+#, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
-msgstr "## sauvegarde des pages \"%(pagename)s\" soumis le %(date)s\n"
+msgstr "## sauvegarde des pages \"%(pagename)s\" soumises le %(date)s"
 
-#: PageEditor.py:721
-#, fuzzy
 msgid "You are not allowed to edit this page!"
 msgstr ""
 "Vous n'êtes pas autorisé à restaurer une version antérieure de cette "
 "page&nbsp;!"
 
-#: PageEditor.py:727
-#, fuzzy
 msgid "You cannot save empty pages."
-msgstr "<b>Vous ne pouvez pas sauver de pages vides.</b>"
+msgstr "Vous ne pouvez pas sauver de pages vides."
 
-#: PageEditor.py:730
-#, fuzzy
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
 "<p>Please do the following: Use the back button of your browser, and "
@@ -378,46 +321,34 @@ msgid ""
 "delete the changes of the other person, which is excessively rude!</em></p>\n"
 msgstr ""
 "Désolé, Quelqu'un a sauvé cette page pendant que vous l'éditiez.\n"
-"<p> Prière de faire les choses suivantes : Utiliser le bouton \"Précédent\" "
+"<p> Effectuez les instructions suivantes : utilisez le bouton \"Précédent\" "
 "de votre navigateur\n"
 "et copier/coller vos changements à cet endroit. Puis revenez ici, et cliquez "
-"à nouveau sur EditText.\n"
-"Maintenant ré-ajoutez les changements au contenu de la page courante.\n"
-"<p><em>Ne pas se contenter de remplacer le contenu de l'éditeur avec votre "
+"à nouveau sur ÉditionTexte.\n"
+"Maintenant ré-ajoutez les changements au contenu de la page courante.</p>\n"
+"<p><em>Ne vous contentez pas de remplacer le contenu de l'éditeur avec votre "
 "version de la page\n"
-"car cela entrainerait la destruction des changements de l'autre personne, ce "
-"qui excessivement malpoli."
+"car cela entraînerait la destruction des changements de l'autre personne, ce "
+"qui excessivement malpoli.</em></p>\n"
 
-#: PageEditor.py:741
-#, fuzzy, python-format
+#, python-format
 msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
 msgstr ""
-"<p><b>Une sauvegarde de vos modifications est <a href=\"%(backup_url)s"
-"\">ici</a>.</b></p>"
+"Une sauvegarde de vos modifications est <a href=\"%(backup_url)s\">ici</a>."
 
-#: PageEditor.py:744
-#, fuzzy
 msgid "You did not change the page content, not saved!"
 msgstr ""
-"<b>Vous n'avez pas modifié le contenu de la page, pas de sauvegarde&nbsp;!</"
-"b>"
+"Vous n'avez pas modifié le contenu de la page, pas de sauvegarde&nbsp;!"
 
-#: PageEditor.py:751
-#, fuzzy
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
-"<b>Vous ne pouvez pas changer les ACLs de cette page, car vous n'avez pas "
-"les droits d'administrateur dessus&nbsp;!</b>"
+"Vous ne pouvez pas changer les ACLs de cette page, car vous n'avez pas les "
+"droits d'administrateur dessus&nbsp;!"
 
-#: PageEditor.py:757
-#, fuzzy
 msgid "Thank you for your changes. Your attention to detail is appreciated."
-msgstr ""
-"<b>Merci pour ces changements.\n"
-"Votre contribution est appréciée.</b>"
+msgstr "Merci pour ces changements. Votre contribution est appréciée."
 
-#: PageEditor.py:853
 #, python-format
 msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
@@ -426,40 +357,35 @@ msgstr ""
 "Le verrou de %(owner)s pour cette page a expiré il y a %(mins_ago)d minute"
 "(s), et il vous a été accordé."
 
-#: PageEditor.py:859
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Other users will be <em>blocked</em> from editing this page until %(bumptime)"
 "s."
 msgstr ""
-"Les autres utilisateurs <b>ne seront pas autorisés</b> à éditer cette page "
+"Les autres utilisateurs <em>ne seront pas autorisés</em> à éditer cette page "
 "jusqu'à %(bumptime)s."
 
-#: PageEditor.py:863
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Other users will be <em>warned</em> until %(bumptime)s that you are editing "
 "this page."
 msgstr ""
-"Les autres utilisateurs seront <b>avertis</b> jusqu'à %(bumptime)s que vous "
-"êtes en train d'éditer cette page."
+"Les autres utilisateurs seront <em>avertis</em> jusqu'à %(bumptime)s que "
+"vous êtes en train d'éditer cette page."
 
-#: PageEditor.py:866
 msgid "Use the Preview button to extend the locking period."
 msgstr ""
 "Utiliser le bouton \"Prévisualisation\" pour étendre la période de "
 "verrouillage."
 
-#: PageEditor.py:874
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This page is currently <em>locked</em> for editing by %(owner)s until %"
 "(timestamp)s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Cette page est pour l'instant <b>verrouillée</b> pour l'édition par %(owner)"
-"s jusqu'à %(timestamp)s, i.e pour %(mins_valid)d minute(s)."
+"Cette page est pour l'instant <em>verrouillée</em> pour l'édition par %"
+"(owner)s jusqu'à %(timestamp)s, i.e pour %(mins_valid)d minute(s)."
 
-#: PageEditor.py:880
 #, python-format
 msgid ""
 "This page was opened for editing or last previewed at %(timestamp)s by %"
@@ -469,654 +395,496 @@ msgid ""
 "to avoid editing conflicts.</strong><br>\n"
 "To leave the editor, press the Cancel button."
 msgstr ""
+"%(owner)s a commencé à éditer  ou a prévisualisé cette page pour la dernière "
+"fois à %(timestamp)s.<br>\n"
+"<strong class=\"highlight\">Vous <em>ne devriez pas éditer</em> cette page "
+"avant au moins %(mins_valid)d nouvelle(s) minute(s),\n"
+"pour éviter les conflits d'édition.</strong><br>\n"
+"Pour quitter l'éditeur, utiliser le bouton Annuler."
 
-#: PageEditor.py:914 user.py:77
 msgid "<unknown>"
 msgstr "<inconnu>"
 
-#: config.py:131
 msgid "Diffs"
-msgstr ""
+msgstr "Différences"
 
-#: config.py:132
 msgid "Info"
-msgstr ""
+msgstr "Infos"
 
-#: config.py:133 macro/Navigation.py:164
 msgid "Edit"
 msgstr "Éditer"
 
-#: config.py:134
 msgid "UnSubscribe"
-msgstr ""
+msgstr "Se désabonner"
 
-#: config.py:135
 msgid "Subscribe"
-msgstr ""
+msgstr "S'abonner"
 
-#: config.py:136
 msgid "Raw"
-msgstr ""
+msgstr "Source"
 
-#: config.py:137
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
-#: config.py:138
-#, fuzzy
 msgid "Print"
-msgstr "Vue d'impression"
+msgstr "Imprimer"
 
-#: config.py:139
-#, fuzzy
 msgid "View"
-msgstr "voir"
+msgstr "Voir"
 
-#: config.py:140
 msgid "Home"
-msgstr ""
+msgstr "Maison"
 
-#: config.py:141
 msgid "Up"
-msgstr ""
+msgstr "Haut"
 
-#: request.py:394
 msgid "Unknown action"
 msgstr "Action inconnue"
 
-#: request.py:415
 msgid "Can't work out query"
 msgstr "Impossible d'évaluer la requête"
 
-#: user.py:100
 msgid "Open editor on double click"
 msgstr "Double cliquer pour ouvrir l'éditeur"
 
-#: user.py:101
 msgid "Remember last page visited"
 msgstr "Se souvenir de la dernière page visitée"
 
-#: user.py:102
 msgid "Show emoticons"
 msgstr "Montrer les binettes"
 
-#: user.py:103
 msgid "Show fancy links"
 msgstr "Montrer les liens"
 
-#: user.py:104
 msgid "Show question mark for non-existing pagelinks"
 msgstr ""
 "Montrer un point d'interrogation pour les liens vers des pages inexistantes"
 
-#: user.py:105
 msgid "Show page trail"
 msgstr "Montrer le chemin de la page"
 
-#: user.py:106
 msgid "Show icon toolbar"
 msgstr "Montrer la barre d'outils"
 
-#: user.py:107
 msgid "Show top/bottom links in headings"
 msgstr "Montrer les liens haut/bas dans les entêtes"
 
-#: user.py:108
 msgid "Show fancy diffs"
 msgstr "Montrer les diffs"
 
-#: user.py:109
 msgid "Add spaces to displayed wiki names"
 msgstr "Ajouter des espaces aux noms wiki affichés"
 
-#: user.py:110
 msgid "Remember login information forever"
-msgstr ""
+msgstr "Se souvenir du login indéfiniment"
 
-#: user.py:111
 msgid "Disable this account forever"
-msgstr ""
+msgstr "Désactiver pour toujours ce compte"
 
-#: userform.py:59
 msgid "Cookie deleted. You are now logged out."
-msgstr ""
+msgstr "Cookie effacé. Vous êtes désormais déconnecté."
 
-#: userform.py:63 wikiaction.py:705 util/mail.py:43
-#, fuzzy
 msgid ""
 "This wiki is not enabled for mail processing. Contact the owner of the wiki, "
 "who can either enable email, or remove the \"Subscribe\" icon."
 msgstr ""
-"<b>Ce wiki n'autorise pas le traitement des mails.<br>\n"
-"Contacter le propriétatire de ce wiki, qui peut soit autoriser les mails, \n"
-"ou alors enlever l'icône \"S'abonner\".</b>\n"
+"Ce wiki n'autorise pas le traitement des mails. Contacter le propriétatire "
+"de ce wiki, qui peut soit autoriser les mails, ou alors enlever l'icône "
+"\"S'abonner\"."
 
-#: userform.py:68
-#, fuzzy
 msgid "Please provide a valid email address!"
-msgstr "<b>Prière de fournir une adresse email valide&nbsp;!</b>"
+msgstr "Fournissez une adresse email valide&nbsp;!"
 
-#: userform.py:79
-#, fuzzy, python-format
+#, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
-msgstr ""
-"<b>Aucun compte à l'adresse email '%(email)s' n'a été trouvé&nbsp;!</b>"
+msgstr "Aucun compte à l'adresse email '%(email)s' n'a été trouvé&nbsp;!"
 
-#: userform.py:104
 msgid "Unknown user name or password."
-msgstr ""
+msgstr "Nom d'utilisateur ou mot de passe inconnu"
 
-#: userform.py:117
 msgid "Please enter a user name!"
-msgstr ""
+msgstr "Entrez un nom d'utilisateur"
 
-#: userform.py:123
 msgid "User name already exists!"
-msgstr ""
+msgstr "Ce nom d'utilisateur existe déjà&nbsp;!"
 
-#: userform.py:133
 msgid "Passwords don't match!"
+msgstr "Les mots de passe ne correspondent pas&nbsp;!"
+
+msgid "Please specify a password!"
 msgstr ""
 
-#: userform.py:192
 msgid "Please enter your name like that: FirstnameLastname"
+msgstr "Entrez votre nom comme ceci : PrénomNom"
+
+msgid "You must not use a group name as your user name."
 msgstr ""
 
-#: userform.py:194
 msgid ""
 "Please provide your email address - without that you could not get your "
 "login data via email just in case you lose it."
 msgstr ""
+"Indiquez votre adresse email (sans cela, vous ne pourriez pas récupérer "
+"votre mot de passe si vous le perdez)"
 
-#: userform.py:202
-#, fuzzy
 msgid "This user name already belongs to somebody else."
-msgstr "<b>Ce nom d'utilisateur appartient déjà à quelqu'un d'autre.</b>"
+msgstr "Ce nom d'utilisateur appartient déjà à quelqu'un d'autre."
 
-#: userform.py:204
-#, fuzzy
 msgid "This email already belongs to somebody else."
-msgstr "<b>Cet email appartient déjà à quelqu'un d'autre.</b>"
+msgstr "Cet email appartient déjà à quelqu'un d'autre."
 
-#: userform.py:211
-#, fuzzy
 msgid "User preferences saved!"
-msgstr "<b>Vos préférences utilisateur ont été sauvées&nbsp;&nbsp;!</b>"
+msgstr "Vos préférences utilisateur ont été sauvées&nbsp;!"
 
-#: userform.py:273
 msgid "Default"
 msgstr "Par défaut"
 
-#: userform.py:286
 msgid "<Browser setting>"
 msgstr "<Paramètre du navigateur>"
 
-#: userform.py:339
-#, fuzzy
 msgid "Save"
-msgstr " Sauver "
+msgstr "Sauver"
 
-#: userform.py:340
-#, fuzzy
 msgid "Logout"
-msgstr " Se déconnecter "
+msgstr "Se déconnecter"
 
-#: userform.py:344
-#, fuzzy
 msgid "Login"
-msgstr " Se connecter "
+msgstr "Se connecter"
 
-#: userform.py:345
-#, fuzzy
 msgid "Create Profile"
-msgstr " Créer un profil "
+msgstr "Créer un profil"
 
-#: userform.py:348
-#, fuzzy
 msgid "Mail me my account data"
-msgstr " Envoi par email de mes données sur mon compte "
+msgstr "Envoi par email de mes données sur mon compte"
 
-#: userform.py:352
 msgid "Name"
 msgstr "Nom"
 
-#: userform.py:356
 msgid "(Use FirstnameLastname)"
-msgstr ""
+msgstr "(Utilisez NomPrénom)"
 
-#: userform.py:359
 msgid "Password"
 msgstr "Mot de passe"
 
-#: userform.py:365
-#, fuzzy
 msgid "Password repeat"
 msgstr "Mot de passe"
 
-#: userform.py:369
 msgid "(Only when changing passwords)"
-msgstr ""
+msgstr "(Uniquement lors du changement des mots de passe)"
 
-#: userform.py:372
 msgid "Email"
 msgstr "Addresse de messagerie"
 
-#: userform.py:383
-#, fuzzy
 msgid "Preferred theme"
 msgstr "Langue préférée"
 
-#: userform.py:385
-#, fuzzy
 msgid "User CSS URL"
 msgstr "URL CSS"
 
-#: userform.py:389
-#, fuzzy
 msgid "(Leave it empty for disabling user CSS)"
-msgstr "(\"None\" pour ne pas utiliser CSS)"
+msgstr "(Laissez vide pour ne pas utiliser de feuille CSS)"
 
-#: userform.py:392
 msgid "Editor size"
 msgstr "Taille de l'éditeur"
 
-#: userform.py:400
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: userform.py:401
 msgid "Your time is"
 msgstr "L'heure où vous êtes est"
 
-#: userform.py:404
 msgid "Server time is"
 msgstr "L'heure sur le serveur est"
 
-#: userform.py:409
 msgid "Date format"
 msgstr "Format de date"
 
-#: userform.py:411
 msgid "Preferred language"
 msgstr "Langue préférée"
 
-#: userform.py:424
 msgid "General options"
 msgstr "Options générales"
 
-#: userform.py:426
 msgid "Quick links"
 msgstr "Liens rapides"
 
-#: userform.py:441
 msgid "This list does not work, unless you have entered a valid email address!"
 msgstr ""
 "Cette liste ne marche pas, sauf si vous avez entré une adresse email valide!"
 
-#: userform.py:446
-#, fuzzy
 msgid "Subscribed wiki pages (one regex per line)"
-msgstr "Wiki pages inscrites<br>(une expression régulière par ligne)"
+msgstr "Abonnement souscrits (une expression régulière par ligne)"
 
-#: userform.py:485 wikiaction.py:407 action/AttachFile.py:593
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
-#: wikiaction.py:57 wikiaction.py:108
-#, fuzzy, python-format
+#, python-format
 msgid "Please use a more selective search term instead of '%(needle)s'!"
 msgstr ""
-"<b>Prière d'utiliser un critère de recherche plus sélectif que : '%(needle)"
-"s'&nbsp;!</b>"
+"Choisissez un critère de recherche plus sélectif que : '%(needle)s'&nbsp;!"
 
-#: wikiaction.py:61
 #, python-format
 msgid "Full text search for \"%s\""
 msgstr "Recherche dans le texte complet pour \"%s\""
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:65
-#, fuzzy
 msgid "match"
-msgstr " correspondance"
+msgstr "correspondance"
 
-#: wikiaction.py:78 action/LikePages.py:123 macro/FullSearch.py:66
-#, fuzzy
 msgid "matches"
-msgstr " correspondances"
+msgstr "correspondances"
 
-#: wikiaction.py:111
 #, python-format
 msgid "Title search for \"%s\""
 msgstr "Recherche de titre pour \"%s\""
 
-#: wikiaction.py:155
 #, python-format
 msgid "%(hits)d hits out of %(pages)d pages searched."
 msgstr "%(hits)d pages trouvées parmi les %(pages)d pages."
 
-#: wikiaction.py:156
 #, python-format
 msgid "Needed %(timer).1f seconds."
 msgstr "A nécessité %(timer).1f secondes."
 
-#: wikiaction.py:227
-#, fuzzy
 msgid "No older revisions available!"
-msgstr "<b>Pas d'autres revisions disponibles&nbsp;!</b>"
+msgstr "Pas de revisions plus anciennes disponibles&nbsp;!"
 
-#: wikiaction.py:231
 #, python-format
 msgid "Diff for \"%s\""
 msgstr "Diff pour \"%s\""
 
-#: wikiaction.py:283
-#, fuzzy, python-format
+#, python-format
 msgid "Differences between versions dated %s and %s"
-msgstr "<b>Différences entre la version datée du %s et celle du %s"
+msgstr "Différences entre la version datée du %s et celle du %s"
 
-#: wikiaction.py:286
-#, fuzzy, python-format
+#, python-format
 msgid "(spanning %d versions)"
-msgstr " (comprennant %d versions)"
+msgstr "(comprennant %d versions)"
 
-#: wikiaction.py:296 util/diff.py:41
-#, fuzzy
 msgid "No differences found!"
-msgstr "Pas de différences trouvées&nbsp;!\n"
+msgstr "Pas de différences trouvées&nbsp;!"
 
-#: wikiaction.py:298
-#, fuzzy, python-format
+#, python-format
 msgid "The page was saved %(count)d times, though!"
-msgstr "Cette page a été sauvegardée %(count)d%(times)s&nbsp;!"
+msgstr "Cette page a été sauvegardée %(count)d fois&nbsp;!"
 
-#: wikiaction.py:309
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignorer les modifications dans le nombre d'espaces"
 
-#: wikiaction.py:330
 msgid "General Information"
 msgstr "Informations générales"
 
-#: wikiaction.py:333
 #, python-format
 msgid "Page size: %d"
-msgstr ""
+msgstr "Taille de la page : %d"
 
-#: wikiaction.py:339
-#, fuzzy
 msgid "SHA digest of this page's content is:"
-msgstr ""
-"<p>L'empreinte SHA du contenu de cette page est&nbsp;: <tt>%(digest)s</tt></"
-"p>"
+msgstr "L'empreinte SHA du contenu de cette page est&nbsp;:"
 
-#: wikiaction.py:350
 msgid "The following users subscribed to this page:"
 msgstr "Les utilisateurs suivants ont souscrit à cette page&nbsp;:"
 
-#: wikiaction.py:365
-#, fuzzy
 msgid "This page links to the following pages:"
-msgstr "Cette page est reliée aux pages suivantes&nbsp;:<br>"
+msgstr "Cette page est reliée aux pages suivantes&nbsp;:"
 
-#: wikiaction.py:376 wikiaction.py:515
 msgid "Revision History"
 msgstr "Historique des modifications"
 
-#: wikiaction.py:401
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
-#: wikiaction.py:402 action/AttachFile.py:592
 msgid "Size"
 msgstr "Taille"
 
-#: wikiaction.py:403
 msgid "Diff"
-msgstr ""
+msgstr "Différences"
 
-#: wikiaction.py:405
 msgid "Editor"
 msgstr "Éditeur"
 
-#: wikiaction.py:406
 msgid "Comment"
 msgstr "Commentaire"
 
-#: wikiaction.py:445 wikiaction.py:456 action/AttachFile.py:188
 msgid "view"
 msgstr "voir"
 
-#: wikiaction.py:448 wikiaction.py:459
 msgid "raw"
-msgstr ""
+msgstr "source"
 
-#: wikiaction.py:451 wikiaction.py:462
 msgid "print"
-msgstr ""
+msgstr "imprimer"
 
-#: wikiaction.py:466
 msgid "revert"
 msgstr "restaurer"
 
-#: wikiaction.py:477 macro/RecentChanges.py:41
 #, python-format
 msgid "Revert to version dated %(datestamp)s."
 msgstr "Revenir à la version datée du %(datestamp)s."
 
-#: wikiaction.py:484
 msgid "N/A"
-msgstr ""
+msgstr "n/d"
 
-#: wikiaction.py:512
 #, python-format
 msgid "Info for \"%s\""
 msgstr "Info sur \"%s\""
 
-#: wikiaction.py:515 wikiaction.py:517
 #, python-format
 msgid "Show \"%(title)s\""
 msgstr "Montrer \"%(title)s\""
 
-#: wikiaction.py:517
-#, fuzzy
 msgid "General Page Infos"
 msgstr "Informations générales"
 
-#: wikiaction.py:519
 #, python-format
 msgid "Show chart \"%(title)s\""
 msgstr "Montrer le graphique \"%(title)s\""
 
-#: wikiaction.py:519 stats/hitcounts.py:154
 msgid "Page hits and edits"
 msgstr "Nombre de hits et d'éditions"
 
-#: wikiaction.py:591
 msgid "You are not allowed to revert this page!"
 msgstr ""
 "Vous n'êtes pas autorisé à restaurer une version antérieure de cette "
 "page&nbsp;!"
 
-#: wikiaction.py:601
 msgid "An error occurred while reverting the page."
-msgstr ""
+msgstr "Une erreur est survenue en restaurant la page"
 
-#: wikiaction.py:701
-#, fuzzy
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr ""
-"<b>Vous n'êtes pas autorisé à vous inscrire à une page que vous ne pouvez "
-"lire.</b>"
+"Vous n'êtes pas autorisé à vous inscrire à une page que vous ne pouvez lire."
 
-#: wikiaction.py:710
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr ""
+"Vous n'avez pas encore sélectionné un profil utilisateur. Utilisez "
+"PréférencesUtilisateur dans le coin en haut à droit pour créer un profil"
 
-#: wikiaction.py:715
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
 msgstr ""
+"Vous n'avez pas entré d'adresse email valide pour votre profil. Éditez vos "
+"PréférencesUtilisateur dans le coin en haut à droite et entrez une adresse "
+"email valide."
 
-#: wikiaction.py:720
-#, fuzzy
 msgid "You are already subscribed to this page."
-msgstr "<b>Vous êtes déjà inscrit à cette page.</b>"
+msgstr "Vous êtes déjà inscrit à cette page."
 
-#: wikiaction.py:721 wikiaction.py:728
-#, fuzzy
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
 "subscription list."
 msgstr ""
-"<br>\n"
-"<b>Pour vous déinscrire, allez dans votre profil et détruisez cette page\n"
-"de la liste des inscriptions.</b>\n"
+"Pour vous déinscrire, allez dans votre profil et détruisez cette page\n"
+"de la liste des abonnements."
 
-#: wikiaction.py:727
-#, fuzzy
 msgid "You have been subscribed to this page."
-msgstr "<b>Vous avez été inscrit à cette page.</b>"
+msgstr "Vous avez été inscrit à cette page."
 
-#: wikiform.py:31
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
-msgstr ""
+msgstr "L'attribut \"%(attrname)s\" est obligatoire mais absent"
 
-#: wikiform.py:95
 msgid "Submitted form data:"
 msgstr "Données du formulaire soumis&nbsp;:"
 
-#: wikimacro.py:150
 msgid "Display context of search results"
 msgstr "Affiche le contexte des résultats de la recherche"
 
-#: wikimacro.py:152
 msgid "Case-sensitive searching"
 msgstr "Recherche dépendante de la casse"
 
-#: wikimacro.py:159 wikimacro.py:165
 msgid "Go"
 msgstr "Exécuter"
 
-#: wikimacro.py:257
 msgid "Include system pages"
 msgstr "Inclure les pages systèmes"
 
-#: wikimacro.py:257
 msgid "Exclude system pages"
 msgstr "Exclure les pages systèmes"
 
-#: wikimacro.py:258
 msgid "Plain title index"
 msgstr "Index des titres complets"
 
-#: wikimacro.py:259
 msgid "XML title index"
 msgstr "Index des titres sous forme XML"
 
-#: wikimacro.py:309
 msgid "Python Version"
 msgstr "Version de Python"
 
-#: wikimacro.py:310
 msgid "MoinMoin Version"
 msgstr "Version de MoinMoin"
 
-#: wikimacro.py:310
 #, python-format
 msgid "Release %s [Revision %s]"
 msgstr "Mise à jour %s [Révision %s]"
 
-#: wikimacro.py:312
 msgid "4Suite Version"
 msgstr "Version de 4Suite"
 
-#: wikimacro.py:313
 msgid "Number of pages"
 msgstr "Nombre de pages"
 
-#: wikimacro.py:314
 msgid "Number of system pages"
 msgstr "Nombre de pages systèmes"
 
-#: wikimacro.py:315
 msgid "Number of backup versions"
 msgstr "Nombre de versions sauvegardées"
 
-#: wikimacro.py:316
 msgid "Accumulated page sizes"
 msgstr "Taille cumulée des pages"
 
-#: wikimacro.py:319
 msgid "Entries in edit log"
 msgstr "Entrées dans le journal des éditions"
 
-#: wikimacro.py:320
 #, python-format
 msgid "%(logcount)s (%(logsize)s bytes)"
 msgstr "%(logcount)s (%(logsize)s octets)"
 
-#: wikimacro.py:326
 msgid "NONE"
-msgstr ""
+msgstr "RIEN"
 
-#: wikimacro.py:329
 msgid "Global extension macros"
 msgstr "Macros d'extension globale"
 
-#: wikimacro.py:331
 msgid "Local extension macros"
 msgstr "Macros d'extension locale"
 
-#: wikimacro.py:333
 msgid "Global extension actions"
 msgstr "Actions d'extension globale "
 
-#: wikimacro.py:335
 msgid "Local extension actions"
 msgstr "Actions d'extension locale"
 
-#: wikimacro.py:337
 msgid "Installed processors"
 msgstr "Processeurs installés"
 
-#: wikimacro.py:358
 #, python-format
 msgid "ERROR in regex '%s'"
 msgstr "ERREUR dans l'expression regulière '%s'"
 
-#: wikimacro.py:395 wikimacro.py:405
 #, python-format
 msgid "Bad timestamp '%s'"
 msgstr "Timbre-à-date erroné'%s'"
 
-#: wikiutil.py:600 util/wikiext.py:61
 #, python-format
 msgid "Expected \"=\" to follow \"%(token)s\""
 msgstr "\"=\" attendu à la suite de \"%(token)s\""
 
-#: wikiutil.py:605 util/wikiext.py:66
 #, python-format
 msgid "Expected a value for key \"%(token)s\""
 msgstr "Une valeur est attendue pour la clef \"%(token)s\""
 
-#: wikiutil.py:908
 msgid "Wiki Markup"
 msgstr "Balisage Wiki"
 
-#: wikiutil.py:910
 msgid "Print View"
 msgstr "Vue d'impression"
 
-#: action/AttachFile.py:102
 #, python-format
 msgid "[%d attachments]"
-msgstr ""
+msgstr "[%d pièces jointes]"
 
-#: action/AttachFile.py:120
 #, python-format
 msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
@@ -1125,18 +893,13 @@ msgstr ""
 "Il y a <a href=\"%(link)s\">%(count)s attachement(s)</a> enregistrés sur "
 "cette page."
 
-#: action/AttachFile.py:152 action/AttachFile.py:417
-#, fuzzy
 msgid "Filename of attachment not specified!"
-msgstr "<b>Le nom du fichier à attacher n'est pas spécifié&nbsp;!</b>"
+msgstr "Le nom du fichier à attacher n'est pas spécifié&nbsp;!"
 
-#: action/AttachFile.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(filename)s' does not exist!"
-msgstr "<b>L'attachement '%(filename)s' n'existe pas&nbsp;!</b>"
+msgstr "L'attachement '%(filename)s' n'existe pas&nbsp;!"
 
-#: action/AttachFile.py:177
-#, fuzzy
 msgid ""
 "<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
 "tt></strong>, \n"
@@ -1144,266 +907,190 @@ msgid ""
 "Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
 "since this is subject to change and can break easily.</p>"
 msgstr ""
-"<p>Pour se référer aux attachements d'une page, utiliser <b><tt>attachment:"
-"filename</tt></b>, \n"
+"<p>Pour se référer aux attachements d'une page, utiliser "
+"<strong><tt>attachment:filename</tt></strong>, \n"
 "comme il est montré dans la liste des fichiers ci-dessous.\n"
 "N'utiliser pas l'URL du lien <tt>[obtenir]</tt>, \n"
 "car elle est susceptible d'être modifiée et ainsi de n'être plus correcte.</"
 "p>"
 
-#: action/AttachFile.py:185
 msgid "del"
 msgstr "effacer"
 
-#: action/AttachFile.py:186
 msgid "get"
 msgstr "obtenir"
 
-#: action/AttachFile.py:187
 msgid "edit"
 msgstr "éditer"
 
-#: action/AttachFile.py:225
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "Pas d'attachements enregistrés sur %(pagename)s"
 
-#: action/AttachFile.py:267
-#, fuzzy
 msgid "Edit drawing"
-msgstr "<h2>Édition du dessin</h2>"
+msgstr "Édition du dessin"
 
-#: action/AttachFile.py:299
-#, fuzzy
 msgid "Attached Files"
-msgstr "<h2>Fichiers attachés</h2>"
+msgstr "Fichiers attachés"
 
-#: action/AttachFile.py:303 action/AttachFile.py:367
-#, fuzzy
 msgid "You are not allowed to attach a file to this page."
-msgstr ""
-"Vous n'êtes pas autorisé à restaurer une version antérieure de cette "
-"page&nbsp;!"
+msgstr "Vous n'êtes pas autorisé à attacher un fichier à cette page."
 
-#: action/AttachFile.py:310
 msgid "New Attachment"
-msgstr ""
+msgstr "Nouvelle pièce jointe"
 
-#: action/AttachFile.py:311
-#, fuzzy
 msgid ""
 "An upload will never overwrite an existing file. If there is a name\n"
 "conflict, you have to rename the file that you want to upload.\n"
 "Otherwise, if \"Rename to\" is left blank, the original filename will be "
 "used."
 msgstr ""
-"<h2>Nouvel attachement</h2>\n"
-"<p>Vous ne pouvez pas modifier un fichier en le redéposant. S'il y a un "
-"conflit de nom,\n"
-"vous devrez renommer le fichier que vous voulez déposer.\n"
-"Sinon, si \"Renommer en\" est laissé en blanc, le nom original sera utilisé."
-"</p>\n"
+"L'envoi d'un fichier n'écrasera jamais un fichier existant. S'il y a "
+"conflit\n"
+"sur le nom, vous deveez renommer le fichier que vous voulez envoyer.\n"
+"Dans le cas où \"Renommer en\" est laissé en blanc, le nom original sera "
+"utilisé."
 
-#: action/AttachFile.py:334
 msgid "File to upload"
 msgstr "Fichier à télécharger"
 
-#: action/AttachFile.py:335
 msgid "MIME Type (optional)"
 msgstr "Type MIME (optionel)"
 
-#: action/AttachFile.py:336
-#, fuzzy
 msgid "Save as"
-msgstr " Sauver "
+msgstr "Sauver sous"
 
-#: action/AttachFile.py:338
-#, fuzzy
 msgid "Upload"
-msgstr " Déposer "
+msgstr "Envoyer fichier"
 
-#: action/AttachFile.py:353
-#, fuzzy
 msgid "File attachments are not allowed in this wiki!"
-msgstr "Vous n'êtes pas autorisé à détruire des pages dans ce wiki&nbsp;!"
+msgstr "Les fichiers attachés ne sont pas autorisés dans ce wiki&nbsp;!"
 
-#: action/AttachFile.py:360
-#, fuzzy
 msgid "You are not allowed to save a drawing on this page."
-msgstr ""
-"Vous n'êtes pas autorisé à restaurer une version antérieure de cette "
-"page&nbsp;!"
+msgstr "Vous n'êtes pas autorisé à sauver un dessin sur cette page."
 
-#: action/AttachFile.py:372
-#, fuzzy
 msgid "You are not allowed to delete attachments on this page."
-msgstr "<b>Vous n'êtes pas autorisé à détruire les attachments.</b>"
+msgstr "Vous n'êtes pas autorisé à détruire les attachments sur cette page."
 
-#: action/AttachFile.py:377
-#, fuzzy
 msgid "You are not allowed to get attachments from this page."
-msgstr "<b>Vous n'êtes pas autorisé à obtenir d'attachemnts.</b>"
+msgstr "Vous n'êtes pas autorisé à obtenir d'attachemnts de cette page."
 
-#: action/AttachFile.py:382
-#, fuzzy
 msgid "You are not allowed to view attachments of this page."
-msgstr "<b>Vous n'êtes pas autorisé à voir d'attachements.</b>"
+msgstr "Vous n'êtes pas autorisé à voir d'attachements de cette page."
 
-#: action/AttachFile.py:384
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported upload action: %s"
-msgstr "<b>Action de dépot non disponible&nbsp;: %s</b>"
+msgstr "Action d'envoi non disponible&nbsp;: %s"
 
-#: action/AttachFile.py:394
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
 msgstr "Attachements de \"%(pagename)s\""
 
-#: action/AttachFile.py:444
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
-msgstr ""
-"Attachement '%(target)s' (nom local '%(filename)s') avec %(bytes)d octets "
-"sauvé."
+msgstr "L'attachement '%(target)s' (nom distant '%(filename)s') existe déjà."
 
-#: action/AttachFile.py:455
 #, python-format
 msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
 "saved."
 msgstr ""
-"Attachement '%(target)s' (nom local '%(filename)s') avec %(bytes)d octets "
+"L'attachement '%(target)s' (nom local '%(filename)s') avec %(bytes)d octets "
 "sauvé."
 
-#: action/AttachFile.py:506 macro/RecentChanges.py:36
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
 msgstr "Attachement '%(filename)s' détruit."
 
-#: action/AttachFile.py:539
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(filename)s'"
-msgstr "Attachement '%(filename)s' détruit."
+msgstr "Attachement '%(filename)s'."
 
-#: action/AttachFile.py:554
-#, fuzzy
 msgid "Unknown file type, cannot display this attachment inline."
 msgstr ""
-"<p>Type de fichier inconnu, impossible d'afficher l'attachement dans la page."
-"</p>"
+"Type de fichier inconnu, impossible d'afficher l'attachement dans la page."
 
-#: action/AttachFile.py:567
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
 msgstr "attachment:%(filename)s de %(pagename)s"
 
-#: action/DeletePage.py:27
-#, fuzzy
 msgid "You are not allowed to delete this page."
-msgstr "<b>Vous n'êtes pas autorisé à effecer cette page.</b>"
+msgstr "Vous n'êtes pas autorisé à détruire cette page."
 
-#: action/DeletePage.py:33 action/RenamePage.py:29
 msgid "This page is already deleted or was never created!"
 msgstr "Cette page a déjà été détruite ou n'a jamais existée&nbsp;!"
 
-#: action/DeletePage.py:41
 msgid "Please use the interactive user interface to delete pages!"
 msgstr ""
 "Prière d'utiliser l'interface utilisateur interactive pour la destruction de "
 "page&nbsp;!"
 
-#: action/DeletePage.py:48
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
 msgstr "Page \"%s\" a été détruite avec succès&nbsp;!"
 
-#: action/DeletePage.py:53
 msgid "Really delete this page?"
 msgstr "Voulez-vous vraiment détruire cette page&nbsp;?"
 
-#: action/DeletePage.py:54
-#, fuzzy
 msgid "Delete"
-msgstr " Effacer "
+msgstr "Effacer"
 
-#: action/DeletePage.py:55
 msgid "Optional reason for the deletion"
 msgstr "Raison optionnelle pour cette destruction"
 
-#: action/LikePages.py:31
 #, python-format
 msgid "No pages match \"%s\"!"
 msgstr "Aucune page ne correspond à \"%s\"&nbsp;!"
 
-#: action/LikePages.py:37
 #, python-format
 msgid "Exactly one matching page for \"%s\" found!"
 msgstr "Exactement une page correspondant à \"%s\" trouvée&nbsp;!"
 
-#: action/LikePages.py:42
 #, python-format
 msgid "Multiple matches for \"%s...%s\""
 msgstr "Correspondances multiples pour \"%s...%s\""
 
-#: action/LikePages.py:65
-#, fuzzy
 msgid "You cannot use LikePages on an extended pagename!"
 msgstr ""
-"<b>Vous ne pouvez pas utiliser LikePages avec un nom de page étendu&nbsp;!</"
-"b>"
+"Vous ne pouvez pas utiliser LikePages avec un nom de page étendu&nbsp;!"
 
-#: action/LikePages.py:121
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
 msgstr "%(matchcount)d %(matches)s pour \"%(title)s\""
 
-#: action/LocalSiteMap.py:38
 #, python-format
 msgid "Local Site Map for \"%s\""
 msgstr "Carte du site local de \"%s\""
 
-#: action/RenamePage.py:25
-#, fuzzy
 msgid "You are not allowed to rename pages in this wiki!"
-msgstr "Vous n'êtes pas autorisé à détruire des pages dans ce wiki&nbsp;!"
+msgstr "Vous n'êtes pas autorisé à renommer des pages dans ce wiki&nbsp;!"
 
-#: action/RenamePage.py:37
-#, fuzzy
 msgid "Please use the interactive user interface to rename pages!"
 msgstr ""
-"Prière d'utiliser l'interface utilisateur interactive pour la destruction de "
+"Utilisez l'interface utilisateur interactive pour la destruction de "
 "page&nbsp;!"
 
-#: action/RenamePage.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "A page with the name \"%s\" already exists!"
-msgstr "<p>Les pages suivantes avec un nom similaire existent...</p>"
+msgstr "Une page ayant pour nom \"%s' existe déjà&nbsp;!"
 
-#: action/RenamePage.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-msgstr "Page \"%s\" a été détruite avec succès&nbsp;!"
+msgstr "La page \"%s\" a été renommée en \"%s\" avec succès&nbsp;!"
 
-#: action/RenamePage.py:61
 msgid "Rename"
-msgstr ""
+msgstr "Renommer"
 
-#: action/RenamePage.py:62
-#, fuzzy
 msgid "New name"
-msgstr "Nom"
+msgstr "Nouveau nom"
 
-#: action/RenamePage.py:63
-#, fuzzy
 msgid "Optional reason for the renaming"
-msgstr "Raison optionnelle pour cette destruction"
+msgstr "Raison optionnelle pour ce changement de nom"
 
-#: action/SpellCheck.py:169
-#, fuzzy, python-format
+#, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
 msgstr " (inclusion de %(localwords)d %(pagelink)s)"
 
-#: action/SpellCheck.py:171
 #, python-format
 msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
@@ -1413,200 +1100,161 @@ msgstr ""
 "un total de %(totalwords)d mots%(localwords)s et sont surlignés ci-"
 "dessous&nbsp;:"
 
-#: action/SpellCheck.py:190
 msgid "Add checked words to dictionary"
 msgstr "Ajouter les mots cochés au dictionnaire"
 
-#: action/SpellCheck.py:196
-#, fuzzy
 msgid "No spelling errors found!"
-msgstr "<b>Aucune faute d'orthographe n'a été trouvée&nbsp;!</b>"
+msgstr "Aucune faute d'orthographe n'a été trouvée&nbsp;!"
 
-#: action/SpellCheck.py:210
-#, fuzzy
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
-"<b>Vous ne pouvez pas vérifier l'orthographe d'une page, que vous ne pouvez "
-"pas lire.</b>"
+"Vous ne pouvez pas vérifier l'orthographe d'une page, que vous ne pouvez pas "
+"lire."
 
-#: action/links.py:28
 #, python-format
 msgid "Full Link List for \"%s\""
 msgstr "Liste de tout les liens pour \"%s\""
 
-#: macro/Include.py:58
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Les arguments du include ne sont pas valides&nbsp;: \"%s\"&nbsp;!"
 
-#: macro/Include.py:120 macro/Include.py:130
-#, fuzzy, python-format
+#, python-format
 msgid "Nothing found for \"%s\"!"
-msgstr "Info sur \"%s\""
+msgstr "Rien n'a été trouvé sur \"%s\"&nbsp;!"
 
-#: macro/Navigation.py:103
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
-msgstr ""
+msgstr "Protocole inconnu '%(scheme)s' !"
 
-#: macro/Navigation.py:120 macro/Navigation.py:191
 msgid "No parent page found!"
 msgstr "Pas de page parent trouvée&nbsp;!"
 
-#: macro/Navigation.py:162
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
-#: macro/Navigation.py:168
 msgid "Slideshow"
 msgstr "Séquence de transparents"
 
-#: macro/Navigation.py:180
 msgid "Start"
 msgstr "Démarrer"
 
-#: macro/Navigation.py:214
-#, fuzzy, python-format
+#, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr " Transparent %(pos)d sur %(size)d "
 
-#: macro/OrphanedPages.py:43
 msgid "No orphaned pages in this wiki."
 msgstr "Pas de pages orphelines dans ce wiki"
 
-#: macro/RandomQuote.py:44
 #, python-format
 msgid "No quotes on %(pagename)s."
 msgstr "Pas de citations sur %(pagename)s."
 
-#: macro/RecentChanges.py:34
 #, python-format
 msgid "Upload of attachment '%(filename)s'."
 msgstr "Téléchargement de l'attachement '%(filename)s'."
 
-#: macro/RecentChanges.py:38
 #, python-format
 msgid "Drawing '%(filename)s' saved."
 msgstr "Dessin '%(filename)s' sauvé."
 
-#: macro/RecentChanges.py:89
-#, fuzzy, python-format
+#, python-format
 msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
-msgstr "[Il&nbsp;y&nbsp;a&nbsp;%(hours)dh&nbsp;%(mins)dm&nbsp;]"
+msgstr "Il&nbsp;y&nbsp;a&nbsp;%(hours)dh&nbsp;%(mins)dm&nbsp;"
 
-#: macro/RecentChanges.py:239
 msgid "(no bookmark set)"
 msgstr "(Pas de signet)"
 
-#: macro/RecentChanges.py:241
 #, python-format
 msgid "(currently set to %s)"
 msgstr "(Ayant pour le moment la valeur&nbsp;: %s)"
 
-#: macro/RecentChanges.py:248
+#, fuzzy
+msgid "Delete Bookmark"
+msgstr "mettre un signet"
+
+#, fuzzy
+msgid "Really delete bookmark?"
+msgstr "Voulez-vous vraiment détruire cette page&nbsp;?"
+
 msgid "Update my bookmark timestamp"
 msgstr "Mettre à jour l'heure de mon signet"
 
-#: macro/RecentChanges.py:306 macro/RecentChanges.py:351
 msgid "set bookmark"
 msgstr "mettre un signet"
 
-#: macro/RecentChanges.py:327
 msgid "[Bookmark reached]"
 msgstr "[Favori atteint]"
 
-#: macro/ShowSmileys.py:31
-#, fuzzy
 msgid "Markup"
 msgstr "Balisage Wiki"
 
-#: macro/ShowSmileys.py:32
 msgid "Display"
-msgstr ""
+msgstr "Affichage"
 
-#: macro/ShowSmileys.py:33
-#, fuzzy
 msgid "Filename"
-msgstr "TrouvePage"
+msgstr "Fichier"
 
-#: macro/StatsChart.py:19
-#, fuzzy
 msgid "You need to provide a chart type!"
-msgstr ""
-"<div class=\"message\"><b>Vous devez fournir un type de graphique&nbsp;!</"
-"b></div>"
+msgstr "Vous devez fournir un type de graphique&nbsp;!"
 
-#: macro/StatsChart.py:23
 #, python-format
 msgid "Bad chart type \"%s\"!"
-msgstr ""
+msgstr "Type de graphique \"%s\" incorrect !"
 
-#: macro/SystemAdmin.py:39
 msgid "Download XML export of this wiki"
 msgstr "Télécharger l'exportation XML de ce wiki"
 
-#: macro/WantedPages.py:48
 msgid "No wanted pages in this wiki."
 msgstr "Aucune page de ce type dans ce wiki."
 
-#: parser/wiki.py:225
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Création nouveau dessin \"%(filename)s\""
 
-#: parser/wiki.py:227
 #, python-format
 msgid "Upload new attachment \"%(filename)s\""
 msgstr "Téléchargement du nouvel attachement \"%(filename)s\""
 
-#: parser/wiki.py:258 parser/wiki.py:268
-#, fuzzy, python-format
+#, python-format
 msgid "Edit drawing %(filename)s"
-msgstr "Création nouveau dessin \"%(filename)s\""
+msgstr "Création d'un nouveau dessin %(filename)s"
 
-#: parser/wiki.py:624
-#, fuzzy, python-format
+#, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
-msgstr "Une valeur est attendue pour la clef \"%(token)s\""
+msgstr ""
+"\"%(wanted)s\" était attendu après la  clef \"%(key)s\", mais \"%(token)s\" "
+"a été obtenu"
 
-#: parser/wiki.py:630
-#, fuzzy, python-format
+#, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
-msgstr "Une valeur est attendue pour la clef \"%(token)s\""
+msgstr "Un entier \"%(key)s\" était attendu avant \"%(token)s\""
 
-#: parser/wiki.py:639 parser/wiki.py:648
-#, fuzzy, python-format
+#, python-format
 msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
-msgstr "Une valeur est attendue pour la clef \"%(token)s\""
+msgstr "Un entier \"%(arg)s\" était attendu après \"%(key)s\""
 
-#: parser/wiki.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
-msgstr "Une valeur est attendue pour la clef \"%(token)s\""
+msgstr "Une couleur \"%(arg)s\" était attendue après \"%(key)s\""
 
-#: parser/xslt.py:39
 msgid "XSLT option disabled!"
 msgstr "Option XSLT désactivée&nbsp;!"
 
-#: parser/xslt.py:56
 msgid "XSLT processing is not available!"
-msgstr ""
+msgstr "Traitement XSLT non disponible"
 
-#: parser/xslt.py:134
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Erreur d'éxécution : %(errortype)s"
 
-#: stats/hitcounts.py:24 stats/pagesize.py:22 stats/useragents.py:24
 msgid "Charts are not available!"
-msgstr ""
+msgstr "Les graphiques ne sont pas disponibles&nbsp;!"
 
-#: stats/hitcounts.py:155
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
 msgstr "%(chart_title)s pour %(filterpage)s"
 
-#: stats/hitcounts.py:157
 msgid ""
 "green=view\n"
 "red=edit"
@@ -1614,172 +1262,159 @@ msgstr ""
 "vert=voir\n"
 "rouge=éditer"
 
-#: stats/hitcounts.py:160
 msgid "date"
-msgstr ""
+msgstr "date"
 
-#: stats/hitcounts.py:161
 msgid "# of hits"
 msgstr "# de hits"
 
-#: stats/pagesize.py:93
 msgid "Page Size Distribution"
 msgstr "Page Taille Distribution"
 
-#: stats/pagesize.py:97
 msgid "page size upper bound [bytes]"
 msgstr "limite supérieur de la taille d'une page [bytes]"
 
-#: stats/pagesize.py:98
 msgid "# of pages of this size"
 msgstr "# de pages de cette taille"
 
-#: stats/useragents.py:88
 msgid "Others"
 msgstr "Autres"
 
-#: stats/useragents.py:109
 msgid "Distribution of User-Agent Types"
 msgstr "Distribution des types de User-Agent"
 
-#: theme/classic.py:154
 msgid "Click here to do a full-text search for this title"
 msgstr "Cliquez ici pour faire une recherche dans tout le texte pour ce titre"
 
-#: theme/classic.py:294
 msgid "Clear message"
 msgstr "Effacer le message"
 
-#: theme/classic.py:429
 msgid "ShowText"
 msgstr "MontrerTexte"
 
-#: theme/classic.py:430 theme/classic.py:450
 msgid "of this page"
 msgstr "de cette page"
 
-#: theme/classic.py:449
 msgid "EditText"
 msgstr "ÉditionTexte"
 
-#: theme/classic.py:453
 msgid "Immutable page"
 msgstr "Page non modifiable"
 
-#: theme/classic.py:481 i18n/dummy.py:14
 msgid "FindPage"
 msgstr "TrouvePage"
 
-#: theme/classic.py:482 i18n/dummy.py:15
-msgid "SiteNavigation"
-msgstr "NavigationSite"
-
-#: theme/classic.py:483
-#, fuzzy, python-format
+#, python-format
 msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
 msgstr ""
-" En naviguant, recherche par titre %(titlesearch)s, recherche par contenu %"
-"(textsearch)s ou par un index<br>"
+"ou recherche dans les titres %(titlesearch)s, recherche dans le contenu %"
+"(textsearch)s ou"
 
-#: theme/classic.py:513
-#, fuzzy
 msgid "Or try one of these actions:"
 msgstr "Ou essayez une de ces actions : "
 
-#: theme/classic.py:666
-#, fuzzy, python-format
+#, python-format
 msgid "Show all changes in the last %s days."
-msgstr "Montrer toutes les modifications des %(days)s derniers jours<br>"
+msgstr "Montrer toutes les modifications des %s derniers jours"
 
-#: util/diff.py:31
+msgid "User"
+msgstr ""
+
+#, fuzzy
+msgid "Site"
+msgstr "Taille"
+
+#, fuzzy
+msgid "Page"
+msgstr "TrouvePage"
+
+msgid "Search"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
+msgstr ""
+"ou recherche dans les titres %(titlesearch)s, recherche dans le contenu %"
+"(textsearch)s ou"
+
+#, fuzzy
+msgid "Actions"
+msgstr "Action"
+
 msgid "Line"
 msgstr "Ligne"
 
-#: util/diff.py:60
 msgid "Deletions are marked like this."
 msgstr "Les effacements sont marqués comme ceci."
 
-#: util/diff.py:60
 msgid "Additions are marked like this."
 msgstr "Les ajouts sont marqués ainsi."
 
-#: util/mail.py:71
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr ""
 "La connexion au serveur de courrier '%(server)s' a echouée&nbsp;: %(reason)s"
 
-#: util/mail.py:76
 msgid "Mail sent OK"
 msgstr "Mail envoyé avec succès"
 
-#: i18n/dummy.py:10
 msgid "FrontPage"
 msgstr "PageAccueil"
 
-#: i18n/dummy.py:11
 msgid "RecentChanges"
 msgstr "ChangementsRécents"
 
-#: i18n/dummy.py:12
 msgid "TitleIndex"
 msgstr "IndexTitre"
 
-#: i18n/dummy.py:13
 msgid "WordIndex"
 msgstr "IndexMot"
 
-#: i18n/dummy.py:16
+msgid "SiteNavigation"
+msgstr "NavigationSite"
+
 msgid "HelpContents"
 msgstr "SommaireAide"
 
-#: i18n/dummy.py:17
 msgid "HelpOnFormatting"
-msgstr ""
+msgstr "AideAuFormatage"
 
-#: i18n/dummy.py:18
 msgid "UserPreferences"
 msgstr "PréférencesUtilisateur"
 
-#: i18n/dummy.py:19
 msgid "WikiLicense"
-msgstr ""
+msgstr "WikiLicence"
 
-#: i18n/dummy.py:21
 msgid "Mon"
 msgstr "Lun"
 
-#: i18n/dummy.py:21
 msgid "Tue"
 msgstr "Mar"
 
-#: i18n/dummy.py:21
 msgid "Wed"
 msgstr "Mer"
 
-#: i18n/dummy.py:21
 msgid "Thu"
 msgstr "Jeu"
 
-#: i18n/dummy.py:21
 msgid "Fri"
 msgstr "Ven"
 
-#: i18n/dummy.py:21
 msgid "Sat"
 msgstr "Sam"
 
-#: i18n/dummy.py:21
 msgid "Sun"
 msgstr "Dim"
 
 #, fuzzy
-#~ msgid "time"
-#~ msgstr " fois"
+#~ msgid "Account"
+#~ msgstr "Action"
 
-#, fuzzy
+#~ msgid "time"
+#~ msgstr "fois"
+
 #~ msgid "times"
-#~ msgstr " fois"
+#~ msgstr "fois"
 
 #~ msgid "<small>[goto %s]</small>"
 #~ msgstr "<small>[Aller à %s]</small>"

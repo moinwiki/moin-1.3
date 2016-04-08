@@ -66,6 +66,7 @@ def do_fullsearch(pagename, request, fieldname='value'):
         context=context, case=case)
 
     # print the result
+    request.write('<div id="content">\n') # start content div
     request.write('<dl class="searchresult">')
     hiddenhits = 0
     for (count, page_name, fragments) in hits:
@@ -88,6 +89,7 @@ def do_fullsearch(pagename, request, fieldname='value'):
     request.write('</dl>')
 
     print_search_stats(request, len(hits)-hiddenhits, pagecount, start)
+    request.write('</div>\n') # end content div
     wikiutil.send_footer(request, pagename, editable=0, showactions=0, form=request.form)
 
 
@@ -120,12 +122,14 @@ def do_titlesearch(pagename, request, fieldname='value'):
 
     hits = filter(request.user.may.read, hits)
 
+    request.write('<div id="content">\n') # start content div
     request.write('<ul>')
     for filename in hits:
         request.write('<li>%s</li>' % Page(filename).link_to(request))
     request.write('</ul>')
 
     print_search_stats(request, len(hits), len(all_pages), start)
+    request.write('</div>\n') # end content div
     wikiutil.send_footer(request, pagename, editable=0, showactions=0, form=request.form)
 
 
@@ -279,6 +283,7 @@ def do_diff(pagename, request):
 
     edit_count = abs(oldcount1 - oldcount2)
 
+    request.write('<div id="content">\n') # start content div
     request.write('<p><strong>')
     request.write(_('Differences between versions dated %s and %s') % (
         oldpage.mtime_printable(request), newpage.mtime_printable(request)))
@@ -289,7 +294,7 @@ def do_diff(pagename, request):
     if request.user.show_fancy_diff:
         from MoinMoin.util.diff import diff
         request.write(diff(request, oldpage.get_raw_body(), newpage.get_raw_body()))
-        newpage.send_page(request, count_hit=0, content_only=1)
+        newpage.send_page(request, count_hit=0, content_only=1, content_id="content-under-diff")
     else:
         lines = wikiutil.linediff(oldpage.get_raw_body().split('\n'), newpage.get_raw_body().split('\n'))
         if not lines:
@@ -316,6 +321,7 @@ def do_diff(pagename, request):
                 request.write(wikiutil.escape(line)+'\n')
             request.write('</pre>')
 
+    request.write('</div>\n') # end content div
     wikiutil.send_footer(request, pagename, showpage=1)
 
 
@@ -327,6 +333,7 @@ def do_info(pagename, request):
     def general(page, pagename, request):
         _ = request.getText
 
+        request.write('<div id="content">\n') # start content div
         request.write('<h2>%s</h2>\n' % _('General Information'))
         
         # show page size
@@ -366,6 +373,7 @@ def do_info(pagename, request):
             for linkedpage in links:
                 request.write("%s%s " % (Page(linkedpage).link_to(request), ",."[linkedpage == links[-1]]))
             request.write("</p>")
+        request.write('</div>\n') # end content div
 
 
     def history(page, pagename, request):
@@ -373,6 +381,7 @@ def do_info(pagename, request):
         from stat import ST_MTIME, ST_SIZE
         _ = request.getText
 
+        request.write('<div id="content">\n') # start content div
         request.write('<h2>%s</h2>\n' % _('Revision History'))
 
         # generate history list
@@ -506,6 +515,7 @@ def do_info(pagename, request):
         history_table.render()
         request.write('</div>')
         request.write('\n</form>\n')
+        request.write('</div>\n') # end content div
 
 
     _ = request.getText
@@ -522,6 +532,7 @@ def do_info(pagename, request):
     hitcountlink = wikiutil.link_tag(request, '%s?action=info&amp;hitcounts=1' % qpagename,
         _('Show chart "%(title)s"') % {'title': _('Page hits and edits')})
     
+    request.write('<div id="content">\n') # start content div
     request.write("<p>[%s]  [%s]  [%s]</p><hr>" % (historylink, generallink, hitcountlink))
 
     show_hitcounts = int(request.form.get('hitcounts', [0])[0]) != 0
@@ -535,6 +546,7 @@ def do_info(pagename, request):
     else:
         history(page, pagename, request)
         
+    request.write('</div>\n') # end content div
     wikiutil.send_footer(request, pagename, showpage=1)
 
 
@@ -742,14 +754,20 @@ def do_userform(pagename, request):
 
 def do_bookmark(pagename, request):
     if request.form.has_key('time'):
-        try:
-            tm = int(request.form["time"][0])
-        except StandardError:
-            tm = time.time()
+        if request.form['time']=='del':
+            tm=None
+        else:
+            try:
+                tm = int(request.form["time"][0])
+            except StandardError:
+                tm = time.time()
     else:
         tm = time.time()
 
-    request.user.setBookmark(tm)
+    if tm is None:
+        request.user.delBookmark()
+    else:
+        request.user.setBookmark(tm)
     Page(pagename).send_page(request)
 
 

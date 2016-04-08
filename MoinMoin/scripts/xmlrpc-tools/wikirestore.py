@@ -1,4 +1,4 @@
-#!/usr/bin/python2.2
+#!/usr/bin/env python
 """
 This script reads a wikibackup.pickle file and puts
 all Pages contained there into a wiki via xmlrpc.

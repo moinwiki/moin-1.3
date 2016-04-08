@@ -196,7 +196,7 @@ class RequestBase:
     def reset_output(self):
         """ restore default output method
             destroy output stack
-            (usefull for error messages)
+            (useful for error messages)
         """
         if self.writestack:
             self.write = self.writestack[0]
@@ -908,10 +908,9 @@ class RequestStandAlone(RequestBase):
     def setup_args(self):
         self.env['REQUEST_METHOD'] = self.request_method
         self.env['QUERY_STRING'] = self.query_string
-        #if self.headers.typeheader is None:
-        #    self.env['CONTENT_TYPE'] = self.headers.type
-        #else:
-        #    self.env['CONTENT_TYPE'] = self.headers.typeheader
+	ct = self.headers.getheader('content-type')
+	if ct:
+	    self.env['CONTENT_TYPE'] = ct
         cl = self.headers.getheader('content-length')
         if cl:
             self.env['CONTENT_LENGTH'] = cl
@@ -930,6 +929,15 @@ class RequestStandAlone(RequestBase):
         else:
             return self.rfile.read(n)
 
+    def readline (self):
+	L = ""
+	while 1:
+	    c = self.read(1)
+	    L += c
+	    if c == '\n':
+		break
+	return L
+	    
     def write(self, *data):
         """ Write to output stream.
         """

@@ -300,8 +300,6 @@ red=edit''':
 '''PromijeniTekst''',
 '''FindPage''':
 '''PronaðiStranicu''',
-'''SiteNavigation''':
-'''RasporedStranica''',
 '''Deletions are marked like this.''':
 '''Obrisani elementi su oznaèeni ovako.''',
 '''Additions are marked like this.''':
@@ -316,6 +314,8 @@ red=edit''':
 '''IndeksNaslova''',
 '''WordIndex''':
 '''IndeksRijeèi''',
+'''SiteNavigation''':
+'''RasporedStranica''',
 '''HelpContents''':
 '''Pomoæ''',
 '''HelpOnFormatting''':

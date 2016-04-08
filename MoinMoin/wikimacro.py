@@ -220,10 +220,10 @@ class Macro:
         pages = filter(self.request.user.may.read, pages)
         if not allpages:
             pages = [p for p in pages if not wikiutil.isSystemPage(self.request, p)]
-        pages.sort()
+        pages.sort(lambda x, y: cmp(str.upper(x), str.upper(y)))
         current_letter = None
         for name in pages:
-            letter = name[0]
+            letter = name[0].upper()
             # XXX UNICODE - fix here, too?
             if wikiutil.isUnicodeName(letter):
                 try:
@@ -456,10 +456,6 @@ class Macro:
     def _macro_GetVal(self, args):
         page,key = args.split(',')
         d = self.request.dicts.dict(page)
-        if d:
-            try:
-                result = d[key]
-            except KeyError:
-                result = ''
+        result = d.get(key,'')
         return self.formatter.text(result)
 

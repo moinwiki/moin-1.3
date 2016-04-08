@@ -72,7 +72,11 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         self.doRequest()
 
     def do_GET(self):
-        dummy, extension = os.path.splitext(self.path)
+        path = self.path
+        if '?' in path:
+            index = path.find('?')
+            path = path[:index]
+        dummy, extension = os.path.splitext(path)
         # XXX FIXME it might be a bit too simple to just use the extension to decide if
         # we should call the static server or get a wiki page. As long as wiki page URLs
         # translate ".png" -> "_2Epng" (if anybody makes such a strange page), this is no

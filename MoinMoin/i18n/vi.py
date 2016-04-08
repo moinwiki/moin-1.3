@@ -741,8 +741,6 @@ red=edit''':
 '''Trang này không thể được thay đổi''',
 '''FindPage''':
 '''Tìm trang''',
-'''SiteNavigation''':
-'''SiteNavigation''',
 '''or search titles %(titlesearch)s, full text %(textsearch)s or''':
 '''hoặc tìm theo đầu đề %(titlesearch)s, tìm nội dung %(textsearch)s hoặc''',
 '''Or try one of these actions:''':
@@ -767,6 +765,8 @@ red=edit''':
 '''Tựa chỉ mục''',
 '''WordIndex''':
 '''Từ chỉ mục''',
+'''SiteNavigation''':
+'''SiteNavigation''',
 '''HelpContents''':
 '''Trang chỉ dẫn''',
 '''HelpOnFormatting''':

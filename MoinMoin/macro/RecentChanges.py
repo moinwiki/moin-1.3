@@ -239,7 +239,13 @@ def execute(macro, args, **kw):
         d['rc_curr_bookmark'] = _('(no bookmark set)')
         if bookmark:
             d['rc_curr_bookmark'] = _('(currently set to %s)') % (
-                request.user.getFormattedDateTime(bookmark),)
+                request.user.getFormattedDateTime(bookmark),) + ' ' + wikiutil.link_tag(
+                    request,
+                    wikiutil.quoteWikiname(macro.formatter.page.page_name)
+                    + "?action=bookmark&time=del",
+                    "[%s]" % _("Delete Bookmark"),
+                    formatter=macro.formatter,
+                    attrs="onClick='return confirm(\"%s\");'" % (_('Really delete bookmark?'),))
 
         d['rc_update_bookmark'] = wikiutil.link_tag(
             request,

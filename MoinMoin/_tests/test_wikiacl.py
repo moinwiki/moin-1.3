@@ -22,19 +22,14 @@ class parsingTestCase(unittest.TestCase):
         )
 
         nsave=_tests.request.user.name
-        _tests.request.user.name='JoeDoe'
-        self.failIf(acl.may(_tests.request, 'admin'))
-        _tests.request.user.name='Admin1'
-        self.failUnless(acl.may(_tests.request, 'write'))
-        _tests.request.user.name='Admin2'
-        self.failUnless(acl.may(_tests.request, 'admin'))
-        _tests.request.user.name='BelongsToAll'
-        self.failUnless(acl.may(_tests.request, 'read'))
-        _tests.request.user.name='BelongsToAll'
-        self.failIf(acl.may(_tests.request, 'write'))
+        _tests.request.user.name='SomeBody'
+        self.failIf(acl.may(_tests.request, 'JoeDoe', 'admin'))
+        self.failUnless(acl.may(_tests.request, 'Admin1', 'write'))
+        self.failUnless(acl.may(_tests.request, 'Admin2', 'admin'))
+        self.failUnless(acl.may(_tests.request, 'BelongsToAll', 'read'))
+        self.failIf(acl.may(_tests.request, 'BelongsToAll', 'write'))
         
-        _tests.request.user.name='BadBadGuy'
         for right in config.acl_rights_valid:
-            self.failIf(acl.may(_tests.request, right))
+            self.failIf(acl.may(_tests.request, 'BadBadGuy', right))
         _tests.request.user.name=nsave
 

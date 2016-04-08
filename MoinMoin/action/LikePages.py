@@ -41,8 +41,10 @@ def execute(pagename, request):
     request.http_headers()
     wikiutil.send_title(request, _('Multiple matches for "%s...%s"') % (start, end),
         pagename=pagename)
-
+        
+    request.write('<div id="content">\n') # start content div
     showMatches(pagename, request, start, end, matches)
+    request.write('</div>\n') # end content div
 
     wikiutil.send_footer(request, pagename)
 
@@ -50,7 +52,7 @@ def execute(pagename, request):
 def findMatches(pagename, request,
         s_re=re.compile('([%s][%s]+)' % (config.upperletters, config.lowerletters)),
         e_re=re.compile('([%s][%s]+)$' % (config.upperletters, config.lowerletters))):
-    from MoinMoin.support import difflib
+    import difflib
     _ = request.getText
 
     # get page lists

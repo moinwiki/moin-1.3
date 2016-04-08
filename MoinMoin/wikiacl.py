@@ -7,7 +7,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-from MoinMoin import config
+from MoinMoin import config, user
 import re
 
 GROUPRE = re.compile(config.page_group_regex)
@@ -152,7 +152,7 @@ class AccessControlList:
                             rightsdict[right] = (right in rights)
                         self.acl.append((entry, rightsdict))
 
-    def may(self, request, dowhat):
+    def may(self, request, name, dowhat):
         """May <name> <dowhat>?
            Returns boolean answer.
         """
@@ -164,12 +164,11 @@ class AccessControlList:
             return 1
 
         is_group_member = request.dicts.has_member
-        name = request.user.name.replace(' ', '')
         allowed = None
         for entry, rightsdict in self.acl:
             if entry in self.special_users:
                 handler = getattr(self, "_special_"+entry, None)
-                allowed = handler(request, dowhat, rightsdict)
+                allowed = handler(request, name, dowhat, rightsdict)
             elif self._is_group.get(entry) and is_group_member(entry, name):
                 allowed = rightsdict.get(dowhat)
             elif entry == name:
@@ -182,16 +181,24 @@ class AccessControlList:
         """print the acl strings we were fed with"""
         return ''.join(["%s%s%s" % (b,l,e) for l in self.acl_lines])
 
-    def _special_All(self, request, dowhat, rightsdict):
+    def _special_All(self, request, name, dowhat, rightsdict):
         return rightsdict.get(dowhat)
 
-    def _special_Known(self, request, dowhat, rightsdict):
-        if request.user.valid:
+    def _special_Known(self, request, name, dowhat, rightsdict):
+        """ check if user <name> is known to us,
+            that means that there is a valid user account present.
+            works for subscription emails.
+        """
+        if user.getUserId(name): # is a user with this name known?
             return rightsdict.get(dowhat)
         return None
 
-    def _special_Trusted(self, request, dowhat, rightsdict):
-        if request.user.trusted:
+    def _special_Trusted(self, request, name, dowhat, rightsdict):
+        """ check if user <name> is known AND even has logged in using a password.
+            does not work for subsription emails that should be sent to <user>,
+            as he is not logged in in that case.
+        """
+        if request.user.trusted and name == request.user.name:
             return rightsdict.get(dowhat)
         return None
 

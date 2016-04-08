@@ -98,13 +98,8 @@ def rangelist(numbers):
 def W3CDate(tm=None):
     """ Return time string according to http://www.w3.org/TR/NOTE-datetime
     """
-    if not tm: tm = time.time()
-    return time.strftime("%Y-%m-%dT%H:%M:%S", tm) + "%s%02d:%02d" % (
-        "+-"[time.timezone > 0], # timezone is positive in the US, negative in most of europe!
-        abs(time.timezone) / 3600,
-        abs(time.timezone) / 60 % 60
-    )
-
+    if not tm: tm = time.gmtime()
+    return time.strftime("%Y-%m-%dT%H:%M:%S", tm) + "Z"
 
 def dumpFormData(form):
     """ Dump the form data for debugging purposes

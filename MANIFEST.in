@@ -24,6 +24,8 @@ recursive-include   wiki/htdocs/starshine/css *.css
 recursive-include   wiki/htdocs/starshine/img *.png
 recursive-include   wiki/htdocs/viewonly/css *.css
 #recursive-include   wiki/htdocs/viewonly/img *.png - nothing there yet!
+recursive-include   wiki/htdocs/rightsidebar/css *.css
+recursive-include   wiki/htdocs/rightsidebar/img *.png
 recursive-include   wiki/htdocs/applets *.jar
 
 # contributions

@@ -40,11 +40,13 @@ def getUserId(searchName):
     @return: the corresponding user ID or None
     """
     global _name2id
+    if not searchName:
+        return None
     if not _name2id:
         userdictpickle = os.path.join(config.user_dir, "userdict.pickle")
         try:
             _name2id = pickle.load(open(userdictpickle))
-        except IOError:
+        except (UnpicklingError,IOError,EOFError,ValueError):
             _name2id = {}
     id = _name2id.get(searchName, None)
     if id is None:
@@ -464,6 +466,22 @@ class User:
                 return None
         return None
 
+
+    def delBookmark(self):
+        """
+        Removes bookmark timestamp.
+
+        @rtype: int
+        @return: 0 on success, 1 on failure
+        """
+        if self.valid:
+            if os.path.exists(self.__filename() + ".bookmark"):
+                try:
+                    os.unlink(self.__filename() + ".bookmark")
+                except OSError:
+                    return 1
+            return 0
+        return 1
 
     def getQuickLinks(self):
         """

@@ -296,8 +296,6 @@ rood=wijzigen''',
 '''WijzigTekst''',
 '''FindPage''':
 '''ZoekPagina''',
-'''SiteNavigation''':
-'''SiteNavigatie''',
 '''Deletions are marked like this.''':
 '''Verwijderingen worden zoals deze aangegeven.''',
 '''Additions are marked like this.''':
@@ -314,6 +312,8 @@ rood=wijzigen''',
 '''TitelIndex''',
 '''WordIndex''':
 '''WoordIndex''',
+'''SiteNavigation''':
+'''SiteNavigatie''',
 '''HelpContents''':
 '''HelpInhoud''',
 '''HelpOnFormatting''':

@@ -56,13 +56,13 @@ def execute(pagename, request):
 
     else:
         # send renamepage form
-        wikiname = wikiutil.quoteWikiname(pagename)
+        url = page.url(request)
         ticket = _createTicket()
         button = _('Rename')
         newname_label = _("New name")
         comment_label = _("Optional reason for the renaming")
         msg = """
-<form method="GET" action="%(wikiname)s">
+<form method="GET" action="%(url)s">
 <input type="hidden" name="action" value="%(actname)s">
 <input type="hidden" name="ticket" value="%(ticket)s">
 %(newname_label)s <input type="text" name="newpagename" size="20" value="%(pagename)s">

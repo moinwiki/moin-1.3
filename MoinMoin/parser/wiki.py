@@ -510,16 +510,20 @@ class Parser:
         # Close open paragraphs and list items
         if self._indent_level() != new_level:
             self._close_item(close)
-
+        else:
+            if not self.line_was_empty:                                                                                                       
+                self.inhibit_p = 1                                                                                                            
+    
         # Close lists while char-wise indent is greater than the current one
         while self._indent_level() > new_level:
-            close.append(" "*4*self._indent_level())
+            indentstr = " "*4*self._indent_level()
             if self.list_types[-1] == 'ol':
-                close.append(self.formatter.number_list(0))
+                tag = self.formatter.number_list(0)
             elif self.list_types[-1] == 'dl':
-                close.append(self.formatter.definition_list(0))
+                tag = self.formatter.definition_list(0)
             else:
-                close.append(self.formatter.bullet_list(0))
+                tag = self.formatter.bullet_list(0)
+            close.append("\n%s%s\n" % (indentstr, tag))
 
             del(self.list_indents[-1])
             del(self.list_types[-1])
@@ -554,13 +558,15 @@ class Parser:
             self.list_indents.append(new_level)
             self.list_types.append(list_type)
             
-            open.append(" "*4*new_level)
+            indentstr = " "*4*new_level
             if list_type == 'ol':
-                open.append(self.formatter.number_list(1, numtype, numstart))
+                tag = self.formatter.number_list(1, numtype, numstart)
             elif list_type == 'dl':
-                open.append(self.formatter.definition_list(1))
+                tag = self.formatter.definition_list(1)
             else:
-                open.append(self.formatter.bullet_list(1))
+                tag = self.formatter.bullet_list(1)
+            open.append("\n%s%s\n" % (indentstr, tag))
+            
             self.first_list_item = 1
             self.inhibit_p = 1
             
@@ -1015,7 +1021,8 @@ class Parser:
                     attrs, attrerr = self._getTableAttrs(line[indlen+2:])
                     self.request.write(self.formatter.table(1, attrs) + attrerr)
                     self.in_table = self.lineno
-                elif self.in_table and not(line[indlen:indlen+2] == "||" and line[-2:] == "||"):
+                elif self.in_table and not(line[:2]=="##" or # intra-table comments should not break a table 
+                    line[indlen:indlen+2] == "||" and line[-2:] == "||"):
                     self.request.write(self.formatter.table(0))
                     self.in_table = 0
 

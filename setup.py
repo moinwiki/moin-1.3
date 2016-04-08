@@ -186,6 +186,8 @@ only requiring a Python installation.
         ('share/moin/htdocs/starshine/css', glob.glob('wiki/htdocs/starshine/css/*.css')),
         ('share/moin/htdocs/starshine/img', glob.glob('wiki/htdocs/starshine/img/*.png')),
         ('share/moin/htdocs/viewonly/css',  glob.glob('wiki/htdocs/viewonly/css/*.css')),
+        ('share/moin/htdocs/rightsidebar/css', glob.glob('wiki/htdocs/rightsidebar/css/*.css')),
+        ('share/moin/htdocs/rightsidebar/img', glob.glob('wiki/htdocs/rightsidebar/img/*.png')),
         # viewonly has no own img/ yet
     ],
 }

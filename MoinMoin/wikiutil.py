@@ -7,8 +7,7 @@
 """
 
 # Imports
-import os, re, urllib
-from MoinMoin.support import difflib
+import os, re, urllib, difflib
 from MoinMoin import config, util, version
 from MoinMoin.util import filesys, pysupport
 
@@ -823,13 +822,15 @@ def pagediff(page1, page2, **kw):
     try:
         fd = open(page1)
         lines1 = fd.readlines()
-    finally:
         fd.close()
+    except IOError: # Page was deleted?
+        lines1 = None
     try:
         fd = open(page2)
         lines2 = fd.readlines()
-    finally:
         fd.close()
+    except IOError: # Page was deleted?
+        lines2 = None
 
     if lines1 == None or lines2 == None:
         return -1, page1, page2, []
@@ -883,10 +884,21 @@ def send_title(request, text, **keywords):
 
     # Print the HTML <head> element
     user_head = config.html_head
+    
+    # search engine precautions / optimization:
+    # if it is an action or edit/search, send query headers (noindex,nofollow):
     if request.query_string or request.request_method == 'POST':
-        user_head = user_head + config.html_head_queries
+        user_head += '''<meta name="robots" content="noindex,nofollow">\n'''
+    # if it is a special page, index it and follow the links:
+    elif pagename in ['FrontPage', 'TitleIndex',]:
+        user_head += '''<meta name="robots" content="index,follow">\n'''
+    # if it is a normal page, index it, but do not follow the links, because
+    # there are a lot of illegal links (like actions) or duplicates:
+    else:
+        user_head += '''<meta name="robots" content="index,nofollow">\n'''
+        
     if keywords.has_key('pi_refresh') and keywords['pi_refresh']:
-        user_head = user_head + '<meta http-equiv="refresh" content="%(delay)d;URL=%(url)s">' % keywords['pi_refresh']
+        user_head += '<meta http-equiv="refresh" content="%(delay)d;URL=%(url)s">' % keywords['pi_refresh']
     request.write("""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -1010,67 +1022,19 @@ def send_title(request, text, **keywords):
         page_home_page = hp.page_name
     else:
         page_home_page = None
-        
-    # prepare dict for theme code:
-    d = {
-        'theme': request.theme.name,
-        'script_name': request.getScriptname(),
-        'title_text': text,
-        'title_link': keywords.get('link', ''),
-        'logo_string': config.logo_string,
-        'site_name': config.sitename,
-        'page_name': pagename or '',
-        'page_find_page': page_find_page,
-        'page_front_page': page_front_page,
-        'page_home_page': page_home_page,
-        'page_help_contents': page_help_contents,
-        'page_help_formatting': page_help_formatting,
-        'page_parent_page': page_parent_page,
-        'page_title_index': page_title_index,
-        'page_word_index': page_word_index,
-        'page_user_prefs': page_user_prefs,
-        'user_name': request.user.name,
-        'user_valid': request.user.valid,
-        'user_prefs': (page_user_prefs, request.user.name)[request.user.valid],
-        'navibar': navibar,
-        'msg': keywords.get('msg', ''),
-        'trail': keywords.get('trail', None),
-    }
-    # add quoted versions of pagenames
-    newdict = {}
-    for key in d:
-        if key.startswith('page_'):
-            if d[key]:
-                newdict['q_'+key] = quoteWikiname(d[key])
-            else:
-                newdict['q_'+key] = None
-    d.update(newdict)
 
-    # now call the theming code to do the rendering
-    request.write(request.theme.header(d))
-    
-    # emit it
-    request.flush()
-
-
-def send_footer(request, pagename, mod_string=None, **keywords):
-    """
-    Output the page footer.
-
-    @param request: the request object
-    @param pagename: WikiName of the page
-    @param mod_string: "last modified" date
-    @keyword editable: true, when page is editable (default: true)
-    @keyword showpage: true, when link back to page is wanted (default: false)
-    @keyword print_mode: true, when page is displayed in Print mode
-    """
-    from MoinMoin import i18n
-    from MoinMoin.Page import Page
-
-    _ = request.getText
-    page = Page(pagename)
-
-    page_find_page = getSysPage(request, 'FindPage').page_name
+    # list user actions that start with an uppercase letter
+    available_actions = []
+    if keywords.get('showactions', 1):
+        from MoinMoin.wikiaction import getPlugins
+        from MoinMoin.action import extension_actions
+        dummy, actions = getPlugins()
+        actions.extend(extension_actions)
+        actions.sort()
+         
+        for action in actions:
+            if action[0] != action[0].upper(): continue
+            available_actions.append(action)
 
     form = keywords.get('form', None)
     icon = request.theme.get_icon('searchbutton')
@@ -1089,34 +1053,37 @@ def send_footer(request, pagename, mod_string=None, **keywords):
         'type': 'full',
         'value': escape(form and form.get('text_full', [''])[0] or '', 1),
     }
-
-    # list user actions that start with an uppercase letter
-    available_actions = []
-    if keywords.get('showactions', 1):
-        from MoinMoin.wikiaction import getPlugins
-        from MoinMoin.action import extension_actions
-        dummy, actions = getPlugins()
-        actions.extend(extension_actions)
-        actions.sort()
-        
-        for action in actions:
-            if action[0] != action[0].upper(): continue
-            available_actions.append(action)
-
+    page = Page(pagename)    
     # prepare dict for theme code:
     d = {
         'theme': request.theme.name,
         'script_name': request.getScriptname(),
+        'title_text': text,
+        'title_link': keywords.get('link', ''),
+        'logo_string': config.logo_string,
         'site_name': config.sitename,
-        'page_name': pagename,
+        'page': page,             # necessary???
+        'pagesize': pagename and page.size() or 0,
+        'last_edit_info': pagename and page._last_modified(request) or '',
+        'page_name': pagename or '',
         'page_find_page': page_find_page,
-        'pagesize': page.size(),
-        'last_edit_info': mod_string or '',
+        'page_front_page': page_front_page,
+        'page_home_page': page_home_page,
+        'page_help_contents': page_help_contents,
+        'page_help_formatting': page_help_formatting,
+        'page_parent_page': page_parent_page,
+        'page_title_index': page_title_index,
+        'page_word_index': page_word_index,
+        'page_user_prefs': page_user_prefs,
+        'user_name': request.user.name,
+        'user_valid': request.user.valid,
+        'user_prefs': (page_user_prefs, request.user.name)[request.user.valid],
+        'msg': keywords.get('msg', ''),
+        'trail': keywords.get('trail', None),
+        'navibar': navibar,
+        'available_actions': available_actions,
         'titlesearch': titlesearch,
         'textsearch': textsearch,
-        'page': page,
-        'footer_fragments': request._footer_fragments,
-        'available_actions': available_actions,
     }
     # add quoted versions of pagenames
     newdict = {}
@@ -1127,6 +1094,30 @@ def send_footer(request, pagename, mod_string=None, **keywords):
             else:
                 newdict['q_'+key] = None
     d.update(newdict)
+
+    request.themedict = d # remember it for footer
+
+    # now call the theming code to do the rendering
+    request.write(request.theme.header(d))
+    
+    # emit it
+    request.flush()
+
+
+def send_footer(request, pagename, **keywords):
+    """
+    Output the page footer.
+
+    @param request: the request object
+    @param pagename: WikiName of the page
+    @keyword editable: true, when page is editable (default: true)
+    @keyword showpage: true, when link back to page is wanted (default: false)
+    @keyword print_mode: true, when page is displayed in Print mode
+    """
+    d = request.themedict # prepared in send_header function
+    d.update({
+        'footer_fragments': request._footer_fragments,
+    })
 
     request.write('\n\n') # the content does not always end with a newline
     request.write(request.theme.footer(d, **keywords))

@@ -623,8 +623,7 @@ class Page:
         if not content_only:
             # send the page footer
             if self.default_formatter and not print_mode:
-                wikiutil.send_footer(request, self.page_name, self._last_modified(request),
-                    print_mode=print_mode)
+                wikiutil.send_footer(request, self.page_name, print_mode=print_mode)
 
             request.write(doc_trailer)
         

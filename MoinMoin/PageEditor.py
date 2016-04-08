@@ -198,7 +198,9 @@ class PageEditor(Page):
                      'lock_secs': lock_secs,
                     }) or ''
         )
-
+        
+        self.request.write('<div id="content">\n') # start content div
+        
         # get request parameters
         try:
             text_rows = int(form['rows'][0])
@@ -400,6 +402,8 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
             self.request.write('<div id="preview">')
             self.send_page(self.request, content_only=1, hilite_re=badwords_re)
             self.request.write('</div>')
+
+        self.request.write('</div>\n') # end content div
 
         self.request.theme.emit_custom_html(config.page_footer1)
         self.request.theme.emit_custom_html(config.page_footer2)
@@ -657,6 +661,7 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
         @rtype: int
         @return: mtime of new page
         """
+        from MoinMoin.util import filesys
         is_deprecated = text[:11].lower() == "#deprecated"
 
         # save to tmpfile
@@ -672,23 +677,15 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
             os.chmod(config.backup_dir, 0777 & config.umask)
 
         if os.path.isfile(page_filename) and not is_deprecated and self.do_revision_backup:
-            os.rename(page_filename, os.path.join(config.backup_dir,
+            filesys.rename(page_filename, os.path.join(config.backup_dir,
                 wikiutil.quoteFilename(self.page_name) + '.' + str(os.path.getmtime(page_filename))))
-        else:
-            if os.name == 'nt':
-                # Bad Bill!  POSIX rename ought to replace. :-(
-                try:
-                    os.remove(page_filename)
-                except OSError, er:
-                    import errno
-                    if er.errno <> errno.ENOENT: raise er
 
         # set in-memory content
         self.set_raw_body(text)
 
         # replace old page by tmpfile
         os.chmod(tmp_filename, 0666 & config.umask)
-        os.rename(tmp_filename, page_filename)
+        filesys.rename(tmp_filename, page_filename)
         return os.path.getmtime(page_filename)
 
 
@@ -747,7 +744,7 @@ delete the changes of the other person, which is excessively rude!</em></p>
         elif config.acl_enabled:
             from wikiacl import parseACL
             acl = self.getACL()
-            if not acl.may(self.request, "admin") \
+            if not acl.may(self.request, self.request.user.name, "admin") \
                and parseACL(newtext) != acl:
                 msg = _("You can't change ACLs on this page since you have no admin rights on it!")
                 raise self.NoAdmin, msg

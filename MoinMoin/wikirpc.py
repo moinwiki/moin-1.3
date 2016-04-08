@@ -26,7 +26,7 @@ import sys, urllib, time, xmlrpclib
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
 from MoinMoin.PageEditor import PageEditor
-from MoinMoin.macro import RecentChanges
+from MoinMoin.logfile import editlog
 
 _debug = 0
 
@@ -141,11 +141,15 @@ class XmlRpcBase:
         
         return_items = []
         
-        log = RecentChanges.LogIterator(self.request)
-        while log.getNextChange():
+        edit_log = editlog.EditLog()
+        for log in edit_log.reverse():
+            # get last-modified UTC (DateTime) from log
+            gmtuple = tuple(time.gmtime(log.ed_time))
+            lastModified_date = xmlrpclib.DateTime(gmtuple)
+
             # skip if older than "date"
-            if xmlrpclib.DateTime(log.ed_time) < date:
-                continue
+            if lastModified_date < date:
+                break
             
             # skip if knowledge not permitted
             if not self.request.user.may.read(log.pagename):
@@ -153,10 +157,6 @@ class XmlRpcBase:
             
             # get page name (str) from log
             pagename_str = self._outstr(log.pagename)
-
-            # get last-modified UTC (DateTime) from log
-            gmtuple = tuple(time.gmtime(log.ed_time))
-            lastModified_date = xmlrpclib.DateTime(gmtuple)
 
             # get user name (str) from log
             author_str = log.hostname

@@ -7,17 +7,15 @@
 
     @license: GNU GPL, see COPYING for details.
 """
+import StringIO, re, os
 from MoinMoin import wikixml, config, wikiutil, util
 from MoinMoin.logfile import editlog
 from MoinMoin.Page import Page
-import cStringIO, re
 from MoinMoin.wikixml.util import RssGenerator
 
 def execute(pagename, request):
     """ Send recent changes as an RSS document
     """
-    import os 
-
     if not wikixml.ok:
         #XXXX send error message
         pass
@@ -45,15 +43,17 @@ def execute(pagename, request):
         ddiffs = 0
 
     # prepare output
-    out = cStringIO.StringIO()
+    out = StringIO.StringIO()
     handler = RssGenerator(out)
 
     # get data
     interwiki = request.getBaseURL()
-    if interwiki[-1] != "/": interwiki = interwiki + "/"
+    if interwiki[-1] != "/":
+        interwiki += "/"
 
     logo = re.search(r'src="([^"]*)"', config.logo_string)
-    if logo: logo = request.getQualifiedURL(logo.group(1))
+    if logo:
+        logo = request.getQualifiedURL(logo.group(1))
     
     log = editlog.EditLog()
     logdata = []
@@ -66,11 +66,12 @@ def execute(pagename, request):
             (line.pagename in pages)): continue
         #if log.dayChanged() and log.daycount > _MAX_DAYS: break
         line.editor = line.getEditorData(request)[1]
-        line.time = request.user.getTime(line.ed_time)
+        line.time = util.datetime.tmtuple(line.ed_time) # UTC
         logdata.append(line)
         pages[line.pagename] = None
-        counter = counter + 1
-        if counter >= max_items: break
+        counter += 1
+        if counter >= max_items:
+            break
     del log
             
     # start SAX stream
@@ -92,14 +93,14 @@ def execute(pagename, request):
     # emit channel description
     handler.startNode('channel', {
         (handler.xmlns['rdf'], 'about'): request.getBaseURL(),
-        })
+    })
     handler.simpleNode('title', config.sitename)
     handler.simpleNode('link', interwiki + wikiutil.quoteWikiname(pagename))
     handler.simpleNode('description', 'RecentChanges at %s' % config.sitename)
     if logo:
         handler.simpleNode('image', None, {
             (handler.xmlns['rdf'], 'resource'): logo,
-            })
+        })
     if config.interwikiname:
         handler.simpleNode(('wiki', 'interwiki'), config.interwikiname)
 
@@ -109,8 +110,8 @@ def execute(pagename, request):
         link = "%s%s#%04d%02d%02d%02d%02d%02d" % ((interwiki,
                 wikiutil.quoteWikiname(item.pagename),) + item.time[:6])
         handler.simpleNode(('rdf', 'li'), None, attr={
-            (handler.xmlns['rdf'], 'resource'): unicode(link, config.charset),
-            })
+            (handler.xmlns['rdf'], 'resource'): link,
+        })
     handler.endNode(('rdf', 'Seq'))
     handler.endNode('items')
     handler.endNode('channel')
@@ -119,7 +120,7 @@ def execute(pagename, request):
     if logo:
         handler.startNode('image', attr={
             (handler.xmlns['rdf'], 'about'): logo,
-            })
+        })
         handler.simpleNode('title', config.sitename)
         handler.simpleNode('link', interwiki)
         handler.simpleNode('url', logo)
@@ -132,7 +133,7 @@ def execute(pagename, request):
         rdflink = "%s#%04d%02d%02d%02d%02d%02d" % ((link,) + item.time[:6])
         handler.startNode('item', attr={
             (handler.xmlns['rdf'], 'about'): rdflink,
-            })
+        })
 
         # general attributes
         handler.simpleNode('title', item.pagename)
@@ -172,16 +173,19 @@ def execute(pagename, request):
         # contributor
         edattr = {}
         if config.show_hosts:
-            edattr[(handler.xmlns['wiki'], 'host')] = unicode(item.hostname, config.charset)
+            edattr[(handler.xmlns['wiki'], 'host')] = item.hostname
         if isinstance(item.editor, Page):
             edname = item.editor.page_name
-            edattr[(None, 'link')] = interwiki + wikiutil.quoteWikiname(edname)
+            ##edattr[(None, 'link')] = interwiki + wikiutil.quoteWikiname(edname)
         else:
             edname = item.editor
             ##edattr[(None, 'link')] = link + "?action=info"
-            # XXX having commented that out leaves edattr=={} when show_hosts=0
+        
+        # this edattr stuff, esp. None as first tuple element breaks things (tracebacks)
+        # if you know how to do this right, please send us a patch
+        
         handler.startNode(('dc', 'contributor'))
-        handler.startNode(('rdf', 'Description'), attr=edattr) # XXX is it OK to have {} here?
+        handler.startNode(('rdf', 'Description'), attr=edattr)
         handler.simpleNode(('rdf', 'value'), edname)
         handler.endNode(('rdf', 'Description'))
         handler.endNode(('dc', 'contributor'))
@@ -200,7 +204,8 @@ def execute(pagename, request):
     handler.endDocument()
 
     # send the generated XML document
-    request.http_headers(["Content-Type: " + 'text/xml'] + request.nocache)
+    request.http_headers(["Content-Type: text/xml"] + request.nocache)
     request.write(out.getvalue())
     request.finish()
     request.no_closing_html_code = 1
+

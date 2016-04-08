@@ -298,8 +298,6 @@ röd=ändra''',
 '''RedigeraText''',
 '''FindPage''':
 '''SökSida''',
-'''SiteNavigation''':
-'''PlatsNavigering''',
 '''Deletions are marked like this.''':
 '''Raderingar markeras som den här.''',
 '''Additions are marked like this.''':
@@ -316,6 +314,8 @@ röd=ändra''',
 '''TitelRegister''',
 '''WordIndex''':
 '''OrdRegister''',
+'''SiteNavigation''':
+'''PlatsNavigering''',
 '''HelpContents''':
 '''HjälpInnehåll''',
 '''HelpOnFormatting''':
