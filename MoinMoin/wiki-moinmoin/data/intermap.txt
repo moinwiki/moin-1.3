@@ -1,7 +1,8 @@
 ISBN http://www.amazon.com/exec/obidos/ISBN=
+RFC http://www.ietf.org/rfc/rfc
 FreshMeat http://freshmeat.net/
 BrainBench http://www.brainbench.com/transcript.jsp?pid=
-EfnetCeeWiki http://rm-f.net/~jh/c-wiki/moin.cgi/
+EfnetCeeWiki http://wiki.rm-f.net/moin.cgi/
 Thinki http://www.thinkware.se/cgi-bin/thinki.cgi/
 
 Wiki http://c2.com/cgi/wiki?
@@ -20,10 +21,10 @@ MeatBall http://www.usemod.com/cgi-bin/mb.pl?
 MbTest http://www.usemod.com/cgi-bin/mbtest.pl?
 HammondWiki http://www.dairiki.org/HammondWiki/index.php3?
 Advogato http://www.advogato.org/
-MoinMoin http://www.encrypted.net/~jh/moinmoin/moin.cgi/
-EfnetPythonWiki http://www.encrypted.net/~jh/python-wiki/moin.cgi/
-EfnetCppWiki http://www.encrypted.net/~jh/cpp-wiki/moin.cgi/
-EfnetXmlWiki http://www.encrypted.net/~jh/xml-wiki/moin.cgi/
+MoinMoin http://purl.net/wiki/moin/
+EfnetPythonWiki http://purl.net/wiki/python/
+EfnetCppWiki http://purl.net/wiki/cpp/
+EfnetXmlWiki http://purl.net/wiki/xml/
 PolitizenWiki http://www.politizen.com/wiki.asp?
 DolphinWiki http://www.object-arts.com/wiki/html/Dolphin/
 LegoWiki http://www.object-arts.com/wiki/html/Lego-Robotics/
@@ -40,3 +41,12 @@ CreationMatters http://www.ourpla.net/cgi-bin/wiki.pl?
 CmWiki http://www.ourpla.net/cgi-bin/wiki.pl?
 BenefitsWiki http://www.benefitslink.com/cgi-bin/wiki.cgi?
 Why http://clublet.com/c/c/why?
+SourceForge http://sourceforge.net/
+MetaWiki http://sunir.org/apps/meta.pl?
+AcadWiki http://xarch.tu-graz.ac.at/autocad/wiki/
+CLiki http://www.telent.net/cliki/
+SenseisLibrary http://senseis.xmp.net/?
+JargonFile http://sunir.org/apps/meta.pl?wiki=JargonFile&redirect=
+WikiPedia http://www.wikipedia.com/wiki.cgi?
+SeattleWireless http://seattlewireless.net/?
+Tavi http://tavi.sourceforge.net/index.php?

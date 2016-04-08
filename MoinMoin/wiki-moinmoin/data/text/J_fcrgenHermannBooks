@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<?xml-stylesheet href="biblio.xsl" type="text/xml"?>
+
+<!--
+  <book id=":1999">
+    <author></author>
+    <title></title>
+    <publisher></publisher>
+    <year>1999</year>
+    <isbn>0-xxx-yyyyy-c</isbn>
+    <comment></comment>
+  </book>
+  <topic id=""></topic>
+-->
+
+<bibliography>
+  <topic id="cpp">C und C++</topic>
+  <topic id="cs">Informatik</topic>
+  <topic id="db">Datenbanken</topic>
+  <topic id="fun">Computerverwandte Themen</topic>
+  <topic id="management">Management</topic>
+  <topic id="misc">Verschiedenes</topic>
+  <topic id="networks">Networking &amp; WWW</topic>
+  <topic id="oo">Objekt-Orientierung</topic>
+  <topic id="patterns">Patterns</topic>
+  <topic id="prog">Programmierung</topic>
+  <topic id="publishing">Publishing</topic>
+  <topic id="unix">Unix</topic>
+  <topic id="win">Windows</topic>
+
+<!--### order of 2000-12-15 ##############################################-->
+  <book id="unicode-3" topic="misc">
+    <author>Unicode Consortium (Editor)</author>
+    <title>The Unicode Standard, Version 3.0 </title>
+    <publisher>Addison-Wesley</publisher>
+    <year>2000</year>
+    <isbn>0-201-61633-5</isbn>
+    <comment>Hardcover, 1072 pages, includes CD-ROM</comment>
+  </book>
+
+  <book id="POSA2:2000" topic="patterns">
+    <author>Douglas C. Schmidt (Editor), Michael Stal, Hans Rohnert, Frank Buschmann</author>
+    <title>Pattern-Oriented Software Architecture, Volume 2, Patterns for Concurrent and Networked Objects</title>
+    <publisher>John Wiley &amp; Sons</publisher>
+    <year>2000</year>
+    <isbn>0-471-60695-2</isbn>
+    <comment>Hardcover, 666 pages, Vol. 2</comment>
+  </book>
+
+  <book id="schneier:2000" topic="misc">
+    <author>Bruce Schneier</author>
+    <title>Secrets &amp; Lies: Digital Security in a Networked World</title>
+    <publisher>John Wiley &amp; Sons</publisher>
+    <year>2000</year>
+    <isbn>0-471-25311-1</isbn>
+    <comment>Hardcover, 412 pages</comment>
+  </book>
+
+  <book id="coplien:1998" topic="cpp">
+    <author>James O. Coplien</author>
+    <title>Multi-Paradigm Design for C++</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1999</year>
+    <isbn>0-201-82467-1</isbn>
+    <comment>Paperback, 280 pages</comment>
+  </book>
+
+  <book id="bentley:2000" topic="prog">
+    <author>Jon Louis Bentley</author>
+    <title>Programming Pearls</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>2000</year>
+    <isbn>0-201-65788-0</isbn>
+    <comment>2nd edition, Paperback, 256 pages</comment>
+  </book>
+
+  <book id="newham:1998" topic="unix">
+    <author>Cameron Newham, Bill Rosenblatt</author>
+    <title>Learning the Bash Shell</title>
+    <publisher>O'Reilly &amp; Associates</publisher>
+    <year>1998</year>
+    <isbn>1-56592-347-2</isbn>
+    <comment>Paperback, 318 pages, 2nd edition</comment>
+  </book>
+
+  <book id="robbins:1999" topic="unix">
+    <author>Arnold Robbins, Gigi Estabrook (Editor)</author>
+    <title>vi Editor Pocket Reference</title>
+    <publisher>O'Reilly &amp; Associates</publisher>
+    <year>1999</year>
+    <isbn>1-56592-497-5</isbn>
+    <comment>Paperback, 72 pages, 1st edition</comment>
+  </book>
+
+<!--### order of 2000-08-11 ##############################################-->
+  <book id="fowler:1999" topic="oo">
+    <title>Refactoring: Improving the Design of Existing Code</title>
+    <author>Martin Fowler, et al</author>
+    <comment>hardcover, 431 p.</comment>
+    <year>1999</year>
+    <publisher>Addison-Wesley</publisher>
+    <isbn>0-201-48567-2</isbn>
+  </book>
+
+  <book id="langer:2000" topic="cpp">
+    <author>Angelika Langer, Klaus Kreft</author>
+    <title>Standard C++ IOStreams and Locales: Advanced Programmer's Guide and Reference</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>2000</year>
+    <isbn>0-201-18395-1</isbn>
+    <comment>Hardcover, 672 pages</comment>
+  </book>
+
+  <book id="walsh:1999" topic="publishing">
+    <author>Norman Walsh, Leonard Muellner</author>
+    <title>DocBook: The Definitive Guide</title>
+    <publisher>O'Reilly</publisher>
+    <year>1999</year>
+    <isbn>1-56592-580-7</isbn>
+    <comment>1st edition, 652 pages</comment>
+  </book>
+
+  <book id="mcconnell:1999" topic="management">
+    <title>After the Gold Rush: Creating a True Profession of Software Engineering</title>
+    <author>Steve M. McConnell</author>
+    <comment>paperback, 182 p.</comment>
+    <year>1999</year>
+    <publisher>Microsoft Press</publisher>
+    <isbn>0-7356-0877-6</isbn>
+  </book>
+
+  <book id="beck:1999" topic="management">
+    <title>Extreme Programming Explained: Embrace Change</title>
+    <author>Kent Beck</author>
+    <comment>paperback, 224 p.</comment>
+    <year>1999</year>
+    <publisher>Addison-Wesley</publisher>
+    <isbn>0-201-61641-6</isbn>
+  </book>
+
+  <book id="plop-4" topic="patterns">
+    <author>Neil Harrison, Brian Foote, Hans Rohnert (eds.)</author>
+    <title>Pattern Languages of Program Design 4</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1999</year>
+    <isbn>0-201-43304-4</isbn>
+    <comment>paperback, 784 pages</comment>
+  </book>
+
+  <book id="lakos:1996" topic="cpp">
+    <author>John Lakos</author>
+    <title>Large-Scale C++ Software Design</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1996</year>
+    <isbn>0-201-63362-0</isbn>
+    <comment>846 p.</comment>
+  </book>
+
+  <book id="larman:1998" topic="oo">
+    <author>Craig Larman</author>
+    <title>Applying UML and Patterns</title>
+    <publisher>Prentice Hall</publisher>
+    <year>1998</year>
+    <isbn>0-13-748880-7</isbn>
+    <comment>Hardcover, 507 pages, 1st edition</comment>
+  </book>
+
+<!-- 2000-02-24 -->
+  <book id="kopka:1991" topic="publishing">
+    <author>Helmut Kopka</author>
+    <title>LaTeX - Erweiterungsmöglichkeiten</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1991</year>
+    <isbn>3-89319-356-1</isbn>
+    <comment>2., überarbeitete Auflage</comment>
+  </book>
+  <book id="kopka:1988" topic="publishing">
+    <author>Helmut Kopka</author>
+    <title>LaTeX - Eine Einführung</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1988</year>
+    <isbn>3-925118-97-7</isbn>
+    <comment>2., überarbeitete und erweiterte Auflage</comment>
+  </book>
+  <book id="schwarz:1988" topic="publishing">
+    <author>Norbert Schwarz</author>
+    <title>Einführung in TeX</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1988</year>
+    <isbn>3-925118-97-7</isbn>
+    <comment>2., überarbeitete Auflage</comment>
+  </book>
+  <book id="stumpp:1999" topic="management">
+    <author>Semmy Stumpp</author>
+    <title>Projektmanagement mit MS-Project</title>
+    <publisher>Markt &amp; Technik</publisher>
+    <year>1999</year>
+    <isbn>3-82725603-8</isbn>
+    <comment>gebundene Ausgabe, 523 S., mit CD-ROM</comment>
+  </book>
+  <book id="morris:1995" topic="networks">
+    <author>Mary E. S. Morris</author>
+    <title>HTML - WWW effektiv nutzen</title>
+    <publisher>Heise Verlag</publisher>
+    <year>1995</year>
+    <isbn>3-88229-061-7</isbn>
+    <comment>gebunden, 278 S., mit CD-ROM</comment>
+  </book>
+  <book id="hilf:1984-1" topic="misc">
+    <author>Werner Hilf, Anton Nausch</author>
+    <title>M-68000 Familie: Teil 1 - Grundlagen und Architektur</title>
+    <publisher>te-wi Verlag</publisher>
+    <year>1984</year>
+    <isbn>0-921803-16-0</isbn>
+    <comment></comment>
+  </book>
+  <book id="hilf:1984-2" topic="misc">
+    <author>Werner Hilf, Anton Nausch</author>
+    <title>M-68000 Familie: Teil 2 - Anwendung und 68000-Bausteine</title>
+    <publisher>te-wi Verlag</publisher>
+    <year>1984</year>
+    <isbn>0-921803-30-6</isbn>
+    <comment></comment>
+  </book>
+  <book id="brooks:1995" topic="management">
+    <author>Frederik P. Brooks, Jr.</author>
+    <title>The Mythical Man-Month: Essays on Software Engineering</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1995</year>
+    <isbn>0-201-83595-9</isbn>
+    <comment>anniversary edition</comment>
+  </book>
+  <book id="negroponte:1995" topic="fun">
+    <author>Nicholas Negroponte</author>
+    <title>being digital</title>
+    <publisher>Vintage</publisher>
+    <year>1995</year>
+    <isbn>0-679-76290-6</isbn>
+    <comment>255 pages</comment>
+  </book>
+  <book id="hou:1983" topic="publishing">
+    <author>H. S. Hou</author>
+    <title>Digital Document Processing</title>
+    <publisher>John Wiley &amp; Sons</publisher>
+    <year>1983</year>
+    <isbn>0-471-86247-9</isbn>
+    <comment>hardcover, 329 pages</comment>
+  </book>
+  <book id="macvicar:1992" topic="management">
+    <author>Duncan MacVicar, Darwin Throne</author>
+    <title>Managing High-Tech Start-Ups</title>
+    <publisher>Butterworth Heinemann</publisher>
+    <year>1992</year>
+    <isbn>0-7506-9247-2</isbn>
+    <comment>hardcover, 255 pages</comment>
+  </book>
+
+<!-- 2000-02-23 -->
+  <book id="meyers:1996" topic="cpp">
+    <author>Scott Meyers</author>
+    <title>More Effective C++ - 35 New Ways to Improve Your Programs and Designs</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1996</year>
+    <isbn>0-201-63371-X</isbn>
+    <comment>318 p.</comment>
+  </book>
+  <book id="knuth:1998" topic="cs">
+    <author>D.E. Knuth</author>
+    <title>The Art of Computer Programming, Vol. II - Seminumerical Algorithms</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1998</year>
+    <isbn>0-201-89684-2</isbn>
+    <comment>3rd edition</comment>
+  </book>
+  <book id="knuth:1998" topic="cs">
+    <author>D.E. Knuth</author>
+    <title>The Art of Computer Programming, Vol. III - Sorting and Searching</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1998</year>
+    <isbn>0-201-89685-0</isbn>
+    <comment>2nd edition</comment>
+  </book>
+  <book id="adams:1992" topic="fun">
+    <author>Scott Adams</author>
+    <title>The Dilbert Principle</title>
+    <publisher>HarperCollins</publisher>
+    <year>1996</year>
+    <isbn>0-88730-858-9</isbn>
+    <comment>A cubicle's eye view of bosses, meetings, management fads &amp; other workplace afflictions</comment>
+  </book>
+  <book id="tanenbaum:1996" topic="networks">
+    <author>Andrew S. Tanenbaum</author>
+    <title>Computer Networks</title>
+    <publisher>Prentice Hall</publisher>
+    <year>1996</year>
+    <isbn>0-13-349945-6</isbn>
+    <comment>3rd edition</comment>
+  </book>
+  <book id="stroustrup:1993" topic="cpp">
+    <author>Bjarne Stroustrup</author>
+    <title>The C++ Programming Language</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1993</year>
+    <isbn>0-201-53992-6</isbn>
+    <comment>2nd edition</comment>
+  </book>
+  <book id="stroustrup:1994" topic="cpp">
+    <author>Bjarne Stroustrup</author>
+    <title>The Design and Evolution of C++</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1994</year>
+    <isbn>0-201-54330-3</isbn>
+  </book>
+  <book id="stroustrup:1997" topic="cpp">
+    <author>Bjarne Stroustrup</author>
+    <title>The C++ Programming Language</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1997</year>
+    <isbn>0-201-88954-4</isbn>
+    <comment>3rd edition</comment>
+  </book>
+  <book id="bowman:1996" topic="db">
+    <author>Judith S. Bowman</author>
+    <title>The Practical SQL Handbook - Using Structured Query Language</title>
+    <publisher>Addison Wesley Longman</publisher>
+    <year>1996</year>
+    <isbn>0-201-44787-8</isbn>
+    <comment>3rd edition, 454 pages</comment>
+  </book>
+  <book id="kernighan:1988" topic="cpp">
+    <author>Brian W. Kernighan, Dennis M. Ritchie</author>
+    <title>The C Programming Language</title>
+    <publisher>Prentice Hall</publisher>
+    <year>1988</year>
+    <isbn>0-13-110362-8</isbn>
+    <comment>2nd edition</comment>
+  </book>
+  <book id="alexander:1977" topic="patterns">
+    <author>Christopher Alexander</author>
+    <title>A Pattern Language - Towns, Buildings,  Construction</title>
+    <publisher>Oxford University Press</publisher>
+    <year>1977</year>
+    <isbn>0-19-501919-9</isbn>
+  </book>
+  <book id="cockburn:1998" topic="management">
+    <author>Alistair Cockburn</author>
+    <title>Surviving Object-Oriented Projects: A Manager's Guide</title>
+    <publisher>Addison Wesley Longman</publisher>
+    <year>1998</year>
+    <isbn>0-201-49834-0</isbn>
+    <comment>250 pages</comment>
+  </book>
+  <book id="plop-1" topic="patterns">
+    <author>Coplien, Schmidt (Eds.)</author>
+    <title>Pattern Languages of Program Design</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1995</year>
+    <isbn>0-201-60734-4</isbn>
+  </book>
+  <book id="cormen:1990" topic="cs">
+    <author>Cormen, Leiserson, Rivest</author>
+    <title>Introduction to Algorithms</title>
+    <publisher>McGraw-Hill</publisher>
+    <year>1990</year>
+    <isbn>0-07-013143-0</isbn>
+  </book>
+  <book id="knuth:1997" topic="cs">
+    <author>D.E. Knuth</author>
+    <title>The Art of Computer Programming, Vol.  I - Fundamental Algorithms</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1997</year>
+    <isbn>0-201-89683-4</isbn>
+    <comment>3rd edition</comment>
+  </book>
+  <book id="shasha:1995" topic="fun">
+    <author>Dennis E. Shasha, Cathy A. Lazere</author>
+    <title>Out of their Minds - The Lives and  Discoveries of 15 Great Computer Scientists</title>
+    <publisher>Copernicus / Springer</publisher>
+    <year>1995</year>
+    <isbn>0-387-97992-1</isbn>
+  </book>
+  <book id="dyson:1997" topic="fun">
+    <author>Ester Dyson</author>
+    <title>Release 2.0: A design for living in  the digital age</title>
+    <publisher>Broadway Books</publisher>
+    <year>1997</year>
+    <isbn>0-7679-0011-1</isbn>
+  </book>
+  <book id="buschmann:1996" topic="patterns">
+    <author>F. Buschmann et al.</author>
+    <title>Pattern-Oriented Software Architecture - A System of Patterns</title>
+    <publisher>Wiley &amp; Sons</publisher>
+    <year>1996</year>
+    <isbn>0-471-95869-7</isbn>
+  </book>
+  <book id="foley:1996" topic="misc">
+    <author>Foley, van Dam, et al</author>
+    <title>Computer Graphics - Principles and Practice</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1996</year>
+    <isbn>0-201-84840-6</isbn>
+    <comment>2nd edition in C</comment>
+  </book>
+  <book id="fowler:1997" topic="patterns">
+    <author>Martin Fowler</author>
+    <title>Analysis Patterns - Reusable Object  Models</title>
+    <publisher>Addison Wesley Longman</publisher>
+    <year>1997</year>
+    <isbn>0-201-89542-0</isbn>
+  </book>
+  <book id="gamma:1995" topic="patterns">
+    <author>Gamma, Helm, et al</author>
+    <title>Design Patterns - Elements of Reusable  Object-Oriented Software</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1995</year>
+    <isbn>0-201-63361-2</isbn>
+  </book>
+  <book id="böhme:1993" topic="cs">
+    <author>Gert Böhme</author>
+    <title>Fuzzy-Logik - Einführung in die algebraischen und logischen Grundlagen</title>
+    <publisher>Springer</publisher>
+    <year>1993</year>
+    <isbn>3-540-56658-9</isbn>
+  </book>
+  <book id="goodman:1998" topic="networks">
+    <author>Danny Goodman</author>
+    <title>Dynamic HTML - The Definite Reference</title>
+    <publisher>O'Reilly</publisher>
+    <year>1998</year>
+    <isbn>1-56592-494-0</isbn>
+    <comment>1073 pages</comment>
+  </book>
+  <book id="booch:1994" topic="oo">
+    <author>Grady Booch</author>
+    <title>Object-Oriented Analysis and Design with Applications</title>
+    <publisher>Benjamin / Cummings</publisher>
+    <year>1994</year>
+    <isbn>0-8053-5340-2</isbn>
+    <comment>2nd edition</comment>
+  </book>
+  <book id="horstmann:1997" topic="prog">
+    <author>Cay Horstmann &amp; Gary Cornell</author>
+    <title>Core JAVA 1.1: Volume I - Fundamentals</title>
+    <publisher>Prentice Hall</publisher>
+    <year>1997</year>
+    <isbn>0-13-766957-7</isbn>
+  </book>
+  <book id="hunt:1998" topic="networks">
+    <author>Craig Hunt</author>
+    <title>TCP/IP Network Administration</title>
+    <publisher>O'Reilly &amp; Associates</publisher>
+    <year>1998</year>
+    <isbn>1-56592-322-7</isbn>
+    <comment>2nd edition, 612 pages</comment>
+  </book>
+  <book id="bronstein:1987" topic="misc">
+    <author>I. N. Bronstein, K. A. Semendjajew</author>
+    <title>Handbuch der Mathematik</title>
+    <publisher>Verlag Harri Deutsch</publisher>
+    <year>1987</year>
+    <isbn>3-87144-492-8</isbn>
+    <comment>23. Auflage</comment>
+  </book>
+  <book id="coplien:1992" topic="cpp">
+    <author>James O. Coplien</author>
+    <title>Advanced C++ Programming Styles and Idioms</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1992</year>
+    <isbn>0-201-54855-0</isbn>
+  </book>
+  <book id="rumbaugh:1993" topic="oo">
+    <author>James Rumbaugh, Michael Blaha, William  Premerlani, Frederick Eddy, William Lorensen</author>
+    <title>Objektorientiertes Modellieren und  Entwerfen</title>
+    <publisher>Hanser / Prentice-Hall</publisher>
+    <year>1993</year>
+    <isbn>3-446-17520-2</isbn>
+  </book>
+  <book id="hafner:1996" topic="fun">
+    <author>Katie Hafner, Matthew Lyon</author>
+    <title>Where Wizards Stay Up Late - The  Origins of the Internet</title>
+    <publisher>Simon &amp; Schuster</publisher>
+    <year>1996</year>
+    <isbn>0-684-81201-0</isbn>
+  </book>
+  <book id="wall:1991" topic="prog">
+    <author>Larry Wall, Randal L. Schwartz</author>
+    <title>Programming Perl</title>
+    <publisher>O'Reilly</publisher>
+    <year>1991</year>
+    <isbn>0-937175-64-1</isbn>
+    <comment>Nutshell Handbook Series</comment>
+  </book>
+  <book id="goossens:1994" topic="publishing">
+    <author>M. Goossens, F. Mittelbach</author>
+    <title>The LaTeX Companion</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1994</year>
+    <isbn>0-201-54199-8</isbn>
+  </book>
+  <book id="plop-3" topic="patterns">
+    <author>Martin, Riehle, Buschmann (eds.)</author>
+    <title>Pattern Languages of Program Design 3</title>
+    <publisher>Addison Wesley Longman</publisher>
+    <year>1998</year>
+    <isbn>0-201-31011-2</isbn>
+  </book>
+  <book id="mcconnell:1998" topic="management">
+    <author>Steve McConnell</author>
+    <title>Software Project Survival Guide</title>
+    <publisher>Microsoft Press</publisher>
+    <year>1998</year>
+    <isbn>1-57231-621-7</isbn>
+    <comment>How to be sure your first important  project is not your last, 288 pages</comment>
+  </book>
+  <book id="wirth:1984" topic="cs">
+    <author>Niklaus Wirth</author>
+    <title>Compilerbau - Eine Einführung</title>
+    <publisher>B.G. Teubner</publisher>
+    <year>1984</year>
+    <isbn>3-519-22338-4</isbn>
+    <comment>3., überarbeitete und erweiterte  Auflage</comment>
+  </book>
+  <book id="wirth:1985-de" topic="prog">
+    <author>Niklaus Wirth</author>
+    <title>Programmieren in Modula-2</title>
+    <publisher>Springer-Verlag</publisher>
+    <year>1985</year>
+    <isbn>3-540-13301-1</isbn>
+    <comment>3. korrigierte Auflage</comment>
+  </book>
+  <book id="wirth:1986" topic="cs">
+    <author>Niklaus Wirth</author>
+    <title>Algorithmen und Datenstrukturen mit Modula-2</title>
+    <publisher>B.G. Teubner</publisher>
+    <year>1986</year>
+    <isbn>3-519-02260-5</isbn>
+    <comment>4., neubearbeitete und erweiterte Auflage</comment>
+  </book>
+  <book id="orfali:1998" topic="networks">
+    <author>Orfali, Harkey</author>
+    <title>Client/Server-Programming with Java and CORBA</title>
+    <publisher>John Wiley &amp; Sons</publisher>
+    <year>1998</year>
+    <isbn>0-471-24578-X</isbn>
+    <comment>2nd edition, 1022 pages, includes CD-ROM</comment>
+  </book>
+  <book id="orfali:1997" topic="networks">
+    <author>Orfali, Harkey, Edwards</author>
+    <title>Instant CORBA</title>
+    <publisher>John Wiley &amp; Sons</publisher>
+    <year>1997</year>
+    <isbn>0-471-18333-4</isbn>
+  </book>
+  <book id="peek:1997" topic="unix">
+    <author>Peek, O'Reilly, Loukides</author>
+    <title>UNIX Power Tools</title>
+    <publisher>O'Reilly &amp; Associates</publisher>
+    <year>1997</year>
+    <isbn>1-56592-260-3</isbn>
+    <comment>2nd edition, 1073 pages</comment>
+  </book>
+  <book id="prosise:1996" topic="win">
+    <author>Jeff Prosise</author>
+    <title>Programming Windows 95 with MFC</title>
+    <publisher>Microsoft Press</publisher>
+    <year>1996</year>
+    <isbn>1-55615-902-1</isbn>
+    <comment>includes CD-ROM</comment>
+  </book>
+  <book id="cattell:1994" topic="db">
+    <author>R.G.G. Cattell</author>
+    <title>Object Data Management: Object-Oriented and Extended Relational Database Systems</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1994</year>
+    <isbn>0-201-54748-1</isbn>
+  </book>
+  <book id="richter:1997" topic="win">
+    <author>Jeffrey Richter</author>
+    <title>Advanced Windows</title>
+    <publisher>Microsoft Press</publisher>
+    <year>1997</year>
+    <isbn>1-57231-548-2</isbn>
+    <comment>3rd edition, includes CD-ROM</comment>
+  </book>
+  <book id="sedgewick:1992" topic="cs">
+    <author>Robert Sedgewick</author>
+    <title>Algorithms in C++</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1992</year>
+    <isbn>0-201-51059-6</isbn>
+  </book>
+  <book id="meyers:1992" topic="cpp">
+    <author>Scott Meyers</author>
+    <title>Effective C++ - 50 Specific Ways to  Improve Your Programs and Designs</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1992</year>
+    <isbn>0-201-56364-9</isbn>
+    <comment>206 S.</comment>
+  </book>
+  <book id="st-laurent:1998" topic="misc">
+    <author>Simon St. Laurent</author>
+    <title>XML: A Primer</title>
+    <publisher>MIS:Press</publisher>
+    <year>1998</year>
+    <isbn>1-5582-8592-X</isbn>
+    <comment>348 pages</comment>
+  </book>
+  <book id="mcconnell:1993" topic="prog">
+    <author>Steve McConnell</author>
+    <title>Code complete</title>
+    <publisher>Microsoft Press</publisher>
+    <year>1993</year>
+    <isbn>3-86063-333-3</isbn>
+  </book>
+  <book id="mcconnell:1996" topic="management">
+    <author>Steve McConnell</author>
+    <title>Rapid Development - Taming Wild Software Schedules</title>
+    <publisher>Microsoft Press</publisher>
+    <year>1996</year>
+    <isbn>1-55615-900-5</isbn>
+  </book>
+  <book id="stevens:1998" topic="unix">
+    <author>W. Richard Stevens</author>
+    <title>UNIX Network Programming Vol. 1 - Networking APIs: Sockets and XTI</title>
+    <publisher>Prentice Hall</publisher>
+    <year>1998</year>
+    <isbn>0-13-490012-X</isbn>
+    <comment>2nd edition, 1009 pages</comment>
+  </book>
+  <book id="stevens:1999" topic="unix">
+    <author>W. Richard Stevens</author>
+    <title>UNIX Network Programming Vol. 2 - Interprocess Communication</title>
+    <publisher>Prentice Hall</publisher>
+    <year>1999</year>
+    <isbn>0-13-081081-9</isbn>
+    <comment>2nd edition, 558 pages</comment>
+  </book>
+  <book id="demarco:1991" topic="management">
+    <author>Tom DeMarco, Timothy Lister</author>
+    <title>Wien wartet auf Dich! (Der Faktor Mensch im DV-Management)</title>
+    <publisher>Hanser</publisher>
+    <year>1991</year>
+    <isbn>3-446-16229-1</isbn>
+    <comment>Peopleware in deutscher Ausgabe</comment>
+  </book>
+  <book id="tufte:1983" topic="misc">
+    <author>Edward R. Tufte</author>
+    <title>The Visual Display of Quantitative  Information</title>
+    <publisher>Graphics Press</publisher>
+    <year>1983</year>
+    <isbn>0-9613921-0-X</isbn>
+    <comment>15th printing</comment>
+  </book>
+  <book id="plop-2" topic="patterns">
+    <author>Vlissides, Coplien, Kerth (Eds.)</author>
+    <title>Pattern Languages of Program Design 2</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1996</year>
+    <isbn>0-201-89527-7</isbn>
+  </book>
+  <book id="vlissides:1998" topic="patterns">
+    <author>John Vlissides</author>
+    <title>Pattern Hatching: Design Patterns  Applied</title>
+    <publisher>Addison Wesley Longman</publisher>
+    <year>1998</year>
+    <isbn>0-201-43293-5</isbn>
+    <comment>172 pages</comment>
+  </book>
+  <book id="wall:1996" topic="prog">
+    <author>Wall, Christiansen, Schwartz</author>
+    <title>Programming Perl</title>
+    <publisher>O'Reilly</publisher>
+    <year>1996</year>
+    <isbn>1-56592-149-6</isbn>
+    <comment>2nd edition, 645 pages</comment>
+  </book>
+
+<!--### not my books, just references! ###################################-->
+  <book id="arnold:1988" type="ref" topic="">
+    <author>D.B. Arnold, P.R. Bono</author>
+    <title>CGM and CGI</title>
+    <publisher>Springer-Verlag</publisher>
+    <year>1988</year>
+    <isbn>3-540-18950-5</isbn>
+  </book>
+  <book id="bachmann" type="ref" topic="">
+    <author>Heinz Bachmann</author>
+    <title>Kalenderarithmetik</title>
+    <publisher>Juris</publisher>
+    <year></year>
+    <isbn></isbn>
+    <comment>2., verbesserte und erweiterte Auflage</comment>
+  </book>
+  <book id="berson:1992" type="ref" topic="">
+    <author>Alex Berson</author>
+    <title>Client/Server Architecture</title>
+    <publisher>McGraw-Hill</publisher>
+    <year>1992</year>
+    <isbn>0-07-005076-7</isbn>
+  </book>
+  <book id="bitzer:1991" type="ref" topic="">
+    <author>Berthold Bitzer</author>
+    <title>Prozeßvisualisierung mit dem Industrie-PC</title>
+    <publisher>Vogel</publisher>
+    <year>1991</year>
+    <isbn>3-8023-0486-1</isbn>
+  </book>
+  <book id="blake:1991" type="ref" topic="">
+    <author>Edwin H. Blake, Peter Wisskirchen (Hrsg.)</author>
+    <title>Advances in Object-Oriented Graphics I  (EurographicSeminars)</title>
+    <publisher>Springer</publisher>
+    <year>1991</year>
+    <isbn>3-540-53480-6</isbn>
+  </book>
+  <book id="born:1990" type="ref" topic="">
+    <author>Günter Born</author>
+    <title>Referenzhandbuch Dateiformate</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1990</year>
+    <isbn>3-89319-302-2</isbn>
+  </book>
+  <book id="cattell:1994-odmg" type="ref" topic="">
+    <author>R.G.G. Cattell (Hrsg.)</author>
+    <title>The Object Database Standard (ODMG-93)</title>
+    <publisher>Morgan-Kaufmann</publisher>
+    <year>1994</year>
+    <isbn>1-55860-302-6</isbn>
+  </book>
+  <book id="cowlishaw:1985" type="ref" topic="">
+    <author>M.F. Cowlishaw</author>
+    <title>The REXX Language: A Practical  Approach to Programming</title>
+    <publisher>Prentice-Hall</publisher>
+    <year>1985</year>
+    <isbn></isbn>
+  </book>
+  <book id="cutler:1995" type="ref" topic="">
+    <author>Ellie Cutler</author>
+    <title>SCO Unix in a Nutshell</title>
+    <publisher>O'Reilly</publisher>
+    <year>1995</year>
+    <isbn>3-930673-15-0</isbn>
+    <comment>Deutsche Ausgabe für SCO UNIX und Open  Desktop</comment>
+  </book>
+  <book id="eilers:1986" type="ref" topic="">
+    <author>Henk Eilers, Win Jansen, Harry de Volder</author>
+    <title>SQL in der Praxis</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1986</year>
+    <isbn>3-925118-59-4</isbn>
+  </book>
+  <book id="ellis:1990" type="ref" topic="">
+    <author>Margaret A. Ellis, Bjarne Stroustrup</author>
+    <title>The Annotated C++ Reference Manual</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1990</year>
+    <isbn></isbn>
+    <comment>447 S.</comment>
+  </book>
+  <book id="herczeg:1994" type="ref" topic="">
+    <author>Michael Herczeg</author>
+    <title>Software-Ergonomie - Grundlagen der  Mensch-Computer-Kommunikation</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1994</year>
+    <isbn>3-89319-615-3</isbn>
+  </book>
+  <book id="herold:1995" type="ref" topic="">
+    <author>Helmut Herold</author>
+    <title>lex und yacc - Lexikalische und  syntaktische Analyse</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1995</year>
+    <isbn>3-89319-879-2</isbn>
+    <comment>2. überarbeitete und aktualisierte  Auflage</comment>
+  </book>
+  <book id="lippman:1991" type="ref" topic="">
+    <author>Stanley B. Lippman</author>
+    <title>C++ - Einführung und Leitfaden</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1991</year>
+    <isbn></isbn>
+    <comment>621 S.</comment>
+  </book>
+  <book id="misgeld:1991" type="ref" topic="">
+    <author>Wolfgang D. Misgeld</author>
+    <title>SQL - Einstieg und Anwendung</title>
+    <publisher>Carl Hanser</publisher>
+    <year>1991</year>
+    <isbn>3-446-16096-5</isbn>
+  </book>
+  <book id="musser:1996" type="ref" topic="">
+    <author>David R. Musser, Atul Saini</author>
+    <title>STL Tutorial &amp; Reference Guide</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1996</year>
+    <isbn>0-201-63398-1</isbn>
+    <comment>C++ Programming with the Standard Template Library</comment>
+  </book>
+  <book id="orfali:1992" type="ref" topic="">
+    <author>Robert Orfali, Dan Harkey</author>
+    <title>Client/Server Programming with OS/2 2.0</title>
+    <publisher>Van Nostrand Reinhold</publisher>
+    <year>1992</year>
+    <isbn></isbn>
+    <comment>1111 S.</comment>
+  </book>
+  <book id="stevens:1992" type="ref" topic="">
+    <author>W. Richard Stevens</author>
+    <title>Advanced Programming in the UNIX Environment</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1992</year>
+    <isbn>0-201-56317-7</isbn>
+  </book>
+  <book id="stevens:1994" type="ref" topic="">
+    <author>W. Richard Stevens</author>
+    <title>TCP/IP Illustrated Volume 1 - The Protocols</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1994</year>
+    <isbn>0-201-63346-9</isbn>
+  </book>
+  <book id="stevens:1995" type="ref" topic="">
+    <author>W. Richard Stevens, Gary R. Wright</author>
+    <title>TCP/IP Illustrated Volume 2 - The Implementation</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1995</year>
+    <isbn>0-201-63354-X</isbn>
+  </book>
+  <book id="stevens:1996" type="ref" topic="">
+    <author>W. Richard Stevens</author>
+    <title>TCP/IP Illustrated Volume 3 - T/TCP, HTTP, NNTP and the Unix Domain Protocols</title>
+    <publisher>Addison-Wesley</publisher>
+    <year>1996</year>
+    <isbn>0-201-63495-3</isbn>
+  </book>
+  <book id="weck:1982" type="ref" topic="">
+    <author>G. Weck</author>
+    <title>Prinzipien und Realisierung von  Betriebssystemen</title>
+    <publisher>B.G. Teubner</publisher>
+    <year>1982</year>
+    <isbn>3-519-02358-X</isbn>
+  </book>
+  <book id="wirth:1985" type="ref" topic="">
+    <author>Niklaus Wirth</author>
+    <title>Programming in Modula-2</title>
+    <publisher>Springer-Verlag</publisher>
+    <year>1985</year>
+    <isbn>0-387-13301-1</isbn>
+    <comment>3rd corrected edition</comment>
+  </book>
+  <book id="wohak:1987" type="ref" topic="">
+    <author>Bertram Wohak</author>
+    <title>8086-286 Assembler - Das Lehrbuch zur Assemblerprogrammierung der 8086/8088/80186/80286-Prozessoren  unter MSDOS</title>
+    <publisher>IWT Verlag GmbH</publisher>
+    <year>1987</year>
+    <isbn>3-88322-194-5</isbn>
+  </book>
+
+</bibliography>

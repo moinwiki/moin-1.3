@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: cgimain.py,v 1.19 2001/01/10 22:03:43 jhermann Exp $
+    $Id: cgimain.py,v 1.23 2001/05/04 02:15:32 jhermann Exp $
 """
 
 
@@ -80,6 +80,8 @@ def test():
 #############################################################################
 
 def run():
+    from MoinMoin import user, webapi
+
     global form
 
     global saved_cookie
@@ -92,7 +94,7 @@ def run():
     # parse request data
     try:
         form = cgi.FieldStorage()
-        path_info = util.getPathinfo()
+        path_info = webapi.getPathinfo()
 
         action = None
         if form.has_key('action'):
@@ -102,7 +104,7 @@ def run():
         if len(path_info) and path_info[0] == '/':
             pagename = wikiutil.unquoteWikiname(path_info[1:]) or config.front_page
     except: # catch and print any exception
-        util.http_headers()
+        webapi.http_headers()
         cgi.print_exception()
         sys.exit(0)
     
@@ -115,8 +117,8 @@ def run():
             if handler:
                 handler(pagename or config.front_page, form)
             else:
-                util.http_headers()
-                print "<p>Unknown action"
+                webapi.http_headers()
+                print "<p>" + user.current.text("Unknown action")
         else:
             if form.has_key('goto'):
                 query = form['goto'].value
@@ -135,8 +137,8 @@ def run():
                     word = word_match.group(0)
                     Page(word).send_page(form)
                 else:
-                    util.http_headers()
-                    print "<p>Can't work out query \"<pre>" + query + "</pre>\""
+                    webapi.http_headers()
+                    print '<p>' + user.current.text("Can't work out query") + ' "<pre>' + query + '</pre>"'
     
         # generate page footer
         # (actions that do not want this footer use sys.exit(0) to break out
@@ -157,8 +159,15 @@ def run():
         pass
 
     except: # catch and print any exception
-        util.http_headers()
-        cgi.print_exception()
+        webapi.http_headers()
+        print
+        print "<!-- ERROR REPORT FOLLOWS -->"
+
+        try:
+            from MoinMoin.support import cgitb
+            cgitb.handler()
+        except:
+            cgi.print_exception()
     
     sys.stdout.flush()
 

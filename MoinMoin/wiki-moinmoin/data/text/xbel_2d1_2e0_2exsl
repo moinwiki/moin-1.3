@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Convert a XBEL document into a HTML directory
+
+    Copyright (c) 2000 by Jürgen Hermann <snibril@cscene.org>
+
+    The XML Bookmark Exchange Language, or XBEL, is an Internet "bookmarks"
+    interchange format. It was designed by the Python XML Special Interest
+    Group on the group's mailing list. It grew out of an idea for a
+    demonstration of using Python for XML processing. More information,
+    including complete documentation on the DTD, is available.
+
+    See: http://www.python.org/topics/xml/xbel/
+
+    I hope this program is a step towards that goal, besides being useful
+    and a non-trivial learning example for me. Use this code in whatever
+    manner you like, but give me credit when you use larger amounts of it.
+
+    An example of the resulting output can be viewed at
+
+        http://center.oftheinter.net/~jh/xml/bookmarks/bookmarks.html
+
+    $Id: xbel_2d1_2e0_2exsl,v 1.2 2001/05/07 22:11:32 jhermann Exp $
+-->
+
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns="http://www.w3.org/TR/xhtml1/strict">
+
+  <!-- set this to "0" if you don't want to check for duplicates URLs (faster!) -->
+  <xsl:variable name="with-dupecheck" select="0"/>
+
+  <xsl:variable name="nodes-mix" select="'bookmark|folder|alias|separator'"/>
+
+  <xsl:output method="html" indent="yes" doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN"/>
+
+  <!-- XBEL ========================================================-->
+  <xsl:template match="xbel">
+    <xsl:apply-templates/>
+  </xsl:template>
+
+  <!-- TITLE =======================================================-->
+  <xsl:template match="xbel/title">
+    <h1>
+        <xsl:value-of select="."/>
+        <!-- !!! handle xbel/@id, xbel/@added? -->
+    </h1>
+
+    <xsl:if test="count(/xbel/folder/title) >= 2">
+      <div style="margin-bottom:6pt;">
+        <small>
+        <xsl:for-each select="/xbel/folder">
+          <a href="#{@id}">
+            <xsl:value-of select="title"/>
+          </a><xsl:text>&#160;</xsl:text>
+        </xsl:for-each>
+        </small>
+      </div>
+    </xsl:if>
+
+  </xsl:template>
+
+  <xsl:template match="title">
+    <!-- !!! use different tags according to depth instead of h3 -->
+    <h3>
+        <a href="#{../@id}"><img src="/wiki/img/inline-folder.gif" width="16" height="16" border="0"/></a><xsl:text>&#160;</xsl:text>
+        <xsl:value-of select="."/>
+    </h3>
+  </xsl:template>
+
+  <!-- INFO ========================================================-->
+  <xsl:template match="info">
+    <div style="margin-bottom:6pt;">
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <!-- INFO/METADATA ===============================================-->
+  <xsl:template match="info/metadata">
+    <em>
+      <xsl:value-of select="@owner"/>
+    </em>
+  </xsl:template>
+
+  <!-- DESC ========================================================-->
+  <xsl:template match="desc">
+    <div style="margin-bottom:8pt;">
+      <small>
+        <xsl:text>&#160;</xsl:text> <xsl:value-of select="."/>
+      </small>
+    </div>
+  </xsl:template>
+
+  <!-- FOLDER ======================================================-->
+  <xsl:template match="folder">
+    <!-- !!! handle @id, @added? -->
+    <a name="{@id}"/>
+    <dl>
+      <xsl:apply-templates/>
+    </dl>
+  </xsl:template>
+
+  <!-- BOOKMARK ====================================================-->
+  <xsl:template match="bookmark">
+    <xsl:if test="$with-dupecheck = 1">
+      <!-- !!! this could possibly be made faster by usings keys -->
+      <xsl:variable name="cnt" select="count(/xbel//bookmark[@href=current()/@href])"/>
+    </xsl:if>
+    <xsl:if test="$with-dupecheck = 0">
+      <xsl:variable name="cnt" select="0"/>
+    </xsl:if>
+
+    <!-- !!! we ignore <info> here! -->
+    <dt>
+      <a href="{@href}" target="_bookmark">
+        <xsl:choose>
+          <xsl:when test="string(title) != ''">
+            <xsl:value-of select="title"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="@href"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </a>
+      <xsl:choose>
+        <xsl:when test="starts-with(concat(@status,'200 '), '200 ')">
+        </xsl:when>
+        <xsl:when test="starts-with(@status, '30')">
+          <xsl:text>&#160;</xsl:text><font color="#999999"><em>(<xsl:value-of select="@visited"/>&#160;/ <xsl:value-of select="@status"/>)</em></font>
+        </xsl:when>
+        <xsl:otherwise>
+          &#160;<font color="#FF3333"><em>(<xsl:value-of select="@visited"/>&#160;/ <xsl:value-of select="@status"/>)</em></font>
+        </xsl:otherwise>
+      </xsl:choose>
+  
+      <xsl:if test="$cnt > 1">
+        <xsl:text>&#160;</xsl:text><font color="#338033"><strong>[<xsl:value-of select="$cnt - 1"/> DUPLICATE(S)]</strong></font>
+      </xsl:if>
+    </dt>
+    <xsl:apply-templates select="desc"/>
+  </xsl:template>
+
+  <xsl:template match="bookmark/desc">
+    <dd>
+      <xsl:value-of select="."/>
+    </dd>
+  </xsl:template>
+
+  <!-- ALIAS =======================================================-->
+  <xsl:template match="alias">
+    <b>!!! alias not supported !!!</b><br/>
+  </xsl:template>
+
+  <!-- SEPARATOR ===================================================-->
+  <xsl:template match="separator">
+    <dt>
+      <hr size="1"/>
+    </dt>
+  </xsl:template>
+
+</xsl:stylesheet>

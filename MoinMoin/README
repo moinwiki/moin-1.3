@@ -4,15 +4,30 @@ MoinMoin Readme
 Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: README,v 1.6 2001/01/23 21:44:03 jhermann Exp $
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+$Id: README,v 1.8 2001/05/04 21:48:39 jhermann Exp $
 
 -----------------------------------------------------------------------------
 
 MoinMoin is a Python WikiClone. The project's homepage can be found at
 http://moin.sourceforge.net/.
 
-See INSTALL for installation instructions.
-See CHANGES for a version history.
+See INSTALL         for installation instructions.
+See INSTALL.IIS     for how to set up MoinMoin on Win2K/IIS
+See CHANGES         for a version history.
 
 Note that the code base contains some experimental or unfinished features.
 Use them at your own risk. Official features are described on the set of help
@@ -39,6 +54,8 @@ contributions:
 
     Christian Bird <chris.bird@lineo.com> provided some nice ideas and some
     code.
+
+    And all the people I forgot or that are mentioned in the code.
 
 -----------------------------------------------------------------------------
 

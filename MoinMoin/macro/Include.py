@@ -21,10 +21,11 @@
         [[Include(FooBar, , 2]] -- add a H2 of 'Foo Bar'
         [[Include(FooBar, 'All about Foo Bar', 2]] -- add a H2 of 'All about Foo Bar'
 
-    $Id: Include.py,v 1.2 2001/01/08 23:43:49 jhermann Exp $
+    $Id: Include.py,v 1.4 2001/03/30 21:06:52 jhermann Exp $
 """
 
 import sys, string, re, cStringIO
+from MoinMoin import user
 from MoinMoin.Page import Page
 
 _arg_heading = r'(?P<heading>,)\s*(|(?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))'
@@ -37,7 +38,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     # parse and check arguments
     args = args_re.match(text)
     if not args:
-        return '<p><strong class="error">Invalid include arguments "%s"!</strong></p>' % (text,)
+        return ('<p><strong class="error">%s</strong></p>' % user.current.text('Invalid include arguments "%s"!')) % (text,)
 
     # get the page
     print_mode = macro.form.has_key('action') and macro.form['action'].value == "print"
@@ -82,7 +83,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
 
     # if no heading and not in print mode, then output a helper link
     if not (level or print_mode):
-        ret = ret + inc_page.link_to('<small>[goto %s]</small>' % (inc_name,))
+        ret = ret + inc_page.link_to(user.current.text('<small>[goto %s]</small>') % (inc_name,))
 
     # return include text
     return ret

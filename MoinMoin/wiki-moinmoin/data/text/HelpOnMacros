@@ -9,6 +9,8 @@ For more information on the possible markup, see HelpOnEditing.
 ||'''Macro'''||'''Description'''||'''Example'''||
 ||{{{[[TitleSearch]]}}}     || search the page titles || FindPage ||
 ||{{{[[FullSearch]]}}}      || search the page contents || FindPage ||
+||{{{[[FullSearch()]]}}}      || search for the current title in all pages (like clicking on the page title) || CategoryCategory ||
+||{{{[[FullSearch('text')]]}}} || search for "text" in all pages || Search for {{{FullSearch}}}:[[FullSearch('FullSearch')]] ||
 ||{{{[[GoTo]]}}}            || directly go to the page you enter || FindPage ||
 ||{{{[[PageList(regex)]]}}} || list of pages whose title matches the regex || HelpIndex ||
 
@@ -18,7 +20,7 @@ For more information on the possible markup, see HelpOnEditing.
 ||{{{[[TitleIndex]]}}}      || an index of all page titles || TitleIndex ||
 ||{{{[[WordIndex]]}}}       || an index of all words in page titles || WordIndex ||
 ||{{{[[RandomPage]]}}}      || a link to a random page || [[RandomPage]] ||
-||{{{[[RandomPage(#)]]}}}   || links to a number of random pages || [[RandomPage(2)]] ||
+||{{{[[RandomPage(#)]]}}}   || links to a number of random pages || Two random pages:[[RandomPage(2)]] ||
 ||{{{[[TableOfContents]]}}} || display a local table of contents || see below ||
 
 === System information ===

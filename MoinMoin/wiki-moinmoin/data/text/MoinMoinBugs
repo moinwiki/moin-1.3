@@ -1,6 +1,7 @@
 http://www.encrypted.net/~jh/img/roach.gif 
 Back to MoinMoinTodo | Things that are MoinMoinNotBugs | MoinMoinTests contains tests for many features
 [[TableOfContents]]
+
 === Tables broken by trailing spaces ===
 Tables don't work right if there are trailing spaces.
 
@@ -15,6 +16,9 @@ And as a fun sidenote, the UserPreferences cookie doesn't seem to work. The cook
 Hehe, and my changes are not logged to the RecentChanges database, I'll hope you find these changes this year. :) BUG BUG BUG!
 
 ''Well, Netscape suxx. I send the cookies with the CGI'S path, w/o a hostname, which makes it unique enough. Apparently not for netscape. I'll look into adding the domain, too.''
+
+Hmmm...I use NetScape, MsIe, MoZilla and Galeon. I haven't had a problem but some other's using MoinMoin 0.8 have intermittently lost cookies. Any ideas? 
+-- BruceDurling
 
 === Misc ===
  * Solve the problem of the Windows filesystem handling a WikiName case-indifferent (i.e. map all deriatives of an existing page to that page).
@@ -68,30 +72,7 @@ enter information and provide commands. <p></ul>
  
 Please note that they aren't actually identical: the P that precedes '''dialog boxes''' is interrupted by the closing /UL tag, whereas the P preceding '''windw''' is ''not'' followed by a closing /UL.
 
-=== the formatting action ===
+=== Bug in ASCII encoding ===
+The page PrettyPrintXslt seems to have a nasty bug in it ...
 
-{{{
-[cos@natt cos]$ telnet rm-f.net 80
-Trying 216.227.60.122...
-Connected to rm-f.net.
-Escape character is '^]'.
-GET /~jh/c-wiki/moin.cgi/X11Article?action=format&mimetype=text/xml HTTP/1.0
-
-HTTP/1.1 200 OK
-Date: Sun, 07 Jan 2001 13:17:49 GMT
-Server: Apache/1.3.14 (Unix)
-Connection: close
-Content-Type: text/html
-
-}}}
-
-Do you see the weirdness? {{{Content-Type: text/html}}} even though it is supposed to spit out
-xml.
-
-The {{{do_format()}}} function seem to set the {{{Content-Type}}} correctly. I really can't see it doing anything wrong, so I suspect that {{{Content-Type}}} is overwritten later on. The same problem happens if you try to render ''text/plain''.
-
-Those of you using IE will not have a problem with this, since IE override the Content-Type to be xml if the URL has ''xml'' as suffix. And {{{?action=format&mimetype=text/xml}}} has. Try adding yet another dummy variable {{{...&dummy}}} and visit a page.
-
-''The whole formatter thing, and especially XML, is not finished yet. Namely, the generated XML is not XML at all, since it's not even well-formed. :) ''
-
-''The wrong content-type was a bug indeed, and is now fixed. The formatter still does not generate well-formed XML.''
+''That is a known bug in 4XSLT.''

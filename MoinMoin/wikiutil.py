@@ -1,15 +1,15 @@
 """
     MoinMoin - Wiki Utility Functions
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiutil.py,v 1.17 2001/01/10 02:02:25 jhermann Exp $
+    $Id: wikiutil.py,v 1.27 2001/03/30 21:06:52 jhermann Exp $
 """
 
 # Imports
-import os, re, string, sys, time, urllib
-from MoinMoin import config, user, util, version
+import os, re, string, sys, urllib
+from MoinMoin import config, user, version, webapi
 
 
 #############################################################################
@@ -89,7 +89,7 @@ def resolve_wiki(wikiurl):
         for line in open(os.path.join(config.data_dir, "intermap.txt"), "rt").readlines():
             try:
                 wikitag, urlprefix, trash = string.split(
-                    line + " " + util.getScriptname() + "/InterWiki", None, 2)
+                    line + " " + webapi.getScriptname() + "/InterWiki", None, 2)
                 _interwiki_list[wikitag] = urlprefix
             except ValueError:
                 pass
@@ -102,7 +102,7 @@ def resolve_wiki(wikiurl):
     if wikitag and _interwiki_list.has_key(wikitag):
         return (wikitag, _interwiki_list[wikitag], urllib.quote(tail))
     else:
-        return ("BadWikiTag", util.getScriptname(), "/InterWiki")
+        return ("BadWikiTag", webapi.getScriptname(), "/InterWiki")
 
 
 #############################################################################
@@ -119,6 +119,18 @@ def getPageList(text_dir):
         if file[0] in ['.', '#'] or file in ['CVS']: continue
         result.append(file)
     return map(unquoteFilename, result)
+
+
+def getPageDict(text_dir):
+    """ Return a dictionary of page objects for all pages,
+        with the page name as the key.
+    """
+    from MoinMoin.Page import Page
+    pages = {}
+    pagenames = getPageList(text_dir)
+    for name in pagenames:
+        pages[name] = Page(name)
+    return pages    
 
 
 def getBackupList(backup_dir, pagename=None):
@@ -143,46 +155,41 @@ def getBackupList(backup_dir, pagename=None):
 
 
 #############################################################################
-### Edit Logging
+### Searching
 #############################################################################
-#!!! refactor to PageEditor class?
 
-# Functions to keep track of when people have changed pages, so we can
-# do the recent changes page and so on.
-# The editlog is stored with one record per line, as tab-separated
-# words: page_name, host, time, hostname
+def searchPages(needle, **kw):
+    """ Search the text of all pages for "needle", and return a tuple of
+        (number of pages, hits).
 
-# TODO: Check values written in are reasonable
-
-def editlog_add(page_name, host):
-    from MoinMoin import user
-    import socket
+        literal = 0: try to treat "needle" as a regex, case-insensitive
+        literal = 1: "needle" is definitely NOT a regex and searched case-sensitive
+    """
+    from MoinMoin.Page import Page
 
     try:
-        hostname = socket.gethostbyaddr(host)[0]
-    except socket.error:
-        hostname = host
+        needle_re = re.compile(needle, re.IGNORECASE)
+    except re.error:
+        needle_re = re.compile(re.escape(needle), re.IGNORECASE)
 
-    editlog = open(config.editlog_name, 'a+')
-    entry = string.join((quoteFilename(page_name), host, `time.time()`,
-                         hostname, user.User().id), "\t") + "\n"
-    try: 
-        # fcntl.flock(editlog.fileno(), fcntl.LOCK_EX)
-        editlog.seek(0, 2)                  # to end
-        editlog.write(entry)
-    finally:
-        # fcntl.flock(editlog.fileno(), fcntl.LOCK_UN)
-        editlog.close()
+    hits = []
+    literal = kw.get('literal', 0)
+    all_pages = getPageList(config.text_dir)
+    for page_name in all_pages:
+        body = Page(page_name).get_raw_body()
+        if literal:
+            count = string.count(body, needle)
+        else:
+            count = len(needle_re.findall(body))
+        if count:
+            hits.append((count, page_name))
 
+    # The default comparison for tuples compares elements in order,
+    # so this sorts by number of hits
+    hits.sort()
+    hits.reverse()
 
-def editlog_raw_lines():
-    editlog = open(config.editlog_name, 'rt')
-    try:
-        # fcntl.flock(editlog.fileno(), fcntl.LOCK_SH)
-        return editlog.readlines()
-    finally:
-        # fcntl.flock(editlog.fileno(), fcntl.LOCK_UN)
-        editlog.close()
+    return (len(all_pages), hits)
 
 
 #############################################################################
@@ -214,7 +221,7 @@ def link_tag(params, text=None, css_class=None):
     else:
         classattr = ''
     return ('<a%s href="%s/%s">%s</a>'
-        % (classattr, util.getScriptname(), params, text))
+        % (classattr, webapi.getScriptname(), params, text))
 
 
 def send_title(text, **keywords):
@@ -227,9 +234,13 @@ def send_title(text, **keywords):
             print_mode=1 (or 0)
     """
     # print the HTML <HEAD> element and start the <BODY>
-    print "<head>%s<title>%s</title>" % (config.html_head, text)
-    if config.css_url:
-        print '<link rel="stylesheet" type="text/css" href="%s">' % (config.css_url,)
+    user_head = config.html_head
+    if os.environ.get('QUERY_STRING', '') or os.environ.get('REQUEST_METHOD', '') == 'POST':
+        user_head = user_head + config.html_head_queries
+    print "<head>%s<title>%s</title>" % (user_head, text)
+    css_url = user.current.valid and user.current.css_url or config.css_url
+    if css_url and string.lower(css_url) != "none":
+        print '<link rel="stylesheet" type="text/css" href="%s">' % (css_url,)
     print "</head>"
     print '<body>'
     sys.stdout.flush()
@@ -246,8 +257,8 @@ def send_title(text, **keywords):
         print link_tag(quoteWikiname(config.front_page), config.logo_string)
     print '</td><td width="99%" valign="middle" class="headline"><font size="+3">&nbsp;<b>'
     if keywords.get('link'):
-        print '<a title="Click here to do a full-text search for this title" href="%s">%s</a>' % (
-            keywords['link'], text)
+        print '<a title="%s" href="%s">%s</a>' % (
+            user.current.text('Click here to do a full-text search for this title'), keywords['link'], text)
     else:
         print text
     print '</b></font></td>'
@@ -263,20 +274,30 @@ def send_title(text, **keywords):
     if config.navi_bar:
         if config.page_icons and keywords.has_key('pagename'):
             print config.page_icons % {
-                'scriptname': util.getScriptname(),
+                'scriptname': webapi.getScriptname(),
                 'url': config.url_prefix,
                 'pagename': quoteWikiname(keywords['pagename'])}
-        print config.navi_bar % {'scriptname': util.getScriptname()}
+        print config.navi_bar % {'scriptname': webapi.getScriptname()}
 
     # print a message if one is given
     if keywords.get('msg', ''):
         print "<br>", keywords['msg']
-        print '<p><a href="%(scriptname)s/%(pagename)s?action=show">Clear message</a>'% {
-            'scriptname': util.getScriptname(),
+        print '<p><a href="%(scriptname)s/%(pagename)s?action=show">%(linktext)s</a>'% {
+            'linktext': user.current.text('Clear message'),
+            'scriptname': webapi.getScriptname(),
             'pagename': quoteWikiname(keywords['pagename'])}
 
     # print the rule above the wiki page
     print '<hr>'
+    sys.stdout.flush()
+
+
+_footer_fragments = {}
+
+def add2footer(key, htmlcode):
+    """ Add a named HTML fragment to the footer, after the default links
+    """
+    _footer_fragments[key] = htmlcode
 
 
 def send_footer(pagename, mod_string=None, **keywords):
@@ -288,21 +309,25 @@ def send_footer(pagename, mod_string=None, **keywords):
             **editable** -- true, when page is editable (default: true)
             **showpage** -- true, when link back to page is wanted (default: false)
     """
-    base = util.getScriptname()
+    base = webapi.getScriptname()
     print "<hr>"
     if config.page_footer1: print config.page_footer1
 
     if keywords.get('showpage', 0):
-        print link_tag(quoteWikiname(pagename), "ShowText")
-        print 'of this page<br>'
+        print link_tag(quoteWikiname(pagename), user.current.text("ShowText"))
+        print user.current.text('of this page'), '<br>'
     if keywords.get('editable', 1):
-        print link_tag(quoteWikiname(pagename)+'?action=edit', 'EditText')
-        print "of this page"
+        print link_tag(quoteWikiname(pagename)+'?action=edit', user.current.text('EditText'))
+        print user.current.text('of this page')
         if mod_string:
-            print "(last modified %s)" % mod_string
+            print user.current.text("(last modified %s)") % mod_string
         print '<br>'
-    print link_tag('FindPage?value='+urllib.quote_plus(pagename, ''), 'FindPage')
-    print " by browsing, searching, or an index<br>"
+    print link_tag('FindPage?value='+urllib.quote_plus(pagename, ''), user.current.text('FindPage'))
+    print user.current.text(" by browsing, searching, or an index<br>")
+
+    # output HTML code added by the page formatters
+    if _footer_fragments:
+        print string.join(_footer_fragments.values(), '')
 
     # list user actions that start with an uppercase letter
     from MoinMoin.action import extension_actions
@@ -310,12 +335,13 @@ def send_footer(pagename, mod_string=None, **keywords):
     first = 1
     for action in extension_actions:
         if action[0] != string.upper(action[0]): continue
-        print (', ', 'Or try one of these actions: ')[first]
+        print (', ', user.current.text('Or try one of these actions: '))[first]
         sys.stdout.write(link_tag(
             '%s?action=%s' % (quoteWikiname(pagename), action), action))
         first = 0
     if not first: print "<br>"
 
+    # end of footer
     if config.show_version:
         print '<p><font size="1" face="Verdana">MoinMoin %s, Copyright © 2000-2001 by Jürgen Hermann</font></p>' % (version.revision,)
 

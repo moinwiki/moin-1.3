@@ -3,7 +3,7 @@ a non-firewalled wiki but only a certain group should have access.  This may
 be for legal reasons, but has been imposed as a requirment that I cannot 
 get around.  Anyone know of a wiki that restricts access in such a way? 
 
-    Yes, see Wiki:OrgPatterns which runs in Wiki:FishBowl mode.
+    Yes, see Wiki:OrgPatterns which runs in Wiki:FishBowl mode. - ''This may be exactly what I was looking for... thanks!!!''
 
 ''Why not use webserver passwords to restrict access? Or do you wish to restrict '''editing''' by a restricted group? -- AnonymousCoward ;)''
 

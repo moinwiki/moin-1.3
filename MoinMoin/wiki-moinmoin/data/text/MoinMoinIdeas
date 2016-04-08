@@ -14,6 +14,11 @@ See also: MbTest:WikiIdeas Wiki:WikiWikiSuggestions [http://c2.com/w2/wiki/Welco
 
 === Current Discussion ===
 
+==== Timestamping ====
+Sometimes I use MoinMoin for a weblog-type recording of events. It would be great to have maybe a macro that gets substituted by the current date and time when the user saves the page.
+
+Something like [[Time''''''Stamp]] that would get substituted by 31/01/01 17:05, just one time.
+
 ==== Use Server Authentication ====
 It would be nice if the wiki would automatically determine if a user has been authenticated through a web server and use that for the User.  If I happened to be using IIS, I could set it up to authenticate and then use os.environ['REMOTE_USER'] to find out who they are.  If I were using Apache, I could do the same.  If I were using Orion, etc, etc.
 
@@ -61,6 +66,91 @@ It would be interesting to throw a custom header (logo graphic, navigational lin
  
 --MattWestervelt
 
+==== Garth's Wishlist ====
+I'm sure these should be put elsewhere, sorted, etc. I'm equally sure that if anyone is really bothered by where I've put them they can refactor them. :)
+
+I'm currently trying to figure out whether I can adapt MoinMoin so that I can produce a consolidated Wiki and blog site so that Wiki pages and blog entries can point to each other ''really'' easily. If the potential seems to be there, I'm sure I'll get around to hacking these guys in eventually. 
+
+--GarthKidd
+
+  The direction MoinMoin ==> blog is easily handled by the InterWiki mechanism. -- jh
+
+    True, but I want to be able to use Wiki style formatting (particularly the references) in the blog entries, too. It could be as simple as: numbered files are blog entries, named files are Wiki pages. 
+
+    I'll rabbit on more in BlogBlog. -- gtk
+
+===== Smart Edit Conflict Detection =====
+One of my hacks to ZWiki was to suppress edit conflict detection if it figured that someone was colliding with themselves. This enabled the familiar edit-back-edit-back action without letting people collide with each other.
+
+===== Suppress Gratuitous WikiNames =====
+In a page which MoinMoin mentions another MoinMoin several times, it's a bit irritating MoinMoin to have every single MoinMoin of them highlighted as a MoinMoin link. I'd like to render only the first in the page or, if there are multiple headings in the document, the first time under a particular heading.
+
+  I don't get you here, too much "MoinMoin"s. Do you mean wiki links? -- jh
+
+    Let's just say that it would have been nice to see MoinMoin underlined and blue only once in that paragraph. 
+
+    For another example, check how often !MoinMoin gets repeated in GarthKidd. In ZWiki:ZWiki, at least users can prepend the WikiName with a bang (!) to suppress the escaping (though things get very messy at the beginning of a line, where ! is overloaded to suppress escaping the whole line), but "banging it out" has to be done manually. I'd prefer something automatic. 
+
+===== Hotkeys =====
+Minor format tweak for the user interface: the accesskey attribute on an INPUT is a major timesaver, letting people save changes without having to reach for their mouse. It's only MSIE, but that's a major proportion of the userbase. 
+
+  Give a concrete HTML code sample (e.g. for the editor page's "Save" button). -- jh
+
+    input type="submit" value="save changes" accesskey="s", I think. I'll look it up and get back to you. 
+
+=== Another Random Wishlist ===
+
+This is a wishlist from an older version --- some of this stuff has already been done, other stuff is dealt with elsewhere...  some of it's novel, hopefully. ;)
+
+ 1. Full support for StructuredText (standard?) ''-- will come, I still owe Richard the adaption of his code''
+ 1. Page delete? -- yes, code is there
+ 1. Page rename? -- yes, code is there
+ 1. true raw HTML (cf. HelpOnProcessingInstructions) ''-- if some1 gives me a reliable HTML filtering module (remove <script>, <object> and the like), no problem''
+ 1. Edit the InterWiki map from within the Wiki.
+ 1. Extend the ToC macro so that a ToC for one page can be embedded in another
+ 1. Transclusion would be nice, after all.  
+ 1. More metadata on pages:  instead of just last edit time, that + who edited.
+ 1. edit code for Wiki implementation ''through the Wiki'' ;) -- use XSLT
+ 1. embed Python code directly in Wiki pages? { { { } } }, hilighting will come
+ 1. number clicks total, number clicks since last rev reported per-page
+ 1. Who''''''Has''''''Read''''''This - read history per-page
+ 1. My''''''Favorite''''''Pages - an automatic personal most-visited list, for easier nav to common stuff
+ 1. embeddable diagram tools:  cf:  Wiki:HotDraw, Java''''''Hot''''''Draw (?)
+ 1. smart dynamic "macros" such as "list of 5 most recent changes like xxx..."
+ 1. More in-site administration / config:  Wiki''''''Dashboard?
+ 1. Visual Wiki!  Check out Wiki:VisualizeTheWiki.  The mind boggles.
+ 1. More filters / views...
+ 1. Diff view should give several other pieces of info --  ==> PageInfo
+  * who made the most recent edit
+  * history list of previous revs
+ 1. Filters / sorts on RecentChanges:
+  * there are four columns: Diff, Wiki''''''Word, Edit''''''Time, and Editor
+  * should be able to sort by each...
+  * size of Diff delta
+  * alpha by Wiki''''''Word (title)
+  * sort by time (default, the way it works now)
+  * who's the author / Editor
+ 1. More robust "RecentChanges" functionality:
+  * New''''''Pages
+  * Changed''''''Pages
+  * My''''''Recent''''''Changes
+  * My''''''New''''''Pages
+  * My''''''Changed''''''Pages
+ 1. Find''''''Similar capability. -- LikePages
+ 1. Blog-like way to post a link to a personal links page via a bookmark.
+ 1. Bookmark / feed page.
+ 1. Personal pages / views.
+ 1. Transitive search (i.e., content / history search).
+ 1. Eventually:  dynamic history!
+ 1. Easy upload of real docs vi WebDAV, interaction -w- external docs!!!
+ 1. Grammar checker? -- unlikely
+
+-- JeffBone, [mailto:jbone@jump.net jbone@jump.net]
+
+Take this with a grain of salt: if you don't even take the time to weed out the done points, why should I care to implement the rest? And there is some pretty heavy stuff in there, even if it might not look like that. A good third is too sketchy to even get what you mean. -- JürgenHermann
+
+This was more of a braindump than a series of requests, Jürgen.  Given cycles, I'll be happy to come back and try to clarify and cleanup;  but in the meantime, rather than keeping this locked in our Wiki, I thought I'd dump it up here.  That way, if there's anything of value in it, somebody else can benefit. But to your question, you shouldn't care to implement '''anybody's''' requests, unless it just tickles your fancy.  If any of the above does that, great, otherwise, that's fine too.  :) -- JeffBone
+
 === Older entries ===
 General:
  * TopicMap''''''s
@@ -95,7 +185,6 @@ empty line for <p>
  * HTML escape - '<html>' tag on a line by itself switches on raw html processing until turned off by '</html>', I know this isn't in the "easy wiki markup" realm but sometimes it's really useful eg converting existing docs, more complex tables etc. I have patches against 0.4 .. will add the feature to 0.5 and post a patch soon. Alexei
    * Write a parser (see {{{MoinMoin/parser/*.py}}}) for this
  * Move color management into moin_config.py rather than spread all over default.css.
- * A way to list pages that have no references to them. Zombies as the [http://www.bluetail.com:5999/ Erlang Wiki] calls it.
  * A macro that expands to the current date when the page is submitted. So that one easily can insert it in aid to others that follow the conversation. Maybe something like {{{ [[.sig]] }}} that will expand to whatever the UserPreferences is set to.
  * Is there any way to have incremental backups made over time? If there was, having a single person 'destroy' the MoinMoin would have minimal effect -- simply restore from backup.
   * Click on the blue "i" at the top-right corner of the page: each page has a full history.

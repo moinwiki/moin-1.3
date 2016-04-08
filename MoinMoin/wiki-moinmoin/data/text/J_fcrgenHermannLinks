@@ -1,0 +1,1379 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xbel PUBLIC "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML" "xbel-1.0.dtd" [
+    <!ENTITY % local.url.att "status CDATA #IMPLIED">
+]>
+
+<?xml-stylesheet href="xbel-1.0.xsl" type="text/xml"?>
+
+<xbel>
+  <title>J&#xFC;rgen's Bookmarks</title>
+
+  <info>
+    <metadata owner="J&#xFC;rgen Hermann &lt;jhe@webde-ag.de>" />
+  </info>
+
+  <desc>
+    Some of the descriptions are in German. Since the sites listed
+    with them are then normally German too, just ignore them.
+  </desc>
+
+<!--
+  <folder id="link-unsorted">
+
+    <bookmark href="./unsorted.html" visited="2000-03-30">
+      <title>Go to my unsorted bookmarks</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="/~jh/" visited="2000-03-30">
+      <title>Go to homepage</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <separator />
+
+  </folder>
+-->
+  
+  <folder id="xml">
+    <title>XML &amp; Related Technologies</title>
+    <desc>
+      XML is the eXtensible Markup Language. It's a fast-moving target, and
+      if you miss to jump on the band-waggon now, you will be victimized
+      eventually. &#xA0;:o)
+    </desc>
+
+    <folder id="xml-portals">
+      <title>XML Portals</title>
+
+      <bookmark href="http://xml.com/" visited="2000-03-30" status="302 Found">
+        <title>XML.com</title>
+        <desc>
+          Our mission at XML.com is to help you discover XML and learn how this new Internet technology can solve real-world problems in information management and electronic commerce. 
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://xmlhack.com/" visited="2000-03-30" status="200 OK">
+        <title>xmlhack, a news site for XML developers</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+    </folder>
+
+    <folder id="xml-resources">
+      <title>XML Resource Listings</title>
+
+      <bookmark href="http://www.xmlbooks.com/" visited="2000-03-30" status="200 OK">
+        <title>Charles F. Goldfarb's "All the XML Books in Print"</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.dtd.com/" visited="2000-03-30" status="200 OK">
+        <title>DTD.com</title>
+        <desc>
+          Lists over 180 current XML-based language standards, pseudo-standards and developing standards in progress.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xmlsoftware.com/" visited="2000-03-30" status="200 OK">
+        <title>XMLSOFTWARE - The XML Software Site</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.garshol.priv.no/download/xmltools/" visited="2000-03-30" status="200 OK">
+        <title>Free XML tools and software</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.infotek.no/sgmltool/guide.htm" visited="2000-03-30" status="200 OK">
+        <title>The Whirlwind Guide to SGML &amp; XML tools and Vendors</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.cranesoftwrights.com/" visited="2000-03-30" status="200 OK">
+        <title>G. Ken Holman's XSL resources site</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.ozemail.com.au/~sakthi/Common/xml.html" visited="2000-03-30" status="200 OK">
+        <title>THE ONE STOP XML RESOURCE CENTER</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.dpawson.freeserve.co.uk/xsl/xslfaq.html">
+        <title>XSL Frequently Asked Questions (FAQ)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+    </folder>
+
+    <folder id="xml-w3c">
+      <title>XML W3C Resources</title>
+
+      <bookmark href="http://www.w3.org/TR/NOTE-XSL-and-CSS" visited="2000-03-30" status="200 OK">
+        <title>Using XSL and CSS together (W3C Note, 11 September 1998)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.w3.org/TR/REC-DOM-Level-1/" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.w3.org/TR/NOTE-xlink-req/" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.w3.org/TR/xlink/" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.w3.org/TR/xinclude" visited="2000-03-30" status="200 OK">
+        <title>XML Inclusions (XInclude)</title>
+      </bookmark>
+
+      <bookmark href="http://www.w3.org/TR/xml-infoset" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.w3.org/TR/xmlquery-req" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.w3.org/TandS/QL/QL98/Overview.html" visited="2000-03-30" status="200 OK">
+        <title>QL'98 - The Query Languages Workshop</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+    </folder>
+
+    <folder id="xml-tutorials">
+      <title>XML Tutorials</title>
+
+      <bookmark href="http://xslt.com/resources_tutorials.htm" visited="2000-03-30" status="200 OK">
+        <title>XSLT.com - Resource Page for XML, XSL, XSLT Tutorials</title>
+        <desc>
+          Excellent list of tutorials on XML topics.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.informatik.tu-darmstadt.de/DVS1/staff/bourret/xml/NamespacesFAQ.htm" visited="2000-03-30" status="200 OK">
+        <title>XML Namespaces FAQ</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.mulberrytech.com/quickref/" visited="2000-03-30" status="200 OK">
+        <title>XSLT/XPath "Quick Reference" brochure</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.oasis-open.org/cover/xsl.html#articles" visited="2000-03-30" status="404 File Not Found">
+        <title>Robin Cover's list of XML papers, articles, tutorials</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+    <folder id="xml-articles">
+      <title>XML Articles</title>
+
+      <bookmark href="http://www.informatik.tu-darmstadt.de/DVS1/staff/bourret/xml/XMLAndDatabases.htm">
+        <title>XML and Databases</title>
+        <desc>
+          A paper that describes some of the major issues in using XML with databases.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://xml.com/pub/2000/04/26/rax/index.html?wwwrrr_20000426.ptxt">
+        <title>RAX: An XML Database API</title>
+        <desc>
+          Neither SAX nor DOM are well-suited to processing 
+          database-generated XML.  RAX is a record-oriented API to XML 
+          data that reduces the overhead and complexity of handling XML 
+          generated from databases.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://xml.com/pub/2000/04/05/deviant/index.html?wwwrrr_20000405.ptxt">
+        <title>XML.com - Storing and Querying</title>
+        <desc>
+          Databases, Querying, and the Document Object Model:
+          persistent storage APIs, query mechanisms, and search engines. 
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.xml.com/pub/2000/03/15/xul/index.html" visited="2000-03-30" status="200 OK">
+        <title>XML.com - Fooling with XUL</title>
+      </bookmark>
+  
+      <bookmark href="http://xml.com/pub/2000/03/08/style/index.html?wwwrrr_20000308.ptxt" visited="2000-03-30" status="200 OK">
+        <title>XML.com - Namespace Myths Exploded</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xml.com/pub/1999/12/dtd/" visited="2000-03-30" status="200 OK">
+        <title>XML.com - Describing your Data: DTDs and XML Schemas</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://xml.com/pub/2000/03/22/style/index.html?wwwrrr_20000322.ptxt" visited="2000-03-30" status="200 OK">
+        <title>Integration by Parts: XSLT, XLink &amp; SVG</title>
+        <desc>
+          A real world example of generating interactive, illustrated, technical documentation
+          by a combination of XML technologies, CSS and scripting.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://xml.com/pub/2000/03/22/psi/index.html?wwwrrr_20000322.ptxt" visited="2000-03-30" status="200 OK">
+        <title>Moving Home: Portable Site Information</title>
+        <desc>
+          Web development frameworks are many and varied, but why should 
+          you have to rebuild your site structure for each one? XML comes 
+          to the rescue, in the form of the Portable Site Information 
+          project.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://xml.com/pub/2000/03/22/deviant/index.html?wwwrrr_20000322.ptxt" visited="2000-03-30" status="200 OK">
+        <title>Good Things Come In Small Packages</title>
+        <desc>
+          Overview of XML compression techniques and developments.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xml.com/pub/2000/03/15/feature/index.html" visited="2000-03-30" status="200 OK">
+        <title>Pyxie</title>
+        <desc>
+          Describes a open source XML processing library that is based on PYX,
+          an ESIS subset suitable to XML. Pyxie is especially suitable for
+          Unix command-line processing of XML using pipes.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://xml.com/pub/2000/02/xtech/tutorials.html?wwwrrr_20000301.ptxt" visited="2000-03-30" status="200 OK">
+        <title>Bleeding-Edge XML: XLink and Apache</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+    </folder>
+
+    <folder id="xml-vocabularies">
+      <title>XML Vocabularies</title>
+
+      <bookmark href="http://www.ascc.net/xml/resource/schematron/schematron.html" visited="2000-03-30" status="200 OK">
+        <title>The Schematron</title>
+        <desc>
+          An XML Structure Validation Language using Patterns in Trees.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.develop.com/SOAP/" visited="2000-03-30" status="200 OK">
+        <title>Simple Object Access Protocol (SOAP)</title>
+        <desc>
+          SOAP is an XML/HTTP-based protocol for accessing
+          services, objects and servers in a platform-independent manner.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.xmlrpc.com/" visited="2000-03-30" status="200 OK">
+        <title>XML-RPC</title>
+        <desc>
+          Simple cross-platform distributed computing, based on the standards of the Internet.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://purl.org/DC/index.htm" visited="2000-03-30" status="200 Document follows">
+        <title>Dublin Core</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://psilib.sourceforge.net/" visited="2000-03-30" status="200 OK">
+        <title>Portable Site Information (PSI)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.wddx.org/" visited="2000-03-30" status="200 OK">
+        <title>Web Distributed Data Exchange (WDDX)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xmlnews.org/" visited="2000-03-30" status="200 OK">
+        <title>XMLNews</title>
+        <desc>
+          A suite of specifications for exchanging news and information using open Web standards. 
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.python.org/topics/xml/xbel/docs/html/xbel.html" visited="2000-03-30" status="200 OK">
+        <title>The XML Bookmark Exchange Language (XBEL)</title>
+      </bookmark>
+
+      <bookmark href="http://www.oasis-open.org/cover/rdf.html" visited="2000-03-30" status="200 OK">
+        <title>Resource Description Framework (RDF)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.unidex.com/xflat.htm" visited="2000-03-30" status="200 OK">
+        <title>XFlat &amp; XML Convert</title>
+        <desc>
+          XFlat is an XML language for defining flat file schemas (e.g. CSV).
+          XML Convert 1.1 is a Java application that uses an XFlat schema to convert a flat file into an XFlat instance.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xml.com/pub/Vocabularies" visited="2000-03-30" status="200 OK">
+        <title>XML.com - Topics: Vocabularies </title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+    </folder>
+
+    <folder id="xml-prog">
+      <title>XML Programming</title>
+
+      <bookmark href="http://trax.openxml.org/">
+        <title>TRaX &amp; Serialize APIs</title>
+      </bookmark>
+
+      <bookmark href="http://www.megginson.com/SAX/" visited="2000-03-30" status="*** ERROR 10060: WSAETIMEDOUT ***">
+        <title>SAX 1.0: The Simple API for XML</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xmlpatterns.com/" visited="2000-03-30" status="200 OK">
+        <title>XMLPatterns.com Home Page</title>
+      </bookmark>
+
+      <bookmark href="http://www.xml.com/pub/2000/01/19/feature/index.html" visited="2000-03-30" status="200 OK">
+        <title>Design Patterns in XML Applications (Part I)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://xml.com/pub/2000/02/16/feature/index.html?wwwrrr_20000216.ptxt" visited="2000-03-30" status="200 OK">
+        <title>Design Patterns in XML Applications (Part II)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.groveware.com/xmlbook/patterns.html" visited="2000-03-30" status="200 OK">
+        <title>Introduction to XML Design patterns</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xmleverywhere.com/xml-acceptor.html" visited="2000-03-30" status="200 OK">
+        <title>The XML-Acceptor Pattern</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.minoxml.cx/" visited="2000-03-30" status="*** ERROR host not found ***">
+        <title>Mino XML Library</title>
+        <desc>
+          Mino is a powerful library for processing XML files written in C++.
+        </desc>
+      </bookmark>
+
+    </folder>
+
+    <folder id="xml-software">
+      <title>XML Software</title>
+
+      <bookmark href="http://www.webslingerz.com/balld/xmlform/README" visited="2000-03-30" status="200 OK">
+        <title>XMLform</title>
+        <desc>
+          XMLForm is an HTTP servlet designed to edit XML documents in a highly
+          structured fashion.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.pault.com/Pxsl/" visited="2000-03-30" status="200 OK">
+        <title>PXSLServlet</title>
+        <desc>
+          PXSLServlet generates XML from SQL and other sources.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.informatik.fh-wiesbaden.de/~turau/DB2XML/index.html" visited="2000-03-30" status="200 OK">
+        <title>DB2XML</title>
+        <desc>
+          A tool for transforming relational databases into XML documents.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://nwalsh.com/perl/dtdparse/" visited="2000-03-30" status="200 OK">
+        <title>DTDparse</title>
+        <desc>
+          DTDparse reads an SGML or XML DTD and constructs an XML database of its content.
+          This database can be examined to construct other views of the DTD.
+          In particular, HTML or DocBook RefEntry documentation for the DTD. 
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.percussion.com/Products/XSplit/xsplitover.htm" visited="2000-03-30" status="200 OK">
+        <title>XSpLit</title>
+        <desc>
+          XSpLit takes any standard HTML file and splits it automatically into two related XML files.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.gingerall.com/charlie-bin/get/webGA/act/sablot_man.act">
+        <title>GAdoc - Sablotron</title>
+      </bookmark>
+
+      <bookmark href="http://www.ltg.ed.ac.uk/~ht/xed.html" visited="2000-03-30" status="200 OK">
+        <title>XED An XML document instance editor</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.cuesoft.com/products/exml.asp" visited="2000-03-30" status="200 OK">
+        <title>EXml Editor</title>
+        <desc>
+          Free XML editor for Windows 95/98/NT
+          with a structure view and a source view and built-in XSL namespace support. 
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.objectdesign.com/products/excelon_stylus.html" visited="2000-03-30" status="200 OK">
+        <title>eXcelon Stylus - Visual Editor for XSL Stylesheets</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.stepuk.com/x2xdocs/x2xdocs.html" visited="2000-03-30" status="200 OK">
+        <title>X2X</title>
+        <desc>
+          X2X, the XML XLink Engine. X2X allows for the creation, management and manipulation of links.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xmeta.com/omlette/rtf2xml/" visited="2000-03-30" status="200 OK">
+        <title>RTF2XML filter</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.ccs.neu.edu/home/cloder/freeware/xbelie.html" visited="2000-03-30" status="200 OK">
+        <title>xbelie v1.0 - Chad Loder</title>
+      </bookmark>
+
+    </folder>
+
+    <folder id="xml-misc">
+      <title>XML Unsorted</title>
+
+      <bookmark href="http://users.iclway.co.uk/mhkay/saxon/dtdgen.html">
+        <title>DTDGenerator - A tool to generate XML DTDs</title>
+      </bookmark>
+
+      <bookmark href="http://sourceforge.net/project/?group_id=4826">
+        <title>SourceForge Project Info - XML Schema compilation</title>
+      </bookmark>
+
+      <bookmark href="http://wwbota.free.fr/XSLT_models/README.htm">
+        <title>http--wwbota.free.fr-XSLT_models-README.htm</title>
+      </bookmark>
+
+      <bookmark href="http://www.xmltree.com/">
+        <title>xmlTree - The only directory of XML content on the Web</title>
+      </bookmark>
+
+      <bookmark href="http://www.ccil.org/~cowan/XML/XCatalog.html">
+        <title>XML Catalog proposal</title>
+      </bookmark>
+
+      <bookmark href="http://www.w3.org/2000/03/29-XML-protocol-matrix">
+        <title>XML Protocol Comparisons</title>
+      </bookmark>
+
+      <bookmark href="http://www.xmlscript.org/">
+        <title>XML Script - XML Productivity Applications</title>
+      </bookmark>
+
+      <bookmark href="http://www.inquiry.com/techtips//xml_pro/" visited="2000-03-30" status="-1 ">
+        <title>Ask the XML Pro</title>
+      </bookmark>
+
+      <bookmark href="http://www.xmlsoftware.com/articles/xsl-by-example.html" visited="2000-03-30" status="200 OK">
+        <title>"XSL Templates by Example" by James Tauber</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.webtechniques.com/archives/2000/01/beyo/" visited="2000-03-30" status="200 OK">
+        <title>Beyond HTML  Presenting Data with the XML DSO (Web Techniques, Jan 2000)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.oasis-open.org/cover/" visited="2000-03-30" status="200 OK">
+        <title>The SGML-XML Web Page - Home Page</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.sics.se/mozart/documentation/ozdoc/index.html" visited="2000-03-30" status="200 OK">
+        <title>Oz Documentation DTD</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://wdvl.com/Authoring/Languages/XML/Resources.html" visited="2000-03-30" status="200 OK">
+        <title>WDVL XML Resources</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.skew.org/xml/" visited="2000-03-30" status="200 OK">
+        <title>Mike J. Brown's XML and XSL stuff</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://technet.oracle.com/tech/xml/info/index2.htm?Info&amp;htdocs/relational/index.htm" visited="2000-03-30" status="200 OK">
+        <title>Using XML and Relational Databases for Internet Applications</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://fourthought.com/Presentations/" visited="2000-03-30" status="200 OK">
+        <title>Presentations given by Fourthought Personnel</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xmlwriter.net/books/xml_books_list_all.html" visited="2000-03-30" status="200 OK">
+        <title>XML books and related titles</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xml.com/xml/pub/1999/03/ie5/first-x.html" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.brics.dk/DSD/dsd2html.html" visited="2000-03-30" status="200 OK">
+        <title>DSD-to-HTML XSLT style sheet</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.ascc.net/xml/en/utf-8/XSLvalidation.html" visited="2000-03-30" status="200 OK">
+        <title>Using XSL as a Validation Language</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.rhein-neckar.de/~cetus/oo_xml.html" visited="2000-03-30" status="200 OK">
+        <title>Internet &amp; Intranets: XML, DOM, XSL, RDF and related technologies</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://metalab.unc.edu/xml/books/bible/" visited="2000-03-30" status="200 OK">
+        <title>The XML Bible</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://metalab.unc.edu/bosak/conf/xmldev99/tauber/tauber.pdf" visited="2000-03-30" status="200 OK">
+        <title>FOP: A Formatting Object to PDF Translator</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.simonstl.com/" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://msdn.microsoft.com/xml/default.asp" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://home.pacbell.net/david-b/xml/" visited="2000-03-30" status="500 Server Error">
+        <title>XML and SAX2 Software</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://xml.com/pub/2000/03/08/namespaces/index.html?wwwrrr_20000308.ptxt" visited="2000-03-30" status="200 OK">
+        <title></title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.ejbdevelopers.com/xsllib/" visited="2000-03-30" status="200 OK">
+        <title>XSLLib</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.oasis-open.org/cover/topics.html#esis" visited="2000-03-30" status="404 File Not Found">
+        <title>ESIS - ISO 8879 Element Structure Information Set</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://msdn.microsoft.com/workshop/xml/general/msxmlprev.asp" visited="2000-03-30" status="200 OK">
+        <title>March 2000 Microsoft XML Parser Technology Preview</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.bristol.com/exactml/whitepaper.htm" visited="2000-03-30" status="200 OK">
+        <title>eXactML</title>
+        <desc>
+          eXactML generates C++ classes for writing valid XML content for a specified DTD or schema.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.prescod.net/groves/shorttut/" visited="2000-03-30" status="200 OK">
+        <title>Addressing the Enterprise: Why the Web needs Groves</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://zvon.vscht.cz/HTMLonly/XSLTutorial/Books/Book1/bookInOne.html" visited="2000-03-30" status="200 OK">
+        <title>Introduction to XSL</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.oasis-open.org/cover/xml.html#applications" visited="2000-03-30" status="404 File Not Found">
+        <title>XML Applications</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://db.cis.upenn.edu/cgi-bin/serveXML" visited="2000-03-30" status="200 OK">
+        <title>XML Gateway Server</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.xmltree.com/xsl/results.cfm" visited="2000-03-30" status="200 OK">
+        <title>xmlTree - A directory of XSL stylesheets for XML on the Web</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+  </folder>
+
+  
+  <folder id="ka">
+    <title>Karlsruhe</title>
+
+    <desc>
+      This is where I live. Surprise, mostly in German!
+    </desc>
+
+    <bookmark href="http://www.karlsruhe.de/" visited="2000-03-30" status="200 OK">
+      <title>Stadtinformation Karlsruhe</title>
+      <desc>
+        Internetseiten der Stadt Karlsruhe.
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.karlsruhe.de/Stadtraum/VLA/stadtplan1.html" visited="2000-03-30" status="200 OK">
+      <title>Stadtkarte</title>
+      <desc>
+        Interaktive Stadtkarte mit Suchm&#xF6;glichkeit.
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.ka-news.de/" visited="2000-03-30" status="200 OK">
+      <title>Nachrichtenmagazin f&#xFC;r Karlsruhe</title>
+      <desc>
+        Das neue Nachrichtenmagazin ka-news ist das erste verlagsunabh&#xE4;ngige,
+        &#xFC;berparteiliche Internetmagazin f&#xFC;r Karlsruhe. Es gliedert sich in
+        lokale und regionale Meldungen im Nachrichtenblock bis hin zu
+        Hintergrundberichten wie "Unser Thema" im Magazinteil. Es informiert
+        aber auch aktuell &#xFC;ber die wichtigen Vorkommnisse in Deutschland.
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.technologiefabrik-ka.de/" visited="2000-03-30" status="200 OK">
+      <title>Technologiefabrik Karlsruhe</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <folder id="ka-kino">
+      <title>Kino in Karlsruhe</title>
+
+      <bookmark href="http://www.ka-news.de/veranstaltungen/kino.shtml" visited="2000-03-30" status="200 OK">
+        <title>Aktuelles Kinoprogramm</title>
+        <desc>
+          Das Kinoprogramm f&#xFC;r alle Karlsruher Kinos, organisiert nach Filmen.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.online-club.de/m4/multiplex/kin_karlsruhe.htm" visited="2000-03-30" status="200 OK">
+        <title>Filmpalast am ZKM</title>
+        <desc>
+          Multiplex-Kino in Karlsruhe (10 Leinw&#xE4;nde, 2954 Sitze,
+          Bildsystem: 35mm, Soundsysteme: Dolby SR, Dolby SR.D, DTS, THX).
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.cinestar.de/home/homeprogram.asp?vorwahl=0721" visited="2000-03-30" status="200 OK">
+        <title>Filmpalast am ZKM (Programm)</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.schauburg.de/" visited="2000-03-30" status="200 OK">
+        <title>Schauburg</title>
+        <desc>
+          Das pl&#xFC;schige Kino-Erlebnis.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://kino.termine.de/karlsruhe/kino/" visited="2000-03-30" status="200 OK">
+        <title>Filmtheater in Karlsruhe</title>
+        <desc>
+          Das UfA-Programm.
+        </desc>
+      </bookmark>
+
+    </folder>
+  </folder>
+  
+  <folder id="dev">
+    <title>Development</title>
+
+    <folder id="dev-resources">
+      <title>Development: Resources</title>
+
+      <bookmark href="http://www.freecode.com/graphics.html" visited="2000-03-30" status="200 OK">
+        <title>FreeCode, Free Programming Source Code</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.codecatalog.com/" visited="2000-03-30" status="200 OK">
+        <title>CodeCatalog.com - The Open Source Code Search Engine</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://perl.guru.org/alg/index.html" visited="2000-03-30" status="200 OK">
+        <title>Algorithm Archive (Work in progress)</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+    <folder id="dev-patterns">
+      <title>Development: Patterns</title>
+
+      <bookmark href="http://hillside.net/patterns/patterns.html" visited="2000-03-30" status="200 OK">
+        <title>Patterns Home Page</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://hillside.net/patterns/EgPatterns.html" visited="2000-03-30" status="200 OK">
+        <title>Examples of Patterns</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+    <folder id="dev-tools">
+      <title>Development: Tools</title>
+
+      <bookmark href="http://www.thefreecountry.com/developercity/compiler.html" visited="2000-03-30" status="200 OK">
+        <title>Free Compiler Construction Tools</title>
+      </bookmark>
+
+      <bookmark href="http://www.s2.org/GNU/" visited="2000-03-30" status="200 OK">
+        <title>GNU Documentation</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="ftp://ftp.ugcs.caltech.edu/pub/elef/autotools/toolsmanual.html" visited="2000-03-30">
+        <title>Developing software with GNU</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.cyclic.com/cyclic-pages/autoconf.html" visited="2000-03-30" status="200 OK">
+        <title>Cyclic autoconf/automake page</title>
+        <desc>
+          Overview of automake, autoconf and libtool
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.airs.com/ian/configure/" visited="2000-03-30" status="200 OK">
+        <title>The GNU configure and build system</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://nis-www.lanl.gov/~rosalia/mydocs/autoconf_tutorial_toc.html" visited="2000-03-30" status="200 OK">
+        <title>Autoconf Tutorial</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.delorie.com/gnu/docs/cvs/cvshelp.man.html" visited="2000-03-30" status="200 OK">
+        <title>cvshelp</title>
+      </bookmark>
+
+      <bookmark href="http://www.wincvs.org/" visited="2000-03-30" status="200 OK">
+        <title>WinCvs.org</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.loria.fr/cgi-bin/molli/wilma.cgi/doc">
+        <title>CVS-Documentation-Links</title>
+      </bookmark>
+
+      <bookmark href="http://www.imaginator.com/doc++/" visited="2000-03-30" status="200 OK">
+        <title>DOC++'s Home Page</title>
+      </bookmark>
+
+      <bookmark href="http://www.lmi.net/~sbooth/src2html/" visited="2000-03-30" status="200 OK">
+        <title>src2html</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+    <folder id="dev-misc">
+      <title>Development: Unsorted</title>
+
+      <bookmark href="http://www.enteract.com/~bradapp/links/scm-links.html" visited="2000-03-30" status="200 OK">
+        <title>Brad Appleton's Software Configuration Management Links</title>
+      </bookmark>
+
+      <bookmark href="http://www.enteract.com/~bradapp/acme/branching/" visited="2000-03-30" status="200 OK">
+        <title>Streamed Lines Branching Patterns for Parallel Software Development</title>
+      </bookmark>
+
+      <bookmark href="http://members.xoom.com/_XMCM/thomasn/s_skl.htm" visited="2000-03-30" status="*** ERROR 10054: WSAECONNRESET ***">
+        <title>Skip Lists</title>
+      </bookmark>
+
+      <bookmark href="http://members.xoom.com/_XMCM/thomasn/s_skip.pdf" visited="2000-03-30" status="302 Moved Temporarily">
+        <title>Skip Lists - A Probalistic Alternative to Balanced Trees</title>
+      </bookmark>
+
+      <bookmark href="http://ootips.org/ood-principles.html" visited="2000-03-30" status="200 OK">
+        <title>(ootips) What Makes A Good Object-Oriented Design</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.zdnet.com/devhead/" visited="2000-03-30" status="404 Not found">
+        <title>ZDNet d e v e l o p e r</title>
+        <desc>
+          Ziff Davis developer Portal
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.cs.orst.edu/~crowl/programming/Bentley82.html" visited="2000-03-30" status="302 Found">
+        <title>A Summary of Jon Louis Bentley's ``Writing Efficient Programs''</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.mcp.com/personal/ebooklist.html" visited="2000-03-30" status="404 Not found">
+        <title>Computer Reference _ Personal Bookshelf _ Ebook List</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.dcc.uchile.cl/~oalonso/handbook/hbook.html" visited="2000-03-30" status="302 Found">
+        <title>Handbook of Algorithms and Data Structures</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.lns.mit.edu/~dsw/turing/turing.html" visited="2000-03-30" status="200 OK">
+        <title>TM, The Turing Machine Interpreter (D.S.Woodruff)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+    </folder>
+
+  </folder>
+
+  
+  <folder id="cpp">
+    <title>C++</title>
+
+    <folder id="cpp-resources">
+      <title>C++ Resource Listings</title>
+
+      <bookmark href="http://cscene.org/" visited="2000-03-30" status="200 OK">
+        <title>C-Scene - The C/C++ Freezine</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://webnz.com/robert/cpp_site.html" visited="2000-03-30" status="200 OK">
+        <title>Sites of interest to C++ users</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+    <folder id="cpp-tutorials">
+      <title>C++ Tutorials</title>
+
+      <bookmark href="http://www.dinkumware.com/htm_cpl/index.html" visited="2000-03-30" status="200 OK">
+        <title>Dinkum C/C++ Library Reference</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.bus.olemiss.edu/reithel/m495s97/cppurls.htm" visited="2000-03-30" status="404 Object Not Found">
+        <title>C++ Tutorial URL's</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.cs.uow.edu.au/people/nabg/Books.html" visited="2000-03-30" status="200 OK">
+        <title>Teaching Materials on OO Programming and C++</title>
+        <desc>
+          Description of "Programming with Class: A Practical Introduction to Object Oriented Programming with C++"
+          and "A Beginners C++"
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.bestweb.net/~rhickey/functor.html" visited="2000-03-30" status="200 OK">
+        <title>CALLBACKS IN C++ USING TEMPLATE FUNCTORS</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+    <folder id="stl">
+      <title>STL - Standard Template Library</title>
+  
+      <bookmark href="http://www.stlport.org/" visited="2000-03-30" status="200 OK">
+        <title>STLport.org</title>
+        <desc>
+          Complete C++ standard library, including &lt;complex> and SGI STL iostreams.
+          Can be configured to use either SGI or native iostreams.
+          gcc-2.95, mingw32, SUN WS 6.0 EA, Borland C++ 5.5 are supported.
+        </desc>
+      </bookmark>
+  
+      <bookmark href="ftp://ftp.fmi.uni-konstanz.de/pub/algo/personal/kuehl/sstream-egcs.tgz" visited="2000-03-30">
+        <title>C++ sstream implementation for Unix (gcc)</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+    </folder>
+
+
+    <folder id="cpp-misc">
+      <title>C++ Unsorted</title>
+
+      <bookmark href="http://clisp.cons.org/~haible/packages-cln-README.html">
+        <title>CLN - Class Library for Numbers</title>
+      </bookmark>
+
+      <bookmark href="http://www.kai.com/C_plus_plus/">
+        <title>Introduction to KAI C++</title>
+      </bookmark>
+
+      <bookmark href="http://www.cerfnet.com/~mpcline/C++-FAQs-Lite/" visited="2000-03-30" status="200 OK">
+        <title>C++ FAQ LITE</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://lib.stat.cmu.edu/~lamj/sigs/c++-report/cppr9606.c.vlissides.html" visited="2000-03-30" status="200 OK">
+        <title>To Kill a Singleton</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://oonumerics.org/blitz/" visited="2000-03-30" status="200 OK">
+        <title>Blitz++ Home Page</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.comeaucomputing.com/" visited="2000-03-30" status="200 OK">
+        <title>Comeau Computing</title>
+        <desc>
+          Comeau C++, a high quality, low cost C++ solution available on multiple platforms.
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.boost.org/" visited="2000-03-30" status="200 OK">
+        <title>Boost C++ Libraries</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.algonet.se/~synchron/pheaven/www/area8.htm" visited="2000-03-30" status="200 OK">
+        <title>Programming C++</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.cm.cf.ac.uk/Dave/C/CE.html" visited="2000-03-30" status="200 OK">
+        <title>Programming in C</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://meyerscd.awl.com/" visited="2000-03-30" status="200 OK">
+        <title>Effective C++ CD Demo</title>
+      </bookmark>
+  
+      <bookmark href="http://www.EckelObjects.com/" visited="2000-03-30" status="200 OK">
+        <title>Bruce Eckel's MindView, Inc. OOP Resources</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://x11.dejanews.com/getdoc.xp?AN=226007899&amp;CONTEXT=917029074.1887043810&amp;hitnum=16" visited="2000-03-30" status="302 Moved Temporarily">
+        <title>DN - Re_ how do I lowercase a string__</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.encrypted.net/~cpp/" visited="2000-03-30" status="200 OK">
+        <title>Welcome to #C++'s Website</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+    </folder>
+
+  </folder>
+
+
+  <folder id="java">
+    <title>Java</title>
+
+    <bookmark href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html" visited="2000-03-30" status="200 OK">
+      <title>Code Conventions for the Java Programming Language</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.lynx.ch/contacts/~/thomasm/hsql.html" visited="2000-03-30" status="200 OK">
+      <title>Hypersonic SQL</title>
+      <desc>
+        An Open Source Java Database with standard SQL syntax and a JDBC interface.
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://castor.exolab.org/" visited="2000-03-30" status="200 OK">
+      <title>The Castor Project</title>
+      <desc>
+        Castor is the shortest path between Java objects, XML documents, SQL
+        tables and LDAP directories. It provides Java to XML binding, Java to
+        SQL/LDAP persistence, and then some more.
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.javalobby.org/jfa/index.html" visited="2000-03-30" status="404 Not Found">
+      <title>JFA Projects - Construction Zone</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+  </folder>
+
+  <folder id="python">
+    <title>Python</title>
+
+    <bookmark href="http://starship.python.net/" visited="2000-03-30" status="200 OK">
+      <title>Starship Python</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.ora.com/news/prescod_0300.html" visited="2000-03-30" status="200 OK">
+      <title>www.oreilly.com -- Why I Promote Python</title>
+    </bookmark>
+
+    <bookmark href="http://www.infotek.no/~grove/software/gps/index.html" visited="2000-03-30" status="200 OK">
+      <title></title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.xs4all.nl/~asz00557/ap/pyro.html" visited="2000-03-30" status="200 OK">
+      <title>Pyro (Python Remote Objects)</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.vex.net/~x/parnassus/" visited="2000-03-30" status="200 OK">
+      <title>The Vaults of Parnassus Python Resources</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.lyra.org/greg/python/" visited="2000-03-30" status="200 OK">
+      <title>Python Software</title>
+    </bookmark>
+
+    <bookmark href="http://www.digitome.com/pyxie.html" visited="2000-03-30" status="200 OK">
+      <title></title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://starship.python.net/crew/lemburg/">
+      <title>Marc&apos;s Python Pages</title>
+    </bookmark>
+
+    <folder id="python-xml">
+      <title>Python &amp; XML</title>
+
+      <bookmark href="http://csmctmto.interpoint.net/didx/xml.html" visited="2000-03-30" status="200 OK">
+        <title>Python XML Toolkit</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.garshol.priv.no/download/saxlib/">
+        <title>Python saxlib</title>
+      </bookmark>
+
+      <bookmark href="http://www.python.org/topics/xml/" visited="2000-03-30" status="200 OK">
+        <title>Python and XML Processing (XML SIG)</title>
+        <desc>
+        </desc>
+      </bookmark>
+  
+      <bookmark href="http://www.prescod.net/" visited="2000-03-30" status="200 OK">
+        <title>Python EasySAX</title>
+        <desc>
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.twistedmatrix.com/~glyph/rant/python-vs-java.html" visited="2000-03-30" status="200 OK">
+        <title>Comparing Python to Java</title>
+        <desc>
+          A subjective analysis of two high-level, object-oriented languages.
+        </desc>
+      </bookmark>
+
+    </folder>
+  </folder>
+
+  <folder id="unix">
+    <title>Unix</title>
+
+    <bookmark href="http://www.freshmeat.net/" visited="2000-03-30" status="200 OK">
+      <title>freshmeat.net</title>
+      <desc>
+        Linux(?) News- und Software-Portal.
+      </desc>
+    </bookmark>
+  </folder>
+
+  <folder id="databases">
+    <title>Databases</title>
+
+    <bookmark href="http://iamwww.unibe.ch/~scg/Archive/Software/FreeDB/index.html" visited="2000-03-30" status="200 OK">
+      <title>Free Database List</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://web.singnet.com.sg/~cslheng/developer/database.html" visited="2000-03-30" status="200 OK">
+      <title>Free Database Libraries, SQL Servers and SQL Tools</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.sleepycat.com/" visited="2000-03-30" status="200 OK">
+      <title>The Sleepycat Software Home Page</title>
+      <desc>
+        Sleepycat Software builds, distributes, and supports The Berkeley Database (Berkeley DB),
+        an Open Source embedded database system.
+      </desc>
+    </bookmark>
+
+  </folder>
+
+  <folder id="networks">
+    <title>Networking</title>
+
+    <bookmark href="http://lwprotocols.org/" visited="2000-03-30" status="200 OK">
+      <title>Lightweight Protocols</title>
+      <desc>
+        A site dedicated to information about distributed computing architectures
+        that are more structured than telnet command protocols or CGIs but less
+        complex or heavy than CORBA or DCOM.
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://de.casbah.org/LDO/" visited="2000-03-30" status="200 OK">
+      <title>Lightweight Distributed Objects (LDO)</title>
+      <desc>
+        Open Source Communications Framework
+      </desc>
+    </bookmark>
+  </folder>
+
+  <folder id="graphics">
+    <title>Graphics</title>
+
+    <bookmark href="http://www.wizards.dupont.com/cristy/" visited="2000-03-30" status="200 OK">
+      <title>ImageMagick - X11 Image Processing and Display Package</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <folder id="graphics-icons">
+      <title>Icon Collections</title>
+
+      <bookmark href="http://www.silverpoint.com/leo/lia/" visited="2000-03-30" status="200 OK">
+        <title>Leo's Icon Archive</title>
+        <desc>
+          The focus here is on illustrator icons, but you'll also find Caps, Buttons,
+          Comics, Bullets, Flags, Butterflies, etc. and original work by Leo. 
+        </desc>
+      </bookmark>
+
+      <bookmark href="http://www.graphxkingdom.com/" visited="2000-03-30" status="200 OK">
+        <title>Andrew's GraphXKingdom</title>
+        <desc>
+          The Graphxkingdom is home to thousands of clipart, icons, backgrounds, bars, interfaces,
+          and other cool, free graphics. 
+        </desc>
+      </bookmark>
+    
+    </folder>
+
+  </folder>
+
+  <folder id="people">
+    <title>People</title>
+
+    <bookmark href="http://www.cs.brown.edu/~jak/" visited="2000-03-30" status="200 OK">
+      <title>Jak Kirman -- Home Page</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.simplesystems.org/users/bfriesen/index.html" visited="2000-03-30" status="200 OK">
+      <title>Bob Friesenhahn's Collection Of Mindless Babble</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.webslingerz.com/balld/" visited="2000-03-30" status="200 OK">
+      <title>Donald A. Ball</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://home.rmi.net/~lutz/" visited="2000-03-30" status="200 OK">
+      <title>Mark Lutz's Home Page</title>
+      <desc>
+        Author of various books about Python.
+      </desc>
+    </bookmark>
+
+  </folder>
+
+  <folder id="fun">
+    <title>Fun</title>
+
+    <bookmark href="http://thump.rotten.com/dilbert-hole/index.html" visited="2000-03-30" status="200 OK">
+      <title>legal department @ rotten dot com</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.despair.com/" visited="2000-03-30" status="200 OK">
+      <title>Demotivators - from Despair, Inc.</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.hamsterdance.com/" visited="2000-03-30" status="200 OK">
+      <title>The Hampster Dance</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+    <bookmark href="http://www.armory.com/tests/nerd500.html" visited="2000-03-30" status="200 OK">
+      <title>The 500 Point Nerdity Test!</title>
+      <desc>
+      </desc>
+    </bookmark>
+
+
+  </folder>
+
+</xbel>
+
+<!--
+  <folder id="">
+    <title></title>
+  </folder>
+
+    <bookmark href="">
+      <title></title>
+      <desc>
+      </desc>
+    </bookmark>
+-->

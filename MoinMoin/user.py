@@ -4,12 +4,12 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: user.py,v 1.18 2000/12/07 23:18:21 jhermann Exp $
+    $Id: user.py,v 1.30 2001/05/04 21:32:39 jhermann Exp $
 """
 
 # Imports
 import os, string, time
-from MoinMoin import config, util
+from MoinMoin import config, i18n, util, webapi
 
 try:
     import Cookie
@@ -20,6 +20,13 @@ except ImportError:
 #############################################################################
 ### Form Handling
 #############################################################################
+
+_date_formats = {
+    'iso':  '%Y-%m-%d %H:%M:%S',
+    'us':   '%m/%d/%Y %I:%M:%S %p',
+    'euro': '%d.%m.%Y %H:%M:%S',
+    'rfc':  '%a %b %d %H:%M:%S %Y',
+}
 
 def savedata(pagename, form):
     """ Handle POST request of the user preferences form
@@ -33,11 +40,11 @@ def savedata(pagename, form):
         cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
         if cookie.has_key('MOIN_ID'):
             uid = cookie['MOIN_ID'].value
-            util.setHttpHeader('Set-Cookie: MOIN_ID=%s; expires=Tuesday, 01-Jan-1999 12:00:00 GMT; Path=%s' % (
-                cookie['MOIN_ID'].value, util.getScriptname(),))
+            webapi.setHttpHeader('Set-Cookie: MOIN_ID=%s; expires=Tuesday, 01-Jan-1999 12:00:00 GMT; Path=%s' % (
+                cookie['MOIN_ID'].value, webapi.getScriptname(),))
             os.environ['HTTP_COOKIE'] = ''
         current = User()
-        return "<b>Cookie deleted!</b>"
+        return current.text("<b>Cookie deleted!</b>")
 
     if form.has_key('login') or form.has_key('uid'):
         # try to get the id
@@ -52,12 +59,12 @@ def savedata(pagename, form):
 
         # if id is empty or missing, return an error msg
         if not uid:
-            return "<b>Please enter a non-empty user id!</b>"
+            return current.text("<b>Please enter a non-empty user id!</b>")
 
         # load the user data and check for validness
         user = User(uid)
         if not user.valid:
-            return "<b>Please enter a valid user id!</b>"
+            return current.text("<b>Please enter a valid user id!</b>")
 
         # send the cookie
         user.sendCookie()
@@ -70,7 +77,7 @@ def savedata(pagename, form):
         try:
             user.name = string.replace(form['username'].value, '\t', ' ')
         except KeyError:
-            return "<b>Please enter a user name!</b>"
+            return current.text("<b>Please enter a user name!</b>")
 
         # try to get the (optional) password
         try:
@@ -110,12 +117,28 @@ def savedata(pagename, form):
         except ValueError:
             pass
 
+        # date format
+        try:
+            user.datetime_fmt = _date_formats.get(form['datetime_fmt'].value, '')
+        except KeyError:
+            pass
+        except ValueError:
+            pass
+
+        # CSS URL
+        try:
+            user.css_url = form['css_url'].value
+        except KeyError:
+            user.css_url = config.css_url
+        except ValueError:
+            pass
+
         # save data and send cookie
         user.save()
         user.sendCookie()
         current = user
 
-        return "<b>User preferences saved!</b>"
+        return current.text("<b>User preferences saved!</b>")
 
 
 def _tz_select(user):
@@ -150,16 +173,20 @@ def getUserForm(form):
   <input type="hidden" name="action" value="userform"></td></tr>
   <table border="0">
     %(html_uid)s
-    <tr><td><b>Name</b>&nbsp;</td><td><input type="text" size="40" name="username" value="%(name)s"></td></tr>
-    <tr><td><b>Password</b>&nbsp;</td><td><input type="password" size="40" name="password" value="%(password)s"></td></tr>
-    <tr><td><b>Email</b>&nbsp;</td><td><input type="text" size="40" name="email" value="%(email)s"></td></tr>
-    <tr><td><b>Editor size</b>&nbsp;</td><td>
+    <tr><td><b>%(label_name)s</b>&nbsp;</td><td><input type="text" size="40" name="username" value="%(name)s"></td></tr>
+    <tr><td><b>%(label_password)s</b>&nbsp;</td><td><input type="password" size="40" name="password" value="%(password)s"></td></tr>
+    <tr><td><b>%(label_email)s</b>&nbsp;</td><td><input type="text" size="40" name="email" value="%(email)s"></td></tr>
+    <tr><td><b>%(label_css_url)s</b>&nbsp;</td><td><input type="text" size="60" name="css_url" value="%(css_url)s"> %(label_css_help)s</td></tr>
+    <tr><td><b>%(label_editor_size)s</b>&nbsp;</td><td>
       <input type="text" size="3" maxlength="3" name="edit_cols" value="%(edit_cols)s"> &nbsp;x&nbsp;
       <input type="text" size="3" maxlength="3" name="edit_rows" value="%(edit_rows)s">
     </td></tr>
-    <tr><td><b>Time zone</b>&nbsp;</td><td>
-      Your time is %(tz_select)s  
-      <br>Server time is %(now)s
+    <tr><td><b>%(label_tz)s</b>&nbsp;</td><td>
+      %(label_your_time)s %(tz_select)s  
+      <br>%(label_server_time)s %(now)s
+    </td></tr>
+    <tr><td><b>%(label_date_format)s</b>&nbsp;</td><td>
+      <select name="datetime_fmt">%(dtfmt_select)s</select>
     </td></tr>
     <tr><td></td><td>
       %(button)s
@@ -168,37 +195,54 @@ def getUserForm(form):
 </form>
 %(relogin)s
 """
+    formtext = {
+        'label_name':           current.text('Name'),
+        'label_password':       current.text('Password'),
+        'label_email':          current.text('Email'),
+        'label_css_url':        current.text('CSS URL'),
+        'label_css_help':       current.text('("None" for disabling CSS)'),
+        'label_editor_size':    current.text('Editor size'),
+        'label_tz':             current.text('Time zone'),
+        'label_your_time':      current.text('Your time is'),
+        'label_server_time':    current.text('Server time is'),
+        'label_date_format':    current.text('Date format'),
+    }
+
+    dtfmt_select = '<option value="">' + current.text('Default')
+    for option, text in _date_formats.items():
+        dtfmt_select = dtfmt_select + '<option value="%s"%s>%s' % (
+            option, ('', ' selected')[current.datetime_fmt == text], text)
 
     if current.valid:
         html_uid = '<tr><td><b>ID</b>&nbsp;</td><td>%s</td></tr>' % (current.id,)
         html_button = """
-            <input type="submit" name="save" value=" Save "> &nbsp;
-            <input type="submit" name="logout" value=" Logout "> &nbsp;
-        """
-        url = "http://%s:%s%s?action=userform&uid=%s" % (
-            os.environ.get('SERVER_NAME'), os.environ.get('SERVER_PORT'),
-            util.getScriptname(), current.id)
-        html_relogin = 'To login on a different machine, use this URL: ' + \
+            <input type="submit" name="save" value="%s"> &nbsp;
+            <input type="submit" name="logout" value="%s"> &nbsp;
+        """ % (current.text(' Save '), current.text(' Logout '))
+        url = "%s?action=userform&uid=%s" % (webapi.getBaseURL(), current.id)
+        html_relogin = current.text('To login on a different machine, use this URL: ') + \
             '<a href="%s">%s</a><br>' % (url, url)
     else:
         html_uid = """
             <tr><td><b>ID</b>&nbsp;</td><td><input type="text" size="40" name="loginid"></td></tr>
-            <tr><td></td><td><input type="submit" name="login" value=" Login "></td></tr>
-        """
+            <tr><td></td><td><input type="submit" name="login" value="%s"></td></tr>
+        """ % (current.text(' Login '),)
         html_button = """
-            <input type="submit" name="save" value=" Create Profile "> &nbsp;
-        """
+            <input type="submit" name="save" value="%s"> &nbsp;
+        """ % (current.text(' Create Profile '),)
         html_relogin = ""
 
     data = {
-        'scriptname': util.getScriptname(),
-        'pathinfo': util.getPathinfo(),
+        'scriptname': webapi.getScriptname(),
+        'pathinfo': webapi.getPathinfo(),
         'html_uid': html_uid,
         'button': html_button,
         'relogin': html_relogin,
         'now': time.strftime(config.datetime_fmt, time.localtime(time.time())),
         'tz_select': _tz_select(current),
+        'dtfmt_select': dtfmt_select,
     }
+    data.update(formtext)
     data.update(vars(current))
     result = htmlform % data
 
@@ -227,6 +271,9 @@ class User:
         self.edit_cols  = 80
         self.tz_offset  = 0
         self.last_saved = str(time.time())
+        self.datetime_fmt = ""
+        self.css_url    = config.css_url
+        self._i18ntext  = None
 
         if not self.id:
             cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
@@ -250,7 +297,11 @@ class User:
 
 
     def load(self):
-        """Load user data from disk"""
+        """ Load user data from disk
+
+            This loads all member variables, except "id" and "valid" and
+            those starting with an underscore.
+        """
         if not self.exists(): return
 
         data = open(self.__filename(), "rt").readlines()
@@ -259,7 +310,7 @@ class User:
 
             try:
                 key, val = string.split(string.strip(line), '=', 1)
-                if key not in ['id', 'valid']:
+                if key not in ['id', 'valid'] and key[0] != '_':
                     vars(self)[key] = val
             except ValueError:
                 pass
@@ -273,7 +324,11 @@ class User:
 
 
     def save(self):
-        """Save user data to disk"""
+        """ Save user data to disk
+
+            This saves all member variables, except "id" and "valid" and
+            those starting with an underscore.
+        """
         if not self.id: return
 
         if not os.path.isdir(config.user_dir):
@@ -287,7 +342,7 @@ class User:
             time.strftime(config.datetime_fmt, time.localtime(time.time())),
             self.id))
         for key, value in vars(self).items():
-            if key not in ['id', 'valid']:
+            if key not in ['id', 'valid'] and key[0] != '_':
                 data.write("%s=%s\n" % (key, str(value)))
         data.close()
 
@@ -303,13 +358,13 @@ class User:
         """Get the Set-Cookie header for this user"""
         cookie = Cookie.SimpleCookie()
         cookie['MOIN_ID'] = self.id
-        return cookie.output() + ' expires=Tuesday, 31-Dec-2013 12:00:00 GMT; Path=%s' % (util.getScriptname(),)
+        return cookie.output() + ' expires=Tuesday, 31-Dec-2013 12:00:00 GMT; Path=%s' % (webapi.getScriptname(),)
 
 
     def sendCookie(self):
         """Send the Set-Cookie header for this user"""
         # prepare to send cookie
-        util.setHttpHeader(self.getCookie())
+        webapi.setHttpHeader(self.getCookie())
 
         # create a "fake" cookie variable so the rest of the
         # code works as expected
@@ -329,18 +384,23 @@ class User:
 
 
     def getFormattedDateTime(self, tm):
-        #datetime_fmt = '%Y-%m-%d %H:%M:%S'
-        return time.strftime(config.datetime_fmt, self.getTime(tm))
+        datetime_fmt = self.datetime_fmt or config.datetime_fmt
+        return time.strftime(datetime_fmt, self.getTime(tm))
 
 
     def setBookmark(self, tm = None):
         """Set bookmark timestamp"""
         if self.valid:
             if not tm: tm = time.time()
-            open(self.__filename() + ".bookmark", "w").write(str(tm)+"\n")
+            bmfile = open(self.__filename() + ".bookmark", "w")
+            bmfile.write(str(tm)+"\n")
+            bmfile.close()
+            try:
+                os.chmod(self.__filename() + ".bookmark", 0666)
+            except OSError:
+                pass
             try:
                 os.utime(self.__filename() + ".bookmark", (tm, tm))
-                os.chmod(self.__filename() + ".bookmark", 0666)
             except OSError:
                 pass
 
@@ -348,8 +408,47 @@ class User:
     def getBookmark(self):
         """Return None or saved bookmark timestamp"""
         if self.valid and os.path.exists(self.__filename() + ".bookmark"):
-            return os.path.getmtime(self.__filename() + ".bookmark")
+            try:
+                return int(open(self.__filename() + ".bookmark", 'rt').readline())
+            except (OSError, ValueError):
+                return None
         return None
+
+
+    def getLang(self):
+        """Get a user's language"""
+        accepted = os.environ.get('HTTP_ACCEPT_LANGUAGE')
+        if accepted:
+            accepted = string.split(accepted, ',')
+            accepted = map(lambda x: string.split(x, '-')[0], accepted)
+            accepted = map(lambda x: string.split(x, ';')[0], accepted)
+
+            for lang in accepted:
+                if i18n.languages.has_key(lang):
+                    return lang
+
+        return 'en'
+
+
+    def text(self, str):
+        """Load a text in the user's language"""
+        # quick handling for english texts
+        lang = self.getLang()
+        if lang == "en": return str
+
+        # load texts if needed
+        if not self._i18ntext:
+            self._i18ntext = i18n.loadLanguage(lang)
+            if not self._i18ntext:
+                return str
+
+        # check for text additions, if configured (only active in development setups)
+        if config.check_i18n and not self._i18ntext.has_key(str):
+            self._i18ntext[str] = str
+            i18n.saveLanguage(lang, self._i18ntext)
+
+        # return the matching entry in the mapping table
+        return self._i18ntext.get(str, str)
 
 
 # current user

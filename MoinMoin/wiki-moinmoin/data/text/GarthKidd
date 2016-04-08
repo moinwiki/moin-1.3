@@ -1,2 +1,20 @@
 Garth Kidd <moinmoin-spam@deadlybloodyserious.com> previously spent time hacking away on ZWiki:ZWiki, but got sick of Zope. Now he's figuring out whether he wants to use MoinMoin for http://www.deadlybloodyserious.com/ (still nothing but a template). 
 
+2001-04-22: In one of those classic distraction moves, Garth has spent a lot of time trying to nail down bug 417833 in pydoc which he tripped over whilst trying to use it to view MoinMoin.Page and other modules in the package. As a result, he has made no progress with editing MoinMoin but to clean up __init__ and clean up the manner in which MoinMoin.config handles setting defaults. 
+
+2001-04-20: Garth is ''still'' considering MoinMoin. Pant. Wheeze. Current questions are (with italicised answers from jh): 
+
+ * how MoinMoin stores its data 
+   * answer: in flat text files
+
+ * how MoinMoin could be easily adapted to store its data (in a DB-API 2 compliant database, perhaps? 
+   * ''db support will come, but not easily''
+
+ * whether MoinMoin could maintain appropriate metadata about which WikiNames are defined, 
+   * ''http://moin.sourceforge.net/cgi-bin/moin/moin/TitleIndex?action=titleindex''
+
+ * which are waiting to be defined (ie referenced in other pages)
+   * ''WantedPages, OrphanedPages''
+
+ * and whether the renderer can be broken out 
+   * ''see the Include macro, which formats other pages for includsion into the current page''

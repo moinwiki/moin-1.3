@@ -1,0 +1,50 @@
+#############################
+# INSTALLATION ON WIN2K/IIS #
+#############################
+
+Steps to set up MoinMoin on Win2K/IIS (Should also work for NT4/IIS)
+
+Installation Pre-Requirements:
+  - Win2K Pro or Server (Should also work on NT4)
+  - Internet Information Server or Personal Web Server
+  - ActivePython (found at http://www.activestate.com)
+
+Unpack the contents of the ZIP into your Python20 directory and rename the
+MoinMoin-X.X directory to "MoinMoin" so that this file (INSTALL) is located 
+at "\Python20\MoinMoin".
+
+The next step is to edit the file "C:\MoinMoin\wiki-moinmoin\moin_config.py"
+and adapt it to your particular setup. The only things we need to change to
+get things working are the values of the two variables "data_dir" and
+"url_prefix". For our situation, we need the following values:
+
+    data_dir = './data'
+    url_prefix = '/wiki-moinmoin'
+
+Incidently, those are the defaults.
+
+Create a Virtual Dir named "wiki-moinmoin" under the root of your web site 
+and point it to the "C:\Python20\MoinMoin\wiki-moinmoin" directory.  The 
+Virtual Dir needs "Read" and "Run Scripts" permission.
+
+On the properties page of the Virtual Dir under Application Settings be
+sure that Execute Permissions is set to either Scripts Only or Scripts
+and Executables. Click the Configuration button and then Add to create
+the following new Application Mapping (NOTE: The "%s %s" IS case
+sensitive): 
+
+    Executeable: C:\Python20\python.exe %s %s
+    Extension: .cgi
+    Verbs: All Verbs
+    Script Engine: Checked
+    Check that file exists: UnChecked
+
+Click OK and close all property pages then restart the web site. Open a
+browser and go to "http://localhost/wiki-moinmoin/test.cgi" and be sure
+everything looks OK.
+
+Then go to "http://localhost/wiki-moinmoin/moin.cgi" and you should get the
+FrontPage. To further test your new Wiki, "EditText" the "FrontPage", save
+it and click on "RecentChanges". Congrats! You have a working Wiki!
+
+"Gregory Petersen" <gt_petersen@hotmail.com>, 2001-04-04

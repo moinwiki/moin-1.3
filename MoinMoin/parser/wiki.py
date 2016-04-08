@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wiki.py,v 1.25 2001/01/10 00:09:06 jhermann Exp $
+    $Id: wiki.py,v 1.28 2001/04/19 22:49:38 jhermann Exp $
 """
 
 # Imports
@@ -50,7 +50,8 @@ class Parser:
 (?P<smiley>\s(%(smiley)s)\s)
 (?P<smileyA>^(%(smiley)s)\s)
 (?P<ent>[<>&])"""  % {
-        'url': 'http|https|ftp|nntp|news|mailto|telnet|wiki|file',
+        'url': 'http|https|ftp|nntp|news|mailto|telnet|wiki|file' +
+            (config.url_schemas and '|' + string.join(config.url_schemas, '|') or ''),
         'url_guard': ('(^|(?<!\w))', '')[sys.version < "2"],
         'punct': re.escape('''"'}]|:,.)?!'''),
         'macronames': string.join(wikimacro.names, '|'),
@@ -219,20 +220,21 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
     def _table_repl(self, word):
         """Handle table cell separator."""
         if self.in_table:
-            str = ''
-
             # start the table row?
             if self.table_rowstart:
                 self.table_rowstart = 0
-                str = str + '<tr class="wiki">\n'
+                leader = '<tr class="wiki">'
+            else:
+                leader = '</td>' 
 
             # check for adjacent cell markers
-            colspan = ''
             if len(word) > 2:
                 colspan = ' align="center" colspan="%d"' % (len(word)/2,)
+            else:
+                colspan = ''
 
             # return the complete cell markup           
-            return '%s</td>\n<td class="wiki"%s>' % (str, colspan)
+            return '%s\n<td class="wiki"%s>' % (leader, colspan)
         else:
             return word
 
@@ -386,7 +388,7 @@ alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(
                     return apply(getattr(self, '_' + type + '_repl'), (hit,))
         else:
             import pprint
-            raise ("Can't handle match " + `match`
+            raise Exception("Can't handle match " + `match`
                 + "\n" + pprint.pformat(match.groupdict())
                 + "\n" + pprint.pformat(match.groups()) )
 

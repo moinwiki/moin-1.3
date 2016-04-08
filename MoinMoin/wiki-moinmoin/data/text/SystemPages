@@ -1,4 +1,4 @@
-This is a list of all the SystemPages in a MoinMoin wiki.
+This is a list of all (well, most of) the SystemPages in a MoinMoin wiki.
 
 Special features:
  * FindPage
@@ -29,40 +29,3 @@ Former system pages:
  * TipsForBeginners
  * EditingTips 
  * HorizontalRules
-
-------
-
-C
-CreateaNewPage 
-
-D
-DeletePages 
-
-E
-EditText 
-
-G
-GermanUmlauts 
-
-O
-OriginalWiki 
-
-P
-PikiPiki 
-PythonLanguage 
-
-S
-SgmlEntities 
-SourceForge 
-
-W
-WhyWikiWorks 
-WikiCategory 
-WikiClone 
-WikiHomePage 
-WikiMarkup 
-WikiNature 
-WikiWikiNess 
-WikiWikiWeb 
-WikiWikiWebFaq 
-WordIndex 

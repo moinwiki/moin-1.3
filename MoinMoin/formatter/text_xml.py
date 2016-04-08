@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_xml.py,v 1.8 2001/01/03 23:07:51 jhermann Exp $
+    $Id: text_xml.py,v 1.9 2001/03/10 23:12:11 jhermann Exp $
 """
 
 # Imports
@@ -23,8 +23,8 @@ class Formatter(FormatterBase):
         Send XML data.
     """
 
-    def __init__(self):
-        FormatterBase.__init__(self)
+    def __init__(self, **kw):
+        apply(FormatterBase.__init__, (self,), kw)
 
     def startDocument(self, pagename):
         encoding = 'ISO-8859-1'
@@ -35,6 +35,7 @@ class Formatter(FormatterBase):
         return '</s1>'
 
     def pagelink(self, pagename, text=None):
+        FormatterBase.pagelink(self, pagename, text)
         return Page(pagename).link_to(text)
 
     def url(self, url, text=None, css=None, **kw):

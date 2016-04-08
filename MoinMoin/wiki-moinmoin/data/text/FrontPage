@@ -1,16 +1,17 @@
 A WikiWikiWeb is a collaborative hypertext environment, with an emphasis on easy access to and modification of information. This wiki is also part of the InterWiki space.
 
-MoinMoin is a Python WikiClone, based on PikiPiki. The name is a common German slang expression explained on the MoinMoin page. If you run a Wiki using MoinMoin, please add it to the MoinMoinWikis page. 
+MoinMoin is a Python WikiClone, based on PikiPiki. The name is a common German slang expression explained on the MoinMoin page. If you run a Wiki using MoinMoin, please add it to the MoinMoinWikis page.
+
 
 ----
-You are encouraged to add to the MoinMoinIdeas page, and edit the WikiSandBox whichever way you like. Please try to restrain yourself from adding unrelated stuff, as I want to keep this clean and part of the project documentation. 
+You are encouraged to add to the MoinMoinIdeas page, and edit the WikiSandBox whichever way you like. Please try to restrain yourself from adding unrelated stuff, as I want to keep this clean and part of the project documentation.
 
 /!\ Please see Wiki:WikiForumsCategorized for a list of wikis by topic.
 
 ----
 You can edit any page by pressing the link at the bottom of the page.  Capitalized words joined together form a WikiName, which hyperlinks to another page.  The highlighted title searches for all pages that link to the current page.  Pages which do not yet exist are linked with a question mark: just follow the link and you can add a definition.
 
-To learn more about what a WikiWikiWeb is, read about WhyWikiWorks and the WikiNature. Also, consult the WikiWikiWebFaq. 
+To learn more about what a WikiWikiWeb is, read about WhyWikiWorks and the WikiNature. Also, consult the WikiWikiWebFaq.
 
 ----
 Interesting starting points:
@@ -23,4 +24,3 @@ Interesting starting points:
 
 ----
 Technical problems? Contact JürgenHermann via email.
-

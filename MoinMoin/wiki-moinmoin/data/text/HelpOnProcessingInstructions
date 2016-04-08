@@ -6,6 +6,7 @@ Processing instructions this wiki knows of:
  * {{{#FORMAT}}} ''format-specifier'': defines the input format for this page, known formats are:
    * '''Wiki''': default MoinMoin wiki markup
    * '''Plain''': normal plain text
+   * '''Python''': colorized Python source
    * '''HTML''' ( <!> not implemented)
    * '''StructuredText''' ( <!> not implemented)
  * {{{#REDIRECT}}} ''pagename'': redirect to a different page (see MeatBall:PageRedirect'''''')

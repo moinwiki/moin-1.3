@@ -1,20 +1,16 @@
 """
     MoinMoin - Configuration
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: moin_config.py,v 1.19 2000/11/25 17:39:34 jhermann Exp $
+    $Id: moin_config.py,v 1.22 2001/03/10 17:57:08 jhermann Exp $
 """
-__version__ = "$Revision: 1.19 $"[11:-2]
+__version__ = "$Revision: 1.22 $"[11:-2]
 
 # basic options
 data_dir = './data/'
 url_prefix = '/wiki-moinmoin'
-
-import socket
-if socket.gethostname() == "triple.des.encrypted.net":
-    url_prefix = '/~jh/moinmoin'
 
 logo_string = '<img src="%s/moinmoin.gif" border=0 alt="MoinMoin">' % (url_prefix,)
 changed_time_fmt = '&nbsp; [%H:%M]'
@@ -28,8 +24,11 @@ show_timings=0
 show_version=0
 allow_extended_names=1
 max_macro_size=50 # max size of RecentChanges in KB (0=unlimited)
+charset='iso-8859-1'
 html_head="""
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=iso-8859-1">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=%s">
+""" % (charset,)
+html_head_queries="""
 <META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
 """
 

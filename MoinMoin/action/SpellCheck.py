@@ -18,17 +18,17 @@
     Additionally, all words on the page "LocalSpellingWords" are added to
     the list of valid words, if that page exists.
 
-    $Id: SpellCheck.py,v 1.9 2001/01/10 23:52:21 jhermann Exp $  
+    $Id: SpellCheck.py,v 1.10 2001/03/30 21:06:52 jhermann Exp $  
 """     
 
 # Imports
 import cgi, os, re, string, sys
-from MoinMoin import config, util, wikiutil
+from MoinMoin import config, user, util, wikiutil
 from MoinMoin.Page import Page
 
 
 # Globals
-_lsw_name = 'LocalSpellingWords'
+_lsw_name = user.current.text('LocalSpellingWords')
 
 
 # Functions
@@ -147,9 +147,12 @@ def execute(pagename, form):
         badwords.sort()
         lsw_msg = ''
         if localwords:
-            lsw_msg = ' (including %d %s)' % (len(localwords), lsw_page.link_to())
-        msg = "<b>The following %d words could not be found in the dictionary of %d words%s and are highlighted below:</b><br>" % (
-            len(badwords), len(wordsdict)+len(localwords), lsw_msg)
+            lsw_msg = user.current.text(' (including %(localwords)d %(pagelink)s)') % {
+                'localwords': len(localwords), 'pagelink': lsw_page.link_to()}
+        msg = "<b>" + user.current.text('The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:') % {
+            'badwords': len(badwords),
+            'totalwords': len(wordsdict)+len(localwords),
+            'localwords': lsw_msg} + "</b><br>"
 
         # figure out what this action is called
         action_name = os.path.splitext(os.path.basename(__file__))[0]
@@ -159,9 +162,10 @@ def execute(pagename, form):
         msg = msg + """<form method="POST" action="%s">
 <input type="hidden" name="action" value="%s">
 %s
-<p><input type="submit" value="Add checked words to dictionary">
+<p><input type="submit" value="%s">
 </form>""" % (wikiutil.quoteWikiname(pagename), action_name,
-              string.join(map(lambda w, cb=checkbox: cb % {'word': cgi.escape(w),}, badwords)),)
+              string.join(map(lambda w, cb=checkbox: cb % {'word': cgi.escape(w),}, badwords)),
+              user.current.text('Add checked words to dictionary'))
 
         # for Python 1.5, leave out the lookbehind check (includes the
         # letter or whitespace before the word in the highlight, which

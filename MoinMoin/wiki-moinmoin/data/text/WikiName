@@ -1,13 +1,1 @@
-A WikiName is a word that uses capitalized words. WikiName''''''s automagically become hyperlinks to the WikiName's page.
-
-===== Question =====
-I want to modify MoinMoin to accept single word WikiName''''''s.  I am thinking that there could be some special markup to indicate I want a single word to be a WikiName''''''.
-
-For example:
-  $Foobar
-
-The $ indicates I want it linked.  Any help is appreciated.  Thanks.
-
-mailto:joshua.kifer@supplysolution.com
-
-''See HelpForBeginners, "Arbitrary Page Names". It's in there.''
+A WikiName is a word that uses capitalized words. WikiName''''''s automagically become hyperlinks to the WikiName's page. See also HelpForBeginners, "Arbitrary Page Names".

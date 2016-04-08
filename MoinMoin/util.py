@@ -4,81 +4,11 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: util.py,v 1.13 2001/01/10 22:03:43 jhermann Exp $
+    $Id: util.py,v 1.16 2001/03/15 22:20:25 jhermann Exp $
 """
 
 # Imports
 import os, re, time, string, sys
-
-# Globals
-sent_headers = 0
-user_headers = []
-
-
-#############################################################################
-### CGI stuff
-#############################################################################
-
-def getScriptname():
-    return os.environ.get('SCRIPT_NAME', '')
-
-
-def getPathinfo():
-    pathinfo = os.environ.get('PATH_INFO', '')
-    scriptname = getScriptname()
-
-    # Fix for bug in IIS/4.0
-    if string.find(pathinfo, scriptname) == 0:
-        pathinfo = pathinfo[len(scriptname):]                
-    
-    return pathinfo
-
-
-def setHttpHeader(header):
-    global user_headers
-    user_headers.append(header)
-
-
-def http_headers(more_headers=[]):
-    global sent_headers
-    if sent_headers:
-        #print "Headers already sent!!!\n"
-        return
-    sent_headers = 1
-    have_ct = 0
-
-    # send http headers
-    for header in more_headers:
-        if string.lower(header)[:13] == "content-type:": have_ct = 1
-        print header
-
-    global user_headers
-    for header in user_headers:
-        if string.lower(header)[:13] == "content-type:": have_ct = 1
-        print header
-
-    if not have_ct:
-        print "Content-type: text/html"
-
-    #print "Pragma: no-cache"
-    #print "Cache-control: no-cache"
-    #!!! Better set expiry to some 10 mins or so for normal pages?
-    print
-
-    #from pprint import pformat
-    #sys.stderr.write(pformat(more_headers))
-    #sys.stderr.write(pformat(user_headers))
-
-
-def http_redirect(url):
-    """ Redirect to a fully qualified, or server-rooted URL """
-    if string.count(url, "://") == 0:
-        url = "http://%s:%s%s" % (
-            os.environ.get('SERVER_NAME'),
-            os.environ.get('SERVER_PORT'),
-            url)
-
-    http_headers(["Location: " + url])
 
 
 #############################################################################
@@ -103,6 +33,42 @@ class Clock:
             file.write("%s = %.3f\n" % timing)
 
 clock = Clock()
+
+
+#############################################################################
+### XML helper functions
+#############################################################################
+
+g_xmlIllegalCharPattern = re.compile('[\x01-\x08\x0B-\x0D\x0E-\x1F\x80-\xFF]')
+g_undoUtf8Pattern       = re.compile('\xC2([^\xC2])')
+g_cdataCharPattern      = re.compile('[&<\'\"]')
+g_textCharPattern       = re.compile('[&<]')
+g_charToEntity = {
+    '&': '&amp;',
+    '<': '&lt;',
+    "'": '&apos;',
+    '"': '&quot;'
+}
+
+def TranslateCDATA(text):
+    """
+        Convert a string to a CDATA-encoded one
+        Copyright (c) 1999-2000 FourThought, http://4suite.com/4DOM
+    """
+    new_string, num_subst = re.subn(g_undoUtf8Pattern, lambda m: m.group(1), text)
+    new_string, num_subst = re.subn(g_cdataCharPattern, lambda m, d=g_charToEntity: d[m.group()], new_string)
+    new_string, num_subst = re.subn(g_xmlIllegalCharPattern, lambda m: '&#x%02X;'%ord(m.group()), new_string)
+    return new_string
+
+def TranslateText(text):
+    """
+        Convert a string to a PCDATA-encoded one (do minimal encoding)
+        Copyright (c) 1999-2000 FourThought, http://4suite.com/4DOM
+    """
+    new_string, num_subst = re.subn(g_undoUtf8Pattern, lambda m: m.group(1), text)
+    new_string, num_subst = re.subn(g_textCharPattern, lambda m, d=g_charToEntity: d[m.group()], new_string)
+    new_string, num_subst = re.subn(g_xmlIllegalCharPattern, lambda m: '&#x%02X;'%ord(m.group()), new_string)
+    return new_string
 
 
 #############################################################################

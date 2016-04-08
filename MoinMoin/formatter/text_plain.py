@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_plain.py,v 1.7 2001/01/03 23:07:51 jhermann Exp $
+    $Id: text_plain.py,v 1.8 2001/03/10 23:12:11 jhermann Exp $
 """
 
 # Imports
@@ -21,8 +21,8 @@ class Formatter(FormatterBase):
         Send text data.
     """
 
-    def __init__(self):
-        FormatterBase.__init__(self)
+    def __init__(self, **kw):
+        apply(FormatterBase.__init__, (self,), kw)
 
     def startDocument(self, pagename):
         line = "*" * (len(pagename)+2) + '\n'
@@ -32,6 +32,7 @@ class Formatter(FormatterBase):
         return '\n'
 
     def pagelink(self, pagename, text=None):
+        FormatterBase.pagelink(self, pagename, text)
         return ">>%s<<" % (pagename,)
 
     def url(self, url, text=None, css=None, **kw):

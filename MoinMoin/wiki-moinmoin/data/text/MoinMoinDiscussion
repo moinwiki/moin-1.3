@@ -1,5 +1,16 @@
 Talk about the things on MoinMoinTodo and MoinMoinIdeas in this space...
 
+=== Images ===
+'''Q''': How do you inline an image stored locally? (e.g.  ../wiki-moimoin/data/images/picture.gif)
+
+'''A''': See the {{{[[Icon]]}}} macro; besides that, fully qualified URLs to the wiki server work, too.
+  
+  * '''R''': The Icon macro worked well.  I wanted to avoid the fully qualified URL because to access the Wiki in question requires password authentication.  Including an image using the full URL caused my webserver (Apache 1.3.19) to reprompt for authentication whenever the page was viewed or re-edited.  Perhaps a default {{{[[Image]]}}} macro could be added to the distribution (essentially identical to {{{[[Icon]]}}} ) which isn't relative to the data/img directory. (!) I've actually been thinking about trying to cook up my own "upload image" (or upload attachment) macro.  I need to familiarize myself with the MoinMoin source first, but would others find this useful?
+
+  * '''Note:''' Regarding the upload feature - pls note that the PikiePikie also implemented in Python already has this feature, see http://pikie.darktech.org/cgi/pikie?UploadImage ... so I guess you could borrow some code from there :) -- JørnHansen
+
+Would be useful, but before you start, let us discuss exactly ''how'' to implement it on the developer mailing list. I'll look into extending {{{[[Icon]]}}}. -- jh
+
 == PatternTemplate ==
 PatternTemplate is a nice addition to the standard distribution set, but if you want to add actual patterns, either consider using the [wiki:Wiki:WelcomeVisitors C2 Wiki] or setting up your own wiki (or ask [wiki:MoinMoin:JürgenHermann me] to set up a pattern wiki).
 

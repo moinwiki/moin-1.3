@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_html.py,v 1.11 2001/01/04 20:10:59 jhermann Exp $
+    $Id: text_html.py,v 1.12 2001/03/10 23:12:11 jhermann Exp $
 """
 
 # Imports
@@ -23,10 +23,11 @@ class Formatter(FormatterBase):
         Send HTML data.
     """
 
-    def __init__(self):
-        FormatterBase.__init__(self)
+    def __init__(self, **kw):
+        apply(FormatterBase.__init__, (self,), kw)
 
     def pagelink(self, pagename, text=None):
+        FormatterBase.pagelink(self, pagename, text)
         return Page(pagename).link_to(text)
 
     def url(self, url, text=None, css=None, **kw):

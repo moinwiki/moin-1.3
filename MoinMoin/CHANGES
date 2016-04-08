@@ -4,7 +4,39 @@ MoinMoin Version History
 Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: CHANGES,v 1.40 2001/01/23 21:44:03 jhermann Exp $
+$Id: CHANGES,v 1.53 2001/05/07 21:29:31 jhermann Exp $
+
+-----------------------------------------------------------------------------
+Version 0.9 (2001-05-07)
+
+New features:
+    * XML page input (pages that start with "<?xml") and XSLT formatting
+    * Page caching, for now limited to XSLT processing (where it's
+      absolutely needed); new code & API to add the "RefreshCache" link
+    * Selection of common date/time formats in UserPreferences
+    * New action "titleindex" to support wiki introspection (MetaWiki);
+      see the new links below the index bar in "TitleIndex"
+    * UserPreferences: editable CSS URL for personal styles
+    * PageInfo: the editor's name or IP is shown for each change
+    * WantedPages: a new macro that lists links to non-existent pages
+    * OrphanedPages: a new macro that lists pages no other page links to
+    * Extensions to the FullSearch macro (see HelpOnMacros)
+    * Python syntax highlighting
+    * "DeletePage" action (has to be activated, see MoinMoinFaq)
+    * "Remove trailing whitespace from each line" option in the editor
+    * I18N (currently German and Swedish)
+    * Config option "url_schemas" to extend the supported URL types
+    * Improved tracebacks by using Ka-Ping's "cgitb"
+
+Bugfixes:
+    * The editor now sends a "no-cache" HTTP header
+    * "PageList" results are now sorted
+	* New config parameter "html_head_queries": send additional header
+      for all pages EXCEPT the "normal" view; main usage is to have
+      only the normal pages indexed by a spider, not the edit, print,
+      etc. views (which cause multiple hits on the same information)
+    * Store the modification time of the page file in the editlog, not
+      the current time when the log entry is created
 
 -----------------------------------------------------------------------------
 Version 0.8 (2001-01-23)

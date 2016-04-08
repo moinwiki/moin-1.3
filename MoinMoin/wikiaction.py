@@ -14,15 +14,15 @@
     together with a user macro; those actions a likely to work only if
     invoked BY that macro, and are thus hidden from the user interface.
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiaction.py,v 1.4 2001/01/10 22:03:43 jhermann Exp $
+    $Id: wikiaction.py,v 1.17 2001/04/19 22:38:10 jhermann Exp $
 """
 
 # Imports
-import cgi, os, re, string, sys, time
-from MoinMoin import config, user, util, wikiutil
+import cgi, os, re, string, sys, time, urllib
+from MoinMoin import config, user, util, wikiutil, webapi
 from MoinMoin.Page import Page
 
 
@@ -31,65 +31,49 @@ from MoinMoin.Page import Page
 #############################################################################
 
 def do_fullsearch(pagename, form):
-    util.http_headers()
+    # send http headers
+    webapi.http_headers()
 
+    # get parameters
     if form.has_key('value'):
         needle = form["value"].value
     else:
         needle = ''
 
-    wikiutil.send_title('Full text search for "%s"' % (needle,))
+    # send title
+    wikiutil.send_title(user.current.text('Full text search for "%s"') % (needle,))
 
-    try:
-        needle_re = re.compile(needle, re.IGNORECASE)
-    except re.error:
-        needle_re = re.compile(re.escape(needle), re.IGNORECASE)
+    # search the pages
+    pagecount, hits = wikiutil.searchPages(needle, literal=form.has_key('literal'))
 
-    ##print "<pre>", needle, "</pre>", "<hr>"
-
-    hits = []
-    all_pages = wikiutil.getPageList(config.text_dir)
-    for page_name in all_pages:
-        body = Page(page_name).get_raw_body()
-        if form.has_key('literal'):
-            count = string.count(body, needle)
-            ##print "#", count, "#" , "<pre>", body, "</pre>", "<hr>"
-        else:
-            count = len(needle_re.findall(body))
-        if count:
-            hits.append((count, page_name))
-
-    # The default comparison for tuples compares elements in order,
-    # so this sorts by number of hits
-    hits.sort()
-    hits.reverse()
-
+    # print the result
     print "<UL>"
     for (count, page_name) in hits:
         print '<LI>' + wikiutil.link_tag('%s?action=highlight&value=%s' %
-            (wikiutil.quoteWikiname(page_name), cgi.escape(needle)), page_name)
+            (wikiutil.quoteWikiname(page_name), urllib.quote_plus(needle)), page_name)
         print ' . . . . ' + `count`
-        print ['match', 'matches'][count != 1]
+        print (user.current.text(' match'), user.current.text(' matches'))[count != 1]
     print "</UL>"
 
-    print_search_stats(len(hits), len(all_pages))
-
+    print_search_stats(len(hits), pagecount)
+    
 
 def do_titlesearch(pagename, form):
     # TODO: check needle is legal -- but probably we can just accept any RE
 
-    util.http_headers()
+    webapi.http_headers()
 
     if form.has_key('value'):
         needle = form["value"].value
     else:
         needle = ''
 
-    wikiutil.send_title('Title search for "%s"' % (needle,))
+    wikiutil.send_title(user.current.text('Title search for "%s"') % (needle,))
     
     needle_re = re.compile(needle, re.IGNORECASE)
     all_pages = wikiutil.getPageList(config.text_dir)
     hits = filter(needle_re.search, all_pages)
+    hits.sort()
 
     print "<UL>"
     for filename in hits:
@@ -99,9 +83,8 @@ def do_titlesearch(pagename, form):
     print_search_stats(len(hits), len(all_pages))
 
 
-def print_search_stats(hits, searched):
-    print "<p>%d hits " % (hits,)
-    print " out of %d pages searched." % (searched,)
+def print_search_stats(hits, pages):
+    print "<p>" + user.current.text("%(hits)d hits out of %(pages)d pages searched.") % locals()
 
 
 def do_highlight(pagename, form):
@@ -125,10 +108,10 @@ def do_highlight(pagename, form):
 
 def do_diff(pagename, form):
     """ Handle "action=diff", checking for a "date=backupdate" parameter """
-    util.http_headers()
+    webapi.http_headers()
 
     # send page title
-    wikiutil.send_title('Diff for "%s"' % (pagename,), pagename=pagename)
+    wikiutil.send_title(user.current.text('Diff for "%s"') % (pagename,), pagename=pagename)
 
     # try to get a specific date to compare to, or None for one-before-current
     try:
@@ -143,7 +126,7 @@ def do_diff(pagename, form):
     # get a list of old revisions, and back out if none are available
     oldversions = wikiutil.getBackupList(config.backup_dir, pagename)
     if not oldversions:
-        print "<b>No older revisions available!</b>"
+        print user.current.text("<b>No older revisions available!</b>")
         wikiutil.send_footer(pagename, showpage=1)
         return
 
@@ -177,10 +160,11 @@ def do_diff(pagename, form):
 
     # check for valid diff
     if not lines:
-        print "<b>No differences found!</b>"
+        print user.current.text("<b>No differences found!</b>")
         if edit_count:
-            print '<p>The page was saved %d time%s, though!' % (
-                edit_count, ('','s')[edit_count != 1])
+            print '<p>' + user.current.text('The page was saved %(count)d%(times)s, though!') % {
+                'count': edit_count,
+                'times': (user.current.text(' time'), user.current.text(' times'))[edit_count != 1]}
         wikiutil.send_footer(pagename, showpage=1)
         return
 
@@ -191,23 +175,27 @@ def do_diff(pagename, form):
         del lines[0]
 
     # Show date info
-    print '<b>Differences between version dated %s and %s' % (
+    print user.current.text('<b>Differences between version dated %s and %s') % (
         user.current.getFormattedDateTime(os.path.getmtime(backup_file)),
         user.current.getFormattedDateTime(os.path.getmtime(page_file)))
 
     if edit_count != 1:
-        print ' (spanning %d versions)' % (edit_count,)
+        print user.current.text(' (spanning %d versions)') % (edit_count,)
     print '</b>'
-    print '<div class="diffold">Deletions are marked like this.</div>'
-    print '<div class="diffnew">Additions are marked like this.</div>'
+    print '<div class="diffold">' + user.current.text('Deletions are marked like this.') + '</div>'
+    print '<div class="diffnew">' + user.current.text('Additions are marked like this.') + '</div>'
 
     # Show diff
     for line in lines:
         marker = line[0]
         line = cgi.escape(line[1:])
+        while line and line[-1] in ['\r', '\n']:
+            line = line[:-1]
         stripped = string.lstrip(line)
         if len(line) - len(stripped):
             line = "&nbsp;" * (len(line) - len(stripped)) + stripped
+        if not line:
+            line = "&nbsp;"
 
         if marker == "@":
             print '<hr style="color:#FF3333">'
@@ -215,9 +203,9 @@ def do_diff(pagename, form):
             if stripped == "No newline at end of file\n": continue
             print '<div><font size="1" face="Verdana">%s&nbsp;</font></div>' % (line,)
         elif marker == "+":
-            print '<div class="diffnew">%s&nbsp;</div>' % (line,)
+            print '<div class="diffnew">%s</div>' % (line,)
         elif marker == "-":
-            print '<div class="diffold">%s&nbsp;</div>' % (line,)
+            print '<div class="diffold">%s</div>' % (line,)
         else:
             print '<div>%s</div>' % (line,)
 
@@ -227,40 +215,64 @@ def do_diff(pagename, form):
 def do_info(pagename, form):
     from stat import *
 
-    util.http_headers()
-
-    wikiutil.send_title('Info for "%s"' % (pagename,), pagename=pagename)
-
-    revisions = [os.path.join(config.text_dir, wikiutil.quoteFilename(pagename))]
+    webapi.http_headers()
+    wikiutil.send_title(user.current.text('Info for "%s"') % (pagename,), pagename=pagename)
+    currentpage = os.path.join(config.text_dir, wikiutil.quoteFilename(pagename))
+    revisions = [currentpage]
 
     oldversions = wikiutil.getBackupList(config.backup_dir, pagename)
     if oldversions:
         for file in oldversions:
             revisions.append(os.path.join(config.backup_dir, file))
 
-    print '<h2>Revision History</h2>\n'
+    print '<h2>' + user.current.text('Revision History') + '</h2>\n'
     print '<table border="1" cellpadding="2" cellspacing="0">\n'
-    print '<tr><th>#</th><th>Date</th><th>Size</th><th>Action</th></tr>\n'
+    print '<tr><th>#</th>'
+    print '<th>' + user.current.text('Date') + '</th>'
+    print '<th>' + user.current.text('Size') + '</th>'
+    if config.show_hosts:
+        from MoinMoin import editlog
+        log = editlog.EditLog()
+        log.filter(pagename=pagename)
+        print '<th>' + user.current.text('Editor') + '</th>'
+    print '<th>' + user.current.text('Action') + '</th></tr>\n'
     count = 1
     for file in revisions:
-        st = os.stat(file)
+        try: 
+            st = os.stat(file) 
+        except OSError:
+            continue
+
+        try:
+            mtime = int(string.split(file, '.')[1])
+        except IndexError:
+            mtime = st[ST_MTIME]
+        ##print count, mtime, st[ST_MTIME], "<br>"
+
         actions = ""
-        if count > 1:
-            actions = '%s&nbsp;<a href="%s/%s?action=recall&date=%s">view</a>' % (
+        if file != currentpage:
+            actions = '%s&nbsp;<a href="%s/%s?action=recall&date=%s">%s</a>' % (
                 actions,
-                util.getScriptname(),
+                webapi.getScriptname(),
                 wikiutil.quoteWikiname(pagename),
-                os.path.basename(file)[len(wikiutil.quoteFilename(pagename))+1:])
-            actions = '%s&nbsp;<a href="%s/%s?action=diff&date=%d">diff</a>' % (
+                os.path.basename(file)[len(wikiutil.quoteFilename(pagename))+1:],
+                user.current.text('view'))
+            actions = '%s&nbsp;<a href="%s/%s?action=diff&date=%d">%s</a>' % (
                 actions,
-                util.getScriptname(),
+                webapi.getScriptname(),
                 wikiutil.quoteWikiname(pagename),
-                st[ST_MTIME])
-        print '<tr><td align="right">%d</td><td>&nbsp;%s</td><td align="right">&nbsp;%d</td><td>&nbsp;%s</td></tr>\n' % (
+                mtime,
+                user.current.text('diff'))
+        print '<tr><td align="right">%d</td><td align="right">&nbsp;%s</td><td align="right">&nbsp;%d</td>' % (
             count,
             user.current.getFormattedDateTime(st[ST_MTIME]),
-            st[ST_SIZE],
-            actions)
+            st[ST_SIZE])
+
+        if config.show_hosts:
+            log.find(ed_time=mtime)
+            print '<td>%s</td>' % (log.getEditor() or user.current.text("N/A"),)
+
+        print '<td>&nbsp;%s</td></tr>\n' % (actions,)
         count = count + 1
         if count > 100: break
     print '</table>\n'
@@ -276,8 +288,17 @@ def do_show(pagename, form):
     Page(pagename).send_page(form)
 
 
+def do_refresh(pagename, form):
+    if form.has_key('arena') and form.has_key('key'):
+        from MoinMoin import caching
+        cache = caching.CacheEntry(form["arena"].value, form["key"].value)
+        cache.remove()
+        
+    do_show(pagename, form)
+
+
 def do_print(pagename, form):
-    Page(pagename).send_page(form)
+    do_show(pagename, form)
 
 
 def do_edit(pagename, form):
@@ -294,7 +315,11 @@ def do_savepage(pagename, form):
         datestamp = form['datestamp'].value
     except KeyError:
         datestamp = ""
-    savemsg = pg.save_text(savetext, datestamp)
+    try:
+        rstrip = form['rstrip'].value
+    except KeyError:
+        rstrip = 0
+    savemsg = pg.save_text(savetext, datestamp, stripspaces=rstrip)
     pg.send_page(form, msg=savemsg)
 
 
@@ -321,7 +346,7 @@ def do_bookmark(pagename, form):
 #############################################################################
 
 def do_raw(pagename, form):
-    util.http_headers(["Content-type: text/plain"])
+    webapi.http_headers(["Content-type: text/plain"])
 
     try: 
         page = Page(pagename, date=form['date'].value)
@@ -341,14 +366,14 @@ def do_format(pagename, form):
 
     # try to load the formatter
     Formatter = util.importName("MoinMoin.formatter." +
-        string.replace(mimetype, '/', '_'), "Formatter")
+        string.translate(mimetype, string.maketrans('/.', '__')), "Formatter") 
     if Formatter is None:
         # default to plain text formatter
         del Formatter
         mimetype = "text/plain"
         from formatter.text_plain import Formatter
 
-    util.http_headers(["Content-Type: " + mimetype])
+    webapi.http_headers(["Content-Type: " + mimetype])
     print
 
     Page(pagename, formatter = Formatter()).send_page(form)
@@ -367,6 +392,7 @@ _handlers = { 'fullsearch':  do_fullsearch,
               'info':        do_info,
               'recall':      do_recall,
               'show':        do_show,
+              'refresh':     do_refresh,
               'print':       do_print,
               'raw':         do_raw,
               'format':      do_format,
@@ -376,6 +402,10 @@ _handlers = { 'fullsearch':  do_fullsearch,
 }
 
 def getHandler(action):
+    # check for excluded actions
+    if action in config.excluded_actions:
+        return None
+
     # check for and possibly return builtin action
     if _handlers.has_key(action):
         return _handlers[action]
@@ -383,7 +413,7 @@ def getHandler(action):
     # try to load extension action
     from MoinMoin.action import extension_actions
     if action in extension_actions:
-        # load extension macro
+        # load extension action
         handler = util.importName("MoinMoin.action." + action, "execute")
         return handler
 

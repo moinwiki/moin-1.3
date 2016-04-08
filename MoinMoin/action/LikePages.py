@@ -9,11 +9,11 @@
     with the same word as the current pagename. If only one matching
     page is found, that page is displayed directly.
 
-    $Id: LikePages.py,v 1.2 2001/01/19 18:21:58 jhermann Exp $
+    $Id: LikePages.py,v 1.4 2001/03/30 21:06:52 jhermann Exp $
 """
 
 import re
-from MoinMoin import config, user, util, wikiutil
+from MoinMoin import config, user, util, wikiutil, webapi
 from MoinMoin.Page import Page
 
 
@@ -44,16 +44,16 @@ def execute(pagename, form,
     # no matches :(
     if not matches:
         return Page(pagename).send_page(form,
-            msg='<strong>No pages match "%s"!</strong>' % (pagename,))
+            msg='<strong>' + user.current.text('No pages match "%s"!') % (pagename,) + '</strong>')
 
     # one match - display it
     if len(matches) == 1:
         return Page(matches.keys()[0]).send_page(form,
-            msg='<strong>Exactly one matching page for "%s" found!</strong>' % (pagename,))
+            msg='<strong>' + user.current.text('Exactly one matching page for "%s" found!') % (pagename,) + '</strong>')
 
     # more than one match, list 'em
-    util.http_headers()
-    wikiutil.send_title('Multiple matches for "%s...%s"' % (start, end),  
+    webapi.http_headers()
+    wikiutil.send_title(user.current.text('Multiple matches for "%s...%s"') % (start, end),  
         pagename=pagename)
 
     keys = matches.keys()
@@ -69,8 +69,10 @@ def showMatches(matches, keys, match, title):
     matchcount = matches.values().count(match)
 
     if matchcount:
-        print '<b>%d match%s for "%s"</b>' % (
-            matchcount, ('es','')[matchcount==1], title,)
+        print '<b>' + user.current.text('%(matchcount)d %(matches)s for "%(title)s"') % {
+            'matchcount': matchcount,
+            'matches': (user.current.text(' match'), user.current.text(' matches'))[matchcount != 1],
+            'title': title} + '</b>'
         print "<ul>"
         for key in keys:
             if matches[key] == match:

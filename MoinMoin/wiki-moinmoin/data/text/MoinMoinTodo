@@ -11,9 +11,7 @@ Things to do in the near future:
  * Spellchecker: 
   * add a nice progress page, while the dictionary cache is built
   * add a means to build the dict.cache file from the command line
- * Bug: if a page ONLY contains PIs (like a redirect), it is recognized as empty (which it is not, obviously)
  * Macro that lists all users that have an email address; a click on the user name sends the re-login URL to that email (and not more than once a day).
- * Add selection of date/time formats to UserPreferences
  * Send a timestamp with the EditPage link, and then compare to the current timestamp; warn the user if page was edited since displaying.
  * Now that we can identify certain authors (those who have set a user profile), we can avoid to create a backup copy if one author makes several changes; we have to remember who made the last save of a page, though.
  * Implement the update script (copying new images etc.) described elsewhere on this page or MoinMoinIdeas.
@@ -32,7 +30,6 @@ Things to do in the near future:
  * Add backlink patch by Thomas Thurman
    * Page info: links to / from page.
  * Add a link to Wiki:EditThePageSimultaneously (or a link to a local copy) to the edit conflict message.
- * [[WantedPages]] macro (this will be awfully slow w/o some database or caching!)
  * [[SiteMap]]: find the hotspots and create a hierarchical list of all pages (again, faster with caching)
  * ProcessingInstructions
  * Remember when someone starts to edit a page, and warn when someone else opens the same page for editing
@@ -42,6 +39,7 @@ Things to do in the near future:
  * Diffs:
   * Lynx-friendliness (keep >>> === <<< ?)
   * look at cvsweb code (color-coded, side-by-side comparisons)
+  * or look at viewcvs www.lyra.org/viewcvs (a nicer python version of cvsweb with bonsai like features)
   * diff -y gives side by side comparisons
  * Create MoinMoinI18n master sets (english help pages are done, see HelpIndex, translations are welcome)
  * Document the config options (possibly ''after'' the refactoring)
@@ -54,7 +52,6 @@ See MoinMoinBugs
 === FEATURES ===
 
  * Script or macro to allow the creation of new wikis ==> WikiFarm
- * {{{[[FullSearchList(regex)]]}}} analogous to {{{[[PageList(regex)]]}}} but does a {{{grep -l regex}}} and returns the list of pages.  Good for Category pages.  ''Already thought of this, since it's a natural improvement.''
  * Setup tool (cmd line or cgi): fetch/update from master set of system pages, create a new wiki from the master tarball, delete pages, ...
  * Support URNs, see http://www.ietf.org/internet-drafts/draft-daigle-uri-std-00.txt and http://www.ietf.org/internet-drafts/draft-hakala-isbn-00.txt
  * Add ISBN links

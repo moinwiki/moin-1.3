@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns="http://www.w3.org/TR/xhtml1/strict">
+  <xsl:output method="html" indent="yes"/>
+
+  <xsl:variable name="lang-title" select="'Literatur'"/>
+
+  <!-- BIBLIOGRAPHY ================================================-->
+  <xsl:template match="bibliography">
+    <xsl:comment>
+      XSL <xsl:value-of select="system-property('xsl:version')"/> /
+      <xsl:value-of select="system-property('xsl:vendor')"/> 
+      (<xsl:value-of select="system-property('xsl:vendor-url')"/>)
+    </xsl:comment>
+    <h1>
+      <a name="top"><xsl:value-of select="$lang-title"/> [<xsl:value-of select="count(book[not(@type='ref')])"/>]</a>
+    </h1>
+    <xsl:apply-templates select="topic">
+      <xsl:sort select="."/>
+    </xsl:apply-templates>
+  </xsl:template>
+
+  <!-- TOPIC =======================================================-->
+  <xsl:template match="topic">
+    <xsl:variable name="topic" select="@id"/>
+
+    <a name="topic-{@id}">
+      <h2>
+        <xsl:value-of select="."/>
+        [<xsl:value-of select="count(../book[not(@type='ref') and @topic=$topic])"/>]
+      </h2>
+    </a>
+
+    <xsl:apply-templates select="../book[not(@type='ref') and @topic=$topic]">
+      <xsl:sort select="@id"/>
+    </xsl:apply-templates>
+  </xsl:template>
+
+  <!-- BOOK ========================================================-->
+  <xsl:template match="book">
+    <div style="margin-bottom:6pt;">
+      <strong><xsl:value-of select="author"/></strong>,
+      <em>"<xsl:value-of select="title"/>"</em>.<br />
+
+      <xsl:value-of select="publisher"/>,
+      <xsl:value-of select="year"/>,
+      <xsl:apply-templates select="comment"/>
+      ISBN <a href="http://www.bookpool.com/.x//sm/{isbn}"><xsl:value-of select="isbn"/></a>.
+    </div>
+  </xsl:template>
+
+  <xsl:template match="comment">
+    <xsl:value-of select="."/>,
+  </xsl:template>
+
+</xsl:stylesheet>

@@ -6,7 +6,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: test.cgi,v 1.1 2000/11/03 00:44:10 jhermann Exp $
+    $Id: test.cgi,v 1.2 2001/03/10 17:57:08 jhermann Exp $
 """
 
 import sys, cgi
@@ -18,7 +18,7 @@ def run():
         print 'Package "MoinMoin" sucessfully imported.'
         print
 
-    except:
+    except ImportError:
         import pprint
     
         print 'Can\'t import "MoinMoin" package!'

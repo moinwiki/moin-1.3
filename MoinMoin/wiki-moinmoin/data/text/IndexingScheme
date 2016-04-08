@@ -1,0 +1,16 @@
+An IndexingScheme is a way to navigate a wiki (see also MeatBall:IndexingScheme).
+
+MoinMoin supports these IndexingScheme''''''s:
+ * RecentChanges
+ * TitleIndex
+ * WordIndex
+ * FindPage
+ * WantedPages
+ * OrphanedPages
+ * RandomPage
+ * Like''''''Pages (at the bottom of each page)
+
+Additionally, there are the 
+{{{[[PageList]]}}}, {{{[[FullSearch('text')]]}}}
+and {{{[[TableOfContents]]}}}
+macros.

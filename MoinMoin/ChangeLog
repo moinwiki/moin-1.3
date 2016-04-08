@@ -1,3 +1,771 @@
+2001-05-05 00:01  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-05-05 00:00  jhermann
+
+	* webapi/: __init__.py, cgiMoin.py:
+	
+	Minor changes to webapi (comments)
+
+2001-05-04 23:48  jhermann
+
+	* INSTALL.IIS, README:
+	
+	MS-IIS install instructions
+
+2001-05-04 23:32  jhermann
+
+	* user.py, webapi/cgiMoin.py:
+	
+	Fix for bug #418244: UserPreferences malfunctions over SSL
+
+2001-05-04 18:25  jhermann
+
+	* wikimacro.py:
+	
+	Bugfix for older 4Suite versions
+
+2001-05-04 18:13  jhermann
+
+	* i18n/: fr.py, __init__.py:
+	
+	French translation by Lucas Bruand
+	<Lucas.Bruand@ecl2002.ec-lyon.fr>
+
+2001-05-04 04:15  jhermann
+
+	* cgimain.py:
+	
+	Catch and print exceptions in "cgitb"
+
+2001-05-04 04:05  jhermann
+
+	* support/cgitb.py:
+	
+	Bugfix for unavailable source files
+
+2001-05-04 03:27  jhermann
+
+	* CHANGES, cgimain.py, support/__init__.py, support/cgitb.py,
+	support/inspect.py, support/pydoc.py:
+	
+	Traceback handling with "cgitb"
+
+2001-04-20 01:12  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-04-20 00:49  jhermann
+
+	* config.py, parser/wiki.py:
+	
+	Config option "url_schemas" to extend the supported URL types
+
+2001-04-20 00:38  jhermann
+
+	* wikiaction.py:
+	
+	[patch #417243] Handle formatter MIME types with dots
+
+2001-04-20 00:36  jhermann
+
+	* parser/wiki.py:
+	
+	Applied patch #417241
+
+2001-04-08 17:32  jhermann
+
+	* i18n/: fi.py, fr.py, nl.py, sv.py:
+	
+	Added Swedish translations
+
+2001-04-05 23:23  jhermann
+
+	* i18n/de.py:
+	
+	New text
+
+2001-04-05 00:06  jhermann
+
+	* i18n/_check.py:
+	
+	Show number of text snippets
+
+2001-04-04 23:47  jhermann
+
+	* Page.py, user.py:
+	
+	Finished I18N (except those texts I missed)
+
+2001-04-04 23:45  jhermann
+
+	* i18n/: de.py, fi.py, fr.py, nl.py, sv.py:
+	
+	More text
+
+2001-04-04 22:57  jhermann
+
+	* parser/wiki.py:
+	
+	raise Exception, not a string
+
+2001-04-04 22:50  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-04-04 22:38  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	SeattleWireless and Tavi added
+
+2001-04-04 22:14  jhermann
+
+	* Page.py, user.py:
+	
+	More translations
+
+2001-04-04 22:11  jhermann
+
+	* i18n/_check.py:
+	
+	Command line params: only list a specific language
+
+2001-04-04 22:10  jhermann
+
+	* i18n/_sync.py:
+	
+	If a language module does not exist, create it
+
+2001-04-04 21:48  jhermann
+
+	* i18n/: __init__.py, fi.py, fr.py, nl.py:
+	
+	More languages; listing the person responsible for the translation
+
+2001-04-04 21:47  jhermann
+
+	* i18n/: de.py, sv.py:
+	
+	More text...
+
+2001-04-04 19:45  jhermann
+
+	* i18n/de.py:
+	
+	More text...
+
+2001-04-04 19:27  jhermann
+
+	* wikiaction.py:
+	
+	Typo fix
+
+2001-04-04 19:23  jhermann
+
+	* i18n/_check.py:
+	
+	Helper tool to check for untranslated texts
+
+2001-04-03 22:40  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-04-03 22:28  jhermann
+
+	* macro/RecentChanges.py:
+	
+	Fixed "DELETED" indication
+
+2001-04-03 22:21  jhermann
+
+	* user.py:
+	
+	Fixed problems with bookmark storage
+
+2001-04-03 21:59  jhermann
+
+	* i18n/de.py:
+	
+	New text; fixed typo
+
+2001-04-03 21:57  jhermann
+
+	* i18n/de.py, macro/RecentChanges.py:
+	
+	"set bookmark" links in RecentChanges
+
+2001-04-03 21:48  jhermann
+
+	* macro/RecentChanges.py:
+	
+	Added "DELETED" indication
+
+2001-04-03 21:39  jhermann
+
+	* wiki-moinmoin/img/moin-deleted.gif:
+	
+	Indicator "DELETED"
+
+2001-04-02 20:39  jhermann
+
+	* i18n/sv.py:
+	
+	Further swedish translations (by noss)
+
+2001-03-31 01:38  jhermann
+
+	* CHANGES:
+	
+	I18N added
+
+2001-03-31 01:27  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-31 01:19  jhermann
+
+	* user.py, i18n/__init__.py, i18n/_sync.py, i18n/sv.py:
+	
+	Added synchronization of language mappings
+
+2001-03-30 23:06  jhermann
+
+	* cgimain.py, user.py, wikiaction.py, wikimacro.py, wikiutil.py,
+	action/DeletePage.py, action/LikePages.py, action/SpellCheck.py,
+	i18n/de.py, macro/Include.py, macro/RecentChanges.py,
+	parser/xslt.py:
+	
+	More I18N
+
+2001-03-29 12:14  jhermann
+
+	* user.py:
+	
+	Bugfix: Don't store or load user attributes starting with "_"
+
+2001-03-29 04:37  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-29 04:34  jhermann
+
+	* user.py:
+	
+	Bugfix: no traceback when HTTP_ACCEPT_LANGUAGE is missing
+
+2001-03-29 01:46  jhermann
+
+	* i18n/: __init__.py, sv.py:
+	
+	Swedish translations
+
+2001-03-29 01:03  jhermann
+
+	* wikimacro.py, wikiutil.py, i18n/de.py, macro/FullSearch.py,
+	macro/Include.py, macro/OrphanedPages.py, macro/RecentChanges.py,
+	macro/WantedPages.py:
+	
+	Some more German translations
+
+2001-03-28 23:28  jhermann
+
+	* Page.py, config.py, user.py, wikimacro.py, wikiutil.py,
+	i18n/.cvsignore, i18n/__init__.py, i18n/de.py:
+	
+	Started on I18N
+
+2001-03-28 21:52  jhermann
+
+	* CHANGES, Page.py, wikiaction.py:
+	
+	"Remove trailing whitespace from each line" option in the editor
+
+2001-03-28 04:07  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-28 04:06  jhermann
+
+	* CHANGES, config.py, action/DeletePage.py:
+	
+	Check whether page exists in DeletePage; use of "allowed_actions"
+	is more secure when other dangerous actions appear (each one has to
+	be allowed separately)
+
+2001-03-28 03:39  jhermann
+
+	* Page.py:
+	
+	Delete pagelinks, too
+
+2001-03-28 03:34  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-28 03:31  jhermann
+
+	* CHANGES, Page.py, config.py, wikiaction.py, action/DeletePage.py,
+	action/__init__.py:
+	
+	Added "DeletePage" action
+
+2001-03-28 00:55  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-28 00:37  jhermann
+
+	* wikimacro.py:
+	
+	Catch exception when pagelist macro contains invalid regex
+
+2001-03-28 00:28  jhermann
+
+	* wikiaction.py:
+	
+	Bugfix: Proper escaping for search result links
+
+2001-03-28 00:27  jhermann
+
+	* Page.py:
+	
+	QuickHelp on edit page, by Georg Mischler
+	<schorsch@lightingwiki.com>
+
+2001-03-23 01:53  jhermann
+
+	* parser/python.py:
+	
+	Enabled the Parser class to write to any file object
+
+2001-03-23 01:33  jhermann
+
+	* parser/python.py:
+	
+	Added testing code
+
+2001-03-21 05:44  jhermann
+
+	* parser/python.py:
+	
+	Handling of tokenizer errors
+
+2001-03-21 05:04  jhermann
+
+	* parser/python.py:
+	
+	Added correct handling of line continuations
+
+2001-03-20 23:06  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-20 22:12  jhermann
+
+	* parser/python.py:
+	
+	Strip leading and trailing whitespace in the source
+
+2001-03-20 21:52  jhermann
+
+	* parser/python.py, support/.cvsignore, support/__init__.py:
+	
+	Added colorizer
+
+2001-03-20 21:51  jhermann
+
+	* webapi/cgiMoin.py:
+	
+	Improved the code, new function getQualifiedURL()
+
+2001-03-20 21:48  jhermann
+
+	* support/PyFontify.py:
+	
+	Wrote my own colorizer using the Python core lib
+
+2001-03-15 23:26  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-15 23:23  jhermann
+
+	* Page.py:
+	
+	Bugfix: if page consists ONLY of PIs, it's not seen as non-existent
+	any more
+
+2001-03-15 23:20  jhermann
+
+	* Page.py, cgimain.py, user.py, util.py, wikiaction.py,
+	wikiutil.py, action/LikePages.py, action/titleindex.py,
+	twisted/__init__.py, webapi/__init__.py, webapi/cgiMoin.py:
+	
+	Refactoring to webapi.cgiMain
+
+2001-03-15 22:16  jhermann
+
+	* twisted/.cvsignore, twisted/__init__.py, webapi/.cvsignore,
+	webapi/__init__.py:
+	
+	Added infra-structure for interfacing to twisted.web
+
+2001-03-13 03:50  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-13 00:40  jhermann
+
+	* CHANGES, wikiaction.py, wikimacro.py, wikiutil.py,
+	macro/FullSearch.py:
+	
+	Refactored FullSearch as an external macro and implemented embedded
+	searching
+
+2001-03-11 23:49  jhermann
+
+	* CHANGES, ChangeLog, README:
+	
+	Blurb changes
+
+2001-03-11 03:42  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-11 02:11  jhermann
+
+	* wiki-moinmoin/data/text/: IndexingScheme, OrphanedPages,
+	RandomPage, WantedPages:
+	
+	New navigation pages
+
+2001-03-11 01:48  jhermann
+
+	* macro/OrphanedPages.py:
+	
+	New OrphanedPages macro
+
+2001-03-11 01:46  jhermann
+
+	* macro/WantedPages.py:
+	
+	Removed redundant code
+
+2001-03-11 00:50  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-11 00:50  jhermann
+
+	* Page.py:
+	
+	Bugfix for pagelink caching
+
+2001-03-11 00:42  jhermann
+
+	* CHANGES, macro/WantedPages.py:
+	
+	Numbered list for the WantedPages list
+
+2001-03-11 00:16  jhermann
+
+	* Page.py:
+	
+	Implemented getPageLinks()
+
+2001-03-11 00:15  jhermann
+
+	* wikiutil.py:
+	
+	New function getPageDict()
+
+2001-03-11 00:13  jhermann
+
+	* wikiaction.py:
+	
+	Sort search results
+
+2001-03-11 00:12  jhermann
+
+	* formatter/: base.py, text_html.py, text_plain.py, text_xml.py:
+	
+	Handling of keyword arguments for __init__; base formatter stores
+	links in a page on request
+
+2001-03-11 00:09  jhermann
+
+	* support/PyFontify.py:
+	
+	Added PyFontify 0.3.1 support module
+
+2001-03-10 23:57  jhermann
+
+	* macro/WantedPages.py:
+	
+	New WantedPages Macro
+
+2001-03-10 18:57  jhermann
+
+	* wiki-moinmoin/: moin_config.py, test.cgi:
+	
+	Minor changes to cgi drivers
+
+2001-03-10 09:15  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Changed moin wiki URLs to new PURLs
+
+2001-03-09 18:57  jhermann
+
+	* CHANGES:
+	
+	PageInfo changes
+
+2001-03-09 18:55  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-09 18:43  jhermann
+
+	* moin.sourceforge.net/index.html:
+	
+	Got /wiki top-level domain at purl.net
+
+2001-03-09 18:26  jhermann
+
+	* Page.py, editlog.py, wikiaction.py, macro/RecentChanges.py:
+	
+	Pageinfo now shows the editor (did some more editlog refactoring
+	for that)
+
+2001-03-09 14:34  jhermann
+
+	* editlog.py, macro/RecentChanges.py:
+	
+	Refactored editlog access to a class interface, so that we could
+	store it in a database without client code changes
+
+2001-03-09 14:02  jhermann
+
+	* editlog.py, macro/RecentChanges.py:
+	
+	Refactored editlog parsing to "editlog" module
+
+2001-03-09 13:40  jhermann
+
+	* moin.sourceforge.net/index.html:
+	
+	New wiki (P)URL
+
+2001-03-03 22:04  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Updated from master intermap.txt
+
+2001-03-01 00:46  jhermann
+
+	* CHANGES, user.py, wikiutil.py:
+	
+	Editable CSS URL for personal styles
+
+2001-03-01 00:26  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-03-01 00:23  jhermann
+
+	* Page.py, editlog.py, wikiutil.py, macro/RecentChanges.py:
+	
+	Refactored editlog stuff to new module
+
+2001-02-28 23:11  jhermann
+
+	* CHANGES, ChangeLog:
+	
+	Maintained changes list
+
+2001-02-25 14:40  jhermann
+
+	* wiki-moinmoin/data/text/: ActionMarket, J_fcrgenHermann,
+	LocalSpellingWords, MacroMarket, MoinMoin, MoinMoinBugs,
+	MoinMoinFaq, MoinMoinIdeas, PythonLanguage, SunirShah, VinJaCa,
+	WikiSandBox, WikiWikiWeb, J_fcrgenHermannBooks,
+	J_fcrgenHermannLinks, MetaWiki, PrettyPrintXslt, XsltVersion,
+	biblio_2exsl, xbel_2d1_2e0_2exsl:
+	
+	Backup 2001-02-25
+
+2001-02-22 23:58  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-02-22 23:53  jhermann
+
+	* user.py, wikiaction.py:
+	
+	Added datetime format to user prefs
+
+2001-02-22 23:18  jhermann
+
+	* caching.py, wikiaction.py, wikiutil.py, parser/xslt.py:
+	
+	Added "RefreshCache" link
+
+2001-02-21 22:25  jhermann
+
+	* Page.py:
+	
+	Sending no-cache with the editor
+
+2001-02-21 22:13  jhermann
+
+	* wikiaction.py:
+	
+	Fixed traceback in "info" for empty pages
+
+2001-02-21 22:05  jhermann
+
+	* wikimacro.py:
+	
+	Added links to plain/xml index to html index page
+
+2001-02-21 21:47  jhermann
+
+	* config.py, action/titleindex.py, wiki-moinmoin/moin_config.py:
+	
+	Added "charset" config option
+
+2001-02-21 02:07  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-02-21 02:06  jhermann
+
+	* wikimacro.py:
+	
+	Added 4Suite version display
+
+2001-02-21 01:36  jhermann
+
+	* util.py, action/titleindex.py:
+	
+	Added titleindex action to support MeatBall:MetaWiki
+
+2001-02-20 22:18  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Added "RFC"
+
+2001-02-10 10:54  jhermann
+
+	* wiki-moinmoin/data/intermap.txt:
+	
+	Changed URL for #c wiki
+
+2001-02-08 00:02  jhermann
+
+	* wikimacro.py:
+	
+	Sort "PageList" results
+
+2001-02-02 01:11  jhermann
+
+	* CHANGES:
+	
+	Added section for 0.9
+
+2001-02-02 01:10  jhermann
+
+	* httpdmain.py:
+	
+	Experimental code for stand-alone MoinMoin
+
+2001-02-02 01:09  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-02-02 00:16  jhermann
+
+	* caching.py, config.py, xsltutil.py, parser/xslt.py:
+	
+	Added caching for XML pages
+
+2001-02-01 01:32  jhermann
+
+	* parser/xslt.py:
+	
+	Catch I/O errors
+
+2001-02-01 01:10  jhermann
+
+	* Page.py, util.py, parser/xslt.py:
+	
+	Added XML/XSLT processing
+
+2001-01-24 19:00  jhermann
+
+	* config.py, wikiutil.py, wiki-moinmoin/moin_config.py:
+	
+	New config parameter "html_head_queries": send additional header
+	for all pages EXCEPT the "normal" view; main usage is to have only
+	the normal pages indexed by a spider, not the edit, print, etc.
+	views
+
+2001-01-23 22:44  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-01-23 22:44  jhermann
+
+	* CHANGES, ChangeLog, README:
+	
+	Last changes before release
+
 2001-01-23 22:12  jhermann
 
 	* wiki-moinmoin/data/editlog:

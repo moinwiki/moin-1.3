@@ -5,4 +5,4 @@ To create a page, add its WikiName to an existing page and save it. After that, 
 You will then be presented with your new page, which you can edit in the normal way. After you ''first'' saved it, it will be automatically created. Pages cannot be deleted, so be sure to spell new WikiName''''''s correctly.
 
 == Creating a Template Page ==
-To create a template, follow the above description and create a page with a name ending in "'''Template'''". This page will then be added to the list of template pages displayed when you try to show a non-existant page.
+To create a template, follow the above description and create a page with a name ending in "'''Template'''". This page will then be added to the list of template pages displayed when you try to show a non-existant page. For example, NonExistantHelpPage has a link to HelpTemplate that loads the content of HelpTemplate into the editor box, when you click on that link.

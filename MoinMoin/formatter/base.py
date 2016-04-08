@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: base.py,v 1.8 2001/01/03 23:07:51 jhermann Exp $
+    $Id: base.py,v 1.9 2001/03/10 23:12:11 jhermann Exp $
 """
 
 # Imports
@@ -19,8 +19,9 @@ class FormatterBase:
         Send HTML data.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, **kw):
+        self._store_pagelinks = kw.get('store_pagelinks', 0)
+        self.pagelinks = []
 
     def setPage(self, page):
         self.page = page
@@ -32,7 +33,8 @@ class FormatterBase:
         return ""
 
     def pagelink(self, pagename, text=None):
-        raise NotImplementedError
+        if self._store_pagelinks:
+            self.pagelinks.append(pagename)
 
     def url(self, url, text=None, css=None, **kw):
         raise NotImplementedError

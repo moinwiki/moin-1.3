@@ -2,7 +2,7 @@
 This is a marketplace for your macros. Please state your name, your email, and the release your macro is developed for (if you used a CVS snapshot, also state the revision number).
 
 Use a special pagename {{{["macro/YourMacro.py"]}}} and start your macro with the line {{{
-#format text/plain
+#format python
 }}}
 This way, the macro can directly be put on the page without any modification, and as easily copied from that page. See the examples below.
 
@@ -17,8 +17,16 @@ This way, the macro can directly be put on the page without any modification, an
 || ||||||||||Lists the Orphan (some call them Zombies) pages (those with no ForwardLinks in MoinMoin)||
 ||["macro/LimitedSearch.py"]||Christian Bird||chris.bird@lineo.com||0.8||N/A||[[LimitedSearch]] ||
 || ||||||||||Allows searches limited to certain portions of the wiki by specifying a "root" page and searching n links away from the root||
-
-
+||["macro/SortBy.py"]||Tim Bird||tbird@lineo.com||0.8||N/A||[[SortBy(SortByExampleTable,1,number,1)]] ||
+|| ||||||||||Includes the first table on the indicated page, sorted by the given column (1=first column), using the indicated sorting type (out of: number, alpha, nocase and nosort), and preserving the first row of the table (or not = 0)||
+||["macro/EventsList.py"]||Shalabh Chaturvedi||shalabh at india.com||0.8||N/A|| Not yet ||
+|| ||||||||||Inserts a list events in a page where information about the events is extracted by parsing another wiki page. Filter can restrict events displayed.||
+||["macro/FaqContents.py"]||Tim Bird||tbird@lineo.com||0.8||N/A||[[FaqContents]]||
+|| ||||||||||Creates a table of contents for a page, with questions inserted in their various section headings.  The questions should appear in the document preceded by "Q. ".  This is good for putting at the top of FAQ pages.[[BR]] ''I edited it a little, especially made it to run with the Python 2.0 Wiki FAQ page. -- jh''||
+||["macro/HTML.py"]||Christian Bird||chris.bird@lineo.com||0.8||N/A||[[HTML(<font size=20>big</font>)]||
+|| ||||||||||Is useful for outputing a very small snippet of HTML, like for changing font attributes or other things not supported by the wiki markup language||
+||["macro/ImageLink.py"]||Jeff Kunce||jeff@corrt.com||0.8||N/A||[[ImageLink(http://www.python.org,smile2.gif,border=0,alt="Go To Python")]] clicking the icon will take you to the Python home page ||
+|| ||||||||||Displays a MoinMoin icon or an image from a URL. If a target is specified, clicking on the image links to a MoinMoin page or a URL. HTML IMG tag attributes (width, height, alt, etc)are supported.||
 
 Note that the samples will only work after I added the macros to the active code base.
 
@@ -28,4 +36,5 @@ There are also some UtilityScripts.
 If you are not familiar with Python and/or the MoinMoin code base, but have a need or an idea for a macro, this is the place to ask for it. Someone might find it useful, too, and implement it.
 
  * A macro for inclusion of images with width/height attributes, alignment, etc.
+  * ;) ["macro/ImageLink.py"] above will do this
  * A macro that fetches (and caches!) the RecentChanges of other wikis and thus allows the creation of personal "unified changes" pages

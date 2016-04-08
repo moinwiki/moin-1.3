@@ -11,5 +11,6 @@ The following pages describe the elements (wiki markup) you can use to get speci
  * HelpOnSmileys - how to insert a :)
  * HelpOnMacros - system macros
  * HelpOnProcessingInstructions - how to influence page formatting
+ * HelpOnXmlPages - how to store pages with XML content and process them via XSLT
 
 To experiment with wiki markup, go to the WikiSandBox and then click on "Edit''''''Text" at the bottom of the page. Use your browser's "open a new window with this link" feature on the word "WikiSandBox", so you can keep the help pages open side-by-side to the editing window.

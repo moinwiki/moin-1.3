@@ -5,10 +5,16 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>  
     All rights reserved, see COPYING for details.
 
-    $Id: __init__.py,v 1.2 2001/01/04 07:30:42 jhermann Exp $
+    $Id: __init__.py,v 1.3 2001/03/28 01:31:32 jhermann Exp $
 """
 
-import MoinMoin.util
+from MoinMoin import config, util
 
-extension_actions = MoinMoin.util.getPackageModules(__file__)
+extension_actions = util.getPackageModules(__file__)
+
+for action in config.excluded_actions:
+    try:
+        extension_actions.remove(action)
+    except ValueError:
+        pass
 

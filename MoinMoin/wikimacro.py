@@ -10,12 +10,12 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikimacro.py,v 1.6 2000/12/22 01:23:52 jhermann Exp $
+    $Id: wikimacro.py,v 1.15 2001/05/04 16:25:36 jhermann Exp $
 """
 
 # Imports
 import re, string, sys, time
-from MoinMoin import config, util, version, wikiutil, macro, action
+from MoinMoin import action, config, macro, user, util, version, wikiutil
 from MoinMoin.Page import Page
 
 
@@ -23,7 +23,7 @@ from MoinMoin.Page import Page
 ### Globals
 #############################################################################
 
-names = ["TitleSearch", "FullSearch", "WordIndex", "TitleIndex",
+names = ["TitleSearch", "WordIndex", "TitleIndex",
          "GoTo", "InterWiki", "SystemInfo", "PageCount", "UserPreferences",
          # Macros with arguments
          "Icon", "PageList"]
@@ -36,7 +36,7 @@ names.extend(macro.extension_macros)
 ### Helpers
 #############################################################################
 
-def _make_index_key(index_letters):
+def _make_index_key(index_letters, additional_html=""):
     index_letters.sort()
     s = '<p><center>'
     links = map(lambda ch:
@@ -44,7 +44,7 @@ def _make_index_key(index_letters):
                     (wikiutil.quoteWikiname(ch), string.replace(ch, '~', 'Others')),
                 index_letters)
     s = s + string.join(links, ' | ')
-    s = s + '</center><p>'
+    s = s + additional_html + '</center><p>'
     return s
 
 
@@ -69,9 +69,6 @@ class Macro:
     
     def _macro_TitleSearch(self, args):
         return self._m_search("titlesearch")
-    
-    def _macro_FullSearch(self, args):
-        return self._m_search("fullsearch")
     
     def _m_search(self, type):
         if self.form.has_key('value'):
@@ -146,7 +143,10 @@ class Macro:
             else:
                 s = s + '<br>'
             s = s + Page(name).link_to() + '\n'
-        return _make_index_key(index_letters) + s
+        return _make_index_key(index_letters, """<br>
+<a href="?action=titleindex">%s</a>&nbsp;|
+<a href="?action=titleindex&mimetype=text/xml">%s</a>
+""" % (user.current.text('Plain title index'), user.current.text('XML title index')) ) + s
     
     
     def _macro_InterWiki(self, args):
@@ -168,20 +168,34 @@ class Macro:
     
     def _macro_SystemInfo(self, args):
         from cStringIO import StringIO
+
+        # check for 4XSLT
+        try:
+            import Ft
+            ftversion = Ft.__version__
+        except ImportError:
+            ftversion = None
+        except AttributeError:
+            ftversion = 'N/A'
     
-        row = '<tr><td><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>'
         buf = StringIO()
+        row = lambda label, value, buf=buf: buf.write(
+            '<tr><td><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>' %
+            (user.current.text(label), value))
+
         buf.write('<table border=0 cellspacing=2 cellpadding=0>')
-        buf.write(row % ('Python Version', sys.version))
-        buf.write(row % ('MoinMoin Version', 'Release %s [Revision %s]' % (version.release, version.revision)))
-        buf.write(row % ('Number of pages', len(wikiutil.getPageList(config.text_dir))))
-        buf.write(row % ('Number of backup versions', len(wikiutil.getBackupList(config.backup_dir, None))))
-        buf.write(row % ('Installed extension macros', 
-            string.join(macro.extension_macros, ', ') or "<b>NONE</b>"))
-        buf.write(row % ('Installed extension actions', 
-            string.join(action.extension_actions, ', ') or "<b>NONE</b>"))
+        row('Python Version', sys.version)
+        row('MoinMoin Version', user.current.text('Release %s [Revision %s]') % (version.release, version.revision))
+        if ftversion:
+            row('4Suite Version', ftversion)
+        row('Number of pages', len(wikiutil.getPageList(config.text_dir)))
+        row('Number of backup versions', len(wikiutil.getBackupList(config.backup_dir, None)))
+        row('Installed extension macros', 
+            string.join(macro.extension_macros, ', ') or user.current.text("<b>NONE</b>"))
+        row('Installed extension actions', 
+            string.join(action.extension_actions, ', ') or user.current.text("<b>NONE</b>"))
         buf.write('</table>')
-    
+
         return buf.getvalue()
     
     
@@ -194,9 +208,15 @@ class Macro:
     
     
     def _macro_PageList(self, args):
-        needle_re = re.compile(args, re.IGNORECASE)
+        try:
+            needle_re = re.compile(args, re.IGNORECASE)
+        except re.error, e:
+            return "<b>%s: %s</b>" % (
+                user.current.text("ERROR in regex '%s'") % (args,), e)
+
         all_pages = wikiutil.getPageList(config.text_dir)
         hits = filter(needle_re.search, all_pages)
+        hits.sort()
     
         result = self.formatter.bullet_list(1)
         for filename in hits:
@@ -208,6 +228,5 @@ class Macro:
 
 
     def _macro_UserPreferences(self, args):
-        from MoinMoin import user
         return user.getUserForm(self.form)
     
