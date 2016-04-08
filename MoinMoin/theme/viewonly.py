@@ -17,7 +17,7 @@
 import urllib
 from MoinMoin import config, i18n, wikiutil, version
 from MoinMoin.Page import Page
-from classic import Theme as ThemeBase
+from MoinMoin.theme.classic import Theme as ThemeBase
 
 class Theme(ThemeBase):
 

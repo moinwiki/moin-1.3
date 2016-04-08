@@ -78,8 +78,6 @@ Schauen Sie sich auch die Differenz von %(difflink)s an, um zu sehen, was geände
 '''[Schablone %s nicht gefunden]''',
 '''[You may not read %s]''':
 '''[Sie dürfen %s nicht lesen]''',
-'''Reduce editor size''':
-'''Größe des Eingabefelds reduzieren''',
 '''Skip to preview''':
 '''Zur Vorschau springen''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -166,16 +164,18 @@ Die folgende Seite wurde durch %(editor)s verändert:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''Es sind keine älteren Versionen dieser Seite verfügbar, deswegen konnte kein Vergleich durchgeführt werden.''',
+'''New page:
+''':
+'''Neue Seite:
+''',
 '''No differences found!
 ''':
 '''Es wurden keine Änderungen gefunden!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''Die "diff"-Funktion lieferte den Fehlercode %(rc)s!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] Änderung von "%(pagename)s"''',
+'''Trivial ''':
+'''Triviale ''',
 '''You will not be notified of your own changes!''':
 '''Sie erhalten keine Benachrichtigung über die eigenen Änderungen!''',
 '''Status of sending notification mails:''':
@@ -280,6 +280,8 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Angezeigte Wikinamen mit Leerzeichen trennen''',
 '''Remember login information forever''':
 '''Speichere Login-Informationen für immer''',
+'''Subscribe to trivial changes''':
+'''Triviale Änderungen erzeugen Benachrichtigungen''',
 '''Disable this account forever''':
 '''Dieses Benutzerkonto für immer deaktivieren''',
 '''Cookie deleted. You are now logged out.''':

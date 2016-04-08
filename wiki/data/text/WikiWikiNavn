@@ -1,0 +1,6 @@
+##master-page:WikiName
+##master-date:2002-12-16 22:56:52
+##language:nb
+["Wikinavn"] er ord sammensatt av flere ord som starter med store bokstaver. ["Wikinavn"] blir automagisk lenker til wikinavnets side. Dette kalles også for MeatBall:CamelCase lenking. Se også hjelpesidene om lenking (hjelpesidene finnes ikke på norsk endå): HelpOnLinking på engelsk eller HjælpTilHenvisninger på dansk.
+
+Denne måten å bygge navn/titler på fungerer ikke alltid like bra på norsk som på engelsk, fordi man på norsk faktisk lager et nytt enkeltord når man slår sammen f.eks. "Wiki" og "Navn" til "["Wikinavn"]".  Hvis man i en norsk wiki skriver "Wiki``Navn" for slike sammensatte ord, ser det dessverre ut som resultatet av en "ord delings feil".  Løsningen er å bruke firkantparenteser og gåseøyne for å lage sidetitler/-linker i slike tilfeller.

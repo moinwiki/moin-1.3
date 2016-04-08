@@ -1,5 +1,5 @@
 %define name moin
-%define version 1.2.3
+%define version 1.2.4
 %define release 1
 
 Name: %{name}

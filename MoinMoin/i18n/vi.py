@@ -76,8 +76,6 @@ Sau đó bạn có thể thêm vào những thay đổi của bạn.''',
 '''[Nội dung trang được đọc trong %s]''',
 '''[Template %s not found]''':
 '''[Không tìm thấy mẫu %s]''',
-'''Reduce editor size''':
-'''Giảm kích thước khung soạn thảo''',
 '''Skip to preview''':
 '''Xem qua''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -164,16 +162,12 @@ Trang sau đã được thay đổi bởi %(editor)s:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''Không có phiên bản cũ hơn của trang này, diff không thể được thực hiện.''',
 '''No differences found!
 ''':
 '''Không có sự khác biệt!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''Lệnh diff trả về mã lỗi %(rc)s!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] Các thay đổi ở trang "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''Bạn sẽ không được thông báo về những thay đổi của chính bạn!''',
 '''Status of sending notification mails:''':

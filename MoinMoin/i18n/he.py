@@ -72,8 +72,6 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[תוכן הדף החדש נלקח מ–%s]''',
 '''[Template %s not found]''':
 '''[תבנית %s לא נמצאה]''',
-'''Reduce editor size''':
-'''הקטן תיבת עריכה''',
 '''Skip to preview''':
 '''תצוגה מקדימה''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -160,16 +158,12 @@ The following page has been changed by %(editor)s:
 '''הערה על השינוי:
 %(comment)s
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''אין גרסאות קודמות של הדף, הבדלים לא זמינים.''',
 '''No differences found!
 ''':
 '''לא נמצאו הבדלים.
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''שגיאה בחישוב הבדלים: %(rc)s''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] עידכון של "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''לא תקבלו הודעה על שינויים שלכם.''',
 '''Status of sending notification mails:''':

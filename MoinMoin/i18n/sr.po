@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-04-09 22:44+0200\n"
 "Last-Translator: Thomas W. Horna <sarman@t-online.de>\n"
 "Language-Team: Serbian <moin-devel@lists.sourceforge.net>\n"
@@ -147,9 +147,6 @@ msgstr "[Šablon %s nije pronađen]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Smanjiti veličinu editora"
-
 msgid "Skip to preview"
 msgstr "Preskočite radi uvida"
 
@@ -272,10 +269,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
-"Ne postoje prethodne revizije ove stranice, razlika iliti diff nije\n"
-"dostupan."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Novo ime"
 
 msgid "No differences found!\n"
 msgstr "Nijedna razlika nije pronađena!\n"
@@ -284,9 +280,12 @@ msgstr "Nijedna razlika nije pronađena!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Dif funkcija je javila grešku sa kodom %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] Obnova za \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "Vi nećete dobiti poruku sa vašim sopstvenim izmenama!"
@@ -471,6 +470,9 @@ msgstr "Dodati blankove u prikazanim viki imenima"
 
 msgid "Remember login information forever"
 msgstr "Zapamtiti lozinku zauvek"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "Deaktivirati ovaj nalog zauvek"
@@ -1376,6 +1378,14 @@ msgstr "Subota"
 
 msgid "Sun"
 msgstr "Nedelja"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Smanjiti veličinu editora"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr ""
+#~ "Ne postoje prethodne revizije ove stranice, razlika iliti diff nije\n"
+#~ "dostupan."
 
 #, fuzzy
 #~ msgid "Account"

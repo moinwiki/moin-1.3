@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-07-21 22:58+0900\n"
 "Last-Translator: Fujio Nobori <toh@fuji-climb.org>\n"
 "Language-Team: Japanese <moin-devel@lists.sourceforge.net>\n"
@@ -143,9 +143,6 @@ msgstr "[ひな型%sが見つかりません]"
 msgid "[You may not read %s]"
 msgstr "[%sを読む権限がありません]"
 
-msgid "Reduce editor size"
-msgstr "エディタを縮小"
-
 msgid "Skip to preview"
 msgstr "プレビューへ移動"
 
@@ -267,8 +264,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr "このページの古いリビジョンはありません。"
+#, fuzzy
+msgid "New page:\n"
+msgstr "新しい名前"
 
 msgid "No differences found!\n"
 msgstr "違いは見つかりませんでした。\n"
@@ -277,9 +275,12 @@ msgstr "違いは見つかりませんでした。\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "diffが異常終了しました。エラーコード: %(rc)s"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] \"%(pagename)s\"の更新"
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "自分で行った変更は通知されません。"
@@ -462,6 +463,9 @@ msgstr "wiki nameを空白付きで表示する"
 
 msgid "Remember login information forever"
 msgstr "ログインの情報を保持"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "このアカウントを無効にする"
@@ -1358,6 +1362,12 @@ msgstr "土"
 
 msgid "Sun"
 msgstr "日"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "エディタを縮小"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr "このページの古いリビジョンはありません。"
 
 #, fuzzy
 #~ msgid "Account"

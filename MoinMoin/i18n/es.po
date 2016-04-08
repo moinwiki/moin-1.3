@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-03-11 02:49+0100\n"
 "Last-Translator: Bernardo Arlandis Mano <berarma@ya.com>\n"
 "Language-Team: Spanish <moin-devel@lists.sourceforge.net>\n"
@@ -146,9 +146,6 @@ msgstr "[Plantilla %s no encontrada]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Reducir el tamaño del editor"
-
 msgid "Skip to preview"
 msgstr "Saltar a previsualizar"
 
@@ -271,9 +268,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
-"No hay revisiones anteriores de la página almacenada, no hay diff disponible."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Nombre nuevo"
 
 msgid "No differences found!\n"
 msgstr "¡No se encontraron diferencias!\n"
@@ -282,9 +279,12 @@ msgstr "¡No se encontraron diferencias!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "¡La utilidad externa diff devolvió el código de error %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] actualización de \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "¡No se te notificarán tus propios cambios!"
@@ -470,6 +470,9 @@ msgstr "Añadir espacios para los nombres de wiki mostrados"
 
 msgid "Remember login information forever"
 msgstr "Recordar tu identificación para siempre"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "Desactivar esta cuenta para siempre"
@@ -1385,6 +1388,14 @@ msgstr "Sáb"
 
 msgid "Sun"
 msgstr "Dom"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Reducir el tamaño del editor"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr ""
+#~ "No hay revisiones anteriores de la página almacenada, no hay diff "
+#~ "disponible."
 
 #, fuzzy
 #~ msgid "Account"

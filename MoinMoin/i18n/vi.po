@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-01-25 18:57+0800\n"
 "Last-Translator: Nam T. Nguyen <nnt@nntsoft.com>\n"
 "Language-Team: Vietnamese <moin-devel@lists.sourceforge.net>\n"
@@ -147,9 +147,6 @@ msgstr "[Không tìm thấy mẫu %s]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Giảm kích thước khung soạn thảo"
-
 msgid "Skip to preview"
 msgstr "Xem qua"
 
@@ -273,9 +270,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
-"Không có phiên bản cũ hơn của trang này, diff không thể được thực hiện."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Tên mới"
 
 msgid "No differences found!\n"
 msgstr "Không có sự khác biệt!\n"
@@ -284,9 +281,12 @@ msgstr "Không có sự khác biệt!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Lệnh diff trả về mã lỗi %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] Các thay đổi ở trang \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "Bạn sẽ không được thông báo về những thay đổi của chính bạn!"
@@ -469,6 +469,9 @@ msgstr "Thêm khoảng trống để hiển thị các tên wiki (Wiki Names)"
 
 msgid "Remember login information forever"
 msgstr "Nhớ thông tin đăng nhập"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "Huỷ bỏ account này"
@@ -1377,6 +1380,13 @@ msgstr "Thứ Bảy"
 
 msgid "Sun"
 msgstr "Chủ Nhật"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Giảm kích thước khung soạn thảo"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr ""
+#~ "Không có phiên bản cũ hơn của trang này, diff không thể được thực hiện."
 
 #, fuzzy
 #~ msgid "Account"

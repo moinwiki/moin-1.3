@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-02-09 22:09+0100\n"
 "Last-Translator: gian paolo ciceri <gp.ciceri@acm.org>\n"
 "Language-Team: Italian <moin-devel@lists.sourceforge.net>\n"
@@ -153,9 +153,6 @@ msgstr "[Il modello %s non è stato trovato]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Riduci la dimensione dell'editor"
-
 msgid "Skip to preview"
 msgstr "Salta all'anteprima"
 
@@ -275,10 +272,9 @@ msgstr ""
 "Descrizione delle modifiche:\n"
 "%(comment)s\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
-"Non ci sono revisioni precedenti della pagina, non è possibile riassumere le "
-"differenze."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Nome"
 
 msgid "No differences found!\n"
 msgstr "Non ho riscontrato nessuna differenza!\n"
@@ -287,9 +283,12 @@ msgstr "Non ho riscontrato nessuna differenza!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Il programma `diff' ha ritornato un codice di errore: %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] La pagina \"%(pagename)s\" è stata aggiornata"
+
+msgid "Trivial "
+msgstr ""
 
 #, fuzzy
 msgid "You will not be notified of your own changes!"
@@ -492,6 +491,9 @@ msgstr "Aggiungi uno spazio tra le singole parole dei nomi wiki"
 
 msgid "Remember login information forever"
 msgstr "Ricorda le mie informazioni di login per sempre"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "Disabilita questa utenza per sempre"
@@ -1473,6 +1475,14 @@ msgstr "sab"
 
 msgid "Sun"
 msgstr "dom"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Riduci la dimensione dell'editor"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr ""
+#~ "Non ci sono revisioni precedenti della pagina, non è possibile riassumere "
+#~ "le differenze."
 
 #, fuzzy
 #~ msgid "Account"

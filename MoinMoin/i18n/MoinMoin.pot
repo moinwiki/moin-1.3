@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,9 +132,6 @@ msgstr ""
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr ""
-
 msgid "Skip to preview"
 msgstr ""
 
@@ -224,7 +221,7 @@ msgid ""
 "\n"
 msgstr ""
 
-msgid "No older revisions of the page stored, diff not available."
+msgid "New page:\n"
 msgstr ""
 
 msgid "No differences found!\n"
@@ -235,7 +232,10 @@ msgid "The diff function returned with error code %(rc)s!"
 msgstr ""
 
 #, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
+msgstr ""
+
+msgid "Trivial "
 msgstr ""
 
 msgid "You will not be notified of your own changes!"
@@ -396,6 +396,9 @@ msgid "Add spaces to displayed wiki names"
 msgstr ""
 
 msgid "Remember login information forever"
+msgstr ""
+
+msgid "Subscribe to trivial changes"
 msgstr ""
 
 msgid "Disable this account forever"

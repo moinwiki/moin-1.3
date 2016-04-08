@@ -32,8 +32,6 @@ text = {
 '''[Den nya sidans innehåll laddad från %s]''',
 '''[Template %s not found]''':
 '''[Mall %s ej funnen]''',
-'''Reduce editor size''':
-'''Minska editorns storlek''',
 '''Skip to preview''':
 '''Hoppa till förhandsgransking''',
 '''Describe %s here.''':
@@ -54,14 +52,10 @@ text = {
 '''Eleminera efterföljande mellanslag från varje rad''',
 '''Edit was cancelled.''':
 '''Redigeringen avbröts.''',
-'''No older revisions of the page stored, diff not available.''':
-'''Inga äldre versioner av sidan lagrade, diff inte tillgänglig.''',
 '''No differences found!
 ''':
 '''Inga skillnader funna!
 ''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] uppdatering av "%(pagename)s"''',
 '''Status of sending notification mails:''':
 '''Status för sändning av uppdateringsepost:''',
 '''Nobody subscribed to this page, no mail sent.''':

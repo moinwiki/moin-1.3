@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-01-11 22:08+0100\n"
 "Last-Translator: ***vacant***\n"
 "Language-Team: Finnish <moin-devel@lists.sourceforge.net>\n"
@@ -133,9 +133,6 @@ msgstr ""
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Pienennä editointi ikkunan kokoa"
-
 msgid "Skip to preview"
 msgstr ""
 
@@ -225,8 +222,9 @@ msgid ""
 "\n"
 msgstr ""
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
+#, fuzzy
+msgid "New page:\n"
+msgstr "Nimi"
 
 msgid "No differences found!\n"
 msgstr ""
@@ -236,8 +234,11 @@ msgid "The diff function returned with error code %(rc)s!"
 msgstr ""
 
 #, fuzzy, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "liite:%(filename)s / %(pagename)s"
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr ""
@@ -402,6 +403,9 @@ msgid "Add spaces to displayed wiki names"
 msgstr ""
 
 msgid "Remember login information forever"
+msgstr ""
+
+msgid "Subscribe to trivial changes"
 msgstr ""
 
 msgid "Disable this account forever"
@@ -1305,6 +1309,9 @@ msgstr ""
 
 msgid "Sun"
 msgstr ""
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Pienennä editointi ikkunan kokoa"
 
 #~ msgid "Your email address"
 #~ msgstr "Sähköpostisi on"

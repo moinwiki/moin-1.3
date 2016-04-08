@@ -47,7 +47,7 @@ def sendmail(request, to, subject, text, **kw):
     # Create a text/plain message
     msg = MIMEText(text, 'plain', config.charset)
     msg['From'] = mail_from
-    msg['To'] = ', '.join(to)
+    msg['To'] = mail_from # do not disclose ANY users addr
     msg['Date'] = formatdate()
     
     try: # only python >= 2.2.2 has this:

@@ -76,6 +76,9 @@ class Dict:
     def has_key(self, key):
         return self._dict.has_key(key)
 
+    def get(self, key, default):
+        return self._dict.get(key,default)
+
     def __getitem__(self, key):
         return self._dict[key]
 

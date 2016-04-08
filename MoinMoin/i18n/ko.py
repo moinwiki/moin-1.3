@@ -76,8 +76,6 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[%s에서 옮겨온 새 글 내용]''',
 '''[Template %s not found]''':
 '''[템플릿 %s를 찾을 수 없음]''',
-'''Reduce editor size''':
-'''편집기 크기를 줄임''',
 '''Skip to preview''':
 '''미리보기로 건너뜀''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -164,16 +162,12 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''예전 버전의 글가 저장되어있지 않아서, 비교할 수 없습니다.''',
 '''No differences found!
 ''':
 '''차이점이 없습니다!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''diff 함수가 에러 코드 %(rc)s를 반환하였습니다!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] "%(pagename)s"를 수정''',
 '''You will not be notified of your own changes!''':
 '''본인이 고친 것에 대해서는 알림을 받지 않습니다.''',
 '''Status of sending notification mails:''':

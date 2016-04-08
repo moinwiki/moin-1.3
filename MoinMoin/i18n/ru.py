@@ -75,8 +75,6 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[Содержимое новой страницы загружено из %s]''',
 '''[Template %s not found]''':
 '''[Заготовка %s не найдена]''',
-'''Reduce editor size''':
-'''Уменьшить размер окна редактирования''',
 '''Skip to preview''':
 '''Пролистать до макета''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -163,16 +161,12 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''Нет старых версий страницы, различия недоступны.''',
 '''No differences found!
 ''':
 '''Различий не найдено!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''Программа сравнения вернула код ошибки %(rc)s!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] обновил(а) "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''Вас не уведомляют о ваших изменениях!''',
 '''Status of sending notification mails:''':

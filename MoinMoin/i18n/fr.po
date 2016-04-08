@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-03-14 09:42+0100\n"
 "Last-Translator: Vincent Bernat <bernat@free.fr>\n"
 "Language-Team: French <moin-devel@lists.sourceforge.net>\n"
@@ -148,9 +148,6 @@ msgstr "[Le modèle %s n'a pas été trouvé]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Réduire la taille de l'éditeur"
-
 msgid "Skip to preview"
 msgstr "Avancer jusqu'à la prévisualisation"
 
@@ -273,10 +270,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
-"Pas de révisions de cette page plus anciennes stockées, pas de diff "
-"disponibles."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Nouveau nom"
 
 msgid "No differences found!\n"
 msgstr "Pas de différences trouvées&nbsp;!\n"
@@ -285,9 +281,12 @@ msgstr "Pas de différences trouvées&nbsp;!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "La fonction diff a retourné le code d'erreur %(rc)s&nbsp;!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] Mise à jour de \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "Vous ne serez pas averti de vos propres modifications&nbsp;!"
@@ -482,6 +481,9 @@ msgstr "Ajouter des espaces aux noms wiki affichés"
 msgid "Remember login information forever"
 msgstr "Se souvenir du login indéfiniment"
 
+msgid "Subscribe to trivial changes"
+msgstr ""
+
 msgid "Disable this account forever"
 msgstr "Désactiver pour toujours ce compte"
 
@@ -565,7 +567,7 @@ msgid "Name"
 msgstr "Nom"
 
 msgid "(Use FirstnameLastname)"
-msgstr "(Utilisez NomPrénom)"
+msgstr "(Utilisez PrénomNom)"
 
 msgid "Password"
 msgstr "Mot de passe"
@@ -580,7 +582,7 @@ msgid "Email"
 msgstr "Addresse de messagerie"
 
 msgid "Preferred theme"
-msgstr "Langue préférée"
+msgstr "Thème préférée"
 
 msgid "User CSS URL"
 msgstr "URL CSS"
@@ -1409,6 +1411,14 @@ msgstr "Sam"
 
 msgid "Sun"
 msgstr "Dim"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Réduire la taille de l'éditeur"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr ""
+#~ "Pas de révisions de cette page plus anciennes stockées, pas de diff "
+#~ "disponibles."
 
 #, fuzzy
 #~ msgid "Account"

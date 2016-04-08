@@ -333,11 +333,13 @@ class Page:
         @param request: the request object
         @keyword include_self: if 1, include current user (default: 0)
         @keyword return_users: if 1, return user instances (default: 0)
+        @keyword trivial: if 1, only include users who want trivial changes (default: 0)
         @rtype: dict
         @return: lists of subscribed email addresses in a dict by language key
         """
         include_self = kw.get('include_self', 0)
         return_users = kw.get('return_users', 0)
+        trivial = kw.get('trivial', 0)
 
         # extract categories of this page
         pageList = self.getCategories(request)
@@ -353,26 +355,33 @@ class Page:
         # get email addresses of the all wiki user which have a profile stored;
         # add the address only if the user has subscribed to the page and
         # the user is not the current editor
+        # Also, if the change is trivial (send email isn't ticked) only send email to users
+        # who want_trivial changes (typically Admins on public sites)
         userlist = user.getUserList()
-        emails = {}
+        subscriber_list = {}
         for uid in userlist:
             if uid == request.user.id and not include_self: continue # no self notification
             subscriber = user.User(request, uid)
-            if not subscriber.email: continue # skip empty email address
+
+            # This is a bit wrong if return_users=1 (which implies that the caller will process
+            # user attributes and may, for example choose to send an SMS)
+            # So it _should_ be "not (subscriber.email and return_users)" but that breaks at the moment.
+            if not subscriber.email: continue # skip empty email addresses
+            if trivial and not subscriber.want_trivial: continue # skip uninterested subscribers
 
             if not UserPerms(subscriber).read(self.page_name): continue
 
-            if subscriber.isSubscribedTo(pageList):                
+            if subscriber.isSubscribedTo(pageList):
                 lang = subscriber.language or 'en'
-                if not emails.has_key(lang): emails[lang] = []
+                if not subscriber_list.has_key(lang): subscriber_list[lang] = []
                 if return_users:
-                    emails[lang].append(subscriber)
+                    subscriber_list[lang].append(subscriber)
                 else:
-                    emails[lang].append(subscriber.email) 
+                    subscriber_list[lang].append(subscriber.email)
 
-        return emails
-
-
+        return subscriber_list
+  
+  
     def send_page(self, request, msg=None, **keywords):
         """
         Output the formatted page.
@@ -388,6 +397,10 @@ class Page:
 
         # determine modes
         print_mode = request.form.has_key('action') and request.form['action'][0] == 'print'
+        if print_mode:
+            media = request.form.has_key('media') and request.form['media'][0] or 'print'
+        else:
+            media = 'screen'
         content_only = keywords.get('content_only', 0)
         content_id = keywords.get('content_id', 'content')
         self.hilite_re = keywords.get('hilite_re', None)
@@ -570,8 +583,8 @@ class Page:
                     trail = request.user.getTrail()
 
                 wikiutil.send_title(request, title, link=link, msg=msg,
-                    pagename=self.page_name, print_mode=print_mode, pi_refresh=pi_refresh,
-                    allow_doubleclick=1, trail=trail)
+                    pagename=self.page_name, print_mode=print_mode, media=media,
+                    pi_refresh=pi_refresh, allow_doubleclick=1, trail=trail)
 
                 # user-defined form preview?
                 # Todo: check if this is also an RTL form - then add ui_lang_attr

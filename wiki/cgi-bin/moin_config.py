@@ -20,6 +20,9 @@
 #
 # from MoinMoin.farm_config import *
 
+# use this for protecting your wiki against link spam:
+from MoinMoin.util.antispam import SecurityPolicy
+
 # basic options (you normally need to change these)
 sitename = 'An Unnamed MoinMoin Wiki'
 interwikiname = None
@@ -56,9 +59,7 @@ except ImportError:
 logo_string = '<img src="%s" alt="%s">' % (logo_url, sitename)
 
 # security critical actions (deactivated by default)
-if 0:
-    allowed_actions = ['DeletePage', 'AttachFile']
-
+# allowed_actions = ['DeletePage', 'AttachFile']
 
 # for standalone server (see cgi-bin/moin.py)
 httpd_host = "localhost"

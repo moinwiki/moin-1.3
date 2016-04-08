@@ -5,7 +5,7 @@
 
 from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
-from classic import Theme as ThemeBase
+from MoinMoin.theme.classic import Theme as ThemeBase
 
 class Theme(ThemeBase):
     """ here are the functions generating the html responsible for
@@ -20,11 +20,18 @@ class Theme(ThemeBase):
         (name,  'iso-8859-1',   'all',      'print'),
         )
     
+    stylesheets_projection = (
+        # theme charset         media       basename
+        (name,  'iso-8859-1',   'all',      'common'),
+        (name,  'iso-8859-1',   'all',      'projection'),
+        )
+    
     stylesheets = (
         # theme charset         media       basename
         (name,  'iso-8859-1',   'all',      'common'),
         (name,  'iso-8859-1',   'screen',   'screen'),
         (name,  'iso-8859-1',   'print',    'print'),
+        (name,  'iso-8859-1',   'projection',    'projection'),
         )
 
     # Header stuff #######################################################
@@ -72,9 +79,9 @@ class Theme(ThemeBase):
         html = ['<div class="sidetitle">%s</div>\n' % _("User")]
         if self.request.user.valid:
             html.append('<div class="user">') 
-            html.append('%s' % wikiutil.link_tag(self.request, wikiutil.quoteWikiname(self.request.user.name)))
+            html.append('%s' % wikiutil.link_tag(self.request, wikiutil.quoteWikiname(self.request.user.name), wikiutil.escape(self.request.user.name)))
             html.append('<br />')
-            html.append('%s' % wikiutil.link_tag(self.request, wikiutil.quoteWikiname(d['page_user_prefs'])))
+            html.append('%s' % wikiutil.link_tag(self.request, wikiutil.quoteWikiname(d['page_user_prefs']), d['page_user_prefs']))
             html.append('<br /><br />')
             html.append('<form action="%s/%s" method="POST">' % (d['script_name'], d['q_page_user_prefs']))
             html.append('<input type="hidden" name="action" value="userform">')
@@ -140,7 +147,7 @@ class Theme(ThemeBase):
         _ = self.request.getText
         iconbar = []
         if config.page_iconbar and self.request.user.show_toolbar and d['page_name']:
-	    iconbar.append('<div class="sidetitle">%s</div>\n' % _("Page"))
+            iconbar.append('<div class="sidetitle">%s</div>\n' % _("Page"))
             iconbar.append('<ul id="iconbar">\n')
             icons = config.page_iconbar[:]
             for icon in icons:

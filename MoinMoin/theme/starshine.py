@@ -6,7 +6,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-from classic import Theme as ThemeBase
+from MoinMoin.theme.classic import Theme as ThemeBase
 
 class Theme(ThemeBase):
     """ This is the starshine theme. """
@@ -24,8 +24,7 @@ class Theme(ThemeBase):
         'edit':       ("Edit",                   "moin-edit.png",   21, 32),
         'unsubscribe':("Unsubscribe",            "moin-unsubscribe.png",  21, 32),
         'subscribe':  ("Subscribe",              "moin-subscribe.png",21, 32),
-        # XXX FIXME: the RAW icon is still missing, so we use XML ...
-        'raw':        ("Raw",                    "moin-xml.png",    21, 32),
+        'raw':        ("Raw",                    "moin-raw.png",    21, 32),
         'xml':        ("XML",                    "moin-xml.png",    21, 32),
         'print':      ("Print",                  "moin-print.png",  21, 32),
         'view':       ("View",                   "moin-show.png",   21, 32),

@@ -12,8 +12,6 @@ text = {
 '''Luo tämä sivu''',
 '''Edit "%(pagename)s"''':
 '''Muokkaa "%(pagename)s"''',
-'''Reduce editor size''':
-'''Pienennä editointi ikkunan kokoa''',
 '''Describe %s here.''':
 '''Kuvaile %s tässä.''',
 '''Check Spelling''':

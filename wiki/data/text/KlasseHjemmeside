@@ -1,0 +1,14 @@
+##master-page:CategoriHomepage
+##master-date:2002-12-16 22:56:34
+##language:nb
+En klasse for WikiHjemmeside''''''r.
+
+Husk at hjemmesidene betraktes som eiendom av den personen som har laget den, og den bør ikke redigeres av andre, med unntak av å gi beskjeder til personen. Dette kan du gjøre ved å skrive beskjeden under fire bindestrek, som vist her:
+
+{{{
+----
+Skulle bare si hallo -- JorgCassens
+}}}
+
+----
+KlasseKlasse

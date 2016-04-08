@@ -39,8 +39,6 @@ stranicu s imenom koje zavr¹ava na Template (regularni izraz:
 '''[Sadr¾aj nove strnanice uèitan s %s]''',
 '''[Template %s not found]''':
 '''[Predlo¾ak %s nije pronaðen]''',
-'''Reduce editor size''':
-'''Smanji velièinu editora''',
 '''Skip to preview''':
 '''Preskoèi edit i prika¾i kako æe stranica izgledati''',
 '''Describe %s here.''':
@@ -65,8 +63,6 @@ stranicu s imenom koje zavr¹ava na Template (regularni izraz:
 '''Izbri¹i blankove s kraja svake linije.''',
 '''Edit was cancelled.''':
 '''Promjena sadr¾aja je poni¹tena.''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] Promjena na stranici "%(pagename)s"''',
 '''Status of sending notification mails:''':
 '''Rezultat slanja obavijesti o promjeni sadr¾aja:''',
 '''Nobody subscribed to this page, no mail sent.''':

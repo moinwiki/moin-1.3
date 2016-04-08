@@ -5,6 +5,55 @@ Copyright (c) 2000-2004 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
 -----------------------------------------------------------------------------
+
+Version 1.2.4 (2004-10-23, Revision 1.187)
+
+This will probably be the last 1.2.x release as we are soon doing release
+candidates for 1.3 release (with big internal changes) and are expecting
+release 1.3 in december 2004.
+
+Fixes:
+    * fixed "None" pagename bug in fullsearch/titlesearch
+    * fixed projection CSS usage
+    * the compiled page is removed when a page is deleted, so no ghost page
+      appears after deletion
+    * fixed AbandonedPages day-break problem
+    * fixed [[GetVal(WikiDict,key)]]
+    * the msg box is now outside content div on PageEditor, too
+    * privacy fix for email notifications: you don't see other email addresses
+      in To: any more. mail_from is now also used for To: header field, but
+      we don't really send email to that address.
+    * privacy fix for /MoinEditorBackup pages that were made on previews of
+      pages that were not saved in the end
+    * fix double content div on PageEditor preview
+
+Other changes:
+    * workaround for broken Microsoft Internet Explorer, the page editor now
+      stops expanding to the right (e.g. with rightsidebar theme).
+      Nevertheless it is a very good idea to use a non-broken and more secure
+      browser like Mozilla, Firefox or Opera!
+
+    * from MoinMoin.util.antispam import SecurityPolicy in your
+      moin_config.py will protect your wiki from at least the known spammers.
+      See MoinMoin:AntiSpamGlobalSolution for details.
+
+    * xmlrpc plugin for usage logging, currently used for antispam accesses
+
+    * (re-)added configurable meta tags:
+        * html_head_queries = '''<meta name="robots" content="noindex,nofollow">\n'''
+        * html_head_posts   = '''<meta name="robots" content="noindex,nofollow">\n'''
+        * html_head_index   = '''<meta name="robots" content="index,follow">\n'''
+        * html_head_normal  = '''<meta name="robots" content="index,nofollow">\n'''
+
+    * i18n updates/fixes, new: nb
+
+    * New UserPreferences switch:
+      you may subscribe to trivial changes (when you want to be notified about ALL
+      changes to pages, even if the author deselected to send notifications).
+
+    * New AttachList and AttachInfo macros - thanks to Nigel Metheringham and
+      Jacob Cohen.
+
 Version 1.2.3 (2004-07-21, Revision 1.186)
 
 Fixes:

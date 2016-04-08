@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-02-17 19:00+0200\n"
 "Last-Translator: Nir Soffer <nirs@freeshell.org>\n"
 "Language-Team: Hebrew <moin-devel@lists.sourceforge.net>\n"
@@ -138,9 +138,6 @@ msgstr "[תבנית %s לא נמצאה]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "הקטן תיבת עריכה"
-
 msgid "Skip to preview"
 msgstr "תצוגה מקדימה"
 
@@ -257,8 +254,9 @@ msgstr ""
 "הערה על השינוי:\n"
 "%(comment)s\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr "אין גרסאות קודמות של הדף, הבדלים לא זמינים."
+#, fuzzy
+msgid "New page:\n"
+msgstr "שם חדש"
 
 msgid "No differences found!\n"
 msgstr "לא נמצאו הבדלים.\n"
@@ -267,9 +265,12 @@ msgstr "לא נמצאו הבדלים.\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "שגיאה בחישוב הבדלים: %(rc)s"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] עידכון של \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "לא תקבלו הודעה על שינויים שלכם."
@@ -439,6 +440,9 @@ msgstr "הצג שמות וויקי עם רווחים Wiki Name With Spaces"
 
 msgid "Remember login information forever"
 msgstr "זכור פרטי חיבור תמיד"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "בטל חשבון משתמש"
@@ -1335,6 +1339,12 @@ msgstr "שבת"
 
 msgid "Sun"
 msgstr "ראשון"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "הקטן תיבת עריכה"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr "אין גרסאות קודמות של הדף, הבדלים לא זמינים."
 
 #, fuzzy
 #~ msgid "Account"

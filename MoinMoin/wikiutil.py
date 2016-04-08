@@ -853,6 +853,7 @@ def send_title(request, text, **keywords):
     @keyword msg: additional message (after saving)
     @keyword pagename: 'PageName'
     @keyword print_mode: 1 (or 0)
+    @keyword media: css media type, defaults to 'screen'
     @keyword allow_doubleclick: 1 (or 0)
     @keyword html_head: additional <head> code
     @keyword body_attr: additional <body> attributes
@@ -887,16 +888,18 @@ def send_title(request, text, **keywords):
     
     # search engine precautions / optimization:
     # if it is an action or edit/search, send query headers (noindex,nofollow):
-    if request.query_string or request.request_method == 'POST':
-        user_head += '''<meta name="robots" content="noindex,nofollow">\n'''
+    if request.query_string:
+        user_head += config.html_head_queries
+    elif request.request_method == 'POST':
+        user_head += config.html_head_posts
     # if it is a special page, index it and follow the links - we do it for
     # the original, english pages as well as for (the possible modified) frontpage:
     elif pagename in [page_front_page, config.page_front_page, page_title_index, ]:
-        user_head += '''<meta name="robots" content="index,follow">\n'''
+        user_head += config.html_head_index
     # if it is a normal page, index it, but do not follow the links, because
     # there are a lot of illegal links (like actions) or duplicates:
     else:
-        user_head += '''<meta name="robots" content="index,nofollow">\n'''
+        user_head += config.html_head_normal
         
     if keywords.has_key('pi_refresh') and keywords['pi_refresh']:
         user_head += '<meta http-equiv="refresh" content="%(delay)d;URL=%(url)s">' % keywords['pi_refresh']
@@ -913,6 +916,7 @@ def send_title(request, text, **keywords):
             'title': escape(text),
             'sitename': escape(config.html_pagetitle or config.sitename),
             'print_mode': keywords.get('print_mode', False),
+            'media': keywords.get('media', 'screen'),
         })
     ))
 # later: <html xmlns=\"http://www.w3.org/1999/xhtml\">

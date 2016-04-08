@@ -1,4 +1,4 @@
-#FORMAT python
+# FORMAT python
 # MoinMoin translation
 #
 # Former translators:
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-07 03:19+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-03-02 22:09+0100\n"
 "Last-Translator: Jun Hu <j.hu@tue.nl>\n"
 "Language-Team: Chinese <moin-devel@lists.sourceforge.net>\n"
@@ -17,7 +17,6 @@ msgstr ""
 "X-Direction: ltr\n"
 "X-Language: Chinese\n"
 "X-Language-in-English: Chinese\n"
-
 
 #, python-format
 msgid "(last edited %(time)s by %(editor)s)"
@@ -98,6 +97,7 @@ msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "编辑锁定超时, 多人同时编辑时可能会发生冲突"
 
 # python-format
+#, python-format
 msgid "Edit \"%(pagename)s\""
 msgstr "编辑\"%(pagename)s\""
 
@@ -141,8 +141,9 @@ msgstr "[从\"%s\"载入新页面的内容]"
 msgid "[Template %s not found]"
 msgstr "[未找到模板\"%s\"]"
 
-msgid "Reduce editor size"
-msgstr "缩小编辑框"
+#, python-format
+msgid "[You may not read %s]"
+msgstr ""
 
 msgid "Skip to preview"
 msgstr "转至预览"
@@ -263,8 +264,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr "本页没有储存旧版内容, 所以无法做版本比较."
+#, fuzzy
+msgid "New page:\n"
+msgstr "新名称"
 
 msgid "No differences found!\n"
 msgstr "未发现差别!\n"
@@ -273,9 +275,12 @@ msgstr "未发现差别!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "版本比较功能传回错误代码%(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s]: \"%(pagename)s\"页面更动通知"
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "您不会收到有关您自己所作改动的通知"
@@ -451,6 +456,9 @@ msgstr "给显示的wiki名加空格"
 
 msgid "Remember login information forever"
 msgstr "永久保存登录信息"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "永久停用此帐户"
@@ -1338,5 +1346,8 @@ msgstr "星期六"
 msgid "Sun"
 msgstr "星期日"
 
+#~ msgid "Reduce editor size"
+#~ msgstr "缩小编辑框"
 
-
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr "本页没有储存旧版内容, 所以无法做版本比较."

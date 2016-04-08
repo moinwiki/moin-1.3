@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-02-18 15:08+0900\n"
 "Last-Translator: Hye-Shik Chang <perky@i18n.org>\n"
 "Language-Team: Korean <moin-devel@lists.sourceforge.net>\n"
@@ -141,9 +141,6 @@ msgstr "[템플릿 %s를 찾을 수 없음]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "편집기 크기를 줄임"
-
 msgid "Skip to preview"
 msgstr "미리보기로 건너뜀"
 
@@ -266,8 +263,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr "예전 버전의 글가 저장되어있지 않아서, 비교할 수 없습니다."
+#, fuzzy
+msgid "New page:\n"
+msgstr "새 이름"
 
 msgid "No differences found!\n"
 msgstr "차이점이 없습니다!\n"
@@ -276,9 +274,12 @@ msgstr "차이점이 없습니다!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "diff 함수가 에러 코드 %(rc)s를 반환하였습니다!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] \"%(pagename)s\"를 수정"
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "본인이 고친 것에 대해서는 알림을 받지 않습니다."
@@ -456,6 +457,9 @@ msgstr "위키네임에 스페이스를 넣어서 표시"
 
 msgid "Remember login information forever"
 msgstr "로그인 정보를 영원히 기억함"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "이 계정을 더 이상 사용하지 않음"
@@ -1359,6 +1363,12 @@ msgstr "토요일"
 
 msgid "Sun"
 msgstr "일요일"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "편집기 크기를 줄임"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr "예전 버전의 글가 저장되어있지 않아서, 비교할 수 없습니다."
 
 #, fuzzy
 #~ msgid "Account"

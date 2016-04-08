@@ -26,8 +26,6 @@ text = {
 '''[Conteúdo da nova página carregado de %s]''',
 '''[Template %s not found]''':
 '''[Template %s não encontrado]''',
-'''Reduce editor size''':
-'''Reduzir tamanho do editor''',
 '''Describe %s here.''':
 '''Descreva %s aqui.''',
 '''Save Changes''':

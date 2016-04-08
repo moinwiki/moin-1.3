@@ -51,8 +51,6 @@ Dai un\'occhiata alle diff in %(difflink)s per vedere cosa è cambiato.''',
 '''[Contenuto della nuova pagina caricato da %s]''',
 '''[Template %s not found]''':
 '''[Il modello %s non è stato trovato]''',
-'''Reduce editor size''':
-'''Riduci la dimensione dell\'editor''',
 '''Skip to preview''':
 '''Salta all\'anteprima''',
 '''Describe %s here.''':
@@ -81,14 +79,10 @@ Se non vuoi questo, premi <strong>%(cancel_button_text)s</strong> per cancellare
 '''Rimuovi gli spazi in fondo a ogni riga di testo''',
 '''Edit was cancelled.''':
 '''Le modifiche sono state annullate.''',
-'''No older revisions of the page stored, diff not available.''':
-'''Non ci sono revisioni precedenti della pagina, non è possibile riassumere le differenze.''',
 '''No differences found!
 ''':
 '''Non ho riscontrato nessuna differenza!
 ''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] La pagina "%(pagename)s" è stata aggiornata''',
 '''Status of sending notification mails:''':
 '''Risultato della spedizione delle email di notifica:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':

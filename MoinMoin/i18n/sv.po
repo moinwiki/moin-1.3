@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-01-11 22:09+0100\n"
 "Last-Translator: Christian Sunesson <noss@rm-f.net>\n"
 "Language-Team: Swedish <moin-devel@lists.sourceforge.net>\n"
@@ -142,9 +142,6 @@ msgstr "[Mall %s ej funnen]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Minska editorns storlek"
-
 msgid "Skip to preview"
 msgstr "Hoppa till förhandsgransking"
 
@@ -258,8 +255,9 @@ msgstr ""
 "Ändringens kommentar är:\n"
 "%(comment)s\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr "Inga äldre versioner av sidan lagrade, diff inte tillgänglig."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Namn"
 
 msgid "No differences found!\n"
 msgstr "Inga skillnader funna!\n"
@@ -268,9 +266,12 @@ msgstr "Inga skillnader funna!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Extern program <b>diff</b> returnerade med felkod %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] uppdatering av \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr ""
@@ -444,6 +445,9 @@ msgid "Add spaces to displayed wiki names"
 msgstr "Addera mellanslag till visade wiki-namn"
 
 msgid "Remember login information forever"
+msgstr ""
+
+msgid "Subscribe to trivial changes"
 msgstr ""
 
 msgid "Disable this account forever"
@@ -1411,6 +1415,12 @@ msgstr "lör"
 
 msgid "Sun"
 msgstr "sön"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Minska editorns storlek"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr "Inga äldre versioner av sidan lagrade, diff inte tillgänglig."
 
 #, fuzzy
 #~ msgid "Account"

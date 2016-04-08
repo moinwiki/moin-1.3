@@ -76,8 +76,6 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[從 %s 載入新頁面的內容]''',
 '''[Template %s not found]''':
 '''[找不到範本 %s ]''',
-'''Reduce editor size''':
-'''縮小編輯框''',
 '''Skip to preview''':
 '''跳至預覽''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -164,16 +162,12 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''本頁沒有儲存舊版內容, 所以沒辦法做版本比較.''',
 '''No differences found!
 ''':
 '''新舊版完全相同!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''版本比較函式傳回錯誤代碼 %(rc)s!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] 頁面更動通知: "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''因為你編輯了本頁, 所以編輯通知不會再寄一份給你!''',
 '''Status of sending notification mails:''':

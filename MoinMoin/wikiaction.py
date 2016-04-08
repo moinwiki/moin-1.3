@@ -58,7 +58,7 @@ def do_fullsearch(pagename, request, fieldname='value'):
         return
 
     # send title
-    wikiutil.send_title(request, _('Full text search for "%s"') % (needle,))
+    wikiutil.send_title(request, _('Full text search for "%s"') % (needle,), pagename=pagename)
 
     # search the pages
     pagecount, hits = wikiutil.searchPages(needle,
@@ -110,7 +110,7 @@ def do_titlesearch(pagename, request, fieldname='value'):
              msg=_("Please use a more selective search term instead of '%(needle)s'!") % {'needle': needle})
         return
 
-    wikiutil.send_title(request, _('Title search for "%s"') % (needle,))
+    wikiutil.send_title(request, _('Title search for "%s"') % (needle,), pagename=pagename)
 
     try:
         needle_re = re.compile(needle, re.IGNORECASE)
@@ -348,7 +348,8 @@ def do_info(pagename, request):
 
         # show attachments (if allowed)
         attachment_info = getHandler('AttachFile', 'info')
-        if attachment_info: attachment_info(pagename, request)
+        if attachment_info:
+            request.write(attachment_info(pagename, request))
 
         # show subscribers
         subscribers = page.getSubscribers(request,  include_self=1, return_users=1)
@@ -609,8 +610,8 @@ def do_revert(pagename, request):
     try:
         savemsg = pg.saveText(oldpg.get_raw_body(), '0',
             stripspaces=0, notify=1, comment=date, action="SAVE/REVERT")
-    except pg.SaveError:
-        savemsg = _("An error occurred while reverting the page.")
+    except pg.SaveError, msg:
+        savemsg = "%s %s" % (msg, _("An error occurred while reverting the page."))
     request.reset()
     pg.send_page(request, msg=savemsg)
     return None

@@ -76,8 +76,6 @@ Mira las diferencias de %(difflink)s para ver que ha cambiado.''',
 '''[Contenido de la nueva página cargada desde %s]''',
 '''[Template %s not found]''':
 '''[Plantilla %s no encontrada]''',
-'''Reduce editor size''':
-'''Reducir el tamaño del editor''',
 '''Skip to preview''':
 '''Saltar a previsualizar''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -164,16 +162,12 @@ La siguiente página ha sido modificada por %(editor)s:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''No hay revisiones anteriores de la página almacenada, no hay diff disponible.''',
 '''No differences found!
 ''':
 '''¡No se encontraron diferencias!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''¡La utilidad externa diff devolvió el código de error %(rc)s!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] actualización de "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''¡No se te notificarán tus propios cambios!''',
 '''Status of sending notification mails:''':

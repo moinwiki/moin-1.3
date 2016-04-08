@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-02-15 23:19+0100\n"
 "Last-Translator: Davor Cengija <dcengija@yahoo.com>\n"
 "Language-Team: Croatian <moin-devel@lists.sourceforge.net>\n"
@@ -144,9 +144,6 @@ msgstr "[Predlo¾ak %s nije pronaðen]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Smanji velièinu editora"
-
 msgid "Skip to preview"
 msgstr "Preskoèi edit i prika¾i kako æe stranica izgledati"
 
@@ -258,8 +255,9 @@ msgid ""
 "\n"
 msgstr ""
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
+#, fuzzy
+msgid "New page:\n"
+msgstr "Ime"
 
 #, fuzzy
 msgid "No differences found!\n"
@@ -269,9 +267,12 @@ msgstr "Nisu pronaðene nikakve razlike!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr ""
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] Promjena na stranici \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 #, fuzzy
 msgid "You will not be notified of your own changes!"
@@ -468,6 +469,9 @@ msgid "Add spaces to displayed wiki names"
 msgstr "Dodaj razmake u wiki imena"
 
 msgid "Remember login information forever"
+msgstr ""
+
+msgid "Subscribe to trivial changes"
 msgstr ""
 
 msgid "Disable this account forever"
@@ -1418,6 +1422,9 @@ msgstr "Subota"
 
 msgid "Sun"
 msgstr "Nedjelja"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Smanji velièinu editora"
 
 #, fuzzy
 #~ msgid "Account"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-05-25 9:00:00-0700\n"
 "Last-Translator: Mike Rovner <mrovner@hotmail.com>\n"
 "Language-Team: Russian <moin-devel@lists.sourceforge.net>\n"
@@ -145,9 +145,6 @@ msgstr "[Заготовка %s не найдена]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Уменьшить размер окна редактирования"
-
 msgid "Skip to preview"
 msgstr "Пролистать до макета"
 
@@ -269,8 +266,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr "Нет старых версий страницы, различия недоступны."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Новое имя"
 
 msgid "No differences found!\n"
 msgstr "Различий не найдено!\n"
@@ -279,9 +277,12 @@ msgstr "Различий не найдено!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Программа сравнения вернула код ошибки %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] обновил(а) \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "Вас не уведомляют о ваших изменениях!"
@@ -467,6 +468,9 @@ msgstr "Разделять вик-имена пробелами"
 
 msgid "Remember login information forever"
 msgstr "Запомнить меня навсегда"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "Забыть меня навсегда"
@@ -1367,3 +1371,9 @@ msgstr "Суб"
 
 msgid "Sun"
 msgstr "Вос"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Уменьшить размер окна редактирования"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr "Нет старых версий страницы, различия недоступны."

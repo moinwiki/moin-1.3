@@ -71,11 +71,18 @@ class Theme:
         (name,  'iso-8859-1',   'all',      'print'),
         )
     
+    stylesheets_projection = (
+        # theme charset         media       basename
+        (name,  'iso-8859-1',   'all',      'common'),
+        (name,  'iso-8859-1',   'all',      'projection'),
+        )
+    
     stylesheets = (
         # theme charset         media       basename
         (name,  'iso-8859-1',   'all',      'common'),
         (name,  'iso-8859-1',   'screen',   'screen'),
         (name,  'iso-8859-1',   'print',    'print'),
+        (name,  'iso-8859-1',   'projection',    'projection'),
         )
 
     def __init__(self, request):
@@ -332,7 +339,13 @@ class Theme:
         """
         html = []
         if d.get('print_mode', False):
-            stylesheets = self.stylesheets_print
+            media = d.get('media', 'print')
+            if media == 'print':
+                stylesheets = self.stylesheets_print
+            elif media == 'projection':
+                stylesheets = self.stylesheets_projection
+            else:
+                raise "unsupported media %s" % media
         else:
             stylesheets = self.stylesheets
         user_css_url = self.request.user.valid and self.request.user.css_url

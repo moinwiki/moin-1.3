@@ -1,0 +1,45 @@
+##master-page:WikiSandBox
+##master-date:2003-03-13 03:36:56
+##language:nb
+Du kan gjerne leke med wikien nedenfor streken... men vennligst opprett '''ingen''' nye sider uten meningsfull innhold kun for å eksperimente med Wiki-markering.
+----
+
+== Formatering ==
+
+''kursiv'' '''fet''' {{{skrivemaskin}}}
+
+`accent grave skrivemaskin` (hvis det er aktivert i oppsettett)
+
+{{{
+forhåndsformatert (kode e.l.)
+}}}
+
+== Lenker ==
+
+HelpOnEditing [MoinMoin]InterWiki 
+
+http://purl.net/wiki/moin/ [http://www.python.org/ Python]
+
+noen@det.store.nettet
+
+
+=== Integrerte bilder ===
+
+http://c2.com/sig/wiki.gif
+
+== Lister ==
+
+=== Punkter ===
+ * første
+   1. nummerert underpunkt
+   1. nummerering skjer automatisk
+ * andre
+
+ innrykket tekst
+   dypere innryking
+
+=== Oppslagsord ===
+ Term:: Definisjon
+
+=== Tegning ===
+drawing:min_test

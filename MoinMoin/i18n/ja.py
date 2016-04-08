@@ -76,8 +76,6 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[ひな型%sが見つかりません]''',
 '''[You may not read %s]''':
 '''[%sを読む権限がありません]''',
-'''Reduce editor size''':
-'''エディタを縮小''',
 '''Skip to preview''':
 '''プレビューへ移動''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -164,16 +162,12 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''このページの古いリビジョンはありません。''',
 '''No differences found!
 ''':
 '''違いは見つかりませんでした。
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''diffが異常終了しました。エラーコード: %(rc)s''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] "%(pagename)s"の更新''',
 '''You will not be notified of your own changes!''':
 '''自分で行った変更は通知されません。''',
 '''Status of sending notification mails:''':

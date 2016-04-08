@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-01-11 22:09+0100\n"
 "Last-Translator: Lin Zhemin <ljm@ljm.idv.tw>\n"
 "Language-Team: Chinese/Taiwan <moin-devel@lists.sourceforge.net>\n"
@@ -143,9 +143,6 @@ msgstr "[找不到範本 %s ]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "縮小編輯框"
-
 msgid "Skip to preview"
 msgstr "跳至預覽"
 
@@ -264,8 +261,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr "本頁沒有儲存舊版內容, 所以沒辦法做版本比較."
+#, fuzzy
+msgid "New page:\n"
+msgstr "新的名稱"
 
 msgid "No differences found!\n"
 msgstr "新舊版完全相同!\n"
@@ -274,9 +272,12 @@ msgstr "新舊版完全相同!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "版本比較函式傳回錯誤代碼 %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] 頁面更動通知: \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "因為你編輯了本頁, 所以編輯通知不會再寄一份給你!"
@@ -453,6 +454,9 @@ msgstr "在顯示wiki名稱時加上空格"
 
 msgid "Remember login information forever"
 msgstr "永遠記住登入資訊"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "永遠停用本帳號"
@@ -1346,6 +1350,12 @@ msgstr "星期六"
 
 msgid "Sun"
 msgstr "星期日"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "縮小編輯框"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr "本頁沒有儲存舊版內容, 所以沒辦法做版本比較."
 
 #, fuzzy
 #~ msgid "Account"

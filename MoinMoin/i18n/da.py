@@ -76,8 +76,6 @@ Kig på ændringerne pr. %(difflink)s for at se hvad der er blevet ændret.''',
 '''[Den nye sides indhold indlæst fra %s]''',
 '''[Template %s not found]''':
 '''[Skabelon %s ikke fundet]''',
-'''Reduce editor size''':
-'''Formindsk størrelsen på redigeringsvinduet''',
 '''Skip to preview''':
 '''Skift til forhåndsvisning''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -164,16 +162,12 @@ Følgende sider er ændret af %(editor)s:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''Ingen ældre udgaver af siden er gemt, og derfor ingen forskelle at vise.''',
 '''No differences found!
 ''':
 '''Ingen forskelle fundet!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''Diff-programmet returnerede fejlkoden %(rc)s!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] opdatering af "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''Du vil ikke blive orienteret om dine egne rettelser!''',
 '''Status of sending notification mails:''':

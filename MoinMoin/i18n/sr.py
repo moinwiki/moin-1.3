@@ -79,8 +79,6 @@ izmenilo.''',
 '''[Sadržaj nove stranice je učitan iz %s]''',
 '''[Template %s not found]''':
 '''[Šablon %s nije pronađen]''',
-'''Reduce editor size''':
-'''Smanjiti veličinu editora''',
 '''Skip to preview''':
 '''Preskočite radi uvida''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -167,17 +165,12 @@ Ova stranica je promenjena od strane %(editor)s :
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''Ne postoje prethodne revizije ove stranice, razlika iliti diff nije
-dostupan.''',
 '''No differences found!
 ''':
 '''Nijedna razlika nije pronađena!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''Dif funkcija je javila grešku sa kodom %(rc)s!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] Obnova za "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''Vi nećete dobiti poruku sa vašim sopstvenim izmenama!''',
 '''Status of sending notification mails:''':

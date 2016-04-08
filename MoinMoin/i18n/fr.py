@@ -76,8 +76,6 @@ Regardez les différences de %(difflink)s pour voir ce qui a été modifié.''',
 '''[Le contenu de cette nouvelle page a été chargé de %s]''',
 '''[Template %s not found]''':
 '''[Le modèle %s n\'a pas été trouvé]''',
-'''Reduce editor size''':
-'''Réduire la taille de l\'éditeur''',
 '''Skip to preview''':
 '''Avancer jusqu\'à la prévisualisation''',
 '''[current page size <strong>%(size)d</strong> bytes]''':
@@ -163,16 +161,12 @@ La page suivante a été modifiée par %(editor)s&nbsp;:
 %(comment)s
 
 ''',
-'''No older revisions of the page stored, diff not available.''':
-'''Pas de révisions de cette page plus anciennes stockées, pas de diff disponibles.''',
 '''No differences found!
 ''':
 '''Pas de différences trouvées&nbsp;!
 ''',
 '''The diff function returned with error code %(rc)s!''':
 '''La fonction diff a retourné le code d\'erreur %(rc)s&nbsp;!''',
-'''[%(sitename)s] Update of "%(pagename)s"''':
-'''[%(sitename)s] Mise à jour de "%(pagename)s"''',
 '''You will not be notified of your own changes!''':
 '''Vous ne serez pas averti de vos propres modifications&nbsp;!''',
 '''Status of sending notification mails:''':
@@ -323,7 +317,7 @@ Pour quitter l\'éditeur, utiliser le bouton Annuler.''',
 '''Name''':
 '''Nom''',
 '''(Use FirstnameLastname)''':
-'''(Utilisez NomPrénom)''',
+'''(Utilisez PrénomNom)''',
 '''Password''':
 '''Mot de passe''',
 '''Password repeat''':
@@ -333,7 +327,7 @@ Pour quitter l\'éditeur, utiliser le bouton Annuler.''',
 '''Email''':
 '''Addresse de messagerie''',
 '''Preferred theme''':
-'''Langue préférée''',
+'''Thème préférée''',
 '''User CSS URL''':
 '''URL CSS''',
 '''(Leave it empty for disabling user CSS)''':

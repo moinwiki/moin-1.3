@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-02-27 13:15+0100\n"
 "Last-Translator: Jonas Smedegaard <dr@jones.dk>\n"
 "Language-Team: Danish <moin-devel@lists.sourceforge.net>\n"
@@ -144,9 +144,6 @@ msgstr "[Skabelon %s ikke fundet]"
 msgid "[You may not read %s]"
 msgstr ""
 
-msgid "Reduce editor size"
-msgstr "Formindsk størrelsen på redigeringsvinduet"
-
 msgid "Skip to preview"
 msgstr "Skift til forhåndsvisning"
 
@@ -269,9 +266,9 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
-"Ingen ældre udgaver af siden er gemt, og derfor ingen forskelle at vise."
+#, fuzzy
+msgid "New page:\n"
+msgstr "Nyt navn"
 
 msgid "No differences found!\n"
 msgstr "Ingen forskelle fundet!\n"
@@ -280,9 +277,12 @@ msgstr "Ingen forskelle fundet!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Diff-programmet returnerede fejlkoden %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] opdatering af \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr ""
 
 msgid "You will not be notified of your own changes!"
 msgstr "Du vil ikke blive orienteret om dine egne rettelser!"
@@ -469,6 +469,9 @@ msgstr "Tilføj mellemrum i viste wiki-navne"
 
 msgid "Remember login information forever"
 msgstr "Husk adgangsinformationer permanent"
+
+msgid "Subscribe to trivial changes"
+msgstr ""
 
 msgid "Disable this account forever"
 msgstr "Luk denne brugerprofil permanent"
@@ -1376,6 +1379,13 @@ msgstr "lør"
 
 msgid "Sun"
 msgstr "søn"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Formindsk størrelsen på redigeringsvinduet"
+
+#~ msgid "No older revisions of the page stored, diff not available."
+#~ msgstr ""
+#~ "Ingen ældre udgaver af siden er gemt, og derfor ingen forskelle at vise."
 
 #, fuzzy
 #~ msgid "Account"

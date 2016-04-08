@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 14:15+0200\n"
+"POT-Creation-Date: 2004-09-04 22:09+0200\n"
 "PO-Revision-Date: 2004-01-13 08:46+0100\n"
 "Last-Translator: Thomas Waldmann <tw-public@gmx.de>\n"
 "Language-Team: German <moin-devel@lists.sourceforge.net>\n"
@@ -149,9 +149,6 @@ msgstr "[Schablone %s nicht gefunden]"
 msgid "[You may not read %s]"
 msgstr "[Sie dürfen %s nicht lesen]"
 
-msgid "Reduce editor size"
-msgstr "Größe des Eingabefelds reduzieren"
-
 msgid "Skip to preview"
 msgstr "Zur Vorschau springen"
 
@@ -275,10 +272,8 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-msgid "No older revisions of the page stored, diff not available."
-msgstr ""
-"Es sind keine älteren Versionen dieser Seite verfügbar, deswegen konnte kein "
-"Vergleich durchgeführt werden."
+msgid "New page:\n"
+msgstr "Neue Seite:\n"
 
 msgid "No differences found!\n"
 msgstr "Es wurden keine Änderungen gefunden!\n"
@@ -287,9 +282,12 @@ msgstr "Es wurden keine Änderungen gefunden!\n"
 msgid "The diff function returned with error code %(rc)s!"
 msgstr "Die \"diff\"-Funktion lieferte den Fehlercode %(rc)s!"
 
-#, python-format
-msgid "[%(sitename)s] Update of \"%(pagename)s\""
-msgstr "[%(sitename)s] Änderung von \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
+msgstr "[%(sitename)s]%(trivial)s Änderung von \"%(pagename)s\""
+
+msgid "Trivial "
+msgstr "Triviale "
 
 msgid "You will not be notified of your own changes!"
 msgstr "Sie erhalten keine Benachrichtigung über die eigenen Änderungen!"
@@ -479,6 +477,9 @@ msgstr "Angezeigte Wikinamen mit Leerzeichen trennen"
 
 msgid "Remember login information forever"
 msgstr "Speichere Login-Informationen für immer"
+
+msgid "Subscribe to trivial changes"
+msgstr "Triviale Änderungen erzeugen Benachrichtigungen"
 
 msgid "Disable this account forever"
 msgstr "Dieses Benutzerkonto für immer deaktivieren"

@@ -124,7 +124,7 @@ def info(pagename, request):
         'count': len(files),
         'link': Page(pagename).url(request, "action=AttachFile")
     }
-    request.write("\n<p>\n%s\n</p>\n" % attach_info)
+    return "\n<p>\n%s\n</p>\n" % attach_info
 
 
 #############################################################################
@@ -165,7 +165,7 @@ def _access_file(pagename, request):
     return (None, None)
 
 
-def _get_filelist(request, pagename):
+def _build_filelist(request, pagename, showheader, readonly):
     _ = request.getText
 
     # access directory
@@ -177,12 +177,13 @@ def _get_filelist(request, pagename):
 
     str = ""
     if files:
-        str = str + _("<p>"
-            "To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, \n"
-            "as shown below in the list of files. \n"
-            "Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
-            "since this is subject to change and can break easily.</p>"
-        )
+        if showheader:
+            str = str + _("<p>"
+                          "To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, \n"
+                          "as shown below in the list of files. \n"
+                          "Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
+                          "since this is subject to change and can break easily.</p>"
+                          )
         str = str + "<ul>"
 
         label_del = _("del")
@@ -209,7 +210,7 @@ def _get_filelist(request, pagename):
                         'pagename': pagename}
             
             del_link = ''
-            if request.user.may.delete(pagename):
+            if request.user.may.delete(pagename) and not readonly:
                 del_link = '<a href="%(baseurl)s/%(urlpagename)s' \
                     '?action=%(action)s&amp;do=del&amp;target=%(urlfile)s">%(label_del)s</a>&nbsp;| ' % parmdict
 
@@ -225,11 +226,16 @@ def _get_filelist(request, pagename):
                 ' (%(fsize)g KB) attachment:<strong>%(file)s</strong></li>') % parmdict
         str = str + "</ul>"
     else:
-        str = '%s<p>%s</p>' % (str, _("No attachments stored for %(pagename)s") % {'pagename': pagename})
+        if showheader:
+            str = '%s<p>%s</p>' % (str, _("No attachments stored for %(pagename)s") % {'pagename': pagename})
 
     return str
-        
-    
+
+
+def _get_filelist(request, pagename):
+    return _build_filelist(request, pagename, 1, 0)
+
+
 def error_msg(pagename, request, msg):
     Page(pagename).send_page(request, msg=msg)
 

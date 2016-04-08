@@ -199,8 +199,6 @@ class PageEditor(Page):
                     }) or ''
         )
         
-        self.request.write('<div id="content">\n') # start content div
-        
         # get request parameters
         try:
             text_rows = int(form['rows'][0])
@@ -259,6 +257,8 @@ Have a look at the diff of %(difflink)s to see what has been changed."""
         if edit_lock_message or message:
             self.request.write('<div id="message">%s%s</div>' % (message, edit_lock_message))
 
+        self.request.write('<div id="content">\n') # start content div
+        
         # get the text body for the editor field
         if form.has_key('template'):
             # "template" parameter contains the name of the template page
@@ -290,12 +290,21 @@ Have a look at the diff of %(difflink)s to see what has been changed."""
         self.request.write(_('[current page size <strong>%(size)d</strong> bytes]') % {'size': self.size()})
         self.request.write('</p>')
 
+        # fix for misbehaved IE6 textarea (jumps to the right when you start typing)
+        # replaced by fieldset workaround as the div doesn't fix all problems... fsck
+        #self.request.write('<div id="brokenIEfix" style="width:100%">')
+        
         # send form
         self.request.write('<form method="post" action="%s/%s#preview">' % (
             self.request.getScriptname(),
             wikiutil.quoteWikiname(self.page_name),
             ))
 
+        # yet another weird workaround for broken IE6 (it expands the text
+        # editor area to the right after you begin to type...). this browser sucks...
+        # http://fplanque.net/2003/Articles/iecsstextarea/
+        self.request.write('<fieldset style="border:none;padding:0;">')
+        
         self.request.write('<p>')
         self.request.write(str(html.INPUT(type="hidden", name="action", value="savepage")))
         if backto:
@@ -387,7 +396,10 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
                     form.has_key('button_newwords')):
                 badwords, badwords_re, msg = SpellCheck.checkSpelling(self, self.request, own_form=0)
                 self.request.write("<p>%s</p>" % msg)
+        self.request.write('</fieldset>')
         self.request.write("</form>")
+
+        #self.request.write('</div>') # id="brokenIEfix"
 
         # QuickHelp originally by Georg Mischler <schorsch@lightingwiki.com>
         self.request.write('<hr>\n<dl>' + _("""<dt>Emphasis:</dt>
@@ -408,9 +420,8 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
 """) + '</dl>')
 
         if preview is not None:
-            self.request.write('<div id="preview">')
-            self.send_page(self.request, content_only=1, hilite_re=badwords_re)
-            self.request.write('</div>')
+            self.send_page(self.request, content_id='preview', content_only=1, hilite_re=badwords_re)
+ 
 
         self.request.write('</div>\n') # end content div
 
@@ -464,14 +475,22 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
         cache = caching.CacheEntry(arena, key)
         cache.remove()
 
+        # clean the cache
+        for formatter_name in config.caching_formats:
+            arena = 'Page.py'
+            key2 = key + '.' + formatter_name
+            cache = caching.CacheEntry(arena, key2)
+            cache.remove()
+        
 
-    def _sendNotification(self, comment, emails, email_lang, oldversions):
+    def _sendNotification(self, comment, emails, email_lang, oldversions, trivial):
         """
         Send notification email for a single language.
         @param comment: editor's comment given when saving the page
         @param emails: list of email addresses
         @param email_lang: language of emails
         @param oldversions: old versions of this page
+        @param trivial: the change is marked as trivial
         @rtype: int
         @return: sendmail result
         """
@@ -493,7 +512,8 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
         # append a diff
         if not oldversions:
             mailBody = mailBody + \
-                _("No older revisions of the page stored, diff not available.")
+                _("New page:\n") + \
+                Page(self.page_name).get_raw_body()
         else:
             newpage = os.path.join(config.text_dir, wikiutil.quoteFilename(self.page_name))
             oldpage = os.path.join(config.backup_dir, oldversions[0])
@@ -509,7 +529,8 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
                         _('The diff function returned with error code %(rc)s!') % {'rc': rc}
 
         return util.mail.sendmail(self.request, emails,
-            _('[%(sitename)s] Update of "%(pagename)s"') % {
+            _('[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"') % {
+                'trivial' : (trivial and _("Trivial ")) or "",
                 'sitename': config.sitename or "Wiki",
                 'pagename': self.page_name,
             },
@@ -517,17 +538,18 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
             # was: self.request.user.email, but we don't want to disclose email
 
 
-    def _notifySubscribers(self, comment):
+    def _notifySubscribers(self, comment, trivial):
         """
         Send email to all subscribers of this page.
-        
+
         @param comment: editor's comment given when saving the page
+        @param trivial: editor's suggestion that the change is trivial (Subscribers may ignore this)
         @rtype: string
         @return: message, indicating success or errors.
         """
         _ = self._
-        subscribers = self.getSubscribers(self.request, return_users=1)
-
+        subscribers = self.getSubscribers(self.request, return_users=1, trivial=trivial)
+  
         wiki_is_smarter_than_its_users = _("You will not be notified of your own changes!") + '<br>'
 
         if subscribers:
@@ -539,10 +561,17 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
             for lang in subscribers.keys():
                 emails = map(lambda u: u.email, subscribers[lang])
                 names  = map(lambda u: u.name,  subscribers[lang])
-                mailok, status = self._sendNotification(comment, emails, lang, oldversions)
+                mailok, status = self._sendNotification(comment, emails, lang, oldversions, trivial)
                 recipients = ", ".join(names)
                 results.append(_('[%(lang)s] %(recipients)s: %(status)s') % {
                     'lang': lang, 'recipients': recipients, 'status': status})
+
+            if trivial:
+                # lie about not sending email (so abusers think their actions are hidden)
+                # This is a bit inconsistent with having this as a user option - maybe reconsider u.want_trivia
+                # to be memberOfGroup(WantTrivia)
+                # FIXME also maybe make this a wiki configurable?
+                return _('')
 
             return wiki_is_smarter_than_its_users + '<br>'.join(results)
 
@@ -652,7 +681,10 @@ If you don't want that, hit <strong>%(cancel_button_text)s</strong> to cancel yo
             delimiter = ""
         backuppage = PageEditor(pg.page_name + delimiter + "MoinEditorBackup", self.request, do_revision_backup=0)
         if config.acl_enabled:
-            intro = "#acl %s:read,write,delete\n" % self.request.user.name
+            # we need All: at the end to prevent that the original page ACLs
+            # make it possible to see preview saves (that maybe were never
+            # really saved by the author).
+            intro = "#acl %s:read,write,delete All:\n" % self.request.user.name
         else:
             intro = ""
         pagename = self.page_name
@@ -794,8 +826,8 @@ delete the changes of the other person, which is excessively rude!</em></p>
                                     {'pagename': self.page_name})
 
             # send notification mails
-            if config.mail_smarthost and kw.get('notify', 0):
-                msg = msg + self._notifySubscribers(kw.get('comment', ''))
+            if config.mail_smarthost:
+                msg = msg + self._notifySubscribers(kw.get('comment', ''), not kw.get('notify', 0))
 
         # remove lock (forcibly if we were allowed to break it by the UI)
         # !!! this is a little fishy, since the lock owner might not notice

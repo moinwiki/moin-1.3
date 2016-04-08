@@ -110,6 +110,7 @@ class User:
          ('show_fancy_diff', lambda _: _('Show fancy diffs')),
          ('wikiname_add_spaces', lambda _: _('Add spaces to displayed wiki names')),
          ('remember_me', lambda _: _('Remember login information forever')),
+         ('want_trivial', lambda _: _('Subscribe to trivial changes')),
          ('disabled', lambda _: _('Disable this account forever')),
     ]
     _transient_fields =  ['id', 'valid', 'may', 'auth_username', 'trusted']
@@ -173,6 +174,7 @@ class User:
         self.show_toolbar = 1
         self.show_nonexist_qm = config.nonexist_qm
         self.show_fancy_diff = 1
+        self.want_trivial = 0
         self.remember_me = 1
 
         if not self.id and not self.auth_username:
