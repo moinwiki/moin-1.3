@@ -1,0 +1,43 @@
+== Overview ==
+
+I'd like to describe some work related to
+automatic documentation of S4 classes and
+methods.  For information on S4, see
+http://cm.bell-labs.com/cm/ms/departments/sia/Sbook/
+
+Here's where you can see and comment upon the
+ProposedWork.
+
+If I understand this wiki system correctly, I can
+have readers directly annotate my comments
+on this issue.
+
+http://www.biostat.harvard.edu/~carey
+includes source for some fairly obsolete
+but widely used S3 code.  I'd like to revise
+all this using the improved class/method
+protocols of S4, but with automatically
+validated documentation resembling javadoc
+output.
+
+But my sketch of the new approach is on my
+laptop! :(  I'll continue later.
+
+== Personal stuff ==
+
+I am a biostatistician in Boston MA.  My
+e-mail address is stvjc@gauss.med.harvard.edu
+
+Vince Carey
+
+== Messages ==
+
+Hi, I'd prefer if you'd not add "unrelated" pages to the MoinMoin wiki, as it is part of the standard distribution. And from what I've seen you plan to add quite some pages, so let's avoid the work in later moving those.
+
+Either mail me at jh@web.de so we can open a general purpose wiki, or let's discuss such a wiki on the MoinMoinMailingLists. -- jh
+
+I have just e-mailed you to discuss this.  --vc
+
+== List of pages descendent from this one ==
+
+ProposedWork

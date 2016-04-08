@@ -4,11 +4,11 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: RecentChanges.py,v 1.6 2000/12/05 23:32:53 jhermann Exp $
+    $Id: RecentChanges.py,v 1.12 2000/12/12 14:39:37 jhermann Exp $
 """
 
 # Imports
-import string, time
+import re, string, time
 from cStringIO import StringIO
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
@@ -32,14 +32,17 @@ def execute(macro, args):
         bm_display = '(no bookmark set)'
         if bookmark:
             bm_display = '(currently set to %s)' % (
-                time.strftime(config.datetime_fmt, user.current.getTime(bookmark)),)
+                user.current.getFormattedDateTime(bookmark),)
 
         buf.write("%s %s<br>" % (
             wikiutil.link_tag(
-                wikiutil.quoteWikiname(macro.formatter.page.page_name) + "?action=bookmark",
+                wikiutil.quoteWikiname(macro.formatter.page.page_name)
+                    + "?action=bookmark&time=%d" % (tnow,),
                 "Update my bookmark timestamp"),
             bm_display,
         ))
+
+    oldversions = wikiutil.getBackupList(config.backup_dir, None)
 
     buf.write('<table border=0 cellspacing=2 cellpadding=0>')
     for line in lines:
@@ -68,16 +71,42 @@ def execute(macro, args):
             if daycount > 14: break
 
             buf.write('<tr><td colspan="%d"><br/><font size="+1"><b>%s</b></font></td></tr>\n'
-                % (3+config.show_hosts, time.strftime(config.date_fmt, time_tuple)))
+                % (3+config.show_hosts, user.current.getFormattedDate(ed_time)))
             ratchet_day = day
 
+        # remember we did print this page
         done_words[page_name] = 1
+
+        # check whether this page is newer than the user's bookmark
         hilite = ed_time > (bookmark or ed_time)
-        buf.write('<tr><td>&nbsp;&nbsp;%s[%s]%s&nbsp;</td><td>%s</td><td>&nbsp;' % (
-            ('', '<b>')[hilite],
-            wikiutil.link_tag(wikiutil.quoteWikiname(page_name) + "?action=diff", "diff"),
-            ('', '</b>')[hilite],
-            Page(page_name).link_to(),))
+
+        # check whether this is a new (no backup) page
+        # !!! the backup dir needs to be reorganized, one subdir per page, and the versions
+        # in the subdirs, i.e. data/backup/<pagename>/<timestamp>; this will do for now
+        backup_re = re.compile(r'^%s\.\d+(\.\d+)?$' % (wikiutil.quoteFilename(page_name),))
+        is_new = len(filter(backup_re.match, oldversions)) == 0
+
+        html_link = ''
+        if is_new:
+            # show "NEW" icon if page was created after the user's bookmark
+            if hilite:
+                html_link = '<img border="0" hspace="3" width="31" height="12" src="%s/img/moin-new.gif" alt="[NEW]">' % (
+                    config.url_prefix)
+        elif hilite:
+            # show "UPDATED" icon if page was edited after the user's bookmark
+            img = '<img border="0" hspace="3" width="60" height="12" src="%s/img/moin-updated.gif" alt="[UPDATED]">' % (
+                config.url_prefix)
+            html_link = wikiutil.link_tag(
+                wikiutil.quoteWikiname(page_name) + "?action=diff&date=" + str(bookmark), img)
+        else:
+            # show "DIFF" icon else
+            img = '<img border="0" hspace="11" width="15" height="11" src="%s/img/moin-diff.gif" alt="[DIFF]">' % (
+                config.url_prefix)
+            html_link = wikiutil.link_tag(
+                wikiutil.quoteWikiname(page_name) + "?action=diff", img)
+
+        buf.write('<tr><td>%s&nbsp;</td><td>%s</td><td>&nbsp;' % (
+            html_link, Page(page_name).link_to(),))
 
         if config.changed_time_fmt:
             tdiff = int(tnow - ed_time) / 60
@@ -108,6 +137,4 @@ def execute(macro, args):
     if msg: buf.write(msg)
 
     return buf.getvalue()
-
-
 

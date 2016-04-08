@@ -1,3 +1,5 @@
+[[TableOfContents]]
+
 == Macros ==
 Macros allow the insertion of system features into normal wiki pages; the only thing that makes those pages special is that they contain macros. If you edit pages like RecentChanges or SystemInfo, you'll see what that means.
 
@@ -29,11 +31,9 @@ For more information on the possible markup, see HelpOnEditing.
 ||'''Macro'''||'''Description'''||'''Example'''||
 ||{{{[[Icon(image)]]}}}     || display system icons || HelpOnNavigation ||
 ||{{{[[UserPreferences]]}}} || display a user preferences dialog || UserPreferences ||
+||{{{[[BR]]}}} || insert a line break || 1st line[[BR]]2nd line ||
+||{{{[[Include(HelloWorld[,heading[,level]])]]}}} || include contents of another page || [[Include(HelloWorld)]] ||
 
 == Example Display ==
 We don't show examples for all macros here, because that would make this page quite long. Here is is the replacement text for the {{{[[SystemInfo]]}}} macro:
  [[SystemInfo]]
-
-The table of contents for this page:
-[[TableOfContents]]
-

@@ -1,0 +1,12 @@
+To make UserPreferences work, you should "mkdir -m777 user" in your 
+"data" directory. A good idea is to run the new "test.cgi" script after 
+you installed a new release, which will spot some common errors.
+
+Also, you should copy the content of the "wiki-moinmoin/img" directory 
+to your "data/img" directory, there are some new GIFs in it. Next version 
+will feature an update script of some sort that does these things 
+automagically.
+
+When upgrading to a new version, copy at least the help pages ("Help*") to
+your existing directory. Then check whether you miss any new system pages. 
+In the future, there will be a utility that automates this process.

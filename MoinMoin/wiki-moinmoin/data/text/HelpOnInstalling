@@ -1,0 +1,2 @@
+== How to install your own MoinMoin wiki ==
+MoinMoin installation instructions can be found in the file "{{{INSTALL}}}" in the directory "{{{MoinMoin}}}" after unpacking the distribution archive. In the web, you can find this file [http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/MoinMoin/INSTALL?cvsroot=moin here].

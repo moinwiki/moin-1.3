@@ -1,3 +1,533 @@
+2001-01-23 22:12  jhermann
+
+	* wiki-moinmoin/data/editlog:
+	
+	Reduced editlog for 0.8
+
+2001-01-23 22:08  jhermann
+
+	* wiki-moinmoin/data/text/: MartinPool, MoinMoinWikis,
+	RobertChurch, StevePike, WikiName, WikiSandBox:
+	
+	Changes before release 0.8
+
+2001-01-23 22:02  jhermann
+
+	* _template.py:
+	
+	2000 -> 2001
+
+2001-01-19 19:21  jhermann
+
+	* action/LikePages.py:
+	
+	Bugfix for latin-1 names
+
+2001-01-11 01:02  jhermann
+
+	* wiki-moinmoin/data/text/: HelpOnAdministration,
+	HelpOnConfiguration, HelpOnInstalling, HelpOnPageDeletion,
+	HelpOnSpellCheck, HelpOnUpdating, LocalSpellingWords, MoinMoin:
+	
+	New help pages; spelling corrections
+
+2001-01-11 00:52  jhermann
+
+	* action/SpellCheck.py:
+	
+	Fixed spelling error in spell checker ;)
+
+2001-01-11 00:43  jhermann
+
+	* action/SpellCheck.py:
+	
+	Added code for easy addition of words
+
+2001-01-10 23:49  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-01-10 23:13  jhermann
+
+	* CHANGES, INSTALL, README:
+	
+	Updated changes list & copyrights
+
+2001-01-10 23:03  jhermann
+
+	* ChangeLog, cgimain.py, cmdmain.py, util.py, wikiaction.py:
+	
+	Cleaned up some code comments; first shot at a command line
+	interface
+
+2001-01-10 22:04  jhermann
+
+	* wiki-moinmoin/data/text/HomepageTemplate:
+	
+	Template for homepages
+
+2001-01-10 22:03  jhermann
+
+	* wiki-moinmoin/data/text/MichaelChermside:
+	
+	More pages
+
+2001-01-10 22:00  jhermann
+
+	* wiki-moinmoin/data/text/: RecentChanges, UserPreferences,
+	WhyWikiWorks, WikiSandBox, WikiTextFormattingTestPage:
+	
+	Misc changes
+
+2001-01-10 21:56  jhermann
+
+	* wiki-moinmoin/data/text/: J_f8rnHansen, RichardJones, VinJaCa:
+	
+	More personal stuff...
+
+2001-01-10 21:53  jhermann
+
+	* wiki-moinmoin/data/text/: GarthKidd, KlausSeistrup,
+	MattWestervelt, TimBird:
+	
+	Some new personal pages
+
+2001-01-10 21:49  jhermann
+
+	* wiki-moinmoin/data/text/: FrontPage, InterWiki:
+	
+	More changes...
+
+2001-01-10 21:44  jhermann
+
+	* wiki-moinmoin/data/text/: MoinMoinBugs, MoinMoinDiscussion,
+	MoinMoinIdeas, MoinMoinMailingLists, MoinMoinTests, MoinMoinTodo,
+	MoinMoinWikis:
+	
+	Changes to MoinMoin pages
+
+2001-01-10 21:41  jhermann
+
+	* wiki-moinmoin/data/text/: ActionMarket, HelloWorld,
+	LocalSpellingWords, MacroMarket, ParserMarket, PatternTemplate,
+	UtilityScripts:
+	
+	New pages
+
+2001-01-10 21:37  jhermann
+
+	* wiki-moinmoin/data/text/: HelpContents, HelpForBeginners,
+	HelpOnAdministration, HelpOnEditing, HelpOnLinking, HelpOnMacros,
+	HelpOnPageCreation, HelpOnPageDeletion, HelpOnUpdating:
+	
+	New help texts, and corrections
+
+2001-01-10 15:39  jhermann
+
+	* action/SpellCheck.py:
+	
+	Fallback to old code (using mappings) when dbhash is not available
+
+2001-01-10 03:46  jhermann
+
+	* action/SpellCheck.py:
+	
+	Improvements to the new code
+
+2001-01-10 03:45  jhermann
+
+	* util.py:
+	
+	Bugfix for incremental timings
+
+2001-01-10 03:02  jhermann
+
+	* wikiutil.py:
+	
+	Changed copyright
+
+2001-01-10 02:57  jhermann
+
+	* Page.py, cgimain.py, util.py:
+	
+	Moved the clock object to the util module
+
+2001-01-10 02:56  jhermann
+
+	* action/SpellCheck.py:
+	
+	Way faster checking using the dbhash module
+
+2001-01-10 01:09  jhermann
+
+	* wikiutil.py, parser/wiki.py:
+	
+	Added title attribute to page title and interwiki links
+
+2001-01-09 00:43  jhermann
+
+	* macro/Include.py:
+	
+	Bugfix: Added missing I18N handling
+
+2001-01-08 23:41  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-01-08 23:38  jhermann
+
+	* util.py:
+	
+	Sort module list before returning
+
+2001-01-08 23:15  jhermann
+
+	* macro/Include.py:
+	
+	Added Include macro
+
+2001-01-08 21:26  jhermann
+
+	* util.py, wikiaction.py:
+	
+	Optional date parameter for "raw"
+
+2001-01-04 23:53  jhermann
+
+	* action/SpellCheck.py:
+	
+	Deleted unused variable
+
+2001-01-04 21:10  jhermann
+
+	* formatter/text_html.py, parser/wiki.py:
+	
+	Bugfix for bugfix
+
+2001-01-04 10:15  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-01-04 10:12  jhermann
+
+	* action/SpellCheck.py, parser/wiki.py:
+	
+	Bugfix: Python 1.5 does not support lookbehind in regex
+
+2001-01-04 08:56  jhermann
+
+	* action/SpellCheck.py:
+	
+	Bugfix: Ignore directories when looking for words files
+
+2001-01-04 08:30  jhermann
+
+	* config.py, action/SpellCheck.py, action/__init__.py:
+	
+	Added SpellCheck action
+
+2001-01-04 08:28  jhermann
+
+	* parser/wiki.py:
+	
+	Bugfix: Accept inline URLs only if they start on a word boundary
+	("... makefile:{{{ ..." was recognized as a file: URL)
+
+2001-01-04 00:10  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-01-04 00:07  jhermann
+
+	* formatter/base.py, formatter/text_html.py,
+	formatter/text_plain.py, formatter/text_xml.py, parser/wiki.py:
+	
+	Bugfix: Inline images weren't rendered as such (introduced with
+	hilite)
+
+2001-01-03 20:41  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2001-01-03 20:36  jhermann
+
+	* wiki-moinmoin/data/backup/.cvsignore:
+	
+	Changed pattern for new timestamps
+
+2001-01-03 09:44  jhermann
+
+	* parser/wiki.py:
+	
+	Further measures against endless loops in highlighting code
+
+2001-01-03 08:27  jhermann
+
+	* parser/wiki.py:
+	
+	Bugfix: Prevent endless loop with possibly empty matches
+
+2001-01-03 08:01  jhermann
+
+	* parser/wiki.py:
+	
+	Added "file:" URLs
+
+2001-01-03 06:02  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Fixed CSS because of NetScape fuckups
+
+2001-01-03 04:08  jhermann
+
+	* ChangeLog, Page.py, wikiaction.py, formatter/base.py,
+	formatter/text_html.py, formatter/text_plain.py,
+	formatter/text_xml.py, parser/wiki.py:
+	
+	Added highlighting
+
+2001-01-03 04:00  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Added style for "strong.highlight"
+
+2001-01-03 01:04  jhermann
+
+	* wikiutil.py:
+	
+	Minor bugfix for new code
+
+2001-01-03 01:00  jhermann
+
+	* wikiutil.py:
+	
+	List uppercase user actions in the page footer
+
+2001-01-03 00:59  jhermann
+
+	* action/.cvsignore:
+	
+	Ignore *.pyc files
+
+2001-01-03 00:58  jhermann
+
+	* action/LikePages.py:
+	
+	New action "LikePages"
+
+2000-12-22 02:23  jhermann
+
+	* CHANGES, wikimacro.py:
+	
+	Show installed extension actions
+
+2000-12-22 02:12  jhermann
+
+	* formatter/base.py, formatter/text_html.py,
+	formatter/text_plain.py, formatter/text_xml.py, macro/BR.py:
+	
+	Added line break (BR) macro
+
+2000-12-20 20:15  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-12-20 20:07  jhermann
+
+	* CHANGES, ChangeLog, Page.py, action.py, cgimain.py,
+	wikiaction.py, action/__init__.py:
+	
+	Added pluggable actions and Richard's changes to Page.py
+
+2000-12-19 11:56  jhermann
+
+	* wikiutil.py:
+	
+	Minor change (default param for getBackupList)
+
+2000-12-15 03:05  jhermann
+
+	* Page.py:
+	
+	Add template parameter to "Reduce editor size" link
+
+2000-12-15 02:53  jhermann
+
+	* Page.py:
+	
+	Added short text explaining how to create templates
+
+2000-12-15 02:39  jhermann
+
+	* Page.py:
+	
+	Added template handling
+
+2000-12-15 02:38  jhermann
+
+	* cgimain.py:
+	
+	test.cgi now prints the environment for debugging purposes
+
+2000-12-15 02:37  jhermann
+
+	* README:
+	
+	Added some acknowledgements
+
+2000-12-15 02:06  jhermann
+
+	* wikimacro.py:
+	
+	Added display of installed extension macros
+
+2000-12-12 15:39  jhermann
+
+	* wikiutil.py, macro/RecentChanges.py:
+	
+	Bugfix: Adapted backup page regex to change in _write_file()
+
+2000-12-11 09:44  jhermann
+
+	* CHANGES, ChangeLog, formatter/base.py, formatter/text_html.py,
+	formatter/text_plain.py, formatter/text_xml.py, parser/wiki.py:
+	
+	Changed signature of code() formatter function
+
+2000-12-09 13:03  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
+2000-12-09 12:39  jhermann
+
+	* action.py:
+	
+	Fix for date display
+
+2000-12-09 12:17  jhermann
+
+	* Page.py, action.py, macro/RecentChanges.py:
+	
+	Added "diff since bookmark" feature; some minor fixes
+
+2000-12-09 12:16  jhermann
+
+	* wikiutil.py:
+	
+	Bugfix: Catch the correct exception
+
+2000-12-09 10:00  jhermann
+
+	* Page.py, action.py, macro/RandomPage.py:
+	
+	More exception fixes
+
+2000-12-08 02:02  jhermann
+
+	* formatter/text_html.py:
+	
+	Only "normal" URLs (outside of brackets) are converted to inline
+	images
+
+2000-12-08 01:35  jhermann
+
+	* macro/RecentChanges.py:
+	
+	Show "NEW" only if page was created after user's bookmark
+
+2000-12-08 01:27  jhermann
+
+	* wikimacro.py, wikiutil.py, macro/RecentChanges.py,
+	wiki-moinmoin/img/moin-new.gif, wiki-moinmoin/img/moin-updated.gif:
+	
+	Show number of backups in SystemInfo; visualize the difference
+	between new (no backup), updated (changed since user bookmark) and
+	other pages
+
+2000-12-08 00:39  jhermann
+
+	* Page.py, action.py, cgimain.py, util.py, wikiutil.py,
+	macro/RandomPage.py:
+	
+	Fixed exception handling
+
+2000-12-08 00:18  jhermann
+
+	* Page.py, action.py, user.py, macro/RecentChanges.py:
+	
+	Prepared user-specified date formats
+
+2000-12-07 23:45  jhermann
+
+	* user.py:
+	
+	Fixed exception handling; better dispatching of form actions
+
+2000-12-07 21:19  jhermann
+
+	* formatter/: base.py, text_html.py, text_plain.py, text_xml.py:
+	
+	Added underline and definition lists
+
+2000-12-07 18:16  jhermann
+
+	* wiki-moinmoin/default.css:
+	
+	Additions for better formatting with NS 4.7
+
+2000-12-06 22:48  jhermann
+
+	* CHANGES:
+	
+	Bugfix: Bookmark time update
+
+2000-12-06 22:46  jhermann
+
+	* version.py:
+	
+	Changed release to 0.8
+
+2000-12-06 22:45  jhermann
+
+	* action.py, user.py, macro/RecentChanges.py:
+	
+	Setting the bookmark now uses the time when the page was loaded,
+	not the time the link was clicked
+
+2000-12-06 20:24  jhermann
+
+	* CHANGES, ChangeLog:
+	
+	Final changes for rel. 0.7
+
+2000-12-06 20:21  jhermann
+
+	* INSTALL:
+	
+	Minor corrections
+
+2000-12-06 20:16  jhermann
+
+	* version.py:
+	
+	Bumped revision
+
 2000-12-06 20:09  jhermann
 
 	* wiki-moinmoin/data/text/: MoinMoin, MoinMoinTodo,

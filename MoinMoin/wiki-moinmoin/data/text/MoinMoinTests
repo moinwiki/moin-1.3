@@ -1,3 +1,4 @@
 Markup tests:
- * WikiTextFormattingTestPage (copied from Wiki:WikiTextFormattingTestPage)
+ * WikiTextFormattingTestPage (copied from Wiki:WikiEngineReviewTextFormattingTest)
  * HelpOnEditing contains a test for every feature
+

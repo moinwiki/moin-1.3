@@ -1,10 +1,31 @@
 MoinMoin Version History
 ========================
 
-Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: CHANGES,v 1.34 2000/12/06 19:24:47 jhermann Exp $
+$Id: CHANGES,v 1.40 2001/01/23 21:44:03 jhermann Exp $
+
+-----------------------------------------------------------------------------
+Version 0.8 (2001-01-23)
+
+New features:
+    * Page templates (create a new page using a template page, by Richard)
+    * Pluggable actions (by Richard)
+    * Added "diff since bookmark"
+    * Only "normal" URLs (outside of brackets) are converted to inline images
+    * Show number of backups in SystemInfo macro
+    * Show info on installed extension macros and actions
+    * New macro: [[BR]] for line breaks
+    * New action "LikePages" (again, Richard)
+    * Highlighting of search results, and of bad words when spellchecking
+    * Support for "file:" URLS
+    * "SpellCheck" action (Richard, me, and Christian)
+    * [[Include]] macro (you guessed it, Richard)
+
+Bugfixes:
+    * Update bookmark with load time, not click time
+    * Changed CSS styles to better suit Netscape's broken handling of CSS
 
 -----------------------------------------------------------------------------
 Version 0.7 (2000-12-06)

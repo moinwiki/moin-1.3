@@ -1,15 +1,40 @@
 http://www.encrypted.net/~jh/img/roach.gif 
 Back to MoinMoinTodo | Things that are MoinMoinNotBugs | MoinMoinTests contains tests for many features
 [[TableOfContents]]
+=== Tables broken by trailing spaces ===
+Tables don't work right if there are trailing spaces.
+
+''Yes, by design, just like headings don't accept trailing spaces. In the case of headings, it is important because "= x =" is somewhat ambiguous. For tables, the restriction could be removed, though.''
+
+|| This row || is ok ||
+|| this row || isn't ||      
+|| OK ||       again ||
+
+=== Cookies ===
+And as a fun sidenote, the UserPreferences cookie doesn't seem to work. The cookie is in my ~/.netscape/cookies file still. My EfnetCeeWiki and XmlWiki cookies are duplicated!? It is kind of like the bug you found when I, ChristianSunesson, tried this feature with netscape just after you deployed it.
+Hehe, and my changes are not logged to the RecentChanges database, I'll hope you find these changes this year. :) BUG BUG BUG!
+
+''Well, Netscape suxx. I send the cookies with the CGI'S path, w/o a hostname, which makes it unique enough. Apparently not for netscape. I'll look into adding the domain, too.''
 
 === Misc ===
-
  * Solve the problem of the Windows filesystem handling a WikiName case-indifferent (i.e. map all deriatives of an existing page to that page).
  * Check whether the passed WikiName is valid when editing pages (so no pages with an invalid WikiName can be created); this could also partly solve the case-insensitive filename problem (do not save pages with a name only differing in case)
 
+
+ * InterWiki links should either display the destination Wiki name or generate the A tag with a TITLE attribute so that (at least in IE) the full destination is displayed by floating the cursor over the link. At the moment, it's too hard to figure out where the link goes. With that many InterWiki destinations recognised, we can't expect everyone to be able to recognise the URL. 
+   * Hover over the interwiki icon and you'll already get a tooltip, I'll look into the title attribute stuff.
+   * Ta. 
+ * RecentChanges can tell you if something is updated, or offer you a view of the diff, but not both at the same time. 
+   * If you want the ''latest'' diff for an updated page, click on "updated" and then on the diff icon (colored glasses) at the top.
+   * That's what I'm doing for the time being, but by the same rationale you don't need to offer diffs from RecentChanges at all. 
+   * The intent is to not clutter RecentChanges with functions not normally used. I do not see a reason you want the lastest diff when you have the much better diff to your last visit.
+ * It'd be really nice if the diff was between now and the most recent version saved before your timestamp (or, failing that, the oldest version available). That way, diff is "show me what happened since I was last here", not just "show me what the last edit was." 
+   * Hmmm, that '''is''' so. :)  Take a look at the message at the top of the diff page after clicking on "updated", it'll often show text like "spanning x versions". You need the current CVS version for that, though.
+   * Oh, okay. Is this MoinMoin CVS enabled? Reason being: I did a few updates of a page, and was only being shown the last one. I'll try that some more and get back to you. 
+   * Not CVS, but versioning all the same. I mean you have to get the most recent code from the SourceForge CVS archive for some features to work, if you test on a ''local'' wiki.
+
 === Unicode issues ===
 With 0.3, TitleIndex is broken if first letter of Japanese WikiName is multibyte character. This patch works well for me but need to be fixed for other charsets.
-
 {{{
 *** moin.cgi.sav	Sat Oct 28 13:26:26 2000
 --- moin.cgi	Sat Oct 28 13:39:04 2000
@@ -25,22 +50,48 @@ With 0.3, TitleIndex is broken if first letter of Japanese WikiName is multibyte
               index_letters.append(letter)
           if letter <> current_letter:
 }}}
-
 AtsuoIshimoto
-
 ''Differently broken. :) I think we can live with the current situation, the worst edges are removed (before, chopping the first byte out of an unicode string lead to broken HTML markup!). It will stay that way until I buy the [wiki:ISBN:0201616335 Unicode 3.0] book.''
  
 === paragraph bug redux ===
  
 ''They render identically with IE5. Provide some info on your browser & OS. And the HTML is identical:''
- 
+ 
 {{{
 Some text. <p>
 <b>window</b> <ul>
- The main, rectangular background, control and data area of an application. <p></ul>
+ The main, rectangular background, control and data area of an application. <p></ul>
 <b>dialog boxes</b> <ul>
- A temporary, pop-up window created by the application, where the user can 
+ A temporary, pop-up window created by the application, where the user can 
 enter information and provide commands. <p></ul>
 }}}
- 
+ 
 Please note that they aren't actually identical: the P that precedes '''dialog boxes''' is interrupted by the closing /UL tag, whereas the P preceding '''windw''' is ''not'' followed by a closing /UL.
+
+=== the formatting action ===
+
+{{{
+[cos@natt cos]$ telnet rm-f.net 80
+Trying 216.227.60.122...
+Connected to rm-f.net.
+Escape character is '^]'.
+GET /~jh/c-wiki/moin.cgi/X11Article?action=format&mimetype=text/xml HTTP/1.0
+
+HTTP/1.1 200 OK
+Date: Sun, 07 Jan 2001 13:17:49 GMT
+Server: Apache/1.3.14 (Unix)
+Connection: close
+Content-Type: text/html
+
+}}}
+
+Do you see the weirdness? {{{Content-Type: text/html}}} even though it is supposed to spit out
+xml.
+
+The {{{do_format()}}} function seem to set the {{{Content-Type}}} correctly. I really can't see it doing anything wrong, so I suspect that {{{Content-Type}}} is overwritten later on. The same problem happens if you try to render ''text/plain''.
+
+Those of you using IE will not have a problem with this, since IE override the Content-Type to be xml if the URL has ''xml'' as suffix. And {{{?action=format&mimetype=text/xml}}} has. Try adding yet another dummy variable {{{...&dummy}}} and visit a page.
+
+''The whole formatter thing, and especially XML, is not finished yet. Namely, the generated XML is not XML at all, since it's not even well-formed. :) ''
+
+''The wrong content-type was a bug indeed, and is now fixed. The formatter still does not generate well-formed XML.''

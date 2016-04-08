@@ -10,12 +10,12 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikimacro.py,v 1.3 2000/12/06 10:48:50 jhermann Exp $
+    $Id: wikimacro.py,v 1.6 2000/12/22 01:23:52 jhermann Exp $
 """
 
 # Imports
 import re, string, sys, time
-from MoinMoin import config, util, version, wikiutil, macro
+from MoinMoin import config, util, version, wikiutil, macro, action
 from MoinMoin.Page import Page
 
 
@@ -175,6 +175,11 @@ class Macro:
         buf.write(row % ('Python Version', sys.version))
         buf.write(row % ('MoinMoin Version', 'Release %s [Revision %s]' % (version.release, version.revision)))
         buf.write(row % ('Number of pages', len(wikiutil.getPageList(config.text_dir))))
+        buf.write(row % ('Number of backup versions', len(wikiutil.getBackupList(config.backup_dir, None))))
+        buf.write(row % ('Installed extension macros', 
+            string.join(macro.extension_macros, ', ') or "<b>NONE</b>"))
+        buf.write(row % ('Installed extension actions', 
+            string.join(action.extension_actions, ', ') or "<b>NONE</b>"))
         buf.write('</table>')
     
         return buf.getvalue()

@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: Page.py,v 1.11 2000/12/06 10:48:50 jhermann Exp $
+    $Id: Page.py,v 1.21 2001/01/10 01:57:40 jhermann Exp $
 """
 
 # Imports
@@ -26,6 +26,7 @@ class Page:
         """
         self.page_name = page_name
         self.prev_date = keywords.get('date')
+        self.raw_body = None
 
         if keywords.has_key('formatter'):
             self.formatter = keywords.get('formatter')
@@ -73,33 +74,57 @@ class Page:
         return os.path.exists(self._text_filename())
 
 
-    def link_to(self):
+    def link_to(self, text=None):
         """Return HTML markup that links to this page"""
         word = self.page_name
+        text = text or word
         if self.exists():
-            return wikiutil.link_tag(wikiutil.quoteWikiname(word), word)
+            return wikiutil.link_tag(wikiutil.quoteWikiname(word), text)
         else:
             if config.nonexist_qm:
-                return wikiutil.link_tag(wikiutil.quoteWikiname(word), '?', 'nonexistent') + word
+                return wikiutil.link_tag(wikiutil.quoteWikiname(word), '?', 'nonexistent') + text
             else:
-                return wikiutil.link_tag(wikiutil.quoteWikiname(word), word, 'nonexistent')
+                return wikiutil.link_tag(wikiutil.quoteWikiname(word), text, 'nonexistent')
+
+
+    def set_raw_body(self, body):
+        """Set the raw body text (prevents loading from disk)"""
+        self.raw_body = body
 
 
     def get_raw_body(self):
         """Load the raw markup from the page file"""
+        if self.raw_body is not None:
+            return self.raw_body
+
         try:
             return open(self._text_filename(), 'rt').read()
         except IOError, er:
             import errno
             if er.errno == errno.ENOENT:
-                # just doesn't exist, use default
-                return 'Describe %s here.' % self.page_name
+                # just doesn't exist, return empty text (note that we
+                # never store empty pages, so this is detectable and also
+                # safe when passed to a function expecting a string)
+                return ""
             else:
                 raise er
     
 
-    def send_page(self, form, msg=None, print_mode=0):
-        #!!!clock.start('send_page')
+    def send_page(self, form, msg=None, **keywords):
+        """ Send the formatted page to stdout.
+
+            **form** -- CGI-Form
+            **msg** -- if given, display message in header area
+            **keywords** --
+                content_only: 1 to omit page header and footer
+        """
+
+        util.clock.start('send_page')
+
+        # determine modes
+        print_mode = form.has_key('action') and form['action'].value == 'print'
+        content_only = keywords.get('content_only', 0)
+        self.hilite_re = keywords.get('hilite_re', None)
 
         # load the text
         body = self.get_raw_body()
@@ -119,7 +144,7 @@ class Page:
             # extract first line
             try:
                 line, body = string.split(body, '\n', 1)
-            except:
+            except ValueError:
                 line = body
                 body = ''
 
@@ -152,33 +177,35 @@ class Page:
                 # unknown PI ==> end PI parsing
                 break
 
-        # send the document leader
-        util.http_headers()
-        sys.stdout.write(self.formatter.startDocument(self.page_name))
+        # start document output
+        doc_leader = self.formatter.startDocument(self.page_name)
+        if not content_only:
+            # send the document leader
+            util.http_headers()
+            sys.stdout.write(doc_leader)
 
-        # send the page header
-        if self.default_formatter:
-            link = '%s/%s?action=fullsearch&value=%s&literal=1' % (
-                util.getScriptname(),
-                wikiutil.quoteWikiname(self.page_name),
-                urllib.quote_plus(self.page_name, ''))
-            title = self.split_title()
-            if msg is None: msg = ""
-            if self.prev_date:
-                msg = "<b>Version as of %s</b><br>%s" % (
-                    time.strftime(config.datetime_fmt,
-                        user.current.getTime(float(self.prev_date))),
-                    msg)
-            if form.has_key('redirect'):
-                redir = form['redirect'].value
-                msg = '%s<b>Redirected from page "%s"</b><br>%s' % (
-                    wikiutil.getSmiley('/!\\'),
-                    wikiutil.link_tag(wikiutil.quoteWikiname(redir) + "?action=show", redir),
-                    msg)
-            if pi_redirect:
-                msg = '%s<b>This page redirects to page "%s"</b><br>%s' % (
-                    wikiutil.getSmiley('<!>'), pi_redirect, msg)
-            wikiutil.send_title(title, link=link, msg=msg, pagename=self.page_name, print_mode=print_mode)
+            # send the page header
+            if self.default_formatter:
+                link = '%s/%s?action=fullsearch&value=%s&literal=1' % (
+                    util.getScriptname(),
+                    wikiutil.quoteWikiname(self.page_name),
+                    urllib.quote_plus(self.page_name, ''))
+                title = self.split_title()
+                if msg is None: msg = ""
+                if self.prev_date:
+                    msg = "<b>Version as of %s</b><br>%s" % (
+                        user.current.getFormattedDateTime(os.path.getmtime(self._text_filename())),
+                        msg)
+                if form.has_key('redirect'):
+                    redir = form['redirect'].value
+                    msg = '%s<b>Redirected from page "%s"</b><br>%s' % (
+                        wikiutil.getSmiley('/!\\'),
+                        wikiutil.link_tag(wikiutil.quoteWikiname(redir) + "?action=show", redir),
+                        msg)
+                if pi_redirect:
+                    msg = '%s<b>This page redirects to page "%s"</b><br>%s' % (
+                        wikiutil.getSmiley('<!>'), pi_redirect, msg)
+                wikiutil.send_title(title, link=link, msg=msg, pagename=self.page_name, print_mode=print_mode)
 
         # try to load the parser
         Parser = util.importName("MoinMoin.parser." + pi_format, "Parser")
@@ -187,23 +214,53 @@ class Page:
             del Parser
             from parser.plain import Parser
 
-        # parse the text and send the page content
-        Parser(body).format(self.formatter, form)
+        # new page?
+        if not body and self.default_formatter:
+            # generate the default page content for new pages
+            print wikiutil.link_tag(wikiutil.quoteWikiname(self.page_name)+'?action=edit',
+                "Create this page")
 
-        # send the page footer
-        if self.default_formatter and not print_mode:
-            wikiutil.send_footer(self.page_name, self._last_modified())
+            # look for template pages
+            templates = filter(lambda page: page[-8:] == 'Template',
+                wikiutil.getPageList(config.text_dir))
+            if templates:
+                print self.formatter.paragraph()
+                print self.formatter.text('Alternatively, use one of these templates:')
 
-        sys.stdout.write(self.formatter.endDocument())
+                # send list of template pages
+                print self.formatter.bullet_list(1)
+                for page in templates:
+                    print self.formatter.listitem(1)
+                    print wikiutil.link_tag("%s?action=edit&template=%s" % (
+                            wikiutil.quoteWikiname(self.page_name),
+                            wikiutil.quoteWikiname(page)),
+                        page)
+                    print self.formatter.listitem(0)
+                print self.formatter.bullet_list(0)
 
-        #!!!clock.stop('send_page')
+            print self.formatter.paragraph()
+            print self.formatter.text('To create you own templates, ' +
+                'add a page with a name ending in Template.')
+        else:
+            # parse the text and send the page content
+            Parser(body).format(self.formatter, form)
+
+        # end document output
+        doc_trailer = self.formatter.endDocument()
+        if not content_only:
+            # send the page footer
+            if self.default_formatter and not print_mode:
+                wikiutil.send_footer(self.page_name, self._last_modified())
+
+            sys.stdout.write(doc_trailer)
+
+        util.clock.stop('send_page')
 
 
     def _last_modified(self):
         if not self.exists():
             return None
-        modtime = user.current.getTime(os.path.getmtime(self._text_filename()))
-        return time.strftime(config.datetime_fmt, modtime)
+        return user.current.getFormattedDateTime(os.path.getmtime(self._text_filename()))
 
 
     def send_editor(self, form):
@@ -216,19 +273,23 @@ class Page:
             return
 
         # send header stuff
-        wikiutil.send_title('Edit ' + self.split_title(), pagename=self.page_name)
-        print '<a href="%s?action=edit&rows=10&cols=60">Reduce editor size</a>' % (wikiutil.quoteWikiname(self.page_name),)
+        wikiutil.send_title('Edit "%s"' % (self.split_title(),), pagename=self.page_name)
+        template_param = ''
+        if form.has_key('template'):
+            template_param = '&template=' + form['template'].value
+        print '<a href="%s?action=edit&rows=10&cols=60%s">Reduce editor size</a>' % (
+            wikiutil.quoteWikiname(self.page_name), template_param)
         print "|", Page(config.page_edit_tips).link_to()
 
         # send form
         try:
             text_rows = int(form['rows'].value)
-        except:
+        except StandardError:
             text_rows = config.edit_rows
             if user.current.valid: text_rows = int(user.current.edit_rows)
         try:
             text_cols = int(form['cols'].value)
-        except:
+        except StandardError:
             text_cols = 80
             if user.current.valid: text_cols = int(user.current.edit_cols)
 
@@ -239,16 +300,36 @@ class Page:
         else:
             mtime = 0
         print '<input type="hidden" name="datestamp" value="%d">' % (mtime,)
-        raw_body = string.replace(self.get_raw_body(), '\r\n', '\n')
+
+        # get the text body for the editor field
+        if form.has_key('template'):
+            # "template" parameter contains the name of the template page
+            template_page = wikiutil.unquoteWikiname(form['template'].value)
+            raw_body = Page(template_page).get_raw_body()
+            if raw_body:
+                print "[Content of new page loaded from %s]" % (template_page,)
+            else:
+                print "[Template %s not found]" % (template_page,)
+        else:
+            raw_body = self.get_raw_body()
+
+        # generate default content
+        if not raw_body:
+            raw_body = 'Describe %s here.' % (self.page_name,)
+
+        # replace CRLF with LF
+        raw_body = string.replace(raw_body, '\r\n', '\n')
+
+        # print the editor textarea and the save button
         print ('<textarea wrap="virtual" name="savetext" rows="%d" cols="%d" style="width:100%%">%s</textarea>'
             % (text_rows, text_cols, cgi.escape(raw_body)))
         print '<div style="margin-top:6pt;"><input type="submit" value="Save Changes">'
-        ##<input type=reset value="Reset">"""
         print "<br>"
         ##print Page("UploadFile").link_to()
         ##print "<input type=file name=imagefile>"
         ##print "(not enabled yet)"
         print "</div></form>"
+
 
     def _write_file(self, text):
         # save to tmpfile
@@ -257,7 +338,8 @@ class Page:
         text = self._text_filename()
 
         if os.path.isdir(config.backup_dir) and os.path.isfile(text):
-            os.rename(text, os.path.join(config.backup_dir, wikiutil.quoteFilename(self.page_name) + '.' + `time.time()`))
+            os.rename(text, os.path.join(config.backup_dir,
+                wikiutil.quoteFilename(self.page_name) + '.' + str(os.path.getmtime(text))))
         else:
             if os.name == 'nt':
                 # Bad Bill!  POSIX rename ought to replace. :-(

@@ -1,10 +1,23 @@
 """
     MoinMoin - Action Handlers
 
+    Actions are triggered by the user clicking on special links on the page
+    (like the icons in the title, or the "EditText" link at the bottom). The
+    name of the action is passed in the "action" CGI parameter.
+
+    The sub-package "MoinMoin.action" contains external actions, you can
+    place your own extensions there (similar to extension macros). User
+    actions that start with a capital letter will be displayed in a list
+    at the bottom of each page.
+
+    User actions starting with a lowercase letter can be used to work
+    together with a user macro; those actions a likely to work only if
+    invoked BY that macro, and are thus hidden from the user interface.
+
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: action.py,v 1.8 2000/12/06 10:48:50 jhermann Exp $
+    $Id: wikiaction.py,v 1.4 2001/01/10 22:03:43 jhermann Exp $
 """
 
 # Imports
@@ -29,7 +42,7 @@ def do_fullsearch(pagename, form):
 
     try:
         needle_re = re.compile(needle, re.IGNORECASE)
-    except:
+    except re.error:
         needle_re = re.compile(re.escape(needle), re.IGNORECASE)
 
     ##print "<pre>", needle, "</pre>", "<hr>"
@@ -53,7 +66,8 @@ def do_fullsearch(pagename, form):
 
     print "<UL>"
     for (count, page_name) in hits:
-        print '<LI>' + Page(page_name).link_to()
+        print '<LI>' + wikiutil.link_tag('%s?action=highlight&value=%s' %
+            (wikiutil.quoteWikiname(page_name), cgi.escape(needle)), page_name)
         print ' . . . . ' + `count`
         print ['match', 'matches'][count != 1]
     print "</UL>"
@@ -90,6 +104,21 @@ def print_search_stats(hits, searched):
     print " out of %d pages searched." % (searched,)
 
 
+def do_highlight(pagename, form):
+    if form.has_key('value'):
+        needle = form["value"].value
+    else:
+        needle = ''
+
+    try:
+        needle_re = re.compile(needle, re.IGNORECASE)
+    except re.error:
+        needle = re.escape(needle)
+        needle_re = re.compile(needle, re.IGNORECASE)
+
+    Page(pagename).send_page(form, hilite_re=needle_re)
+
+
 #############################################################################
 ### Misc Actions
 #############################################################################
@@ -101,21 +130,44 @@ def do_diff(pagename, form):
     # send page title
     wikiutil.send_title('Diff for "%s"' % (pagename,), pagename=pagename)
 
-    # get a list of old revisions, and back out if none are available
+    # try to get a specific date to compare to, or None for one-before-current
     try:
-        oldpage = wikiutil.quoteFilename(pagename) + "." + os.path.basename(form['date'].value)
-    except:
-        oldversions = wikiutil.getBackupList(config.backup_dir, pagename)
-        if not oldversions:
-            print "<b>No older revisions available!</b>"
-            wikiutil.send_footer(pagename, showpage=1)
-            return
+        diff_date = form['date'].value
+        try:
+            diff_date = float(diff_date)
+        except StandardError:
+            diff_date = None
+    except KeyError:
+        diff_date = None
+
+    # get a list of old revisions, and back out if none are available
+    oldversions = wikiutil.getBackupList(config.backup_dir, pagename)
+    if not oldversions:
+        print "<b>No older revisions available!</b>"
+        wikiutil.send_footer(pagename, showpage=1)
+        return
+
+    # get the filename of the version to compare to
+    edit_count = 0
+    if diff_date:
+        for oldpage in oldversions:
+            edit_count = edit_count + 1
+            try:
+                date = os.path.getmtime(os.path.join(config.backup_dir, oldpage))
+            except EnvironmentError:
+                continue
+            if date <= diff_date: break
+    else:
+        # get the version before the current one
+        edit_count = 1
         oldpage = oldversions[0]
 
     # build the diff command and execute it
+    backup_file = os.path.join(config.backup_dir, oldpage)
+    page_file = os.path.join(config.text_dir, wikiutil.quoteFilename(pagename))
     cmd = "diff -u %(backup)s %(page)s" % {
-        "page": os.path.join(config.text_dir, wikiutil.quoteFilename(pagename)),
-        "backup": os.path.join(config.backup_dir, oldpage)
+        "backup": backup_file,
+        "page": page_file,
     }
     diff = util.popen(cmd, "r")
     lines = diff.readlines()
@@ -126,18 +178,25 @@ def do_diff(pagename, form):
     # check for valid diff
     if not lines:
         print "<b>No differences found!</b>"
+        if edit_count:
+            print '<p>The page was saved %d time%s, though!' % (
+                edit_count, ('','s')[edit_count != 1])
         wikiutil.send_footer(pagename, showpage=1)
         return
 
-    # Show date info
-    print '<b>Differences between version dated',
+    # Remove header lines
     if lines[0][0:3] == "---":
-        print string.split(lines[0], ' ', 2)[2],
         del lines[0]
-    print 'and',
     if lines[0][0:3] == "+++":
-        print string.split(lines[0], ' ', 2)[2],
         del lines[0]
+
+    # Show date info
+    print '<b>Differences between version dated %s and %s' % (
+        user.current.getFormattedDateTime(os.path.getmtime(backup_file)),
+        user.current.getFormattedDateTime(os.path.getmtime(page_file)))
+
+    if edit_count != 1:
+        print ' (spanning %d versions)' % (edit_count,)
     print '</b>'
     print '<div class="diffold">Deletions are marked like this.</div>'
     print '<div class="diffnew">Additions are marked like this.</div>'
@@ -192,14 +251,14 @@ def do_info(pagename, form):
                 util.getScriptname(),
                 wikiutil.quoteWikiname(pagename),
                 os.path.basename(file)[len(wikiutil.quoteFilename(pagename))+1:])
-            actions = '%s&nbsp;<a href="%s/%s?action=diff&date=%s">diff</a>' % (
+            actions = '%s&nbsp;<a href="%s/%s?action=diff&date=%d">diff</a>' % (
                 actions,
                 util.getScriptname(),
                 wikiutil.quoteWikiname(pagename),
-                os.path.basename(file)[len(wikiutil.quoteFilename(pagename))+1:])
+                st[ST_MTIME])
         print '<tr><td align="right">%d</td><td>&nbsp;%s</td><td align="right">&nbsp;%d</td><td>&nbsp;%s</td></tr>\n' % (
             count,
-            time.strftime(config.datetime_fmt, user.current.getTime(st[ST_MTIME])),
+            user.current.getFormattedDateTime(st[ST_MTIME]),
             st[ST_SIZE],
             actions)
         count = count + 1
@@ -218,7 +277,7 @@ def do_show(pagename, form):
 
 
 def do_print(pagename, form):
-    Page(pagename).send_page(form, None, 1)
+    Page(pagename).send_page(form)
 
 
 def do_edit(pagename, form):
@@ -227,13 +286,14 @@ def do_edit(pagename, form):
 
 def do_savepage(pagename, form):
     pg = Page(pagename)
-    savetext = ""
-    datestamp = ""
     try:
         savetext = form['savetext'].value
+    except KeyError:
+        savetext = ""
+    try:
         datestamp = form['datestamp'].value
-    except:
-        pass
+    except KeyError:
+        datestamp = ""
     savemsg = pg.save_text(savetext, datestamp)
     pg.send_page(form, msg=savemsg)
 
@@ -244,7 +304,15 @@ def do_userform(pagename, form):
 
 
 def do_bookmark(pagename, form):
-    user.current.setBookmark()
+    if form.has_key('time'):
+        try:
+            tm = int(form["time"].value)
+        except StandardError:
+            tm = time.time()
+    else:
+        tm = time.time()
+
+    user.current.setBookmark(tm)
     Page(pagename).send_page(form)
 
 
@@ -255,7 +323,12 @@ def do_bookmark(pagename, form):
 def do_raw(pagename, form):
     util.http_headers(["Content-type: text/plain"])
 
-    sys.stdout.write(Page(pagename).get_raw_body())
+    try: 
+        page = Page(pagename, date=form['date'].value)
+    except KeyError:
+        page = Page(pagename)
+
+    sys.stdout.write(page.get_raw_body())
     sys.exit(0)
 
 
@@ -286,18 +359,34 @@ def do_format(pagename, form):
 ### Dispatch Table
 #############################################################################
 
-handlers = { 'fullsearch':  do_fullsearch,
-             'titlesearch': do_titlesearch,
-             'edit':        do_edit,
-             'diff':        do_diff,
-             'info':        do_info,
-             'recall':      do_recall,
-             'show':        do_show,
-             'print':       do_print,
-             'raw':         do_raw,
-             'format':      do_format,
-             'savepage':    do_savepage,
-             'userform':    do_userform,
-             'bookmark':    do_bookmark,
+_handlers = { 'fullsearch':  do_fullsearch,
+              'titlesearch': do_titlesearch,
+              'highlight':   do_highlight,
+              'edit':        do_edit,
+              'diff':        do_diff,
+              'info':        do_info,
+              'recall':      do_recall,
+              'show':        do_show,
+              'print':       do_print,
+              'raw':         do_raw,
+              'format':      do_format,
+              'savepage':    do_savepage,
+              'userform':    do_userform,
+              'bookmark':    do_bookmark,
 }
+
+def getHandler(action):
+    # check for and possibly return builtin action
+    if _handlers.has_key(action):
+        return _handlers[action]
+
+    # try to load extension action
+    from MoinMoin.action import extension_actions
+    if action in extension_actions:
+        # load extension macro
+        handler = util.importName("MoinMoin.action." + action, "execute")
+        return handler
+
+    # unknown action
+    return None
 

@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: cgimain.py,v 1.14 2000/11/23 21:42:06 jhermann Exp $
+    $Id: cgimain.py,v 1.19 2001/01/10 22:03:43 jhermann Exp $
 """
 
 
@@ -13,24 +13,19 @@
 #############################################################################
 
 from MoinMoin import util
-clock = util.Clock()
 
 # Imports
-clock.start('imports')
+util.clock.start('imports')
 import cgi, os, re, socket, string, sys
 
 from MoinMoin import version, wikiutil
 from MoinMoin.Page import Page
-clock.stop('imports')
+util.clock.stop('imports')
 
 # Load configuration
-clock.start('config')
+util.clock.start('config')
 from MoinMoin import config
-clock.stop('config')
-
-# create CGI log file, and one for catching stderr output
-cgi.logfile = os.path.join(config.data_dir, 'cgi_log')
-sys.stderr = open(os.path.join(config.data_dir, 'err_log'), 'at')
+util.clock.stop('config')
 
 
 #############################################################################
@@ -73,6 +68,12 @@ def test():
     else:
         print 'Found an external diff: "%s"' % (string.strip(lines[0]),)
 
+    # print the environment, in case people use exotic servers with broken
+    # CGI APIs (say, M$ IIS), to help debugging those
+    print "\nServer Environment:"
+    for key in os.environ.keys():    
+        print "    %s = %s" % (key, repr(os.environ[key]))
+
 
 #############################################################################
 ### Main code
@@ -100,35 +101,19 @@ def run():
         pagename = None
         if len(path_info) and path_info[0] == '/':
             pagename = wikiutil.unquoteWikiname(path_info[1:]) or config.front_page
-    except:
+    except: # catch and print any exception
         util.http_headers()
         cgi.print_exception()
         sys.exit(0)
     
-#    # dispatch actions with special http headers
-#    if action == 'raw':
-#        from action import do_raw
-#        try:
-#            do_raw(pagename, form)
-#        except:
-#            cgi.print_exception()
-#        sys.exit(0)
-#    
-#    if action == 'format':
-#        from action import do_format
-#        try:
-#            do_format(pagename, form)
-#        except:
-#            cgi.print_exception()
-#        sys.exit(0)
-    
     try:
         # handle request
-        from action import handlers
+        from MoinMoin import wikiaction
     
         if action:
-            if handlers.has_key(action):
-                apply(handlers[action], (pagename or config.front_page, form))
+            handler = wikiaction.getHandler(action)
+            if handler:
+                handler(pagename or config.front_page, form)
             else:
                 util.http_headers()
                 print "<p>Unknown action"
@@ -154,22 +139,36 @@ def run():
                     print "<p>Can't work out query \"<pre>" + query + "</pre>\""
     
         # generate page footer
-        clock.stop('total')
+        # (actions that do not want this footer use sys.exit(0) to break out
+        # of the default execution path, see the "except SystemExit" below)
+
+        util.clock.stop('total')
     
         if config.show_timings:
             print '<pre><font size="1" face="Verdana">',
-            clock.dump(sys.stdout)
+            util.clock.dump(sys.stdout)
             print '</font></pre>'
     
         print '<!-- MoinMoin %s on %s served this page in %s secs -->' % (
-            version.revision, socket.gethostname(), clock.value('total'))
+            version.revision, socket.gethostname(), util.clock.value('total'))
         print '</body></html>'
     
     except SystemExit:
         pass
 
-    except:
+    except: # catch and print any exception
         util.http_headers()
         cgi.print_exception()
     
     sys.stdout.flush()
+
+
+if os.environ.has_key('GATEWAY_INTERFACE'):
+    # create CGI log file, and one for catching stderr output
+    cgi.logfile = os.path.join(config.data_dir, 'cgi_log')
+    sys.stderr = open(os.path.join(config.data_dir, 'err_log'), 'at')
+else:
+    # if called from the shell, delegate to the "cmdmain" module
+    from MoinMoin import cmdmain
+    run = cmdmain.run
+

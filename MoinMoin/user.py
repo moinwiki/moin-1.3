@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: user.py,v 1.15 2000/12/05 23:47:02 jhermann Exp $
+    $Id: user.py,v 1.18 2000/12/07 23:18:21 jhermann Exp $
 """
 
 # Imports
@@ -37,14 +37,26 @@ def savedata(pagename, form):
                 cookie['MOIN_ID'].value, util.getScriptname(),))
             os.environ['HTTP_COOKIE'] = ''
         current = User()
-    elif form.has_key('login') or form.has_key('loginid'):
-        # try to get the id, if empty or missing, return an error msg
+        return "<b>Cookie deleted!</b>"
+
+    if form.has_key('login') or form.has_key('uid'):
+        # try to get the id
         try:
             uid = form['loginid'].value
-            if not uid: raise ValueError
-            user = User(uid)
-            if not user.valid: raise ValueError
-        except:
+        except KeyError:
+            # check for "uid" value that we use in the relogin URL
+            try:
+                uid = form['uid'].value
+            except KeyError:
+                uid = None
+
+        # if id is empty or missing, return an error msg
+        if not uid:
+            return "<b>Please enter a non-empty user id!</b>"
+
+        # load the user data and check for validness
+        user = User(uid)
+        if not user.valid:
             return "<b>Please enter a valid user id!</b>"
 
         # send the cookie
@@ -57,19 +69,19 @@ def savedata(pagename, form):
         # try to get the name, if name is empty or missing, return an error msg
         try:
             user.name = string.replace(form['username'].value, '\t', ' ')
-        except:
+        except KeyError:
             return "<b>Please enter a user name!</b>"
 
         # try to get the (optional) password
         try:
             user.password = form['password'].value
-        except:
+        except KeyError:
             user.password = ''
     
         # try to get the (optional) email
         try:
             user.email = form['email'].value
-        except:
+        except KeyError:
             user.email = ''
 
         # editor size
@@ -77,19 +89,25 @@ def savedata(pagename, form):
             user.edit_rows = int(form['edit_rows'].value)
             user.edit_rows = max(user.edit_rows, 10)
             user.edit_rows = min(user.edit_rows, 60)
-        except:
+        except KeyError:
+            pass
+        except ValueError:
             pass
         try:
             user.edit_cols = int(form['edit_cols'].value)
             user.edit_cols = max(user.edit_cols, 30)
             user.edit_cols = min(user.edit_cols, 100)
-        except:
+        except KeyError:
+            pass
+        except ValueError:
             pass
 
         # time zone
         try:
             user.tz_offset = int(form['tz_offset'].value)
-        except:
+        except KeyError:
+            pass
+        except ValueError:
             pass
 
         # save data and send cookie
@@ -157,7 +175,7 @@ def getUserForm(form):
             <input type="submit" name="save" value=" Save "> &nbsp;
             <input type="submit" name="logout" value=" Logout "> &nbsp;
         """
-        url = "http://%s:%s%s?action=userform&loginid=%s" % (
+        url = "http://%s:%s%s?action=userform&uid=%s" % (
             os.environ.get('SERVER_NAME'), os.environ.get('SERVER_PORT'),
             util.getScriptname(), current.id)
         html_relogin = 'To login on a different machine, use this URL: ' + \
@@ -243,7 +261,7 @@ class User:
                 key, val = string.split(string.strip(line), '=', 1)
                 if key not in ['id', 'valid']:
                     vars(self)[key] = val
-            except:
+            except ValueError:
                 pass
 
         self.valid = 1
@@ -277,8 +295,6 @@ class User:
             os.chmod(self.__filename(), 0666)
         except OSError:
             pass
-        except:
-            raise
 
         self.valid = 1
 
@@ -288,6 +304,7 @@ class User:
         cookie = Cookie.SimpleCookie()
         cookie['MOIN_ID'] = self.id
         return cookie.output() + ' expires=Tuesday, 31-Dec-2013 12:00:00 GMT; Path=%s' % (util.getScriptname(),)
+
 
     def sendCookie(self):
         """Send the Set-Cookie header for this user"""
@@ -300,21 +317,32 @@ class User:
         if not cookie.has_key('MOIN_ID'):
             os.environ['HTTP_COOKIE'] = self.getCookie()
 
-    def getTime(self, t):
+
+    def getTime(self, tm):
         """Get time in user's timezone"""
-        return time.localtime(t + self.tz_offset)
+        return time.localtime(tm + self.tz_offset)
 
 
-    def setBookmark(self):
+    def getFormattedDate(self, tm):
+        #date_fmt = '%Y-%m-%d'
+        return time.strftime(config.date_fmt, self.getTime(tm))
+
+
+    def getFormattedDateTime(self, tm):
+        #datetime_fmt = '%Y-%m-%d %H:%M:%S'
+        return time.strftime(config.datetime_fmt, self.getTime(tm))
+
+
+    def setBookmark(self, tm = None):
         """Set bookmark timestamp"""
         if self.valid:
-            open(self.__filename() + ".bookmark", "w").write(str(time.time())+"\n")
+            if not tm: tm = time.time()
+            open(self.__filename() + ".bookmark", "w").write(str(tm)+"\n")
             try:
+                os.utime(self.__filename() + ".bookmark", (tm, tm))
                 os.chmod(self.__filename() + ".bookmark", 0666)
             except OSError:
                 pass
-            except:
-                raise
 
 
     def getBookmark(self):

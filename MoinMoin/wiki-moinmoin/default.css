@@ -18,6 +18,9 @@ h1,h2,h3,h4,h5 {
     padding-left:3pt;
     margin-top:2pt;
     margin-bottom:8pt;
+    border-style:none;
+    border-width:thin;
+    width:100%;
 }
 h1 {
     font-size: 18pt;
@@ -67,10 +70,28 @@ pre.code {
     margin-top: 8pt;
     margin-bottom: 8pt;
     background-color: #E0E0E0;
+    white-space:pre;
+    border-style:none;
+    border-width:thin;
+    width:100%;
 }
 div.diffold {
     background-color: #FFFF80;
+    border-style:none;
+    border-width:thin;
+    width:100%;
 }
 div.diffnew {
     background-color: #80FF80;
+    border-style:none;
+    border-width:thin;
+    width:100%;
+}
+strong.highlight {
+    background-color: #FFBBBB;
+/* as usual, NetScape fucks up with innocent CSS
+    border-color: #FFAAAA;
+    border-style: solid;
+    border-width: 1pt;
+*/
 }

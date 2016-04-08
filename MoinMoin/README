@@ -1,10 +1,10 @@
 MoinMoin Readme
 ===============
 
-Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000-2001 by Jürgen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
-$Id: README,v 1.3 2000/08/25 01:48:49 jhermann Exp $
+$Id: README,v 1.6 2001/01/23 21:44:03 jhermann Exp $
 
 -----------------------------------------------------------------------------
 
@@ -13,6 +13,10 @@ http://moin.sourceforge.net/.
 
 See INSTALL for installation instructions.
 See CHANGES for a version history.
+
+Note that the code base contains some experimental or unfinished features.
+Use them at your own risk. Official features are described on the set of help
+pages contained in the distribution wiki.
 
 
 ACKNOWLEDGEMENTS
@@ -24,6 +28,17 @@ contributions:
     Martin Pool                     mbp@humbug.org.au
     Marko Schulz                    Marko.Schulz@gmx.de
 
+    Tom Holroyd <tomh@po.crl.go.jp> provided the set of emoticons that come
+    with the standard distribution, and came up with the idea to add that
+    feature.
+
+    Richard Jones <richard@bizarsoftware.com.au> who provided so much code
+    in so little time that I could not keep up with him. He works on company
+    time, though (unless I'm mistaken). Also found the nasty security hole
+    in release 0.6.
+
+    Christian Bird <chris.bird@lineo.com> provided some nice ideas and some
+    code.
 
 -----------------------------------------------------------------------------
 

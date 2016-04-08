@@ -1,8 +1,31 @@
-''Note: I added "Wiki:" InterWiki markers where it seemed appropriate, which allows easier copying of the test page w/o losing the links. Wiki:WardsWiki just shows them literally, which is OK.''
+Revised 1/05/01, 5:45 PM EST -- adding "test" links in double square brackets, as TWiki allows.
+
+This page originated on Wiki:WardsWiki, and the most up-to-date copy resides there.  This page has been copied here in order to make a quick visual determination of which TextFormattingRules work for this wiki.  Currently it primarily determines how text formatted using the original Wiki:WardsWiki text formatting rules is displayed.  See http://www.c2.com/cgi/wiki?WikiOriginalTextFormattingRules.
+
+If you want to see how this text appears in the original Wiki:WardsWiki, see http://www.c2.com/cgi/wiki?WikiEngineReviewTextFormattingTest
+
+People reviewing this wiki from the original Wiki:WardsWiki will be referred to this page.  If you want to see the review, go to http://www.c2.com/cgi/wiki?WikiEngineReview.
+
+Other places this page appears (perhaps as an older version):
+
+	* CLUG Wiki (older version of WardsWiki, modified by JimWeirich) -- http://www.clug.org/cgi/wiki.cgi?WikiEngineReviewTextFormattingTest
+
+	* MoinMoin (MoinMoin 0.5) -- http://www.encrypted.net/~jh/moinmoin/moin.cgi/WikiTextFormattingTestPage
+
+	* Swiki (unknown version) -- http://rhkswikitest.swiki.net/12
+
+	* Kit-T-Wiki (TWiki 01) -- http://kit.sourceforge.net/cgi-bin/view/Main/WikiReviewTextFormattingTest
+
+	* TWiki (TWiki 03) -- http://twiki.sourceforge.net/cgi-bin/view/TWiki/WikiReviewTextFormattingTest 
+
+	* Twiky (Twiky ??) -- 
+http://narasimha.tangentially.com/cgi-bin/n.exe?twiky%20editWiki(%22WikiEngineReviewTextFormattingTest%22)
+
+	* UseMod wiki (UseMod 0.88) -- http://www.usemod.com/cgi-bin/wiki.pl?WikiEngineReviewTextFormattingTest
 
 This page contains sample marked up text to make a quick visual determination as to which Wiki:TextFormattingRules work for a given wiki.  To use the page, copy the text from the edit window, and paste it in the wiki under test.  Then read it.
 
-And, the next logical thing to do is put a page like this on a public wiki running each Wiki:WikiEngine, and link to it from the appropriate Wiki:WikiReview page.	
+And, the next logical thing to do is put a page like this on a public wiki running each Wiki:WikiEngine, and link to it from the appropriate Wiki:WikiReview page, as has been done in some cases -- see above.
 
 The next line (4 dashes) should show up as a horizontal rule.  In a few wikis, the width of the rule is controlled by the number of dashes.  That will be tested in a later section of this test page.
 ----
@@ -184,7 +207,7 @@ Indented Paragraphs (For quotations)
 
 The next 10 double spaced lines are a succession of lines with an increasing number of dashes on each line, in other words, the first line is one dash, the second is two, ... until the tenth is 10 dashes.
 
-In at least one wiki (which?), the weight (thickness) of the lines increases based on the number of dashes (starting at 4 dashes).
+In at least one wiki (which? ''PikiPiki, and thus MoinMoin''), the weight (thickness) of the lines increases based on the number of dashes (starting at 4 dashes).
 
 -
 
@@ -211,6 +234,16 @@ In at least one wiki (which?), the weight (thickness) of the lines increases bas
 --------------------------------------------------------------------------------
 
 End of line weight test.
+
+----
+I inserted 8 blank lines after this, to see if whitespace is "contracted".
+
+
+
+
+
+
+
 
 ----
 
@@ -251,8 +284,28 @@ This works for:
 
 ===== Fifth level =====
 
+An older version of WardsWiki engine, as used at the CLUG Wiki (http://www.clug.org/cgi/wiki.cgi?RandyKramer), creates headings as shown below.  I don't know whether this is part of what Ward wrote or an enhancement by JimWeirich (or somebody else).
 
-Some use a character sequence like <tab>: something <finish later>
+----:: Major Heading -- four dashes, two colons, and a space
+
+----: Minor Heading -- four dashes, one colon, and a space
+
+Swiki uses equal signs as prefixes, no space before the heading text  -- actually this is not working in Swiki -- tried with and without spaces, now without
+
+=Top level (one equal sign)
+
+==Second level
+
+===Third level
+
+====Fourth level
+
+=====Fifth level (five equal signs)
+
+======Sixth level (six equal signs)
+
+
+
 
 ----
 
@@ -268,11 +321,41 @@ This8IsNotValidInTheOriginalWiki -- Numbers
 
 YAGNI -- All caps
 
+[YAGNI] -- All caps, enclosed in single square brackets
+
+[[YAGNI]] -- All caps, enclosed in double square brackets
+
 This8isNotValidInTheOriginalWiki -- 
 
 T8HisNotValidInTheOriginalWiki --
 
 [This Is Not Valid In The Original Wiki] -- Separated by spaces, enclosed in square brackets.
+
+[ThisIsNotValidInTheOriginalWiki] -- Enclosed in square brackets -- this is valid in the original wiki.
+
+[ThisIsNotValid_InTheOriginalWiki] -- Enclosed in square brackets, with underbar.
+
+[ThisIsNotValid8InTheOriginalWiki] -- Enclosed in square brackets, with number.
+
+[ThisIsNotValidTInTheOriginalWiki] -- Enclosed in square brackets, with doubled caps.
+
+["This Is Not Valid In The Original Wiki"] -- Separated by spaces, enclosed in square brackets and quotes.
+
+[[This Is Not Valid In The Original Wiki]] -- Separated by spaces, enclosed in double square brackets.
+
+[[ThisIsNotValidInTheOriginalWiki]] -- Enclosed in double square brackets -- this is valid in the original wiki.
+
+[[ThisIsNotValid_InTheOriginalWiki]] -- Enclosed in double square brackets, with underbar.
+
+[[ThisIsNotValid8InTheOriginalWiki]] -- Enclosed in double square brackets, with number.
+
+[[ThisIsNotValidTInTheOriginalWiki]] -- Enclosed in double square brackets, with doubled caps.
+
+["This Is Not Valid In The Original Wiki"] -- Separated by spaces, enclosed in square brackets and quotes.
+
+
+
+*This Is Not Valid In The Original Wiki* -- Separated by spaces, enclosed in asterisks, valid in Swiki
 
 Some''''''PartOfThisIsValidInTheOriginalWiki -- Attempted to invalidate putting 6 single quotes between the first pair of words.
 
@@ -284,10 +367,23 @@ Remote references are created by inserting a number in square brackets, they are
 
 [2]
 
-If a remote reference ends in .gif, the image is inlined (?) -- need to find a .gif online, preferably at Wiki:WardsWiki to refer to.  Here is a URL with a .gif to fill in to test this: 
+If a remote reference ends in .gif, the image is inlined.  
+
+Here is a .gif URL for testing: http''''''://c2.com/sig/wiki.gif (This link disabled by 6 single quotes after the http.)
+
+In WardsWiki the URL for a remote reference in the [number] syntax must be entered using EditLinks.  The image is placed where the [number] is located.
 
 [3]
 
+Simply typing a link (starting with http: and ending in .gif) also works.
+
+http://c2.com/sig/wiki.gif 
+
+Will pictures overlap?  In WardsWiki, these 4 pictures form two rows of two pictures, separated by a horizontal blank line.
+
+[3][3]
+
+[3][3]
 
 http://c2.com/
 
@@ -308,12 +404,152 @@ ISBN: 0-13-748310-4 -- ISBN followed by optional colon, followed by 10 digits wi
 [ISBN 0-13-748310-4] -- ISBN, no colon, followed by 10 digits with optional hyphens, entire string surrounded by square brackets
 
 
-[ISBN: 0-13-748310-X] -- ISBN, with colon, entire string surrounded by square brackets, followed by 10 digits with optional hyphens, last digit an X ''"X" is the "digit" eleven, which is a possible value for the checksum (last) digit.''
+[ISBN: 0-13-748310-X] -- ISBN, with colon, entire string surrounded by square brackets, followed by 10 digits with optional hyphens, last digit an X ''"X" is the "digit" ten (the roman numeral, actually), which is a possible value for the checksum (last) digit.''
+
+----
+Twiki formatting (just a few samples)
+
+*This, embedded between asterisks, should be bold*
+
+_This, embedded between single "underbars" should be italic_
+
+__This, embedded between double "underbars" should be bold and italic__
+
+ This line, preceded by a space, appears normal
+
+<H1>A heading embedded between HTML H1 tags</H1>
+
+<H2>A heading embedded between HTML H2 tags</H2>
+
+<H3>A heading embedded between HTML H3 tags</H3>
+
+<H4>A heading embedded between HTML H4 tags</H4>
+
+<H5>A heading embedded between HTML H5 tags</H5>
+
+<H6>A heading embedded between HTML H6 tags</H6>
+
+Trying angle brackets and escape notation:
+
+>< -- arrows in
+
+<> -- arrows out
+
+<enclosing text> -- enclosing text -- text is hidden in TWiki
+
+&lt &gt -- escape (ampersand) lt and gt
+
+I think there is (or will be) another way to mark up headings -- this might require that the TocPlugin be installed.  (The following does not work, either because it hasn't been implemented (yet), the TocPlugin is not installed, or because I haven't stumbled across exactly the right syntax.)
+
+| *You type* | *You see* | *Note* | | =\tab+++ title= | <h3>title</h3> | (we count "+") | | =\tab\tab+ title= | <h2>title</h2> | (we count tabs) | | =\tab*H4: title= | <h4>title</h4> | 
+
++A line preceded by one "+"
+
+\	 +A line preceded by \tab+
+
+=\	 \	 + A line preceded by 
+
+	 	 +A line preceded by two tabs and a plus sign
+
+	 	 + Another line preceded by two tabs, a space, and a plus sign
+
+Just showing how TWiki displayed something that looked like headings, but by using preformatted HTML.
+
+<pre>
+<nop>	+ Heading 1
+<nop>	+ Heading 2
+<nop>	 + Heading 3
+<nop>		... and so on  
+</pre>
+
+----
+_ An underscore at the beginning of a line makes a horizontal line in Swiki
+Swiki Formatting (started by copying their text formatting rules page, 
+http://rhkswikitest.swiki.net/.format
+
+Note: I've noticed some inconsistency with Swiki in handling this page, maybe because of the size?  Earlier, headings did not work properly, but bulleted lists did.  (The numbered and nested lists were added later.)  Now headings are working but lists are not.  (And I won't be surprised if, when I save this page either everything works, or something different breaks -- no headings still work, lists do not, but I wonder about the next save?)
+
+Lists
+
+Bulleted lists start with a dash, with no space before the text.
+
+-Red
+-Blue
+-Green
+
+Numbered lists start each line with '#', with no space before the text. 
+
+#Blue
+#Green
+#Red
+
+Lists can be nested. Thus, a line starting with '#-' is an element of a bulleted list that is part of an ordered list.
+
+Now some nesting:
+
+#Blue
+##BG
+#-BBG
+-#BBBG
+#Green
+##GR
+##GGR
+#Red
 
 
 
-ToDo: Continue to add formatting rules for other wikis, as identified.  Find a .gif to test an inline image. ''You might have missed that there is an image (http://www.c2.com/sig/wiki.gif) on every wiki page. ;)''
 
++ Swiki has an append here area, created by starting a line with a plus sign.
+"A text area will be inserted into the page that allows users to add contents to the page without having to edit the page. Users can add text even when the page is locked and when they are not logged in."
+
+Special formatting rules for&, <, >, '*', @:
+
+There are five characters (&, <, >, *, @) which to do not display correctly unless you type aliases for them as follows: 
+Instead of & type: &amp;; 
+Instead of < type: &lt;; 
+Instead of > type: &gt;; 
+Instead of * type: &star;; 
+Instead of @ type: &at;. 
+
+To preserve character spacing, begin each line with '>'.
+_
+----
+Some tests for UseMod wiki:
+
+Using b and i in angle brackets:
+
+<b>Bold</b>
+
+<i>Italic</i>
+
+Lists are marked up using multiple leading asterisks
+
+* Item
+** Item
+*** Item
+
+Numbered lists are marked up using multiple leading pound signs
+
+#
+## Item
+# Item
+## Item
+### Item
+### Item
+# Item
+## Item
+### Item
+
+"Raw" HTML is disabled by default
+
+
+
+----
+
+ToDo: Continue to add formatting rules for other wikis, as identified.
+
+----
+'''Tables'''
 
 | Let's | just | try | a |
 |table | for | kicks | ouch |
@@ -324,9 +560,85 @@ or even a table...
 || Let's || just || try || a ||
 ||table || for || kicks || ouch ||
 
+A wide table (works on SwikiFarm)
+|<b>*Engines*</b>|<b>*Prop1*</b>|<b>Prop2</b>|<b>Prop3</b>|
+|*E1*|*y*|y|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|
+|E2|n|*?*|n|
+|E3|y|n|n|
 
+A wide table for MoinMoin?
+||<b>*Engines*</b>||<b>*Prop1*</b>||<b>Prop2</b>||<b>Prop3</b>||
+||*E1*||*y*||y||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||n||
+||E2||n||*?*||n||
+||E3||y||n||n||
+
+----
+Foreign Characters, copied from the WikiWikiSandbox on 12/8/00:
+
+Well, how about 繖? and other umlaut characters. ''double single-quoted text'' 
+verrry funny pictures for an old chinese; no more meaning like "FA3B27E5" or other Hex-Code
+
+So can I use Japanese characters (EUC) or what? Well, here it goes anyway:
+あっ！日本語も行けるみたい、嬉しいねえ。
+Let's see it then - SpareMissile
+
+wanna test it too. hihi, cool...
+寄社挫��i am rose
+
+I just tried adding some characters using the <alt>nnn approach (on IE5):
+(For engines which hide HTML tags, I enclosed the "alt" within angle brackets as a prefix to "nnn" (or "real" digits).)
+
+<alt>159: &#402;
+
+It seems to work in WardsWiki
+
+I wonder if that would give me a way to either force white space (sounds likely -- insert <alt>255 on multiple lines?) or force a line break without causing a blank line in the output (doesn't sound as likely)?
+
+Some lines with <alt>255 separated by totally blank lines:
+
+_
+
+_
+
+_
+
+_
+
+That seemed dumb!  Why not try lines with a single space separated by totally blank lines?  Why not -- because it doesn't work in WardsWiki:
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+I could consider adding an ASCII table here:
+
+See Wiki:AsciiValuesForUmlauts
+
+See also (just for interest):
+	* Wiki:AsciiArt
+	* Wiki:UmlAsciiArt
+	* Wiki:UmlAsciiArtExamples
+	* Wiki:UmlAsciiArtTips
+
+Aside: What's the difference (in IE5 or similar) betweeen, for example:
+
+<alt>159 with numlock off: &#402;
+
+and
+
+<alt>0159 with numlock on: &#376;
+
+Well, there's an answer, but not quite what I was looking for -- the <alt>159 syntax represents the ASCII codes from 0 to 255 (decimal).  What does the <alt>0159 syntax represent?
+
+
+----
 
 -- Wiki:RandyKramer
 
 ----
-Wiki:TopicWikiReview
+Wiki:TopicWikiEngineReview, CLUG:TopicUsingWiki, CLUG:TopicWikiEditingTraps

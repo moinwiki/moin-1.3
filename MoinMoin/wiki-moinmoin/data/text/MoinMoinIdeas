@@ -1,12 +1,67 @@
 If you miss a feature, have a neat idea or any other suggestion, please put it here. 
 To discuss the merit of the planned extensions from MoinMoinTodo or ideas presented here, please use MoinMoinDiscussion.
-See ExtensionGuidelines for a set of rules that should govern MoinMoin development. 
+
+See:
+ * ExtensionGuidelines for a set of rules that should govern MoinMoin development. 
+ * MacroMarket for extension macros written by users.
+ * UtilityScripts contains some useful scripts written by MoinMoin users.
+
+Index: [[TableOfContents]]
 
 See also: MbTest:WikiIdeas Wiki:WikiWikiSuggestions [http://c2.com/w2/wiki/WelcomeVisitors Ward's Meta-Wiki]
 ----
 ''Your ideas always welcome here...''
 
-----
+=== Current Discussion ===
+
+==== Use Server Authentication ====
+It would be nice if the wiki would automatically determine if a user has been authenticated through a web server and use that for the User.  If I happened to be using IIS, I could set it up to authenticate and then use os.environ['REMOTE_USER'] to find out who they are.  If I were using Apache, I could do the same.  If I were using Orion, etc, etc.
+
+==== EMail send page ====
+It would be nice if the page, one is currently reading or changing could be sent to an arbitrary email. This could perhaps be a new action and added to  a toolbar. -- GM
+
+==== Email notification ====
+Email notification about changed wiki pages? ''Yes, definitely.''
+
+An alternative is some method of indicating that a particular page is of interest to some person or groups of people. The Attention Page macro on MacroMarket is one attempt towards this end. -- RichardJones
+
+We have a working system for this at Lineo.  The python module for this
+is located at [["action/mailchanges.py"]]. Our system
+works as follows:
+
+To subscribe to a page, a user puts the word "Subscribers" as a heading, at
+any level (preceded and follow it with equals signs) anywhere on the page.
+Then a user puts their e-mail address under this heading.  Multiple e-mail
+addresses are allowed.  Due to the nature of wikis, anyone can add or
+remove their (or anyone elses) "subscription" at any time.  On submission
+of the edited page, the page "diff" is mailed to all addresses so registered.
+
+For example, to subscribe to this page, I could just put the following on it:
+
+{{{
+===== Subscribers =====
+tbird@lineo.com
+}}}
+	-- TimBird
+
+==== Structured Text Markup ====
+A simple BizarStructuredText markup has been written and is available on the ParserMarket page. It is very similar to the StructuredText that Digital Creations developed for [http://www.zope.org/ Zope]. Its differences are mostly to do with ease of use. I also included the table markup as defined in the standard wiki markup that MoinMoin ships with. -- RichardJones
+
+==== Macro Collection ====
+I realize that this wouldn't be part of the MoinMoin itself, but there should be a repository in the download area for MoinMoin macros that people have written. As of the latest version, it's so easy to write macros, there should be a place where we can place macros we've written so others can get them (I've written some macros that people have asked for in other areas of this site, Even a macro that will look for all macros available on a MoinMoin and list them!) -- Christian Bird - chris.bird@lineo.com
+
+Either send them directly to me (jh@web.de) or to the moin-dev mailing list (moin-dev@dragon-ware.com). Then I'll add them to the default distribution or to a new macro collection. 
+
+See the new MacroMarket page. Interestingly enough, creating that page did not require any change to the code, though you can directly rip the macros from the subpages.
+
+-- JürgenHermann
+
+==== Category based headers ====
+It would be interesting to throw a custom header (logo graphic, navigational links, css ) based on a tag similar to a ProcessingInstructions tag. ie: #homepage  If no instruction were found, would use site-wide default. This might be non-trivial if header is currently thrown before parsing the page.
+ 
+--MattWestervelt
+
+=== Older entries ===
 General:
  * TopicMap''''''s
  * Versioning (via CVS), optional (not hi-prio, the current versioning works quite nice)
@@ -15,6 +70,7 @@ General:
  * Possibly make it a webserver (advantage: configuration is kept in memory)
   * Consider Mod Snake: http://modsnake.sourceforge.net/ -- it allows one to write Apache modules in Python.
   * or use asyncore.py, a select()-based server-module used by Zope.
+  * problem here is that there's a few places that MoinMoin is not really safe for persistence. I'm going to actually go through and document them at some stage (I'm particuarly interested in places where globals are used) -- RichardJones
  * Local anchors and links on a page
  * Maybe add edit locks with manual breaking & timeouts.
  * At least warn the user if a page was opened for editing within the last ''x'' minutes.
@@ -41,6 +97,8 @@ empty line for <p>
  * Move color management into moin_config.py rather than spread all over default.css.
  * A way to list pages that have no references to them. Zombies as the [http://www.bluetail.com:5999/ Erlang Wiki] calls it.
  * A macro that expands to the current date when the page is submitted. So that one easily can insert it in aid to others that follow the conversation. Maybe something like {{{ [[.sig]] }}} that will expand to whatever the UserPreferences is set to.
+ * Is there any way to have incremental backups made over time? If there was, having a single person 'destroy' the MoinMoin would have minimal effect -- simply restore from backup.
+  * Click on the blue "i" at the top-right corner of the page: each page has a full history.
 
 ----
 Security (against the WikiNature, and possibly not needed when we have versioning):

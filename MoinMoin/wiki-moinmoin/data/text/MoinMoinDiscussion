@@ -1,5 +1,8 @@
 Talk about the things on MoinMoinTodo and MoinMoinIdeas in this space...
 
+== PatternTemplate ==
+PatternTemplate is a nice addition to the standard distribution set, but if you want to add actual patterns, either consider using the [wiki:Wiki:WelcomeVisitors C2 Wiki] or setting up your own wiki (or ask [wiki:MoinMoin:JürgenHermann me] to set up a pattern wiki).
+
 == Help pages ==
 I'm wondering why not use the [http://www.c2.com/cgi/wiki?AboutCategoriesAndTopics wiki topic method] instead of putting keywords (such as Help''''''On) in page titles?
 

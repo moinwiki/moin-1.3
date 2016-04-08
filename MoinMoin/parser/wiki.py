@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wiki.py,v 1.15 2000/12/05 19:34:43 jhermann Exp $
+    $Id: wiki.py,v 1.25 2001/01/10 00:09:06 jhermann Exp $
 """
 
 # Imports
@@ -45,12 +45,13 @@ class Parser:
 (?P<interwiki>[A-Z][a-zA-Z]+\:[^\s'\"\:\<]([^\s%(punct)s]|([%(punct)s][^\s%(punct)s]))+)
 (?P<word>(?:[%(u)s][%(l)s]+){2,})
 (?P<url_bracket>\[(%(url)s)\:[^\s\]]+(\s[^\]]+)?\])
-(?P<url>(%(url)s)\:([^\s\<%(punct)s]|([%(punct)s][^\s\<%(punct)s]))+)
+(?P<url>%(url_guard)s(%(url)s)\:([^\s\<%(punct)s]|([%(punct)s][^\s\<%(punct)s]))+)
 (?P<email>[-\w._+]+\@[\w.-]+)
 (?P<smiley>\s(%(smiley)s)\s)
 (?P<smileyA>^(%(smiley)s)\s)
 (?P<ent>[<>&])"""  % {
-        'url': 'http|https|ftp|nntp|news|mailto|telnet|wiki',
+        'url': 'http|https|ftp|nntp|news|mailto|telnet|wiki|file',
+        'url_guard': ('(^|(?<!\w))', '')[sys.version < "2"],
         'punct': re.escape('''"'}]|:,.)?!'''),
         'macronames': string.join(wikimacro.names, '|'),
         'ol_rule': ol_rule,
@@ -96,8 +97,16 @@ class Parser:
             return '<img src="%s%s" border="0">' % (wikiurl, wikitail)
 
         # return InterWiki hyperlink
-        return '<a href="%s"><img src="%s/img/moin-inter.gif" width="16" height="16" hspace="2" border="%d" alt="[%s]"></a><a href="%s%s">%s</a>' % (
-            wikiurl, config.url_prefix, wikitag == "BadWikiTag", wikitag, wikiurl, wikitail, text)
+        return '''<a href="%(wikiurl)s"><img src="%(prefix)s/img/moin-inter.gif"
+width="16" height="16" hspace="2" border="%(badwiki)d"
+alt="[%(wikitag)s]"></a><a title="%(wikitag)s" href="%(wikiurl)s%(wikitail)s">%(text)s</a>''' % {
+            'wikiurl': wikiurl,
+            'prefix': config.url_prefix,
+            'badwiki': wikitag == "BadWikiTag",
+            'wikitag': wikitag, 
+            'wikitail': wikitail, 
+            'text': self.highlight_text(text),
+        }
 
     def _emph_repl(self, word):
         """Handle emphasis, i.e. '' and '''."""
@@ -126,7 +135,7 @@ class Parser:
 
     def _word_repl(self, word):
         """Handle WikiNames."""
-        return self.formatter.pagelink(word)
+        return self.formatter.pagelink(word, self.highlight_text(word))
 
 
     def _interwiki_repl(self, word):
@@ -138,7 +147,7 @@ class Parser:
     def _url_repl(self, word):
         """Handle literal URLs including inline images."""
         if word[:5] == "wiki:": return self.interwiki([word])
-        return self.formatter.url(word)
+        return self.formatter.url(word, text=self.highlight_text(word))
 
 
     def _wikiname_bracket_repl(self, word):
@@ -160,17 +169,19 @@ class Parser:
         if scheme == "news": icon = ("news", 10, 11)
         if scheme == "telnet": icon = ("telnet", 10, 11)
         if scheme == "ftp": icon = ("ftp", 11, 11)
+        if scheme == "file": icon = ("ftp", 11, 11)
         #!!! use a map?
-        # http|https|ftp|nntp|news|mailto|wiki
+        # http|https|ftp|nntp|news|mailto|wiki|file
 
         text = '<img src="%s/img/moin-%s.gif" width="%d" height="%d" border="0" hspace="4" alt="[%s]">%s' % (
-            config.url_prefix, icon[0], icon[1], icon[2], string.upper(icon[0]), words[1])
-        return self.formatter.url(words[0], text, 'external')
+            config.url_prefix, icon[0], icon[1], icon[2], string.upper(icon[0]),
+            self.highlight_text(words[1]))
+        return self.formatter.url(words[0], text, 'external', pretty_url=1)
 
 
     def _email_repl(self, word):
         """Handle email addresses (without a leading mailto:)."""
-        return self.formatter.url("mailto:" + word, word)
+        return self.formatter.url("mailto:" + word, self.highlight_text(word))
 
 
     def _ent_repl(self, word):
@@ -193,7 +204,9 @@ class Parser:
 
     def _tt_repl(self, word):
         """Handle inline code."""
-        return self.formatter.code(word[3:-3])
+        return self.formatter.code(1) + \
+            self.highlight_text(word[3:-3]) + \
+            self.formatter.code(0)
 
 
     def _tableZ_repl(self, word):
@@ -231,7 +244,7 @@ class Parser:
         while h[level:level+1] == '=': level = level+1
         depth = min(5,level)
         return self.formatter.anchordef("line%d" % self.lineno) + \
-            self.formatter.heading(depth, h[level:-level])
+            self.formatter.heading(depth, self.highlight_text(h[level:-level]))
 
 
     def _pre_repl(self, word):
@@ -325,12 +338,50 @@ class Parser:
         return result
 
 
+    def highlight_text(self, text):
+        if not self.hilite_re: return self.formatter.text(text)
+        
+        result = []
+        lastpos = 0
+        match = self.hilite_re.search(text)
+        while match and lastpos < len(text):
+            # add the match we found
+            result.append(self.formatter.text(text[lastpos:match.start()]))
+            result.append(self.formatter.highlight(1))
+            result.append(self.formatter.text(match.group(0)))
+            result.append(self.formatter.highlight(0))
+
+            # search for the next one
+            lastpos = match.end() + (match.end() == lastpos)
+            match = self.hilite_re.search(text, lastpos)
+
+        result.append(text[lastpos:])
+        return string.join(result, '')
+
+    def highlight_scan(self, scan_re, line):
+        result = []
+        lastpos = 0
+        match = scan_re.search(line)
+        while match and lastpos < len(line):
+            # add the match we found
+            result.append(self.highlight_text(line[lastpos:match.start()]))
+            result.append(self.replace(match))
+
+            # search for the next one
+            lastpos = match.end() + (match.end() == lastpos)
+            match = scan_re.search(line, lastpos)
+
+        result.append(self.highlight_text(line[lastpos:]))
+        return string.join(result, '')
+
+
     def replace(self, match):
         #hit = filter(lambda g: g[1], match.groupdict().items())
         for type, hit in match.groupdict().items():
             if hit is not None:
+                ##print "###", cgi.escape(`type`), cgi.escape(`hit`), "###"
                 if self.in_pre and type not in ['pre', 'ent']:
-                    return self.formatter.text(hit)
+                    return self.highlight_text(hit)
                 else:
                     return apply(getattr(self, '_' + type + '_repl'), (hit,))
         else:
@@ -348,6 +399,7 @@ class Parser:
         """
         self.formatter = formatter
         self.form = form
+        self.hilite_re = self.formatter.page.hilite_re
 
         # prepare regex patterns
         rules = string.replace(self.__class__.formatting_rules, '\n', '|')
@@ -406,8 +458,11 @@ class Parser:
                     sys.stdout.write(self.formatter.table(0))
                     self.in_table = 0
 
-            # convert line from wiki markup to HTML and print it            
-            sys.stdout.write(re.sub(scan_re, self.replace, line + " ")) #string.rstrip(line)))
+            # convert line from wiki markup to HTML and print it
+            if self.hilite_re:
+                sys.stdout.write(self.highlight_scan(scan_re, line + " "))
+            else:
+                sys.stdout.write(re.sub(scan_re, self.replace, line + " "))
 
             if self.in_pre:
                 sys.stdout.write(self.formatter.linebreak())

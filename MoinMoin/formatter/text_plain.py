@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_plain.py,v 1.2 2000/12/01 00:12:30 jhermann Exp $
+    $Id: text_plain.py,v 1.7 2001/01/03 23:07:51 jhermann Exp $
 """
 
 # Imports
@@ -31,10 +31,10 @@ class Formatter(FormatterBase):
     def endDocument(self):
         return '\n'
 
-    def pagelink(self, pagename):
+    def pagelink(self, pagename, text=None):
         return ">>%s<<" % (pagename,)
 
-    def url(self, url, text=None, css=None):
+    def url(self, url, text=None, css=None, **kw):
         if text is None:
             return url
         else:
@@ -54,6 +54,9 @@ class Formatter(FormatterBase):
     def emphasis(self, on):
         return '/'
 
+    def highlight(self, on):
+        return ''
+
     def number_list(self, on, type=None, start=None):
         # !!! remember list state
         return ''
@@ -66,8 +69,8 @@ class Formatter(FormatterBase):
         # !!! return number for ordered lists
         return ' * '
 
-    def code(self, text):
-        return '"' + text + '"'
+    def code(self, on):
+        return ['`', '´'][not on]
 
     def preformatted(self, on):
         snip = '---%<'
@@ -80,7 +83,7 @@ class Formatter(FormatterBase):
     def paragraph(self):
         return '\n'
 
-    def linebreak(self):
+    def linebreak(self, preformatted=1):
         return '\n'
 
     def heading(self, depth, title):
@@ -88,4 +91,19 @@ class Formatter(FormatterBase):
 
     def table(self, on):
         return ''
+
+    def underline(self, on):
+        return '_'
+
+    def definition_list(self, on):
+        return ''
+
+    def definition_term(self, on, compact=0):
+        result = ''
+        if not compact: result = result + '\n'
+        if not on: result = result + ':\n'
+        return result
+
+    def definition_desc(self, on):
+        return ['    ', '\n'][not on]
 

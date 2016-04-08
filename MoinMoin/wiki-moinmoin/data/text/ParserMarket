@@ -1,0 +1,17 @@
+== Offers ==
+This is a marketplace for your parsers. Please state your name, your email, and the release your parser is developed for (if you used a CVS snapshot, also state the revision number).
+
+Use a special pagename {{{["parser/yourParser.py"]}}} and start your parser with the line {{{
+#format text/plain
+}}}
+This way, the parser can directly be put on the page without any modification, and as easily copied from that page. See the examples below.
+
+||'''Parser'''||'''Author'''||'''Email'''||'''Release'''||'''Revision'''||
+||BizarStructuredText: ["parser/stx.py"]||Richard Jones||richard@bizarsoftware.com.au||0.8|| ||
+
+There are also some UtilityScripts.
+
+== Requests ==
+If you are not familiar with Python and/or the MoinMoin code base, but have a need or an idea for a parser, this is the place to ask for it. Someone might find it useful, too, and implement it.
+
+ * none yet

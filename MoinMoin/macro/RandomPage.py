@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: RandomPage.py,v 1.1 2000/11/25 16:41:24 jhermann Exp $
+    $Id: RandomPage.py,v 1.3 2000/12/09 09:01:02 jhermann Exp $
 """
 
 # Imports
@@ -16,7 +16,7 @@ def execute(macro, args):
     # get number of wanted links        
     try:
         links = max(int(args), 1)
-    except:
+    except StandardError:
         links = 1
 
     # select the pages from the page list

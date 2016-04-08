@@ -1,0 +1,4 @@
+== Configuration of MoinMoin ==
+Configuration options are found in the file "{{{moin_config.py}}}", see there for the available options and their meanings.
+
+ /!\ The comments in the config file are rather terse, you are invited to extend this page with more detailed help texts.

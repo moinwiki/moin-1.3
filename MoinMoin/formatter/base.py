@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: base.py,v 1.3 2000/12/01 00:12:30 jhermann Exp $
+    $Id: base.py,v 1.8 2001/01/03 23:07:51 jhermann Exp $
 """
 
 # Imports
@@ -31,10 +31,10 @@ class FormatterBase:
     def endDocument(self):
         return ""
 
-    def pagelink(self, pagename):
+    def pagelink(self, pagename, text=None):
         raise NotImplementedError
 
-    def url(self, url, text=None, css=None):
+    def url(self, url, text=None, css=None, **kw):
         raise NotImplementedError
 
     def text(self, text):
@@ -49,6 +49,9 @@ class FormatterBase:
     def emphasis(self, on):
         raise NotImplementedError
 
+    def highlight(self, on):
+        raise NotImplementedError
+
     def number_list(self, on, type=None, start=None):
         raise NotImplementedError
 
@@ -58,7 +61,7 @@ class FormatterBase:
     def listitem(self, on):
         raise NotImplementedError
 
-    def code(self, text):
+    def code(self, on):
         raise NotImplementedError
 
     def preformatted(self, on):
@@ -67,7 +70,7 @@ class FormatterBase:
     def paragraph(self):
         raise NotImplementedError
 
-    def linebreak(self):
+    def linebreak(self, preformatted=1):
         raise NotImplementedError
 
     def heading(self, depth, title):
@@ -81,4 +84,16 @@ class FormatterBase:
 
     def anchorlink(self, name, text):
         return text
+
+    def underline(self, on):
+        raise NotImplementedError
+
+    def definition_list(self, on):
+        raise NotImplementedError
+
+    def definition_term(self, on, compact=0):
+        raise NotImplementedError
+
+    def definition_desc(self, on):
+        raise NotImplementedError
 

@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiutil.py,v 1.8 2000/11/25 17:39:33 jhermann Exp $
+    $Id: wikiutil.py,v 1.17 2001/01/10 02:02:25 jhermann Exp $
 """
 
 # Imports
@@ -71,10 +71,10 @@ def split_wiki(wikiurl):
     # !!! use a regex here!
     try:
         wikitag, tail = string.split(wikiurl, ":", 1)
-    except:
+    except ValueError:
         try:
             wikitag, tail = string.split(wikiurl, "/", 1)
-        except:
+        except ValueError:
             wikitag = None
             tail = None
 
@@ -91,7 +91,7 @@ def resolve_wiki(wikiurl):
                 wikitag, urlprefix, trash = string.split(
                     line + " " + util.getScriptname() + "/InterWiki", None, 2)
                 _interwiki_list[wikitag] = urlprefix
-            except:
+            except ValueError:
                 pass
         ##import pprint; print '<pre>'; pprint.pprint(_interwiki_list); print '</pre>'
         
@@ -121,12 +121,18 @@ def getPageList(text_dir):
     return map(unquoteFilename, result)
 
 
-def getBackupList(backup_dir, pagename):
+def getBackupList(backup_dir, pagename=None):
     """ Get a filename list of older versions of the page, sorted by date
         in descending order (last change first).
+
+        If pagename = None, all backup versions are returned.
     """
     if os.path.isdir(backup_dir):
-        backup_re = re.compile(r'^%s\.\d+\.\d+$' % (quoteFilename(pagename),))
+        if pagename:
+            pagename = quoteFilename(pagename)
+        else:
+            pagename = ".*?"
+        backup_re = re.compile(r'^%s\.\d+(\.\d+)?$' % (pagename,))
         oldversions = filter(backup_re.match, os.listdir(backup_dir))
         oldversions.sort()
         oldversions.reverse()
@@ -150,18 +156,20 @@ def getBackupList(backup_dir, pagename):
 
 def editlog_add(page_name, host):
     from MoinMoin import user
+    import socket
 
     try:
-        from socket import gethostbyaddr
-        hostname = gethostbyaddr(host)[0]
-    except:
+        hostname = socket.gethostbyaddr(host)[0]
+    except socket.error:
         hostname = host
 
     editlog = open(config.editlog_name, 'a+')
+    entry = string.join((quoteFilename(page_name), host, `time.time()`,
+                         hostname, user.User().id), "\t") + "\n"
     try: 
         # fcntl.flock(editlog.fileno(), fcntl.LOCK_EX)
         editlog.seek(0, 2)                  # to end
-        editlog.write(string.join((quoteFilename(page_name), host, `time.time()`, hostname, user.User().id), "\t") + "\n")
+        editlog.write(entry)
     finally:
         # fcntl.flock(editlog.fileno(), fcntl.LOCK_UN)
         editlog.close()
@@ -238,7 +246,8 @@ def send_title(text, **keywords):
         print link_tag(quoteWikiname(config.front_page), config.logo_string)
     print '</td><td width="99%" valign="middle" class="headline"><font size="+3">&nbsp;<b>'
     if keywords.get('link'):
-        print '<a href="%s">%s</a>' % (keywords['link'], text)
+        print '<a title="Click here to do a full-text search for this title" href="%s">%s</a>' % (
+            keywords['link'], text)
     else:
         print text
     print '</b></font></td>'
@@ -295,8 +304,20 @@ def send_footer(pagename, mod_string=None, **keywords):
     print link_tag('FindPage?value='+urllib.quote_plus(pagename, ''), 'FindPage')
     print " by browsing, searching, or an index<br>"
 
+    # list user actions that start with an uppercase letter
+    from MoinMoin.action import extension_actions
+    extension_actions.sort()
+    first = 1
+    for action in extension_actions:
+        if action[0] != string.upper(action[0]): continue
+        print (', ', 'Or try one of these actions: ')[first]
+        sys.stdout.write(link_tag(
+            '%s?action=%s' % (quoteWikiname(pagename), action), action))
+        first = 0
+    if not first: print "<br>"
+
     if config.show_version:
-        print '<p><font size="1" face="Verdana">MoinMoin %s, Copyright © 2000 by Jürgen Hermann</font></p>' % (version.revision,)
+        print '<p><font size="1" face="Verdana">MoinMoin %s, Copyright © 2000-2001 by Jürgen Hermann</font></p>' % (version.revision,)
 
     if config.page_footer2: print config.page_footer2
 

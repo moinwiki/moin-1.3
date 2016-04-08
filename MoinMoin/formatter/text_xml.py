@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_xml.py,v 1.3 2000/12/01 00:12:30 jhermann Exp $
+    $Id: text_xml.py,v 1.8 2001/01/03 23:07:51 jhermann Exp $
 """
 
 # Imports
@@ -34,10 +34,10 @@ class Formatter(FormatterBase):
     def endDocument(self):
         return '</s1>'
 
-    def pagelink(self, pagename):
-        return Page(pagename).link_to()
+    def pagelink(self, pagename, text=None):
+        return Page(pagename).link_to(text)
 
-    def url(self, url, text=None, css=None):
+    def url(self, url, text=None, css=None, **kw):
         if text is None: text = url
 
         if wikiutil.isPicture(url):
@@ -63,6 +63,9 @@ class Formatter(FormatterBase):
     def emphasis(self, on):
         return ['<em>', '</em>'][not on]
 
+    def highlight(self, on):
+        return ['<strong>', '</strong>'][not on]
+
     def number_list(self, on, type=None, start=None):
         return ['<ol>', '</ol>'][not on]
 
@@ -72,8 +75,8 @@ class Formatter(FormatterBase):
     def listitem(self, on):
         return ['<li>', '</li>'][not on]
 
-    def code(self, text):
-        return '<code>%s</code>' % (cgi.escape(text),)
+    def code(self, on):
+        return ['<code>', '</code>'][not on]
 
     def preformatted(self, on):
         return ['<source>', '</source>'][not on]
@@ -81,12 +84,24 @@ class Formatter(FormatterBase):
     def paragraph(self):
         return '<p>'
 
-    def linebreak(self):
-        return '\n'
+    def linebreak(self, preformatted=1):
+        return ['\n', '<br/>'][not preformatted]
 
     def heading(self, depth, title):
         return '<s%d title="%s">\n' % (depth, cgi.escape(title, 1))
 
     def table(self, on):
         return ['<table>', '</table>'][not on]
+
+    def underline(self, on):
+        return self.strong(on) # no underline in StyleBook
+
+    def definition_list(self, on):
+        return ['<gloss>', '</gloss>'][not on]
+
+    def definition_term(self, on, compact=0):
+        return ['<label>', '</label>'][not on]
+
+    def definition_desc(self, on):
+        return ['<item>', '</item>'][not on]
 

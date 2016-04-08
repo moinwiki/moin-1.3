@@ -5,9 +5,9 @@ You can edit any page by pressing the link at the bottom of the page.  Capitaliz
 
 You are encouraged to edit the WikiSandBox whichever way you like. Please restrain yourself from editing other pages until you feel at home with the ways a wiki works.
 
-To learn more about what a Wiki:WikiWikiWeb is, read about Wiki:WhyWikiWorks and the Wiki:WikiNature''''''. Also, consult the Wiki:WikiWikiWebFaq''''''. 
+To learn more about what a Wiki:WikiWikiWeb is, read about Wiki:WhyWikiWorks and the Wiki:WikiNature''''''. Also, consult the Wiki:WikiWikiWebFaq and Wiki:OneMinuteWiki. 
 
-Good starting points to explore a wiki are:
+Good starting points to explore a wiki are
  * RecentChanges: see where people are currently working
  * FindPage: search or browse the database in various ways
  * TitleIndex: a list of all pages in the wiki
@@ -22,7 +22,7 @@ A WikiName is a word that uses capitalized words. WikiName''''''s automagically 
 
 The highlighted page title (i.e. HelpForBeginners on this page) shows a list of all pages that link to the current page.  It even works on pages that are not defined yet.
 
-A question mark after a link, or a different rendering in bold red, means that the page is not defined: you can click the question mark to offer a definition (e.g. NoSuchPageForReal). If you click on such a link, you'll see a default page content that you can edit; only after you save the page it will be created for real.
+A question mark after a link, or a different rendering in bold red, means that the page is not defined: you can click the question mark to offer a definition (e.g., NoSuchPageForReal). If you click on such a link, you'll see a default page that you can edit; only after you save the page will it be created for real.
 
 To ''escape'' a WikiName, i.e. if you want to write the word Wiki''''''Name without linking it, use an "empty" bold sequence (a sequence of six single quotes) like this: {{{Wiki''''''Name}}}.
 

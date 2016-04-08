@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: config.py,v 1.5 2000/11/25 17:39:33 jhermann Exp $
+    $Id: config.py,v 1.6 2001/01/04 07:30:42 jhermann Exp $
 """
 
 # Imports
@@ -38,3 +38,4 @@ user_dir = os.path.join(data_dir, 'user')
 backup_dir = os.path.join(data_dir, 'backup')
 editlog_name = os.path.join(data_dir, 'editlog')
 
+moinmoin_dir = os.path.abspath(os.path.dirname(__file__))
