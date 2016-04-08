@@ -4,7 +4,7 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: user.py,v 1.56 2002/02/13 21:13:52 jhermann Exp $
+    $Id: user.py,v 1.59 2002/04/17 21:58:16 jhermann Exp $
 """
 
 # Imports
@@ -66,6 +66,8 @@ class User:
         self.tz_offset  = 0
         self.last_saved = str(time.time())
         self.css_url    = config.css_url
+        self.language   = ""
+        self.quicklinks = ""
         self.datetime_fmt = ""
         self.subscribed_pages = ""
 
@@ -195,10 +197,10 @@ class User:
         return cookie.output() + ' expires=Tuesday, 31-Dec-2013 12:00:00 GMT; Path=%s' % (webapi.getScriptname(),)
 
 
-    def sendCookie(self):
+    def sendCookie(self, request):
         """Send the Set-Cookie header for this user"""
         # prepare to send cookie
-        webapi.setHttpHeader(self.getCookie())
+        webapi.setHttpHeader(request, self.getCookie())
 
         # create a "fake" cookie variable so the rest of the
         # code works as expected
@@ -247,6 +249,19 @@ class User:
             except (OSError, ValueError):
                 return None
         return None
+
+
+    def getQuickLinks(self):
+        """ Get list of pages this user wants in the page header.
+        """
+        if not self.quicklinks: return []
+
+        from MoinMoin import wikiutil
+        quicklinks = string.split(self.quicklinks, ',')
+        quicklinks = map(string.strip, quicklinks)
+        quicklinks = filter(None, quicklinks)
+        quicklinks = map(wikiutil.unquoteWikiname, quicklinks)
+        return quicklinks
 
 
     def getSubscriptionList(self):

@@ -17,7 +17,7 @@
     together with a user macro; those actions a likely to work only if
     invoked BY that macro, and are thus hidden from the user interface.
 
-    $Id: wikiaction.py,v 1.57 2002/02/21 22:04:04 jhermann Exp $
+    $Id: wikiaction.py,v 1.73 2002/05/02 19:13:07 jhermann Exp $
 """
 
 # Imports
@@ -31,44 +31,61 @@ from MoinMoin.i18n import _
 ### Search
 #############################################################################
 
-def do_fullsearch(pagename, form, fieldname='value'):
+def do_fullsearch(pagename, request, fieldname='value'):
     start = time.clock()
 
     # send http headers
-    webapi.http_headers()
+    webapi.http_headers(request)
 
     # get parameters
-    if form.has_key(fieldname):
-        needle = form[fieldname].value
+    if request.form.has_key(fieldname):
+        needle = request.form[fieldname].value
     else:
         needle = ''
+    try:
+        case = int(request.form['case'].value)
+    except (KeyError, ValueError):
+        case = 0
+    try:
+        context = int(request.form['context'].value)
+    except (KeyError, ValueError):
+        context = 0
+    max_context = 10 # only show first `max_context` contexts
 
     # send title
     wikiutil.send_title(_('Full text search for "%s"') % (needle,))
 
     # search the pages
-    pagecount, hits = wikiutil.searchPages(needle, literal=form.has_key('literal'))
+    pagecount, hits = wikiutil.searchPages(needle,
+        literal=request.form.has_key('literal'),
+        context=context, case=case)
 
     # print the result
     print "<UL>"
-    for (count, page_name) in hits:
+    for (count, page_name, fragments) in hits:
         print '<LI>' + Page(page_name).link_to(querystr=
             'action=highlight&value=%s' % urllib.quote_plus(needle))
         print ' . . . . ' + `count`
         print (_(' match'), _(' matches'))[count != 1]
+        if context:
+            for hit in fragments[:max_context]:
+                print '<br>', '&nbsp;'*8, '<font color="#808080">...%s<b>%s</b>%s...</font>' \
+                    % tuple(map(cgi.escape, hit))
+            if len(fragments) > max_context:
+                print '<br>', '&nbsp;'*8, '<font color="#808080">...</font>'
     print "</UL>"
 
     print_search_stats(len(hits), pagecount, start)
-    wikiutil.send_footer(pagename, editable=0, showactions=0, form=form)
+    wikiutil.send_footer(request, pagename, editable=0, showactions=0, form=request.form)
 
 
-def do_titlesearch(pagename, form, fieldname='value'):
+def do_titlesearch(pagename, request, fieldname='value'):
     start = time.clock()
 
-    webapi.http_headers()
+    webapi.http_headers(request)
 
-    if form.has_key(fieldname):
-        needle = form[fieldname].value
+    if request.form.has_key(fieldname):
+        needle = request.form[fieldname].value
     else:
         needle = ''
 
@@ -88,25 +105,25 @@ def do_titlesearch(pagename, form, fieldname='value'):
     print "</UL>"
 
     print_search_stats(len(hits), len(all_pages), start)
-    wikiutil.send_footer(pagename, editable=0, showactions=0, form=form)
+    wikiutil.send_footer(request, pagename, editable=0, showactions=0, form=request.form)
 
 
-def do_inlinesearch(pagename, form):
-    if form.has_key('button_title.x'):
-        if form['button_title.x'].value == "0" and \
-                form.has_key('text_full') and \
-                not form.has_key('text_title'):
+def do_inlinesearch(pagename, request):
+    if request.form.has_key('button_title.x'):
+        if request.form['button_title.x'].value == "0" and \
+                request.form.has_key('text_full') and \
+                not request.form.has_key('text_title'):
             search = 'full'
         else:
             search = 'title'
-    elif form.has_key('button_full.x'):
+    elif request.form.has_key('button_full.x'):
         search = 'full'
-    elif form.has_key('text_full'):
+    elif request.form.has_key('text_full'):
         search = 'full'
     else:
         search = 'title'
 
-    globals()["do_%ssearch" % search](pagename, form, fieldname = "text_" + search)
+    globals()["do_%ssearch" % search](pagename, request, fieldname = "text_" + search)
 
 
 def print_search_stats(hits, pages, start):
@@ -114,9 +131,9 @@ def print_search_stats(hits, pages, start):
     print _("Needed %(timer).1f seconds.") % {'timer': time.clock() - start + 0.05}
 
 
-def do_highlight(pagename, form):
-    if form.has_key('value'):
-        needle = form["value"].value
+def do_highlight(pagename, request):
+    if request.form.has_key('value'):
+        needle = request.form["value"].value
     else:
         needle = ''
 
@@ -126,20 +143,20 @@ def do_highlight(pagename, form):
         needle = re.escape(needle)
         needle_re = re.compile(needle, re.IGNORECASE)
 
-    Page(pagename).send_page(form, hilite_re=needle_re)
+    Page(pagename).send_page(request, hilite_re=needle_re)
 
 
 #############################################################################
 ### Misc Actions
 #############################################################################
 
-def do_diff(pagename, form):
+def do_diff(pagename, request):
     """ Handle "action=diff", checking for a "date=backupdate" parameter """
-    webapi.http_headers()
+    webapi.http_headers(request)
 
     # try to get a specific date to compare to, or None for one-before-current
     try:
-        diff_date = form['date'].value
+        diff_date = request.form['date'].value
         try:
             diff_date = float(diff_date)
         except StandardError:
@@ -149,14 +166,14 @@ def do_diff(pagename, form):
 
     # spacing flag?
     try:
-        ignorews = int(form['ignorews'].value)
+        ignorews = int(request.form['ignorews'].value)
     except (KeyError, ValueError, TypeError):
         ignorews = 0
 
     # get a list of old revisions, and back out if none are available
     oldversions = wikiutil.getBackupList(config.backup_dir, pagename)
     if not oldversions:
-        Page(pagename).send_page(form,
+        Page(pagename).send_page(request,
             msg=_("<b>No older revisions available!</b>"))
         return
 
@@ -175,7 +192,7 @@ def do_diff(pagename, form):
         edit_count = 1
         oldpage = oldversions[0]
 
-    page_file, backup_file, lines = wikiutil.pagediff(pagename, oldpage, ignorews=ignorews)
+    rc, page_file, backup_file, lines = wikiutil.pagediff(pagename, oldpage, ignorews=ignorews)
 
     # check for valid diff
     if not lines:
@@ -184,7 +201,9 @@ def do_diff(pagename, form):
             msg = msg + '<p>' + _('The page was saved %(count)d%(times)s, though!') % {
                 'count': edit_count,
                 'times': (_(' time'), _(' times'))[edit_count != 1]}
-        Page(pagename).send_page(form, msg=msg)
+        if rc:
+            msg = msg + '<p>' + _('The external diff utility returned with error code %(rc)s!') % locals()
+        Page(pagename).send_page(request, msg=msg)
         return
 
     # send page title
@@ -200,8 +219,8 @@ def do_diff(pagename, form):
 
     # Show date info
     print _('<b>Differences between version dated %s and %s') % (
-        user.current.getFormattedDateTime(os.path.getmtime(backup_file)),
-        user.current.getFormattedDateTime(os.path.getmtime(page_file)))
+        request.user.getFormattedDateTime(os.path.getmtime(backup_file)),
+        request.user.getFormattedDateTime(os.path.getmtime(page_file)))
     if edit_count != 1:
         print _(' (spanning %d versions)') % (edit_count,)
     print '</b>'
@@ -212,7 +231,7 @@ def do_diff(pagename, form):
     if lines[0][0:3] == "+++":
         del lines[0]
 
-    if user.current.show_fancy_diff:
+    if request.user.show_fancy_diff:
         print '<div class="diffold">' + _('Deletions are marked like this.') + '</div>'
         print '<div class="diffnew">' + _('Additions are marked like this.') + '</div>'
 
@@ -248,16 +267,16 @@ def do_diff(pagename, form):
             sys.stdout.write(cgi.escape(line))
         print '</pre>'
 
-    wikiutil.send_footer(pagename, showpage=1)
+    wikiutil.send_footer(request, pagename, showpage=1)
 
 
-def do_info(pagename, form):
-    from stat import *
+def do_info(pagename, request):
+    from stat import ST_MTIME, ST_SIZE
     from MoinMoin.stats import hitcounts
 
     page = Page(pagename)
 
-    webapi.http_headers()
+    webapi.http_headers(request)
     wikiutil.send_title(_('Info for "%s"') % (pagename,), pagename=pagename)
     print '<h2>' + _('General Information') + '</h2>\n'
 
@@ -268,10 +287,10 @@ def do_info(pagename, form):
 
     # show attachments (if allowed)
     attachment_info = getHandler('AttachFile', 'info')
-    if attachment_info: attachment_info(pagename, form)
+    if attachment_info: attachment_info(pagename, request.form)
 
     # show links
-    links = page.getPageLinks()
+    links = page.getPageLinks(request)
     if links:
         print _('This page links to the following pages:<br>')
         for linkedpage in links:
@@ -290,15 +309,17 @@ def do_info(pagename, form):
         for file in oldversions:
             revisions.append(os.path.join(config.backup_dir, file))
 
+    # open log for this page
+    from MoinMoin import editlog
+    log = editlog.EditLog()
+    log.filter(pagename=pagename)
+
     print '<h2>' + _('Revision History') + '</h2>\n'
     print '<table border="1" cellpadding="3" cellspacing="0">\n'
     print '<tr><th>#</th>'
     print '<th>' + _('Date') + '</th>'
     print '<th>' + _('Size') + '</th>'
     if config.show_hosts:
-        from MoinMoin import editlog
-        log = editlog.EditLog()
-        log.filter(pagename=pagename)
         print '<th>' + _('Editor') + '</th>'
     print '<th>' + _('Comment') + '</th>'
     print '<th>' + _('Action') + '</th></tr>\n'
@@ -315,6 +336,8 @@ def do_info(pagename, form):
             mtime = st[ST_MTIME]
         ##print count, mtime, st[ST_MTIME], "<br>"
 
+        log.find(ed_time=mtime)
+
         actions = ""
         if file != currentpage:
             actions = '%s&nbsp;%s' % (actions, page.link_to(
@@ -325,11 +348,10 @@ def do_info(pagename, form):
                 querystr='action=diff&date=%d' % mtime))
         print '<tr><td align="right">%d</td><td align="right">&nbsp;%s</td><td align="right">&nbsp;%d</td>' % (
             count,
-            user.current.getFormattedDateTime(st[ST_MTIME]),
+            request.user.getFormattedDateTime(st[ST_MTIME]),
             st[ST_SIZE])
 
         if config.show_hosts:
-            log.find(ed_time=mtime)
             print '<td>%s</td>' % (log.getEditor() or _("N/A"),)
 
         print '<td>%s</td>' % (cgi.escape(log.comment) or '&nbsp;')
@@ -339,54 +361,65 @@ def do_info(pagename, form):
         if count > 100: break
     print '</table>\n'
 
-    wikiutil.send_footer(pagename, showpage=1)
+    wikiutil.send_footer(request, pagename, showpage=1)
 
 
-def do_recall(pagename, form):
-    Page(pagename, date=form['date'].value).send_page(form)
+def do_recall(pagename, request):
+    Page(pagename, date=request.form['date'].value).send_page(request)
 
 
-def do_show(pagename, form):
-    Page(pagename).send_page(form, count_hit=1)
+def do_show(pagename, request):
+    Page(pagename).send_page(request, count_hit=1)
 
 
-def do_refresh(pagename, form):
-    if form.has_key('arena') and form.has_key('key'):
+def do_refresh(pagename, request):
+    if request.form.has_key('arena') and request.form.has_key('key'):
         from MoinMoin import caching
-        cache = caching.CacheEntry(form["arena"].value, form["key"].value)
+        cache = caching.CacheEntry(request.form["arena"].value, request.form["key"].value)
         cache.remove()
 
-    do_show(pagename, form)
+    do_show(pagename, request)
 
 
-def do_print(pagename, form):
-    do_show(pagename, form)
+def do_print(pagename, request):
+    do_show(pagename, request)
 
 
-def do_edit(pagename, form):
-    Page(pagename).send_editor(form)
+def do_content(pagename, request):
+    webapi.http_headers(request)
+    page = Page(pagename)
+    print '<!-- Transclusion of %s -->' % webapi.getQualifiedURL(page.url())
+    page.send_page(request, count_hit=0, content_only=1)
+    sys.exit(0)
 
 
-def do_savepage(pagename, form):
-    pg = Page(pagename)
+def do_edit(pagename, request):
+    from MoinMoin.PageEditor import PageEditor
+    PageEditor(pagename).send_editor(request)
+
+
+def do_savepage(pagename, request):
+    from MoinMoin.PageEditor import PageEditor
+
+    pg = PageEditor(pagename)
     try:
-        savetext = form['savetext'].value
+        savetext = request.form['savetext'].value
     except KeyError:
         savetext = ""
     try:
-        datestamp = form['datestamp'].value
+        datestamp = request.form['datestamp'].value
     except KeyError:
         datestamp = ""
     try:
-        rstrip = int(form['rstrip'].value)
+        rstrip = int(request.form['rstrip'].value)
     except (KeyError, ValueError):
         rstrip = 0
     try:
-        notify = int(form['notify'].value)
+        notify = int(request.form['notify'].value)
     except (KeyError, ValueError):
         notify = 0
     try:
-        comment = form['comment'].value
+        comment = request.form['comment'].value
     except KeyError:
         comment = ""
 
@@ -396,18 +429,18 @@ def do_savepage(pagename, form):
     remap_chars = string.maketrans('\t\r\n', '   ')
     comment = string.translate(comment, remap_chars, control_chars)
 
-    if form.has_key('button_preview') or form.has_key('button_spellcheck') \
-            or form.has_key('button_newwords'):
-        pg.send_editor(form, preview=1, comment=comment)
-    elif form.has_key('button_cancel'):
-        pg.send_page(form, msg=_('Edit was cancelled.'))
+    if request.form.has_key('button_preview') or request.form.has_key('button_spellcheck') \
+            or request.form.has_key('button_newwords'):
+        pg.send_editor(request, preview=1, comment=comment)
+    elif request.form.has_key('button_cancel'):
+        pg.send_page(request, msg=_('Edit was cancelled.'))
     else:
-        savemsg = pg.save_text(savetext, datestamp,
+        savemsg = pg.save_text(request, savetext, datestamp,
             stripspaces=rstrip, notify=notify, comment=comment)
-        pg.send_page(form, msg=savemsg)
+        pg.send_page(request, msg=savemsg)
 
 
-def do_subscribe(pagename, form):
+def do_subscribe(pagename, request):
     """ Add the current wiki page to the subscribed_page property in
         current user profile.
     """
@@ -420,14 +453,14 @@ or remove the "Subscribe" icon.</b>
 ''')
 
     # check whether the user has a profile
-    elif not user.current.valid:
+    elif not request.user.valid:
         msg = _('''
 <b>You didn't create a user profile yet.<br>
 Select UserPreferences in the upper right corner to create a profile.</b>
 ''')
 
     # check whether the user has an email address
-    elif not user.current.email:
+    elif not request.user.email:
         msg = _('''
 <b>You didn't enter an email address in your profile.<br>
 Select your name (UserPreferences) in the upper right corner and
@@ -435,7 +468,7 @@ enter a valid email address.</b>
 ''')
 
     # check whether already subscribed
-    elif user.current.isSubscribedTo([pagename]):
+    elif request.user.isSubscribedTo([pagename]):
         msg = _('<b>You are already subscribed to this page.</b>') + \
               _('''<br>
 <b>To unsubscribe, go to your profile and delete this page
@@ -444,51 +477,51 @@ from the subscription list.</b>
         
     # subscribe to current page
     else:
-        if user.current.subscribePage(pagename):
-            user.current.save()
+        if request.user.subscribePage(pagename):
+            request.user.save()
         msg = _('<b>You have been subscribed to this page.</b>') + \
               _('''<br>
 <b>To unsubscribe, go to your profile and delete this page
 from the subscription list.</b>
 ''')
 
-    Page(pagename).send_page(form, msg=msg)
+    Page(pagename).send_page(request, msg=msg)
 
 
-def do_userform(pagename, form):
+def do_userform(pagename, request):
     from MoinMoin import userform
-    savemsg=userform.savedata(pagename, form)
-    Page(pagename).send_page(form, msg=savemsg)
+    savemsg = userform.savedata(pagename, request)
+    Page(pagename).send_page(request, msg=savemsg)
 
 
-def do_bookmark(pagename, form):
-    if form.has_key('time'):
+def do_bookmark(pagename, request):
+    if request.form.has_key('time'):
         try:
-            tm = int(form["time"].value)
+            tm = int(request.form["time"].value)
         except StandardError:
             tm = time.time()
     else:
         tm = time.time()
 
-    user.current.setBookmark(tm)
-    Page(pagename).send_page(form)
+    request.user.setBookmark(tm)
+    Page(pagename).send_page(request)
 
 
-def do_formtest(pagename, form):
+def do_formtest(pagename, request):
     # test a user defined form
     from MoinMoin import wikiform
-    wikiform.do_formtest(pagename, form)
+    wikiform.do_formtest(pagename, request)
 
 
 #############################################################################
 ### Special Actions
 #############################################################################
 
-def do_raw(pagename, form):
-    webapi.http_headers(["Content-type: text/plain"])
+def do_raw(pagename, request):
+    webapi.http_headers(request, ["Content-type: text/plain"])
 
     try:
-        page = Page(pagename, date=form['date'].value)
+        page = Page(pagename, date=request.form['date'].value)
     except KeyError:
         page = Page(pagename)
 
@@ -496,10 +529,10 @@ def do_raw(pagename, form):
     sys.exit(0)
 
 
-def do_format(pagename, form):
+def do_format(pagename, request):
     # get the MIME type
-    if form.has_key('mimetype'):
-        mimetype = form['mimetype'].value
+    if request.form.has_key('mimetype'):
+        mimetype = request.form['mimetype'].value
     else:
         mimetype = "text/plain"
 
@@ -512,41 +545,41 @@ def do_format(pagename, form):
         mimetype = "text/plain"
         from formatter.text_plain import Formatter
 
-    #webapi.http_headers(["Content-Type: " + mimetype])
-    webapi.http_headers(["Content-Type: " + 'text/plain'])
+    #webapi.http_headers(request, ["Content-Type: " + mimetype])
+    webapi.http_headers(request, ["Content-Type: " + 'text/plain'])
 
-    Page(pagename, formatter = Formatter()).send_page(form)
+    Page(pagename, formatter = Formatter(request)).send_page(request)
     sys.exit(0)
 
 
-def do_rss_rc(pagename, form):
+def do_rss_rc(pagename, request):
     from MoinMoin.macro import RecentChanges
-    RecentChanges.rss(pagename, form)
+    RecentChanges.rss(pagename, request)
 
 
-def do_chart(pagename, form):
-    chart_type = form['type'].value
+def do_chart(pagename, request):
+    chart_type = request.form['type'].value
     func = util.importName("MoinMoin.stats." + chart_type, "draw")
-    apply(func, (pagename, form))
+    apply(func, (pagename, request))
     sys.exit(0)
 
 
-def do_dumpform(pagename, form):
-    data = util.dumpFormData(form)
+def do_dumpform(pagename, request):
+    data = util.dumpFormData(request.form)
 
-    webapi.http_headers()
+    webapi.http_headers(request)
     print "<html><body>"
     print data
     print "</body></html>"
     sys.exit(0)
 
 
-def do_export(pagename, form):
+def do_export(pagename, request):
     import shutil, cStringIO
     from MoinMoin.wikixml import wikiexport
 
     # get parameters
-    compression = form.getvalue('compression', None)
+    compression = request.form.getvalue('compression', None)
 
     # prepare output stream
     fileid = time.strftime("%Y-%m-%d", time.localtime(time.time()))

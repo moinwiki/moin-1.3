@@ -8,21 +8,23 @@
     can implement http://www.usemod.com/cgi-bin/mb.pl?MetaWiki more
     easily.
 
-    $Id: titleindex.py,v 1.3 2001/03/15 22:20:25 jhermann Exp $
+    $Id: titleindex.py,v 1.5 2002/04/17 21:58:17 jhermann Exp $
 """
 
 import sys
 from MoinMoin import config, util, wikiutil, webapi
 
 
-def execute(pagename, form):
+def execute(pagename, request):
+    form = request.form
+
     # get the MIME type
     if form.has_key('mimetype'):
         mimetype = form['mimetype'].value
     else:
         mimetype = "text/plain"
 
-    webapi.http_headers(["Content-Type: " + mimetype])
+    webapi.http_headers(request, ["Content-Type: " + mimetype])
     print
 
     pages = list(wikiutil.getPageList(config.text_dir))

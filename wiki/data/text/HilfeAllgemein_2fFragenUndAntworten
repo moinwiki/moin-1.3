@@ -1,5 +1,5 @@
 ##master-page:HelpMiscellaneous/FrequentlyAskedQuestions
-##master-date:2002-02-20 15:09:13
+##master-date:2002-03-13 15:10:29
 
 '''Index'''
 [[TableOfContents]]
@@ -45,16 +45,16 @@ Es gibt zwei Wege, die es ermöglichen, ein Wiki wertlos zu machen. Der eine Weg 
 
 Mit absichtlicher Störung der Daten im Wiki ist etwas schwieriger fertig zu werden. Es ist möglich, dass jemand Falschinformation in eine Seite eingibt, oder Seiten derart editiert, dass sie Falschinformation enthalten (zum Beispiel kann man eine Seite editieren, und einen Kommentar so aussehen lassen, als ob jemand anders diesen Kommentar abgegeben hätte; oder jemand könnte den Inhalt eines Absatzes so ändern, dass die Aussage eine ganz andere ist, als die vom Autor beabsichtigte). So ziemlich jedes kollaborative System hat dieses Problem. In einem Wiki kann es nur einfacher ausgenützt werden, weil es in einem Wiki überhaupt keine Sicherheit gibt. In der Praxis ist die Zerstörung eines Wikis ein sehr seltenes Ereignis, und eines, das man sehr schnell und einfach wieder ausbügeln kann, und zwar mittels der sogenannten "Notification", einem Hinweis, der einem festgelegten Auditor geschickt wird, sobald sich etwas auf einer Seite ändert.
 
-In anderen Worten, es ist die Philosophie eines Wikis, dass man händisch mit (selten auftretenden) Problemen fertig wird, anstatt mehr Features und Aufwand (in der Implementierung und der Benutzung gleichermaszen) in das Wiki aufzunehmen, um Schaden durch einen Saboteur zu verhindern.
+In anderen Worten, es ist die Philosophie eines Wikis, dass man händisch mit (selten auftretenden) Problemen fertig wird, anstatt mehr Features und Aufwand (in der Implementierung und der Benutzung gleichermaßen) in das Wiki aufzunehmen, um Schaden durch einen Saboteur zu verhindern.
 
-== Fragen über die Benutzung von diesem Wiki ==
+== Fragen zur Benutzung dieses Wikis ==
 === Finden von und Zugreifen auf Informationen im Wiki ===
 ==== Wie kann ich das Wiki durchsuchen? ====
  
 Es gibt viele Wege, das Wiki zu durchsuchen:
  * Auf das Lupen-Icon klicken. Damit kommen Sie auf die SeiteFinden-Seite, wo Sie nach Sie nach Stichworten in Titeln, per Volltextsuche, mit normalen Worten oder mit Wildcards (regulären Ausdrücken) suchen können.
  * Klicken Sie auf TitelIndex. Dies zeigt Ihnen eine alphabetische Liste aller Seiten, nach Titel sortiert.
- * Klicken Sie auf WortIndex.  Dies zeigt Ihnen eine alphabetische Liste von jedem Einzelwort in jedem Seitentitel (d.h. die Bluetooth-Seite ist unter B, Bluetooth).
+ * Klicken Sie auf WortIndex.  Dies zeigt Ihnen eine alphabetische Liste von jedem Einzelwort in jedem Seitentitel (d.h. eine Seite namens Blue''Tooth ist sowohl unter B / Blue als auch unter T / Tooth aufgeführt).
  * Klicken Sie auf {{{LikePages}}} im Fußbereich der Seite. Dies zeigt Ihnen Seiten, die Worte in Ihren Titeln haben, die ähnlich zur aktuellen Seite sind.
  * Klicken Sie auf den Seitentitel im Kopfbereich der Seite. Dies zeigt Ihnen, welche Seiten auf die aktuelle Seite verweisen (was Ihnen hilft, verwandte Seiten zu finden).
 
@@ -71,7 +71,7 @@ Jedes gemischt gross/klein-geschriebene Wort, zu dem keine Seite existiert, wird
 ==== Wie fügt man etwas in's Wiki hinzu oder ändert etwas, was falsch ist? ====
 
 Wenn Sie etwas sehen, was Sie gerne kommentieren, wo sie etwas hinzufügen oder ändern würden, klicken Sie einfach auf den {{{Editieren}}}-Link unter jeder Seite oder klicken Sie auf das [[Icon(moin-edit.gif)]]-Icon oben auf der Seite.  Die Seite wird dann in einem Editierfeld Ihres Browsers angezeigt und Sie können die Änderung dann einfach machen.
-Der Wiki-Formatierer wird im allgemeinen "das Richtige tun" mit jeglichem Text, den Sie eingeben. Wenn Sie es hübsch machen wollen, können Sie ähnliche Arten von Formatierungen machen, wie es Ihnen auch HTML erlauben würde. Siehe die HilfeZurFormatierung-Seite für einige Tips und Beispiele.
+Der Wiki-Formatierer wird im allgemeinen "das Richtige tun" mit jeglichem Text, den Sie eingeben. Wenn Sie es hübsch machen wollen, können Sie ähnliche Arten von Formatierungen machen, wie es Ihnen auch HTML erlauben würde. Siehe die HilfeZumFormatieren-Seite für einige Tips und Beispiele.
 
 ==== Gibt es Konventionen, denen ich folgen sollte, wenn ich Informationen hinzufüge? ====
 

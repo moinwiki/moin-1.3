@@ -4,12 +4,12 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_plain.py,v 1.15 2002/02/13 21:13:53 jhermann Exp $
+    $Id: text_plain.py,v 1.19 2002/05/10 11:39:01 jhermann Exp $
 """
 
 # Imports
 import sys
-from base import FormatterBase
+from MoinMoin.formatter.base import FormatterBase
 
 
 #############################################################################
@@ -23,8 +23,8 @@ class Formatter(FormatterBase):
 
     hardspace = ' '
 
-    def __init__(self, **kw):
-        apply(FormatterBase.__init__, (self,), kw)
+    def __init__(self, request, **kw):
+        apply(FormatterBase.__init__, (self, request), kw)
 
     def startDocument(self, pagename):
         line = "*" * (len(pagename)+2) + '\n'
@@ -33,8 +33,11 @@ class Formatter(FormatterBase):
     def endDocument(self):
         return '\n'
 
-    def pagelink(self, pagename, text=None):
-        FormatterBase.pagelink(self, pagename, text)
+    def sysmsg(self, text, **kw):
+        return '\n\n*** %s ***\n\n' % text
+
+    def pagelink(self, pagename, text=None, **kw):
+        apply(FormatterBase.pagelink, (self, pagename, text), kw)
         return ">>%s<<" % (pagename,)
 
     def url(self, url, text=None, css=None, **kw):
@@ -79,6 +82,7 @@ class Formatter(FormatterBase):
         return ['`', '´'][not on]
 
     def preformatted(self, on):
+        FormatterBase.preformatted(self, on)
         snip = '---%<'
         snip = snip + ('-' * (78 - len(snip)))
         if on:

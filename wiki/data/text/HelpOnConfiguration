@@ -21,6 +21,7 @@ The following table contains default values and a short description for all conf
 || allow_extended_names || 1 || ''true'' to enable {{{["non-standard wikiname"]}}} markup ||
 || allow_subpages || 1 || ''true'' to enable hierarchical wiki features (see HelpOnEditing/SubPages) ||
 || allow_numeric_entities || 1 || if ''true'', numeric entities like `&#8364;` for &#8364; are not escaped, but &amp; and stuff still is ||
+|| allow_xslt || 0|| ''true'' to enable XSLT processing via 4Suite (note that this enables anyone with enough know-how to insert '''arbitrary HTML''' into your wiki, which is why it defaults to 0) ||
 || allowed_actions || [] || allow unsafe actions (list of strings) ||
 || attachments || None || If {{{None}}}, send attachments via CGI; else this has to be a dictionary with the path to attachment storage (key ''dir'') and the equivalent URL prefix to that same dir (key ''url'')||
 || backtick_meta || 1 || ''true'' to enable {{{`inline literal`}}} markup ||
@@ -70,7 +71,7 @@ The following table contains default values and a short description for all conf
 || umask || 0777 || umask used on all open(), mkdir() and similar calls ||
 || upperletters || ''Latin 1 alphabetic characters'' || Uppercase letters, used to define what is a WikiName ||
 || url_mappings || {} || lookup table to remap URL prefixes (dict of {{{'prefix': 'replacement'}}}); especially useful in intranets, when whole trees of externally hosted documents move around ||
-|| url_prefix || '/wiki-moinmoin' || Used as the base URL for all public documents served by the wiki, especially the image files for the icons ||
+|| url_prefix || '/wiki' || Used as the base URL for all public documents served by the wiki, especially the image files for the icons ||
 || url_schemas || [] || additional URL schemas you want to have recognized (list of strings) ||
 
 

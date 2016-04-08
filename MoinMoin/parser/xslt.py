@@ -4,13 +4,13 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: xslt.py,v 1.10 2001/12/01 20:08:42 jhermann Exp $
+    $Id: xslt.py,v 1.14 2002/05/10 11:39:01 jhermann Exp $
 """
 
 # Imports
 import cgi, string
 
-from MoinMoin import caching, user, util, wikiutil
+from MoinMoin import caching, config, user, util, wikiutil
 from MoinMoin.i18n import _
 
 
@@ -23,12 +23,19 @@ class Parser:
         Send XML file formatted via XSLT.
     """
 
-    def __init__(self, raw, **kw):
+    def __init__(self, raw, request, **kw):
         self.raw = raw
+        self.request = request
 
     def format(self, formatter, form):
         """ Send the text.
         """
+        if not config.allow_xslt:
+            from MoinMoin.parser import plain
+            print formatter.sysmsg(_('XSLT option disabled!'))
+            plain.Parser(self.raw, self.request).format(formatter, form)
+            return
+
         arena = "xslt"
         key   = wikiutil.quoteFilename(formatter.page.page_name)
         cache = caching.CacheEntry(arena, key)
@@ -75,6 +82,6 @@ class Parser:
             wikiutil.quoteWikiname(formatter.page.page_name) +
                 "?action=refresh&arena=%s&key=%s" % (arena, key),
             _("RefreshCache")) + _(' for this page (cached %(date)s)') % {
-                'date': user.current.getFormattedDateTime(cache.mtime()),} + '<br>'
-        wikiutil.add2footer('RefreshCache', refresh)
+                'date': formatter.request.user.getFormattedDateTime(cache.mtime()),} + '<br>'
+        self.request.add2footer('RefreshCache', refresh)
 

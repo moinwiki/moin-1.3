@@ -4,7 +4,7 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: plain.py,v 1.6 2002/02/13 21:13:54 jhermann Exp $
+    $Id: plain.py,v 1.7 2002/04/17 19:24:58 jhermann Exp $
 """
 
 # Imports
@@ -20,7 +20,7 @@ class Parser:
         Send plain text in a HTML <pre> element.
     """
 
-    def __init__(self, raw, **kw):
+    def __init__(self, raw, request, **kw):
         self.raw = raw
 
     def format(self, formatter, form):

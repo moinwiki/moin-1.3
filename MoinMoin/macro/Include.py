@@ -21,7 +21,7 @@
         [[Include(FooBar, , 2]] -- add a H2 of 'Foo Bar'
         [[Include(FooBar, 'All about Foo Bar', 2]] -- add a H2 of 'All about Foo Bar'
 
-    $Id: Include.py,v 1.6 2002/02/13 21:13:53 jhermann Exp $
+    $Id: Include.py,v 1.8 2002/04/17 22:19:10 jhermann Exp $
 """
 
 import sys, string, re, cStringIO
@@ -49,7 +49,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         this_page._macroInclude_pagelist = {}
     if this_page._macroInclude_pagelist.has_key(inc_name):
         ret = ret + '<p><strong class="error">Recursive include of "%s" forbidden</strong></p>' % (inc_name,)
-    inc_page = Page(inc_name, formatter=macro.formatter.__class__())
+    inc_page = Page(inc_name, formatter=macro.formatter.__class__(macro.request))
     inc_page._macroInclude_pagelist = this_page._macroInclude_pagelist
 
     # do headings
@@ -71,7 +71,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
     # output the included page
     stdout = sys.stdout
     sys.stdout = cStringIO.StringIO()
-    inc_page.send_page(macro.form, content_only=1)
+    inc_page.send_page(macro.request, content_only=1)
     ret = ret + sys.stdout.getvalue()
     sys.stdout = stdout
 

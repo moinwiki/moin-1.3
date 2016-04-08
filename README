@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-$Id: README,v 1.6 2002/02/27 21:02:53 jhermann Exp $
+$Id: README,v 1.7 2002/04/17 19:54:35 jhermann Exp $
 
 -----------------------------------------------------------------------------
 
@@ -105,7 +105,7 @@ MoinMoin is based on PikiPiki, this is PikiPiki's copyright:
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
     USA
 
-The PikiPiki homepage is (was) at http://www.linuxcare.com.au/mbp/piki/.
+The PikiPiki homepage is at http://sourcefrog.net/projects/piki/.
 
 
 -----------------------------------------------------------------------------

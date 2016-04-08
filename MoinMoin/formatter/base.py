@@ -4,7 +4,7 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: base.py,v 1.19 2002/02/13 21:13:52 jhermann Exp $
+    $Id: base.py,v 1.23 2002/05/10 11:39:01 jhermann Exp $
 """
 
 # Imports
@@ -25,13 +25,24 @@ class FormatterBase:
 
     hardspace = ' '
 
-    def __init__(self, **kw):
+    def __init__(self, request, **kw):
+        self.request = request
+
         self._store_pagelinks = kw.get('store_pagelinks', 0)
         self.pagelinks = []
         self.in_p = 0
+        self.in_pre = 0
 
     def setPage(self, page):
         self.page = page
+
+    def sysmsg(self, text, **kw):
+        """ Emit a system message (embed it into the page).
+
+            Normally used to indicate disabled options, or invalid
+            markup.
+        """
+        return text
 
     def startDocument(self, pagename):
         return ""
@@ -49,7 +60,8 @@ class FormatterBase:
         """
         return markup
 
-    def pagelink(self, pagename, text=None):
+    def pagelink(self, pagename, text=None, **kw):
+        if kw.get('generated', 0): return
         if self._store_pagelinks and pagename not in self.pagelinks:
             self.pagelinks.append(pagename)
 
@@ -87,7 +99,7 @@ class FormatterBase:
         raise NotImplementedError
 
     def preformatted(self, on):
-        raise NotImplementedError
+        self.in_pre = on != 0
 
     def paragraph(self, on):
         self.in_p = on != 0

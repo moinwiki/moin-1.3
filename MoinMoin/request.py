@@ -1,10 +1,10 @@
 """
-    MoinMoin - HTTP Request Data
+    MoinMoin - Data associated with a single Request
 
     Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: request.py,v 1.5 2002/02/13 21:13:52 jhermann Exp $
+    $Id: request.py,v 1.9 2002/04/25 19:33:56 jhermann Exp $
 """
 
 import os, string, time
@@ -43,7 +43,9 @@ class Request:
     def __init__(self, properties={}):
         from MoinMoin import i18n
 
+        self.user = None
         self.form = None
+        self.logger = None
         self.pragma = {}
         self.saved_cookie = os.environ.get('HTTP_COOKIE', None)
 
@@ -58,6 +60,15 @@ class Request:
         self.lang = i18n.getLang()
         i18n.adaptCharset(self.lang)
 
+        self._footer_fragments = {}
+
+
+    def add2footer(self, key, htmlcode):
+        """ Add a named HTML fragment to the footer, after the default links
+        """
+        self._footer_fragments[key] = htmlcode
+
+
     def getPragma(self, key, defval=None):
         """ Query a pragma value (#pragma processing instruction)
 
@@ -71,4 +82,13 @@ class Request:
             Keys are not case-sensitive.
         """
         self.pragma[string.lower(key)] = value
+
+    def getEventLogger(self):
+        """ Return a (the) event logger instance.
+        """
+        if self.logger is None:
+            from MoinMoin.eventlog import EventLogger
+            self.logger = EventLogger()
+
+        return self.logger
 

@@ -7,7 +7,45 @@ All rights reserved, see COPYING for details.
 Note that the file "ChangeLog" in the distribution contains a detailed
 log of all changes (a summary of all CVS commits).
 
-$Id: CHANGES,v 1.76 2002/03/11 22:42:17 jhermann Exp $
+$Id: CHANGES,v 1.92 2002/05/10 18:43:01 jhermann Exp $
+
+-----------------------------------------------------------------------------
+Version 1.0 (2002-05-10, Revision 1.159)
+
+THIS IS THE LAST RELEASE WITH PYTHON 1.5.2 SUPPORT! If severe bugs
+should occur, a maintenance release will fix them.
+
+New features:
+    * security fix: "allow_xslt" has to be set to 1 in order to enable
+      XSLT processing; note that this defaults to 0 because XSLT is able
+      to insert arbitrary HTML into a wiki
+    * "action=content" for transclusion into static web pages; emits the
+      pure page content, without any <html>, <head>, or <body> tags
+    * "action=link" works like MeatBall:LinkDatabase
+    * "Preferred language" and "Quick links" user settings
+    * Added "processor" concept, processors work on the data in "code
+      displays" and are called by a bangpath in the first line of data
+    * Processors: Colorize, CSV (see HelpOnProcessors)
+    * New icons: "{OK}", "(./)", "{X}", "{i}", "{1}", "{2}" and "{}"
+      (see HelpOnSmileys)
+    * FullSearch now displays context information for search hits
+    * DeletePage offers a textentry field for an optional comment
+    * Email notifications are sent in the user's language, if known from
+      the preferences
+    * @PAGE@ is substituted by the name of the current page (useful
+      for template pages)
+
+Unfinished features:
+    * user defined forms
+    * XML export of all data in the wiki
+    * RST parser (you need to install docutils to use this)
+    * XMLRPC interface
+
+Bugfixes:
+    * Syntax warning with Python 2.2 fixed
+    * Macro-generated pagelinks are no longer added to the list of links
+    * error codes returned by "diff" are reported
+    * fix for attachments on pages with non-USASCII names
 
 -----------------------------------------------------------------------------
 Version 0.11 (2002-03-11, Revision 1.151)

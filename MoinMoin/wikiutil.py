@@ -4,13 +4,32 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiutil.py,v 1.84 2002/03/09 15:55:22 jhermann Exp $
+    $Id: wikiutil.py,v 1.100 2002/05/10 12:16:27 jhermann Exp $
 """
 
 # Imports
 import os, re, string, sys, urllib
 from MoinMoin import config, user, util, version, webapi
 from MoinMoin.i18n import _, getText
+
+
+# list of pages that should be trated as system pages
+SYSTEM_PAGES = [
+    config.page_front_page,
+    'RecentChanges',
+    'TitleIndex',
+    'WordIndex',
+    'SiteNavigation',
+    'HelpContents',
+    'UserPreferences',
+    'HelpOnFormatting',
+    'FindPage',
+    'AbandonedPages',
+    'OrphanedPages',
+    'PageSize',
+    'RandomPage',
+    'WantedPages',
+]
 
 
 #############################################################################
@@ -39,11 +58,20 @@ smileys = {
     "@)":   (15, 15, "eek.gif"),
     "|)":   (15, 15, "tired.gif"),
     ";))":  (15, 15, "lol.gif"),
+
+    # version 1.0
+    "(./)":  (20, 15, "checkmark.gif"),
+    "{OK}":  (14, 12, "thumbs-up.gif"),
+    "{X}":   (16, 16, "icon-error.gif"),
+    "{i}":   (16, 16, "icon-info.gif"),
+    "{1}":   (15, 13, "prio1.gif"),
+    "{2}":   (15, 13, "prio2.gif"),
+    "{3}":   (15, 13, "prio3.gif"),
 }
 
 
 def getSmiley(text, formatter):
-    if user.current.show_emoticons:
+    if formatter.request.user.show_emoticons:
         w, h, img = smileys[string.strip(text)]
         return formatter.image(
             src="%s/img/%s" % (config.url_prefix, img),
@@ -93,6 +121,16 @@ def split_wiki(wikiurl):
             tail = None
 
     return (wikitag, tail)
+
+
+def join_wiki(wikiurl, wikitail):
+    """ add a page name to an interwiki url
+    """
+    if string.find(wikiurl, '$PAGE') == -1:
+        return wikiurl + wikitail
+    else:
+        return string.replace(wikiurl, '$PAGE', wikitail)
+
 
 def resolve_wiki(wikiurl):
     """ return tuple of wikitag, wikiurl, wikitail """
@@ -217,27 +255,60 @@ def searchPages(needle, **kw):
     """ Search the text of all pages for "needle", and return a tuple of
         (number of pages, hits).
 
-        literal = 0: try to treat "needle" as a regex, case-insensitive
-        literal = 1: "needle" is definitely NOT a regex and searched case-sensitive
+        `hits` is a list of tuples containing the number of hits on a page
+        and the pagename. When context>0, a list of triples with the text of
+        the hit and the text on each side of it is added; otherwise, the
+        third element is None.
+
+        literal = 0: try to treat "needle" as a regex
+        literal = 1: "needle" is definitely NOT a regex
+        case = 1: case-sensitive search
+        context != 0: Provide `context` chars of text on each side of a hit
     """
     from MoinMoin.Page import Page
 
-    try:
-        needle_re = re.compile(needle, re.IGNORECASE)
-    except re.error:
-        needle_re = re.compile(re.escape(needle), re.IGNORECASE)
+    literal = kw.get('literal', 0)
+    context = int(kw.get('context', 0))
+    ignorecase = int(kw.get('case', 0)) == 0 and re.IGNORECASE or 0
+
+    if literal and context:
+        needle_re = re.compile(re.escape(needle), ignorecase)
+    elif literal:
+        if ignorecase:
+            needle = string.lower(needle)
+    else:
+        try:
+            needle_re = re.compile(needle, ignorecase)
+        except re.error:
+            needle_re = re.compile(re.escape(needle), ignorecase)
 
     hits = []
-    literal = kw.get('literal', 0)
     all_pages = getPageList(config.text_dir)
     for page_name in all_pages:
         body = Page(page_name).get_raw_body()
-        if literal:
-            count = string.count(body, needle)
+        if context:
+            pos = 0
+            fragments = []
+            while 1:
+                match = needle_re.search(body, pos)
+                if not match: break
+                pos = match.end()+1
+                fragments.append((
+                    body[match.start()-context:match.start()],
+                    body[match.start():match.end()],
+                    body[match.end():match.end()+context],
+                ))
+            if fragments:
+                hits.append((len(fragments), page_name, fragments))
         else:
-            count = len(needle_re.findall(body))
-        if count:
-            hits.append((count, page_name))
+            if literal:
+                if ignorecase:
+                    body = string.lower(body)
+                count = string.count(body, needle)
+            else:
+                count = len(needle_re.findall(body))
+            if count:
+                hits.append((count, page_name, None))
 
     # The default comparison for tuples compares elements in order,
     # so this sorts by number of hits
@@ -339,6 +410,11 @@ def isUnicodeName(name):
     return len(string.replace(text,'_','')) == len(text) * 2/3
 
 
+def isStrictWikiname(name, word_re=re.compile(r"^(?:[%(u)s][%(l)s]+){2,}$" % {'u':config.upperletters, 'l':config.lowerletters})):
+    """Check whether this is NOT an extended name"""
+    return word_re.match(name)
+
+
 def isPicture(url):
     """Check for picture URLs"""
     extpos = string.rfind(url, ".")
@@ -387,7 +463,7 @@ def pagediff(pagename, oldpage, **kw):
     ##print "cmd =", cmd, "<br>"
     ##print "rc =", rc, "<br>"
 
-    return page_file, backup_file, lines
+    return rc, page_file, backup_file, lines
 
 
 def send_title(text, **keywords):
@@ -404,6 +480,7 @@ def send_title(text, **keywords):
     from MoinMoin.Page import Page
 
     # get name of system pages
+    page_front_page = getSysPage(config.page_front_page).page_name
     page_help_contents = getSysPage('HelpContents').page_name
     page_title_index = getSysPage('TitleIndex').page_name
     page_word_index = getSysPage('WordIndex').page_name
@@ -428,7 +505,7 @@ def send_title(text, **keywords):
         print '<link rel="stylesheet" type="text/css" href="%s">' % (css_url,)
 
     # Links
-    print '<link rel="Start" href="%s">' % quoteWikiname(config.page_front_page)
+    print '<link rel="Start" href="%s">' % quoteWikiname(page_front_page)
     if keywords.has_key('pagename'):
         print '<link rel="Alternate" media="print" title="Print" href="%s?action=print">' % (
             quoteWikiname(keywords['pagename']),)
@@ -462,7 +539,7 @@ def send_title(text, **keywords):
     print '<table width="100%"><tr><td>'
 
     if config.logo_string:
-        print link_tag(quoteWikiname(config.page_front_page), config.logo_string)
+        print link_tag(quoteWikiname(page_front_page), config.logo_string)
     print '</td><td width="99%" valign="middle" class="headline"><font size="+3">&nbsp;<b>'
     if keywords.get('link'):
         print '<a title="%s" href="%s">%s</a>' % (
@@ -504,19 +581,23 @@ def send_title(text, **keywords):
                     print link_tag(quoteWikiname(parentpage), text=icon)
 
     # print the navigation bar (if configured)
-    if config.navi_bar:
+    quicklinks = user.current.getQuickLinks()
+    if config.navi_bar or quicklinks:
         print (
-            '<table cellpadding=0 cellspacing=3 border=0 style="background-color:#C8C8C8;text-decoration:none">'
-            '<tr><td valign=top align=center bgcolor="#E8E8E8">'
-            '<font face="Arial,Helvetica" size="-1">&nbsp;<b>%(sitename)s</b>&nbsp;'
+            '<table class="navibar" cellpadding=0 cellspacing=3 border=0>'
+            '<tr><td class="navibar" valign=top align=center bgcolor="#E8E8E8">'
+            '<font class="navibar" face="Arial,Helvetica" size="-1">&nbsp;<b>%(sitename)s</b>&nbsp;'
             '</font></td>') % {'sitename': config.sitename,}
 
-        for pagename in config.navi_bar:
-            pagename = getSysPage(pagename).page_name
+        if not quicklinks:
+            for pagename in config.navi_bar:
+                quicklinks.append(getSysPage(pagename).page_name)
+
+        for pagename in quicklinks:
             print (
-                '<td valign=top align=center bgcolor="#E8E8E8">'
-                '<font face="Arial,Helvetica" size="-1">'
-                '&nbsp;<a style="text-decoration:none" href="%(scriptname)s/%(pagelink)s">%(pagename)s</a>&nbsp;'
+                '<td class="navibar" valign=top align=center bgcolor="#E8E8E8">'
+                '<font class="navibar" face="Arial,Helvetica" size="-1">'
+                '&nbsp;<a class="navibar" href="%(scriptname)s/%(pagelink)s">%(pagename)s</a>&nbsp;'
                 '</font></td>') % {
             'scriptname': webapi.getScriptname(),
             'pagelink': quoteWikiname(pagename),
@@ -542,15 +623,7 @@ def send_title(text, **keywords):
     sys.stdout.flush()
 
 
-_footer_fragments = {}
-
-def add2footer(key, htmlcode):
-    """ Add a named HTML fragment to the footer, after the default links
-    """
-    _footer_fragments[key] = htmlcode
-
-
-def send_footer(pagename, mod_string=None, **keywords):
+def send_footer(request, pagename, mod_string=None, **keywords):
     """ Print the page footer.
 
         **pagename** -- WikiName of the page
@@ -567,15 +640,16 @@ def send_footer(pagename, mod_string=None, **keywords):
 
     print """
 <table border="0" cellspacing="0" cellpadding="0">
-<form method="POST" action="%s">
+<form method="POST" action="%s/%s">
 <tr><td>
 <input type="hidden" name="action" value="inlinesearch">
-""" % cgi.escape(pagename, 1)
+<input type="hidden" name="context" value="40">
+""" % (webapi.getScriptname(), cgi.escape(pagename, 1))
 
     if keywords.get('showpage', 0):
         print link_tag(quoteWikiname(pagename), _("ShowText"))
         print _('of this page'), '<br>'
-    if keywords.get('editable', 1) and user.current.may.edit:
+    if keywords.get('editable', 1) and request.user.may.edit:
         print link_tag(quoteWikiname(pagename)+'?action=edit', _('EditText'))
         print _('of this page')
         if mod_string:
@@ -605,8 +679,8 @@ def send_footer(pagename, mod_string=None, **keywords):
         "text search %(textsearch)s or an index<br>") % locals()
 
     # output HTML code added by the page formatters
-    if _footer_fragments:
-        print string.join(_footer_fragments.values(), '')
+    if request._footer_fragments:
+        print string.join(request._footer_fragments.values(), '')
 
     # list user actions that start with an uppercase letter
     if keywords.get('showactions', 1):

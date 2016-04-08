@@ -16,11 +16,11 @@
         embeds a search result into a page, as if you entered
         "HelpContents" into the search dialog
 
-    $Id: FullSearch.py,v 1.5 2002/02/13 21:13:53 jhermann Exp $
+    $Id: FullSearch.py,v 1.7 2002/03/27 22:41:14 jhermann Exp $
 """
 
 # Imports
-import cgi, re, urllib
+import re, urllib
 from MoinMoin import config, user, wikiutil
 from MoinMoin.i18n import _
 
@@ -46,11 +46,11 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         literal = 1
 
     # do the search
-    pagecount, hits = wikiutil.searchPages(needle, literal=literal)
+    pagecount, hits = wikiutil.searchPages(needle, literal=literal, context=0)
 
     # generate the result
     result = macro.formatter.number_list(1)
-    for (count, pagename) in hits:
+    for (count, pagename, dummy) in hits:
         result = result + macro.formatter.listitem(1)
         result = result + wikiutil.link_tag('%s?action=highlight&value=%s' %
             (wikiutil.quoteWikiname(pagename), urllib.quote_plus(needle)),

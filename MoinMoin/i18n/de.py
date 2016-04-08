@@ -15,13 +15,6 @@ Besteht ein Namenskonflikt, muß dem neuen Anhang ein alternativer Name zugewiese
 Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der originale Dateiname benutzt.</p>
 ''',
 
-'''
-Sent a mail notification to these addresses: %s
-<br>Result was: ''':
-'''
-Eine Änderungsnachricht wurde an die folgenden Adressen versandt: %s
-<br>Das Ergebnis war: ''',
-
 ' (including %(localwords)d %(pagelink)s)':
 ' (inklusive %(localwords)d %(pagelink)s)',
 
@@ -84,6 +77,9 @@ Eine Änderungsnachricht wurde an die folgenden Adressen versandt: %s
 
 '%(hits)d hits out of %(pages)d pages searched.':
 '%(hits)d Treffer in %(pages)d durchsuchten Seiten.',
+
+'%(logcount)s (%(logsize)s bytes)':
+'%(logcount)s (%(logsize)s bytes)',
 
 '%(matchcount)d %(matches)s for "%(title)s"':
 '%(matchcount)d %(matches)s passen zu "%(title)s"',
@@ -264,6 +260,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 '<small>[goto %s]</small>':
 '<small>[gehe zu %s]</small>',
 
+'<unknown>':
+'<unbekannt>',
+
 'Action':
 'Aktion',
 
@@ -303,6 +302,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 'Cancel':
 'Abbrechen',
 
+'Case-sensitive searching':
+'Groß-/Kleinschreibung beachten',
+
 'Check Spelling':
 'Rechtschreibung prüfen',
 
@@ -314,6 +316,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 
 'Comment':
 'Kommentar',
+
+"Connection to mailserver '%(server)s' failed: %(reason)s":
+"Verbindung zum Emailserver '%(server)s' gestört: %(reason)s",
 
 'Create new drawing "%(filename)s"':
 'Neue Zeichnung "%(filename)s" anlegen',
@@ -327,6 +332,23 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 'Date format':
 'Datumsformat',
 
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''':
+'''Sehr geehrter Wikibenutzer,
+
+Sie haben die Änderungen einer Wikiseite oder Kategorie von "%(sitename)s" abonniert.
+
+Die folgende Seite wurde durch %(editor)s verändert:
+%(pagelink)s
+
+''',
+
 'Default':
 'Standardeinstellung',
 
@@ -338,6 +360,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 
 'Diff for "%s"':
 'Änderungen von "%s"',
+
+'Display context of search results':
+'Umgebung der Treffer anzeigen',
 
 'Distribution of User-Agent Types':
 'Verteilung der Zugriffe auf Browsertypen',
@@ -372,6 +397,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 'Entries in edit log':
 'Einträge in der Änderungshistorie',
 
+'Entries in event log':
+'Einträge im Ereignisprotokoll',
+
 'Expected "=" to follow "%(token)s"':
 '"=" fehlt hinter dem Attribut "%(token)s"',
 
@@ -392,6 +420,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 
 'FrontPage':
 'StartSeite',
+
+'Full Link List for "%s"':
+'Liste aller Seitenverweise für "%s"',
 
 'Full text search for "%s"':
 'Volltextsuche nach "%s"',
@@ -422,6 +453,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 
 'Info for "%s"':
 'Info für "%s"',
+
+'Installed processors':
+'Installierte Prozessoren',
 
 'Invalid include arguments "%s"!':
 'Ungültige "Include" Argumente: "%s"!',
@@ -465,6 +499,14 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 'No attachments stored for %(pagename)s':
 'Es wurden keine Anhänge für die Seite %(pagename)s gespeichert.',
 
+'''No differences found!
+''':
+'''Es wurden keine Änderungen gefunden!
+''',
+
+'No older revisions of the page stored, diff not available.':
+'Es sind keine älteren Versionen dieser Seite verfügbar, deswegen konnte kein Vergleich durchgeführt werden.',
+
 'No orphaned pages in this wiki.':
 'Es existieren keine verwaisten Seiten in diesem Wiki.',
 
@@ -488,6 +530,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 
 'Optional comment about this change':
 'Optionaler Kommentar zu dieser Änderung',
+
+'Optional reason for the deletion':
+'Optionale Begründung für die Löschung',
 
 'Or try one of these actions: ':
 'Oder benutze eine dieser Aktionen: ',
@@ -513,6 +558,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 'Please use the interactive user interface to delete pages!':
 'Zum Löschen von Seiten bitte nur die vorgesehenen Webseiten benutzen!',
 
+'Preferred language':
+'Bevorzugte Sprache',
+
 'Preview':
 'Vorschau anzeigen',
 
@@ -521,6 +569,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 
 'Python Version':
 'Python Version ',
+
+'Quick links':
+'Expressverweise',
 
 'Really delete this page?':
 'Diese Seite wirklich löschen?',
@@ -597,6 +648,9 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 'Skip to preview':
 'Zur Vorschau springen',
 
+'Status of sending notification mails:':
+'Status des Versands der Änderungsnachrichten:',
+
 'Submitted form data:':
 'Gesendete Formulardaten:',
 
@@ -608,6 +662,18 @@ da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.<
 
 'The backupped content of this page is deprecated and will not be included in search results!':
 'Der Inhalt der letzten Sicherungskopie ist veraltet und wird von der Volltextsuche ignoriert!',
+
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''Der Kommentar zur Änderung ist:
+%(comment)s
+
+''',
+
+'The external diff utility returned with error code %(rc)s!':
+'Das externe Hilfsprogramm "diff" lieferte den Fehlercode %(rc)s!',
 
 'The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:':
 'Die nachfolgenden %(badwords)d Worte konnten nicht im Wörterbuch mit %(totalwords)d Worten%(localwords)s gefunden werden und sind im Text hervorgehoben:',
@@ -679,6 +745,9 @@ kann folgende URL verwendet werden: ''',
 'XML title index':
 'Titelindex als XML',
 
+'XSLT option disabled!':
+'Die XSLT-Option ist nicht aktiviert!',
+
 'You are not allowed to delete pages in this wiki!':
 'Das Löschen von Seiten ist in diesem Wiki nicht erlaubt!',
 
@@ -690,6 +759,12 @@ kann folgende URL verwendet werden: ''',
 
 '[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]':
 '[vor&nbsp;%(hours)02d:%(mins)02d]',
+
+'[%(lang)s] %(recipients)s: %(status)s':
+'[%(lang)s] %(recipients)s: %(status)s',
+
+'[%(sitename)s] Update of "%(pagename)s"':
+'[%(sitename)s] Änderung von "%(pagename)s"',
 
 '[Content of new page loaded from %s]':
 '[Inhalt der neuen Seite auf Basis der Schablone %s]',
@@ -706,8 +781,17 @@ kann folgende URL verwendet werden: ''',
 'date':
 'Datum',
 
+'del':
+'löschen',
+
 'diff':
 'diff',
+
+'edit':
+'ändern',
+
+'get':
+'laden',
 
 '''green=view
 red=edit''':

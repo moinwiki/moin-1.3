@@ -75,7 +75,9 @@ allowed_actions = ['DeletePage', 'AttachFile']
 
 === Troubleshooting ===
 
-The first thing to do when your wiki does not work as expected is to issue the command "`tail /var/log/httpd/error_log`" to display the most recent errors. Usually, you will get a hint on what went wrong, like missing file system permissions.
+The first thing to do when your wiki does not work as expected is to issue the command "`tail /var/log/httpd/error_log`" to display the most recent errors. Usually, you will get a hint on what went wrong, like missing file system permissions. Also, always consult the HelpOnInstalling/TroubleShooting page for further hints on your problem.
+
+==== Dueling Pythons ====
 
 The most common problem you might encounter is when you have Python 1.5.2 installed into "`/usr`", and a newer Python distribution into "`/usr/local`"; this is typical for GNU/Linux distributions that still come bundled with version 1.5.2 of Python.
 
@@ -85,7 +87,28 @@ In that case, if you enter "`python`" on your prompt, you will usually get the m
 """
     MoinMoin - CGI Driver Script
 ...
+"""
 }}}
+
+==== Distutils does not work ====
+
+If you have problems with the '''distutils''' install step, note that you need to have the Python development package installed on some Unix distributions. On Mandrake, you need to "`rpm -i python-devel-2.1.1-3mdk.i586.rpm`".
+
+==== Missing file permissions ====
+
+If you are root, the installed files may be readable only by root, but they must also be readable by the web server before the wiki will work. This includes both the Python modules and the site itself. For the data directory, the web server also needs ''write'' access.  To fix this, first find out where the Python module directory is; look in `install.log`, or run the command: 
+
+{{{
+python -c "import sys; print '%s/lib/python%s/site-packages' % ( sys.prefix, sys.version[:3] )"
+}}}
+
+For the example below, we'll assume that the Python module directory is `/usr/local/lib/python2.1/site-packages`.
+Make the files world-readable using the following commands: {{{
+cd /usr/local
+chmod -R a+rX lib/python2.1/site-packages/MoinMoin share/moin
+}}}
+
+/!\ Note that by making everything under `/usr/local/share/moin` world-readable, local users can read the files containing your wiki. You don't really need to do that, since the `mywiki` directory is owned by the webserver. If you don't want that, you do a "`chmod -R o-rwx share/moin/mywiki`" after the above commands.
 
 
 == Installation into your home directory ==

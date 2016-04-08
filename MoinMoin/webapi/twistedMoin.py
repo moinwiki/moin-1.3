@@ -8,7 +8,7 @@
 
         from MoinMoin import webapi
 
-    $Id: twistedMoin.py,v 1.1 2001/10/23 22:04:49 jhermann Exp $
+    $Id: twistedMoin.py,v 1.2 2002/04/17 21:58:17 jhermann Exp $
 """
 
 # Imports
@@ -27,11 +27,13 @@ def isSSL():
 
 def getScriptname():
     """ Return the scriptname part of the URL ("/path/to/my.cgi"). """
+    # !!! cgimain.request is not anymore!
     return "/" + string.join(cgimain.request.twistd.prepath, '/')
 
 
 def getPathinfo():
     """ Return the remaining part of the URL. """
+    # !!! cgimain.request is not anymore!
     pathinfo = cgimain.request.twistd.postpath
     if pathinfo:
         return "/" + string.join(pathinfo, '/')
@@ -43,6 +45,7 @@ def getQualifiedURL(uri = None):
 
         *uri* -- append this server-rooted uri (must start with a slash)
     """
+    # !!! cgimain.request is not anymore!
     result = 'http://' + (cgimain.request.twistd.getHeader('host') or cgimain.request.twistd.getHost())
 
     if uri: result = result + uri
@@ -74,16 +77,16 @@ def getBaseURL():
 ### Headers
 #############################################################################
 
-def setHttpHeader(header):
+def setHttpHeader(request, header):
     key, value = string.split(header, ':')
     value = string.lstrip(value)
-    cgimain.request.twistd.setHeader("content-type", self.type)
+    request.twistd.setHeader("content-type", self.type)
 
-def http_headers(more_headers=[]):
+def http_headers(request, more_headers=[]):
     for header in more_headers:
-        setHttpHeader(header)
+        setHttpHeader(request, header)
 
-def http_redirect(url):
+def http_redirect(request, url):
     """ Redirect to a fully qualified, or server-rooted URL """
     if string.count(url, "://") == 0:
         url = "http://%s:%s%s" % (
@@ -91,7 +94,7 @@ def http_redirect(url):
             os.environ.get('SERVER_PORT'),
             url)
 
-    http_headers(["Location: " + url])
+    http_headers(request, ["Location: " + url])
 
 
 #############################################################################

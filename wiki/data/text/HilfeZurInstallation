@@ -9,6 +9,8 @@ Diese Seite beschreibt, wie Sie vorgehen müssen, um MoinMoin ab Version 0.11 zu 
 
 /BasisInstallation erklärt detailiert den ersten Schritt jeder Installation, den Aufruf von "`setup.py`". Dieser Schritt ist immer durchzuführen, deshalb empfiehlt es sich, die dort enthaltenen Information in jedem Fall durchzulesen, bevor Sie den Installationsvorgang beginnen.
 
+/FehlerBehebung hilft bei der Beseitigung von allgemeinen Fehlern, die auf jeder Plattform auftreten können. 
+
 Nachdem Sie die Software erfolgreich aufgespielt haben, sollte der nächste Schritt darin bestehen, mehr über die Konfigurationsoptionen und optionale Erweiterungen zu erfahren, die Sie als Wikiadministrator einrichten können.
 Die Seite HilfeZurAdministration enthält dazu Verweise auf weitere Seiten, die diese Themen abdecken.
 Insbesondere HilfeZurKonfiguration und HilfeZumUpdaten enthalten wertvolle Hinweise zur weiteren Konfiguration und Wartung Ihrer Wiki-Installation.

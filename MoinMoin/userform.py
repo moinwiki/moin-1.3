@@ -4,13 +4,13 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: userform.py,v 1.12 2002/02/13 21:13:52 jhermann Exp $
+    $Id: userform.py,v 1.17 2002/04/24 20:11:21 jhermann Exp $
 """
 
 # Imports
 import os, string, time
-from MoinMoin import config, user, util, webapi
-from MoinMoin.i18n import _
+from MoinMoin import config, user, util, webapi, wikiutil
+from MoinMoin.i18n import _, languages
 
 try:
     import Cookie
@@ -31,20 +31,23 @@ _date_formats = {
     'rfc':  '%a %b %d %H:%M:%S %Y',
 }
 
-def savedata(pagename, form):
+def savedata(pagename, request):
     """ Handle POST request of the user preferences form
 
         Return error msg or None
     """
+    form = request.form
+
     if form.has_key('logout'):
         # clear the cookie in the browser and locally
         cookie = Cookie.Cookie(os.environ.get('HTTP_COOKIE', ''))
         if cookie.has_key('MOIN_ID'):
             uid = cookie['MOIN_ID'].value
-            webapi.setHttpHeader('Set-Cookie: MOIN_ID=%s; expires=Tuesday, 01-Jan-1999 12:00:00 GMT; Path=%s' % (
+            webapi.setHttpHeader(request, 'Set-Cookie: MOIN_ID=%s; expires=Tuesday, 01-Jan-1999 12:00:00 GMT; Path=%s' % (
                 cookie['MOIN_ID'].value, webapi.getScriptname(),))
             os.environ['HTTP_COOKIE'] = ''
-        user.current = user.User()
+        request.user = user.User()
+        user.current = request.user
         return _("<b>Cookie deleted!</b>")
 
     if form.has_key('login_sendmail'):
@@ -91,7 +94,8 @@ def savedata(pagename, form):
             return _("<b>Please enter a valid user id!</b>")
 
         # send the cookie
-        theuser.sendCookie()
+        theuser.sendCookie(request)
+        request.user = theuser
         user.current = theuser
     else:
         # save user's profile, first get user instance
@@ -159,6 +163,9 @@ def savedata(pagename, form):
         if theuser.css_url == config.css_url:
             theuser.css_url = ''
 
+        # try to get the (optional) preferred language
+        theuser.language = form.getvalue('language', '')
+
         # checkbox options
         for key, label in user.User._checkbox_fields:
             value = form.getvalue(key, 0)
@@ -169,6 +176,20 @@ def savedata(pagename, form):
             else:
                 setattr(theuser, key, value)
 
+        # quicklinks for header
+        try:
+            quicklinks = form['quicklinks'].value
+            quicklinks = string.replace(quicklinks, '\r', '')
+            quicklinks = string.split(quicklinks, '\n')
+            quicklinks = map(string.strip, quicklinks)
+            quicklinks = filter(None, quicklinks)
+            quicklinks = map(wikiutil.quoteWikiname, quicklinks)
+            theuser.quicklinks = string.join(quicklinks, ',')
+        except KeyError:
+            theuser.quicklinks = ''
+        except ValueError:
+            pass
+        
         # subscription for page change notification
         try:
             theuser.subscribed_pages = form['subscribed_pages'].value
@@ -181,7 +202,8 @@ def savedata(pagename, form):
         
         # save data and send cookie
         theuser.save()
-        theuser.sendCookie()
+        theuser.sendCookie(request)
+        request.user = theuser
         user.current = theuser
 
         result = _("<b>User preferences saved!</b>")
@@ -214,7 +236,26 @@ def _tz_select(theuser):
     return html
 
 
-def getUserForm(form):
+def _lang_select(theuser):
+    cur_lang = theuser.valid and theuser.language or ''
+    langs = languages.items()
+    langs.append(('', ('&lt;Default&gt;', config.charset, '')))
+    langs.sort(lambda x,y: cmp(x[1][0], y[1][0]))
+
+    html = '<select name="language">\n'
+    for lang in langs:
+        # !!! If we add charset recoding, this restriction can be lifted
+        if lang[0] in ['', 'en'] or lang[1][1] == config.charset:
+            html = html + '<option value="%s"%s>%s\n' % (
+                lang[0], lang[0] == cur_lang and ' selected' or '', lang[1][0])
+    html = html + '</select>'
+ 
+    return html
+        
+
+def getUserForm(request):
+    form = request.form
+
     # Note that this form is NOT designed for security, just to have a cookie
     # with name & email; do not base security measures on this!
     htmlform = """
@@ -237,8 +278,14 @@ def getUserForm(form):
     <tr><td><b>%(label_date_format)s</b>&nbsp;</td><td>
       <select name="datetime_fmt">%(dtfmt_select)s</select>
     </td></tr>
+    <tr><td><b>%(label_language)s</b>&nbsp;</td><td>
+      %(language_select)s
+    </td></tr>
     <tr><td><b>%(label_general_opts)s</b>&nbsp;</td><td>
       %(checkbox_fields)s
+    </td></tr>
+    <tr><td valign="top"><b>%(label_quicklinks)s</b>&nbsp;</td><td>
+      <textarea name="quicklinks" rows="6" cols="50">%(quicklinklist)s</textarea>
     </td></tr>
     %(notify)s
     <tr><td></td><td>
@@ -259,21 +306,23 @@ def getUserForm(form):
         'label_your_time':      _('Your time is'),
         'label_server_time':    _('Server time is'),
         'label_date_format':    _('Date format'),
+        'label_language':       _('Preferred language'),
+        'label_quicklinks':     _('Quick links'),
         'label_general_opts':   _('General options'),
     }
 
     dtfmt_select = '<option value="">' + _('Default')
     for option, text in _date_formats.items():
         dtfmt_select = dtfmt_select + '<option value="%s"%s>%s' % (
-            option, ('', ' selected')[user.current.datetime_fmt == text], text)
+            option, ('', ' selected')[request.user.datetime_fmt == text], text)
 
-    if user.current.valid:
-        html_uid = '<tr><td><b>ID</b>&nbsp;</td><td>%s</td></tr>' % (user.current.id,)
+    if request.user.valid:
+        html_uid = '<tr><td><b>ID</b>&nbsp;</td><td>%s</td></tr>' % (request.user.id,)
         html_button = """
             <input type="submit" name="save" value="%s"> &nbsp;
             <input type="submit" name="logout" value="%s"> &nbsp;
         """ % (_(' Save '), _(' Logout '))
-        url = "%s?action=userform&uid=%s" % (webapi.getBaseURL(), user.current.id)
+        url = "%s?action=userform&uid=%s" % (webapi.getBaseURL(), request.user.id)
         html_relogin = _('To login on a different machine, use this URL: ') + \
             '<a href="%s">%s</a><br>' % (url, url)
     else:
@@ -296,11 +345,11 @@ def getUserForm(form):
 
     notify = ""
     if config.mail_smarthost:
-        notifylist = user.current.getSubscriptionList()
+        notifylist = request.user.getSubscriptionList()
         notifylist.sort()
 
         warning = ""
-        if not user.current.email:
+        if not request.user.email:
             warning = '<br/><font color="#FF4040"><small>' + \
                 _("This list does not work, unless you have entered a valid email address!") + \
                 '</small></font>'
@@ -308,7 +357,7 @@ def getUserForm(form):
         notify = """
 <tr>
   <td valign="top"><b>%(label_notification)s</b>&nbsp;</td>
-  <td><textarea name="subscribed_pages" rows="10" cols="50">%(notification)s</textarea>%(warning)s</td>
+  <td><textarea name="subscribed_pages" rows="6" cols="50">%(notification)s</textarea>%(warning)s</td>
 </tr>""" % {
             'label_notification': _('Subscribed wiki pages<br>(one regex per line)'),
             'notification': string.join(notifylist, '\n'),
@@ -322,13 +371,15 @@ def getUserForm(form):
         'button': html_button,
         'relogin': html_relogin,
         'now': time.strftime(config.datetime_fmt, time.localtime(time.time())),
-        'tz_select': _tz_select(user.current),
+        'tz_select': _tz_select(request.user),
         'dtfmt_select': dtfmt_select,
+        'language_select': _lang_select(request.user),
         'notify': notify,
+        'quicklinklist': string.join(request.user.getQuickLinks(), '\n'),
     }
 
-    if not user.current.css_url:
-        user.current.css_url = config.css_url
+    if not request.user.css_url:
+        request.user.css_url = config.css_url
 
     data['checkbox_fields'] = ''
     checkbox_fields = user.User._checkbox_fields
@@ -336,15 +387,11 @@ def getUserForm(form):
     for key, label in checkbox_fields:
         data['checkbox_fields'] = data['checkbox_fields'] + \
             '<input type="checkbox" name="%s" value="1"%s>&nbsp;%s<br>' % (
-                key, ('', ' checked')[getattr(user.current, key, 0)], label())
+                key, ('', ' checked')[getattr(request.user, key, 0)], label())
 
     data.update(formtext)
-    data.update(vars(user.current))
+    data.update(vars(request.user))
     result = htmlform % data
-
-    # from MoinMoin import cgimain
-    # result = result + "Saved: <pre>" + cgimain.request.saved_cookie + "</pre>"
-    # result = result + " Now: <pre>" + os.environ.get('HTTP_COOKIE', 'NONE') + "</pre>"
 
     return result
 

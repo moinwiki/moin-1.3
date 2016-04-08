@@ -4,7 +4,7 @@
     Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wikiform.py,v 1.4 2002/02/13 21:13:52 jhermann Exp $
+    $Id: wikiform.py,v 1.6 2002/04/24 19:22:12 jhermann Exp $
 """
 
 # Imports
@@ -85,15 +85,15 @@ def _get_formvalues(form):
     return result
 
 
-def do_formtest(pagename, form):
+def do_formtest(pagename, request):
     """ Test a user defined form.
     """
     msg = _('Submitted form data:') + '<ul>\n'
-    for key, val in _get_formvalues(form).items():
+    for key, val in _get_formvalues(request.form).items():
         msg = msg + '<li><em>%s</em> = %s</li>\n' % (
             string.upper(key), repr(cgi.escape(val))
         )
     msg = msg + '</ul>\n'
 
-    Page(pagename).send_page(form, msg=msg)
+    Page(pagename).send_page(request, msg=msg)
 

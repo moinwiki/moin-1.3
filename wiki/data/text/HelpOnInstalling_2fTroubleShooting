@@ -1,0 +1,8 @@
+=== Built-in test ===
+
+There's a built-in diagnostic mode that's useful when doing an install; just append "`?test`" to the URL of your wiki: {{{
+lynx --dump http://`hostname`/mywiki?test
+}}}
+
+If you see an import error here, but "`python -c "import MoinMoin"`" works, it's likely a result of missing file permissions or a wrong PYTHONPATH setting within the web server environment.
+

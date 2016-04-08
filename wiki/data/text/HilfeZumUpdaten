@@ -43,7 +43,7 @@ Die folgenden Abschnitten enthalten Informationen, die sich auf bestimmte Versio
 [[Anchor(update-0-11)]]
 === Version 0.11 ===
 
-(!) Es wird bestens empfohlen, dass Sie jede Installation vor 0.11 auf die neue ''distutils''-Methode umstellen, was Ihnen zuküntige Upgrades stark vereinfachen wird.
+(!) Es wird bestens empfohlen, dass Sie jede Installation vor 0.11 auf die neue ''distutils''-Methode umstellen, was Ihnen zukünftige Upgrades stark vereinfachen wird.
 
 Sie sollten der Anleitung auf HilfeZurInstallation folgen bezüglich der Grundinstallation, bis Sie zu dem Punkt "Erzeugen einer Wiki-Instanz"-Schritt kommen. Dann haben Sie zwei Möglichkeiten:
  1. passen Sie einfach Ihre alte Installation auf die neue Situation an, das bedeutet insbesondere, dass Sie einen Alias erzeugen, der auf das  `.../share/moin/htdocs`-Verzeichnis verweist; Sie müssen `url_prefix` dann auf `/wiki` ändern. Der positive Effekt daran ist, dass Sie automatisch jegliche neue Icons und CSS-Dateien der Version 0.11 und jeder zukünftigen Version bekommen, weil ''distutils'' sie an dieser Stelle updatet.

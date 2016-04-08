@@ -9,7 +9,7 @@
     storing the original texts as keys and their translation in the
     values. Other supporting modules start with an underscore.
 
-    $Id: __init__.py,v 1.21 2002/03/07 11:17:23 jhermann Exp $
+    $Id: __init__.py,v 1.23 2002/04/25 19:44:01 jhermann Exp $
 """
 
 # Imports
@@ -36,7 +36,11 @@ languages = {
 }
 
 _text_lang = None
-_text_cache = None
+
+# This is a global for a reason, in persistent environments all languages
+# in use will be cached; note you have to restart if you update language data
+# in such environments.
+_text_cache = {}
 
 
 def _smartrepr(str):
@@ -102,7 +106,10 @@ def saveLanguage(lang, textdict):
 
 
 def getLang():
-    """Get a user's language (from CGI environment)"""
+    """Get a user's language (from preferences or CGI environment)"""
+    from MoinMoin import user
+    if user.current.language: return user.current.language
+
     global _text_lang
     if _text_lang: return _text_lang
 
@@ -136,28 +143,31 @@ def getLang():
     return _text_lang
 
 
-def getText(str):
-    """Load a text in the user's language"""
+def getText(str, lang=None):
+    """Load a text in the user's language, or the given one"""
+    if not lang: lang = getLang()
+
     # quick handling for english texts
-    lang = getLang()
     if lang == "en": return str
 
     # load texts if needed
     global _text_cache
-    if not _text_cache:
-        _text_cache = loadLanguage(lang)
-        if not _text_cache:
+    if not _text_cache.has_key(lang):
+        texts = loadLanguage(lang)
+        if not texts:
+            # return english text in case of problems
             return str
+        _text_cache[lang] = texts
 
     # check for text additions for the master language,
     # if configured (only active in development setups)
     if config.check_i18n and lang == master_language \
-            and not _text_cache.has_key(str):
-        _text_cache[str] = str
-        saveLanguage(lang, _text_cache)
+            and not _text_cache[lang].has_key(str):
+        _text_cache[lang][str] = str
+        saveLanguage(lang, _text_cache[lang])
 
     # return the matching entry in the mapping table
-    return _text_cache.get(str, str)
+    return _text_cache[lang].get(str, str)
 
 
 # define gettext-like "_" function 

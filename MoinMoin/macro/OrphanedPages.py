@@ -4,7 +4,7 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: OrphanedPages.py,v 1.4 2001/11/24 02:30:58 jhermann Exp $
+    $Id: OrphanedPages.py,v 1.6 2002/04/17 20:33:33 jhermann Exp $
 """
 
 # Imports
@@ -25,7 +25,7 @@ def execute(macro, args):
     orphaned = {}
     orphaned.update(pages)
     for page in pages.values():
-        links = page.getPageLinks()
+        links = page.getPageLinks(macro.request)
         for link in links:
             if orphaned.has_key(link):
                 del orphaned[link]
@@ -42,7 +42,7 @@ def execute(macro, args):
     for name in orphanednames:
         if not name: continue
         result = result + macro.formatter.listitem(1)
-        result = result + macro.formatter.pagelink(name)
+        result = result + macro.formatter.pagelink(name, generated=1)
         result = result + macro.formatter.listitem(0)
     result = result + macro.formatter.number_list(0)
 

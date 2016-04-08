@@ -9,6 +9,8 @@ This page describes the installation procedure applying to MoinMoin:MoinMoin ver
 
 [#basic-install Basic Installation] explains the "`setup.py`" step of the installation in more detail. This applies equally to all scenarios, and you should read it before trying a live installation.
 
+[#trouble-shooting Trouble-shooting] helps with fixing any general problems you might encounter, which apply to any installation platform.
+
 After a successful installation, you might want to read more about configuration and other options that you, as the wiki administrator, can set up. MoinMoin:HelpOnAdministration contains links to pages that cover these topics.
 Especially, the MoinMoin:HelpOnConfiguration and MoinMoin:HelpOnUpdating pages provide additional information regarding wiki setup and maintenance. MoinMoin:MoinMoinWinCvs and MoinMoin:MoinMoinUnixCvs describe how to run your wiki using the current development version from the MoinMoin:SourceForge CVS repository.
 
@@ -26,6 +28,10 @@ Windows:
 
 [[Anchor(basic-install)]]
 [[Include(HelpOnInstalling/BasicInstallation)]]
+------
+[[Anchor(trouble-shooting)]]
+------
+[[Include(HelpOnInstalling/TroubleShooting, "Trouble-shooting", 1)]]
 ------
 [[Anchor(unix-install)]]
 ------

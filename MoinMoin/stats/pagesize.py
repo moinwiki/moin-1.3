@@ -6,7 +6,7 @@
 
     This macro creates a bar graph of page size classes.
 
-    $Id: pagesize.py,v 1.3 2002/02/02 12:18:48 jhermann Exp $
+    $Id: pagesize.py,v 1.5 2002/04/17 22:13:28 jhermann Exp $
 """
 
 _debug = 0
@@ -22,7 +22,7 @@ def linkto(pagename, params=''):
         return _('<div class="message"><b>Charts are not available!</b></div>')
 
     if _debug:
-        return draw(pagename, {})
+        return draw(pagename, None)
 
     page = Page(pagename)
     result = []
@@ -43,7 +43,7 @@ def _slice(data, lo, hi):
     return data
 
 
-def draw(pagename, form):
+def draw(pagename, request):
     import bisect, cgi, sys, shutil, cStringIO
     from MoinMoin import config, webapi
     from MoinMoin.stats.chart import Chart, ChartData, Color
@@ -110,7 +110,7 @@ def draw(pagename, form):
         "Content-Type: image/gif",
         "Content-Length: %d" % len(image.getvalue()),
     ]
-    webapi.http_headers(headers)
+    webapi.http_headers(request, headers)
 
     # copy the image
     image.reset()

@@ -18,14 +18,13 @@
     Additionally, all words on the page "LocalSpellingWords" are added to
     the list of valid words, if that page exists.
 
-    $Id: SpellCheck.py,v 1.18 2002/02/13 21:13:52 jhermann Exp $  
+    $Id: SpellCheck.py,v 1.24 2002/05/10 11:49:06 jhermann Exp $  
 """
 
 # Imports
 import cgi, os, re, string, sys
 from MoinMoin import config, user, util, wikiutil
 from MoinMoin.Page import Page
-from MoinMoin.cgimain import request
 from MoinMoin.i18n import _
 
 
@@ -50,7 +49,7 @@ def _getWordsFiles():
     return wordsfiles
 
 
-def _loadWordsFile(dict, filename):
+def _loadWordsFile(request, dict, filename):
     request.clock.start('spellread')
     file = open(filename, 'rt')
     try:
@@ -65,7 +64,7 @@ def _loadWordsFile(dict, filename):
     request.clock.stop('spellread')
 
 
-def _loadDict():
+def _loadDict(request):
     """ Load words from words files or cached dict """
     # check for "dbhash" module
     try:
@@ -86,7 +85,7 @@ def _loadDict():
             wordsdict = {}
 
         for wordsfile in wordsfiles:
-            _loadWordsFile(wordsdict, wordsfile)
+            _loadWordsFile(request, wordsdict, wordsfile)
 
         if dbhash: wordsdict.sync()
         request.clock.stop('dict.cache')
@@ -94,36 +93,38 @@ def _loadDict():
     return wordsdict
 
 
-def _addLocalWords(form):
+def _addLocalWords(request):
+    from MoinMoin.PageEditor import PageEditor
+
     # get the page contents
-    lsw_page = Page(config.page_local_spelling_words)
+    lsw_page = PageEditor(config.page_local_spelling_words)
     words = lsw_page.get_raw_body()
 
     # get the new words as a string
-    from types import *
-    newwords = form['newwords']
-    if type(newwords) is not ListType:
+    import types
+    newwords = request.form['newwords']
+    if type(newwords) is not types.ListType:
         newwords = [newwords]
     newwords = string.join(map(lambda w: w.value, newwords), ' ')
 
     # add the words to the page and save it
     if words and words[-1] != '\n':
         words = words + '\n'
-    lsw_page.save_text(words + '\n' + newwords, '0')
+    lsw_page.save_text(request, words + '\n' + newwords, '0')
 
 
-def checkSpelling(page, form, own_form=1):
+def checkSpelling(page, request, own_form=1):
     """ Do spell checking, return a tuple with the result.
     """
     # first check to see if we we're called with a "newwords" parameter
-    if form.has_key('button_newwords'): _addLocalWords(form)
+    if request.form.has_key('button_newwords'): _addLocalWords(request)
 
     # load words
-    wordsdict = _loadDict()
+    wordsdict = _loadDict(request)
 
     localwords = {}
     lsw_page = Page(config.page_local_spelling_words)
-    if lsw_page.exists(): _loadWordsFile(localwords, lsw_page._text_filename())
+    if lsw_page.exists(): _loadWordsFile(request, localwords, lsw_page._text_filename())
 
     # init status vars & load page
     request.clock.start('spellcheck')
@@ -131,12 +132,12 @@ def checkSpelling(page, form, own_form=1):
     text = page.get_raw_body()
 
     # checker regex and matching substitute function
-    word_re = re.compile(r'(^|\W)([%s]?[%s]+)(?=(\W|$))' % (
+    word_re = re.compile(r'([%s]?[%s]+)' % (
         config.upperletters, config.lowerletters))
 
     def checkword(match, wordsdict=wordsdict, badwords=badwords,
             localwords=localwords, num_re=re.compile(r'^\d+$')):
-        word = match.group(2)
+        word = match.group(1)
         if len(word) == 1:
             return ""
         if not (wordsdict.has_key(word) or
@@ -200,12 +201,12 @@ def checkSpelling(page, form, own_form=1):
     return badwords, badwords_re, msg
 
 
-def execute(pagename, form):
+def execute(pagename, request):
     page = Page(pagename)
-    badwords, badwords_re, msg = checkSpelling(page, form)
+    badwords, badwords_re, msg = checkSpelling(page, request)
 
     if badwords:
-        page.send_page(form, msg=msg, hilite_re=badwords_re)
+        page.send_page(request, msg=msg, hilite_re=badwords_re)
     else:
-        page.send_page(form, msg=msg)
+        page.send_page(request, msg=msg)
 

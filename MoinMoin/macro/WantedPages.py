@@ -4,11 +4,11 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: WantedPages.py,v 1.6 2001/11/24 02:30:58 jhermann Exp $
+    $Id: WantedPages.py,v 1.9 2002/04/17 20:33:33 jhermann Exp $
 """
 
 # Imports
-import cgi, string
+import string, urllib
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
 from MoinMoin.i18n import _
@@ -26,7 +26,7 @@ def execute(macro, args):
     wanted = {}
     pages = wikiutil.getPageDict(config.text_dir)
     for page in pages.values():
-        links = page.getPageLinks()
+        links = page.getPageLinks(macro.request)
         for link in links:
             if not pages.has_key(link):
                 if wanted.has_key(link):
@@ -43,12 +43,13 @@ def execute(macro, args):
     wantednames = wanted.keys()
     wantednames.sort()
     result = macro.formatter.number_list(1)
-    wherelink = lambda n, p=pages: p[n].link_to()
     for name in wantednames:
         if not name: continue
         result = result + macro.formatter.listitem(1)
-        result = result + macro.formatter.pagelink(name)
+        result = result + macro.formatter.pagelink(name, generated=1)
 
+        wherelink = lambda n, w=name, p=pages: \
+            p[n].link_to(querystr='action=highlight&value=%s' % urllib.quote_plus(w))
         where = wanted[name].keys()
         where.sort()
         if macro.formatter.page.page_name in where:

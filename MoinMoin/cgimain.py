@@ -4,7 +4,7 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: cgimain.py,v 1.47 2002/03/11 21:48:48 jhermann Exp $
+    $Id: cgimain.py,v 1.54 2002/05/09 01:54:40 jhermann Exp $
 """
 
 opened_logs = 0
@@ -17,8 +17,7 @@ opened_logs = 0
 def createRequest(properties={}):
     # set up request data
     from MoinMoin.request import Request
-    global request
-    request = Request(properties)
+    return Request(properties)
 
 
 #############################################################################
@@ -91,7 +90,7 @@ def run(properties={}):
     import cgi, os, sys, string
 
     # force input/output to binary
-    if sys.platform == "win32":
+    if sys.platform == "win32" and not properties.get('standalone', 0):
         import msvcrt
         msvcrt.setmode(sys.stdin.fileno(), os.O_BINARY)
         msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
@@ -104,7 +103,7 @@ def run(properties={}):
         sys.stderr = open(os.path.join(config.data_dir, 'err_log'), 'at')
         opened_logs = 1
 
-    createRequest(properties)
+    request = createRequest(properties)
 
     # Imports
     request.clock.start('imports')
@@ -113,9 +112,17 @@ def run(properties={}):
     from MoinMoin.i18n import _
     request.clock.stop('imports')
 
+    # !!! if all refs to user.current are removed, create the user together with the request instance
+    request.user = user.current
+
     # sys.stderr.write("----\n")
     # for key in os.environ.keys():    
     #     sys.stderr.write("    %s = '%s'\n" % (key, os.environ[key]))
+
+    if os.environ.get('QUERY_STRING') == 'action=xmlrpc':
+        from MoinMoin.wikirpc import xmlrpc
+        xmlrpc(request)
+        return request
 
     # parse request data
     try:
@@ -130,15 +137,15 @@ def run(properties={}):
         if len(path_info) and path_info[0] == '/':
             pagename = wikiutil.unquoteWikiname(path_info[1:])
     except: # catch and print any exception
-        webapi.http_headers()
+        webapi.http_headers(request)
         cgi.print_exception()
         sys.exit(0)
 
     # possibly jump to page where user left off
-    if not pagename and not action and user.current.remember_last_visit:
-        pagetrail = user.current.getTrail()
+    if not pagename and not action and request.user.remember_last_visit:
+        pagetrail = request.user.getTrail()
         if pagetrail:
-            webapi.http_redirect(Page(pagetrail[-1]).url())
+            webapi.http_redirect(request, Page(pagetrail[-1]).url())
             sys.exit(0)
 
     try:
@@ -162,14 +169,14 @@ def run(properties={}):
         if request.form.has_key('filepath') and request.form.has_key('noredirect'):
             # looks like user wants to save a drawing
             from MoinMoin.action.AttachFile import execute
-            execute(pagename, request.form)
+            execute(pagename, request)
             sys.exit(0)
         if action:
             handler = wikiaction.getHandler(action)
             if handler:
-                handler(pagename or config.page_front_page, request.form)
+                handler(pagename or wikiutil.getSysPage(config.page_front_page).page_name, request)
             else:
-                webapi.http_headers()
+                webapi.http_headers(request)
                 print "<p>" + _("Unknown action")
         else:
             if request.form.has_key('goto'):
@@ -177,19 +184,20 @@ def run(properties={}):
             elif pagename:
                 query = pagename
             else:
-                query = wikiutil.unquoteWikiname(os.environ.get('QUERY_STRING', '')) or config.page_front_page
+                query = wikiutil.unquoteWikiname(os.environ.get('QUERY_STRING', '')) or \
+                    wikiutil.getSysPage(config.page_front_page).page_name
 
             if config.allow_extended_names:
-                Page(query).send_page(request.form, count_hit=1)
+                Page(query).send_page(request, count_hit=1)
             else:
                 from MoinMoin.parser.wiki import Parser
                 import re
                 word_match = re.match(Parser.word_rule, query)
                 if word_match:
                     word = word_match.group(0)
-                    Page(word).send_page(request.form, count_hit=1)
+                    Page(word).send_page(request, count_hit=1)
                 else:
-                    webapi.http_headers()
+                    webapi.http_headers(request)
                     print '<p>' + _("Can't work out query") + ' "<pre>' + query + '</pre>"'
 
         # generate page footer
@@ -212,7 +220,7 @@ def run(properties={}):
         pass
 
     except: # catch and print any exception
-        webapi.http_headers()
+        webapi.http_headers(request)
         print
         print "<!-- ERROR REPORT FOLLOWS -->"
 
@@ -232,4 +240,5 @@ def run(properties={}):
         del saved_exc
 
     sys.stdout.flush()
+    return request
 

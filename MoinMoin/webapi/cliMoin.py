@@ -8,7 +8,7 @@
 
         from MoinMoin import webapi
 
-    $Id: cliMoin.py,v 1.1 2002/01/03 12:51:21 jhermann Exp $
+    $Id: cliMoin.py,v 1.2 2002/04/17 21:58:17 jhermann Exp $
 """
 
 
@@ -48,13 +48,13 @@ def getBaseURL():
 ### Headers
 #############################################################################
 
-def setHttpHeader(header):
+def setHttpHeader(request, header):
     pass
 
-def http_headers(more_headers=[]):
+def http_headers(request, more_headers=[]):
     pass
 
-def http_redirect(url):
+def http_redirect(request, url):
     """ Redirect to a fully qualified, or server-rooted URL """
     raise Exception("Redirect not supported for command line tools!")
 

@@ -6,11 +6,11 @@
 
     General helper functions that are not directly wiki related.
 
-    $Id: util.py,v 1.36 2002/02/13 21:13:52 jhermann Exp $
+    $Id: __init__.py,v 1.1 2002/05/09 18:17:48 jhermann Exp $
 """
 
 # Imports
-import os, re, string, sys, time
+import os, re, string, time
 from MoinMoin.i18n import _
 
 
@@ -60,7 +60,7 @@ def sendmail(to, subject, text, **kw):
 
         Set a different "From" address with "mail_from=<email>".
     """
-    import os, smtplib, socket
+    import smtplib, socket
     from MoinMoin import config
 
     try:
@@ -105,13 +105,15 @@ def rangelist(numbers):
     """
     numbers = numbers[:]
     numbers.sort()
-    numbers.append(99999)
+    numbers.append(999999)
     pattern = ','
     for i in range(len(numbers)-1):
         if pattern[-1] == ',':
             pattern = pattern + str(numbers[i])
             if numbers[i]+1 == numbers[i+1]:
                 pattern = pattern + '-'
+            else:
+                pattern = pattern + ','
         elif numbers[i]+1 != numbers[i+1]:
             pattern = pattern + str(numbers[i]) + ','
 
@@ -213,3 +215,4 @@ def parseQueryString(qstr):
         values[urllib.unquote(key)] = urllib.unquote(val)
 
     return values
+

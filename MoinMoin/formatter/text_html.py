@@ -4,15 +4,14 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: text_html.py,v 1.37 2002/03/11 21:18:56 jhermann Exp $
+    $Id: text_html.py,v 1.42 2002/05/10 11:39:01 jhermann Exp $
 """
 
 # Imports
 import cgi, string, sys, time
-from base import FormatterBase
+from MoinMoin.formatter.base import FormatterBase
 from MoinMoin import wikiutil, config, user
 from MoinMoin.Page import Page
-from MoinMoin.cgimain import request
 from MoinMoin.i18n import _
 
 
@@ -39,8 +38,8 @@ class Formatter(FormatterBase):
     ]
 
 
-    def __init__(self, **kw):
-        apply(FormatterBase.__init__, (self,), kw)
+    def __init__(self, request, **kw):
+        apply(FormatterBase.__init__, (self, request), kw)
         self._in_li = 0
         self._in_code = 0
         self._base_depth = 0
@@ -49,9 +48,11 @@ class Formatter(FormatterBase):
         if not hasattr(request, '_fmt_hd_counters'):
             request._fmt_hd_counters = []
 
+    def sysmsg(self, text, **kw):
+        return '<div class="message"><b>%s</b></div>' % cgi.escape(text)
 
-    def pagelink(self, pagename, text=None):
-        FormatterBase.pagelink(self, pagename, text)
+    def pagelink(self, pagename, text=None, **kw):
+        apply(FormatterBase.pagelink, (self, pagename, text), kw)
         return Page(pagename).link_to(text)
 
     def url(self, url, text=None, css=None, **kw):
@@ -65,7 +66,7 @@ class Formatter(FormatterBase):
         str = ''
 
         # add popup icon if user asked for it
-        if pretty and user.current.external_target:
+        if pretty and self.request.user.external_target:
             str = ('%s<a target="_blank" href="%s"><img src="%s/img/moin-popup.gif"'
                 ' border="0" width="15" height="9" alt="%s"></a>') % (
                 str, cgi.escape(url, 1), config.url_prefix, _('[New window]'))
@@ -123,6 +124,7 @@ class Formatter(FormatterBase):
         return ['<tt class="wiki">', '</tt>'][not on]
 
     def preformatted(self, on):
+        FormatterBase.preformatted(self, on)
         return ['<pre class="code">', '</pre>'][not on]
 
     def paragraph(self, on):
@@ -145,7 +147,7 @@ class Formatter(FormatterBase):
         # check numbering, possibly changing the default
         if self._show_section_numbers is None:
             self._show_section_numbers = config.show_section_numbers
-            numbering = string.lower(request.getPragma('section-numbers', ''))
+            numbering = string.lower(self.request.getPragma('section-numbers', ''))
             if numbering in ['0', 'off']:
                 self._show_section_numbers = 0
             elif numbering in ['1', 'on']:
@@ -155,11 +157,11 @@ class Formatter(FormatterBase):
         number = ''
         if self._show_section_numbers:
             # count headings on all levels
-            request._fmt_hd_counters = request._fmt_hd_counters[:depth]
-            while len(request._fmt_hd_counters) < depth:
-                request._fmt_hd_counters.append(0)
-            request._fmt_hd_counters[-1] = request._fmt_hd_counters[-1] + 1
-            number = string.join(map(str, request._fmt_hd_counters), ".") + " "
+            self.request._fmt_hd_counters = self.request._fmt_hd_counters[:depth]
+            while len(self.request._fmt_hd_counters) < depth:
+                self.request._fmt_hd_counters.append(0)
+            self.request._fmt_hd_counters[-1] = self.request._fmt_hd_counters[-1] + 1
+            number = string.join(map(str, self.request._fmt_hd_counters), ".") + " "
 
         return '<H%d>%s%s%s</H%d>\n' % (
             depth, kw.get('icons', ''), number, title, depth)

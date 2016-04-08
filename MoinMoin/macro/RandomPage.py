@@ -4,7 +4,7 @@
     Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: RandomPage.py,v 1.3 2000/12/09 09:01:02 jhermann Exp $
+    $Id: RandomPage.py,v 1.4 2002/03/20 23:57:07 jhermann Exp $
 """
 
 # Imports
@@ -28,14 +28,14 @@ def execute(macro, args):
         all_pages.remove(page)
 
     # return a single page link
-    if links == 1: return macro.formatter.pagelink(pages[0])
+    if links == 1: return macro.formatter.pagelink(pages[0], generated=1)
 
     # return a list of page links
     pages.sort()
     result = macro.formatter.bullet_list(1)
     for name in pages:
         result = result + macro.formatter.listitem(1)
-        result = result + macro.formatter.pagelink(name)
+        result = result + macro.formatter.pagelink(name, generated=1)
         result = result + macro.formatter.listitem(0)
     result = result + macro.formatter.bullet_list(0)
 

@@ -4,12 +4,12 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: wiki.py,v 1.81 2002/02/20 19:32:34 jhermann Exp $
+    $Id: wiki.py,v 1.88 2002/05/09 21:09:37 jhermann Exp $
 """
 
 # Imports
 import cgi, os, re, string, sys
-from MoinMoin import config, user, wikimacro, wikiutil
+from MoinMoin import config, user, wikimacro, wikiutil, util
 from MoinMoin.Page import Page
 from MoinMoin.i18n import _
 
@@ -48,7 +48,7 @@ class Parser:
         'punct': punct_pattern,
     }
 
-    ol_rule = r"^\s+[0-9aAiI]\.(?:#\d+)?\s"
+    ol_rule = r"^\s+(?:[0-9]+|[aAiI])\.(?:#\d+)?\s"
     dl_rule = r"^\s+.*?::\s"
 
     # the big, fat, ugly one ;)
@@ -58,6 +58,7 @@ class Parser:
 (?P<emph>'{2,3})
 (?P<sup>\^.*?\^)
 (?P<tt>\{\{\{.*?\}\}\})
+(?P<processor>(\{\{\{#!.*))
 (?P<pre>(\{\{\{ ?|\}\}\}))
 (?P<rule>-{4,})
 (?P<comment>^\#\#.*$)
@@ -85,8 +86,9 @@ class Parser:
         'word_rule': word_rule,
         'smiley': string.join(map(re.escape, wikiutil.smileys.keys()), '|')}
 
-    def __init__(self, raw, **kw):
+    def __init__(self, raw, request, **kw):
         self.raw = raw
+        self.request = request
 
         self.macro = None
 
@@ -101,6 +103,7 @@ class Parser:
         # holds the nesting level (in chars) of open lists
         self.list_indents = []
         self.list_types = []
+
 
     def _check_p(self):
         if not (self.formatter.in_p or self.in_pre):
@@ -145,10 +148,7 @@ class Parser:
         import urllib
         wikitag, wikiurl, wikitail = wikiutil.resolve_wiki(url)
         wikiurl = wikiutil.mapURL(wikiurl)
-        if string.find(wikiurl, '$PAGE') == -1:
-            href = wikiurl + wikitail
-        else:
-            href = string.replace(wikiurl, '$PAGE', wikitail)
+        href = wikiutil.join_wiki(wikiurl, wikitail)
 
         # check for image URL, and possibly return IMG tag
         if not kw.get('pretty_url', 0) and wikiutil.isPicture(wikitail):
@@ -164,7 +164,7 @@ class Parser:
         text = self.highlight_text(text) # also cgi.escapes if necessary
 
         icon = ''
-        if user.current.show_fancy_links:
+        if self.request.user.show_fancy_links:
             icon = self.formatter.image(width=16, height=16, hspace=2,
                 border=badwiki,
                 src=prefix+"/img/moin-inter.gif",
@@ -233,7 +233,7 @@ class Parser:
                 from MoinMoin.parser import python
 
                 buff = cStringIO.StringIO()
-                colorizer = python.Parser(open(fpath, 'r').read(), out = buff)
+                colorizer = python.Parser(open(fpath, 'r').read(), self.request, out = buff)
                 colorizer.format(self.formatter, self.form)
                 return self.formatter.preformatted(1) + \
                     self.formatter.rawHTML(buff.getvalue()) + \
@@ -370,7 +370,7 @@ class Parser:
         # http|https|ftp|nntp|news|mailto|wiki|file
 
         text = ''
-        if user.current.show_fancy_links:
+        if self.request.user.show_fancy_links:
             text = text + self.formatter.image(
                 src="%s/img/moin-%s.gif" % (config.url_prefix, icon[0]),
                 width=icon[1], height=icon[2], border=0, hspace=4,
@@ -553,7 +553,7 @@ class Parser:
         import sha
 
         icons = ''
-        if user.current.show_topbottom:
+        if self.request.user.show_topbottom:
             bottom = self.formatter.image(width=14, height=10, hspace=2, vspace=6, align="right",
                 border=0, src=config.url_prefix+"/img/moin-bottom.gif", alt="[BOTTOM]")
             icons = icons + self.formatter.url("#bottom", bottom, unescaped=1)
@@ -571,6 +571,28 @@ class Parser:
             self.formatter.heading(depth, self.highlight_text(headline, flow=0), icons=icons)
 
 
+    def _processor_repl(self, word):
+        """Handle processed code displays."""
+        if word[:3] == '{{{': word = word[3:]
+
+        from MoinMoin.processor import processors
+        self.processor = None
+        processor_name = string.split(word[2:])[0]
+        if processor_name in processors:
+            self.processor = util.importName("MoinMoin.processor." +
+                processor_name, "process")
+
+        if self.processor:
+            self.in_pre = 2
+            self.colorize_lines = [word]
+            return ''
+        else:
+            self._check_p()
+            self.in_pre = 1
+            return self.formatter.preformatted(self.in_pre) + \
+                self.formatter.text(word)
+
+
     def _pre_repl(self, word):
         """Handle code displays."""
         word = string.strip(word)
@@ -583,6 +605,7 @@ class Parser:
             return self.formatter.preformatted(self.in_pre)
 
         return word
+
 
     def _smiley_repl(self, word):
         """Handle smileys."""
@@ -772,31 +795,23 @@ class Parser:
 
             if self.in_pre:
                 if self.in_pre == 2:
-                    # colorization mode
+                    # processing mode
                     endpos = string.find(line, "}}}")
                     if endpos == -1:
                         self.colorize_lines.append(line)
                         continue
 
-                    # !!! same code as with "inline:" handling, this needs to be unified!
-                    import cStringIO
-                    from MoinMoin.parser import python
-
-                    buff = cStringIO.StringIO()
-                    colorizer = python.Parser(string.join(self.colorize_lines, '\n'), out = buff)
-                    colorizer.format(self.formatter, self.form)
-
-                    sys.stdout.write(self.formatter.rawHTML(buff.getvalue()))
-                    sys.stdout.write(self.formatter.preformatted(0))
-                    self.in_pre = 0
-                    del buff
+                    self.processor(self.request, self.formatter, self.colorize_lines)
                     del self.colorize_lines
+                    self.in_pre = 0
 
                     # send rest of line through regex machinery
                     line = line[endpos+3:]                    
-                elif string.strip(line) == "#!python":
+                elif string.strip(line)[:2] == "#!" and string.find(line, 'python') > 0:
+                    from MoinMoin.processor.Colorize import process
+                    self.processor = process
                     self.in_pre = 2
-                    self.colorize_lines = []
+                    self.colorize_lines = [line]
                     continue
             else:
                 # paragraph break on empty lines
@@ -818,6 +833,7 @@ class Parser:
                     match = number_re.match(line)
                     if match:
                         numtype, numstart = string.split(string.strip(match.group(0)), '.')
+                        numtype = numtype[0]
 
                         if numstart and numstart[0] == "#":
                             numstart = int(numstart[1:])

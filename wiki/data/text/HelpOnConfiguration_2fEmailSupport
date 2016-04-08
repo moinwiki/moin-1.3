@@ -13,7 +13,7 @@ MoinMoin currently offers two email-based services, which are explained in the f
 
 === Sending Login Data ===
 
-If emailing is available, the UserPreferences dialog is expanded with a field "[[GetText(Your email address)]`]" and a button "[[GetText( Mail me my account data )]]". The user can enter the email address he provided at registration and then gets an email containing all necessary data to re-login, after clicking the button.
+If emailing is available, the UserPreferences dialog is expanded with a field "[[GetText(Your email address)]]" and a button "[[GetText( Mail me my account data )]]". The user can enter the email address he provided at registration and then gets an email containing all necessary data to re-login, after clicking the button.
 
 === Change Notification ===
 

@@ -8,7 +8,7 @@
 
         from MoinMoin import webapi
 
-    $Id: cgiMoin.py,v 1.11 2002/02/13 21:13:55 jhermann Exp $
+    $Id: cgiMoin.py,v 1.13 2002/04/17 21:58:17 jhermann Exp $
 """
 
 # Imports
@@ -23,9 +23,12 @@ def isSSL():
     return os.environ.get('SSL_PROTOCOL', '') != '' or \
            os.environ.get('SSL_PROTOCOL_VERSION', '') != ''
 
+
 def getScriptname():
     """ Return the scriptname part of the URL ("/path/to/my.cgi"). """
-    return os.environ.get('SCRIPT_NAME', '')
+    name = os.environ.get('SCRIPT_NAME', '')
+    if name == '/': return ''
+    return name
 
 
 def getPathinfo():
@@ -72,14 +75,12 @@ def getBaseURL():
 ### Headers
 #############################################################################
 
-def setHttpHeader(header):
-    from MoinMoin.cgimain import request
+def setHttpHeader(request, header):
     request.user_headers.append(header)
 
 
-def http_headers(more_headers=[]):
+def http_headers(request, more_headers=[]):
     from MoinMoin import config
-    from MoinMoin.cgimain import request
 
     if request.sent_headers:
         #print "Headers already sent!!!\n"
@@ -109,12 +110,12 @@ def http_headers(more_headers=[]):
     #sys.stderr.write(pformat(request.user_headers))
 
 
-def http_redirect(url):
+def http_redirect(request, url):
     """ Redirect to a fully qualified, or server-rooted URL """
     if string.count(url, "://") == 0:
         url = getQualifiedURL(url)
 
-    http_headers([
+    http_headers(request, [
         "Status: 302",
         "Location: " + url,
     ])

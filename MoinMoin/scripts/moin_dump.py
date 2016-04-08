@@ -15,8 +15,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 """
-# $Id: moin_dump.py,v 1.2 2002/01/15 18:31:47 jhermann Exp $
-__version__ = "$Revision: 1.2 $"[11:-2]
+# $Id: moin_dump.py,v 1.5 2002/04/18 18:36:02 jhermann Exp $
+__version__ = "$Revision: 1.5 $"[11:-2]
 
 
 #############################################################################
@@ -33,7 +33,7 @@ HTML_SUFFIX = ".html"  # perhaps put this in config.py as html_suffix?
 def usage():
     """ Print usage information.
     """
-    import os, sys
+    import sys
     sys.stderr.write("""
 %(cmd)s v%(version)s, Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
 
@@ -91,7 +91,7 @@ def main():
         try:
             os.mkdir(outputdir)
             _util.log("Created output directory '%s'!" % outputdir)
-        except OSError, e:
+        except OSError:
             _util.fatal("Cannot create output directory '%s'!" % outputdir)
 
     #
@@ -115,13 +115,12 @@ def main():
     # Dump the wiki
     #
     from MoinMoin import cgimain
-    cgimain.createRequest()
+    request = cgimain.createRequest()
 
     import cgi
-    form = cgi.FieldStorage(environ = {'QUERY_STRING': 'action=print'})
+    request.form = cgi.FieldStorage(environ = {'QUERY_STRING': 'action=print'})
 
     from MoinMoin import wikiutil, Page
-    from MoinMoin.formatter import text_html
     pages = list(wikiutil.getPageList(config.text_dir))
     pages.sort()
 
@@ -142,9 +141,9 @@ def main():
             page = Page.Page(pagename)
             sys.stdout = out
             try:
-                page.send_page(form)
+                page.send_page(request)
             except:
-                errcnt += 1
+                errcnt = errcnt + 1
                 print >>sys.stderr, "*** Caught exception while writing page!"
                 print >>errlog, "~" * 78
                 import traceback

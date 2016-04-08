@@ -13,8 +13,9 @@ To create a template, follow the above description and create a page with a name
 
 == Variable Substitution when Saving a Page ==
 
-The following variables are substituted when a page is saved.
+The following variables are substituted when a page is ''finally'' saved. Note that they'll appear unreplaced in the preview!
 
+|| @''''''PAGE@     || Name of the page (useful for template pages) ||
 || @''''''DATE@     || Current date in the system's format ||
 || @''''''TIME@     || Current date and time in the user's format ||
 || @''''''USERNAME@ || Just the user's name (or his domain/IP) ||
@@ -22,4 +23,4 @@ The following variables are substituted when a page is saved.
 || @''''''SIG@      || Dated Signature "-- loginname date time" ||
 || @''''''MAILTO@   || A fancy mailto: link with the user's data ||
 
-Note that saving template or form definition pages does ''not'' expand variables. Other than that, variable expansion is very gloabl and happens anywhere on the page, including code displays, comments, processing instructions and other "special" areas of a page you might think are excluded.
+Note that saving template or form definition pages does ''not'' expand variables. Other than that, variable expansion is very global and happens anywhere on the page, including code displays, comments, processing instructions and other "special" areas of a page you might think are excluded.

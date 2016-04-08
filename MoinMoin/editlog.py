@@ -7,11 +7,11 @@
     Functions to keep track of when people have changed pages, so we
     can do the recent changes page and so on.
 
-    $Id: editlog.py,v 1.14 2002/02/13 21:13:52 jhermann Exp $
+    $Id: editlog.py,v 1.16 2002/03/27 22:41:14 jhermann Exp $
 """
 
 # Imports
-import cgi, os, string, time
+import cgi, os, string
 from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
 
@@ -33,7 +33,7 @@ class LogBase:
         """
         return None
 
-    def addEntry(self, pagename, host, mtime, comment):
+    def addEntry(self, pagename, host, mtime, comment, action):
         """ Add an entry to the editlog """
         pass
 
@@ -60,6 +60,7 @@ class LogText(LogBase):
         """
         if not os.access(self.filename, os.W_OK):
             return "The edit log '%s' is not writable!" % (self.filename,)
+        return None
 
     def addEntry(self, pagename, host, mtime, comment, action="SAVE"):
         """ Add an entry to the editlog """
@@ -101,6 +102,7 @@ def makeLogStore(option=None):
     schema, optstr = string.split(option, ':', 1)
     if schema == "text":
         return LogText(optstr)
+    return None
 
 
 #############################################################################
@@ -119,11 +121,13 @@ class EditLog:
     _NUM_FIELDS = 7
 
     def __init__(self, **kw):
+        self._index = 0
+        self._usercache = {}
+        self._filename = os.path.join(config.data_dir, 'editlog')
+
         self._lines = self._editlog_raw_lines()
         if not kw.get('reverse', 0):
             self._lines.reverse()
-        self._index = 0
-        self._usercache = {}
 
         # set default member values
         self._parse_log_line("")
@@ -210,6 +214,14 @@ class EditLog:
         return cgi.escape(result)
 
 
+    def size(self):
+        """ Return size in bytes.
+        """
+        try:
+            return os.path.getsize(self._filename)
+        except os.error:
+            return 0
+
     def __len__(self):
         return len(self._lines)
 
@@ -224,9 +236,8 @@ class EditLog:
 
     def _editlog_raw_lines(self):
         """ Load a list of raw editlog lines """
-        editlog_name = os.path.join(config.data_dir, 'editlog') #!!! self.filename
         try:
-            logfile = open(editlog_name, 'rt')
+            logfile = open(self._filename, 'rt')
             try:
                 # fcntl.flock(logfile.fileno(), fcntl.LOCK_SH)
                 return logfile.readlines()

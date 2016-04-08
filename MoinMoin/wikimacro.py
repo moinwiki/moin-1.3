@@ -10,14 +10,14 @@
     The sub-package "MoinMoin.macro" contains external
     macros, you can place your extensions there.
 
-    $Id: wikimacro.py,v 1.33 2002/03/06 22:36:52 jhermann Exp $
+    $Id: wikimacro.py,v 1.42 2002/05/09 21:09:37 jhermann Exp $
 """
 
 # Imports
 import os, re, string, sys, time
 from MoinMoin import action, config, editlog, macro, user, util
 from MoinMoin import version, wikiutil, wikiaction
-from MoinMoin.Page import Page, request
+from MoinMoin.Page import Page
 from MoinMoin.i18n import _
 
 
@@ -69,7 +69,7 @@ class Macro:
         self.parser = parser
         self.formatter = self.parser.formatter
         self.form = self.parser.form
-        self.request = request
+        self.request = self.parser.request
 
     def execute(self, macro_name, args):
         builtins = vars(self.__class__)
@@ -96,11 +96,20 @@ class Macro:
             default = self.form["value"].value
         else:
             default = ''
-        return self.formatter.rawHTML("""<form method="get">
-        <input type="hidden" name="action" value="%s"> 
-        <input name="value" size="30" value="%s"> 
-        <input type="submit" value="%s">
-        </form>""" % (type, default, _("Go")))
+        boxes = ''
+        if type == "fullsearch":
+            boxes = (
+                  '<br><input type="checkbox" name="context" value="40" checked>'
+                + _('Display context of search results')
+                + '<br><input type="checkbox" name="case" value="1">'
+                + _('Case-sensitive searching')
+            )
+        return self.formatter.rawHTML((
+            '<form method="GET">'
+            '<input type="hidden" name="action" value="%s">'
+            '<input name="value" size="30" value="%s">&nbsp;'
+            '<input type="submit" value="%s">'
+            '%s</form>') % (type, default, _("Go"), boxes))
 
     def _macro_GoTo(self, args):
         return self.formatter.rawHTML("""<form method="get"><input name="goto" size="30">
@@ -195,8 +204,12 @@ class Macro:
         list = wikiutil._interwiki_list.items()
         list.sort()
         for tag, url in list:
-            buf.write('<tr><td><tt><a href="%sRecentChanges">%s</a>&nbsp;&nbsp;</tt></td>' % (url, tag))
-            buf.write('<td><tt><a href="%s">%s</a></tt></td>' % (url, url))
+            buf.write('<tr><td><tt><a href="%s">%s</a>&nbsp;&nbsp;</tt></td>' % (
+                wikiutil.join_wiki(url, 'RecentChanges'), tag))
+            if string.find(url, '$PAGE') == -1:
+                buf.write('<td><tt><a href="%s">%s</a></tt></td>' % (url, url))
+            else:
+                buf.write('<td><tt>%s</tt></td>' % url)
             buf.write('</tr>\n')
         buf.write('</table>')
 
@@ -205,6 +218,7 @@ class Macro:
 
     def _macro_SystemInfo(self, args):
         from cStringIO import StringIO
+        from MoinMoin import processor
 
         # check for 4XSLT
         try:
@@ -220,6 +234,8 @@ class Macro:
             '<tr><td valign="top" nowrap><b>%s</b></td><td>&nbsp;&nbsp;</td><td>%s</td></tr>' %
             (label, value))
 
+        eventlogger = self.request.getEventLogger()
+
         buf.write('<table border=0 cellspacing=2 cellpadding=0>')
         row(_('Python Version'), sys.version)
         row(_('MoinMoin Version'), _('Release %s [Revision %s]') % (version.release, version.revision))
@@ -227,7 +243,11 @@ class Macro:
             row(_('4Suite Version'), ftversion)
         row(_('Number of pages'), len(wikiutil.getPageList(config.text_dir)))
         row(_('Number of backup versions'), len(wikiutil.getBackupList(config.backup_dir, None)))
-        row(_('Entries in edit log'), len(editlog.EditLog()))
+        edlog = editlog.EditLog()
+        row(_('Entries in edit log'), _("%(logcount)s (%(logsize)s bytes)") %
+            {'logcount': len(edlog), 'logsize': edlog.size()})
+        row(_('Entries in event log'), _("%(logcount)s (%(logsize)s bytes)") %
+            {'logcount': len(eventlogger.read()), 'logsize': eventlogger.size()})
         row(_('Global extension macros'), 
             string.join(macro.extension_macros, ', ') or _("<b>NONE</b>"))
         row(_('Local extension macros'), 
@@ -236,6 +256,8 @@ class Macro:
             string.join(action.extension_actions, ', ') or _("<b>NONE</b>"))
         row(_('Local extension actions'), 
             string.join(wikiaction.getPlugins()[1], ', ') or _("<b>NONE</b>"))
+        row(_('Installed processors'), 
+            string.join(processor.processors, ', ') or _("<b>NONE</b>"))
         buf.write('</table>')
 
         return self.formatter.rawHTML(buf.getvalue())
@@ -264,7 +286,7 @@ class Macro:
         result = self.formatter.bullet_list(1)
         for filename in hits:
             result = result + self.formatter.listitem(1)
-            result = result + self.formatter.pagelink(filename)
+            result = result + self.formatter.pagelink(filename, generated=1)
             result = result + self.formatter.listitem(0)
         result = result + self.formatter.bullet_list(0)
         return result
@@ -298,15 +320,15 @@ class Macro:
         return format_date(tm)
 
     def _macro_Date(self, args):
-        return self.__get_Date(args, user.current.getFormattedDate)
+        return self.__get_Date(args, self.request.user.getFormattedDate)
 
     def _macro_DateTime(self, args):
-        return self.__get_Date(args, user.current.getFormattedDateTime)
+        return self.__get_Date(args, self.request.user.getFormattedDateTime)
 
 
     def _macro_UserPreferences(self, args):
         from MoinMoin import userform
-        return self.formatter.rawHTML(userform.getUserForm(self.form))
+        return self.formatter.rawHTML(userform.getUserForm(self.request))
 
     def _macro_Anchor(self, args):
         return self.formatter.anchordef(args or "anchor")

@@ -19,6 +19,7 @@ Zum Beispiel hat NichtExistierendeHilfeSeite einen Link zu HilfeTemplate, der de
 
 Die folgenden Variablen werden ersetzt, wenn man eine Seite speichert.
 
+|| @''''''PAGE@     || Name der Seite (nützlich auf Seitenschablonen) ||
 || @''''''DATE@     || Aktuelles Datum im Systemformat ||
 || @''''''TIME@     || Aktuelles Datum und Uhrzeit im Benutzerformat ||
 || @''''''USERNAME@ || Nur der Name des Benutzers (oder seine Domain/IP) ||

@@ -4,7 +4,7 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: python.py,v 1.9 2002/03/04 19:12:57 jhermann Exp $
+    $Id: python.py,v 1.11 2002/04/18 18:36:02 jhermann Exp $
 """
 
 # Imports
@@ -49,7 +49,7 @@ class CountedOutput:
     def line_no(self):
         if self.lineinfo:
             for info in self.lineinfo.get(self.line, []):
-                self.infocounter += 1
+                self.infocounter = self.infocounter + 1
                 self.out.write('<a name="info%d"></a>'
                     '<b><font color="%s">' % (self.infocounter, '#FF0000'))
                 if self.infocounter == 1:
@@ -72,7 +72,7 @@ class CountedOutput:
         if len(parts) > 1:
             self.out.write(parts[0])
             for part in parts[1:]:
-                self.line += 1
+                self.line = self.line + 1
                 self.out.write('\n')
                 self.line_no()
                 self.out.write(part)
@@ -84,7 +84,7 @@ class Parser:
     """ Send colored python source.
     """
 
-    def __init__(self, raw, lineinfo={}, **kw):
+    def __init__(self, raw, request, lineinfo={}, **kw):
         """ Store the source text.
         """
         self.raw = string.rstrip(string.expandtabs(raw))
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     source = open('python.py').read()
 
     # write colorized version to "python.html"
-    Parser(source, out = open('python.html', 'wt')).format(None, None)
+    Parser(source, None, out = open('python.html', 'wt')).format(None, None)
 
     # load HTML page into browser
     if os.name == "nt":

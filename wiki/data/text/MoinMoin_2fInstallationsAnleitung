@@ -14,6 +14,8 @@ die Ihnen dabei helfen, diese Anleitung auf verschiedenen Plattformen umzusetzen
 [#basic-install Basisinstallation] erklärt detailiert den ersten Schritt jeder Installation, den Aufruf von "`setup.py`".
 Dieser Schritt ist immer durchzuführen, deshalb empfiehlt es sich, die dort enthaltenen Information in jedem Fall durchzulesen, bevor Sie den Installationsvorgang beginnen.
 
+[#trouble-shooting Fehlerbehebung] hilft bei der Beseitigung von allgemeinen Fehlern, die auf jeder Plattform auftreten können.
+
 Nachdem Sie die Software erfolgreich aufgespielt haben, sollte der nächste Schritt darin bestehen, mehr über die Konfigurationsoptionen und optionale Erweiterungen zu erfahren, die Sie als Wikiadministrator einrichten können.
 Die Seite MoinMoin:HilfeZurAdministration enthält dazu Verweise auf weitere Seiten, die diese Themen abdecken.
 Insbesondere MoinMoin:HilfeZurKonfiguration und MoinMoin:HilfeZumUpdaten enthalten wertvolle Hinweise zur weiteren Konfiguration und Wartung Ihrer Wiki-Installation.
@@ -36,6 +38,10 @@ Windows:
 
 [[Anchor(basic-install)]]
 [[Include(HilfeZurInstallation/BasisInstallation)]]
+------
+[[Anchor(trouble-shooting)]]
+------
+[[Include(HilfeZurInstallation/FehlerBehebung, "Fehlerbehebung", 1)]]
 ------
 [[Anchor(unix-install)]]
 ------

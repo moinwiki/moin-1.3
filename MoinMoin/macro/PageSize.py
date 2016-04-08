@@ -4,7 +4,7 @@
     Copyright (c) 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: PageSize.py,v 1.3 2002/01/16 22:14:34 jhermann Exp $
+    $Id: PageSize.py,v 1.4 2002/03/20 23:57:07 jhermann Exp $
 """
 
 # Imports
@@ -31,7 +31,7 @@ def execute(macro, args):
             macro.formatter.code(1) + 
             string.replace("%6d" % size, " ", "&nbsp;") + " " +
             macro.formatter.code(0) + 
-            macro.formatter.pagelink(page.page_name) + 
+            macro.formatter.pagelink(page.page_name, generated=1) + 
             macro.formatter.listitem(0)
         )
     result = result + macro.formatter.number_list(0)

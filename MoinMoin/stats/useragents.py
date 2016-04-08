@@ -7,7 +7,7 @@
     This macro creates a pie chart of the type of user agents
     accessing the wiki.
 
-    $Id: useragents.py,v 1.2 2002/02/09 00:55:29 jhermann Exp $
+    $Id: useragents.py,v 1.5 2002/04/25 19:32:31 jhermann Exp $
 """
 
 _debug = 0
@@ -23,7 +23,7 @@ def linkto(pagename, params=''):
         return _('<div class="message"><b>Charts are not available!</b></div>')
 
     if _debug:
-        return draw(pagename, {})
+        return draw(pagename, None)
 
     page = Page(pagename)
     result = []
@@ -37,9 +37,9 @@ def linkto(pagename, params=''):
     return string.join(result, '')
 
 
-def draw(pagename, form):
+def draw(pagename, request):
     import cgi, sys, shutil, cStringIO, operator
-    from MoinMoin import config, webapi, eventlog
+    from MoinMoin import config, webapi
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     style = Chart.GDC_3DPIE
@@ -50,7 +50,7 @@ def draw(pagename, form):
     colors = ([Color(c) for c in colors])
 
     data = {}
-    logdata = eventlog.logger.read(['VIEWPAGE', 'SAVEPAGE'])
+    logdata = request.getEventLogger().read(['VIEWPAGE', 'SAVEPAGE'])
     for event in logdata:
         ua = event[2].get('HTTP_USER_AGENT')
         if ua:
@@ -106,7 +106,7 @@ def draw(pagename, form):
         "Content-Type: image/gif",
         "Content-Length: %d" % len(image.getvalue()),
     ]
-    webapi.http_headers(headers)
+    webapi.http_headers(request, headers)
 
     # copy the image
     image.reset()

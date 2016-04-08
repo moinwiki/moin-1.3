@@ -24,7 +24,7 @@
     TODO:
         - add missing docs (docstrings, inline comments)
 
-    $Id: LocalSiteMap.py,v 1.3 2002/02/13 21:13:52 jhermann Exp $
+    $Id: LocalSiteMap.py,v 1.7 2002/04/24 19:36:54 jhermann Exp $
 """
     
 
@@ -35,8 +35,8 @@ from MoinMoin.Page import Page
 from MoinMoin.i18n import _
 
 
-def execute(pagename, form):
-    webapi.http_headers()
+def execute(pagename, request):
+    webapi.http_headers(request)
     wikiutil.send_title(_('Local Site Map for "%s"') % (pagename),  
         pagename=pagename)
 
@@ -48,8 +48,8 @@ def execute(pagename, form):
         print "<br><br>"
     """
 
-    print LocalSiteMap(pagename).output()
-    wikiutil.send_footer(pagename)
+    print LocalSiteMap(pagename).output(request)
+    wikiutil.send_footer(request, pagename)
 
 
 class LocalSiteMap:
@@ -57,8 +57,8 @@ class LocalSiteMap:
         self.name = name
         self.result = []
 
-    def output(self):
-        tree = PageTreeBuilder().build_tree(self.name)
+    def output(self, request):
+        tree = PageTreeBuilder(request).build_tree(self.name)
         #self.append("<small>")
         tree.depth_first_visit(self)
         #self.append("</small>")
@@ -80,7 +80,8 @@ class LocalSiteMap:
 
 
 class PageTreeBuilder:
-    def __init__(self):
+    def __init__(self, request):
+        self.request = request
         self.children = {}
         self.numnodes = 0
         self.maxnodes = 35
@@ -101,7 +102,7 @@ class PageTreeBuilder:
     def new_kids(self, name):
         # does not recurse
         kids = []
-        for child in Page(name).getPageLinks():            
+        for child in Page(name).getPageLinks(self.request):            
             if self.is_ok(child):
                 kids.append(child)
         return kids        

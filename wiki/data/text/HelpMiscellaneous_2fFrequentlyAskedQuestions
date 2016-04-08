@@ -92,7 +92,7 @@ can "shake a stick at":
  * Click on TitleIndex.  This will show you an alphabetized list
  of all pages by title.
  * Click on WordIndex.  This shows an alphabetized list of every
- word in every title (ie, the Bluetooth page is under, B, Bluetooth).
+ word in every title (i.e. a page named Blue``Tooth is listed under B / Blue as well as T / Tooth).
  * Click on {{{LikePages}}} at the bottom of the page.  This shows pages
  that have words in their titles that are similar to the current page.
  * Click on the page title at the very top of the page.  This

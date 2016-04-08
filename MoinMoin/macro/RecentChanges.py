@@ -4,18 +4,17 @@
     Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: RecentChanges.py,v 1.54 2002/02/20 00:28:52 jhermann Exp $
+    $Id: RecentChanges.py,v 1.59 2002/05/02 19:13:07 jhermann Exp $
 """
 
 # Imports
-import cgi, re, string, sys, time
-from cStringIO import StringIO
+import cgi, re, string, sys, time, cStringIO
 from MoinMoin import config, editlog, user, util, wikiutil, wikixml
 from MoinMoin.Page import Page
 from MoinMoin.i18n import _
 
-_max_days = 14
-
+_MAX_DAYS = 14
+_MAX_PAGENAME_LENGTH = 35
 
 #############################################################################
 ### RecentChanges Macro
@@ -23,11 +22,11 @@ _max_days = 14
 
 def execute(macro, args, **kw):
     abandoned = kw.get('abandoned', 0)
-    log = LogIterator(reverse=abandoned)
+    log = LogIterator(macro.request, reverse=abandoned)
 
     tnow = time.time()
     msg = ""
-    buf = StringIO()
+    buf = cStringIO.StringIO()
 
     # add rss link
     if wikixml.ok and not abandoned:
@@ -41,12 +40,12 @@ def execute(macro, args, **kw):
     if abandoned:
         bookmark = None
     else:
-        bookmark = user.current.getBookmark()
-        if user.current.valid:
+        bookmark = macro.request.user.getBookmark()
+        if macro.request.user.valid:
             bm_display = _('(no bookmark set)')
             if bookmark:
                 bm_display = _('(currently set to %s)') % (
-                    user.current.getFormattedDateTime(bookmark),)
+                    macro.request.user.getFormattedDateTime(bookmark),)
 
             buf.write("%s %s<br>" % (
                 wikiutil.link_tag(
@@ -78,10 +77,10 @@ def execute(macro, args, **kw):
             break
 
         if log.dayChanged():
-            if log.daycount > _max_days: break
+            if log.daycount > _MAX_DAYS: break
 
             set_bm = ''
-            if user.current.valid and not abandoned:
+            if macro.request.user.valid and not abandoned:
                 set_bm = '&nbsp;<font size="1" face="Verdana">[%s]</font>' % (
                     wikiutil.link_tag(
                         wikiutil.quoteWikiname(macro.formatter.page.page_name)
@@ -89,7 +88,7 @@ def execute(macro, args, **kw):
                         _("set bookmark"), formatter=macro.formatter),)
 
             buf.write('<tr><td colspan="%d"><br/><font size="+1"><b>%s</b></font>%s</td></tr>\n'
-                % (4+config.show_hosts, user.current.getFormattedDate(log.ed_time), set_bm))
+                % (4+config.show_hosts, macro.request.user.getFormattedDate(log.ed_time), set_bm))
 
         # check whether this page is newer than the user's bookmark
         hilite = log.ed_time > (bookmark or log.ed_time)
@@ -128,15 +127,16 @@ def execute(macro, args, **kw):
                 img, formatter=macro.formatter, pretty_url=1)
 
         # print name of page, with a link to it
+        force_split = len(page.page_name) > _MAX_PAGENAME_LENGTH
         buf.write('<tr valign="top"><td>%s&nbsp;</td><td>%s</td><td>&nbsp;' % (
-            html_link, page.link_to(),))
+            html_link, page.link_to(text=page.split_title(force=force_split)),))
 
         # print time of change
         if config.changed_time_fmt:
             tdiff = int(tnow - log.ed_time) / 60
             if tdiff < 1440:
                 buf.write(_("[%(hours)dh&nbsp;%(mins)dm&nbsp;ago]") % {
-                    'hours': tdiff/60, 'mins': tdiff%60})
+                    'hours': int(tdiff/60), 'mins': tdiff%60})
             else:
                 buf.write(time.strftime(config.changed_time_fmt, log.time_tuple))
             buf.write("&nbsp;</td><td>&nbsp;")
@@ -194,8 +194,9 @@ def execute(macro, args, **kw):
 
 class LogIterator(editlog.EditLog):
 
-    def __init__(self, **kw):
+    def __init__(self, request, **kw):
         apply(editlog.EditLog.__init__, (self,), kw)
+        self.request = request
         self.changes = {}
         self.daycount = 0
         self.ratchet_day = None
@@ -215,7 +216,7 @@ class LogIterator(editlog.EditLog):
         offset = 0
         ratchet_day = None
         while 1:
-            time_tuple = user.current.getTime(self.ed_time)
+            time_tuple = self.request.user.getTime(self.ed_time)
             day = tuple(time_tuple[0:3])
             if not ratchet_day: ratchet_day = day
             if day != ratchet_day: break
@@ -241,7 +242,7 @@ class LogIterator(editlog.EditLog):
         return self.peek(-1)
 
     def dayChanged(self):
-        self.time_tuple = user.current.getTime(self.ed_time)
+        self.time_tuple = self.request.user.getTime(self.ed_time)
         self.day = tuple(self.time_tuple[0:3])
         if self.day != self.ratchet_day:
             self.daycount = self.daycount + 1
@@ -257,26 +258,26 @@ if wikixml.ok:
 
     from MoinMoin.wikixml.util import RssGenerator
 
-    def rss(pagename, form):
+    def rss(pagename, request):
         """ Send recent changes as an RSS document
         """
         from MoinMoin import webapi
-        import os, re, new, cStringIO
+        import os, new
 
         # get params
         items_limit = 100
         try:
-            max_items = int(form['items'].value)
+            max_items = int(request.form['items'].value)
             max_items = min(max_items, items_limit) # not more than `items_limit`
         except (KeyError, ValueError):
             # not more than 15 items in a RSS file by default
             max_items = 15
         try:
-            unique = int(form.getvalue('unique', 0))
+            unique = int(request.form.getvalue('unique', 0))
         except ValueError:
             unique = 0
         try:
-            diffs = int(form.getvalue('diffs', 0))
+            diffs = int(request.form.getvalue('diffs', 0))
         except ValueError:
             diffs = 0
 
@@ -291,12 +292,12 @@ if wikixml.ok:
         logo = re.search(r'src="([^"]*)"', config.logo_string)
         if logo: logo = webapi.getQualifiedURL(logo.group(1))
 
-        log = LogIterator(unique=unique)
+        log = LogIterator(request, unique=unique)
         logdata = []
         counter = 0
         Bag = new.classobj('Bag', (), {})
         while log.getNextChange():
-            if log.dayChanged() and log.daycount > _max_days: break
+            if log.dayChanged() and log.daycount > _MAX_DAYS: break
             if log.action != 'SAVE': continue
             logdata.append(new.instance(Bag, {
                 'ed_time': log.ed_time,
@@ -392,7 +393,7 @@ if wikixml.ok:
                         continue
                     if date <= item.ed_time:
                         if idx+1 < len(oldversions):
-                            page_file, backup_file, lines = wikiutil.pagediff(item.pagename, oldversions[idx+1], ignorews=1)
+                            rc, page_file, backup_file, lines = wikiutil.pagediff(item.pagename, oldversions[idx+1], ignorews=1)
                             if len(lines) > 20: lines = lines[20:] + ['...\n']
                             desc_text = desc_text + '<pre>\n' + string.join(lines, '') + '</pre>'
                         break
@@ -429,7 +430,7 @@ if wikixml.ok:
         handler.endDocument()
 
         # send the generated XML document
-        webapi.http_headers(["Content-Type: " + 'text/xml'] + webapi.nocache)
+        webapi.http_headers(request, ["Content-Type: " + 'text/xml'] + webapi.nocache)
         sys.stdout.write(out.getvalue())
 
         sys.exit(0)

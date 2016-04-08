@@ -108,3 +108,22 @@ strong.highlight {
     border-width: 1pt;
 */
 }
+
+table.navibar {
+    background-color: #C8C8C8;
+    border-spacing: 3px;
+}
+td.navibar {
+    background-color: #E8E8E8;
+    vertical-align: middle;
+    text-align: right;
+    padding: 0px;
+}
+a.navibar {
+    text-decoration: none;
+}
+font.navibar {
+    font-family: Arial,Helvetica;
+    font-size: 10pt;
+}
+

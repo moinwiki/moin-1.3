@@ -9,7 +9,7 @@
     with the same word as the current pagename. If only one matching
     page is found, that page is displayed directly.
 
-    $Id: LikePages.py,v 1.9 2002/02/25 21:21:12 jhermann Exp $
+    $Id: LikePages.py,v 1.14 2002/04/24 19:36:54 jhermann Exp $
 """
 
 import re
@@ -18,7 +18,7 @@ from MoinMoin.Page import Page
 from MoinMoin.i18n import _
 
 
-def execute(pagename, form,
+def execute(pagename, request,
         s_re=re.compile('([%s][%s]+)' % (config.upperletters, config.lowerletters)),
         e_re=re.compile('([%s][%s]+)$' % (config.upperletters, config.lowerletters))):
 
@@ -26,7 +26,7 @@ def execute(pagename, form,
     s_match = s_re.match(pagename)
     e_match = e_re.search(pagename)
     if not (s_match and e_match):
-        Page(pagename).send_page(form,
+        Page(pagename).send_page(request,
             msg=_('<b>You cannot use LikePages on an extended pagename!</b>'))
         return
 
@@ -55,16 +55,18 @@ def execute(pagename, form,
 
     # no matches :(
     if not matches:
-        return Page(pagename).send_page(form,
+        Page(pagename).send_page(request,
             msg='<strong>' + _('No pages match "%s"!') % (pagename,) + '</strong>')
+        return
 
     # one match - display it
     if len(matches) == 1:
-        return Page(matches.keys()[0]).send_page(form,
+        Page(matches.keys()[0]).send_page(request,
             msg='<strong>' + _('Exactly one matching page for "%s" found!') % (pagename,) + '</strong>')
+        return
 
     # more than one match, list 'em
-    webapi.http_headers()
+    webapi.http_headers(request)
     wikiutil.send_title(_('Multiple matches for "%s...%s"') % (start, end),
         pagename=pagename)
 
@@ -75,7 +77,7 @@ def execute(pagename, form,
     showMatches(matches, keys, 1, "%s..." % (start,))
     showMatches(matches, keys, 2, "...%s" % (end,))
 
-    wikiutil.send_footer(pagename)
+    wikiutil.send_footer(request, pagename)
 
 
 def showMatches(matches, keys, match, title):

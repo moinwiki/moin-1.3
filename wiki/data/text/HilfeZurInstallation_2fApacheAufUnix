@@ -86,7 +86,10 @@ In that case, if you enter "`python`" on you prompt, you will usually get the mo
 """
     MoinMoin - CGI Driver Script
 ...
+"""
 }}}
+
+If you have problems with the '''distutils''' install step, note that you need to have the Python development package installed on some Unix distributions. On Mandrake, you need to "`rpm -i python-devel-2.1.1-3mdk.i586.rpm`".
 
 
 == Installation into your home directory ==

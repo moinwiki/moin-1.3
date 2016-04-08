@@ -1,14 +1,16 @@
 """
     MoinMoin - Stand-alone HTTP Server
 
-    Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
+    Copyright (c) 2001, 2002 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
     Significant contributions to this module by R. Church <rc@ghostbitch.org>
 
-    $Id: httpdmain.py,v 1.9 2001/12/09 14:33:45 jhermann Exp $
+    RUN THIS AT YOUR OWN RISK, IT HAS BUGS AND IS UNTESTED!
+
+    $Id: httpdmain.py,v 1.14 2002/04/24 19:22:12 jhermann Exp $
 """
-__version__ = "$Revision: 1.9 $"[11:-2]
+__version__ = "$Revision: 1.14 $"[11:-2]
 
 # Imports
 import os, signal, sys, time, thread, urllib, string
@@ -77,8 +79,6 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             (e.g. drive or directory names) are ignored.
 
         """
-        import urllib
-
         file = urllib.unquote(uri)
         file.replace('\\', '/')
         words = file.split('/')
@@ -161,7 +161,7 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
                 sys.stdin = self.rfile
                 self.send_response(200)
 
-                cgimain.run()
+                request = cgimain.run(properties={'standalone': 1})
 
                 sys.stdout.flush()
             finally:
@@ -172,9 +172,9 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         except SystemExit, sts:
             self.log_error("CGI script exit status %s", str(sts))
         else:
-            #cgimain.request.clock.stop('total')
+            #request.clock.stop('total')
             self.log_error("CGI script exited OK, taking %s secs" %
-                cgimain.request.clock.value('total'))
+                request.clock.value('total'))
 
         sys.stdout.flush()
         sys.stderr.flush()
@@ -183,6 +183,7 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 # Functions
 def quit(signo, stackframe):
     """Signal handler for aborting signals."""
+    global httpd
     print "Interrupted!"
     if httpd: httpd.die()
     #sys.exit(0)
@@ -203,14 +204,16 @@ def run():
 
     # start it
     if sys.platform == 'win32':
+        stdout = sys.stdout
+
         # run threaded server
         httpd.serve_in_thread()
 
         # main thread accepts signal
         i = 0
         while not httpd._abort:
-            i += 1
-            print "\|/-"[i%4], "\r",
+            i = i + 1
+            stdout.write("\|/-"[i%4] + "\r")
             time.sleep(1)
     else:
         # if run as root, change to configured user

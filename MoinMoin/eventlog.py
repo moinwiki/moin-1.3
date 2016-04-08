@@ -8,7 +8,7 @@
     editing it, etc. For now, we just add events, later we need
     to add statistical reports, and aggregation to a database.
 
-    $Id: eventlog.py,v 1.7 2002/02/13 21:13:52 jhermann Exp $
+    $Id: eventlog.py,v 1.9 2002/04/25 19:32:30 jhermann Exp $
 """
 
 # Imports
@@ -25,6 +25,7 @@ class EventLogger:
     """
 
     def __init__(self):
+        self._filename = os.path.join(config.data_dir, 'event.log')
         self._logfile = None
         self._ua_match = None
         if config.ua_spiders:
@@ -33,7 +34,7 @@ class EventLogger:
 
     def _write(self, data):
         if not self._logfile:
-            self._logfile = open(os.path.join(config.data_dir, 'event.log'), 'a')
+            self._logfile = open(self._filename, 'a')
         self._logfile.write(data + "\n")
         self._logfile.flush()
 
@@ -60,7 +61,7 @@ class EventLogger:
 
             `filter` -- list of eventtypes to filter for
         """
-        file = open(os.path.join(config.data_dir, 'event.log'), 'r')
+        file = open(self._filename, 'r')
         events = file.readlines()
         file.close()
 
@@ -72,6 +73,11 @@ class EventLogger:
 
         return data
 
-
-logger = EventLogger()
+    def size(self):
+        """ Return size in bytes.
+        """
+        try:
+            return os.path.getsize(self._filename)
+        except os.error:
+            return 0
 

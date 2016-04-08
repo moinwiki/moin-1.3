@@ -25,3 +25,11 @@ For more information on the possible markup, see HelpOnEditing.
 || {{{ @)  }}} || @)  || eek.gif    ||
 || {{{ |)  }}} || |)  || tired.gif  ||
 || {{{ ;)) }}} || ;)) || lol.gif    ||
+|||||| ''Added with version 1.0'' ||
+|| {{{ (./) }}} || (./) || checkmark.gif ||
+|| {{{ {OK} }}} || {OK} || thumbs-up.gif ||
+|| {{{ {X} }}} || {X} || icon-error.gif ||
+|| {{{ {i} }}} || {i} || icon-info.gif ||
+|| {{{ {1} }}} || {1} || prio1.gif ||
+|| {{{ {2} }}} || {2} || prio2.gif ||
+|| {{{ {3} }}} || {3} || prio3.gif ||

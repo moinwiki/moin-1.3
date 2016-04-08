@@ -7,14 +7,14 @@
     Note that this formatter needs either PyXML installed for
     Python 1.5.2, or Python 2.0 or higher.
 
-    $Id: text_xml.py,v 1.23 2002/02/13 21:13:53 jhermann Exp $
+    $Id: text_xml.py,v 1.28 2002/05/10 11:39:01 jhermann Exp $
 """
 
 # Imports
 import string
 from xml.sax import saxutils
 
-from base import FormatterBase
+from MoinMoin.formatter.base import FormatterBase
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
 
@@ -30,14 +30,14 @@ class Formatter(FormatterBase):
 
     hardspace = '&#160;'
 
-    def __init__(self, **kw):
-        apply(FormatterBase.__init__, (self,), kw)
+    def __init__(self, request, **kw):
+        apply(FormatterBase.__init__, (self, request), kw)
         self._current_depth = 1
         self._base_depth = 0
         self.in_pre = 0
 
-    def _escape(self, text):
-        return saxutils.escape(text, {"'": "&apos;", '"': "&quot;"})
+    def _escape(self, text, extra_mapping={"'": "&apos;", '"': "&quot;"}):
+        return saxutils.escape(text, extra_mapping)
 
     def startDocument(self, pagename):
         encoding = 'ISO-8859-1'
@@ -51,11 +51,14 @@ class Formatter(FormatterBase):
             self._current_depth = self._current_depth - 1
         return result + '</s1>'
 
+    def sysmsg(self, text, **kw):
+        return '<!-- %s -->' % self._escape(text).replace('--', '==')
+
     def rawHTML(self, markup):
         return '<![CDATA[' + string.replace(markup, ']]>', ']]>]]&gt;<![CDATA[') + ']]>'
 
-    def pagelink(self, pagename, text=None):
-        FormatterBase.pagelink(self, pagename, text)
+    def pagelink(self, pagename, text=None, **kw):
+        apply(FormatterBase.pagelink, (self, pagename, text), kw)
         return Page(pagename, formatter=self).link_to(text)
 
     def url(self, url, text=None, css=None, **kw):
@@ -112,7 +115,7 @@ class Formatter(FormatterBase):
         return ['<sup>', '</sup>'][not on]
 
     def preformatted(self, on):
-        self.in_pre = on
+        FormatterBase.preformatted(self, on)
         result = ''
         if self.in_p: result = self.paragraph(0)
         return result + ['<source><![CDATA[', ']]></source>'][not on]

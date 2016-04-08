@@ -10,6 +10,7 @@ The following pages describe the elements (wiki markup) you can use to get speci
  * HelpOnTables - tables
  * HelpOnSmileys - how to insert a :)
  * HelpOnMacros - system macros
+ * HelpOnProcessors - data processing scripts
  * HelpOnProcessingInstructions - how to influence page formatting
  * HelpOnXmlPages - how to store pages with XML content and process them via XSLT
  * /SubPages - how to group together related information

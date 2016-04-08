@@ -9,10 +9,9 @@ conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.</p>
 ''':
 '''
-<h2>New Attachment</h2>
-<p>An upload will never overwrite an existing file. If there is a name
-conflict, you have to rename the file that you want to upload.
-Otherwise, if "Rename to" is left blank, the original filename will be used.</p>
+<h2>新附件</h2>
+<p>上载不会改写现有文件。 如果有名字冲突，您必须改变待上载的文件的名字。
+否则，如果"Rename to" 为空白，将会使用本来的文件名。</p>
 ''',
 
 '''
@@ -47,13 +46,13 @@ Sent a mail notification to these addresses: %s
 ' 保存 ',
 
 ' Upload ':
-' Upload ',
+' 上载 ',
 
 ' by browsing, searching, or an index<br>':
 ' 通过浏览，搜索，或索引<br>',
 
 ' by browsing, title search %(titlesearch)s, text search %(textsearch)s or an index<br>':
-' by browsing, title search %(titlesearch)s, text search %(textsearch)s or an index<br>',
+' 通过浏览，标题搜索 %(titlesearch)s, 文字搜索 %(textsearch)s 或索引<br>',
 
 ' for this page (cached %(date)s)':
 ' 为本页(cached %(date)s)',
@@ -71,13 +70,13 @@ Sent a mail notification to these addresses: %s
 ' 次',
 
 '# of hits':
-'# of hits',
+'# of 点击',
 
 '# of pages of this size':
-'# of pages of this size',
+'# of 这样大小的页面',
 
 '%(changecount)s changes':
-'%(changecount)s changes',
+'%(changecount)s 次改变',
 
 '%(chart_title)s for %(filterpage)s':
 '%(chart_title)s for %(filterpage)s',
@@ -107,7 +106,7 @@ Sent a mail notification to these addresses: %s
 '4Suite Version',
 
 "<b>Attachment '%(filename)s' does not exist!</b>":
-"<b>Attachment '%(filename)s' does not exist!</b>",
+"<b>附件 '%(filename)s' 不存在!</b>",
 
 '<b>Cookie deleted!</b>':
 '<b>Cookie 已删除!</b>',
@@ -116,7 +115,7 @@ Sent a mail notification to these addresses: %s
 '<b>日期 %s 和 %s 的版本间的差别',
 
 '<b>Filename of attachment not specified!</b>':
-'<b>Filename of attachment not specified!</b>',
+'<b>附件的文件名未指定！</b>',
 
 "<b>Found no account matching the given email address '%(email)s'!</b>":
 "<b>没有找到符合给定email地址 '%(email)s' 的帐户!</b>",
@@ -125,13 +124,13 @@ Sent a mail notification to these addresses: %s
 '<b>无</b>',
 
 '<b>No differences found!</b>':
-'<b>未发现差别!</b>',
+'<b>未发现差别！</b>',
 
 '<b>No older revisions available!</b>':
-'<b>No older revisions available!</b>',
+'<b>没有老版本！</b>',
 
 '<b>No spelling errors found!</b>':
-'<b>No spelling errors found!</b>',
+'<b>没找到拼写错误！</b>',
 
 '<b>Please provide a valid email address!</b>':
 '<b>请提供一个可用email地址!</b>',
@@ -159,7 +158,7 @@ Your attention to detail is appreciated.</b>''':
 敬请注意细节.</b>''',
 
 '<b>Unsupported upload action: %s</b>':
-'<b>Unsupported upload action: %s</b>',
+'<b>未支持的上载动作: %s</b>',
 
 '<b>User preferences saved!</b>':
 '<b>用户偏好已保存!</b>',
@@ -168,16 +167,16 @@ Your attention to detail is appreciated.</b>''':
 '<b>您已经订阅过此页.</b>',
 
 '<b>You are not allowed to delete attachments.</b>':
-'<b>You are not allowed to delete attachments.</b>',
+'<b>您不被允许删除附件.</b>',
 
 '<b>You are not allowed to upload files.</b>':
-'<b>You are not allowed to upload files.</b>',
+'<b>您不被允许上载文件.</b>',
 
 '<b>You cannot save empty pages.</b>':
 '<b>您不能保存空白页.</b>',
 
 '<b>You cannot use LikePages on an extended pagename!</b>':
-'<b>You cannot use LikePages on an extended pagename!</b>',
+'<b>您不能用 LikePages 于扩充的页名！</b>',
 
 '<b>You have been subscribed to this page.</b>':
 '<b>您订阅了此页.</b>',
@@ -191,22 +190,22 @@ from the subscription list.</b>
 ''',
 
 '<div class="message"><b>Bad chart type "%s"!</b></div>':
-'<div class="message"><b>Bad chart type "%s"!</b></div>',
+'<div class="message"><b>错误图表类型 "%s"!</b></div>',
 
 '<div class="message"><b>Charts are not available!</b></div>':
-'<div class="message"><b>Charts are not available!</b></div>',
+'<div class="message"><b>图表不可用!</b></div>',
 
 '<div class="message"><b>You need to provide a chart type!</b></div>':
-'<div class="message"><b>You need to provide a chart type!</b></div>',
+'<div class="message"><b>您需要提供图表类型!</b></div>',
 
 '<h2>Attached Files</h2>':
-'<h2>Attached Files</h2>',
+'<h2>附加的文件</h2>',
 
 "<h2>Attachment '%(filename)s'</h2>":
-"<h2>Attachment '%(filename)s'</h2>",
+"<h2>附件 '%(filename)s'</h2>",
 
 '<h2>Edit drawing</h2>':
-'<h2>Edit drawing</h2>',
+'<h2>编辑 drawing</h2>',
 
 """<hr>
 <font face=\"Verdana\" size=\"-1\">
@@ -225,16 +224,16 @@ from the subscription list.</b>
 """:
 """<hr>
 <font face=\"Verdana\" size=\"-1\">
-<b>Emphasis:</b> ''<i>italics</i>''; '''<b>bold</b>'''; '''''<b><i>bold italics</i></b>''''';
-    ''<i>mixed '''<b>bold</b>''' and italics</i>''; ---- horizontal rule.<br>
-<b>Headings:</b> = Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.<br>
-<b>Lists:</b> space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.<br>
-<b>Links:</b> JoinCapitalizedWords; [\"brackets and double quotes\"];
+<b>强调:</b> ''<i>斜体</i>''; '''<b>粗体</b>'''; '''''<b><i>粗斜体</i></b>''''';
+    ''<i>混合'''<b>粗</b>'''斜体</i>''; ---- 水平条.<br>
+<b>标题:</b> = 标题 1 =; == 标题 2 ==; === 标题 3 ===;
+    ==== 标题 4 ====; ===== 标题 5 =====.<br>
+<b>列表:</b> 空白和下面之一：* 星号; 1., a., A., i., I. 序数项;
+    1.#n 由n开始计数; 空白自己 缩进.<br>
+<b>链接:</b> JoinCapitalizedWords; [\"方括号加双引号\"];
     url; [url]; [url label].<br>
-<b>Tables</b>: || cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.<br>
+<b>表格</b>: || 单元文字 |||| 单元文字跨两列 ||;
+    表格或标题后不可以有空白符.<br>
 </font>
 <hr>
 """,
@@ -251,52 +250,52 @@ macro call.</b></small></p>
 ''',
 
 "<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>":
-"<p>SHA digest of this page's content is: <tt>%(digest)s</tt></p>",
+"<p>本页内容的SHA digest为: <tt>%(digest)s</tt></p>",
 
 '''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
 as shown below in the list of files. 
 Do <b>NOT</b> use the URL of the <tt>[get]</tt> link, 
 since this is subject to change and can break easily.</p>''':
-'''<p>To refer to attachments on a page, use <b><tt>attachment:filename</tt></b>, 
-as shown below in the list of files. 
-Do <b>NOT</b> use the URL of the <tt>[get]</tt> link, 
-since this is subject to change and can break easily.</p>''',
+'''<p>为引用某页面的附件, 用<b><tt>attachment:filename</tt></b>, 
+如下面文件列表所示. 
+<b>不要</b>用链接 <tt>[get]</tt> 的URL, 
+因为这很可能改变或不再可用.</p>''',
 
 '<p>Unknown file type, cannot display this attachment inline.</p>':
-'<p>Unknown file type, cannot display this attachment inline.</p>',
+'<p>未知文件类型, 不能联机显示此附件.</p>',
 
 '<small>[goto %s]</small>':
 '<small>[转到 %s]</small>',
 
 'Action':
-'Action',
+'动作',
 
 'Add "Open in new window" icon to pretty links':
-'Add "Open in new window" icon to pretty links',
+'加 "在新窗口打开" 图标使链接好看',
 
 'Add checked words to dictionary':
 '将选中的词加入词典',
 
 'Add spaces to displayed wiki names':
-'Add spaces to displayed wiki names',
+'给显示的wiki名加空格',
 
 'Additions are marked like this.':
-'Additions are marked like this.',
+'加入内容如下标记.',
 
 'Alternatively, use one of these templates:':
 '或者，用一个下面的模板:',
 
 "Attachment '%(filename)s' deleted.":
-"Attachment '%(filename)s' deleted.",
+"附件 '%(filename)s' 已删除.",
 
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes saved.":
-"Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes saved.",
+"附件 '%(target)s' (远程名 '%(filename)s') 有 %(bytes)d 字节保存.",
 
 'Attachments for "%(pagename)s"':
-'Attachments for "%(pagename)s"',
+'页面"%(pagename)s"的附件',
 
 "Bad timestamp '%s'":
-"Bad timestamp '%s'",
+"错误时标 '%s'",
 
 'CSS URL':
 'CSS URL',
@@ -305,10 +304,10 @@ since this is subject to change and can break easily.</p>''',
 '无法执行查询',
 
 'Cancel':
-'Cancel',
+'取消',
 
 'Check Spelling':
-'Check Spelling',
+'检查拼写',
 
 'Clear message':
 '清除消息',
@@ -317,10 +316,10 @@ since this is subject to change and can break easily.</p>''',
 '点击这里进行对该题目的全文搜索',
 
 'Comment':
-'Comment',
+'注释',
 
 'Create new drawing "%(filename)s"':
-'Create new drawing "%(filename)s"',
+'创建新 drawing "%(filename)s"',
 
 'Create this page':
 '创建本页',
@@ -344,10 +343,10 @@ since this is subject to change and can break easily.</p>''',
 '"%s" 版本差别',
 
 'Distribution of User-Agent Types':
-'Distribution of User-Agent Types',
+'用户代理类型分布',
 
 'Download XML export of this wiki':
-'Download XML export of this wiki',
+'下载本wiki的XML输出',
 
 "Drawing '%(filename)s' saved.":
 "Drawing '%(filename)s' saved.",
@@ -356,10 +355,10 @@ since this is subject to change and can break easily.</p>''',
 "表达式 '%s' 有错",
 
 'Edit "%(pagename)s"':
-'Edit "%(pagename)s"',
+'编辑 "%(pagename)s"',
 
 'Edit was cancelled.':
-'Edit was cancelled.',
+'编辑被取消了.',
 
 'EditText':
 '编辑文字',
@@ -377,22 +376,22 @@ since this is subject to change and can break easily.</p>''',
 '编辑日志项',
 
 'Expected "=" to follow "%(token)s"':
-'Expected "=" to follow "%(token)s"',
+'期待 "=" 跟着 "%(token)s"',
 
 'Expected a value for key "%(token)s"':
-'Expected a value for key "%(token)s"',
+'期待一个值对应 key "%(token)s"',
 
 'File "%(filename)s for page "%(pagename)s':
-'File "%(filename)s for page "%(pagename)s',
+'文件 "%(filename)s for 页面 "%(pagename)s',
 
 'File to upload':
-'File to upload',
+'待上载文件',
 
 'FindPage':
 '查找页面',
 
 'Fri':
-'Fri',
+'星期五',
 
 'Full text search for "%s"':
 '全文搜索 "%s"',
@@ -401,7 +400,7 @@ since this is subject to change and can break easily.</p>''',
 '一般信息',
 
 'General options':
-'General options',
+'一般选项',
 
 'Global extension actions':
 '全局扩充动作',
@@ -413,13 +412,13 @@ since this is subject to change and can break easily.</p>''',
 'Go',
 
 'HelpContents':
-'HelpContents',
+'帮助内容',
 
 'HelpOnFormatting':
-'HelpOnFormatting',
+'关于格式的帮助',
 
 'Ignore changes in the amount of whitespace':
-'Ignore changes in the amount of whitespace',
+'忽略仅仅空白数量的改变',
 
 'Info for "%s"':
 '关于 "%s"',
@@ -440,7 +439,7 @@ since this is subject to change and can break easily.</p>''',
 '本地拼写词',
 
 'MIME Type (optional)':
-'MIME Type (optional)',
+'MIME 类型 (可选)',
 
 'Mail sent OK':
 '邮件发送成功',
@@ -449,7 +448,7 @@ since this is subject to change and can break easily.</p>''',
 'MoinMoin 版本',
 
 'Mon':
-'Mon',
+'星期一',
 
 'Multiple matches for "%s...%s"':
 '对 "%s...%s" 的多项匹配',
@@ -461,7 +460,7 @@ since this is subject to change and can break easily.</p>''',
 '名称',
 
 'Needed %(timer).1f seconds.':
-'Needed %(timer).1f seconds.',
+'需要 %(timer).1f 秒.',
 
 'No attachments stored for %(pagename)s':
 '%(pagename)s 无附件保存',
@@ -485,25 +484,25 @@ since this is subject to change and can break easily.</p>''',
 '页面数',
 
 'Open editor on double click':
-'Open editor on double click',
+'双击打开编辑器',
 
 'Optional comment about this change':
-'Optional comment about this change',
+'关于本次改变可加的注释',
 
 'Or try one of these actions: ':
 '或尝试以下动作: ',
 
 'Others':
-'Others',
+'其它',
 
 'Page "%s" was sucessfully deleted!':
 '页面 "%s" 被成功删除!',
 
 'Page Size Distribution':
-'Page Size Distribution',
+'页面大小分布',
 
 'Page hits and edits':
-'Page hits and edits',
+'页面点击数和编辑数',
 
 'Password':
 '口令',
@@ -515,10 +514,10 @@ since this is subject to change and can break easily.</p>''',
 '请使用交互用户界面删除页面!',
 
 'Preview':
-'Preview',
+'预览',
 
 'Preview of "%(pagename)s"':
-'Preview of "%(pagename)s"',
+'页面"%(pagename)s"的预览',
 
 'Python Version':
 'Python 版本',
@@ -527,7 +526,7 @@ since this is subject to change and can break easily.</p>''',
 '真要删除本页?',
 
 'RecentChanges':
-'RecentChanges',
+'最新改变',
 
 'Redirected from page "%(page)s"':
 '从 "%(page)s" 页重定向过来',
@@ -542,19 +541,19 @@ since this is subject to change and can break easily.</p>''',
 '版本 %s [子版本 %s]',
 
 'Remember last page visited':
-'Remember last page visited',
+'记住上次看的页面',
 
 'Remove trailing whitespace from each line':
 '从各行去掉尾部空白',
 
 'Rename to (optional)':
-'Rename to (optional)',
+'改名为（可选）',
 
 'Revision History':
 '版本历史',
 
 'Sat':
-'Sat',
+'星期六',
 
 'Save Changes':
 '保存修改',
@@ -566,37 +565,37 @@ since this is subject to change and can break easily.</p>''',
 '服务器时间为',
 
 'Show emoticons':
-'Show emoticons',
+'显示表情符',
 
 'Show fancy diffs':
-'Show fancy diffs',
+'显示好看的差别',
 
 'Show fancy links':
-'Show fancy links',
+'显示好看的链接',
 
 'Show icon toolbar':
-'Show icon toolbar',
+'显示图标工具条',
 
 'Show page trail':
-'Show page trail',
+'显示页面轨迹',
 
 'Show question mark for non-existing pagelinks':
-'Show question mark for non-existing pagelinks',
+'为不存在的页链接显示问号',
 
 'Show top/bottom links in headings':
-'Show top/bottom links in headings',
+'在标题中显示 顶/底链接',
 
 'ShowText':
 '显示文字',
 
 'SiteNavigation':
-'SiteNavigation',
+'站点导航',
 
 'Size':
 '大小',
 
 'Skip to preview':
-'Skip to preview',
+'跳转到预览',
 
 'Submitted form data:':
 '提交表数据:',
@@ -605,7 +604,7 @@ since this is subject to change and can break easily.</p>''',
 '订阅 wiki 页<br>(one regex per line)',
 
 'Sun':
-'Sun',
+'星期日',
 
 'The backupped content of this page is deprecated and will not be included in search results!':
 '本页的备份内容不赞成使用，并且将不出现在搜索结果中!',
@@ -632,7 +631,7 @@ since this is subject to change and can break easily.</p>''',
 '本页重定向到页面 "%(page)s"',
 
 'Thu':
-'Thu',
+'星期四',
 
 'Time zone':
 '时区',
@@ -641,7 +640,7 @@ since this is subject to change and can break easily.</p>''',
 '对 "%s" 进行题目搜索',
 
 'TitleIndex':
-'TitleIndex',
+'标题索引',
 
 'To create you own templates, add a page with a name ending in Template.':
 '为创建您自己的模板, 加入一个名字以 Template 结尾的页面.',
@@ -650,7 +649,7 @@ since this is subject to change and can break easily.</p>''',
 '要从其它机器登录, 用此 URL: ',
 
 'Tue':
-'Tue',
+'星期二',
 
 'Unknown action':
 '未知动作',
@@ -659,22 +658,22 @@ since this is subject to change and can break easily.</p>''',
 '更新我的书签时表',
 
 'Upload new attachment "%(filename)s"':
-'Upload new attachment "%(filename)s"',
+'上载新附件 "%(filename)s"',
 
 "Upload of attachment '%(filename)s'.":
-"Upload of attachment '%(filename)s'.",
+"上载附件 '%(filename)s'.",
 
 'UserPreferences':
-'UserPreferences',
+'用户喜好',
 
 'Version as of %(date)s':
 '%(date)s 的版本',
 
 'Wed':
-'Wed',
+'星期三',
 
 'WordIndex':
-'WordIndex',
+'词汇索引',
 
 'XML title index':
 'XML 标题索引',
@@ -695,19 +694,19 @@ since this is subject to change and can break easily.</p>''',
 '[新页面的内容从 %s 载入]',
 
 '[New window]':
-'[New window]',
+'[新窗口]',
 
 '[Template %s not found]':
 '[模板 %s 未找到]',
 
 'attachment:%(filename)s of %(pagename)s':
-'attachment:%(filename)s of %(pagename)s',
+'附件:%(filename)s of %(pagename)s',
 
 'date':
-'date',
+'日期',
 
 'diff':
-'diff',
+'差别',
 
 '''green=view
 red=edit''':
@@ -718,7 +717,7 @@ red=edit''',
 'of 本页',
 
 'page size upper bound [bytes]':
-'page size upper bound [bytes]',
+'页面大小上界 [字节]',
 
 'set bookmark':
 '设置书签',

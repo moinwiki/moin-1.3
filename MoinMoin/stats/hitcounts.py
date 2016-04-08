@@ -6,7 +6,7 @@
 
     This macro creates a hitcount chart from the data in "event.log".
 
-    $Id: hitcounts.py,v 1.5 2002/02/02 12:18:48 jhermann Exp $
+    $Id: hitcounts.py,v 1.9 2002/04/25 19:32:30 jhermann Exp $
 """
 
 _debug = 0
@@ -22,7 +22,7 @@ def linkto(pagename, params=''):
         return _('<div class="message"><b>Charts are not available!</b></div>')
 
     if _debug:
-        return draw(pagename, {})
+        return draw(pagename, None)
 
     page = Page(pagename)
     result = []
@@ -37,15 +37,15 @@ def linkto(pagename, params=''):
     return string.join(result, '')
 
 
-def draw(pagename, form):
+def draw(pagename, request):
     import cgi, sys, shutil, cStringIO
-    from MoinMoin import config, webapi, eventlog, user
+    from MoinMoin import config, webapi, user
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     # check params
     filterpage = None
-    if form and form.has_key('page'):
-        filterpage = form['page'].value
+    if request and request.form and request.form.has_key('page'):
+        filterpage = request.form['page'].value
 
     # prepare data
     days = []
@@ -53,12 +53,12 @@ def draw(pagename, form):
     edits = []
     ratchet_day = None
     ratchet_time = None
-    data = eventlog.logger.read(['VIEWPAGE', 'SAVEPAGE'])
+    data = request.getEventLogger().read(['VIEWPAGE', 'SAVEPAGE'])
     for event in data:
         #print ">>>", cgi.escape(repr(event)), "<br>"
         if filterpage and event[2]['pagename'] != filterpage:
             continue
-        time_tuple = user.current.getTime(event[0])
+        time_tuple = request.user.getTime(event[0])
         day = tuple(time_tuple[0:3])
         if day != ratchet_day:
             # new day
@@ -66,12 +66,12 @@ def draw(pagename, form):
             # without data, we have to add more 0 values
             while ratchet_time:
                 ratchet_time += 86400
-                rday = user.current.getTime(ratchet_time)
+                rday = request.user.getTime(ratchet_time)
                 if rday > day: break
-                days.append(user.current.getFormattedDate(ratchet_time))
+                days.append(request.user.getFormattedDate(ratchet_time))
                 views.append(0)
                 edits.append(0)
-            days.append(user.current.getFormattedDate(event[0]))
+            days.append(request.user.getFormattedDate(event[0]))
             views.append(0)
             edits.append(0)
             ratchet_day = day
@@ -121,7 +121,7 @@ def draw(pagename, form):
         "Content-Type: image/gif",
         "Content-Length: %d" % len(image.getvalue()),
     ]
-    webapi.http_headers(headers)
+    webapi.http_headers(request, headers)
 
     # copy the image
     image.reset()

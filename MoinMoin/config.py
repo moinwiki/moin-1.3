@@ -6,7 +6,7 @@
 
     Load moin_config.py and add any missing values with their defaults.
 
-    $Id: config.py,v 1.62 2002/03/09 15:55:22 jhermann Exp $
+    $Id: config.py,v 1.68 2002/05/10 11:39:01 jhermann Exp $
 """
 
 # Try to import moin_config. If it fails, either someone forgot moin_config,
@@ -42,6 +42,7 @@ cfg_defaults = {
     'allow_subpages': 1,
     'allow_numeric_entities': 1,
     'allowed_actions': [],
+    'allow_xslt': 0,
     'attachments': None, # {'dir': path, 'url': url-prefix}
     'bang_meta': 0,
     'backtick_meta': 1,
@@ -101,7 +102,7 @@ alt="PythonPowered"></a>""" % (url_prefix,),
 <a href="%(scriptname)s/%(pagename)s?action=edit"><img src="%(url)s/img/moin-edit.gif" width="12" height="12" border="0" hspace="2" align="right" alt="Edit"></a>
 <a href="%(scriptname)s/%(pagename)s?action=subscribe"><img src="%(url)s/img/moin-email.gif" width="14" height="10" border="0" hspace="2" vspace="1" align="right" alt="Subscribe"></a>
 <a href="%(scriptname)s/%(pagename)s?action=format&mimetype=text/xml"><img src="%(url)s/img/moin-xml.gif" width="20" height="13" border="0" hspace="2" align="right" alt="XML"></a>
-<a href="%(scriptname)s/%(pagename)s?action=print"><img src="%(url)s/img/moin-print.gif" width="12" height="13" border="0" hspace="2" align="right" alt="Print"></a>
+<a href="%(scriptname)s/%(pagename)s?action=print"><img src="%(url)s/img/moin-print.gif" width="16" height="14" border="0" hspace="2" align="right" alt="Print"></a>
 <a href="%(scriptname)s/%(pagename)s"><img src="%(url)s/img/moin-show.gif" width="12" height="13" border="0" hspace="2" align="right" alt="View"></a>
 ''',
     'page_icons_home': '<img src="%(url)s/img/moin-home.gif" width="13" height="12" border="0" hspace="2" align="right" alt="Home">',
@@ -119,7 +120,7 @@ alt="PythonPowered"></a>""" % (url_prefix,),
     'ua_spiders': 'htdig', # a regex of HTTP_USER_AGENTS that should be excluded from logging
     'umask': 0777,
     'upperletters': 'A-Z\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd2\xd3\xd4\xd5\xd6\xd8\xd9\xda\xdb\xdc\xdd\xc7\xd0\xd1\xde',
-    'url_prefix': '/wiki-moinmoin',
+    'url_prefix': '/wiki',
     'url_schemas': [],
     'url_mappings': {},
     'LogStore': 'text:editlog',

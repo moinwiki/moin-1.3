@@ -18,14 +18,15 @@
 <p>After following the procedures on this page, you should have a working wiki and can browse the rest of the online docs there. 
 <p><a name="head-65451e37257c4f12fcd35ad5e1a08a1d1de549ea"></a><H1>How to install your own MoinMoin Wiki</H1>
 
-This page describes the installation procedure applying to <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoin"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">MoinMoin</a> version 0.11 and up. In the next section, there is a list of real-world <a href="#installscenarios">Installation Scenarios</a> that help you to understand how to apply the instructions in different environments. 
+This page describes the installation procedure applying to <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoin"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">MoinMoin</a> version 0.11 and up. In the next section, there is a list of real-world <a href="#installscenarios">Installation Scenarios</a> that help you to understand how to apply the instructions in different environments. 
 <p><a href="#basic-install">Basic Installation</a> explains the "<tt class="wiki">setup.py</tt>" step of the installation in more detail. This applies equally to all scenarios, and you should read it before trying a live installation. 
-<p>After a successful installation, you might want to read more about configuration and other options that you, as the wiki administrator, can set up. <a title="MoinMoin" href="http://purl.net/wiki/moin/HelpOnAdministration"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">HelpOnAdministration</a> contains links to pages that cover these topics. 
-Especially, the <a title="MoinMoin" href="http://purl.net/wiki/moin/HelpOnConfiguration"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">HelpOnConfiguration</a> and <a title="MoinMoin" href="http://purl.net/wiki/moin/HelpOnUpdating"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">HelpOnUpdating</a> pages provide additional information regarding wiki setup and maintenance. <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoinWinCvs"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">MoinMoinWinCvs</a> and <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoinUnixCvs"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">MoinMoinUnixCvs</a> describe how to run your wiki using the current development version from the <a title="MoinMoin" href="http://purl.net/wiki/moin/SourceForge"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">SourceForge</a> CVS repository. 
+<p><a href="#trouble-shooting">Trouble-shooting</a> helps with fixing any general problems you might encounter, which apply to any installation platform. 
+<p>After a successful installation, you might want to read more about configuration and other options that you, as the wiki administrator, can set up. <a title="MoinMoin" href="http://purl.net/wiki/moin/HelpOnAdministration"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">HelpOnAdministration</a> contains links to pages that cover these topics. 
+Especially, the <a title="MoinMoin" href="http://purl.net/wiki/moin/HelpOnConfiguration"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">HelpOnConfiguration</a> and <a title="MoinMoin" href="http://purl.net/wiki/moin/HelpOnUpdating"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">HelpOnUpdating</a> pages provide additional information regarding wiki setup and maintenance. <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoinWinCvs"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">MoinMoinWinCvs</a> and <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoinUnixCvs"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">MoinMoinUnixCvs</a> describe how to run your wiki using the current development version from the <a title="MoinMoin" href="http://purl.net/wiki/moin/SourceForge"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">SourceForge</a> CVS repository. 
 <p><a name="installscenarios"></a> 
 <a name="head-c2b2ba0ea784e130d387783b1b16d5f09b611baf"></a><H2>Sample Installation Scenarios</H2>
 
-<p>The following links lead you to concrete examples of installation sessions, showing the commands used and explaining what they do. It is highly recommended that you <em>first</em> read the general information on installing (especially the next section of this page) before choosing an installation scenario that best fits your intended use of <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoin"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">MoinMoin</a>. 
+<p>The following links lead you to concrete examples of installation sessions, showing the commands used and explaining what they do. It is highly recommended that you <em>first</em> read the general information on installing (especially the next section of this page) before choosing an installation scenario that best fits your intended use of <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoin"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">MoinMoin</a>. 
 <p>UNIX: <ul>
 <li> <a href="#unix-install">UNIX Installation</a> </li></ul>
 <p>Windows: <ul>
@@ -39,7 +40,7 @@ Especially, the <a title="MoinMoin" href="http://purl.net/wiki/moin/HelpOnConfig
 you have to do the basic installation using the standard Python 
 <em>distutils</em> mechanism. We'll explain the usual steps you need to 
 take to do this. For more details on the distutils installation 
-process, consult the <a class="external" href="http://www.python.org/doc/current/inst/inst.html"><img height="11" border="0" src="wiki/htdocs/img/moin-www.gif" hspace="4" alt="[WWW]" width="11">Installing Python Modules</a> document of your 
+process, consult the <a class="external" href="http://www.python.org/doc/current/inst/inst.html"><img height="11" hspace="4" border="0" alt="[WWW]" width="11" src="wiki/htdocs/img/moin-www.gif">Installing Python Modules</a> document of your 
 Python manual. <ul>
 <p><img height="15" hspace="6" alt=" /!\ " src="wiki/htdocs/img/alert.gif" width="15"><b>NOTE:</b> You will need the Python Development package installed on UNIX systems for distutils to work correctly. </ul>
 <p>The first step is to unpack the distribution archive, which you 
@@ -128,13 +129,26 @@ in that directory. If you're interested in the exact list of
 files that are installed, use the <tt class="wiki">--record</tt> option of distutils.  
 <p><hr size="4">
  
+<a name="trouble-shooting"></a> 
+<p><hr size="4">
+ 
+<H1>Trouble-shooting</H1>
+
+<p><a name="head-3e3e1061347b44a132ad65d0753ac815602ba689"></a><H1>Built-in test</H1>
+
+<p>There's a built-in diagnostic mode that's useful when doing an install; just append "<tt class="wiki">?test</tt>" to the URL of your wiki: <pre class="code">
+lynx --dump http://`hostname`/mywiki?test 
+</pre> 
+<p>If you see an import error here, but "<tt class="wiki">python&#160;-c&#160;"import&#160;MoinMoin"</tt>" works, it's likely a result of missing file permissions or a wrong PYTHONPATH setting within the web server environment.  
+<p><hr size="4">
+ 
 <a name="unix-install"></a> 
 <p><hr size="4">
  
 <H1>UNIX Installation</H1>
 
 <p><b>Index</b> 
-<ol><li><a href="#head-cd23dfc430be1466fa023cc08dcdc228278fd7c8">Installation when you are root or the webmaster</a></li><ol><li><a href="#head-4ae55a7c6b4551d23d7089f46872de4cc9fc93d3">Installing MoinMoin</a></li><li><a href="#head-c35303a8fa270ea92418a519639df15043ecce57">Creating a wiki instance</a></li><li><a href="#head-285ec850c11d78bac10f6bfa31b69a37f1b257c9">Troubleshooting</a></li></ol><li><a href="#head-4a7b5261101cdad8d92c03c29b1ab68f0118d2d2">Installation into your home directory</a></li><ol><li><a href="#head-f968c25d9eff78969bae19d7cb4a6f391e45b84e">Making sure /~username URLs work</a></li><li><a href="#head-ba8ac37f74359b88809d693cb72b33c2e41629d2">Getting the distribution archive and doing the basic installation</a></li><li><a href="#head-39f38662f77e35dab742b1b54877ef26f312daf2">Setting up a wiki instance</a></li><li><a href="#head-09dab53502a7d707521feef1d49d36dc1ab3b18c">Setting up public_html and testing the installation</a></li></ol></ol> 
+<ol><li><a href="#head-cd23dfc430be1466fa023cc08dcdc228278fd7c8">Installation when you are root or the webmaster</a></li><ol><li><a href="#head-4ae55a7c6b4551d23d7089f46872de4cc9fc93d3">Installing MoinMoin</a></li><li><a href="#head-c35303a8fa270ea92418a519639df15043ecce57">Creating a wiki instance</a></li><li><a href="#head-285ec850c11d78bac10f6bfa31b69a37f1b257c9">Troubleshooting</a></li><ol><li><a href="#head-6a41bda5bec350bac3ff8a850f46d958f68d70eb">Dueling Pythons</a></li><li><a href="#head-48d76199bcbff95dfac4e81f86f47d8f5e7c9a13">Distutils does not work</a></li><li><a href="#head-f6e7340d7da0a13cd248122ce0c47f8f2ff4b7e5">Missing file permissions</a></li></ol></ol><li><a href="#head-4a7b5261101cdad8d92c03c29b1ab68f0118d2d2">Installation into your home directory</a></li><ol><li><a href="#head-f968c25d9eff78969bae19d7cb4a6f391e45b84e">Making sure /~username URLs work</a></li><li><a href="#head-ba8ac37f74359b88809d693cb72b33c2e41629d2">Getting the distribution archive and doing the basic installation</a></li><li><a href="#head-39f38662f77e35dab742b1b54877ef26f312daf2">Setting up a wiki instance</a></li><li><a href="#head-09dab53502a7d707521feef1d49d36dc1ab3b18c">Setting up public_html and testing the installation</a></li></ol></ol> 
 <p><a name="head-cd23dfc430be1466fa023cc08dcdc228278fd7c8"></a><H1>Installation when you are root or the webmaster</H1>
 
 <p>When you are root or the webmaster on the host you want to install MoinMoin on, you can place the software in a "standard" location, and also better integrate MoinMoin into your webserver. Especially, you can use a "nice" base URL that does not include "cgi-bin" or "moin.cgi" at all. 
@@ -189,15 +203,32 @@ allowed_actions = ['DeletePage', 'AttachFile']
 </pre> 
 <p><a name="head-285ec850c11d78bac10f6bfa31b69a37f1b257c9"></a><H2>Troubleshooting</H2>
 
-<p>The first thing to do when your wiki does not work as expected is to issue the command "<tt class="wiki">tail&#160;/var/log/httpd/error_log</tt>" to display the most recent errors. Usually, you will get a hint on what went wrong, like missing file system permissions. 
+<p>The first thing to do when your wiki does not work as expected is to issue the command "<tt class="wiki">tail&#160;/var/log/httpd/error_log</tt>" to display the most recent errors. Usually, you will get a hint on what went wrong, like missing file system permissions. Also, always consult the <a href="/users/jh.twistd/master/moin.cgi/HelpOnInstalling_2fTroubleShooting">HelpOnInstalling/TroubleShooting</a> page for further hints on your problem. 
+<p><a name="head-6a41bda5bec350bac3ff8a850f46d958f68d70eb"></a><H3>Dueling Pythons</H3>
+
 <p>The most common problem you might encounter is when you have Python 1.5.2 installed into "<tt class="wiki">/usr</tt>", and a newer Python distribution into "<tt class="wiki">/usr/local</tt>"; this is typical for GNU/Linux distributions that still come bundled with version 1.5.2 of Python. 
 <p>In that case, if you enter "<tt class="wiki">python</tt>" on your prompt, you will usually get the more recent Python interpreter, because "<tt class="wiki">/usr/local/bin</tt>" is in your <tt class="wiki">PATH</tt>. The situation is different in your webserver environment, and thus you might have to change the bang path of "<tt class="wiki">moin.cgi</tt>", like this: <pre class="code">
-#! /usr/local/bin/python 
- 
-""" 
-    MoinMoin - CGI Driver Script 
-... 
+<pre><font face="Lucida,Courier New"><font color="#000000">    1 </font><font color="#008000">#! /usr/local/bin/python
+<font color="#000000">    2 </font></font>
+<font color="#000000">    3 </font><font color="#004080">"""
+<font color="#000000">    4 </font>    MoinMoin - CGI Driver Script
+<font color="#000000">    5 </font>...
+<font color="#000000">    6 </font>"""</font><font color="#000000"></font></font></pre></pre> 
+<p><a name="head-48d76199bcbff95dfac4e81f86f47d8f5e7c9a13"></a><H3>Distutils does not work</H3>
+
+<p>If you have problems with the <b>distutils</b> install step, note that you need to have the Python development package installed on some Unix distributions. On Mandrake, you need to "<tt class="wiki">rpm&#160;-i&#160;python-devel-2.1.1-3mdk.i586.rpm</tt>". 
+<p><a name="head-f6e7340d7da0a13cd248122ce0c47f8f2ff4b7e5"></a><H3>Missing file permissions</H3>
+
+<p>If you are root, the installed files may be readable only by root, but they must also be readable by the web server before the wiki will work. This includes both the Python modules and the site itself. For the data directory, the web server also needs <em>write</em> access.  To fix this, first find out where the Python module directory is; look in <tt class="wiki">install.log</tt>, or run the command:  
+<p><pre class="code">
+python -c "import sys; print '%s/lib/python%s/site-packages' % ( sys.prefix, sys.version[:3] )" 
 </pre> 
+<p>For the example below, we'll assume that the Python module directory is <tt class="wiki">/usr/local/lib/python2.1/site-packages</tt>. 
+Make the files world-readable using the following commands: <pre class="code">
+cd /usr/local 
+chmod -R a+rX lib/python2.1/site-packages/MoinMoin share/moin 
+</pre> 
+<p><img height="15" hspace="6" alt="/!\ " src="wiki/htdocs/img/alert.gif" width="15">Note that by making everything under <tt class="wiki">/usr/local/share/moin</tt> world-readable, local users can read the files containing your wiki. You don't really need to do that, since the <tt class="wiki">mywiki</tt> directory is owned by the webserver. If you don't want that, you do a "<tt class="wiki">chmod&#160;-R&#160;o-rwx&#160;share/moin/mywiki</tt>" after the above commands. 
 <p><a name="head-4a7b5261101cdad8d92c03c29b1ab68f0118d2d2"></a><H1>Installation into your home directory</H1>
 
 <p>Installation into your shell account's home directory is typically used on a host shared by many users and where you are <em>not</em> the root user. This usually implies that you cannot change the <tt class="wiki">httpd.conf</tt> file, and also you cannot copy files into the machine's <tt class="wiki">cgi-bin</tt> and <tt class="wiki">htdocs</tt> directories. For this situation, Apache includes the <tt class="wiki">UserDir</tt> directive, which maps all URLs that start with "<tt class="wiki">/~username</tt>" to a directory in your home directory, where you have write permissions and thus can install MoinMoin. 
@@ -314,10 +345,10 @@ lynx -dump http://localhost/~jh/moin.cgi?test
 
 <p><a name="head-4a60061c6ad216d661baf0fb61c263690cd3653d"></a><H2>Installing Apache</H2>
 
-<p>You currently need an external webserver to run MoinMoin, the recommended option is to use Apache if you haven't installed one on your machine already. To install Apache, consult the <a class="external" href="http://httpd.apache.org/docs/windows.html"><img height="11" border="0" src="wiki/htdocs/img/moin-www.gif" hspace="4" alt="[WWW]" width="11">Using Apache With Microsoft Windows</a> document. Make sure that your webserver runs without problems before you start to install MoinMoin; problems with your webserver installation are not in the scope of this document. 
+<p>You currently need an external webserver to run MoinMoin, the recommended option is to use Apache if you haven't installed one on your machine already. To install Apache, consult the <a class="external" href="http://httpd.apache.org/docs/windows.html"><img height="11" hspace="4" border="0" alt="[WWW]" width="11" src="wiki/htdocs/img/moin-www.gif">Using Apache With Microsoft Windows</a> document. Make sure that your webserver runs without problems before you start to install MoinMoin; problems with your webserver installation are not in the scope of this document. 
 <p><a name="head-e4ce45d479f9c28c42ec0fff53ad64c1fc1e1dfb"></a><H2>Installing Python</H2>
 
-<p>Download <a class="external" href="http://www.python.org/ftp/python/2.1.2/Python-2.1.2.exe"><img height="11" border="0" src="wiki/htdocs/img/moin-www.gif" hspace="4" alt="[WWW]" width="11">Python 2.1.2</a> and install it. Python installation is done via a standard Windows installer program, which you should be familiar with. 
+<p>Download <a class="external" href="http://www.python.org/ftp/python/2.1.2/Python-2.1.2.exe"><img height="11" hspace="4" border="0" alt="[WWW]" width="11" src="wiki/htdocs/img/moin-www.gif">Python 2.1.2</a> and install it. Python installation is done via a standard Windows installer program, which you should be familiar with. 
 <p><a name="head-4ae55a7c6b4551d23d7089f46872de4cc9fc93d3"></a><H2>Installing MoinMoin</H2>
 
 <p>Before creating a wiki instance, you have to download and install the basic MoinMoin software. We assume you already have downloaded the distribution archive to the "<tt class="wiki">C:\TEMP</tt>" directory<sup><a href="#moin_footnote1">1</a></sup>. 
@@ -378,7 +409,7 @@ allowed_actions = ['DeletePage', 'AttachFile']
 <ol><li><a href="#head-09a428f93ec07a73d726f8bd037ecacfaaf8b044">Requirements</a></li><li><a href="#head-a8bc382020aaaa716a496826f97b0c9d436c31a9">Preparation</a></li><ol><li><a href="#head-a0c86e10c581394466d224e30f847c91c6195b7b">Installing IIS</a></li><li><a href="#head-e4ce45d479f9c28c42ec0fff53ad64c1fc1e1dfb">Installing Python</a></li><li><a href="#head-4ae55a7c6b4551d23d7089f46872de4cc9fc93d3">Installing MoinMoin</a></li></ol><li><a href="#head-07dd036e6d83a2d5953199459b0ff8acce4b4858">Creating a Wiki Instance</a></li><ol><li><a href="#head-285ec850c11d78bac10f6bfa31b69a37f1b257c9">Troubleshooting</a></li></ol></ol> 
 <p><a name="head-09a428f93ec07a73d726f8bd037ecacfaaf8b044"></a><H1>Requirements</H1>
 
-<p>Before you install <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoin"><img height="16" border="0" hspace="2" alt="[MoinMoin]" width="16" src="wiki/htdocs/img/moin-inter.gif">MoinMoin</a>, make sure you have the necessary infra-structure in place, namely the <em>Internet Information Services</em> webserver (any version should be OK), and a <em>Python</em> installation (version 2.0 or higher is recommended, don't run 1.5.2 without a compelling reason). 
+<p>Before you install <a title="MoinMoin" href="http://purl.net/wiki/moin/MoinMoin"><img height="16" hspace="2" border="0" alt="[MoinMoin]" src="wiki/htdocs/img/moin-inter.gif" width="16">MoinMoin</a>, make sure you have the necessary infra-structure in place, namely the <em>Internet Information Services</em> webserver (any version should be OK), and a <em>Python</em> installation (version 2.0 or higher is recommended, don't run 1.5.2 without a compelling reason). 
 <p>In the following description, we assume that you have installed or will install things to these locations: <ul>
 <li> IIS to its default location 
 </li><li> <tt class="wiki">C:\Python</tt> - the Python interpreter 
@@ -398,7 +429,7 @@ allowed_actions = ['DeletePage', 'AttachFile']
 <p>Make sure that your webserver runs without problems before you start to install MoinMoin; problems with your webserver installation are not in the scope of this document. 
 <p><a name="head-e4ce45d479f9c28c42ec0fff53ad64c1fc1e1dfb"></a><H2>Installing Python</H2>
 
-<p>Download <a class="external" href="http://www.python.org/ftp/python/2.1.2/Python-2.1.2.exe"><img height="11" border="0" src="wiki/htdocs/img/moin-www.gif" hspace="4" alt="[WWW]" width="11">Python 2.1.2</a> and install it. Python installation is done via a standard Windows installer program. 
+<p>Download <a class="external" href="http://www.python.org/ftp/python/2.1.2/Python-2.1.2.exe"><img height="11" hspace="4" border="0" alt="[WWW]" width="11" src="wiki/htdocs/img/moin-www.gif">Python 2.1.2</a> and install it. Python installation is done via a standard Windows installer program. 
 <p><a name="head-4ae55a7c6b4551d23d7089f46872de4cc9fc93d3"></a><H2>Installing MoinMoin</H2>
 
 <p>Before creating a wiki instance, you have to download and install the basic MoinMoin software. We assume you already have downloaded the distribution archive to the "<tt class="wiki">C:\TEMP</tt>" directory<sup><a href="#moin_footnote1">1</a></sup>. 
@@ -451,5 +482,5 @@ allowed_actions = ['DeletePage', 'AttachFile']
 </pre> 
 <p><a name="head-285ec850c11d78bac10f6bfa31b69a37f1b257c9"></a><H2>Troubleshooting</H2>
 
-<p>If you see an error like "<tt class="wiki">ImportError:&#160;No&#160;module&#160;named&#160;MoinMoin</tt>", it means that python cannot find MoinMoin. See above for how to set your <tt class="wiki">PYTHONPATH</tt> or add to <tt class="wiki">sys.path</tt>.  <!-- MoinMoin 1.150 on zaibach served this page in 1.510 secs -->
+<p>If you see an error like "<tt class="wiki">ImportError:&#160;No&#160;module&#160;named&#160;MoinMoin</tt>", it means that python cannot find MoinMoin. See above for how to set your <tt class="wiki">PYTHONPATH</tt> or add to <tt class="wiki">sys.path</tt>.  <!-- MoinMoin 1.156 on zaibach served this page in 1.630 secs -->
 </body></html>

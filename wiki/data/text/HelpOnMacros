@@ -36,7 +36,7 @@ For more information on the possible markup, see HelpOnEditing.
 ||{{{[[PageCount]]}}}       || current page count || [[PageCount]] pages ||
 ||{{{[[PageSize]]}}}        || list the sizes of all pages || See PageSize ||
 ||{{{[[StatsChart(type)]]}}} || shows statistical charts (currently defined types: hitcounts, pagesize, useragents) || See EventStats and subpages  ||
-||{{{[[SystemAdmin]]}}} || Web interface to wiki administration (not completed yet as of version 0.11) || See SystemInfo ||
+||{{{[[SystemAdmin]]}}} || Web interface to wiki administration (not completed yet as of version 1.0) || See SystemInfo ||
 
 === Others ===
 ||'''Macro'''||'''Description'''||'''Example'''||

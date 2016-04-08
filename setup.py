@@ -6,9 +6,9 @@
     Copyright (c) 2001 by Jürgen Hermann <jh@web.de>
     All rights reserved, see COPYING for details.
 
-    $Id: setup.py,v 1.15 2002/02/07 01:03:32 jhermann Exp $
+    $Id: setup.py,v 1.19 2002/05/09 18:53:45 jhermann Exp $
 """
-__version__ = "$Revision: 1.15 $"[11:-2]
+__version__ = "$Revision: 1.19 $"[11:-2]
 
 # Imports
 import glob, os, string, sys
@@ -84,7 +84,8 @@ class build_scripts_create(build_scripts):
             try:
                 if sys.platform == "win32":
                     file.write('@echo off\n'
-                        '%(python)s -c "from %(package)s.scripts.%(module)s import run; run()" %%$\n'
+                        'if NOT "%%_4ver%%" == "" %(python)s -c "from %(package)s.scripts.%(module)s import run; run()" %%$\n'
+                        'if     "%%_4ver%%" == "" %(python)s -c "from %(package)s.scripts.%(module)s import run; run()" %%*\n'
                         % script_vars)
                 else:
                     file.write('#! %(python)s\n'
@@ -93,6 +94,7 @@ class build_scripts_create(build_scripts):
                         % script_vars)
             finally:
                 file.close()
+                os.chmod(outfile, 0755)
 
 
 class build_scripts_moin(build_scripts_create):
@@ -138,12 +140,15 @@ only requiring a Web server and a Python installation.
         'MoinMoin.i18n',
         'MoinMoin.macro',
         'MoinMoin.parser',
+        'MoinMoin.processor',
         'MoinMoin.py15',
         'MoinMoin.scripts',
         'MoinMoin.stats',
         'MoinMoin.support',
         'MoinMoin.twisted',
+        'MoinMoin.util',
         'MoinMoin.webapi',
+        'MoinMoin.widget',
         'MoinMoin.wikixml',
     ],
 
