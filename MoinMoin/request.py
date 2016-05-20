@@ -240,7 +240,7 @@ class RequestBase:
                 except LookupError:
                     pass
                 else:
-                    path_info = path_info.decode(cur_charset).encode("utf-8")
+                    path_info = path_info.decodeUnknownInput(path_info).encode("utf-8")
 
         self.path_info = self.decodePagename(path_info)
         self.request_method = env.get('REQUEST_METHOD', None)

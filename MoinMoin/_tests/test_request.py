@@ -37,7 +37,8 @@ class NormalizePagenameTestCase(unittest.TestCase):
         for test, expected in cases:
             result = request.normalizePagename(test)
             self.assertEqual(result, expected,
-                             ('Expected "%(expected)s" but got "%(result)s"') % locals())
+                             ('Expected "%(expected)s" but got "%(result)s"') %
+                             locals())
 
     def testNormalizeWhitespace(self):
         """ request: normalize pagename: normalize whitespace """
@@ -53,7 +54,8 @@ class NormalizePagenameTestCase(unittest.TestCase):
         for test, expected in cases:
             result = request.normalizePagename(test)
             self.assertEqual(result, expected,
-                             ('Expected "%(expected)s" but got "%(result)s"') % locals())
+                             ('Expected "%(expected)s" but got "%(result)s"') %
+                             locals())
 
     def testUnderscoreTestCase(self):
         """ request: normalize pagename: underscore convert to spaces and normalized
@@ -71,45 +73,38 @@ class NormalizePagenameTestCase(unittest.TestCase):
         for test, expected in cases:
             result = request.normalizePagename(test)
             self.assertEqual(result, expected,
-                             ('Expected "%(expected)s" but got "%(result)s"') % locals())
+                             ('Expected "%(expected)s" but got "%(result)s"') %
+                             locals())
 
-# does not work, see: http://moinmoin.wikiwikiweb.de/?action=test
-#
-# Traceback (most recent call last):
-#  File "/org/moin_tw/moin-1.3/MoinMoin/_tests/test_request.py", line 103, in testNormalizeGroupName
-#      ('Expected "%(expected)s" but got "%(result)s"') % locals())
-#      AssertionError: Expected "NameGroup" but got "Name,:Group"
-#
-#
-#class GroupPagesTestCase(unittest.TestCase):
-#
-#    def setUp(self):
-#        self.config = TestConfig(page_group_regex = r'.+Group')              
-#
-#    def tearDown(self):
-#        del self.config
-#
-#    def testNormalizeGroupName(self):
-#        """ request: normalize pagename: restrict groups to alpha numeric Unicode
-#        
-#        Spaces should normalize after invalid chars removed!
-#        """
-#        import re
-#        group = re.compile(r'.+Group', re.UNICODE)       
-#        cases  = (
-#            # current acl chars
-#            (u'Name,:Group', u'NameGroup'),
-#            # remove than normalize spaces
-#            (u'Name ! @ # $ % ^ & * ( ) + Group', u'Name Group'),
-#            )
-#        for test, expected in cases:
-#            # validate we are testing valid group names
-#            assert group.search(test)
-#            result = request.normalizePagename(test)
-#            self.assertEqual(result, expected,
-#                             ('Expected "%(expected)s" but got "%(result)s"') % locals())
-#
-#
+
+class GroupPagesTestCase(unittest.TestCase):
+
+   def setUp(self):
+       self.config = TestConfig(page_group_regex = r'.+Group')              
+
+   def tearDown(self):
+       del self.config
+
+   def testNormalizeGroupName(self):
+       """ request: normalize pagename: restrict groups to alpha numeric Unicode
+       
+       Spaces should normalize after invalid chars removed!
+       """
+       import re
+       group = re.compile(r'.+Group', re.UNICODE)       
+       cases  = (
+           # current acl chars
+           (u'Name,:Group', u'NameGroup'),
+           # remove than normalize spaces
+           (u'Name ! @ # $ % ^ & * ( ) + Group', u'Name Group'),
+           )
+       for test, expected in cases:
+           # validate we are testing valid group names
+           assert group.search(test)
+           result = request.normalizePagename(test)
+           self.assertEqual(result, expected,
+                            ('Expected "%(expected)s" but got "%(result)s"') %
+                            locals())
 
 
 # This let you run each test from the command line. When run with 

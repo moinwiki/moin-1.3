@@ -10,10 +10,10 @@
 try:
     from patchlevel import patchlevel
 except:
-    patchlevel = '1.3.2 release'
+    patchlevel = '1.3.3 release'
 
 project = "MoinMoin"
-release  = '1.3.2'
+release  = '1.3.3'
 revision = patchlevel
 
 if __name__ == '__main__':

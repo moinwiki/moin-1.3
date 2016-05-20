@@ -1,6 +1,21 @@
 MoinMoin Version History
 ========================
 
+
+Version 1.3.3 (2005-01-24, Revision moin--main--1.3--patch-595)
+
+Fixes:
+
+    * fixed ACL security problem in search
+    * fix for IIS with CGI allowing page names that contain chars
+      that are not in the system code page
+    * fixed MoinEditorBackup revisions to start with 1 now
+    * improved page locking ('current' file)
+    * Unittests (normally shown at end of action=test output) are currently
+      disabled for everything except CGI, because they only work reliably with
+      CGI, giving wrong results for other request methods.
+
+
 Version 1.3.2 (2005-01-23, Revision moin--main--1.3--patch-587)
 
 Fixes:

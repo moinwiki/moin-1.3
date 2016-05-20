@@ -1014,7 +1014,7 @@ def searchPages(request, query, **kw):
         if result:
             if not filter:
                 # Filter deleted pages or pages the user can't read.
-                if not page.exists() and request.user.may.read(name):
+                if not (page.exists() and request.user.may.read(name)):
                     continue
             hits.append(FoundPage(name, result))
             

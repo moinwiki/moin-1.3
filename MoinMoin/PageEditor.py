@@ -98,6 +98,8 @@ class PageEditor(Page):
         pass
     class EditConflict(SaveError):
         pass
+    class CouldNotLock(SaveError):
+        pass
 
     def __init__(self, request, page_name, **keywords):
         """
@@ -789,23 +791,30 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
             os.chmod(cfn, 0666 & config.umask)
             
         got_lock= False
-        while not got_lock: # TODO add retry counter
+        retry = 0
+        while not got_lock and retry < 100:
+            retry += 1
             try:
                 filesys.rename(cfn, clfn)
                 got_lock = True
             except OSError, err:
+                got_lock = False
                 if err.errno == 2: # there was no 'current' file
-                    got_lock = False
-                    time.sleep(1)
-                    raise # TODO remove
+                    time.sleep(0.1)
+                else:
+                    raise self.CouldNotLock, _("Page could not get locked. Unexpected error (errno=%d).") % err.errno
+        
+        if not got_lock:
+            raise self.CouldNotLock, _("Page could not get locked. Missing 'current' file?")
         
         # increment rev number of current(-locked) page
         f = open(clfn)
         revstr = f.read()
         f.close()
         rev = int(revstr)
-        if not was_deprecated and self.do_revision_backup:
-            rev += 1
+        if not was_deprecated:
+            if self.do_revision_backup or rev == 0:
+                rev += 1
         revstr = '%08d' % rev
         f = open(clfn, 'w')
         f.write(revstr+'\n')

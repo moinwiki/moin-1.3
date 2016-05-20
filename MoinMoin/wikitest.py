@@ -78,15 +78,17 @@ def runTest(request):
         request.write("    ONLY AVAILABLE FOR LOCAL REQUESTS ON THIS HOST!")
 
     # run unit tests
-    request.write("\nUnit Tests:\n")
-    try:    
-        #from MoinMoin import _tests
-        raise ImportError # somebody fscked up the tests and we don't want to
-                          # confuse users with wrong unittests that only work
-                          # on first request (seen with twisted on moinmoin
-                          # wiki). XXX TODO fix tests
-    except ImportError:
-        request.write("    *** NOT AVAILABLE ***")
+    request.write("\n\nUnit Tests:\n")
+
+    # The unit test work currently only with CGI
+    # TODO: remove this check when we fix the test framework.
+    from MoinMoin.request import RequestCGI
+    if isinstance(request, RequestCGI):
+        try:    
+            from MoinMoin import _tests
+            _tests.run(request)
+        except ImportError:
+            request.write("    *** The unit tests are not available ***")
     else:
-        _tests.run(request)
+        request.write("    *** The unit tests are available only with CGI ***")
 
