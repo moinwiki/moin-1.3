@@ -28,6 +28,8 @@ Per usare questa maschera su altre pagine, inserisci una chiamata alla macro
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'.[[BR]][[BR]]
 ~-
 ''',
+'''Create New Page''':
+'''Crea questa pagina''',
 '''You are not allowed to view this page.''':
 '''Non sei autorizzato a leggere questa pagina.''',
 '''DeleteCache''':
@@ -41,7 +43,7 @@ Per usare questa maschera su altre pagine, inserisci una chiamata alla macro
 '''Cannot edit old revisions!''':
 '''Non è permesso modificare le versioni precedenti!''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
-'''Il lock che detenevi è spirato, preparati per conflitti di modifiche!''',
+'''Il lock che detenevi è scaduto, preparati a possibili conflitti di modifiche!''',
 '''Edit "%(pagename)s"''':
 '''Modifica "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
@@ -53,14 +55,14 @@ Per usare questa maschera su altre pagine, inserisci una chiamata alla macro
 '''Your edit lock on %(lock_page)s will expire in # seconds.''':
 '''Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto tra # secondi.''',
 '''Someone else deleted this page while you were editing!''':
-'''Qualcun altro ha rimosso la pagina mentre la stavi modificando''',
+'''Qualcun altro ha rimosso la pagina mentre la stavi modificando tu!''',
 '''Someone else changed this page while you were editing!''':
-'''Qualcun altro ha cambiato la pagina mentre la stavi modificando''',
+'''Qualcun altro ha cambiato la pagina mentre la stavi modificando tu!''',
 '''Someone else saved this page while you were editing!
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.''':
-'''Qualcun altro ha salvato la pagina mentre la stavi modificandoPer favore, rivedi la pagina e salvala. Non salvarla così come è
-Dai un\'occhiata alle diff in %(difflink)s per vedere cosa è cambiato.''',
+'''Qualcun altro ha salvato la pagina mentre la stavi modificando. Per favore, rivedi la pagina e salvala. Non salvarla così com\'è!
+Dai un\'occhiata alle differenze in %(difflink)s per vedere cosa è cambiato.''',
 '''[Content of new page loaded from %s]''':
 '''[Contenuto della nuova pagina caricato da %s]''',
 '''[Template %s not found]''':
@@ -164,14 +166,14 @@ Now re-add your changes to the current page contents.
 the content editbox with your version of the page, because that would
 delete the changes of the other person, which is excessively rude!\'\'
 ''':
-'''Mi dispiace, ma qualcun altro ha salvato la pagina mentre la stavi modificando
+'''Mi dispiace, ma qualcun altro ha salvato la pagina mentre la stavi modificando.
 
 Dovresti tornare alla pagina precedende e copiarti il
-testo che hai inserito, dopodich&eacute; tornare qui, premere ModificaIlTesto di nuovo
-Ora re-integra le tue modifiche nella pagina corrente.
+testo che hai inserito, dopodiché tornare qui, premere ModificaIlTesto di nuovo.
+A quel punto re-integra le tue modifiche nella pagina corrente.
 
 \'\'Non limitarti a sostituire il contenuto della pagina con le tue
-modifiche, perchè; in tal modo cancelleresti le modifiche dell\'altra
+modifiche, perché in tal modo cancelleresti le modifiche dell\'altra
 persona, che sarebbe eccessivamente sgarbato!\'\'
 ''',
 '''A backup of your changes is [%(backup_url)s here].''':
@@ -181,17 +183,17 @@ persona, che sarebbe eccessivamente sgarbato!\'\'
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
 '''Non puoi modificare i diritti di accesso (ACL) di questa pagina dal momento che non hai i permessi di amministrazione su di essa!''',
 '''Thank you for your changes. Your attention to detail is appreciated.''':
-'''Grazie per il tuo contributo. La tua attenzione ai dettagli è apprezzata''',
+'''Grazie per il tuo contributo. La tua attenzione ai dettagli è apprezzata.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
-'''Il lock di %(owner)s è spirato %(mins_ago)d minute(s) fa, e ti è stato concesso il lock per questa pagina.''',
+'''Il lock di %(owner)s è scaduto %(mins_ago)d minute(s) fa, e ti è stato concesso il lock per questa pagina.''',
 '''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
 '''Gli altri utenti saranno \'\'bloccati\'\' nelle modifiche a questa pagina fino a  %(bumptime)s.''',
 '''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
-'''Gli altri utenti saranno \'\'avvisati\'\' fino a %(bumptime)s che stai modificando la paginas.''',
+'''Gli altri utenti saranno \'\'avvisati\'\' fino a %(bumptime)s che stai modificando la pagina.''',
 '''Use the Preview button to extend the locking period.''':
-'''Usa il bottone Anteprima per estendere il periodo di locking.''',
+'''Usa il pulsante Anteprima per estendere il periodo di locking.''',
 '''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''Questa pagina rimarrà;\'\'bloccata\'\' fino alle %(timestamp)s, vale a dire ancora per %(mins_valid)d minuti, perchè %(owner)s la sta modificando.''',
+'''Questa pagina rimarrà \'\'bloccata\'\' fino alle %(timestamp)s, vale a dire ancora per %(mins_valid)d minuti, perché %(owner)s la sta modificando.''',
 '''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
 \'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
 to avoid editing conflicts.\'\'\'[[BR]]
@@ -231,7 +233,7 @@ Il nome può contenere ogni carattere alfanumerico Unicode , con opzionale unosp
 '''Login''':
 '''Login''',
 ''' %s and try again.''':
-''' %s and prova ancora.''',
+''' %s e prova ancora.''',
 '''Can\'t work out query''':
 '''Non riesco a impostare la query di ricerca''',
 '''%(hits)d results out of %(pages)d pages.''':
@@ -239,9 +241,9 @@ Il nome può contenere ogni carattere alfanumerico Unicode , con opzionale unosp
 '''%.2f seconds''':
 '''%.2f secondi''',
 '''match''':
-''' corrispondenza''',
+'''corrispondenza''',
 '''matches''':
-''' corrispondenze''',
+'''corrispondenze''',
 '''Open editor on double click''':
 '''Con un doppio click, apri l\'editor''',
 '''Remember last page visited''':
@@ -251,11 +253,11 @@ Il nome può contenere ogni carattere alfanumerico Unicode , con opzionale unosp
 '''Show question mark for non-existing pagelinks''':
 '''Mostra un punto di domanda al posto dei collegamenti non esistenti''',
 '''Show page trail''':
-'''Mostra il più di pagina''',
+'''Mostra il piè di pagina''',
 '''Show icon toolbar''':
 '''Mostra la barra con le icone''',
 '''Show top/bottom links in headings''':
-'''Mostra i link top/bottom nelle intstazioni''',
+'''Mostra i link inizio/fine nelle intestazioni''',
 '''Show fancy diffs''':
 '''Evidenzia le differenze''',
 '''Add spaces to displayed wiki names''':
@@ -292,13 +294,13 @@ Contact the owner of the wiki, who can enable email.''':
 '''Passwords don\'t match!''':
 '''Le password non coincidono!''',
 '''Please specify a password!''':
-'''specifica una password!''',
+'''Per favore specifica una password!''',
 '''Please provide your email address. If you loose your login information, you can get it by email.''':
 '''Per favore, inserisci il tuo indirizzo email: senza di esso non potrai riottenere i tuoi dati personali nel caso smarrissi la password.''',
 '''This email already belongs to somebody else.''':
 '''Questo indirizzo email è gia utilizzato da qualcun altro.''',
 '''The theme \'%(theme_name)s\' could not be loaded!''':
-'''Il tema \'%(theme_name)s\' nno può essere caricato''',
+'''Il tema \'%(theme_name)s\' no può essere caricato''',
 '''User preferences saved!''':
 '''Le preferenze sono state memorizzate!''',
 '''Default''':
@@ -410,7 +412,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''Revision History''':
 '''Cronologia revisioni''',
 '''No log entries found.''':
-'''Non sono stati trovate informazioni nel log''',
+'''Non sono stati trovate informazioni nel log.''',
 '''Info for "%s"''':
 '''Informazioni su "%s"''',
 '''Show "%(title)s"''':
@@ -494,7 +496,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''Processori installati (DEPRECATO -- usa i Parser)''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
-'''Per favore usa un termine di ricerca più; selettivo di {{{"%s"}}}''',
+'''Per favore usa un termine di ricerca più selettivo di {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
 '''Errore nell\'espressione regolare \'%s\'''',
 '''Bad timestamp \'%s\'''':
@@ -526,7 +528,7 @@ dal momento che potrebbe cambiare in futuro.''',
 '''No attachments stored for %(pagename)s''':
 '''Non ci sono allegati per la pagina %(pagename)s''',
 '''Edit drawing''':
-'''>Modifica il disegno''',
+'''Modifica il disegno''',
 '''Attached Files''':
 '''File allegati''',
 '''You are not allowed to attach a file to this page.''':
@@ -542,8 +544,6 @@ Altrimenti, se "Rinomina come" viene lasciato in bianco, verrà
 usato il nome originale del file.''',
 '''File to upload''':
 '''File da caricare''',
-'''Save as''':
-''' Salva come''',
 '''Upload''':
 '''Carica''',
 '''File attachments are not allowed in this wiki!''':
@@ -609,11 +609,11 @@ usato il nome originale del file.''',
 '''New name''':
 '''Nuovo nome''',
 '''Optional reason for the renaming''':
-'''Ragione facoltativa per la rinuminazione''',
+'''Ragione facoltativa per la rinominazione''',
 '''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
 
 Try a different name.''':
-'''\'\'\'Una pagina con il nome {{{\'%s\'}}} esiste gia.\'\'\'
+'''\'\'\'Una pagina con il nome {{{\'%s\'}}} esiste già.\'\'\'
 
 Prova un nome differente.''',
 '''(including %(localwords)d %(pagelink)s)''':
@@ -639,19 +639,17 @@ Prova un nome differente.''',
 '''Nothing found for "%s"!''':
 '''Non risulta nulla per "%s"''',
 '''Unsupported navigation scheme \'%(scheme)s\'!''':
-'''Schema di navigazione \'%(scheme)s\' non supportato1''',
+'''Schema di navigazione \'%(scheme)s\' non supportato!''',
 '''No parent page found!''':
 '''La pagina sovrastante non è stata trovata!''',
 '''Wiki''':
-'''wiki''',
+'''Wiki''',
 '''Slideshow''':
 '''Diapositive''',
 '''Start''':
 '''Inizia''',
 '''Slide %(pos)d of %(size)d''':
 '''Slide %(pos)d di %(size)d ''',
-'''Create New Page''':
-'''Crea questa pagina''',
 '''No orphaned pages in this wiki.''':
 '''Non ci sono pagine orfane (non referenziate da qualche altra pagina) in questo wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -683,7 +681,7 @@ Prova un nome differente.''',
 '''You need to provide a chart type!''':
 '''Devi specificare un tipo di grafico!''',
 '''Bad chart type "%s"!''':
-'''tipo di grafico "%s" non valido!''',
+'''Tipo di grafico "%s" non valido!''',
 '''Download XML export of this wiki''':
 '''Scarica una versione XML di questo wiki''',
 '''No wanted pages in this wiki.''':
@@ -706,18 +704,8 @@ Prova un nome differente.''',
 '''Atteso un intero "%(arg)s" prima di "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Atteso un colore "%(arg)s" prima di "%(key)s"''',
-'''XSLT option disabled!''':
-'''Opzione XSLT disabilitata!''',
-'''XSLT processing is not available!''':
-'''Formattazione XSLT non disponibile''',
 '''%(errortype)s processing error''':
 '''Errore di elaborazione di tipo "%(errortype)s"''',
-'''RefreshCache''':
-'''AggiornaCache''',
-'''for this page (cached %(date)s)''':
-'''per questa pagina (memorizzata il %(date)s)''',
-'''Charts are not available!''':
-'''Grafici non disponibili''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s: %(filterpage)s''',
 '''green=view
@@ -728,6 +716,8 @@ rosso=Mod''',
 '''data''',
 '''# of hits''':
 '''n. di accessi''',
+'''Charts are not available!''':
+'''Grafici non disponibili!''',
 '''Page Size Distribution''':
 '''Distribuzione delle pagine per dimensione''',
 '''page size upper bound [bytes]''':
@@ -777,7 +767,7 @@ rosso=Mod''',
 '''Show Print View''':
 '''Versione stampabile''',
 '''Delete Cache''':
-'''Cancella File Temporanei''',
+'''Cancella file temporanei''',
 '''Attach File''':
 '''File allegati''',
 '''Delete Page''':

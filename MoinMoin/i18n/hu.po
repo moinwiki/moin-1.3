@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
-"PO-Revision-Date: 2004-11-16 17:05+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
+"PO-Revision-Date: 2005-07-01 13:20+0200\n"
 "Last-Translator: VOROSBARANYI Zoltan <http://vbzo.li/>\n"
 "Language-Team: Hungarian <HU@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,12 +29,12 @@ msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
 msgstr ""
-"A lap elmentett tartalma elavult, s így nem szerepel majd a keresések "
+"A lap elmentett tartalma elavult, s ezért nem szerepel majd a keresések "
 "eredményében!"
 
 #, python-format
 msgid "Revision %(rev)d as of %(date)s"
-msgstr "%(rev)d. változat, dátum: %(date)s"
+msgstr "%(rev)d. módosítás, dátum: %(date)s"
 
 #, python-format
 msgid "Redirected from page \"%(page)s\""
@@ -56,12 +56,14 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "-~\n"
 
+msgid "Create New Page"
+msgstr "Új lap létrehozása"
+
 msgid "You are not allowed to view this page."
 msgstr "A lap megtekintése nem engedélyezett."
 
-#, fuzzy
 msgid "DeleteCache"
-msgstr "LapTörlés"
+msgstr "GyorstárTörlés"
 
 #, python-format
 msgid "(cached %s)"
@@ -71,13 +73,16 @@ msgid "You are not allowed to edit this page."
 msgstr "A lap szerkesztése nem engedélyezett."
 
 msgid "Page is immutable!"
-msgstr "A lapot nem lehet megváltoztatni!"
+msgstr "A lap nem szerkeszthető!"
 
 msgid "Cannot edit old revisions!"
-msgstr "A régi változatokat nem lehet szerkeszteni!"
+msgstr "A régi módosításokat nem lehet szerkeszteni!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "A zárolás lejárt. Emiatt szerkesztési ütközésekre számíthat!"
+
+msgid "Page name is too long, try shorter name."
+msgstr "A lap neve től hosszú, kérjük adjon meg egy rövidebbet!"
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -111,9 +116,9 @@ msgid ""
 "Please review the page and save then. Do not save this page as it is!\n"
 "Have a look at the diff of %(difflink)s to see what has been changed."
 msgstr ""
-"Valaki elmentette ezt a lapot míg Ön szerkesztette!\n"
+"Valaki elmentette ezt a lapot amíg Ön szerkesztette.\n"
 "Semmiképpen se mentse el így, ahogy van!\n"
-"Kérjük nézze át a lapot és azután mentse el.\n"
+"Kérjük nézze át a lapot és csak azután mentse el!\n"
 "A változásokat megtekintheti a(z) %(difflink)s különbségeinek oldalán."
 
 #, python-format
@@ -248,9 +253,11 @@ msgstr "Új lap:\n"
 msgid "No differences found!\n"
 msgstr "Nics különbség!\n"
 
-#, fuzzy, python-format
+#, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] %(trivial)sváltoztatás a(z) \"%(pagename)s\" lapon"
+msgstr ""
+"[%(sitename)s] %(trivial)sváltoztatás a(z) \"%(pagename)s\" lapon, szerzője: "
+"%(username)s"
 
 msgid "Trivial "
 msgstr "lényegtelen "
@@ -268,10 +275,10 @@ msgstr "## a(z) \"%(pagename)s\" lap mentése elküldve, dátum: %(date)s"
 
 #, python-format
 msgid "Page could not get locked. Unexpected error (errno=%d)."
-msgstr ""
+msgstr "A lapot nem lehetett zárolni. Váratlan hiba (errno=%d)."
 
 msgid "Page could not get locked. Missing 'current' file?"
-msgstr ""
+msgstr "A lapot nem lehetett zárolni. Hiányzik a 'current' nevű állomány?"
 
 msgid "You are not allowed to edit this page!"
 msgstr "Nem szerkesztheti ezt a lapot!"
@@ -293,20 +300,20 @@ msgstr ""
 "Sajnos valaki más elmentette a lapot míg Ön szerkesztette.\n"
 "\n"
 "Kérjük a böngészője \"vissza\"-gombjával lépjen vissza, majd vágja ki a "
-"megváltozott szöveget onnan. Ezután térjen ide vissza, majd kattintson a "
+"megváltozott szöveget onnan. Ezután térjen vissza ide, majd kattintson a "
 "SzövegSzerkesztés-re ismét, s illessze be a kivágott szöveget a az aktuális "
 "lapba.\n"
 "\n"
 "''Ne cserélje le egyszerűen a megváltozott szöveget az Önével, mert ezzel "
 "elveszne a másik felhasználó által beírt szöveg! Udvariatlanságnak számít "
-"más szövegét így kitörölni!''\n"
+"más szövegét így eltüntetni.''\n"
 
 #, python-format
 msgid "A backup of your changes is [%(backup_url)s here]."
 msgstr "Az Ön változtatásainak mentése [%(backup_url)s itt] található."
 
 msgid "You did not change the page content, not saved!"
-msgstr "Nem változtatta meg a lapot, nem mentettük el!"
+msgstr "Nem változtatta meg a lapot, ezért nem is mentettük el!"
 
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
@@ -315,9 +322,7 @@ msgstr ""
 "adminisztrátori joga!"
 
 msgid "Thank you for your changes. Your attention to detail is appreciated."
-msgstr ""
-"Köszönjük a változtatásait és a részletekre fordított figyelmét nagyra "
-"értékeljük!"
+msgstr "Köszönjük, hogy változtatásaival hozzájárult a lap tökéletesítéséhez."
 
 #, python-format
 msgid ""
@@ -482,10 +487,40 @@ msgid ""
 "Contact the owner of the wiki, who can enable email."
 msgstr ""
 "A levélküldés nincs beállítva ebben a wikiben. Kérjük lépjen kapcsolatba a "
-"wiki rendszergazdájával, aki engedélyezheti a levélküldést"
+"wiki rendszergazdájával, aki engedélyezheti a levélküldést!"
 
 msgid "Please provide a valid email address!"
 msgstr "Kérjük, hogy érvényes levélcímet adjon meg!"
+
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+"Valaki kérte, hogy küldjük el az Ön felhasználói adatait erre a címre.\n"
+"\n"
+"Ha elvesztette a jelszavát kérjük az alábbiakban megadott jelszót írja be "
+"PONTOSAN\n"
+"a jelszó-mezőbe (legcélszerűbb ha bemásolja).\n"
+"\n"
+"Miután sikeresen belépett kérjük írja át a jelszót!\n"
+
+#, fuzzy, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+"Belépési név: %s \n"
+"Belépési jelszó: %s\n"
+"Belépési URL: %s/?action=userform&uid=%s\n"
 
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
@@ -494,11 +529,11 @@ msgstr "Nem találtunk a megadott '%(email)s' címhez felhasználói azonosító
 #, python-format
 msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
 msgstr ""
-"Ismeretlen felhasználónév: {{{\"%s\"}}}. Kérjük adja meg a felhasználónevét "
+"Ismeretlen felhasználónév: {{{\"%s\"}}}. Kérjük adja meg a felhasználónevet "
 "és a jelszót."
 
 msgid "Missing password. Please enter user name and password."
-msgstr "Hiányzik a jelszó. Kérjük adja meg a felhasználónevét és a jelszót."
+msgstr "Hiányzik a jelszó. Kérjük adja meg a felhasználónevet és a jelszót."
 
 msgid "Sorry, wrong password."
 msgstr "Sajnos rossz a jelszó."
@@ -510,7 +545,7 @@ msgid "Unknown user."
 msgstr "Ismeretlen felhasználó."
 
 msgid "Empty user name. Please enter a user name."
-msgstr "Üres felhasználónév. Kérjük adja meg a felhasználónevét."
+msgstr "Üres felhasználónév. Kérjük adja meg a felhasználónevet."
 
 msgid "This user name already belongs to somebody else."
 msgstr "Ez a felhasználónév már foglalt."
@@ -525,8 +560,8 @@ msgid ""
 "Please provide your email address. If you loose your login information, you "
 "can get it by email."
 msgstr ""
-"Kérjük adja meg a levélcímét. Erre a címre küldhetjük el a belépéshez "
-"szükséges adatait, ha elvesztené ezeket."
+"Kérjük adja meg a levélcímét. Erre a címre küldjük el majd a belépéshez "
+"szükséges adatait amennyiben elvesztené azokat."
 
 msgid "This email already belongs to somebody else."
 msgstr "Ezt a levélcímet már más bejegyezte."
@@ -554,7 +589,7 @@ msgid "Create Profile"
 msgstr "Profil létrehozása"
 
 msgid "Mail me my account data"
-msgstr "Kérem levélben a felhasználói adataimat"
+msgstr "Kérem a felhasználói adataim elküldését levélben"
 
 msgid "Name"
 msgstr "Név"
@@ -611,10 +646,10 @@ msgid "This list does not work, unless you have entered a valid email address!"
 msgstr "Ez a lista csak akkor működik, ha megadta a levélcímét!"
 
 msgid "Subscribed wiki pages (one regex per line)"
-msgstr "Az előfizetett wiki-lapok (egy reguláris kifejezés soronként)"
+msgstr "Az előfizetett wiki-lapok (soronként egy reguláris kifejezés)"
 
 msgid "No older revisions available!"
-msgstr "Nincsenek régebbi változatok!"
+msgstr "Nincsenek régebbi módosítások!"
 
 #, python-format
 msgid "Diff for \"%s\""
@@ -622,7 +657,7 @@ msgstr "A(z) \"%s\" különbségei"
 
 #, python-format
 msgid "Differences between revisions %d and %d"
-msgstr "A(z) %d. és a(z) %d. változat különbségei"
+msgstr "A(z) %d. és a(z) %d. módosítás különbségei"
 
 #, python-format
 msgid "(spanning %d versions)"
@@ -636,7 +671,7 @@ msgid "The page was saved %(count)d times, though!"
 msgstr "Bár a lap %(count)d példányban van elmentve!"
 
 msgid "(ignoring whitespace)"
-msgstr ""
+msgstr "(a szóközöket figyelmen kívül hagytuk)"
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "A szóközmennyiség változásának figyelmen kívül hagyása"
@@ -689,7 +724,7 @@ msgstr "visszaállás"
 
 #, python-format
 msgid "Revert to revision %(rev)d."
-msgstr "A(z) %(rev)d. változatra való visszaállás."
+msgstr "A(z) %(rev)d. módosításra való visszaállás."
 
 msgid "edit"
 msgstr "szerkesztés"
@@ -704,10 +739,10 @@ msgid "N/A"
 msgstr "Nincs adat"
 
 msgid "Revision History"
-msgstr "Változatok története"
+msgstr "Módosítások története"
 
 msgid "No log entries found."
-msgstr "Üres a napló."
+msgstr "A napló üres."
 
 #, python-format
 msgid "Info for \"%s\""
@@ -738,7 +773,7 @@ msgid ""
 "who can either enable email, or remove the \"Subscribe\" icon."
 msgstr ""
 "A levélküldés nincs beállítva ebben a wikiben. Kérjük lépjen kapcsolatba a "
-"wiki rendszergazdájával, aki engedélyezheti a levélküldést"
+"wiki rendszergazdájával, aki engedélyezheti a levélküldést."
 
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
@@ -799,20 +834,20 @@ msgid "Exclude system pages"
 msgstr "A rendszerlapok ne szerepeljenek"
 
 msgid "Plain title index"
-msgstr "Egyszerű címindex"
+msgstr "Egyszerű címjegyzék"
 
 msgid "XML title index"
-msgstr "XML-címindex"
+msgstr "XML-címjegyzék"
 
 msgid "Python Version"
 msgstr "Python változat"
 
 msgid "MoinMoin Version"
-msgstr "MoinMoin változat"
+msgstr "MoinMoin (MoinMoinLap) változat"
 
 #, python-format
 msgid "Release %s [Revision %s]"
-msgstr "%s. kiadás [%s. változat]"
+msgstr "%s kiadás [%s módosítás]"
 
 msgid "4Suite Version"
 msgstr "4Suite változat"
@@ -853,6 +888,15 @@ msgstr "Telepített pásztázók"
 
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Telepített processzorok (ELAVULTAK -- használjon inkább pásztázókat)"
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
 
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
@@ -939,8 +983,8 @@ msgstr ""
 msgid "File to upload"
 msgstr "A föltöltendő állomány"
 
-msgid "Save as"
-msgstr "Mentés más néven"
+msgid "Rename to"
+msgstr "Átnevezés"
 
 msgid "Upload"
 msgstr "Feltöltés"
@@ -997,7 +1041,7 @@ msgid "Attachment '%(filename)s'"
 msgstr "A(z) '%(filename)s' melléklet"
 
 msgid "Unknown file type, cannot display this attachment inline."
-msgstr "Ismeretlen állománytípus, nem lehet beágyazva megjeleníteni."
+msgstr "Ismeretlen állománytípus: nem lehet beágyazva megjeleníteni."
 
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
@@ -1008,7 +1052,7 @@ msgid "You are not allowed to delete this page."
 msgstr "A lap törlése nem engedélyezett."
 
 msgid "This page is already deleted or was never created!"
-msgstr "Ezt a lapot már törölték, vagy soha sem hozták létre!"
+msgstr "Ezt a lapot már törölték, vagy soha nem is hozták létre!"
 
 msgid "Please use the interactive user interface to delete pages!"
 msgstr "Kérjük a lap törléséhez az interaktív felületet használja!"
@@ -1032,11 +1076,11 @@ msgstr "A(z) \"%s\" laphoz nincs hasonló!"
 
 #, python-format
 msgid "Exactly one page like \"%s\" found, redirecting to page."
-msgstr "Pontosan egy hasonló a(z) \"%s\" laphoz, átirányítva oda."
+msgstr "Pontosan egy hasonló lap van a(z) \"%s\" laphoz, átirányítva oda."
 
 #, python-format
 msgid "Pages like \"%s\""
-msgstr "A(z) \"%s\" laphoz hasonlók"
+msgstr "A(z) \"%s\" laphoz hasonlóak"
 
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
@@ -1054,7 +1098,7 @@ msgstr "Kérjük a lap átnevezéséhez az interaktív felületet használja!"
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr ""
+msgstr "Állományrendszer-hiba (%s) miatt nem sikerült az átnevezés."
 
 msgid "Rename Page"
 msgstr "Lap átnevezése"
@@ -1111,7 +1155,7 @@ msgstr "Teljes kapocslista (link-lista), minta: \"%s\""
 
 msgid ""
 "Cannot create a new page without a page name.  Please specify a page name."
-msgstr ""
+msgstr "Név nélküli lapot nem lehet létrehozni. Kérjük adja meg a lap nevét!"
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
@@ -1140,10 +1184,6 @@ msgstr "Kezdet"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "%(pos)d. dia, mérete: %(size)d"
-
-#, fuzzy
-msgid "Create New Page"
-msgstr "Profil létrehozása"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Nincs árva lap."
@@ -1175,13 +1215,13 @@ msgid "Delete Bookmark"
 msgstr "Könyvjelző törlése"
 
 msgid "Set bookmark"
-msgstr "Könyvjelző betevése"
+msgstr "Könyvjelző hozzáadása"
 
 msgid "set bookmark"
-msgstr "könyvjelző betevése"
+msgstr "könyvjelző hozzáadása"
 
 msgid "[Bookmark reached]"
-msgstr "[A könyvjelző elérve]"
+msgstr "[Könyvjelző]"
 
 msgid "Markup"
 msgstr "Jelölés"
@@ -1203,14 +1243,16 @@ msgid "Download XML export of this wiki"
 msgstr "A wiki XML-exportjának letöltése"
 
 msgid "No wanted pages in this wiki."
-msgstr "Ebben a wikiben nincsenek hiányzó lapok."
+msgstr "Ebben a wikiben nincsenek kívánt lapok."
 
 msgid "**Maximum number of allowed includes exceeded**"
 msgstr ""
+"Az beágyazott dokumentumok (include-ok) száma több, mint amennyi "
+"engedélyezett**"
 
 #, python-format
 msgid "**Could not find the referenced page: %s**"
-msgstr ""
+msgstr "**A hivatkozott lap (%s) nem található**"
 
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
@@ -1240,25 +1282,22 @@ msgstr "\"%(key)s\" után egész szám kell \"%(arg)s\" helyett"
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "\"%(key)s\" után egy színérték kell \"%(arg)s\" helyett"
 
-msgid "XSLT option disabled!"
-msgstr "Az XSLT-opció letiltva!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr "Az XSLT letiltva, lásd a HelpOnConfiguration lapot."
 
-msgid "XSLT processing is not available!"
-msgstr "Az XSLT-feldolgozás nem elérhető!"
+msgid "XSLT processing is not available, please install 4suite 1.x."
+msgstr ""
+"Az XSLT-feldolgozás nem elérhető, kérjük telepítse a 4suite 1.x változatát."
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s - feldolgozási hiba"
 
-msgid "RefreshCache"
-msgstr "GyorstárFrissítés"
+msgid "Views/day"
+msgstr "Nézet/nap"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "ennél a lapnál (gyorstár dátuma: %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "A diagramok nem elérhetőek!"
+msgid "Edits/day"
+msgstr "Szerkesztés/nap"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1277,6 +1316,9 @@ msgstr "dátum"
 msgid "# of hits"
 msgstr "találatok száma"
 
+msgid "Charts are not available!"
+msgstr "A diagramok nem elérhetőek!"
+
 msgid "Page Size Distribution"
 msgstr "Lapméret-eloszlás"
 
@@ -1285,6 +1327,9 @@ msgstr "lapméret felső korlátja [byte]"
 
 msgid "# of pages of this size"
 msgstr "az ilyen méretű lapok száma"
+
+msgid "User agent"
+msgstr "kliens-típus (user agent)"
 
 msgid "Others"
 msgstr "Mások"
@@ -1296,42 +1341,42 @@ msgid "Unsubscribe"
 msgstr "Előfizetés felmondása"
 
 msgid "Home"
-msgstr ""
+msgstr "Kezdőlap"
 
 msgid "[RSS]"
-msgstr ""
+msgstr "[RSS]"
 
 msgid "[DELETED]"
-msgstr ""
+msgstr "[TÖRÖLT]"
 
 msgid "[UPDATED]"
-msgstr ""
+msgstr "[FRISSÍTETT]"
 
 msgid "[NEW]"
-msgstr ""
+msgstr "[ÚJ]"
 
 msgid "[DIFF]"
-msgstr ""
+msgstr "[KÜLÖNBSÉG]"
 
 msgid "[BOTTOM]"
-msgstr ""
+msgstr "[ALULRA]"
 
 msgid "[TOP]"
-msgstr ""
+msgstr "[FELÜLRE]"
 
 msgid "Click to do a full-text search for this title"
-msgstr "Kattintson a cím teljes szöveges keresésért"
+msgstr "Kattintson a cím teljes szöveges kereséséért"
 
 msgid "Clear message"
 msgstr "Üzenet törlése"
 
 #, python-format
 msgid "last edited %(time)s by %(editor)s"
-msgstr "Utoljára %(editor)s módosította, időpont: %(time)s"
+msgstr "Utoljára %(editor)s módosította %(time)s-kor."
 
 #, python-format
 msgid "last modified %(time)s"
-msgstr "utoljára módosítva: %(time)s"
+msgstr "Utoljára módosítva: %(time)s"
 
 msgid "Search:"
 msgstr "Keresés:"
@@ -1343,7 +1388,7 @@ msgid "Titles"
 msgstr "Címek"
 
 msgid "More Actions:"
-msgstr "További műveletek::"
+msgstr "További műveletek:"
 
 msgid "Show Raw Text"
 msgstr "Nyers szöveg megjelenítése"
@@ -1351,9 +1396,8 @@ msgstr "Nyers szöveg megjelenítése"
 msgid "Show Print View"
 msgstr "Nyomtatási kép megjelenítése"
 
-#, fuzzy
 msgid "Delete Cache"
-msgstr "Lap törlése"
+msgstr "Gyorstár törlése"
 
 msgid "Attach File"
 msgstr "Állomány csatolása"
@@ -1408,6 +1452,8 @@ msgstr "Felhasználó"
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
 msgstr ""
+"A lapot nem lehet elmenteni, mert a(z) \"%(content)s\" nem engedélyezett "
+"ebben a wikiben."
 
 msgid "Line"
 msgstr "Sor"
@@ -1425,7 +1471,7 @@ msgstr ""
 "(reason)s"
 
 msgid "Mail sent OK"
-msgstr "A levél rendben elküldve."
+msgstr "A levelet sikerült elküldeni."
 
 msgid "FrontPage"
 msgstr "KezdőLap"
@@ -1434,10 +1480,10 @@ msgid "RecentChanges"
 msgstr "ÚjabbVáltozások"
 
 msgid "TitleIndex"
-msgstr "CímIndex"
+msgstr "CímJegyzék"
 
 msgid "WordIndex"
-msgstr "SzóIndex"
+msgstr "SzóJegyzék"
 
 msgid "FindPage"
 msgstr "KeresőLap"
@@ -1446,7 +1492,7 @@ msgid "SiteNavigation"
 msgstr "HelyiNavigáció"
 
 msgid "HelpContents"
-msgstr "SegítőTartalomjegyzék"
+msgstr "SegédletTartalomjegyzék"
 
 msgid "HelpOnFormatting"
 msgstr "FormázásiSegédlet"
@@ -1491,13 +1537,25 @@ msgid "LikePages"
 msgstr "HasonlóLapok"
 
 msgid "LocalSiteMap"
-msgstr "HelyiLapTérkép"
+msgstr "HelyiLaptérkép"
 
 msgid "RenamePage"
 msgstr "LapÁtnevezés"
 
 msgid "SpellCheck"
 msgstr "HelyesírásEllenőrzés"
+
+#~ msgid "Save as"
+#~ msgstr "Mentés más néven"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "Az XSLT-opció letiltva!"
+
+#~ msgid "RefreshCache"
+#~ msgstr "GyorstárFrissítés"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "ennél a lapnál (gyorstár dátuma: %(date)s)"
 
 #~ msgid "MIME Type (optional)"
 #~ msgstr "MIME-típus (nem kötelező)"
@@ -1507,9 +1565,6 @@ msgstr "HelyesírásEllenőrzés"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"
-
-#~ msgid "Rename"
-#~ msgstr "Átnevezés"
 
 #~ msgid "(edit log entry is missing)"
 #~ msgstr "(a szerkesztési napló bejegyzése hiányzik)"

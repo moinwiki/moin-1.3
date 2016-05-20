@@ -7,10 +7,13 @@
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language en
+
+ <!> This looks like a duplicate of SyntaxReference ?!
+
 '''Content'''
 [[TableOfContents(1)]]
 
-= Sections =
+= Headings =
 == Header 2 ==
 === Header 3 ===
 ==== Header 4 ====

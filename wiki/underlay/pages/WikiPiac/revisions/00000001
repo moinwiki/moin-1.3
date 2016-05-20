@@ -1,0 +1,20 @@
+##master-page:InterWiki
+##master-date:2005-05-04 15:16:44
+#format wiki
+#language hu
+
+A WikiPiac (InterWiki) kapcsokkal (linkekkel) gyorsan lehet más wikikben található lapokra hivatkozni anélkül,
+hogy hosszú URL-eket kellene megjegyezni. Egy WikiPiac``os kapocs létrehozásához egyszerűen a WikiPiac``on 
+található címkét és utána a lap nevét kell leírni.
+Természetesen a WikiPiac``os kapocs nem jeleníthető meg másként ha a lap nem létezik, és a Moin``Moin (MoinMoinLap) nem tudja ellenőrizni, hogy a kapocs a másik wikiben elfogadott WikiNév-szabályoknak megfelel-e.
+Ezért kérjük alaposan ellenőrizze, hogy az új kapocs helyesen van-e leírva.
+(A további részleteket lásd a wiki:MeatBall/InterWiki lapon a wiki:MeatBall:MeatballWiki wikiben.)
+
+Ebben a wikiben ismert WikiPiac``os nevek listája (a lista mesterkópiája a MoinMaster:InterWikiMap lapon található):
+[[InterWiki]]
+
+A MoinMoin (MoinMoinLap) a WikiPiac``os kapcsokat olyan módon jeleníti meg, hogy azokat színvakok
+(lásd MeatBall:ColourBlind) is használhassák, valamint a lynx és a hasonló szöveges böngészőkben
+is láthatóan különüljenek el (lásd MeatBall:LynxFriendly)  más kapcsoktól egy pici ikon és az ikon ''ALT''-attribútuma segítségével. Ha a kapocs úgy jelenik meg (pl. RosszRosszRossz:WikiPiac), mint ebben a 
+wikiben a nem létező lapok, akkor nem létező WikiPiac``os címke szerepel a kapocsban. Mellesleg a kapcsokban
+használt emberi fejeket ábrázoló ikon arra utal, hogy a  Wiki:WikiWikiWeb több ember munkájának gyümölcse.

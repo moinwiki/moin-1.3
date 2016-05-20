@@ -5,9 +5,9 @@
 ##master-page:XsltVersion
 ##master-date:2004-05-16 22:32:27
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
-#format wiki
+#format xslt
 #language fr
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0"?>
 
 <?xml-stylesheet href="VersionXslt" type="text/xml"?>
 
@@ -19,7 +19,7 @@
      Ce Wiki utilise le moteur XSLT
      <xsl:value-of select="system-property('xsl:vendor')"/>
      (<a href="{system-property('xsl:vendor-url')}"><xsl:value-of select="system-property('xsl:vendor-url')"/></a>)
-     qui met en œuvre XSLT version <xsl:value-of select="system-property('xsl:version')"/>
+     qui met en œuvre XSLT version <xsl:value-of select="system-property('xsl:version')"/>
    </xsl:template>
 
 </xsl:stylesheet>

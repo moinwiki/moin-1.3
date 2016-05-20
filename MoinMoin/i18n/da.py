@@ -27,8 +27,12 @@ macro call.-~
 Indsæt makroen [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 for at bruge denne formular på andre sider.-~
 ''',
+'''Create New Page''':
+'''Opret ny side''',
 '''You are not allowed to view this page.''':
 '''Du har ikke lov til at se denne side!''',
+'''DeleteCache''':
+'''SletCache''',
 '''(cached %s)''':
 '''(husket %s)''',
 '''You are not allowed to edit this page.''':
@@ -137,6 +141,8 @@ Følgende sider er ændret af %(editor)s:
 ''':
 '''Ingen forskelle fundet!
 ''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s] %(trivial)sopdatering af "%(pagename)s" af %(username)s''',
 '''Trivial ''':
 '''Simpel ''',
 '''Status of sending notification mails:''':
@@ -145,6 +151,10 @@ Følgende sider er ændret af %(editor)s:
 '''[%(lang)s]·%(recipients)s:·%(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## sikkerhedskopi af siden "%(pagename)s" indsendt %(date)s''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''Side kunne ikke låses. Uventet fejl (fejlnummer=%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''Side kunne ikke låses. Manglende \'current\' fil?''',
 '''You are not allowed to edit this page!''':
 '''Du har ikke lov til at redigere denne side!''',
 '''You cannot save empty pages.''':
@@ -349,12 +359,16 @@ Kontakt ejeren af wiki\'en, som kan aktivere email.''',
 '''Ingen ældre udgaver tilgængelig!''',
 '''Diff for "%s"''':
 '''Forskelle for "%s"''',
+'''Differences between revisions %d and %d''':
+'''Forskelle mellem versionerne %d og %d''',
 '''(spanning %d versions)''':
 '''(over %d versioner)''',
 '''No differences found!''':
 '''Ingen forskelle fundet!''',
 '''The page was saved %(count)d times, though!''':
 '''Selvom siden dog er gemt %(count)d gange!''',
+'''(ignoring whitespace)''':
+'''(ignorerer mellemrum)''',
 '''Ignore changes in the amount of whitespace''':
 '''Ignorér ændringer i antallet af mellemrum''',
 '''General Information''':
@@ -529,8 +543,6 @@ navnekonflikt, skal du omdøbe den fil du vil lægge op.
 Alternativt, hvis "Omdøb" er blank, anvendes det originale filnavn.''',
 '''File to upload''':
 '''Fil at lægge op''',
-'''Save as''':
-'''Gem som''',
 '''Upload''':
 '''Overfør''',
 '''File attachments are not allowed in this wiki!''':
@@ -579,6 +591,8 @@ Alternativt, hvis "Omdøb" er blank, anvendes det originale filnavn.''',
 '''Ingen sider ligner "%s"!''',
 '''Exactly one page like "%s" found, redirecting to page.''':
 '''Nøjagtigt een side fundet som ligner "%s" - omdirigerer til siden.''',
+'''Pages like "%s"''':
+'''Sider der ligner "%s"''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''%(matchcount)d·%(matches)s·for·"%(title)s"''',
 '''Local Site Map for "%s"''':
@@ -587,6 +601,8 @@ Alternativt, hvis "Omdøb" er blank, anvendes det originale filnavn.''',
 '''Du har ikke lov til at omdøbe sider i denne wiki!''',
 '''Please use the interactive user interface to rename pages!''':
 '''Anvend venligst den interaktive brugergrænseflade til at omdøbe sider!''',
+'''Could not rename page because of file system error: %s.''':
+'''Kunne ikke omdøbe side pÝ grund af systemfejl: %s.''',
 '''Rename Page''':
 '''Omdøb side''',
 '''New name''':
@@ -615,6 +631,8 @@ Prøv et andet navn.''',
 '''Fritekst-søgning: "%s"''',
 '''Full Link List for "%s"''':
 '''Fuld liste over links for "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''Kan ikke oprette en ny side uden et sidenavn. Angiv venligst et sidenavn.''',
 '''Invalid include arguments "%s"!''':
 '''Forkerte include-argumenter "%s"!''',
 '''Nothing found for "%s"!''':
@@ -667,6 +685,10 @@ Prøv et andet navn.''',
 '''Hent XML-eksport af denne wiki''',
 '''No wanted pages in this wiki.''':
 '''Ingen ønskede sider i denne wiki.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**Maksimum antal tilladte inkluderinger overskredet**''',
+'''**Could not find the referenced page: %s**''':
+'''**Kunne ikke finde den henviste side: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''Opret ny tegning "%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
@@ -681,18 +703,8 @@ Prøv et andet navn.''',
 '''Forventede et heltal·"%(arg)s"·efter·"%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Forventede en farvekode·"%(arg)s"·efter·"%(key)s"''',
-'''XSLT option disabled!''':
-'''XSLT slået fra!''',
-'''XSLT processing is not available!''':
-'''XSLT-håndtering er ikke tilgængelig!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s programfejl''',
-'''RefreshCache''':
-'''OpdatérCache''',
-'''for this page (cached %(date)s)''':
-'''for denne side (husket siden %(date)s)''',
-'''Charts are not available!''':
-'''Tabeller er ikke tilgængelige!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s·for·%(filterpage)s''',
 '''green=view
@@ -703,6 +715,8 @@ rød=redigér''',
 '''dato''',
 '''# of hits''':
 '''Antal besøg''',
+'''Charts are not available!''':
+'''Tabeller er ikke tilgængelige!''',
 '''Page Size Distribution''':
 '''Sidestørrelser''',
 '''page size upper bound [bytes]''':
@@ -717,6 +731,20 @@ rød=redigér''',
 '''Afmeld abonnement''',
 '''Home''':
 '''Hjem''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[SLETTET]''',
+'''[UPDATED]''':
+'''[OPDATERET]''',
+'''[NEW]''':
+'''[NY]''',
+'''[DIFF]''':
+'''[DIFF]''',
+'''[BOTTOM]''':
+'''[BUND]''',
+'''[TOP]''':
+'''[TOP]''',
 '''Click to do a full-text search for this title''':
 '''Klik her for at lave en fritekstsøgning efter denne titel''',
 '''Clear message''':
@@ -737,6 +765,8 @@ rød=redigér''',
 '''Vis rå tekst''',
 '''Show Print View''':
 '''Vis udskriftsvenlig udgave''',
+'''Delete Cache''':
+'''Slet cache''',
 '''Attach File''':
 '''Vedhæft fil''',
 '''Delete Page''':
@@ -769,6 +799,8 @@ rød=redigér''',
 '''Sti''',
 '''User''':
 '''Bruger''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Desvürre, kan ikke gemme side fordi "%(content)s" ikke er tilladt i denne wiki.''',
 '''Line''':
 '''Linje''',
 '''Deletions are marked like this.''':

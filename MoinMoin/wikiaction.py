@@ -472,10 +472,10 @@ def do_refresh(pagename, request):
         arena = Page(request, pagename)
     key = request.form.get('key', ['text_html'])[0]
 
-    # Rmove cache entry (if exists), and send the page
+    # Remove cache entry (if exists), and send the page
     from MoinMoin import caching
-    cache = caching.CacheEntry(request, arena, key)
-    cache.remove()
+    caching.CacheEntry(request, arena, key).remove()
+    caching.CacheEntry(request, arena, "pagelinks").remove()
     do_show(pagename, request)
 
 

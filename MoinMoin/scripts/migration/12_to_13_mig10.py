@@ -38,7 +38,7 @@
     @copyright: 2005 Thomas Waldmann
     @license: GPL, see COPYING for details
 """
-
+from __future__ import generators # needed until we require py 2.3
 
 from_encoding = 'iso8859-1'
 #from_encoding = 'utf-8'
@@ -53,6 +53,43 @@ sys.path.insert(0, '../../..')
 from MoinMoin import wikiutil
 
 from migutil import opj, listdir, copy_file, move_file, copy_dir
+
+# this is copied from os.walk of python 2.3 to make it possible to
+# run this script on python 2.2.2+ - remove when we require 2.3.
+
+def walk(top, topdown=True, onerror=None):
+    from os.path import join, isdir, islink
+
+    # We may not have read permission for top, in which case we can't
+    # get a list of the files the directory contains.  os.path.walk
+    # always suppressed the exception then, rather than blow up for a
+    # minor reason when (say) a thousand readable directories are still
+    # left to visit.  That logic is copied here.
+    try:
+        # Note that listdir and error are globals in this module due
+        # to earlier import-*.
+        names = listdir(top)
+    except error, err:
+        if onerror is not None:
+            onerror(err)
+        return
+
+    dirs, nondirs = [], []
+    for name in names:
+        if isdir(join(top, name)):
+            dirs.append(name)
+        else:
+            nondirs.append(name)
+
+    if topdown:
+        yield top, dirs, nondirs
+    for name in dirs:
+        path = join(top, name)
+        if not islink(path):
+            for x in walk(path, topdown, onerror):
+                yield x
+    if not topdown:
+        yield top, dirs, nondirs
 
 def migrate(dir_to):
     """ this removes edit-lock files from the pagedirs and
@@ -69,7 +106,7 @@ def migrate(dir_to):
             pass
 
         attachdir = os.path.join(pagedir, 'attachments')
-        for root, dirs, files in os.walk(attachdir):
+        for root, dirs, files in walk(attachdir):
             for f in  files:
                 try:
                     f.decode(to_encoding)

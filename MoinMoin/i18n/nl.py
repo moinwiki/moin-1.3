@@ -28,6 +28,8 @@ Om dit formulier op andere pagina\'s te gebruiken, voeg een macro-aanroep
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 toe.-~
 ''',
+'''Create New Page''':
+'''Nieuwe pagina aanmaken''',
 '''You are not allowed to view this page.''':
 '''U hebt geen toestemming deze pagina te bekijken.''',
 '''DeleteCache''':
@@ -546,8 +548,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 is dan zul u het bestand dat u wilt inzenden een andere naam moeten geven.Anders, als "Opslaan als" leeg is zal de oorspronkelijke naam van het bestand gebruikt worden.''',
 '''File to upload''':
 '''Bestand om op te sturen''',
-'''Save as''':
-'''Opslaan als''',
 '''Upload''':
 '''Opsturen''',
 '''File attachments are not allowed in this wiki!''':
@@ -654,8 +654,6 @@ Probeer een andere naam.''',
 '''Start''',
 '''Slide %(pos)d of %(size)d''':
 '''Dia %(pos)d van %(size)d''',
-'''Create New Page''':
-'''Nieuwe pagina aanmaken''',
 '''No orphaned pages in this wiki.''':
 '''Geen weespagina\'s in deze wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -710,18 +708,8 @@ Probeer een andere naam.''',
 '''Er werd een integer "%(arg)s" na "%(key)s" verwacht''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Er werd een kleurwaarde "%(arg)s" na "%(key)s" verwacht''',
-'''XSLT option disabled!''':
-'''De optie XSLT is uitgeschakeld!''',
-'''XSLT processing is not available!''':
-'''Verwerking van XSLT is niet beschikbaar!''',
 '''%(errortype)s processing error''':
 '''Verwerkingsfout %(errortype)s''',
-'''RefreshCache''':
-'''VerversCache''',
-'''for this page (cached %(date)s)''':
-'''voor deze pagina (gecachet %(date)s)''',
-'''Charts are not available!''':
-'''Diagrammen zijn niet beschikbaar!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s voor %(filterpage)s''',
 '''green=view
@@ -732,6 +720,8 @@ rood=bewerken''',
 '''datum''',
 '''# of hits''':
 '''# treffers''',
+'''Charts are not available!''':
+'''Diagrammen zijn niet beschikbaar!''',
 '''Page Size Distribution''':
 '''Verdeling van de paginagrootte ''',
 '''page size upper bound [bytes]''':

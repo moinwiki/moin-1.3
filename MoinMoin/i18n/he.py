@@ -27,6 +27,8 @@ macro call.-~
 כדי להשתמש בטופס הזה בדפים אחרים, 
 הכניסו פקודת מקרו {{{[[Form("%(pagename)s")]]}}}
 ''',
+'''Create New Page''':
+'''צור דף חדש''',
 '''You are not allowed to view this page.''':
 '''אין לכם הרשאות לצפות בדף''',
 '''DeleteCache''':
@@ -41,6 +43,8 @@ macro call.-~
 '''אין אפשרות לערוך גרסאות קודמות''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
 '''נעילת הדף עבורך הסתיימה, אחרים עלולים לערוך את הדף במקביל''',
+'''Page name is too long, try shorter name.''':
+'''שם הדף ארוך מידי, נסה שם קצר יותר.''',
 '''Edit "%(pagename)s"''':
 '''ערוך "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
@@ -93,7 +97,7 @@ If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your c
 '''Trivial change''':
 '''שינוי פעוט''',
 '''Remove trailing whitespace from each line''':
-'''הסר שטח לבן מסופי שורות''',
+'''הסר רווחים מסופי שורות''',
 ''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
  Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
  Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
@@ -145,6 +149,10 @@ The following page has been changed by %(editor)s:
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## גיבוי של דף "%(pagename)s" מתאריך %(date)s''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''נעילת הדף נכשלה. טעות בלתי צפויה (%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''נעילת הדף נכשלה. יתכן שקובץ \'current\' לא קיים?''',
 '''You are not allowed to edit this page!''':
 '''אין לכם הרשאות לערוך את הדף.''',
 '''You cannot save empty pages.''':
@@ -251,7 +259,7 @@ space between words. Group page name is not allowed.''':
 '''Subscribe to trivial changes''':
 '''עשה מנוי לשינויים פעוטים''',
 '''Disable this account forever''':
-'''בטל חשבון משתמש''',
+'''בטל הרשמה''',
 '''Cookie deleted. You are now logged out.''':
 '''קוקית נמחקה, אתם מנותקים.''',
 '''This wiki is not enabled for mail processing.
@@ -260,10 +268,38 @@ Contact the owner of the wiki, who can enable email.''':
 .פנה למנהל המערכת.''',
 '''Please provide a valid email address!''':
 '''אנא רשום כתובת דואר אלקטרוני אמיתית.''',
+'''Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki\'s password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+''':
+'''מישהו ביקש לשלוח אליך את פרטי המשתמש.
+
+אם אבדת את הסיסמא, אנא השתמש בסיסמא כפי שנשלחה אליך במכתב זה.
+
+לאחר התחברות, מומלץ להחליף את הסיסמא.
+''',
+'''Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+''':
+'''שם משתמש: %s
+
+סיסמא: %s
+
+כתובת להתחברות אוטמטית: %s/?action=userform&uid=%s
+''',
 '''Found no account matching the given email address \'%(email)s\'!''':
-'''לא נמצא חשבון עם כתובת הדואר האלקטרוני "%(email)s".''',
+'''לא נמצא משתמש עם כתובת הדואר האלקטרוני "%(email)s".''',
+'''[%(sitename)s] Your wiki account data''':
+'''[%(sitename)s] פרטי המשתמש שלך''',
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
-'''שם משתמש לא ידוע: {{{"%s"}}}. אנא הכנס שם משתמש וסיסמא.''',
+'''משתמש לא קיים: {{{"%s"}}}. אנא הכנס שם משתמש וסיסמא.''',
 '''Missing password. Please enter user name and password.''':
 '''סיסמא חסרה. אנא הכנס שם משתמש וסיסמא.''',
 '''Sorry, wrong password.''':
@@ -271,7 +307,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''Bad relogin URL.''':
 '''כתובת חיבור–מחדש לא נכונה.''',
 '''Unknown user.''':
-'''שם משתמש לא ידוע.''',
+'''משתמש לא קיים.''',
 '''Empty user name. Please enter a user name.''':
 '''שם משתמש ריק. אנא הכנס שם משתמש.''',
 '''This user name already belongs to somebody else.''':
@@ -281,7 +317,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''Please specify a password!''':
 '''אנא הכנס סיסמא.''',
 '''Please provide your email address. If you loose your login information, you can get it by email.''':
-'''אנא רשום את כתובת הדואל שלך. אם תאבד את פרטי החיבור תוכל לקבל אותם לכתובת זו.''',
+'''אנא רשום את כתובת הדואל שלך. אם תאבד את פרטי המשתמש תוכל לקבל אותם לכתובת זו.''',
 '''This email already belongs to somebody else.''':
 '''כתובת הדואר האלקטרוני הזאת שייכת למישהו אחר.''',
 '''The theme \'%(theme_name)s\' could not be loaded!''':
@@ -297,19 +333,19 @@ Contact the owner of the wiki, who can enable email.''':
 '''Logout''':
 '''התנתק''',
 '''Create Profile''':
-'''צור חשבון משתמש''',
+'''הרשם''',
 '''Mail me my account data''':
-'''שלח לי בדואר את פרטי חשבון המשתמש''',
+'''שלח לי את פרטי המשתמש''',
 '''Name''':
 '''שם''',
 '''(Use FirstnameLastname)''':
-'''(השתמש במבנה FirstnameLastname)''',
+''' ''',
 '''Password''':
-'''סיסמה''',
+'''סיסמא''',
 '''Password repeat''':
-'''הסיסמה שוב''',
+'''הסיסמא שוב''',
 '''(Only when changing passwords)''':
-'''(רק כאשר מחליפים סיסמה)''',
+'''(רק כאשר מחליפים סיסמא)''',
 '''Email''':
 '''דואר אלקטרוני''',
 '''Preferred theme''':
@@ -350,8 +386,10 @@ Contact the owner of the wiki, who can enable email.''':
 '''לא נמצאו הבדלים.''',
 '''The page was saved %(count)d times, though!''':
 '''הדף נשמר %(count)d פעמים.''',
+'''(ignoring whitespace)''':
+'''(מתעלם מרווחים)''',
 '''Ignore changes in the amount of whitespace''':
-'''התעלם משינויים בכמות השטח הלבן (White Space)''',
+'''התעלם משינויים בכמות הרווחים''',
 '''General Information''':
 '''מידע כללי''',
 '''Page size: %d''':
@@ -407,13 +445,13 @@ Contact the owner of the wiki, who can enable email.''':
 '''Page hits and edits''':
 '''כניסות ופעולות עריכה''',
 '''You are not allowed to revert this page!''':
-'''אין לכם הרשאות לחזור לשחזר את הדף.''',
+'''אין לכם הרשאות לשחזר את הדף.''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
 '''אין לכם הרשאות לעשות מנוי לדף.''',
 '''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
 '''דואר אלקטרוני לא מאופשר בוויקי הזה. פנה למנהל המערכת.''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
-'''אין לכם חשבון משתמש. לחצו על הקישור UserPreferences בראש הדף כדי ליצור חשבון משתמש.''',
+'''אתם עדיין לא רשומים. לחצו על הקישור UserPreferences בראש הדף כדי להרשם.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''לא הכנסתם כתובת דואר אלקטרוני בהעדפות המשתמש. לחצו על שמכם בראש הדף והוסיפו את כתובת הדואר שלכם בטופס.''',
 '''Your subscribtion to this page has been removed.''':
@@ -447,7 +485,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''XML title index''':
 '''אינדקס כותרות במבנה XML''',
 '''Python Version''':
-'''גרסת פיתון''',
+'''גרסת פייתון''',
 '''MoinMoin Version''':
 '''גרסת מוין מוין''',
 '''Release %s [Revision %s]''':
@@ -478,6 +516,12 @@ Contact the owner of the wiki, who can enable email.''':
 '''מפרשים''',
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''מעבדים (השתמש במפרשים במקום)''',
+'''Disabled''':
+'''מבוטל''',
+'''Enabled''':
+'''מאופשר''',
+'''Lupy search''':
+'''חיפוש מהיר''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
 '''השתמשו במונח חיפוש בררני יותר מאשר {{{"%s"}}}.''',
 '''ERROR in regex \'%s\'''':
@@ -524,8 +568,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''קובץ שאתם מעלים לעולם לא ימחק קובץ קיים. אם כבר קיים קובץ באותו שם, אתם צריכים לשנות את שמו של הקובץ אותו אתם מעלים. אם שדה "שמור בשם" נשאר ריק, הקובץ המקורי לא יוחלף.''',
 '''File to upload''':
 '''קובץ לשליחה''',
-'''Save as''':
-'''שמור בשם''',
+'''Rename to''':
+'''שנה שם''',
 '''Upload''':
 '''שלח''',
 '''File attachments are not allowed in this wiki!''':
@@ -630,8 +674,6 @@ Try a different name.''':
 '''התחל''',
 '''Slide %(pos)d of %(size)d''':
 '''שקף %(pos)d מתוך %(size)d''',
-'''Create New Page''':
-'''צור דף חדש''',
 '''No orphaned pages in this wiki.''':
 '''אין דפים יתומים בוויקי הזה.''',
 '''No quotes on %(pagename)s.''':
@@ -686,18 +728,16 @@ Try a different name.''':
 '''ציפיתי למספר שלם "%(arg)s" אחרי "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''ציפיתי לערך של צבע "%(arg)s" אחרי "%(key)s"''',
-'''XSLT option disabled!''':
-'''אפשרות XSLT מבוטלת.''',
-'''XSLT processing is not available!''':
+'''XSLT option disabled, please look at HelpOnConfiguration.''':
+'''XSLT מבוטל, להפעלה הסתכל ב–HelpOnConfiguration.''',
+'''XSLT processing is not available, please install 4suite 1.x.''':
 '''עיבוד XSLT לא זמין.''',
 '''%(errortype)s processing error''':
 '''%(errortype)s טעות בעיבוד''',
-'''RefreshCache''':
-'''רענן מטמון''',
-'''for this page (cached %(date)s)''':
-'''(רוענן לאחרונה ב–%(date)s)''',
-'''Charts are not available!''':
-'''גרפים אינם זמינים.''',
+'''Views/day''':
+'''צפיות''',
+'''Edits/day''':
+'''עריכות''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s של %(filterpage)s''',
 '''green=view
@@ -708,12 +748,16 @@ red=edit''':
 '''תאריך''',
 '''# of hits''':
 '''# כניסות''',
+'''Charts are not available!''':
+'''גרפים אינם זמינים.''',
 '''Page Size Distribution''':
 '''פיזור גודל דפים''',
 '''page size upper bound [bytes]''':
 '''גודל דף מקסימלי [בתים]''',
 '''# of pages of this size''':
 '''# דפים בגודל זה''',
+'''User agent''':
+'''דפדפן''',
 '''Others''':
 '''אחרים''',
 '''Distribution of User-Agent Types''':
@@ -759,13 +803,13 @@ red=edit''':
 '''Delete Cache''':
 '''נקה מטמון''',
 '''Attach File''':
-'''הצג קבצים מצורפים''',
+'''קבצים מצורפים''',
 '''Delete Page''':
 '''מחק דף''',
 '''Show Like Pages''':
-'''הצג דפים דומים''',
+'''דפים דומים''',
 '''Show Local Site Map''':
-'''הצג מפת אתר מקומית''',
+'''מפת אתר מקומית''',
 '''Do''':
 '''בצע''',
 '''Show Parent''':
@@ -839,7 +883,7 @@ red=edit''':
 '''Sun''':
 '''ראשון''',
 '''AttachFile''':
-'''הצג קבצים מצורפים''',
+'''קבצים מצורפים''',
 '''DeletePage''':
 '''מחק דף''',
 '''LikePages''':

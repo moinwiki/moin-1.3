@@ -1,0 +1,29 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:FrontPage
+#format wiki
+#language pt
+#pragma section-numbers off
+= WikiName Wiki =
+
+Sobre o que é este wiki?
+
+Pontos iniciais interessantes:
+ * MudançasRecentes: onde você poderá ver que página foram alteradas
+ * PáginaDeTeste: sinta-se livre para alterar esta página e ganhar experiência de edição para contribuir nesta wiki
+ * BuscaPágina: procurar todas as entradas nesta WikiWikiWeb.
+ * MoinMoin/FormatoDeTexto: sintaxe de palavras e formatação de texto
+ * NavegaçãoDoSite: uma lista de página importantes
+
+
+== Como usar este site ==
+
+Um Wiki é um site colaborativo, qualquer pessoa pode contribuir:
+ * Editar qualquer página somente pressionado Editar no topo da página
+ * Criar um link para outra página com iniciais maiúsculas (teste na PáginaDeTeste) ou com {{{["quoted words in brackets"]}}}
+ * A procura para títulos de página ou texto dentro de páginas usando a caixa de procura no topo de qualquer página 
+ * Veja AjudaAosIniciantes para iniciar edições neste wiki, AjudaConteúdo para todas as páginas de ajuda. 
+
+Para aprender mais sobre o que é a MoinMoin:WikiWikiWeb, sobre o MoinMoin:WhyWikiWorks e o MoinMoin:WikiNature. Consulte Também o MoinMoin:WikiWikiWebFaq. 
+
+Este wiki é gerido pelo MoinMoin.

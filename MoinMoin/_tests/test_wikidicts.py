@@ -10,7 +10,6 @@ import unittest
 import re
 
 from MoinMoin import wikidicts 
-from MoinMoin._tests import request, TestConfig
 from MoinMoin import Page
 
 class GroupPageTestCase(unittest.TestCase):
@@ -27,7 +26,7 @@ Text ignored
 Empty lines ignored, so is this text
  * CamelCase2
 '''
-        group = wikidicts.Group(request, '')
+        group = wikidicts.Group(self.request, '')
         group.initFromText(text)
         members = group.members()
         members.sort()
@@ -51,7 +50,7 @@ Next line has key with empty value
  Empty string:: 
  Last:: last item
 '''
-        d = wikidicts.Dict(request, '')
+        d = wikidicts.Dict(self.request, '')
         d.initFromText(text)        
         self.assertEqual(d['First'], 'first item')
         self.assertEqual(d['text with spaces'], 'second item')
@@ -68,19 +67,9 @@ class GroupDictTestCase(unittest.TestCase):
 
         Assume that the SystemPagesGroup is in the data or the underlay dir.
         """
-        assert Page.Page(request, 'SystemPagesGroup').exists(), \
+        assert Page.Page(self.request, 'SystemPagesGroup').exists(), \
                "SystemPagesGroup is missing, Can't run test"
-        systemPages = wikidicts.Group(request, 'SystemPagesGroup')
+        systemPages = wikidicts.Group(self.request, 'SystemPagesGroup')
         for member in systemPages.members():
-            self.assert_(request.dicts.has_member('SystemPagesGroup', member),
+            self.assert_(self.request.dicts.has_member('SystemPagesGroup', member),
                          '%s should be in request.dict' % member)    
-
-
-def suite():
-    test_cases = [unittest.makeSuite(obj, 'test') 
-        for name, obj in globals().items()
-        if name.endswith('TestCase')]
-    return unittest.TestSuite(test_cases)
-    
-if __name__ == '__main__':
-    unittest.TextTestRunner(verbosity=2).run(suite())

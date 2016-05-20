@@ -1,5 +1,11 @@
 #!/usr/bin/env python
-""" 
+# -*- coding: iso-8859-1 -*-
+"""
+    MoinMoin - clear the cache
+
+    @copyright: 2005 by Thomas Waldmann (MoinMoin:ThomasWaldmann)
+    @license: GNU GPL, see COPYING for details.
+
     globally delete cache files in data/pages/PageName/cache/ directories
     
     Usage:

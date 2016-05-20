@@ -54,7 +54,7 @@ def getAttachDir(request, pagename, create=0):
         # direct file access via webserver, from public htdocs area
         pagename = wikiutil.quoteWikinameFS(pagename)
         attach_dir = os.path.join(request.cfg.attachments['dir'], pagename, "attachments")
-        if create and not os.path.isdir(attach_dir): 
+        if create and not os.path.isdir(attach_dir):
             filesys.makeDirs(attach_dir)
     else:
         # send file via CGI, from page storage area
@@ -219,9 +219,9 @@ def _build_filelist(request, pagename, showheader, readonly):
                         'base': base, 'label_edit': label_edit,
                         'label_view': label_view,
                         'get_url': get_url, 'label_get': label_get,
-                        'file': file, 'fsize': fsize,
+                        'file': wikiutil.escape(file), 'fsize': fsize,
                         'pagename': pagename}
-            
+
             del_link = ''
             if request.user.may.delete(pagename) and not readonly:
                 del_link = '<a href="%(baseurl)s/%(urlpagename)s' \
@@ -276,7 +276,7 @@ def send_link_rel(request, pagename):
             url = "%s/%s?action=%s&do=view&target=%s" % (
                 scriptName, pagename_quoted,
                 action_name, urllib.quote_plus(file.encode(config.charset)))
-    
+
             request.write(u'<link rel="Appendix" title="%s" href="%s">\n' % (
                 wikiutil.escape(file), wikiutil.escape(url)))
 
@@ -291,7 +291,8 @@ def send_hotdraw(pagename, request):
     pngpath = getAttachUrl(pagename, basename + '.png', request, escaped=1)
     querystr = {'action': 'AttachFile', 'ts': now}
     querystr = wikiutil.escape(web.makeQueryString(querystr))
-    pagelink = '%s?%s' % (wikiutil.quoteWikinameURL(pagename), querystr)
+    pagelink = '%s/%s?%s' % (request.getScriptname(), wikiutil.quoteWikinameURL(pagename), querystr)
+    helplink = Page(request, "HelpOnActions/AttachFile").url(request)
     savelink = Page(request, pagename).url(request) # XXX include target filename param here for twisted
                                            # request, {'savename': request.form['drawing'][0]+'.draw'}
     #savelink = '/cgi-bin/dumpform.bat'
@@ -312,13 +313,13 @@ def send_hotdraw(pagename, request):
 <param name="savepath" value="%(savelink)s">
 <param name="basename" value="%(basename)s">
 <param name="viewpath" value="%(pagelink)s">
-<param name="helppath" value="%(pagelink)s">
+<param name="helppath" value="%(helplink)s">
 <strong>NOTE:</strong> You need a Java enabled browser to edit the drawing example.
 </applet>
 </p>""" % {
     'pngpath': pngpath, 'timestamp': timestamp,
     'pubpath': pubpath, 'drawpath': drawpath,
-    'savelink': savelink, 'pagelink': pagelink,
+    'savelink': savelink, 'pagelink': pagelink, 'helplink': helplink,
     'basename': basename
 })
 
@@ -328,7 +329,7 @@ def send_uploadform(pagename, request):
         the file upload form.
     """
     _ = request.getText
-    
+
     if not request.user.may.read(pagename):
         request.write('<p>%s</p>' % _('You are not allowed to view this page.'))
         return
@@ -367,7 +368,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.""")
     'pagename': wikiutil.quoteWikinameURL(pagename),
     'action_name': action_name,
     'upload_label_file': _('File to upload'),
-    'upload_label_rename': _('Save as'),
+    'upload_label_rename': _('Rename to'),
     'rename': request.form.get('rename', [''])[0],
     'upload_button': _('Upload'),
 })
@@ -442,7 +443,7 @@ def upload_form(pagename, request, msg=''):
     request.write('</div>\n') # end content div
     wikiutil.send_footer(request, pagename, showpage=1)
 
- 
+
 def do_upload(pagename, request):
     _ = request.getText
 
@@ -457,7 +458,7 @@ def do_upload(pagename, request):
     # if we use twisted, "rename" field is NOT optional, because we
     # can't access the client filename
     if rename:
-        filename = target = rename
+        target = rename
     elif filename:
         target = filename
     else:
@@ -466,7 +467,15 @@ def do_upload(pagename, request):
 
     # get file content
     filecontent = request.form['file'][0]
-    
+
+    # preprocess the filename
+    # 1. strip leading drive and path (IE misbehaviour)
+    if len(target) > 1 and (target[1] == ':' or target[0] == '\\'): # C:.... or \path... or \\server\...
+        bsindex = target.rfind('\\')
+        if bsindex >= 0:
+            target = target[bsindex+1:]
+        
+    # 2. replace illegal chars
     target = wikiutil.taintfilename(target)
 
     # set mimetype from extension, or from given mimetype
@@ -482,7 +491,7 @@ def do_upload(pagename, request):
     #        else:
     #            ext = ''
     #    target = target + ext
-    
+
     # get directory, and possibly create it
     attach_dir = getAttachDir(request, pagename, create=1)
     # save file
@@ -509,7 +518,7 @@ def do_upload(pagename, request):
 
 
 def save_drawing(pagename, request):
-    
+
     filename = request.form['filename'][0]
     filecontent = request.form['filepath'][0]
 
@@ -523,6 +532,7 @@ def save_drawing(pagename, request):
 
     if ext == '.draw':
         _addLogEntry(request, 'ATTDRW', pagename, basename + ext)
+        filecontent = filecontent.replace("\r","")
 
     savepath = os.path.join(getAttachDir(request, pagename), basename + ext)
     if ext == '.map' and filecontent.strip()=='':
@@ -544,7 +554,7 @@ def del_file(pagename, request):
 
     filename, fpath = _access_file(pagename, request)
     if not filename: return # error msg already sent in _access_file
-    
+
     # delete file
     os.remove(fpath)
     _addLogEntry(request, 'ATTDEL', pagename, filename)
@@ -557,7 +567,7 @@ def get_file(pagename, request):
 
     filename, fpath = _access_file(pagename, request)
     if not filename: return # error msg already sent in _access_file
-    
+
     # get mimetype
     type, enc = mimetypes.guess_type(filename)
     if not type:
@@ -569,14 +579,13 @@ def get_file(pagename, request):
         "Content-Length: %d" % os.path.getsize(fpath),
         # TODO: fix the encoding here, plain 8 bit is not allowed according to the RFCs
         # There is no solution that is compatible to IE except stripping non-ascii chars
-        "Content-Disposition: inline; filename=\"%s\"" % filename.encode(config.charset), 
+        "Content-Disposition: inline; filename=\"%s\"" % filename.encode(config.charset),
     ])
-    
+
     # send data
     shutil.copyfileobj(open(fpath, 'rb'), request, 8192)
 
     raise MoinMoinNoFooter
-
 
 def send_viewfile(pagename, request):
     _ = request.getText
@@ -585,7 +594,7 @@ def send_viewfile(pagename, request):
     if not filename: return
 
     request.write('<h2>' + _("Attachment '%(filename)s'") % {'filename': filename} + '</h2>')
-    
+
     type, enc = mimetypes.guess_type(filename)
     if type:
         if type[:5] == 'image':
@@ -609,13 +618,13 @@ def send_viewfile(pagename, request):
     request.write('<a href="%s">%s</a>' % (
         getAttachUrl(pagename, filename, request, escaped=1), wikiutil.escape(filename)))
 
-    
+
 def view_file(pagename, request):
     _ = request.getText
 
     filename, fpath = _access_file(pagename, request)
     if not filename: return
-    
+
     # send header & title
     request.http_headers()
     # Use user interface language for this generated page

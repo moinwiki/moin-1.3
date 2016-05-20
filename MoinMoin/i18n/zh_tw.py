@@ -535,8 +535,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 這樣就會採用原本的檔名.''',
 '''File to upload''':
 '''要上傳的檔案''',
-'''Save as''':
-'''另存新檔''',
 '''Upload''':
 '''上傳''',
 '''File attachments are not allowed in this wiki!''':
@@ -689,18 +687,8 @@ Try a different name.''':
 '''"%(key)s" 後面要的是整數 "%(arg)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''"%(key)s" 後面要接顏色值 "%(arg)s"''',
-'''XSLT option disabled!''':
-'''XSLT 功能停用!''',
-'''XSLT processing is not available!''':
-'''沒有 XSLT 處理套件!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s 處理錯誤''',
-'''RefreshCache''':
-'''刷新快取內容''',
-'''for this page (cached %(date)s)''':
-''' (本頁快取時間: %(date)s)''',
-'''Charts are not available!''':
-'''不能繪製圖表!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(filterpage)s 的 %(chart_title)s 圖''',
 '''green=view
@@ -711,6 +699,8 @@ red=edit''':
 '''日期''',
 '''# of hits''':
 '''人氣指數''',
+'''Charts are not available!''':
+'''不能繪製圖表!''',
 '''Page Size Distribution''':
 '''頁面大小分佈''',
 '''page size upper bound [bytes]''':

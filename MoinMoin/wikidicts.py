@@ -1,6 +1,6 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin Dictionary / Group Functions
+    MoinMoin - Dictionary / Group Functions
 
     @copyright: 2003 by Thomas Waldmann, http://linuxwiki.de/ThomasWaldmann
     @copyright: 2003 by Gustavo Niemeyer, http://moin.conectiva.com.br/GustavoNiemeyer
@@ -25,6 +25,7 @@ except AttributeError:
  
 from MoinMoin import config, caching, wikiutil, Page
 from MoinMoin.logfile.editlog import EditLog
+from MoinMoin.logfile import logfile
 
 # Version of the internal data structure which is pickled
 # Please increment if you have changed the structure
@@ -305,7 +306,7 @@ class GroupDict(DictDict):
         now = wikiutil.timestamp2version(int(time.time()))
         try:
             lastchange = EditLog(self.request).date()
-        except OSError: #editlog was not created yet
+        except logfile.LogMissing:
             lastchange = 0
             dump = 1
 
@@ -331,7 +332,6 @@ class GroupDict(DictDict):
         if lastchange < self.namespace_timestamp and dump==0:
             return
 
-        # TODO: Should be compiled only once, and cached in cfg
         isdict = re.compile(self.cfg.page_dict_regex, re.UNICODE).search
         isgroup = re.compile(self.cfg.page_group_regex, re.UNICODE).search
 
@@ -376,7 +376,7 @@ class GroupDict(DictDict):
             self.namespace_timestamp = now
 
         # check if groups / dicts have been modified on disk
-        for pagename in self.dictdict:
+        for pagename in self.dictdict.keys():
             if Page.Page(self.request, pagename).mtime_usecs() >= self.pageupdate_timestamp:
                 if isdict(pagename):
                     self.adddict(self.request, pagename)

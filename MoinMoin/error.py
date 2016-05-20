@@ -1,17 +1,14 @@
 # -*- coding: iso-8859-1 -*-
-""" MoinMoin error -supply common error classes.
+"""
+    MoinMoin - supply common error classes.
 
-@copyright: 2004 by Nir Soffer
-@license: GNU GPL, see COPYING for details.
+    @copyright: 2004 by Nir Soffer
+    @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import sys, os
 
-# MoinMoin imports
 from MoinMoin import config, version
-
-# Error classes --------------------------------------------------------
 
 class Error(Exception):
     """ Base class for moin moin errors
@@ -153,7 +150,6 @@ class FatalError(Error):
         """
         return '%s: %s' % (self.name, str(self))
 
-        
 
 class ConfigurationError(FatalError):
     """ Raise when fatal misconfiguration is found

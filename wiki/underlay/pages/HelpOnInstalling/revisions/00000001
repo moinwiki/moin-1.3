@@ -34,6 +34,7 @@ The following subpages will show you concrete examples of installation sessions,
 Wiki for personal use or small workgroup. Does not require anything but Python and MoinMoin.
 
  * /StandaloneServer
+   ''Technical note:'' Note that Standalone is faster than Twisted currently, but does not support multiple interfaces/ports.
 
 == Public wiki using CGI ==
 

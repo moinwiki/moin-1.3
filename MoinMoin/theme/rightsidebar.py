@@ -1,16 +1,17 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin theme by and for crw.
+    MoinMoin - rightsidebar theme
+
+    Created by and for crw.
+    Later it was rewritten by Nir Soffer for MoinMoin release 1.3.
+
+    @copyright: 2005 by Nir Soffer
+    @license: GNU GPL, see COPYING for details.  
 """
 
-from MoinMoin import wikiutil
-from MoinMoin.Page import Page
 from MoinMoin.theme import ThemeBase
 
 class Theme(ThemeBase):
-    """ here are the functions generating the html responsible for
-        the look and feel of your wiki site
-    """
 
     name = "rightsidebar"
 
@@ -83,7 +84,6 @@ class Theme(ThemeBase):
             self.wikipanel(d),
             self.pagepanel(d),
             self.userpanel(d),
-            self.credits(d),
             u'</div>',
 
             self.msg(d),
@@ -95,33 +95,36 @@ class Theme(ThemeBase):
         return u'\n'.join(html)
     
     def footer(self, d, **keywords):
-        """ Assemble page footer
+        """ Assemble wiki footer
         
         @param d: parameter dictionary
         @keyword ...:...
-        @rtype: string
+        @rtype: unicode
         @return: page footer html
         """
         page = d['page']
         html = [
-            # Page end
-            # Used to extend the page to the bottom of the sidebar
-            u'<div id="pagebottom"></div>',
+            # End of page
             self.pageinfo(page),
             self.endPage(),
             
-            # Custom html above footer
+            # Pre footer custom html (not recommended!)
             self.emit_custom_html(self.cfg.page_footer1),
             
-            # And bellow
+            # Footer
+            u'<div id="footer">',
+            self.credits(d),
+            self.showversion(d, **keywords),
+            u'</div>',
+            
+            # Post footer custom html
             self.emit_custom_html(self.cfg.page_footer2),
             ]
         return u'\n'.join(html)
 
 
 def execute(request):
-    """
-    Generate and return a theme object
+    """ Generate and return a theme object
         
     @param request: the request object
     @rtype: MoinTheme

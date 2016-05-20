@@ -75,11 +75,11 @@ class FormatterBase:
             it is also possible to give a live Page object, then page.page_name
             will be used.
         """
-        if kw.get('generated', 0) or not on: 
+        if not self._store_pagelinks or not on or kw.get('generated'): 
             return
         if not pagename and page:
             pagename = page.page_name
-        if self._store_pagelinks and pagename not in self.pagelinks:
+        if pagename and pagename not in self.pagelinks:
             self.pagelinks.append(pagename)
 
     def interwikilink(self, on, interwiki='', pagename='', **kw):
@@ -105,6 +105,9 @@ class FormatterBase:
                 attr='class'
             attrstr = attrstr + u' %s="%s"' % (attr, wikiutil.escape(value))
         return u'<img%s>' % attrstr
+
+    def smiley(self, text):
+        return text
 
     # Text and Text Attributes ########################################### 
     
@@ -274,7 +277,17 @@ class FormatterBase:
             effects, like loss of markup or insertion of CDATA sections
             when output goes to XML formats.
         """
-        return markup
+
+        import formatter, htmllib
+        from MoinMoin.util import simpleIO
+
+        # Regenerate plain text
+        f = simpleIO()
+        h = htmllib.HTMLParser(formatter.AbstractFormatter(formatter.DumbWriter(f)))
+        h.feed(markup)
+        h.close()
+
+        return self.text(f.getvalue())
 
     def escapedText(self, on):
         """ This allows emitting text as-is, anything special will

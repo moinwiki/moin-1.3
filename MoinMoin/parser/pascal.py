@@ -2,9 +2,8 @@
 """
 	MoinMoin - Pascal Source Parser
 
-	Copyright (c) 2004 by Johannes Berg <johannes@sipsolutions.de>
-	All rights reserved.
-
+    @copyright: 2004-2005 by Johannes Berg <johannes@sipsolutions.net>
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin.util.ParserBase import ParserBase

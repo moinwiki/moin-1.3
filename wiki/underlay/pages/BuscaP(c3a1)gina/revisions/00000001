@@ -1,0 +1,31 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#format wiki
+#language pt
+Pode usar esta página para procurar todas as entradas nesta WikiWikiWeb. As procuras não são sensíveis a casa (maiúsculas e minúsculas são diferem).  
+
+Um bom começo para explorar este wiki são as páginas:
+ * MudançasRecentes: onde você poderá ver que página foram alteradas
+ * ÍndiceDeTítulos: uma lista com todas as páginas deste wiki
+ * ÍndiceDePalavras: uma lista com todas as palavras que são parte de títulos
+ * PáginaDeTeste: sinta-se livre para alterar esta página e ganhar experiência de edição para contribuir nesta wiki
+ * NavegaçãoDoSite: uma lista de página importantes
+
+Aqui está uma procura por título. Tente algo como '' ajuda'' :
+
+ [[TitleSearch]]
+
+Aqui está uma procurra por um texto.
+
+ [[FullSearch]]
+
+Você também pode usar expressões regulares, como 
+
+{{{    seriali[sz]e}}}
+
+Ou ir direto a uma página, ou criar uma nova página (com as iniias maiúsculas):
+  [[GoTo]]

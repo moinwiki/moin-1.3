@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
 "PO-Revision-Date: 2004-11-16 17:53+0200\n"
 "Last-Translator: Thomas W. Horna <sarman@t-online.de>\n"
 "Language-Team: Serbian <moin-devel@lists.sourceforge.net>\n"
@@ -34,7 +34,7 @@ msgstr ""
 
 #, fuzzy, python-format
 msgid "Revision %(rev)d as of %(date)s"
-msgstr "Verzija od %(date)s"
+msgstr "Verzija %(rev)d od %(date)s"
 
 #, python-format
 msgid "Redirected from page \"%(page)s\""
@@ -56,6 +56,9 @@ msgstr ""
 "poziv\n"
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "na ostalim stranicama.-~\n"
+
+msgid "Create New Page"
+msgstr ""
 
 msgid "You are not allowed to view this page."
 msgstr "Nije Vam dozvoljeno da vidite ovu stranicu."
@@ -81,6 +84,9 @@ msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 "Vreme za blokadu koju ste imali je isteklo, pripremite se da možda\n"
 "obrađujete konflikte!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -168,8 +174,8 @@ msgid ""
 "If you don't want that, hit '''%(cancel_button_text)s''' to cancel your "
 "changes."
 msgstr ""
-"Ako kliknete na <strong>%(save_button_text)s</strong> , postavljate vaše "
-"promene pod %(license_link)s.\n"
+"Ako kliknete na '''%(save_button_text)s''', postavljate vaše promene pod %"
+"(license_link)s.\n"
 "Ako to ne želite, kliknite na '''%(cancel_button_text)s''' , da biste Vaše "
 "promene poništili."
 
@@ -242,7 +248,7 @@ msgstr "Nijedna razlika nije pronađena!\n"
 
 #, fuzzy, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] %(trivial)sObnova za \"%(pagename)s\""
+msgstr "[%(sitename)s] %(trivial)sObnova za \"%(pagename)s\" by %(username)s"
 
 msgid "Trivial "
 msgstr "Sitna izmena"
@@ -474,6 +480,26 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "Molimo vas da upišete ispravnu mejl adresu!"
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "Nalog koji odgovara datoj mejl adresi , '%(email)s' , ne postoji!"
@@ -491,13 +517,11 @@ msgstr ""
 msgid "Bad relogin URL."
 msgstr ""
 
-#, fuzzy
 msgid "Unknown user."
-msgstr "Nepoznato korisničko ime ili lozinka."
+msgstr ""
 
-#, fuzzy
 msgid "Empty user name. Please enter a user name."
-msgstr "Ukucajte korisničko ime!"
+msgstr ""
 
 msgid "This user name already belongs to somebody else."
 msgstr "Neko drugi već poseduje ovo korisničko ime."
@@ -608,9 +632,9 @@ msgstr "Prethodne revizije ne postoje!"
 msgid "Diff for \"%s\""
 msgstr "Razlika za \"%s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Differences between revisions %d and %d"
-msgstr "Razlike u verzijama od %s i %s"
+msgstr "Razlike u verzijama od %d i %d"
 
 #, python-format
 msgid "(spanning %d versions)"
@@ -677,7 +701,7 @@ msgstr "povrati"
 
 #, fuzzy, python-format
 msgid "Revert to revision %(rev)d."
-msgstr "Povratiti na verziju od %(datestamp)s."
+msgstr "Povratiti na verziju %(rev)d."
 
 msgid "edit"
 msgstr "obraditi"
@@ -694,9 +718,8 @@ msgstr "N/A"
 msgid "Revision History"
 msgstr "Istorija revizija"
 
-#, fuzzy
 msgid "No log entries found."
-msgstr "Nema pravopisnih grešaka!"
+msgstr ""
 
 #, python-format
 msgid "Info for \"%s\""
@@ -767,9 +790,8 @@ msgstr "Potreban atribut \"%(attrname)s\" nedostaje"
 msgid "Submitted form data:"
 msgstr "Podaci poslati u formularu:"
 
-#, fuzzy
 msgid "Search Titles"
-msgstr "Potraga"
+msgstr ""
 
 msgid "Display context of search results"
 msgstr "Prikazati kontekst pronađenih rezultata"
@@ -777,9 +799,8 @@ msgstr "Prikazati kontekst pronađenih rezultata"
 msgid "Case-sensitive searching"
 msgstr "Potraga sa razlikovanjem velikih i malih slova"
 
-#, fuzzy
 msgid "Search Text"
-msgstr "Potraga"
+msgstr ""
 
 msgid "Go To Page"
 msgstr ""
@@ -846,9 +867,18 @@ msgstr "Instalirani pretraživači"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Instalirani procesori (ZAPOSTAVLJENO -- koristite pretraživače)"
 
-#, fuzzy, python-format
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
+#, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
-msgstr "Koristite konkretniji izraz za pretragu, umesto '%(needle)s'!"
+msgstr ""
 
 #, python-format
 msgid "ERROR in regex '%s'"
@@ -932,8 +962,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "Fajl koji treba de se snimi"
 
-msgid "Save as"
-msgstr "Snimi kao"
+#, fuzzy
+msgid "Rename to"
+msgstr "PreimenitiStranicu"
 
 msgid "Upload"
 msgstr "Snimi"
@@ -1130,10 +1161,6 @@ msgstr "Početak"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slajd %(pos)d od %(size)d"
 
-#, fuzzy
-msgid "Create New Page"
-msgstr "stvoriti profil"
-
 msgid "No orphaned pages in this wiki."
 msgstr "Nema napuštenih stranica u ovom vikiju."
 
@@ -1163,9 +1190,8 @@ msgstr "(trenutno postavljen na %s)"
 msgid "Delete Bookmark"
 msgstr "deaktiviraj obeleživač"
 
-#, fuzzy
 msgid "Set bookmark"
-msgstr "aktiviraj obeleživač"
+msgstr "Aktiviraj obeleživač"
 
 msgid "set bookmark"
 msgstr "aktiviraj obeleživač"
@@ -1230,25 +1256,24 @@ msgstr "Očekivan celi broj \"%(arg)s\" posle \"%(key)s\""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Očekivana farbna vrednost \"%(arg)s\" posle \"%(key)s\""
 
-msgid "XSLT option disabled!"
-msgstr "XSLT opcija isključena!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "XSLT procesiranje trenutno ne postoji!"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s greška u obradi"
 
-msgid "RefreshCache"
-msgstr "OsvežiCache"
+#, fuzzy
+msgid "Views/day"
+msgstr "Videti"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "za ovu stranicu (cached %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Grafikoni trenutno ne postoje!"
+#, fuzzy
+msgid "Edits/day"
+msgstr "Obrada"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1267,6 +1292,9 @@ msgstr "datum"
 msgid "# of hits"
 msgstr "# zahteva"
 
+msgid "Charts are not available!"
+msgstr "Grafikoni trenutno ne postoje!"
+
 msgid "Page Size Distribution"
 msgstr "Statistika veličine stranica"
 
@@ -1275,6 +1303,9 @@ msgstr "gornja granica veličine stranica [u bajtovima]"
 
 msgid "# of pages of this size"
 msgstr "# stranica ove veličine"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Ostali"
@@ -1503,77 +1534,14 @@ msgstr "PreimenitiStranicu"
 msgid "SpellCheck"
 msgstr "ProveraPravopisa"
 
-#~ msgid "MIME Type (optional)"
-#~ msgstr "MIME tip (opcionalno)"
+#~ msgid "Save as"
+#~ msgstr "Snimi kao"
 
-#, fuzzy
-#~ msgid "Refresh"
+#~ msgid "XSLT option disabled!"
+#~ msgstr "XSLT opcija isključena!"
+
+#~ msgid "RefreshCache"
 #~ msgstr "OsvežiCache"
 
-#~ msgid "Rename"
-#~ msgstr "Preimeniti"
-
-#~ msgid "Send mail notification"
-#~ msgstr "Poslati mejl"
-
-#~ msgid "You will not be notified of your own changes!"
-#~ msgstr "Vi nećete dobiti poruku sa vašim sopstvenim izmenama!"
-
-#~ msgid "Nobody subscribed to this page, no mail sent."
-#~ msgstr "Niko se nije pretpisao na ovu stranicu, mejl nije poslat."
-
-#~ msgid "Unknown action"
-#~ msgstr "Nepoznata akcija"
-
-#~ msgid "Needed %(timer).1f seconds."
-#~ msgstr "Potraga je trajala %(timer).1f sekundi"
-
-#~ msgid ""
-#~ "User names with group names are not allowed.\n"
-#~ "Please register a new account with a valid name."
-#~ msgstr ""
-#~ "Ovo Korisničko ime poseduje već jedna vlasnička grupa.\n"
-#~ "Molimo Vas, registrirajte neko drugo korisničko ime."
-
-#~ msgid "User name already exists!"
-#~ msgstr "Ovo korisničko ime već postoji!"
-
-#~ msgid "Go"
-#~ msgstr "Startuj"
-
-#~ msgid "Exactly one matching page for \"%s\" found!"
-#~ msgstr "Tačno jedna odgovarajuća stranica za \"%s\" pronađena!"
-
-#~ msgid "Multiple matches for \"%s...%s\""
-#~ msgstr "Više nalaza za \"%s...%s\""
-
-#~ msgid "You cannot use LikePages on an extended pagename!"
-#~ msgstr ""
-#~ "Ne možete koristiti SličneStranice na stranicama sa proširenim Viki "
-#~ "imenom."
-
-#~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-#~ msgstr "Stranica \"%s\" je uspešno preimenovana u \"%s\"!"
-
-#~ msgid "Really delete bookmark?"
-#~ msgstr "Stvarno deaktivirati obeleživač?"
-
-#~ msgid "Update my bookmark timestamp"
-#~ msgstr "Obnoviti datum za moj obeleživač"
-
-#~ msgid "of this page"
-#~ msgstr "ove stranice"
-
-#~ msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
-#~ msgstr ""
-#~ "ili odmah ovde: naslove %(titlesearch)s, ili reči %(textsearch)s ili"
-
-#~ msgid "Show all changes in the last %s days."
-#~ msgstr "Pokaži sve izmene u zadnjih %s dana."
-
-#~ msgid "Site"
-#~ msgstr "Broj stranice"
-
-#~ msgid "Title: %(titlesearch)s[[BR]]Text: %(textsearch)s"
-#~ msgstr ""
-#~ "ili odmah ovde: naslove %(titlesearch)s, ili reči %(textsearch)s ili"
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "za ovu stranicu (cached %(date)s)"

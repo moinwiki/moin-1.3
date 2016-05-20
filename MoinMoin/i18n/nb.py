@@ -11,7 +11,7 @@ meta = {
 }
 text = {
 '''The backupped content of this page is deprecated and will not be included in search results!''':
-'''Det tidligere innholdet av denne siden er foreldet og vil ikke bli inkludert i søkeresultater!''',
+'''Det tidligere innholdet av denne siden er foreldet og vil ikke bli tatt med i søkeresultater!''',
 '''Revision %(rev)d as of %(date)s''':
 '''Versjon %(rev)d per %(date)s''',
 '''Redirected from page "%(page)s"''':
@@ -29,11 +29,11 @@ For å bruke dette skjemaet på andre sider, kan følgende makro
 brukes.-~
 ''',
 '''You are not allowed to view this page.''':
-'''Du har ikke lov til å se denne siden.''',
+'''Du har ikke tillatelse til å se denne siden.''',
 '''(cached %s)''':
 '''(cachet %s)''',
 '''You are not allowed to edit this page.''':
-'''Du har ikke lov til å redigere denne siden.''',
+'''Du har ikke tillatelse til å redigere denne siden.''',
 '''Page is immutable!''':
 '''Siden kan ikke redigeres!''',
 '''Cannot edit old revisions!''':
@@ -45,7 +45,7 @@ brukes.-~
 '''Preview of "%(pagename)s"''':
 '''Forhåndsvisning av "%(pagename)s"''',
 '''Your edit lock on %(lock_page)s has expired!''':
-'''Din lås på %(lock_page)s gikk ut!''',
+'''Din lås på %(lock_page)s har gått ut!''',
 '''Your edit lock on %(lock_page)s will expire in # minutes.''':
 '''Din lås på %(lock_page)s går ut om # minutter.''',
 '''Your edit lock on %(lock_page)s will expire in # seconds.''':
@@ -58,14 +58,14 @@ brukes.-~
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''En annen har lagret denne siden mens du har redigert den!
-Vennligst gjennomgå siden og lagre deretter. Ikke lagre siden som den er!
-Se på endringene pr. %(difflink)s for å se hva er blitt forandret.''',
+Gå gjennom siden og lagre den etterpå. Ikke lagre siden som den er!
+Se på endringene pr. %(difflink)s for å se hva som er blitt forandret.''',
 '''[Content of new page loaded from %s]''':
-'''[Den nye sidens innhold er åpnet fra %s]''',
+'''[Innhold i den nye siden er lastet fra %s]''',
 '''[Template %s not found]''':
 '''[Mal %s ikke funnet]''',
 '''[You may not read %s]''':
-'''[Du får ikke lese %s]''',
+'''[Du har ikke tillatelse til å lese %s]''',
 '''Skip to preview''':
 '''Skift til forhåndsvisning''',
 '''[current page size \'\'\'%(size)d\'\'\' bytes]''':
@@ -77,7 +77,7 @@ Se på endringene pr. %(difflink)s for å se hva er blitt forandret.''',
 '''<No addition>''':
 '''<Ingen tilføyelser>''',
 '''Make this page belong to category %(category)s''':
-'''La denne siden tilhøre klassen %(category)s''',
+'''La denne siden tilhøre kategorien %(category)s''',
 '''Check Spelling''':
 '''Stavekontroll''',
 '''Save Changes''':
@@ -91,7 +91,7 @@ Hvis du ikke ønsker dette, trykk på \'\'\'%(cancel_button_text)s\'\'\' for å 
 '''Preview''':
 '''Forhåndsvisning''',
 '''Trivial change''':
-'''Enkelt oppdatering''',
+'''Mindre oppdatering''',
 '''Remove trailing whitespace from each line''':
 '''Fjern ekstra mellomrom på slutten av linjer''',
 ''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
@@ -116,7 +116,7 @@ The following page has been changed by %(editor)s:
 ''':
 '''Hei, wiki-bruker!
 
-Du abonnerer på å bli orientert om oppdateringer på en wiki-side eller wiki-kategori på "%(sitename)s".
+Du abonnerer på oppdateringer på en wiki-side eller wiki-kategori på "%(sitename)s".
 
 Følgende sider er redigert av %(editor)s:
 %(pagelink)s
@@ -126,7 +126,7 @@ Følgende sider er redigert av %(editor)s:
 %(comment)s
 
 ''':
-'''Kommentar på oppdateringen:
+'''Kommentar til oppdateringen:
 %(comment)s
 
 ''',
@@ -139,15 +139,19 @@ Følgende sider er redigert av %(editor)s:
 '''Fant ingen endringer!
 ''',
 '''Trivial ''':
-'''Enkelt ''',
+'''Mindre ''',
 '''Status of sending notification mails:''':
 '''Status for utsending av e-post om oppdatering:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
-'''## sikkerhetskopi av siden "%(pagename)s" sent %(date)s''',
+'''## sikkerhetskopi av siden "%(pagename)s" sendt %(date)s''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''Kan ikke låse siden. Uventet feil (errno=%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''Kan ikke låse siden. Mangler \'current\' side?''',
 '''You are not allowed to edit this page!''':
-'''Du har ikke lov til å redigere denne siden!''',
+'''Du har ikke tillatelse til å redigere denne siden!''',
 '''You cannot save empty pages.''':
 '''Du kan ikke lagre tomme sider.''',
 '''Sorry, someone else saved the page while you edited it.
@@ -160,11 +164,11 @@ Now re-add your changes to the current page contents.
 the content editbox with your version of the page, because that would
 delete the changes of the other person, which is excessively rude!\'\'
 ''':
-'''Dessverre har en annen lagret oppdateringer på siden mens du har redigert den.
+'''En annen har oppdatert siden mens du redigerte den.
 
-Gjør vennligst følgende: Bruk tilbake-knappen på din nettleser, og kopier dine
-endringer derfra. Gå deretter frem hit, velg RedigerTekst igjen, og tilfør dine
-oppdateringer til den nåværende teksten.
+Gjør følgende: Bruk tilbake-knappen i nettleseren, og kopier dine
+endringer derfra. Gå deretter frem hit, velg RedigerTekst igjen, og føy dine
+oppdateringer til teksten.
 
 \'\'Ikke skriv den nåværende teksten over med din versjon. Dette vil slette
 den andre personens endringer, noe som er meget uhøflig!\'\'
@@ -174,13 +178,13 @@ den andre personens endringer, noe som er meget uhøflig!\'\'
 '''You did not change the page content, not saved!''':
 '''Du har ikke endret på sidens innhold, så den ble ikke lagret!''',
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
-'''Du kan ikke endre adgangsrettigheter (ACL) på denne siden, for du har ikke administratortilgang til den!''',
+'''Du kan ikke endre adgangsrettigheter (ACL) på denne siden. Du har ikke administratortilgang til den!''',
 '''Thank you for your changes. Your attention to detail is appreciated.''':
 '''Takk for dine endringer. Ditt bidrag er verdsatt.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
-'''Låsen for %(owner)s utgikk for %(mins_ago)d minutt(er) siden, og du fikk overlevert låsen til denne siden.''',
+'''Låsen for %(owner)s gikk ut for %(mins_ago)d minutt(er) siden, og du har tatt over låsen til denne siden.''',
 '''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
-'''Andre brukere vil være \'\'utelukket\'\' fra å redigere denne siden inntil %(bumptime)s.''',
+'''Andre brukere vil ikke kunne redigere denne siden før %(bumptime)s.''',
 '''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
 '''Andre brukere vil bli \'\'advart\'\' inntil %(bumptime)s om at du redigerer denne siden.''',
 '''Use the Preview button to extend the locking period.''':
@@ -192,7 +196,7 @@ den andre personens endringer, noe som er meget uhøflig!\'\'
 to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
 '''Denne siden ble åpnet for redigering eller forhåndsvisning %(timestamp)s av %(owner)s.[[BR]]
-\'\'\'Du bør \'\'unngå å redigere\'\' denne siden iihvertfall %(mins_valid)d minutt(er) til
+\'\'\'Du bør \'\'unngå å redigere\'\' denne siden i minst %(mins_valid)d minutt(er) til
 for å unngå konflikter mellom oppdateringene.\'\'\'[[BR]]
 Trykk på Avbryt hvis du ikke vil redigere.''',
 '''<unknown>''':
@@ -221,16 +225,16 @@ Trykk på Avbryt hvis du ikke vil redigere.''',
 Name may contain any Unicode alpha numeric character, with optional one
 space between words. Group page name is not allowed.''':
 '''Ugyldig brukernavn  {{{\'%s\'}}}.
-Navn skal kun inneholde alfanumeriske Unicode-tegn, eventuelt med et mellomrom
+Navn kan bare inneholde alfanumeriske Unicode-tegn, eventuelt med et mellomrom
 mellom ordene. Gruppenavn er ikke tillatt.''',
 '''You are not allowed to do %s on this page.''':
-'''Du har ikke lov til å %s denne siden!''',
+'''Du har ikke tillatelse til å %s denne siden!''',
 '''Login''':
 '''Logg inn''',
 ''' %s and try again.''':
 ''' %s og prøv igjen.''',
 '''Can\'t work out query''':
-'''Skjønner ikke forespørsel''',
+'''Forstår ikke spørsmålet''',
 '''%(hits)d results out of %(pages)d pages.''':
 '''%(hits)d resultater ved søk i %(pages)d sider.''',
 '''%.2f seconds''':
@@ -240,7 +244,7 @@ mellom ordene. Gruppenavn er ikke tillatt.''',
 '''matches''':
 '''resultater''',
 '''Open editor on double click''':
-'''Åpne redigeringsvindu ved dobbeltklikk''',
+'''Dobbeltklikk åpner redigeringsvindu''',
 '''Remember last page visited''':
 '''Husk sist besøkte side''',
 '''Show fancy links''':
@@ -260,7 +264,7 @@ mellom ordene. Gruppenavn er ikke tillatt.''',
 '''Remember login information''':
 '''Husk påloggingsinformasjon''',
 '''Subscribe to trivial changes''':
-'''Abonner på enkle endringer''',
+'''Abonner på mindre endringer''',
 '''Disable this account forever''':
 '''Slett denne brukerprofilen permanent''',
 '''Cookie deleted. You are now logged out.''':
@@ -268,36 +272,36 @@ mellom ordene. Gruppenavn er ikke tillatt.''',
 '''This wiki is not enabled for mail processing.
 Contact the owner of the wiki, who can enable email.''':
 '''Denne wikien har ikke aktivert e-posthåndtering.
-Kontakt eieren av wikien, som kan enten aktivere
+Kontakt eieren av wikien, som enten kan aktivere
 e-post eller fjerne Abonner-knappen.''',
 '''Please provide a valid email address!''':
-'''Vennligst oppgi en korrekt e-postadresse!''',
+'''Oppgi en gyldig e-postadresse!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Ingen brukerprofil med e-postadressen \'%(email)s\' ble funnet!''',
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
-'''Ukjent brukernavn: {{{"%s"}}}. Vennligst oppgi brukernavn og passord.''',
+'''Ukjent brukernavn: {{{"%s"}}}. Oppgi brukernavn og passord.''',
 '''Missing password. Please enter user name and password.''':
-'''Passordet mangler. Vennligst oppgi et passord.''',
+'''Passordet mangler. Oppgi et passord.''',
 '''Sorry, wrong password.''':
-'''Du har desverre brukt feil passord.''',
+'''Du har oppgitt feil passord.''',
 '''Bad relogin URL.''':
 '''Ukjent URL for pålogging.''',
 '''Unknown user.''':
 '''Ukjent bruker.''',
 '''Empty user name. Please enter a user name.''':
-'''Tomt brukernavn. Vennligst oppgi gyldig brukernavn.''',
+'''Tomt brukernavn. Oppgi gyldig brukernavn.''',
 '''This user name already belongs to somebody else.''':
 '''Dette brukernavnet er allerede i bruk.''',
 '''Passwords don\'t match!''':
-'''Passordene er ikke de samme!''',
+'''Passordene er ikke like!''',
 '''Please specify a password!''':
-'''Vennligst oppgi et passord!''',
+'''Oppgi et passord!''',
 '''Please provide your email address. If you loose your login information, you can get it by email.''':
-'''Vennligst oppgi din e-postadresse - ellers vil du ikke kunne få tilsendt din påloggingsinformasjon pr. e-post hvis du mister dem.''',
+'''Oppgi din e-postadresse. Hvis du mister din påloggingsinformasjon, kan du få den tilsendt på e-post.''',
 '''This email already belongs to somebody else.''':
 '''Denne e-postadressen tilhører en annen bruker.''',
 '''The theme \'%(theme_name)s\' could not be loaded!''':
-'''Utseendet \'%(theme_name)s\' kan ikke bli brukt!''',
+'''Utseendet \'%(theme_name)s\' finnes ikke!''',
 '''User preferences saved!''':
 '''Brukerprofil lagret!''',
 '''Default''':
@@ -321,7 +325,7 @@ e-post eller fjerne Abonner-knappen.''',
 '''Password repeat''':
 '''Gjenta passord''',
 '''(Only when changing passwords)''':
-'''(Kun ved endring av passord)''',
+'''(Bare ved endring av passord)''',
 '''Email''':
 '''E-postadresse''',
 '''Preferred theme''':
@@ -331,7 +335,7 @@ e-post eller fjerne Abonner-knappen.''',
 '''(Leave it empty for disabling user CSS)''':
 '''(La det stå tomt for å slå av bruker-CSS)''',
 '''Editor size''':
-'''Størrelsen på redigeringsvindu''',
+'''Størrelse på redigeringsvindu''',
 '''Time zone''':
 '''Tidssone''',
 '''Your time is''':
@@ -347,21 +351,23 @@ e-post eller fjerne Abonner-knappen.''',
 '''Quick links''':
 '''Hurtiglenker''',
 '''This list does not work, unless you have entered a valid email address!''':
-'''Denne listen fungerer ikke, med mindre du har angitt korrekt e-postadresse!''',
+'''Denne listen fungerer bare dersom du har angitt korrekt e-postadresse!''',
 '''Subscribed wiki pages (one regex per line)''':
 '''Abonnerte wiki-sider (et regulært uttrykk (regex) pr. linje)''',
 '''No older revisions available!''':
 '''Ingen eldre utgaver tilgjengelig!''',
 '''Diff for "%s"''':
-'''Endringer (diff) for "%s"''',
+'''Forskjeller (diff) for "%s"''',
 '''Differences between revisions %d and %d''':
-'''Endringer mellom versjonene %d og %d''',
+'''Forskjeller mellom versjonene %d og %d''',
 '''(spanning %d versions)''':
 '''(over %d versjoner)''',
 '''No differences found!''':
-'''Ingen endringer funnet!''',
+'''Ingen forskjeller funnet!''',
 '''The page was saved %(count)d times, though!''':
 '''Selv om siden er lagret %(count)d ganger!''',
+'''(ignoring whitespace)''':
+'''(ser bort fra \'\'whitespace\'\')''',
 '''Ignore changes in the amount of whitespace''':
 '''Ignorer endringer i antall mellomrom''',
 '''General Information''':
@@ -419,15 +425,17 @@ e-post eller fjerne Abonner-knappen.''',
 '''Page hits and edits''':
 '''Sidebesøk og -redigeringer''',
 '''You are not allowed to revert this page!''':
-'''Du har ikke lov til å tilbakestille denne siden!''',
+'''Du har ikke tillatelse til å tilbakestille denne siden!''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
-'''Du har ikke lov å abonnere på en side du ikke får lese!''',
+'''Du har ikke tillatelse til å abonnere på en side du ikke kan lese!''',
 '''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''Denne wikien har ikke aktivert e-posthåndtering. Kontakt eieren av wikien, som kan enten aktivere e-post eller fjerne "Abonner"-knappen.''',
+'''Denne wikien har ikke aktivert e-posthåndtering.
+Kontakt eieren av wikien, som enten kan aktivere
+e-post eller fjerne "Abonner"-knappen.''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
-'''Du har ikke opprettet en brukerprofil enda. Velg BrukerProfil i øverste høyre hjørne for å opprette en brukerprofil.''',
+'''Du har ikke opprettet en brukerprofil ennå. Velg BrukerProfil øverst til høyre for å opprette en brukerprofil.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
-'''Du har ikke oppgitt en e-postadresse i din brukerprofil. Velg ditt navn (BrukerProfil) i øverste høyre hjørne og angi en gyldig e-postadresse.''',
+'''Du har ikke oppgitt en e-postadresse i din brukerprofil. Velg ditt navn (BrukerProfil) øverst til høyre og angi en gyldig e-postadresse.''',
 '''Your subscribtion to this page has been removed.''':
 '''Din avbestilling av denne siden er registrert.''',
 '''Can\'t remove regular expression subscription!''':
@@ -439,13 +447,13 @@ e-post eller fjerne Abonner-knappen.''',
 '''Required attribute "%(attrname)s" missing''':
 '''Obligatorisk attributt "%(attrname)s" mangler.''',
 '''Submitted form data:''':
-'''Skjemadata sent:''',
+'''Skjemadata sendt:''',
 '''Search Titles''':
 '''Søk på tittel''',
 '''Display context of search results''':
-'''Vis kontekst i søkeresultater''',
+'''Vis søketekst i søkeresultater''',
 '''Case-sensitive searching''':
-'''Skill STORE og små bokstaver''',
+'''Skill mellom STORE og små bokstaver''',
 '''Search Text''':
 '''Søk i teksten''',
 '''Go To Page''':
@@ -507,7 +515,7 @@ e-post eller fjerne Abonner-knappen.''',
 '''[%d attachments]''':
 '''[%d vedlegg]''',
 '''There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.''':
-'''Det er <a href="%(link)s">%(count)s vedlegg</a> lagret for denne siden.''',
+'''Det er <a href="%(link)s">%(count)s vedlegg</a> til denne siden.''',
 '''Filename of attachment not specified!''':
 '''Filnavn for vedlegg mangler!''',
 '''Attachment \'%(filename)s\' does not exist!''':
@@ -516,7 +524,7 @@ e-post eller fjerne Abonner-knappen.''',
 as shown below in the list of files. 
 Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
 since this is subject to change and can break easily.''':
-'''Bruk \'\'\'{{{attachment:filename}}}\'\'\' til å referere til vedlegg
+'''Bruk \'\'\'{{{attachment:filename}}}\'\'\' for å referere til vedlegg
 på en side, som vist nedenfor i fil-oversikten.
 \'\'\'IKKE\'\'\' bruk URL-en under {{{[get]}}}, da den lenken kun er
 midlertidig og kan bli endret.''',
@@ -527,33 +535,31 @@ midlertidig og kan bli endret.''',
 '''Attached Files''':
 '''Vedlegg''',
 '''You are not allowed to attach a file to this page.''':
-'''Du har ikke lov til å legge ved filer til denne siden.''',
+'''Du har ikke tillatelse til å legge ved filer til denne siden.''',
 '''New Attachment''':
 '''Nytt vedlegg''',
 '''An upload will never overwrite an existing file. If there is a name
 conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''En opplasting overskriver aldri en eksisterende fil. Hvis det oppstår
-en navnekonflikt, vil du måtte gi filen du laster opp et nytt navn.
-Alternativt, hvis "Endre navn" er blank, anvendes det originale filnavnet.''',
+en navnekonflikt, må du gi filen du laster opp et nytt navn.
+Alternativt, hvis "Endre navn" er blank, brukes det originale filnavnet.''',
 '''File to upload''':
 '''Fil å laste opp''',
-'''Save as''':
-'''Lagre som''',
 '''Upload''':
 '''Last opp''',
 '''File attachments are not allowed in this wiki!''':
 '''Vedlegg er ikke tillatt i denne wikien!''',
 '''You are not allowed to save a drawing on this page.''':
-'''Du har ikke lov til å lagre en tegning på denne siden!''',
+'''Du har ikke tillatelse til å lagre en tegning på denne siden.''',
 '''No file content. Delete non ASCII characters from the file name and try again.''':
 '''Filen er tom. Slett tegn som ikke er ASCII fra filnavnet og prøv igjen.''',
 '''You are not allowed to delete attachments on this page.''':
-'''Du har ikke lov til å slette vedlegg på denne siden.''',
+'''Du har ikke tillatelse til å slette vedlegg på denne siden.''',
 '''You are not allowed to get attachments from this page.''':
-'''Du har ikke lov til å hente vedlegg fra denne siden!''',
+'''Du har ikke tillatelse til å hente vedlegg fra denne siden.''',
 '''You are not allowed to view attachments of this page.''':
-'''Du har ikke lov til å se denne sidens vedlegg!''',
+'''Du har ikke tillatelse til å se vedlegg til denne siden.''',
 '''Unsupported upload action: %s''':
 '''Opplastningsoperasjonen er ikke støttet: %s''',
 '''Attachments for "%(pagename)s"''':
@@ -571,11 +577,11 @@ Alternativt, hvis "Endre navn" er blank, anvendes det originale filnavnet.''',
 '''attachment:%(filename)s of %(pagename)s''':
 '''vedlegg:%(filename)s til %(pagename)s''',
 '''You are not allowed to delete this page.''':
-'''Du har ikke lov til å slette denne siden.''',
+'''Du har ikke tillatelse til å slette denne siden.''',
 '''This page is already deleted or was never created!''':
 '''Denne siden er allerede slettet eller har aldri eksistert!''',
 '''Please use the interactive user interface to delete pages!''':
-'''Vennligst bruk det interaktive brukergrensesnittet for å slette sider!''',
+'''Bruk det interaktive brukergrensesnittet for å slette sider!''',
 '''Page "%s" was successfully deleted!''':
 '''Siden "%s" ble slettet.''',
 '''Really delete this page?''':
@@ -583,7 +589,7 @@ Alternativt, hvis "Endre navn" er blank, anvendes det originale filnavnet.''',
 '''Delete''':
 '''Slett''',
 '''Optional reason for the deletion''':
-'''Grunnen til slettingen (valgfri)''',
+'''Årsak til slettingen (valgfri)''',
 '''No pages like "%s"!''':
 '''Ingen sider matcher "%s"!''',
 '''Exactly one page like "%s" found, redirecting to page.''':
@@ -595,9 +601,9 @@ Alternativt, hvis "Endre navn" er blank, anvendes det originale filnavnet.''',
 '''Local Site Map for "%s"''':
 '''Lokal oversikt for "%s"''',
 '''You are not allowed to rename pages in this wiki!''':
-'''Du har ikke lov til å endre navn på sidene i denne wikien!''',
+'''Du har ikke tillatelse til å endre navn på sidene i denne wikien!''',
 '''Please use the interactive user interface to rename pages!''':
-'''Vennligst bruk det interaktive brukergrensesnittet til å endre sidenes navn!''',
+'''Bruk det interaktive brukergrensesnittet til å endre navn på sider!''',
 '''Could not rename page because of file system error: %s.''':
 '''Navn ikke endret på grunn av filsystemfeil: %s.''',
 '''Rename Page''':
@@ -605,7 +611,7 @@ Alternativt, hvis "Endre navn" er blank, anvendes det originale filnavnet.''',
 '''New name''':
 '''Nytt navn''',
 '''Optional reason for the renaming''':
-'''Grunnen til nytt navn (valgfritt)''',
+'''Årsak til nytt navn (valgfritt)''',
 '''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
 
 Try a different name.''':
@@ -615,19 +621,21 @@ Prøv igjen med et annet navn.''',
 '''(including %(localwords)d %(pagelink)s)''':
 '''(inkludert %(localwords)d %(pagelink)s)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
-'''Følgende %(badwords)d ord ble ikke funnet i den %(totalwords)d ord store ordliste %(localwords)s og er merket herunder:''',
+'''Følgende %(badwords)d ord ble ikke funnet i den %(totalwords)d ord store ordliste %(localwords)s og er uthevet nedenfor:''',
 '''Add checked words to dictionary''':
-'''Tilfør de merkede ord til ordlisten''',
+'''Tilføy de merkede ordene til ordlisten''',
 '''No spelling errors found!''':
 '''Ingen stavefeil funnet.''',
 '''You can\'t check spelling on a page you can\'t read.''':
-'''Du kan ikke bruke stavekontrollen på en side du ikke får lese.''',
+'''Du kan ikke bruke stavekontrollen på en side du ikke kan lese.''',
 '''Title Search: "%s"''':
 '''Tittel-søk etter "%s"''',
 '''Full Text Search: "%s"''':
 '''Fritekst-søk etter "%s"''',
 '''Full Link List for "%s"''':
 '''Fullstendig liste over lenker for "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''Kan ikke opprette en ny side uten navn. Oppgi navn på siden.''',
 '''Invalid include arguments "%s"!''':
 '''Feil include-argumenter "%s"!''',
 '''Nothing found for "%s"!''':
@@ -643,7 +651,7 @@ Prøv igjen med et annet navn.''',
 '''Start''':
 '''Start''',
 '''Slide %(pos)d of %(size)d''':
-'''Slide %(pos)d ut av %(size)d''',
+'''Slide %(pos)d av %(size)d''',
 '''No orphaned pages in this wiki.''':
 '''Ingen foreldreløse sider i denne wikien.''',
 '''No quotes on %(pagename)s.''':
@@ -657,7 +665,7 @@ Prøv igjen med et annet navn.''',
 '''(no bookmark set)''':
 '''(intet bokmerke satt)''',
 '''(currently set to %s)''':
-'''(I øyeblikket satt til %s)''',
+'''(nå satt til %s)''',
 '''Delete Bookmark''':
 '''Slett bokmerke''',
 '''Set bookmark''':
@@ -694,18 +702,8 @@ Prøv igjen med et annet navn.''',
 '''Forventet et heltall "%(arg)s" etter "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Forventet en fargekode "%(arg)s" etter "%(key)s"''',
-'''XSLT option disabled!''':
-'''XSLT slått av!''',
-'''XSLT processing is not available!''':
-'''XSLT-håndtering er ikke tilgjengelig!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s programfeil''',
-'''RefreshCache''':
-'''OppdaterCache''',
-'''for this page (cached %(date)s)''':
-'''for denne siden (cachet %(date)s)''',
-'''Charts are not available!''':
-'''Grafer er ikke tilgjengelige!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s for %(filterpage)s''',
 '''green=view
@@ -716,6 +714,8 @@ rød=rediger''',
 '''dato''',
 '''# of hits''':
 '''Antall besøk''',
+'''Charts are not available!''':
+'''Grafer er ikke tilgjengelige!''',
 '''Page Size Distribution''':
 '''Fordeling av sidestørrelser''',
 '''page size upper bound [bytes]''':
@@ -741,31 +741,31 @@ rød=rediger''',
 '''Text''':
 '''Tekst''',
 '''Titles''':
-'''Tittler''',
+'''Titler''',
 '''More Actions:''':
 '''Flere operasjoner:''',
 '''Show Raw Text''':
-'''Vis Kilde''',
+'''Vis kilde''',
 '''Show Print View''':
-'''Vis Utskriftsversjon''',
+'''Vis utskriftsversjon''',
 '''Attach File''':
-'''Vedlegg Fil''',
+'''Legg ved fil''',
 '''Delete Page''':
-'''Slett Side''',
+'''Slett side''',
 '''Show Like Pages''':
-'''Vis Lignende Sider''',
+'''Vis lignende sider''',
 '''Show Local Site Map''':
-'''Vis Lokal Oversikt''',
+'''Vis lokal oversikt''',
 '''Do''':
-'''Gjennomfør''',
+'''Utfør''',
 '''Show Parent''':
-'''Vis Foreldreside''',
+'''Vis foreldreside''',
 '''Immutable Page''':
 '''Siden kan ikke endres''',
 '''Show Changes''':
-'''Vis Endringer''',
+'''Vis endringer''',
 '''Get Info''':
-'''Hent Info''',
+'''Hent info''',
 '''Show %s days.''':
 '''Vis %s dager.''',
 '''EditText''':
@@ -781,13 +781,13 @@ rød=rediger''',
 '''User''':
 '''Bruker''',
 '''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
-'''Siden kan desverre ikke lagres siden "%(content)s" er forbudt i denne wikien.''',
+'''Siden kan ikke lagres fordi "%(content)s" ikke er tillatt i denne wikien.''',
 '''Line''':
 '''Linje''',
 '''Deletions are marked like this.''':
-'''Slettet tekst er avmerket som dette.''',
+'''Slettet tekst er avmerket på denne måten.''',
 '''Additions are marked like this.''':
-'''Tilføringer er avmerket som dette.''',
+'''Tilføyelser er avmerket på denne måten.''',
 '''Connection to mailserver \'%(server)s\' failed: %(reason)s''':
 '''Forbindelse til e-posttjener \'%(server)s\' mislykket: %(reason)s''',
 '''Mail sent OK''':

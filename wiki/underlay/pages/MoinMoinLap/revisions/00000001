@@ -1,0 +1,45 @@
+##master-page:MoinMoin
+##master-date:2005-05-04 13:30:34
+#format wiki
+#language hu
+
+A Moin``Moin a [wiki:Wiki:PikiPiki PikiPiki-n] alapuló wiki-klón (Wiki:WikiClone). Maga a Moin``Moin név egy német szleng-kifejezés (lásd a MoinMoin:MoinMoinEtymology lapot). Amennyiben Moin``Moin-on futó wikit üzemeltet kérjük írja be a webhely címét a MoinMoin:MoinMoinWikis lapra. A Moin``Moin rendszerhez más közreműködők által írt kódok a MoinMoin:MacroMarket, MoinMoin:ActionMarket és MoinMoin:ParserMarket lapokon találhatóak.
+
+A Moin``Moin fejlesztéséhez kapcsolódó lapok:
+ * MoinMoin:MoinMoinQuestions - a Moin``Moin-nal összefüggő kérdések (telepítés, stb.)
+ * MoinMoin:MoinMoinTranslation - a Moin``Moin fordításával kapcsolatos dolgok
+ * MoinMoin:MoinMoinBugs - szoftverhibák
+ * MoinMoin:MoinMoinIdeas - itt lehet kívánságokat és ötleteket közreadni
+ * MoinMoin:MoinMoinMailingLists - Moin``Moin levelezőlisták
+ * MoinMoin:MoinDev - fejlesztőknek szóló információk
+ * HelpForDevelopers - segédlet fejlsztőknek
+
+Infók a Moin``Moin használatához és telepítéséhez:
+ * HelpOnInstalling - telepítési segédlet
+ * /SzövegFormázás - minták a szövegben előforduló legtöbb jelölésre
+ * MoinMoin:MoinMoinSuccessStories - mire használják mások a Moin``Moin-t?
+ * HelpContents - az angol nyelvű segédletek kezdőoldala
+ * HelpMiscellaneous/FrequentlyAskedQuestions - gyakran ismételt kérdések (a MoinMoin:MoinMoinQuestions lapon Ön is felteheti kérdéseit)
+ * MoinMoin:MoinMoinMailingLists - Moin``Moin levelezőlisták
+ * MoinMoin:MoinMoinWikis - a Moin``Moin-t használó webhelyek listája
+ * /InstallDocs - az összes telepítési segédlet egy lapon
+ * MoinMoin:SecurityPolicy - elmagyarázza a lapokhoz való hozzáférés szabályozását
+ * MoinMoin:MoinMoinSyndication - RSS, és egyéb együttműködést segítő dolgok a Moin``Moin rendszerben
+ * MoinMoin:MoinMoinExtensions - a Moin``Moin kiterjesztései
+ * Slides: WikiCourse - bevezető a Wikikhez és Moin``Moin-hoz
+
+Egyéb lapok:
+ * MoinMoin:MoinMoinEtymology - a Moin``moin név etimológiája
+
+Külső kapcsok:
+ * [http://sourceforge.net/projects/moin/ a MoinMoin SourceForge-lapja]
+ * [http://moinmoin.wikiwikiweb.de/ a MoinMoin honlapja]
+ * [http://freshmeat.net/projects/moin Freshmeat bejegyzés]
+ * [http://www.oreillynet.com/pub/a/python/2000/11/29/pythonnews.html wikikről szóló PythonNews-cikkek]
+
+Az Foldoc:IRC segítségével megtalálhatja a Moin``Moin szerzőjét, fejlesztőit és felhasználóit.
+ * a `#moin` csatorna a freenode-kiszolgálón: `irc.freenode.net`
+ * további információk a [http://freenode.net/ freenode honlapon] és a [http://freenode.net/irc_servers.shtml freenode-IRC-kiszolgálók lapján]
+
+http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png
+[[BR]][http://www.opensource.org/docs/definition.php Nyílt forrás]

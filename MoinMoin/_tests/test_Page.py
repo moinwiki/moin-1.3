@@ -7,7 +7,6 @@
 """
 
 import unittest
-from MoinMoin._tests import request
 from MoinMoin import Page
 
 class existsTestCase(unittest.TestCase):
@@ -21,7 +20,6 @@ class existsTestCase(unittest.TestCase):
             ('OnlyAnIdiotWouldCreateSuchaPage',     0),
             )
         for name, expected in tests:
-            pg = Page.Page(request, name)
+            pg = Page.Page(self.request, name)
             self.assertEqual(pg.exists(), expected,
                              '%s should%s exist' % (name, (' not', '')[expected]))
-

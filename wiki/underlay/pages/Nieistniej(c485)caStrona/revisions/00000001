@@ -1,0 +1,16 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:MissingPage
+##master-date:2005-05-17
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language pl
+
+'''Ta strona jeszcze nie istnieje. Możesz utworzyć nową, pustą stronę lub użyć szablonów. Zanim założysz nową stronę, sprawdź, czy podobna strona już nie istnieje.'''
+
+[[Action(edit,Create new empty page)]]
+
+|| '''Szablony stron:''' || '''Istniejące strony o podobnych nazwach:''' ||
+||<^> [[EditTemplates]] ||<^> [[LikePages((none))]] ||

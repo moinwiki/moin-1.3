@@ -1,0 +1,30 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnNavigation
+##master-date:2005-01-21 22:58:35
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+ <!> 需要更新到 1.3 。这部分内容多数只适用于 classic 主题。
+== 浏览 ==
+
+
+每一页顶部的链接都能够让你跳转到["首页"],["最新改动"], ["标题索引"], ["词汇索引"], ["站点导航"]和["帮助目录"]。
+
+在某些主题设置下, 在页面的右上角你可以找到代表常用功能的图标：
+  * [[Icon(up)]] 跳转到上级页面，只有当你位于一个子网页（参见["帮助-编辑/子网页"] ）时才会出现
+  * [[Icon(raw)]] 显示当前页面的代码（未经 wikiengine 转换的源代码）
+  * [[Icon(view)]] 刷新当前页面
+  * [[Icon(print)]] 显示不含页眉页脚的适于打印的版本
+  * [[Icon(xml)]] 创建该页的 XML 版本（处于试验阶段，能创建 MoinMoin:StyleBook ，一种 MoinMoin:DocBook 的变体）
+  * [[Icon(subscribe)]]/[[Icon(unsubscribe)]] 让你能够订阅或取消当前页的邮件通知，亮些的图标表示你已经订阅过了
+  * [[Icon(edit)]] 让你能够发表看法，也就是，编辑该页
+  * [[Icon(info)]] 显示该页的隐含信息，主要是全部版本信息
+  * [[Icon(diff)]] 显示当前版本相对前一版本做了哪些改动
+  * [[Icon(find)]] 显示搜索页面
+  * [[Icon(help)]] 显示帮助页面
+  * [[Icon(home)]] 到用户主页的链接，如果用户已经登录且存在一个用户登陆名为名称的页面
+
+点击位于页面顶部的标题链接将列出所有引用该页的页面。页分类就是应用被动引用、被动链接功能的例子，比如["个人网页类"]。在每一页的底部，你可以找到普通维基的那种”传统形式“的编辑、搜索链接，和供快速搜索标题和页面文字的附加搜索框，以及用来调用你已经安装的自定义动作的链接。
+
+此页的英文版本：HelpOnNavigation

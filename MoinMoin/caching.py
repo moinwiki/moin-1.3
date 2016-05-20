@@ -8,6 +8,7 @@
 
 import os
 from MoinMoin import config
+from MoinMoin.util import filesys
 
 class CacheEntry:
     def __init__(self, request, arena, key):
@@ -18,14 +19,8 @@ class CacheEntry:
             @param key: under which key we access the cache content
         """
         if isinstance(arena, str):
-            cache_dir = request.cfg.cache_dir
-            self.arena_dir = os.path.join(cache_dir, arena)
-            if not os.path.isdir(cache_dir):
-                os.mkdir(cache_dir, 0777 & config.umask)
-                os.chmod(cache_dir, 0777 & config.umask)
-            if not os.path.isdir(self.arena_dir):
-                os.mkdir(self.arena_dir, 0777 & config.umask)
-                os.chmod(self.arena_dir, 0777 & config.umask)
+            self.arena_dir = os.path.join(request.cfg.cache_dir, arena)
+            filesys.makeDirs(self.arena_dir)
         else: # arena is in fact a page object
             cache_dir = None
             self.arena_dir = arena.getPagePath('cache', check_create=1)

@@ -28,6 +28,8 @@ Um das Formular auf anderen Seiten zu benutzen, muss folgender Makroaufruf
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 auf diesen Seiten platziert werden.-~
 ''',
+'''Create New Page''':
+'''Neue Seite anlegen''',
 '''You are not allowed to view this page.''':
 '''Sie dürfen diese Seite nicht ansehen.''',
 '''DeleteCache''':
@@ -42,6 +44,8 @@ auf diesen Seiten platziert werden.-~
 '''Alte Versionen können nicht editiert werden!''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
 '''Die von Ihnen gehaltene Sperre ist abgelaufen, das Auftreten von Änderungskonflikten ist wahrscheinlich!''',
+'''Page name is too long, try shorter name.''':
+'''Seitenname ist zu lang, bitte kürzen.''',
 '''Edit "%(pagename)s"''':
 '''"%(pagename)s" editieren''',
 '''Preview of "%(pagename)s"''':
@@ -103,7 +107,7 @@ Wenn Sie das nicht wollen, klicken Sie auf \'\'\'%(cancel_button_text)s\'\'\', u
  Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
 ''' Betonung:: [[Verbatim(\'\')]]\'\'kursiv\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'fett\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'fett und kursiv\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'gemischt \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'fett\'\'\'[[Verbatim(\'\'\')]] und kursiv\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontaler Balken.
  Überschriften:: [[Verbatim(=)]] Überschrift 1 [[Verbatim(=)]]; [[Verbatim(==)]] Überschrift 2 [[Verbatim(==)]]; [[Verbatim(===)]] Ü 3 [[Verbatim(===)]];   [[Verbatim(====)]] Ü 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Ü 5 [[Verbatim(=====)]].
- Listen:: Leerzeichen und eins von: * Punkte; 1., a., A., i., I. numerierte Punkte; 1.#n starte Numerierung bei n; nur Leerzeichen rückt ein.
+ Listen:: Leerzeichen und eins von: * Punkte; 1., a., A., i., I. nummerierte Punkte; 1.#n starte Nummerierung bei n; nur Leerzeichen rückt ein.
  Links:: [[Verbatim(ZusammenGeschriebeneGroßeWorte)]]; [[Verbatim(["Klammern und doppelte  Anführungszeichen"])]]; url; [url]; [url label].
  Tabellen:: || Zellentext |||| Zellentext, 2 Zellen überspannend ||;    keine anhängenden Leerzeichen nach Überschriften oder Tabellen.''',
 '''Edit was cancelled.''':
@@ -279,6 +283,33 @@ Contact the owner of the wiki, who can enable email.''':
 Bitte kontaktieren Sie den Eigentümer des Wiki, der die Mailfunktionen einschalten kann.''',
 '''Please provide a valid email address!''':
 '''Bitte eine gültige E-Mail-Adresse angeben!''',
+'''Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki\'s password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+''':
+'''Jemand hat angefordert, Ihre Accountdaten an diese email-Adresse zu senden.
+
+Wenn Sie Ihr Passwort vergessen haben, benutzen Sie bitte die Daten unten und
+geben Sie das Passwort GENAUSO WIE ANGEZEIGT in das Passwort-Feld des Wikisein (benutzen Sie kopieren und einfügen dazu).
+
+Nachdem Sie sich erfolgreich angemeldet haben, setzen Sie bitte Ihr Passwort neu.
+''',
+'''Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+''':
+'''Anmelde-Name: %s
+
+Anmelde-Passwort: %s
+
+Anmelde-URL: %s/?action=userform&uid=%s
+''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Es wurde kein Benutzerkonto mit der E-Mail-Adresse \'%(email)s\' gefunden!''',
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
@@ -499,6 +530,12 @@ Bitte kontaktieren Sie den Eigentümer des Wiki, der die Mailfunktionen einschal
 '''Installierte Parser''',
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''Installierte Prozessoren (veraltet) -- benutzen Sie stattdessen Parser)''',
+'''Disabled''':
+'''Deaktiviert''',
+'''Enabled''':
+'''Aktiviert''',
+'''Lupy search''':
+'''Lupy-Suche''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
 '''Bitte verwenden Sie einen selektiveren Suchbegriff anstatt {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
@@ -548,8 +585,8 @@ Besteht ein Namenskonflikt, muss dem neuen Anhang ein alternativer Name zugewies
 Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der originale Dateiname benutzt.''',
 '''File to upload''':
 '''Neuer Dateianhang''',
-'''Save as''':
-'''Speichern unter''',
+'''Rename to''':
+'''Umbenennen auf''',
 '''Upload''':
 '''Datei hochladen''',
 '''File attachments are not allowed in this wiki!''':
@@ -655,8 +692,6 @@ Versuchen Sie es mit einem anderen Namen.''',
 '''Start''',
 '''Slide %(pos)d of %(size)d''':
 '''Seite %(pos)d von %(size)d''',
-'''Create New Page''':
-'''Neue Seite anlegen''',
 '''No orphaned pages in this wiki.''':
 '''Es existieren keine verwaisten Seiten in diesem Wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -711,18 +746,16 @@ Versuchen Sie es mit einem anderen Namen.''',
 '''Erwartete eine Ganzzahl "%(arg)s" nach "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Erwartete einen Farbwert "%(arg)s" nach "%(key)s"''',
-'''XSLT option disabled!''':
-'''Die XSLT-Option ist nicht aktiviert!''',
-'''XSLT processing is not available!''':
-'''Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar!''',
+'''XSLT option disabled, please look at HelpOnConfiguration.''':
+'''XSLT-Option ist abgeschaltet, siehe HelpOnConfiguration.''',
+'''XSLT processing is not available, please install 4suite 1.x.''':
+'''Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar, bitte 4suite 1.x installieren.''',
 '''%(errortype)s processing error''':
 '''Verarbeitungsfehler vom Typ "%(errortype)s"''',
-'''RefreshCache''':
-'''SeitenCache''',
-'''for this page (cached %(date)s)''':
-'''auffrischen (erstellt am %(date)s)''',
-'''Charts are not available!''':
-'''Die Diagrammoption ist nicht verfügbar!''',
+'''Views/day''':
+'''Lesezugriffe/Tag''',
+'''Edits/day''':
+'''Schreibzugriffe/Tag''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s für %(filterpage)s''',
 '''green=view
@@ -733,12 +766,16 @@ rot=Änderungen''',
 '''Datum''',
 '''# of hits''':
 '''Anzahl der Zugriffe''',
+'''Charts are not available!''':
+'''Die Diagrammoption ist nicht verfügbar!''',
 '''Page Size Distribution''':
 '''Verteilung der Seitengrößen''',
 '''page size upper bound [bytes]''':
 '''Obere Grenze der Seitengröße [bytes]''',
 '''# of pages of this size''':
 '''Anzahl der Seiten in dieser Größenklasse''',
+'''User agent''':
+'''Browsertyp''',
 '''Others''':
 '''Sonstige''',
 '''Distribution of User-Agent Types''':

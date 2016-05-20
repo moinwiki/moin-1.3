@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
-"PO-Revision-Date: 2005-01-21 00:00+0200\n"
+"POT-Creation-Date: 2005-08-04 21:06+0200\n"
+"PO-Revision-Date: 2005-07-31 00:00+0200\n"
 "Last-Translator: Nir Soffer <nirs@freeshell.org>\n"
 "Language-Team: Hebrew <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,9 @@ msgstr ""
 "כדי להשתמש בטופס הזה בדפים אחרים, \n"
 "הכניסו פקודת מקרו {{{[[Form(\"%(pagename)s\")]]}}}\n"
 
+msgid "Create New Page"
+msgstr "צור דף חדש"
+
 msgid "You are not allowed to view this page."
 msgstr "אין לכם הרשאות לצפות בדף"
 
@@ -72,6 +75,9 @@ msgstr "אין אפשרות לערוך גרסאות קודמות"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "נעילת הדף עבורך הסתיימה, אחרים עלולים לערוך את הדף במקביל"
+
+msgid "Page name is too long, try shorter name."
+msgstr "שם הדף ארוך מידי, נסה שם קצר יותר."
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -168,7 +174,7 @@ msgid "Trivial change"
 msgstr "שינוי פעוט"
 
 msgid "Remove trailing whitespace from each line"
-msgstr "הסר שטח לבן מסופי שורות"
+msgstr "הסר רווחים מסופי שורות"
 
 msgid ""
 " Emphasis:: [[Verbatim('')]]''italics''[[Verbatim('')]]; [[Verbatim"
@@ -258,10 +264,10 @@ msgstr "## גיבוי של דף \"%(pagename)s\" מתאריך %(date)s"
 
 #, python-format
 msgid "Page could not get locked. Unexpected error (errno=%d)."
-msgstr ""
+msgstr "נעילת הדף נכשלה. טעות בלתי צפויה (%d)."
 
 msgid "Page could not get locked. Missing 'current' file?"
-msgstr ""
+msgstr "נעילת הדף נכשלה. יתכן שקובץ 'current' לא קיים?"
 
 msgid "You are not allowed to edit this page!"
 msgstr "אין לכם הרשאות לערוך את הדף."
@@ -444,7 +450,7 @@ msgid "Subscribe to trivial changes"
 msgstr "עשה מנוי לשינויים פעוטים"
 
 msgid "Disable this account forever"
-msgstr "בטל חשבון משתמש"
+msgstr "בטל הרשמה"
 
 msgid "Cookie deleted. You are now logged out."
 msgstr "קוקית נמחקה, אתם מנותקים."
@@ -459,13 +465,47 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "אנא רשום כתובת דואר אלקטרוני אמיתית."
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+"מישהו ביקש לשלוח אליך את פרטי המשתמש.\n"
+"\n"
+"אם אבדת את הסיסמא, אנא השתמש בסיסמא כפי שנשלחה אליך במכתב זה.\n"
+"\n"
+"לאחר התחברות, מומלץ להחליף את הסיסמא.\n"
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+"שם משתמש: %s\n"
+"\n"
+"סיסמא: %s\n"
+"\n"
+"כתובת להתחברות אוטמטית: %s/?action=userform&uid=%s\n"
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
-msgstr "לא נמצא חשבון עם כתובת הדואר האלקטרוני \"%(email)s\"."
+msgstr "לא נמצא משתמש עם כתובת הדואר האלקטרוני \"%(email)s\"."
+
+#, python-format
+msgid "[%(sitename)s] Your wiki account data"
+msgstr "[%(sitename)s] פרטי המשתמש שלך"
 
 #, python-format
 msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
-msgstr "שם משתמש לא ידוע: {{{\"%s\"}}}. אנא הכנס שם משתמש וסיסמא."
+msgstr "משתמש לא קיים: {{{\"%s\"}}}. אנא הכנס שם משתמש וסיסמא."
 
 msgid "Missing password. Please enter user name and password."
 msgstr "סיסמא חסרה. אנא הכנס שם משתמש וסיסמא."
@@ -477,7 +517,7 @@ msgid "Bad relogin URL."
 msgstr "כתובת חיבור–מחדש לא נכונה."
 
 msgid "Unknown user."
-msgstr "שם משתמש לא ידוע."
+msgstr "משתמש לא קיים."
 
 msgid "Empty user name. Please enter a user name."
 msgstr "שם משתמש ריק. אנא הכנס שם משתמש."
@@ -495,7 +535,7 @@ msgid ""
 "Please provide your email address. If you loose your login information, you "
 "can get it by email."
 msgstr ""
-"אנא רשום את כתובת הדואל שלך. אם תאבד את פרטי החיבור תוכל לקבל אותם לכתובת זו."
+"אנא רשום את כתובת הדואל שלך. אם תאבד את פרטי המשתמש תוכל לקבל אותם לכתובת זו."
 
 msgid "This email already belongs to somebody else."
 msgstr "כתובת הדואר האלקטרוני הזאת שייכת למישהו אחר."
@@ -520,25 +560,25 @@ msgid "Logout"
 msgstr "התנתק"
 
 msgid "Create Profile"
-msgstr "צור חשבון משתמש"
+msgstr "הרשם"
 
 msgid "Mail me my account data"
-msgstr "שלח לי בדואר את פרטי חשבון המשתמש"
+msgstr "שלח לי את פרטי המשתמש"
 
 msgid "Name"
 msgstr "שם"
 
 msgid "(Use FirstnameLastname)"
-msgstr "(השתמש במבנה FirstnameLastname)"
+msgstr " "
 
 msgid "Password"
-msgstr "סיסמה"
+msgstr "סיסמא"
 
 msgid "Password repeat"
-msgstr "הסיסמה שוב"
+msgstr "הסיסמא שוב"
 
 msgid "(Only when changing passwords)"
-msgstr "(רק כאשר מחליפים סיסמה)"
+msgstr "(רק כאשר מחליפים סיסמא)"
 
 msgid "Email"
 msgstr "דואר אלקטרוני"
@@ -605,10 +645,10 @@ msgid "The page was saved %(count)d times, though!"
 msgstr "הדף נשמר %(count)d פעמים."
 
 msgid "(ignoring whitespace)"
-msgstr ""
+msgstr "(מתעלם מרווחים)"
 
 msgid "Ignore changes in the amount of whitespace"
-msgstr "התעלם משינויים בכמות השטח הלבן (White Space)"
+msgstr "התעלם משינויים בכמות הרווחים"
 
 msgid "General Information"
 msgstr "מידע כללי"
@@ -697,7 +737,7 @@ msgid "Page hits and edits"
 msgstr "כניסות ופעולות עריכה"
 
 msgid "You are not allowed to revert this page!"
-msgstr "אין לכם הרשאות לחזור לשחזר את הדף."
+msgstr "אין לכם הרשאות לשחזר את הדף."
 
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr "אין לכם הרשאות לעשות מנוי לדף."
@@ -711,8 +751,7 @@ msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr ""
-"אין לכם חשבון משתמש. לחצו על הקישור UserPreferences בראש הדף כדי ליצור חשבון "
-"משתמש."
+"אתם עדיין לא רשומים. לחצו על הקישור UserPreferences בראש הדף כדי להרשם."
 
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
@@ -771,7 +810,7 @@ msgid "XML title index"
 msgstr "אינדקס כותרות במבנה XML"
 
 msgid "Python Version"
-msgstr "גרסת פיתון"
+msgstr "גרסת פייתון"
 
 msgid "MoinMoin Version"
 msgstr "גרסת מוין מוין"
@@ -819,6 +858,15 @@ msgstr "מפרשים"
 
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "מעבדים (השתמש במפרשים במקום)"
+
+msgid "Disabled"
+msgstr "מבוטל"
+
+msgid "Enabled"
+msgstr "מאופשר"
+
+msgid "Lupy search"
+msgstr "חיפוש מהיר"
 
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
@@ -903,8 +951,8 @@ msgstr ""
 msgid "File to upload"
 msgstr "קובץ לשליחה"
 
-msgid "Save as"
-msgstr "שמור בשם"
+msgid "Rename to"
+msgstr "שנה שם"
 
 msgid "Upload"
 msgstr "שלח"
@@ -1097,9 +1145,6 @@ msgstr "התחל"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "שקף %(pos)d מתוך %(size)d"
 
-msgid "Create New Page"
-msgstr "צור דף חדש"
-
 msgid "No orphaned pages in this wiki."
 msgstr "אין דפים יתומים בוויקי הזה."
 
@@ -1195,25 +1240,21 @@ msgstr "ציפיתי למספר שלם \"%(arg)s\" אחרי \"%(key)s\""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "ציפיתי לערך של צבע \"%(arg)s\" אחרי \"%(key)s\""
 
-msgid "XSLT option disabled!"
-msgstr "אפשרות XSLT מבוטלת."
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr "XSLT מבוטל, להפעלה הסתכל ב–HelpOnConfiguration."
 
-msgid "XSLT processing is not available!"
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "עיבוד XSLT לא זמין."
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s טעות בעיבוד"
 
-msgid "RefreshCache"
-msgstr "רענן מטמון"
+msgid "Views/day"
+msgstr "צפיות"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "(רוענן לאחרונה ב–%(date)s)"
-
-msgid "Charts are not available!"
-msgstr "גרפים אינם זמינים."
+msgid "Edits/day"
+msgstr "עריכות"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1232,6 +1273,9 @@ msgstr "תאריך"
 msgid "# of hits"
 msgstr "# כניסות"
 
+msgid "Charts are not available!"
+msgstr "גרפים אינם זמינים."
+
 msgid "Page Size Distribution"
 msgstr "פיזור גודל דפים"
 
@@ -1240,6 +1284,9 @@ msgstr "גודל דף מקסימלי [בתים]"
 
 msgid "# of pages of this size"
 msgstr "# דפים בגודל זה"
+
+msgid "User agent"
+msgstr "דפדפן"
 
 msgid "Others"
 msgstr "אחרים"
@@ -1310,16 +1357,16 @@ msgid "Delete Cache"
 msgstr "נקה מטמון"
 
 msgid "Attach File"
-msgstr "הצג קבצים מצורפים"
+msgstr "קבצים מצורפים"
 
 msgid "Delete Page"
 msgstr "מחק דף"
 
 msgid "Show Like Pages"
-msgstr "הצג דפים דומים"
+msgstr "דפים דומים"
 
 msgid "Show Local Site Map"
-msgstr "הצג מפת אתר מקומית"
+msgstr "מפת אתר מקומית"
 
 msgid "Do"
 msgstr "בצע"
@@ -1434,7 +1481,7 @@ msgid "Sun"
 msgstr "ראשון"
 
 msgid "AttachFile"
-msgstr "הצג קבצים מצורפים"
+msgstr "קבצים מצורפים"
 
 msgid "DeletePage"
 msgstr "מחק דף"
@@ -1451,6 +1498,18 @@ msgstr "שנה שם דף"
 msgid "SpellCheck"
 msgstr "בדוק איות"
 
+#~ msgid "Save as"
+#~ msgstr "שמור בשם"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "אפשרות XSLT מבוטלת."
+
+#~ msgid "RefreshCache"
+#~ msgstr "רענן מטמון"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "(רוענן לאחרונה ב–%(date)s)"
+
 #~ msgid "MIME Type (optional)"
 #~ msgstr "סוג קובץ (רשות)"
 
@@ -1459,9 +1518,6 @@ msgstr "בדוק איות"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"
-
-#~ msgid "Rename"
-#~ msgstr "שנה שם"
 
 #~ msgid "(edit log entry is missing)"
 #~ msgstr "(רשומה חסרה בלוג)"

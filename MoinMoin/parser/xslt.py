@@ -2,135 +2,106 @@
 """
     MoinMoin - XML Parser
 
-    This code works with 4Suite 1.0a1 (up to & including 4Suite 1.0a4)
+    This parser was tested with 4Suite 1.0a4 and 1.0b1.
+
+    What's new:
+    * much cleaner code
+    * stylesheet can be extended to support other format:
+        e.g. Docbook parser using docbook->html .xsl stylesheet
 
     @copyright: 2001, 2003 by Jürgen Hermann <jh@web.de>
+    @copyright: 2005 by Henry Ho <henryho167@hotmail.com>
+    @copyright: 2005 by MoinMoin:AlexanderSchremmer
     @license: GNU GPL, see COPYING for details.
 """
 
+# cStringIO cannot be used because it doesn't handle Unicode.
 import StringIO
+import re
+
 from MoinMoin import caching, config, wikiutil, Page
 
-Dependencies = ["time"] # never cache
+Dependencies = []
 
 class Parser:
-    """
-        Send XML file formatted via XSLT.
-    """
-
-    Dependencies = Dependencies # copy dependencies
+    """ Send XML file formatted via XSLT. """
+    caching = 1
+    Dependencies = Dependencies
 
     def __init__(self, raw, request, **kw):
-        self.raw = raw.encode(config.charset) # we need a string, not unicode obj
+        self.raw = raw.encode(config.charset)
         self.request = request
         self.form = request.form
         self._ = request.getText
-
+        self.base_scheme = 'wiki'
+        self.base_uri = 'wiki://Self/'
+        self.key = 'xslt'
 
     def format(self, formatter):
-        """ Send the text.
-        """
+        """ Send the text. """
         _ = self._
+
         if not self.request.cfg.allow_xslt:
+            # use plain parser if XSLT is not allowed
+            # can be activated in wikiconfig.py
             from MoinMoin.parser import plain
             self.request.write(formatter.sysmsg(1) +
-                               formatter.text(_('XSLT option disabled!'))+
+                               formatter.raw_html(_('XSLT option disabled, please look at HelpOnConfiguration.')) +
                                formatter.sysmsg(0))
             plain.Parser(self.raw, self.request).format(formatter)
             return
 
-        arena = formatter.page
-        key   = 'xslt'
-        cache = caching.CacheEntry(self.request, arena, key)
-        if not cache.needsUpdate(formatter.page._text_filename()):
-            self.request.write(cache.content())
-            self._add_refresh(formatter, cache, arena, key)
-            return
-
         try:
-            # assert we have 4Suite 1.x available
+            # try importing Ft from 4suite
+            # if import fails or its version is not 1.x, error msg
             from Ft.Xml import __version__ as ft_version
             assert ft_version.startswith('1.')
         except (ImportError, AssertionError):
             self.request.write(self.request.formatter.sysmsg(1) +
-                               self.request.formatter.text(_('XSLT processing is not available!')) +
+                               self.request.formatter.text(_('XSLT processing is not available, please install 4suite 1.x.')) +
                                self.request.formatter.sysmsg(0))
         else:
-            import xml.sax
             from Ft.Lib import Uri
             from Ft.Xml import InputSource
             from Ft.Xml.Xslt.Processor import Processor
+            from Ft import FtException
 
-            processor = Processor()
             msg = None
+
             try:
-                base_uri = u'wiki://Self/'
+                # location of SchemeRegisteryResolver has changed since 1.0a4
+                if ft_version >= "1.0a4":
+                    import Ft.Lib.Resolvers # Do not remove! it looks unused, but breaks when removed!!!
+                                                                        
+                class MoinResolver(Uri.SchemeRegistryResolver):
+                    """ supports resolving self.base_uri for actual pages in MoinMoin """
+                    def __init__(self, handlers, base_scheme):
+                        Uri.SchemeRegistryResolver.__init__(self, handlers)
+                        self.supportedSchemes.append(base_scheme)
 
-                # patch broken 4Suite 1.0a1 (announces as "1.0a")
-                # 1.0a3 ("1.0a3") is broken, too
-                # thus, I assume 1.0a2 is also broken and announces either as "1.0a" or "1.0a2", hopefully
-                if ft_version not in ["1.0a", "1.0a2", "1.0a3", "1.0a4",]: # you can add more broken versions here
-                    MoinResolver = Uri.SchemeRegistryResolver
-                else:
-                    if ft_version == "1.0a4":  # 1.0a4 changes location of SchemeRegistryResolver
-                        from Ft.Lib import Resolvers
-                        SchemeRegistryResolverPATH = Resolvers.SchemeRegistryResolver
-                    else:
-                        SchemeRegistryResolverPATH = Uri.SchemeRegistryResolver
-
-                    class MoinResolver(SchemeRegistryResolverPATH):
-                        def normalize(self, uri, base):
-                            from Ft.Lib import Uri
-                            if ft_version == "1.0a4":
-                                GetSchemeFunc = Uri.GetScheme
-                            else:
-                                GetSchemeFunc = Uri._getScheme
-
-                            scheme = GetSchemeFunc(uri)
-
-                            if not scheme:
-                                if base:
-                                    scheme = GetSchemeFunc(base)
-                                if not scheme:
-                                    return Uri.BaseUriResolver.normalize(self, uri, base)
-                                else:
-                                    uri = Uri.Absolutize(uri, base)
-                                    if not uri:
-                                        return base
-                            return uri
-
-                wiki_resolver = MoinResolver()
-
-                def _resolve_page(uri, base=None, Uri=Uri, base_uri=base_uri, resolver=wiki_resolver, request=self.request):
-                    """ Check whether uri is a valid pagename.
-                    """
-                    if uri.startswith(base_uri):
-                        pagename = uri[len(base_uri):]
-                        page = Page.Page(request, pagename)
-                        if page.exists():
-                            return StringIO.StringIO(page.get_raw_body())
-                        else:
-                            raise Uri.UriException(Uri.UriException.RESOURCE_ERROR, uri,
-                                'Page does not exist')
-                    return Uri.BaseUriResolver.resolve(resolver, uri, base)
-
-                wiki_resolver.handlers = {
-                    'wiki': _resolve_page,
-                }
-
+                # setting up vars for xslt Processor
                 out_file = StringIO.StringIO()
+                wiki_resolver = MoinResolver(
+                                    handlers={self.base_scheme: self._resolve_page,},
+                                    base_scheme=self.base_scheme)
                 input_factory = InputSource.InputSourceFactory(resolver=wiki_resolver)
-                page_uri = u"%s%s" % (base_uri, formatter.page.page_name)
+                page_name = formatter.page.page_name
+                page_uri = u"%s%s" % (self.base_uri, page_name.encode(config.charset))
 
-                processor.run(input_factory.fromString(self.raw, uri=page_uri), outputStream=out_file)
+                raw = self.raw.strip()
+
+                self.processor = Processor()
+                self.append_stylesheet() # hook, for extending this parser
+                self.processor.run(
+                    input_factory.fromString(raw, uri=page_uri),
+                    outputStream=out_file)
                 result = out_file.getvalue()
-            except xml.sax.SAXParseException, msg:
-                etype = "SAX"
-            except xml.sax.SAXException, msg:
-                etype = "SAX"
-            #!!! add error handling for 4Suite exceptions
-            #except xml.xslt.XsltException, msg:
-            #    etype = "XSLT"
+                result = self.parse_result(result) # hook, for extending this parser
+
+            except FtException, msg:
+                etype = "XSLT"
+            except Uri.UriException, msg:
+                etype = "XSLT"
             except IOError, msg:
                 etype = "I/O"
 
@@ -139,23 +110,38 @@ class Parser:
                 text = text.expandtabs()
                 text = text.replace('\n', '<br>\n')
                 text = text.replace(' ', '&nbsp;')
-                self.request.write("<strong>%s: %s</strong><p>" % (
-                    _('%(errortype)s processing error') % {'errortype': etype},
-                    msg,) + text)
+                before = _('%(errortype)s processing error') % {'errortype': etype,}
+                title = u"<strong>%s: %s</strong><p>" % (before, msg)
+                self.request.write(title)
+                self.request.write(text.decode(config.charset))
             else:
                 self.request.write(result)
+                cache = caching.CacheEntry(self.request, formatter.page, self.key)
                 cache.update(result)
-                self._add_refresh(formatter, cache, arena, key)
 
-    def _add_refresh(self, formatter, cache, arena, key):
-        _ = self._
-        refresh = wikiutil.link_tag(
-            formatter.request,
-            wikiutil.quoteWikinameURL(formatter.page.page_name) + "?action=refresh&arena=%s&key=%s" % (arena, key),
-            _("RefreshCache")
-        ) + ' ' + _('for this page (cached %(date)s)') % {
-            'date': formatter.request.user.getFormattedDateTime(cache.mtime()),
-        } + '<br>'
-        self.request.add2footer('RefreshCache', refresh)
+    def _resolve_page(self, uri, base):
+        """ URI will be resolved into StringIO with actual page content """
+        from Ft.Lib import Uri
+        base_uri = self.base_uri
 
+        if uri.startswith(base_uri):
+            pagename = uri[len(base_uri):]
+            page = Page.Page(self.request, pagename)
+            if page.exists():
+                result = StringIO.StringIO(page.getPageText().encode(config.charset))
+            else:
+                raise Uri.UriException(Uri.UriException.RESOURCE_ERROR, loc=uri,
+                                       msg='Page does not exist')
+        else:
+            result = Uri.UriResolverBase.resolve(self, uri, base)
+
+        return result
+
+    def append_stylesheet(self):
+        """ for other parsers based on xslt (i.e. docbook-xml) """
+        pass
+
+    def parse_result(self, result):
+        """ additional parsing to the resulting XSLT'ed result before saving """
+        return result
 

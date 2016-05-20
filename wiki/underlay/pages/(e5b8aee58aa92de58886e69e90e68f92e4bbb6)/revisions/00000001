@@ -11,26 +11,26 @@
 
 [[TableOfContents]]
 
-= Parsers =
+= 分析插件 =
 
 Parsers go through the contents of a page to create a sequence of formatter calls which in sequence create some readable output. Moin will choose the parser for a page using different techniques: FORMAT Processing Instruction (see HelpOnProcessingInstructions) and code display regions (see HelpOnFormatting).
 
-A `#FORMAT` pi can be used to tell moin which parser to use for the whole page content. By default this is the wiki parser. Example: {{{#FORMAT cplusplus
-... some cplusplus source ...
+一个“#FORMAT” pi 可以告诉Moin使用什么样的分析器去分析整个文章。默认为WIKI分析器。示例：{{{#FORMAT cplusplus
+... 一些 c++ 代码 ...
 }}}
 
-With the use of code display regions, a parser can be applied to only a part of a page (this was a processor region in earlier versions of Moin). You specify which parser to call by using a bang path-like construct in the first line. A bang path is a concept known from Unix command line scripts, where they serve the exact same purpose: the first line tells the shell what program to start to process the remaining lines of the script. Example: {{{
+With the use of code display regions, a parser can be applied to only a part of a page (this was a processor region in earlier versions of Moin). You specify which parser to call by using a bang path-like construct in the first line. A bang path is a concept known from Unix command line scripts, where they serve the exact same purpose: the first line tells the shell what program to start to process the remaining lines of the script. 示例：{{{
 { { {#!CSV
 a,b,c
 d,e,f
 } } }
 }}}
 
-For more information on the possible markup, see HelpOnEditing. 
+For more information on the possible markup, 请参阅["帮助-编辑"]。
 
-== ParserBase ==
+== 分析器数据库 ==
 
-!ParserBase is a parser utility class used to produce colorized source displays. It is easily extended. The HTML Formatter will render such code displays with switchable linenumbers, if the browser supports DOM and !JavaScript.
+分析器数据库是一个用于对源程序进行语法加亮显示的分析工具类。它非常容易扩展。The HTML Formatter will render such code displays with switchable linenumbers, if the browser supports DOM and !JavaScript.
 
 A !ParserBase colorization parser understands the following arguments to a `#FORMAT` pi or a hashbang line. Just add those arguments after the name of the parser (`#FORMAT python start=10 step=10 numbering=on` or `#!python numbering=off`).
 
@@ -97,8 +97,8 @@ The bang path can contain "`-`''index''" arguments, to hide certain columns from
 
  /!\ The current code contains a ''very'' simple CSV parser.
 
-MoinMoin Version History: {{{#!CSV -3
-Version;Date;HIDDEN!
+MoinMoin版本历史：{{{#!CSV -3
+版本;日期;HIDDEN!
 0.11;2002-03-11;Revision 1.151
 0.10;2001-10-28;Revision 1.134
 0.9;2001-05-07;

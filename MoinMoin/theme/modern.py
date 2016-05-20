@@ -1,19 +1,16 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin modern theme
+    MoinMoin - modern theme
 
-    @copyright: (c) 2003-2004 by Nir Soffer, Thomas Waldmann
+    @copyright: 2003-2005 by Nir Soffer, Thomas Waldmann
     @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin.theme import ThemeBase
 
-
 class Theme(ThemeBase):
 
     name = "modern"
-
-# Public functions #####################################################
 
     def header(self, d, **kw):
         """ Assemble wiki header

@@ -1,0 +1,60 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnSearching
+##master-date:2005-02-12 00:00:52
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
+
+= Suchabfrage =
+
+MoinMoin 1.3 hat eine neue Suchmaschine. Sie erlaubt in den Eingabefeldern für Suche und Titelsuche die gleichen Suchmuster wie bei den Parametern von den Makros {{{FullSearch}}} und {{{PageList}}}.
+
+ * Es können mehrere Suchbegriffe (von Leerzeichen getrennt) verwendet werden.
+  * Suchbegriffe werden standardmäßig mit UND verknüpft - und nur Seiten, die alle Suchbegriffe enthalten werden zurückgegeben.
+  * Man kann doppelte oder einfache Anführungszeichen verwenden, um Leerzeichen in Suchbegriffen zu verwenden.
+ * {{{-}}} vor einem Suchbegriff bedeutet NICHT - Seiten, die diesen Begriff enthalten, werden vom Suchergebnis ausgeschlossen.
+ * {{{regex:AUSDRUCK}}} bedeutet, dass der Suchbegriff als regulärer Ausdruck behandelt wird.
+ * {{{title:AUSDRUCK}}} sucht in Seiten, deren Titel auf Ausdruck passt.
+ * {{{case:AUSDRUCK}}} sucht mit Beachtung der Groß/Kleinschreibung.
+  * Eine normale Suche sucht auch in den Seitentiteln. Treffer in Titeln bekommen mehr Gewicht als Treffer innerhalb von Seiten.
+ * {{{linkto:AUSDRUCK}}} sucht nach Links auf AUSDRUCK
+ * {{{title:}}}, {{{regex:}}}, {{{linkto:}}} und {{{case:}}} können in Kombination in einem Suchausdruck verwendet werden.
+  * Diese Modifizierer können abgekürzt werden: z.B. {{{re:}}}, {{{t:}}}, {{{reg:}}}, {{{cas:}}}, {{{l:}}}
+  * {{{-}}} muss vor anderen Modifizierern kommen.
+ * {{{or}}} der ODER-Operator hat einen niedrigeren Vorrang als das implizite UND.
+ * Klammern können zur Gruppierung verwendet werden.
+
+=== Beispiele ===
+
+{{{
+title:Hilfe Makro
+}}}
+sucht die Hilfeseiten, die das Wort "Makro" enthalten.
+
+{{{
+Apple (Computer or Betriebssystem)
+}}}
+sucht nach Seiten, die das Wort "Apple" und mindestens eins der Worte "Computer" oder "Betriebssystem" enthalten.
+
+{{{
+windows winamp or linux xmms
+}}}
+sucht die Seiten, die beide Worte "windows" und "winamp" enthalten. Sucht ebenso nach Seiten, die beide Worte "linux" und "xmms" enthalten.
+
+{{{
+"is text"
+}}}
+Passt auf "th'''is text'''" oder "'''is text'''s". Anführungszeichen werden nur dazu benutzt, Leerzeichen einzubauen und bedeuten nicht "genau diese Wortfolge".
+
+{{{
+linkto:WindowsPage title:Linux
+}}} sucht nach Seiten, die "Linux" im Seitennamen haben und auf die Seite !WindowsPage verweisen.
+
+{{{
+r:\bist\b
+}}} sucht nach dem Wort "ist", findet aber nicht "Mist" oder "ist's".
+
+== TitleSearch und PageList ==
+ * verwenden die gleichen Ausdrücke
+ * {{{title:}}} wird intern zu jedem Suchbegriff hinzugefügt

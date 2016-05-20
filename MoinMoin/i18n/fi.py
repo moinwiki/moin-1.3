@@ -28,6 +28,8 @@ Käyttääksesi tätä lomaketta muilla sivuilla, lisää
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 makrokutsu.-~
 ''',
+'''Create New Page''':
+'''Luo uusi sivu''',
 '''You are not allowed to view this page.''':
 '''Sinulla ei ole oikeutta katsoa tätä sivua.''',
 '''DeleteCache''':
@@ -547,8 +549,6 @@ törmäävät, sinun täytyy antaa uusi nimi tiedostoa lähettäessäsi.
 Muutoin, jos "Tallenna nimellä" on tyhjä, tiedosto lähetetään alkuperäisellä nimellään.''',
 '''File to upload''':
 '''Lähetettävä tiedosto''',
-'''Save as''':
-'''Tallenna nimellä''',
 '''Upload''':
 '''Lähetä''',
 '''File attachments are not allowed in this wiki!''':
@@ -655,8 +655,6 @@ Kokeile eri nimeä.''',
 '''Aloita''',
 '''Slide %(pos)d of %(size)d''':
 '''Dia %(pos)d / %(size)d''',
-'''Create New Page''':
-'''Luo uusi sivu''',
 '''No orphaned pages in this wiki.''':
 '''Tässä wikissä ei ole orvoksi jätettyjä sivuja.''',
 '''No quotes on %(pagename)s.''':
@@ -711,18 +709,8 @@ Kokeile eri nimeä.''',
 '''Odotettiin kokonaislukua "%(arg)s" "%(key)s":n jälkeen''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Odotettiin väriarvoa "%(arg)s" "%(key)s":n jälkeen''',
-'''XSLT option disabled!''':
-'''XSLT-vaihtoehto pois käytöstä!''',
-'''XSLT processing is not available!''':
-'''XSLT-käsittely ei ole käytettävissä!''',
 '''%(errortype)s processing error''':
 '''Käsittelyvirhe %(errortype)s''',
-'''RefreshCache''':
-'''PäivitäVälimuisti''',
-'''for this page (cached %(date)s)''':
-''' tälle sivulle (välimuistissa %(date)s)''',
-'''Charts are not available!''':
-'''Kaaviot eivät ole käytettävissä!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s sivulle %(filterpage)s''',
 '''green=view
@@ -733,6 +721,8 @@ red=edit''',
 '''päivämäärä''',
 '''# of hits''':
 '''katseluiden lukumäärä''',
+'''Charts are not available!''':
+'''Kaaviot eivät ole käytettävissä!''',
 '''Page Size Distribution''':
 '''Sivukoon jakauma''',
 '''page size upper bound [bytes]''':

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
 "PO-Revision-Date: 2005-03-09 15:48:42+0200\n"
 "Last-Translator: Tuukka Hastrup <Tuukka.Hastrup@iki.fi>\n"
 "Language-Team: Finnish <moin-devel@lists.sourceforge.net>\n"
@@ -56,6 +56,9 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "makrokutsu.-~\n"
 
+msgid "Create New Page"
+msgstr "Luo uusi sivu"
+
 msgid "You are not allowed to view this page."
 msgstr "Sinulla ei ole oikeutta katsoa tätä sivua."
 
@@ -77,6 +80,9 @@ msgstr "Vanhoja versioita ei voi muokata!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "Lukkosi vanheni, varaudu päällekkäisiin muokkauksiin!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -251,7 +257,9 @@ msgstr "Ei löytynyt eroja!\n"
 
 #, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] %(trivial)späivitys sivulle \"%(pagename)s\", muokkaaja %(username)s"
+msgstr ""
+"[%(sitename)s] %(trivial)späivitys sivulle \"%(pagename)s\", muokkaaja %"
+"(username)s"
 
 msgid "Trivial "
 msgstr "vähäinen "
@@ -311,8 +319,8 @@ msgstr "Et muuttanut sisältöä, joten sivua ei tallennettu!"
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
-"Et voi muuttaa [[Verbatim(ACL:)]]iä tällä sivulla, koska sinulla ei ole ylläpito-oikeutta "
-"sille!"
+"Et voi muuttaa [[Verbatim(ACL:)]]iä tällä sivulla, koska sinulla ei ole "
+"ylläpito-oikeutta sille!"
 
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr "Kiitos tekemistäsi muutoksista. Huolellisuuttasi arvostetaan."
@@ -485,6 +493,26 @@ msgstr ""
 
 msgid "Please provide a valid email address!"
 msgstr "Anna kelvollinen sähköpostiosoite!"
+
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
 
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
@@ -852,6 +880,15 @@ msgstr "Asennetut jäsentimet"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Asennetut käsittelimet (VANHENTUNEET - käytä jäsentimiä)"
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr "käytä tarkempaa hakuehtoa kuin {{{\"%s\"}}}"
@@ -887,7 +924,8 @@ msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
 "page."
 msgstr ""
-"Tälle sivulle on tallennettu <a href=\"%(link)s\">liitetiedostoja %(count)s</a>."
+"Tälle sivulle on tallennettu <a href=\"%(link)s\">liitetiedostoja %(count)s</"
+"a>."
 
 msgid "Filename of attachment not specified!"
 msgstr "Liitteen tiedostonimeä ei annettu!"
@@ -937,8 +975,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "Lähetettävä tiedosto"
 
-msgid "Save as"
-msgstr "Tallenna nimellä"
+#, fuzzy
+msgid "Rename to"
+msgstr "Nimeä sivu uudelleen"
 
 msgid "Upload"
 msgstr "Lähetä"
@@ -1110,8 +1149,7 @@ msgstr "Täysi linkkilista haulle \"%s\""
 
 msgid ""
 "Cannot create a new page without a page name.  Please specify a page name."
-msgstr ""
-"Uutta sivua ei voi luoda ilman sivun nimeä. Kerro sivulle nimi."
+msgstr "Uutta sivua ei voi luoda ilman sivun nimeä. Kerro sivulle nimi."
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
@@ -1140,9 +1178,6 @@ msgstr "Aloita"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Dia %(pos)d / %(size)d"
-
-msgid "Create New Page"
-msgstr "Luo uusi sivu"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Tässä wikissä ei ole orvoksi jätettyjä sivuja."
@@ -1239,26 +1274,24 @@ msgstr "Odotettiin kokonaislukua \"%(arg)s\" \"%(key)s\":n jälkeen"
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Odotettiin väriarvoa \"%(arg)s\" \"%(key)s\":n jälkeen"
 
-msgid "XSLT option disabled!"
-msgstr "XSLT-vaihtoehto pois käytöstä!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "XSLT-käsittely ei ole käytettävissä!"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Käsittelyvirhe %(errortype)s"
 
-msgid "RefreshCache"
-msgstr "PäivitäVälimuisti"
+#, fuzzy
+msgid "Views/day"
+msgstr "Näytä"
 
-# python-format
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr " tälle sivulle (välimuistissa %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Kaaviot eivät ole käytettävissä!"
+#, fuzzy
+msgid "Edits/day"
+msgstr "Muokkaa"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1277,6 +1310,9 @@ msgstr "päivämäärä"
 msgid "# of hits"
 msgstr "katseluiden lukumäärä"
 
+msgid "Charts are not available!"
+msgstr "Kaaviot eivät ole käytettävissä!"
+
 msgid "Page Size Distribution"
 msgstr "Sivukoon jakauma"
 
@@ -1285,6 +1321,9 @@ msgstr "sivukoon yläraja [tavuja]"
 
 msgid "# of pages of this size"
 msgstr "tämänkokoisten sivujen lukumäärä"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Muut"
@@ -1407,7 +1446,8 @@ msgstr "Käyttäjä"
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
 msgstr ""
-"Valitettavasti sivua ei voida tallentaa sillä \"%(content)s\" ei ole sallittu tässä wikissä."
+"Valitettavasti sivua ei voida tallentaa sillä \"%(content)s\" ei ole "
+"sallittu tässä wikissä."
 
 msgid "Line"
 msgstr "Rivi"
@@ -1497,6 +1537,19 @@ msgstr "UudelleennimeäSivu"
 
 msgid "SpellCheck"
 msgstr "OikoLue"
+
+#~ msgid "Save as"
+#~ msgstr "Tallenna nimellä"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "XSLT-vaihtoehto pois käytöstä!"
+
+#~ msgid "RefreshCache"
+#~ msgstr "PäivitäVälimuisti"
+
+# python-format
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr " tälle sivulle (välimuistissa %(date)s)"
 
 #~ msgid "MIME Type (optional)"
 #~ msgstr "MIME-tyyppi (ei pakollinen)"

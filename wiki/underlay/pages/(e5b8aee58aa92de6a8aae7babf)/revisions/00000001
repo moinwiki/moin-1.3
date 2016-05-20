@@ -1,0 +1,39 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnRules
+##master-date:2005-01-23 06:28:35
+#format wiki
+#language zh
+== 水平横线 ==
+你可以通过输入四个或更多个英文破折号来插入一个横跨页面的横线。横线标记中的破折号数量决定了横线的宽度(厚度)，厚度最多可以到 10。
+
+参考 ["帮助-编辑"] 获得可用的标记的更多信息。
+
+=== 例子 ===
+{{{
+--- (不是横线)
+----
+-----
+------
+-------
+--------
+---------
+----------
+-------------------------------------------- (厚度不会超过 10)
+}}}
+
+=== 显示 ===
+--- (不是横线)
+----
+-----
+------
+-------
+--------
+---------
+----------
+-------------------------------------------- (厚度不会超过 10)
+
+
+此页的英文版本：["HelpOnRules"]

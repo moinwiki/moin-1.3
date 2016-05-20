@@ -1,0 +1,150 @@
+##master-page:MoinMoin/TextFormatting
+##master-date:2005-05-04 15:31:55
+#format wiki
+#language hu
+'''Tartalom'''
+[[TableOfContents(1)]]
+
+= Bekezdések =
+== 2. szintű cím ==
+=== 3. szintű cím ===
+==== 4. szintű cím ====
+===== 5. szintű cím =====
+
+Ezen a lapon megkíséreltük az összes használatos jelölést legalább egyszer felhsználni. 
+
+Normál szöveg, ''kiemelt'', '''félkövér''', __aláhúzott__, ,,alsó index,,, ^felső index^, `írógép` és {{{írógép}}}.
+
+:) ;) :D {1} {de} {OK} (./)
+
+= Kapcsok (linkek) =
+
+MoinMoinLap
+
+MoinMoinLap/SzövegFormázás
+
+MoinMoin/InstallDocs 
+
+../InstallDocs 
+
+/AlLap
+
+[#horgonynev horgony (Anchor-link - lapon belüli kapocs)]
+
+http://moinmoin.wikiwikiweb.de/
+
+[http://moinmoin.wikiwikiweb.de/]
+
+[http://moinmoin.wikiwikiweb.de/ a MoinMoin honlapja]
+
+[http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+
+[http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png moinmoin.png]
+
+Self:InterWiki
+
+MeatBall:InterWiki
+
+wiki:MeatBall/InterWiki
+
+[wiki:MeatBall/InterWiki]
+
+[wiki:MeatBall/InterWiki InterWiki lap a MeatBall-on]
+
+valaki@az.inter.net (nem ajánlott a spam miatt)
+
+[[MailTo(vezeteknev DOT keresztnev DOT nospam AT vallalat DOT com)]] (állítólag védettebb a spam ellen)
+
+http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+
+
+= Blokkok =
+
+'''Blokkidézet'''
+ Beljebb
+  Még beljebb
+
+'''Bütyöklista'''
+ * 1. elem
+
+ * 2. elem réssel
+ * 3. elem
+   * 3.1. elem
+
+'''Számozott lista'''
+ 1. 1. elem
+   i. 1. elem
+   i. 2. elem
+ 1. 2. elem
+   a. 1. elem
+   a. 2. elem
+##
+ Kifejezés:: Leírás
+ Címke:: Definíció
+
+'''Programkód megjelenítése'''
+ {{{
+1. sor
+    beljebb 4 karakterrel
+}}}
+
+'''Táblák'''
+ Általános táblafromátum és HTML-szerű opciók
+ ||||||<tablewidth="80%">'''Fejléc'''||
+ ||1. cella||2. cella||3. cella||
+ ||<rowspan=2> sorok átfogása||||<bgcolor='#E0E0FF'> két oszlop átfogása||
+ ||<rowbgcolor="#FFFFE0">2. cella||3. cella||
+
+ Cellaszélesség
+ || keskeny ||<:99%> széles ||
+
+ Sorok és oszlopok átfogása
+ ||<|2> két sort átfogó cella || 1. sor ||
+ || 2. sor ||
+ ||<-2> 3. sor két oszlop fölött ||
+
+ Igazítás
+ ||<(> balra ||<^|3> tetejére ||<v|3> aljára ||
+ ||<:> középre ||
+ ||<)> jobbra ||
+
+ Színek
+ ||<#FF8080> piros ||<#80FF80> zöld ||<#8080FF> kék ||
+
+
+'''Vonalak'''
+
+--- (ez nem vonal)
+----
+-----
+------
+-------
+--------
+---------
+----------
+-------------------------------------------- (10-nél nem vastagabb)
+
+
+
+= Makrók =
+
+[[Anchor(horgonynev)]]
+
+'''[[PageCount]]''' lap
+[[RandomPage]]
+
+= Processzorok =
+
+'''Szintaxis-hangsúlyozás'''
+ {{{
+#!python
+# python kód
+print code.colorize("abc", 1 + 1)
+}}}
+
+'''CSV-táblák (pontosvesszővel elválasztott elemek)'''
+ {{{#!CSV -2
+Oszlop1;Oszlop2;Oszlop3;Oszlop4
+1;2;3;4
+a;b;c;d
+}}}

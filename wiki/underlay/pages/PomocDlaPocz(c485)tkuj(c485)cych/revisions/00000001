@@ -1,0 +1,29 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language pl
+
+WikiWikiWeb jest środowiskiem współpracy w hipertekście, z naciskiem na łatwy dostęp do informacji i łatwość jej modyfikacji.
+
+Możesz edytować każdą stronę naciskając na link "edytuj" umieszczony na dole strony. Połączone, pisane wielką literą słowa tworzą NazwęWiki, która staje się hiperlinkiem do innej strony. Podświetlony tytuł prowadzi do wyszukiwania wszystkich stron linkujących do bieżącej strony. Linki do nieistniejących stron są oznaczone znakiem zapytania, lub innym oznaczeniem taki jak szary kolor. Jeżeli przejdziesz po takim linku, możesz dodać definicję linkowanego pojęcia. Jest to również sposób tworzenia nowych stron: dodaj NazwęWiki do już istniejącej strony, zapisz swoją zmianę, kliknij na nowy link aby utworzyć stronę (więcej na ten temat na PomocPrzyTworzeniuStron).
+
+Zachęcamy do edytowania BrudnopisWiki, jak tylko Ci się żywnie podoba. Powstrzymaj się od edytowania innych stron, zanim nie zapoznasz się z podstawami działania stron wiki.
+
+Żeby dowiedzieć się więcej o tym, czym jest Wiki:WikiWikiWeb, przeczytaj Wiki:WhyWikiWorks i Wiki:WikiNature.. Dodatkowo możesz przejrzeć Wiki:WikiWikiWebFaq i Wiki:OneMinuteWiki.
+To wiki jest również częścią przestrzeni InterWiki, co oznacza że możesz łatwo odnosić się do całego bogactwa informacji dostępnego poprzez inne publiczne strony wiki.
+
+Dobre punkty startowe do przeglądania wiki to
+ * OstatnieZmiany: zobacz nad czym się ostatnio pracuje
+ * ZnajdźStronę: przeszukiwanie bazy danych na różne sposoby
+ * IndeksTytułów: lista wszystkich stron na wiki
+ * IndeksSłów: lista wszystkich słów, które są częściami nazw (i przez to jest to lista koncepcji omawianych na wiki)
+ * NawigacjaSerwisu: prowadzi do różnych sposobów indeksowania wiki
+ * BrudnopisWiki: eksperymentuj z edytowaniem
+ * PomocPrzyEdycji: dowiedz się o tym jak oznaczać tekst w wiki
+
+Więcej pomocy jest na stronach ZawartośćPomocy i IndeksPomocy.

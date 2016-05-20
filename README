@@ -1,8 +1,8 @@
-MoinMoin Readme
-===============
+MoinMoin - a wiki engine in Python
+==================================
 
 Copyright (c) 2000 - 2005 by Juergen Hermann <jh@web.de>
-All rights reserved, see COPYING for details.
+All rights reserved, see docs/licenses/COPYING for details.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,47 +18,42 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
------------------------------------------------------------------------------
 
-MoinMoin is a Python WikiClone. The project's homepage can be found at
-http://purl.net/wiki/moin/.
+Documentation
+=============
 
-See INSTALL.html            for installation instructions.
-See UPDATE.html             for updating instructions.
-See CHANGES                 for a version history.
+On the Web:
+
+http://purl.net/wiki/moin/       MoinMoin homepage, last seen at:
+                                 http://moinmoin.wikiwikiweb.de/
+
+This page also points to support resources and informations about MoinMoin
+development status and plans.
+
+For support, please try the documentation, the homepage, the irc channel
+and the mailing list before contacting the MoinMoin authors directly.
+
+Local:
+
+See docs/CHANGES                 for a version history. READ THIS!
+See docs/INSTALL.html            for installation instructions.
+See docs/UPDATE.html             for updating instructions.
 
 Note that the code base contains some experimental or unfinished features.
 Use them at your own risk. Official features are described on the set of
 help pages contained in the distribution wiki.
 
-TODO:
 
-A list of ideas and open items is on http://purl.net/wiki/moin/MoinMoinTodo.
-
-
-=======
-SUPPORT
-=======
-
-To get support, please use the MoinMoin User's Mailing List. To subscribe,
-go to http://lists.sourceforge.net/lists/listinfo/moin-user.
-
-Direct mail to my mail account is increasing in volume, and prevents
-others from both helping you, and learning from any answers.
-
-
-================
 ACKNOWLEDGEMENTS
 ================
 
 I like to thank especially these people for their valuable ideas and
 contributions:
 
-    Ward Cunningham <ward@c2.com> for inventing WikiWiki in the first
-    place.
+    Ward Cunningham <ward@c2.com> for inventing WikiWiki in the first place.
 
-    Martin Pool <mbp@humbug.org.au> for providing the base of what now
-    is MoinMoin.
+    Martin Pool <mbp@humbug.org.au> for providing the base of what now is
+    MoinMoin, see also docs/licenses/pikipiki.txt.
 
     Marko Schulz <Marko.Schulz@gmx.de> for providing input on the first
     versions of MoinMoin as it evolved.
@@ -76,7 +71,7 @@ contributions:
     code.
 
     Peter Thoeny and all other people involved in creating TWikiDrawPlugin;
-    for copyright information on TWikiDrawPlugin see below; for more
+    for copyright information see docs/licenses/twikidraw.txt; for more
     information and a download link to get the source refer to
     http://twiki.org/cgi-bin/view/TWiki/TWikiDrawPlugin
 
@@ -92,67 +87,6 @@ contributions:
     finally fixing the win32 stuff.
 
     And all the people I forgot or that are mentioned in the code.
-
-
------------------------------------------------------------------------------
-
-MoinMoin is based on PikiPiki, this is PikiPiki's copyright:
-
-    Copyright (C) 1999, 2000 Martin Pool <mbp@humbug.org.au>
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
-    USA
-
-The PikiPiki homepage is at http://sourcefrog.net/projects/piki/.
-
-
------------------------------------------------------------------------------
-
-TWikiDraw is based on Erich Gamma's JHotDraw 5.1. (JHotDraw is copyright
-1996, 1997 by IFA Informatik and Erich Gamma,
-erich_gamma@acmSPAMBLOCK.org . It is hereby granted that this software
-can be used, copied, modified, and distributed without fee provided that
-this copyright notice appears in all copies. ) 
-
-TWikiDraw uses ACME Labs' GifEncoder to convert a drawing into a GIF
-file format. (GifEncoder is Copyright (C)1996,1998 by Jef Poskanzer,
-jef@acmeSPAMBLOCK.com . All rights reserved. THIS SOFTWARE IS PROVIDED
-BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
-NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
-INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.) 
-
-TWikiDraw uses some ideas of KmWiki drawing applet. 
-
-TWikiDraw: Copyright 2000 by Peter Thoeny, Peter@ThoenySPAMBLOCK.com. It
-is hereby granted that this software can be used, copied, modified, and
-distributed without fee provided that this copyright notice appears in
-all copies. 
-
-Modifications Copyright (C) 2001 Motorola. All Rights Reserved. 
-
-PeterThoeny created TWikiDraw based on above software 
-
-CrawfordCurrie made a number of improvements. 
 
 
 -----------------------------------------------------------------------------

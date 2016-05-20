@@ -32,6 +32,24 @@ Attachments are also protected by the ACLs of the page they are attached to, whe
 
 /!\ Attachments are ''not'' protected when the server is configured for direct access to the attachments (i.e. when the {{{attachments}}} option in wikiconfig.py is used).
 
+[[Anchor(Configuration)]]
+== Configuration ==
+These are the configuration items used to setup ACLs on a moin site.
+
+||'''Entry'''||'''Default'''||'''Description'''||
+||acl_enabled||{{{0}}}||If true will enable ACL support.||
+||acl_rights_before||{{{""}}}||applied '''before''' page or default ACLs||
+||acl_rights_after||{{{""}}}||applied '''after''' page or default ACLs||
+||acl_rights_default||{{{"Trusted:read,write,delete,revert \}}}[[BR]]{{{Known:read,write,delete,revert \}}}[[BR]]{{{All:read,write"}}}||'''only''' used when '''no other''' ACLs are given on the page being accessed||
+||acl_rights_valid||`["read", ` `"write", ` `"delete", ` `"revert", ` `"admin"]`||These are the acceptable (known) rights (and the place to extend, if necessary).||
+
+So you know now what it ''does'', but what does it ''mean''?
+ * "before" means '''forcing stuff''' (this is because of first match algorithm)  Use this for your sitewide page admins or page editors.
+ * "default" means '''what is done if no ACLs are used on the page'''. It is equivalent to writing exactly these ACLs onto a page. These are also the rights that are merged if '''Default''' is written among the ACLs in the page.
+ * "after" means '''not forgetting stuff''' accidently (like maybe giving read rights to all)
+
+It helps if you think of them as before, during, and after processing of page based ACLs.
+
 == Syntax ==
 The syntax for each line is as follows:
 {{{
@@ -48,6 +66,8 @@ Where:
  * '''Default''' is a special entry which inserts at the given place the entries from {{{acl_rights_default}}} (see [#Default]).
  * '''right''' may be an arbitrary word like read, write, delete, revert, admin.
  Only words in {{{acl_rights_valid}}} are accepted, others are ignored. It is allowed to specify no rights, which means that no rights are given.
+
+/!\ Do not put whitespace between the name and the rights - `All: write,read` is '''not''' a valid ACL string.
 
 == Available rights ==
 These are the available rights you can use in an ACL entry. Be aware that Delete''''''Page and Rename''''''Page are not allowed if the user is not `Known`, even if a `delete` right is granted.
@@ -137,22 +157,6 @@ there are any) or with default ACLs (if there are no pages ACLs) and
 finally with the "after" ACLs.
 
 While they represent the same thing, inheriting from the defaults has the advantage of automatically following any further change introduced in the defaults.
-
-[[Anchor(Configuration)]]
-== Configuration ==
-These are the configuration items used to setup ACLs on a moin site.
-
-||'''Entry'''||'''Default'''||'''Description'''||
-||acl_enabled||{{{0}}}||If true will enable ACL support.||
-||acl_rights_before||{{{""}}}||applied '''before''' page or default ACLs||
-||acl_rights_after||{{{""}}}||applied '''after''' page or default ACLs||
-||acl_rights_default||{{{"Trusted:read,write,delete,revert \}}}[[BR]]{{{Known:read,write,delete,revert \}}}[[BR]]{{{All:read,write"}}}||'''only''' used when '''no other''' ACLs are given on the page being accessed||
-||acl_rights_valid||`["read", ` `"write", ` `"delete", ` `"revert", ` `"admin"]`||These are the acceptable (known) rights (and the place to extend, if necessary).||
-
-So you know now what it ''does'', but what does it ''mean''?
- * "before" means '''forcing stuff''' (this is because of first match algorithm)
- * "after" means '''not forgetting stuff''' accidently (like maybe giving read rights to all)
- * "default" means '''what is done if no ACLs are used on the page'''. It is equivalent to writing exactly these ACLs onto a page.
 
 [[Anchor(Groups)]]
 == Groups ==

@@ -1,3 +1,10 @@
+# -*- coding: iso-8859-1 -*-
+"""
+    MoinMoin - utility functions used by the migration scripts
+
+    @copyright: 2005 by Thomas Waldmann (MoinMoin:ThomasWaldmann)
+    @license: GNU GPL, see COPYING for details.
+"""
 import os, sys, shutil
 
 opj = os.path.join # yes, I am lazy

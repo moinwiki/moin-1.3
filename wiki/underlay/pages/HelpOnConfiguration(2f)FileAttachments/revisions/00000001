@@ -10,8 +10,6 @@ The [wiki:Self:HelpOnActions/AttachFile AttachFile action] enables a page to hav
 
 This is all you usually need to do for configuration.
 
-/!\ '''Note that we plan to remove that option in 1.4. Because of that and the security problems noted below, we do not recommend that option.'''
-
 ||<tablestyle="color: red;"> /!\ '''Warning: if you make your attachments directly accessible via the web server, you should make sure that the web server does not execute attachments (like .php or .asp or other scripts) uploaded by evil users. If you do not know how to do that, do not configure your installation like described below or you risk making your server remotely exploitable.''' ||
 
 = How attachments are handled =
@@ -28,7 +26,10 @@ The MoinMoin ''attachments'' configuration option allows you to move the directo
 
 = Serving attachments directly by the web server =
 
- /!\ Note that this does not work with attachments whose filenames contain non-ascii characters.
+ * /!\ Note that this does not work with attachments whose filenames contain non-ascii characters.
+
+ * /!\ '''Note that we plan to remove that option in 1.4. Because of that and the security problems noted below, we do not recommend that option.'''
+
 
 The first step is to tell Apache that it has another Alias directory from which it can serve files. Review the changes you made to the httpd.conf (or commonhttpd.conf) file during the Moin``Moin installation and find the Script``Alias statement similar to the following:
 {{{

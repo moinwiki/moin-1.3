@@ -3,8 +3,127 @@
 ## Merci de n'éditer les pages systèmes et d'aide QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpOnTables
-##master-date:Unknown-Date
+##master-date:2005-07-15 18:35:17
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language fr
-#redirect HelpOnTables
+
+== Balisage des tables ==
+Pour créer une table, vous devez commencer et terminer une ligne avec le marqueur de table "{{{||}}}". Entre le marqueur de début et le marqueur de fin, vous pouvez créer un nombre arbitraire de cellules en les séparant avec des "{{{||}}}". Pour obtenir une cellule centrée qui s'étende sur plusieurs colonnes, vous devez débuter cette cellule avec plusieurs marqueurs de cellule. Les lignes qui se suivent avec le même niveau d'indentation se combinent pour former une seule table.
+
+Pour plus d'informations sur le balisage possible, voir ["AideDeL'Édition"].
+
+=== Attributs des tables ===
+
+En plus de l'option de répéter des marqueurs de cellule pour obtenir une colonne qui s'étende sur plusieurs colonnes, vous pouvez configurer directement beaucoup d'attributs HTML des tables. Tous les attributs doivent être placés entre des signes plus-petit-que et plus-grand-que {{{<...>}}}, directement après le marqueur de cellule.
+
+Le balisage wikiesque propose les options suivantes :
+ * {{{<-2>}}}: extension multi-colonne
+ * {{{<|2>}}}: extension multi-ligne
+
+ * {{{<style="...">}}} placera la donnée de style dans le html (td) de la cellule
+ * {{{<rowstyle="...">}}} placera la donnée de style dans le html (tr) de la cellule
+ * {{{<tablestyle="...">}}} placera la donnée de style dans le html (table) de la cellule
+
+ * {{{<class="...">}}} placera cette classe CSS dans le html (td) de la cellule
+ * {{{<id="...">}}} placera cet id CSS dans le html (td) de la cellule
+
+C'est ''tout ce dont vous avez besoin'' pour définir les styles de vos tables. Contentez-vous d'utiliser les styles au format CSS dans ces emplacements, et ils se retrouveront incorporés dans la balise HTML générée. Alternativement, l'administrateur (via les fichiers thème) et les utilisateurs (via [[GetText(UserPreferences)]]) peuvent étendre le CSS de moin avec leurs propres définitions, pour que les utilisateurs puissent y faire référence avec class ou id. Vous pouvez utiliser plusieurs options simultanément en les inscrivant séquentiellement dans un seul bloc {{{<...>}}}. Exemple : {{{<tablestyle="..." rowstyle="...">}}} dans la première cellule, pour définir à la fois le style de la table complète et le style de la première ligne.
+
+Nous maintenons toujours l'ancien balisage de table, mais nous en générons les effets en ajoutant des valeurs supplémentaires au paramètre `style` :
+ * {{{<50%>}}} : largeur de la cellule (ajoutera `width: 50%;` au style)
+ * {{{<width="50%">}}} : idem
+ * {{{<tablewidth="100%">}}} : met la largeur de la table à 100% (valide uniquement sur la première ligne de la table)
+
+ * {{{<(>}}} : aligné à gauche (ajoutera `text-align: left;` au style)
+ * {{{<:>}}} : centré (ajoutera `text-align: center;` au style)
+ * {{{<)>}}} : aligné à droite (ajoutera `text-align: right;` au style)
+ * {{{<^>}}} : aligné en haut (ajoutera `vertical-align: top;` au style)
+ * {{{<v>}}} : aligné en bas (ajoutera `vertical-align: bottom;` au style)
+
+ * {{{<#XXXXXX>}}} : couleur de fond (ajoutera `background-color: #XXXXXX;` au style)
+ * {{{<bgcolor="#XXXXXX">}}} fait de même
+ * {{{<rowbgcolor="#XXXXXX">}}} définit la couleur de fond de la ligne (valide uniquement dans la première cellule)
+ * {{{<tablebgcolor="#XXXXXX">}}} définit la couleur de fond de la table
+
+Si vous utilisez plusieurs options contradictoires, comme par exemple {{{<(:)>}}}, c'est la dernière option qui l'emporte. Il n'y a pas d'option explicite pour centrer verticalement (''middle''), car c'est toujours le cas par défaut.
+
+=== Exemple ===
+{{{
+ NOUVEAU STYLE: Mise en forme générale des tables et options HTMLesques::
+ ||||||<tablestyle="width: 80%">'''En-tête'''||
+ ||cellule 1||cellule2||cellule 3||
+ ||<rowspan=2> multi-ligne||||<style="background-color: #E0E0FF;"> étendue sur 2 colonnes||
+ ||<rowstyle="background-color: #FFFFE0;">cellule2||cellule 3||
+ Largeur de cellule::
+ || étroite ||<style="width: 99%; text-align: center;"> large ||
+ Extension sur plusieurs lignes et colonnes::
+ ||<|2> 2 lignes || ligne 1 ||
+ || ligne 2 ||
+ ||<-2> ligne 3 sur 2 colonnes ||
+ Alignement::
+ ||<style="text-align: left"> gauche ||<|3 style="vertical-align: top;"> haut ||<|3 style="vertical-align: bottom;"> bas ||
+ ||<style="text-align: center;"> centrée ||
+ ||<style="text-align: right;"> droite ||
+ Couleurs::
+ ||<style="background-color: red;"> rouge ||<style="background-color: green;"> verte ||<style="background-color: blue;"> bleue ||
+
+ VIEUX STYLE : Mise en forme générale des tables et options HTMLesques::
+ ||||||<tablewidth="80%">'''En-tête'''||
+ ||cellule 1||cellule2||cellule 3||
+ ||<rowspan=2> multi-ligne||||<bgcolor='#E0E0FF'> étendue sur 2 colonnes||
+ ||<rowbgcolor="#FFFFE0">cellule2||cellule 3||
+ Largeur de cellule::
+ || étroite ||<:99%> large ||
+ Extension sur plusieurs lignes et colonnes::
+ ||<|2> 2 lignes || ligne 1 ||
+ || ligne 2 ||
+ ||<-2> ligne 3 sur 2 colonnes ||
+ Alignement::
+ ||<(> gauche ||<^|3> haut ||<v|3> bas ||
+ ||<:> centré ||
+ ||<)> droite ||
+ Couleurs::
+ ||<#FF8080> rouge ||<#80FF80> vert ||<#8080FF> bleu ||
+}}}
+
+=== Affichage ===
+ NOUVEAU STYLE: Mise en forme générale des tables et options HTMLesques::
+ ||||||<tablestyle="width: 80%">'''En-tête'''||
+ ||cellule 1||cellule 2||cellule 3||
+ ||<rowspan=2> multi-ligne||||<style="background-color: #E0E0FF;"> extension sur 2 colonnes||
+ ||<rowstyle="background-color: #FFFFE0;">cellule 2||cellule 3||
+ Largeur de cellule::
+ || étroite ||<style="width: 99%; text-align: center;"> large ||
+ Extension sur plusieurs lignes et colonnes::
+ ||<|2> 2 lignes || ligne 1 ||
+ || ligne 2 ||
+ ||<-2> ligne 3 sur 2 colonnes ||
+ Alignement::
+ ||<style="text-align: left"> gauche ||<|3 style="vertical-align: top;"> haut ||<|3 style="vertical-align: bottom;"> bas ||
+ ||<style="text-align: center;"> cellule centrée ||
+ ||<style="text-align: right;"> droite ||
+ Couleurs::
+ ||<style="background-color: red;"> rouge ||<style="background-color: green;"> vert ||<style="background-color: blue;"> bleu ||
+
+ VIEUX STYLE : Mise en forme générale des tables et options HTMLesques::
+ ||||||<tablewidth="80%">'''En-tête'''||
+ ||cellule 1||cellule 2||cellule 3||
+ ||<rowspan=2> multi-ligne||||<bgcolor='#E0E0FF'> extension sur 2 colonnes||
+ ||<rowbgcolor="#FFFFE0">cellule 2||cellule 3||
+ Largeur de cellule::
+ || étroite ||<:99%> large ||
+ Extension sur plusieurs lignes et colonnes::
+ ||<|2> 2 lignes || ligne 1 ||
+ || ligne 2 ||
+ ||<-2> ligne 3 sur 2 colonnes ||
+ Alignement::
+ ||<(> gauche ||<^|3> haut ||<v|3> bas ||
+ ||<:> cellule centrée ||
+ ||<)> droite ||
+ Couleurs::
+ ||<#FF8080> rouge ||<#80FF80> vert ||<#8080FF> bleu ||
+
+=== Insérer des données tabulaires provenant d'autres sources ===
+ * valeurs séparées par des virgules : voir wiki:Self:AideDesAnalyseurs#csvparser
+ * inclure des pages de wiki : voir wiki:Self:AideDesMacros/Include

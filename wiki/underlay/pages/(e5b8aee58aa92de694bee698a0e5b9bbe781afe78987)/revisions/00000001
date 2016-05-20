@@ -10,13 +10,13 @@
 
 [[Navigation(slideshow)]]
 
-You can easily create slide shows using the `[[Navigation]]` macro.
+利用宏`[[Navigation]]`，您可以很方便的创建幻灯片放映。
 
-For a new presentation, start on a new page - we use HelpOnSlideShows (''this'' page) as an example.
+在新的页面上开始一个新的演示 - 我们使用 HelpOnSlideShows (''this'' page) 作为例子。
 
-For your convenience, there is a SlideShowTemplate - use it!
+这里有一个幻灯片模版 SlideShowTemplate 使您方便的创建演示，试试吧。
 
-Put `[[Navigation(slideshow)]]` on top of that page (looks like you see above) - that creates a link to toggle between slide show and wiki mode, and a link to start the slide show.
+将`[[Navigation(slideshow)]]`放在页面的顶部(就像你在上面看到的那样) - 它创建了一个链接以便在幻灯片模式和维基模式之间切换，还有一个链接以便开始幻灯片演示。
 
 Refer to your slides with numbered sub-page links putting some code like that on your top page:
 {{{
@@ -38,8 +38,7 @@ This will look like that:
  * ["/900 最后: 放映开始"]
  * ["../幻灯讲义模板"]
 
-You may want to put `[[Navigation(children)]]` at bottom of the page - that lists the pages' child pages and looks like you see below:
-
+您也可以把`[[Navigation(children)]]`放在页面底部 - 它会列出此页面的字页面，就像你在下面看到的那样:
 [[Navigation(children)]]
 
 此页的英文版本：HelpOnSlideShows

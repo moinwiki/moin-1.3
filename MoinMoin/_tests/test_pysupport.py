@@ -6,9 +6,9 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import unittest, os
+import unittest, os, errno
 from MoinMoin.util import pysupport
-from MoinMoin._tests import request, TestConfig
+from MoinMoin._tests import TestSkiped
 
 
 class ImportNameFromMoinTestCase(unittest.TestCase):
@@ -19,12 +19,12 @@ class ImportNameFromMoinTestCase(unittest.TestCase):
     """
 
     def testNonExisting(self):
-        """ pysupport: import nonexistent moin parser return None """
+        """ pysupport: import nonexistent moin plugin fail """
         self.failIf(pysupport.importName('MoinMoin.parser.abcdefghijkl',
                                          'Parser'))
 
     def testExisting(self):
-        """ pysupport: import wiki parser from moin succeed
+        """ pysupport: import existing moin plugin
         
         This tests if a module can be imported from the package
         MoinMoin. Should never fail!
@@ -33,34 +33,50 @@ class ImportNameFromMoinTestCase(unittest.TestCase):
                                              'Parser'))
    
 
-class ImportNameFromPluginTestCase(unittest.TestCase):
-    """ Test if importName form wiki plugin package """
+class ImportNameFromPlugin(unittest.TestCase):
+    """ Base class for import plugin tests """
+    
+    name = 'Parser'
     
     def setUp(self):
-        """ Check for valid plugin and parser packages """
-        # Make sure we have valid plugin and parser dir
-        self.plugindir = os.path.join(request.cfg.data_dir, 'plugin')
-        assert os.path.exists(os.path.join(self.plugindir, '__init__.py')), \
-            "Can't run tests, no plugin package"
-        self.parserdir = os.path.join(self.plugindir, 'parser')
-        assert os.path.exists(os.path.join(self.parserdir, '__init__.py')), \
-            "Can't run tests, no plugin.parser package"
-    
-    def testNonEsisting(self):
-        """ pysupport: import nonexistent plugin return None """
-        name = 'abcdefghijkl'
+        """ Check for valid plugin package """
+        self.pluginDirectory = os.path.join(self.request.cfg.data_dir,
+                                            'plugin', 'parser')
+        self.checkPackage(self.pluginDirectory)
+        self.pluginModule = (self.request.cfg.siteid + '.plugin.parser.' +
+                             self.plugin)
 
-        # Make sure that the file does not exists
-        for suffix in ['.py', '.pyc']:
-            path = os.path.join(self.parserdir, name + suffix)
-            assert not os.path.exists(path), \
-               "Can't run test, path exists: %r" % path
-        
-        self.failIf(pysupport.importName('plugin.parser.%s' % name,
-                                         'Parser'))
+    def checkPackage(self, path):
+        for item in (path, os.path.join(path, '__init__.py')):
+            if not os.path.exists(item):
+                raise TestSkiped("Missing or wrong permissions: %s" % item)
+
+    def pluginExists(self):
+        return (os.path.exists(self.pluginFilePath('.py')) or
+                os.path.exists(self.pluginFilePath('.pyc')))
+
+    def pluginFilePath(self, suffix):
+        return os.path.join(self.pluginDirectory, self.plugin + suffix)
+
+
+class ImportNonExisiting(ImportNameFromPlugin):
+    
+    plugin = 'NonExistingWikiPlugin'
+
+    def testNonEsisting(self):
+        """ pysupport: import nonexistent wiki plugin fail """
+        if self.pluginExists():
+            raise TestSkiped('plugin exists: %s' % self.plugin)
+        self.failIf(pysupport.importName(self.pluginModule, self.name))
+
+
+class ImportExisting(ImportNameFromPlugin):
+
+    plugin = 'AutoCreatedMoinMoinTestPlugin'
+    shouldDeleteTestPlugin = True
 
     def testExisting(self):
-        """ pysupport: import existing plugin succeed
+        """ pysupport: import existing wiki plugin
         
         Tests if a module can be imported from an arbitrary path
         like it is done in moin for plugins. Some strange bug
@@ -68,36 +84,42 @@ class ImportNameFromPluginTestCase(unittest.TestCase):
         cause os does a from os.path import that will stumble
         over a poisoned sys.modules.
         """
-        # Save a test plugin
-        pluginName = 'MoinMoinTestParser'
+        try:
+            self.createTestPlugin()
+            plugin = pysupport.importName(self.pluginModule, self.name)
+            self.assertEqual(getattr(plugin, '__name__', None), self.name,
+                            'Failed to import the test plugin')
+        finally:
+            self.deleteTestPlugin()
+
+    def createTestPlugin(self):
+        """ Create test plugin, skiping if plugin exists """
+        if self.pluginExists():
+            self.shouldDeleteTestPlugin = False
+            raise TestSkiped("Won't overwrite exiting plugin: %s" %
+                             self.plugin)
         data = '''
+# If you find this file in your wiki plugin directory, you can safely
+# delete it.
 import sys, os
 
 class Parser:
     pass
 '''
-        # Plugin path does not include the suffix!
-        pluginPath = os.path.join(self.parserdir, pluginName)
-
-        # File must not exists - or we might destroy user data!
-        for suffix in ['.py', '.pyc']:
-            assert not os.path.exists(pluginPath + suffix), \
-               "Can't run test, path exists: %r" % path
-        
         try:
-            # Write test plugin
-            f = file(pluginPath + '.py', 'w')
-            f.write(data)
-            f.close()
-
-            modulename = request.cfg.siteid + '.plugin.parser.' + pluginName
-            plugin = pysupport.importName(modulename, 'Parser')
-            self.failUnless(plugin.__name__ == 'Parser',
-                            'Failed to import the test plugin')
-        finally:
-            # Remove the test plugin, including the pyc file.
-            for suffix in ['.py', '.pyc']:
-                try:
-                    os.unlink(pluginPath + suffix)
-                except OSError:
-                    pass
+            file(self.pluginFilePath('.py'), 'w').write(data)
+        except Exception, err:
+            raise TestSkiped("Can't create test plugin: %s" % str(err))
+        
+    def deleteTestPlugin(self):
+        """ Delete plugin files ignoring missing files errors """
+        if not self.shouldDeleteTestPlugin:
+            return
+        for suffix in ('.py', '.pyc'):
+            try:
+                os.unlink(self.pluginFilePath(suffix))
+            except OSError, err:
+                if err.errno != errno.ENOENT:
+                    raise
+    
+            

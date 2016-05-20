@@ -20,7 +20,7 @@ HelpContents > HelpOnAdministration > HelpOnConfiguration
 
 = Configuring a single wiki =
 
-If you run a single wiki, you should not copy the file `farmconfig.py` into your configuration directory (remove it, if it is there). Without farmconfig, moin uses the default `wikiconfig.py`
+If you run a single wiki, you should not copy the file `farmconfig.py` into your configuration directory (remove it and the `.pyc` file, if it is there). Without farmconfig, moin uses the default `wikiconfig.py`
 
 `wikiconfig.py` normally is located besides your `moin.cgi` driver script. If you need to make a custom install, it can be located anywhere, but you must add the path to the directory where it is located to your Python system path in your server script. See the "System Path Configuration" section in your server script.
 
@@ -184,6 +184,7 @@ The following table contains default values and a short description for all conf
 || datetime_fmt || '%Y-%m-%d %H:%M:%S' || Default format for dates and times (when the user has no preferences or chose the "default" date format) ||
 || default_lang || 'en' || Default language for user interface and page content, see HelpOnLanguages!||
 || default_markup || 'wiki' || Default page parser / format (name of module in `MoinMoin.parser`)  ||
+|| docbook_html_dir || '...' || Path to the docbook html directory (optional, used by the docbook parser). The default value is correct for Debian Sarge. ||
 || edit_locking || 'warn 10' || Editor locking policy: `None`, `'warn <timeout in minutes>'`, or `'lock <timeout in minutes>'` ||
 || edit_rows || 30 || Default height of the edit box ||
 || hosts_deny || `[]` || List of denied IPs; if an IP ends with a dot, it denies a whole subnet (class A, B or C) ||
@@ -229,6 +230,8 @@ The following table contains default values and a short description for all conf
 || ua_spiders || ...|google|wget|... || A regex of HTTP_USER_AGENTs that should be excluded from logging ||
 || url_mappings || {} || lookup table to remap URL prefixes (dict of {{{'prefix': 'replacement'}}}); especially useful in intranets, when whole trees of externally hosted documents move around ||
 || url_prefix || '/wiki' || used as the base URL for icons, css, etc. ||
+|| user_checkbox_defaults || dict || Sets the default settings of the UserPreferences checkboxes. See {{{multiconfig.py}}} for the default settings. Example: {{{user_checkbox_defaults = {'edit_on_doubleclick': 0} }}} ||
+|| user_checkbox_disable || `[]` || a list of checkbox names to be disabled in the UserPreferences. A disabled checkbox is displayed greyedout and uses the default value set in `user_checkbox_defaults`. ||
 
 Some values can only be set from MoinMoin/config.py (part of the MoinMoin code and thus GLOBALLY changing behaviour of all your wikis), but not from the individual wiki's config - you should only touch them if you know what you are doing:
 || allow_subpages || 1 || ''true'' to enable hierarchical wiki pages (see HelpOnEditing/SubPages) ||

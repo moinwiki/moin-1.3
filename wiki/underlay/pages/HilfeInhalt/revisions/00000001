@@ -1,7 +1,5 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-sha:DD7C1056DE5459559E00B8CB6E8F8D7AB629B2C2
 ##master-page:HelpContents
 ##master-date:2004-07-31 13:37:32
@@ -9,13 +7,14 @@
 #format wiki
 #language de
 
-(!) For the English help pages, see HelpContents.
+(!) For the English help pages, see HelpContents. For the English Syntax Reference, see SyntaxReference.
 
 == Inhalt der Hilfe ==
 
 Hier ist eine Übersicht über die wichtigsten Hilfeseiten:
  * HilfeFürAnfänger - wenn Wikis noch neu für Sie sind
  * HilfeZurNavigation - erklärt die Navigations-Elemente auf einer Seite
+ * HilfeZumSuchen - erklärt die Suchfunktionen
  * HilfeZurSeitenErzeugung - wie man eine neue Seite erzeugt und  Seitenvorlagen benutzt
  * HilfeZuBenutzerEinstellungen - wie man sich beim Wiki anmeldet und das Standardverhalten des Wikis personalisiert
  * HilfeZumEditieren - wie man eine Seite editiert (ändert)

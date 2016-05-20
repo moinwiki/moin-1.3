@@ -1,0 +1,28 @@
+##master-page:SiteNavigation
+##master-date:2005-04-10 18:13:52
+#format wiki
+#language hu
+Ez a lap a wiki felderítésének központi helye.
+
+Itt különböző módokon rendszerezve érheti el a wikiben található lapokat:
+ * ÚjabbVáltozások
+ * CímJegyzék
+ * SzóJegyzék
+ * KeresőLap
+ * KívántLapok
+ * ÁrvaLapok
+ * ElhagyottLapok
+ * VéletlenLap
+ * LapMéretek
+ * LapTalálatok
+
+(További információkat az elérési módokról a MeatBall:IndexingScheme lapon találhat.)
+
+A lapokon további műveletek segítik az azokhoz kapcsolódó más lapok elérését:
+ * Hasonló``Lapok
+ * Helyi``Laptérkép
+
+A fentieken túl a következő makrók segíthetik a lapokhoz tartozó jegyzékek elkészítését:
+ * {{{[[PageList]]}}} -- laplista
+ * {{{[[FullSearch('text')]]}}} -- keresés a teljes szövegben
+ * {{{[[TableOfContents]]}}} -- tartalomjegyzék

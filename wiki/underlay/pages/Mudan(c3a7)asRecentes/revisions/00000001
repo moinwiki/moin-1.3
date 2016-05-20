@@ -1,0 +1,18 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:RecentChanges
+##master-date:Unknown-Date
+#format wiki
+#language pt
+
+[[RecentChanges]]
+
+||<:> [[Icon(diffrc)]] || Páginas antigas que possuem ao menos uma versão de cópia de segurança||
+||<:> [[Icon(updated)]] ||  Páginas editadas desde a configuração de uma marcação||
+||<:> [[Icon(new)]] ||  Páginas criadas desde a última configuração de uma marcação e não foram editadas após isso||
+||<:> [[Icon(deleted)]] || Assinala páginas eliminadas||
+----
+
+Por último, mas não menos importante, uma página aleatória escolhida: [[RandomPage()]]
+
+Esta página contém uma lista de mudanças recentes neste wiki com '''[[PageCount]] páginas'''. Mais informações em InformaçãoDoSistema.

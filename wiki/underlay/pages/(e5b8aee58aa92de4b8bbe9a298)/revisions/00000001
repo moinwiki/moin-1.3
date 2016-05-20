@@ -1,0 +1,76 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnThemes
+##master-date:2005-06-19
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+
+MoinMoin有一个主题插件系统可以很容易的更改界面样式，而无须触及核心代码。您可以通过修改层叠样式表来自定义颜色，或者提过用Python写一个新的主题插件来创造新的用户界面。当您升级MoinMoin时，您的主题没有被触及 - 它仍然可以在新版本下工作，或者由于主题API的更改而需要作少量的变化。
+
+一个主题"THEMENAME"由这些部分组成：
+
+ * 一个python模块，在 `MoinMoin/theme/THEMENAME.py` 或者在您的维基 `data/plugin/theme/THEMENAME.py`
+ * 一套层叠样式表，在 `/usr/share/moin/htdocs/THEMENAME/css/`
+ * 一组图片，在 `/usr/share/moin/htdocs/THEMENAME/img/`
+ 
+= 层叠样式表 =
+
+'classic'主题是基于CSS系统。所以对于简单的更改(比如更改颜色或字体，moving around stuff)，您可能只需要更改CSS(就像`starshine`主题只是变黑一样)。
+
+= 图片 =
+
+当您创建一个新的主题时,把`classic`中所有的图片拷贝到您的img目录并修改需要修改的。如果您修改了一个图片，不要忘记更新主题代码中的图标字典(icon dict) - 为了更快地渲染，图片的几何属性保存在那里。
+
+= Python 模块 =
+
+The theme code is called by moinmoin with (more or less) abstract data in a dictionary usually called `d`. The code then uses items in that dictionary to generate HTML (also heavily relying on CSS). The new theme system in 1.3 avoid using the data dictionary when possible, and instead call different moin parts to get the needed data. 
+
+当您想创建一个新主题的时候，首先复制一个您喜欢的主题，然后尝试编辑样式表来获得您想要的。如果仅仅使用CSS不能制作出您想要的，override some functions in your theme code.
+
+All themes are sub classes of MoinMoin.theme.ThemeBase which define the primitive user interface elements, 像Logo、用户名、标题、搜索表格，编辑栏动作菜单等。您应该重新使用这些部分，除非您需要去更改那些您无法直接利用的已有的部分而去修改它们的内容或者创建新的元素。主题API目前还不稳定，所以在将来可能会有所更改。
+
+= 安装 =
+要安装主题，将压缩包解压，把它复制到顶层目录(比如 leftsidebar2)到维基htdocs目录，比如“/usr/share/moin/mywiki/htdocs”。You should end up with the following subdirectories: `css/`, `img/`.
+
+在您完成这个以后，复制“THEMENAME.py”文件(比如“leftsidebar2.py”)到您的维基的“data/plugin/theme”目录。
+
+= 设置默认主题 =
+
+一旦您创建了所有必须的主题元素并按照上面的方法保存，那么就可以通过改变“wikiconfig.py”中的“theme_default”来将它设置为默认主题(参照 ["帮助-系统设置"])。
+
+= 创建您的主题 =
+如果您创建了一个漂亮的主题(当然得符合HTML和CSS标准)，按下面的方法打包并把它加入到MoinMoin:ThemeMarket. Please put it under GPL license, if possible.
+
+{{{
+# <THEMENAME>-<VERSION>.tar.gz (or .zip), containing:
+<THEMENAME>/<THEMENAME>.py
+<THEMENAME>/img/*.png
+<THEMENAME>/css/*.css
+}}}
+
+= 如果您不想去创建一个主题 =
+ * head
+  * config.html_head is added into the <head> element for ''all'' pages, while
+ * body
+  * 您可以使用一些HTML片段去定制Moin的输出(我们提到了“classic”主题，其他的可能会有所不同) - 下面是输出的顺序：
+  * 头部:
+   * config.page_header1
+   * config.logo_string - 使用它去更改Logo(通常在左上角)
+   * 用户名，标题
+   * iconbar
+   * config.navi_bar - 是要被添加到标题区域中的页面名字的列表，如果没有，则没有导航栏。
+   * trail
+   * config.page_header2
+   * 信息
+  * 维基页面
+  * 尾部:
+   * config.page_credits
+   * config.page_footer1
+   * Edit``Text, search forms, actions
+   * config.page_footer2
+ * 作为一个维基用户，you can override theme CSS settings by putting your own user CSS URL into UserPreferences - this CSS is loaded after the theme CSS, so you can override all you want changed. Your CSS file must be in UTF-8 encoding (and as ASCII is a subset of that, it is ok, too).
+
+“page_header1”、“page_header2”、“page_footer1”和“page_footer2”现在可以be callables and will be called with the "request" object as a single argument (note that you should accept any keyword arguments in order to be compatible to future changes).
+
+此页的英文版本：HelpOnThemes

@@ -1,0 +1,26 @@
+##master-page:FindPage
+##master-date:2005-04-10 20:59:29
+#format wiki
+#language hu
+
+Ennek a lapnak a segítségével kereshet a wikiben. A kereséseknél nem számít a kis/nagybetű.
+
+A wiki felderítéséhez használható kiindulópontok:
+ * ÚjabbVáltozások: itt látható, hogy mely lapokon dolgoznak mostanában
+ * CímJegyzék: a wikiben található összes lap jegyzéke
+ * SzóJegyzék: az összes szó, amely a címekben előfordul
+ * WikiDühöngő: itt lehet szabadon kísérletezni, kipróbálni a szerkesztést
+ * HelyiNavigáció: itt különböző módokon rendszerezve érheti el a wikiben található lapokat
+
+A lapok címében kereshet:
+
+ [[TitleSearch]]
+
+A teljes szövegben kereshet:
+
+ [[FullSearch]]
+
+A beírható szavakat, kifejezéseket illetően lásd a KeresésiSegédlet``et (HelpOnSearching).
+
+Közvetlenül elérhet egy lapot, vagy újat hozhat létre ha egyszerűen beírja ide a lap nevét:
+  [[GoTo]]

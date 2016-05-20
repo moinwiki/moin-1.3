@@ -6,25 +6,42 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import sys, os
+import sys, os, shutil, errno
+from stat import S_ISDIR, ST_MODE, S_IMODE
 from MoinMoin import config
 
 #############################################################################
 ### Misc Helpers
 #############################################################################
 
-def makeDirs(name, mode=0777):
-    """ Like os.makedirs(), but with explicit chmod() calls.
-        Fixes some practical permission problems on Linux.
+def makedirs(name, mode=0777):
+    """ Super-mkdir; create a leaf directory and all intermediate ones.
+    
+    Works like mkdir, except that any intermediate path segment (not
+    just the rightmost) will be created if it does not exist.  This is
+    recursive.
+
+    This is modified version of the os.makedirs from Python 2.4. We add
+    explicit chmod call after the mkdir call. Fixes some practical
+    permission problems on Linux.
     """
     head, tail = os.path.split(name)
     if not tail:
         head, tail = os.path.split(head)
     if head and tail and not os.path.exists(head):
-        makeDirs(head, mode)
+        makedirs(head, mode)
+        if tail == os.curdir: # xxx/newdir/. exists if xxx/newdir exists
+            return
+    try:
+        os.mkdir(name, mode & config.umask)
+    except OSError, err:
+        if err.errno != errno.EEXIST:
+            raise
+    else:
+        os.chmod(name, mode & config.umask)
 
-    os.mkdir(name, mode & config.umask)
-    os.chmod(name, mode & config.umask)
+# The original function name is used because it's a modified function
+makeDirs = makedirs
 
 
 def rename(oldname, newname):
@@ -57,7 +74,6 @@ def copystat(src, dst):
     According to the official docs written by Microsoft, it returns ENOACCES if the
     supplied filename is a directory. Looks like a trainee implemented the function.
     """
-    from stat import S_ISDIR, ST_MODE, S_IMODE
     if sys.platform == 'win32' and S_ISDIR(os.stat(dst)[ST_MODE]):
         if os.name == 'nt':
             st = os.stat(src)
@@ -66,7 +82,6 @@ def copystat(src, dst):
                 os.chmod(dst, mode)
         #else: pass # we are on Win9x,ME - no chmod here
     else:
-        import shutil
         shutil.copystat(src, dst)
 
 
@@ -99,7 +114,6 @@ def copytree(src, dst, symlinks=False):
             elif os.path.isdir(srcname):
                 copytree(srcname, dstname, symlinks)
             else:
-                import shutil
                 shutil.copy2(srcname, dstname)
             # XXX What about devices, sockets etc.?
         except (IOError, os.error), why:

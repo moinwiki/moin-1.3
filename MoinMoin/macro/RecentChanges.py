@@ -59,8 +59,7 @@ def format_page_edits(macro, lines, bookmark_usecs):
     elif is_new:
         # show "NEW" icon if page was created after the user's bookmark
         if hilite:
-            if page.exists():
-                html_link = request.theme.make_icon('new')
+            html_link = request.theme.make_icon('new')
     elif hilite:
         # show "UPDATED" icon if page was edited after the user's bookmark
         img = request.theme.make_icon('updated')

@@ -1,0 +1,38 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#format wiki
+#language pt
+[[UserPreferences]]
+
+= Primeira vez =
+Por favor preencha os campos '''[[GetText(Nome)]]''', '''[[GetText(Senha)]]''', '''[[GetText(Repita senha)]]''' e '''[[GetText(Email)]]'''.
+
+(!) É aconselhável escolher um WikiNome (tal como Primeiro``Nome``Último``Nome) como nome de usuário para que as suas assinaturas se transformem em links para sua Página``Wiki pessoal. O seu endereço de e-mail é necessário para que você possa receber notificações de alteração nas páginas do site ou para recuperar seus dados de login.
+
+Se você clicar em '''[[GetText(Criar Perfil)]]''', será criado um perfil de usuário para você e você já estará imediatamente dentro do sistema.
+
+== Dicas de preenchimento do perfil ==
+
+   * Coloque ".*" no campo '''Páginas com assinatura no wiki (uma regex por linha)''' para receber notificação da modificação de todas as páginas do sistema.
+   * Marque a opção '''Adicionar espaços para mostrar WikiNome''' para que os WikiNome''''''s apareçam separados por espaço, facilitando a leitura.
+
+= Login =
+
+Se você precisa fazer um re-login, use apenas o seu '''[[GetText(Nome)]]''' e '''[[GetText(Senha)]]''' e então clique em '''[[GetText(Login)]]'''. Se você esqueceu sua senha, informe o endereço de e-mail e clique em '''[[GetText(Enviar os dados de minha conta por E-mail)]]'''.
+
+= Alterando configurações =
+
+'''[[GetText(Salvar)]]''' atualiza seu perfil (armazenado no servidor wiki).
+
+= Sair =
+'''[[GetText(Logout)]]''' apaga o cookie que indica que você está dentro do sistema.
+
+
+
+= O Cookie =
+
+/!\ O "ID", exibido na página de resposta, fica gravado como um cookie no seu browser para que o sistema de wiki possa reconhecê-lo. O cookie irá expirar na próxima meia-noite - exceto se você escolheu a opção  '''[[GetText(Lembrar meu login para sempre)]]''' (após ter efetuado login).

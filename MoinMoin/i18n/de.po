@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
-"PO-Revision-Date: 2005-01-29 10:00+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
+"PO-Revision-Date: 2005-06-27 00:00+0100\n"
 "Last-Translator: Thomas Waldmann <tw-public@gmx.de>\n"
 "Language-Team: German <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +56,9 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "auf diesen Seiten platziert werden.-~\n"
 
+msgid "Create New Page"
+msgstr "Neue Seite anlegen"
+
 msgid "You are not allowed to view this page."
 msgstr "Sie dürfen diese Seite nicht ansehen."
 
@@ -79,6 +82,9 @@ msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 "Die von Ihnen gehaltene Sperre ist abgelaufen, das Auftreten von "
 "Änderungskonflikten ist wahrscheinlich!"
+
+msgid "Page name is too long, try shorter name."
+msgstr "Seitenname ist zu lang, bitte kürzen."
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -207,8 +213,8 @@ msgstr ""
 "(==)]] Überschrift 2 [[Verbatim(==)]]; [[Verbatim(===)]] Ü 3 [[Verbatim"
 "(===)]];   [[Verbatim(====)]] Ü 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Ü "
 "5 [[Verbatim(=====)]].\n"
-" Listen:: Leerzeichen und eins von: * Punkte; 1., a., A., i., I. numerierte "
-"Punkte; 1.#n starte Numerierung bei n; nur Leerzeichen rückt ein.\n"
+" Listen:: Leerzeichen und eins von: * Punkte; 1., a., A., i., I. nummerierte "
+"Punkte; 1.#n starte Nummerierung bei n; nur Leerzeichen rückt ein.\n"
 " Links:: [[Verbatim(ZusammenGeschriebeneGroßeWorte)]]; [[Verbatim"
 "([\"Klammern und doppelte  Anführungszeichen\"])]]; url; [url]; [url "
 "label].\n"
@@ -256,7 +262,8 @@ msgstr "Es wurden keine Änderungen gefunden!\n"
 
 #, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] %(trivial)sÄnderung von \"%(pagename)s\" von %(username)s"
+msgstr ""
+"[%(sitename)s] %(trivial)sÄnderung von \"%(pagename)s\" von %(username)s"
 
 msgid "Trivial "
 msgstr "Triviale "
@@ -495,6 +502,40 @@ msgstr ""
 
 msgid "Please provide a valid email address!"
 msgstr "Bitte eine gültige E-Mail-Adresse angeben!"
+
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+"Jemand hat angefordert, Ihre Accountdaten an diese email-Adresse zu senden.\n"
+"\n"
+"Wenn Sie Ihr Passwort vergessen haben, benutzen Sie bitte die Daten unten "
+"und\n"
+"geben Sie das Passwort GENAUSO WIE ANGEZEIGT in das Passwort-Feld des "
+"Wikisein (benutzen Sie kopieren und einfügen dazu).\n"
+"\n"
+"Nachdem Sie sich erfolgreich angemeldet haben, setzen Sie bitte Ihr Passwort "
+"neu.\n"
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+"Anmelde-Name: %s\n"
+"\n"
+"Anmelde-Passwort: %s\n"
+"\n"
+"Anmelde-URL: %s/?action=userform&uid=%s\n"
 
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
@@ -869,6 +910,15 @@ msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr ""
 "Installierte Prozessoren (veraltet) -- benutzen Sie stattdessen Parser)"
 
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgid "Lupy search"
+msgstr "Lupy-Suche"
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr ""
@@ -960,8 +1010,8 @@ msgstr ""
 msgid "File to upload"
 msgstr "Neuer Dateianhang"
 
-msgid "Save as"
-msgstr "Speichern unter"
+msgid "Rename to"
+msgstr "Umbenennen auf"
 
 msgid "Upload"
 msgstr "Datei hochladen"
@@ -1169,9 +1219,6 @@ msgstr "Start"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Seite %(pos)d von %(size)d"
 
-msgid "Create New Page"
-msgstr "Neue Seite anlegen"
-
 msgid "No orphaned pages in this wiki."
 msgstr "Es existieren keine verwaisten Seiten in diesem Wiki."
 
@@ -1267,25 +1314,23 @@ msgstr "Erwartete eine Ganzzahl \"%(arg)s\" nach \"%(key)s\""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Erwartete einen Farbwert \"%(arg)s\" nach \"%(key)s\""
 
-msgid "XSLT option disabled!"
-msgstr "Die XSLT-Option ist nicht aktiviert!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr "XSLT-Option ist abgeschaltet, siehe HelpOnConfiguration."
 
-msgid "XSLT processing is not available!"
-msgstr "Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar!"
+msgid "XSLT processing is not available, please install 4suite 1.x."
+msgstr ""
+"Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar, bitte 4suite 1.x "
+"installieren."
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Verarbeitungsfehler vom Typ \"%(errortype)s\""
 
-msgid "RefreshCache"
-msgstr "SeitenCache"
+msgid "Views/day"
+msgstr "Lesezugriffe/Tag"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "auffrischen (erstellt am %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Die Diagrammoption ist nicht verfügbar!"
+msgid "Edits/day"
+msgstr "Schreibzugriffe/Tag"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1304,6 +1349,9 @@ msgstr "Datum"
 msgid "# of hits"
 msgstr "Anzahl der Zugriffe"
 
+msgid "Charts are not available!"
+msgstr "Die Diagrammoption ist nicht verfügbar!"
+
 msgid "Page Size Distribution"
 msgstr "Verteilung der Seitengrößen"
 
@@ -1312,6 +1360,9 @@ msgstr "Obere Grenze der Seitengröße [bytes]"
 
 msgid "# of pages of this size"
 msgstr "Anzahl der Seiten in dieser Größenklasse"
+
+msgid "User agent"
+msgstr "Browsertyp"
 
 msgid "Others"
 msgstr "Sonstige"

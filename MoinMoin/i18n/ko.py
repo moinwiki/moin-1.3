@@ -7,7 +7,7 @@ meta = {
   'maintainer': 'Hye-Shik Chang <perky@FreeBSD.org>',
   'encoding': 'utf-8',
   'direction': 'ltr',
-  'wikimarkup': False,
+  'wikimarkup': True,
 }
 text = {
 '''The backupped content of this page is deprecated and will not be included in search results!''':
@@ -535,8 +535,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 "이름 바꿈"칸을 비워놓으면 원래의 파일 이름이 사용됩니다.''',
 '''File to upload''':
 '''업로드할 파일''',
-'''Save as''':
-'''저장 이름''',
 '''Upload''':
 '''업로드''',
 '''File attachments are not allowed in this wiki!''':
@@ -689,18 +687,8 @@ Try a different name.''':
 '''"%(key)s"뒤에는 숫자 "%(arg)s"가 필요합니다.''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''"%(key)s"뒤에는 색상 값 "%(arg)s"가 필요합니다.''',
-'''XSLT option disabled!''':
-'''XSLT 옵션이 꺼져있습니다!''',
-'''XSLT processing is not available!''':
-'''XSLT 처리가 지원되지 않습니다.''',
 '''%(errortype)s processing error''':
 '''처리중 에러: "%(errortype)s"''',
-'''RefreshCache''':
-'''캐시 갱신''',
-'''for this page (cached %(date)s)''':
-''' (%(date)s에 캐쉬됨)''',
-'''Charts are not available!''':
-'''이 위키에서는 차트 그리기가 지원되지 않습니다.''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s for %(filterpage)s''',
 '''green=view
@@ -711,6 +699,8 @@ red=edit''',
 '''date''',
 '''# of hits''':
 '''# of hits''',
+'''Charts are not available!''':
+'''이 위키에서는 차트 그리기가 지원되지 않습니다.''',
 '''Page Size Distribution''':
 '''Page Size Distribution''',
 '''page size upper bound [bytes]''':

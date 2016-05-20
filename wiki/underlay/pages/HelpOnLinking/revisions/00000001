@@ -49,6 +49,7 @@ It is often desirable to create a link to a Wiki page in the current Wiki, but h
  * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
  * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
  * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png  moinmoin.png]
+ * [http:/wiki/classic/img/moinmoin.png http:/wiki/classic/img/moinmoin.png] partial URL
  * InterWiki
   * Self:InterWiki
   * MeatBall:InterWiki
@@ -69,6 +70,7 @@ It is often desirable to create a link to a Wiki page in the current Wiki, but h
  * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
  * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
  * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png  moinmoin.png]
+ * [http:/wiki/classic/img/moinmoin.png http:/wiki/classic/img/moinmoin.png] partial URL
  * InterWiki
   * Self:InterWiki
   * MeatBall:InterWiki

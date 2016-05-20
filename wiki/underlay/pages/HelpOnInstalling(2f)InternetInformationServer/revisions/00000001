@@ -140,3 +140,13 @@ If you see an error like Error 13: Permission Denied, it means that your web use
 If the page never loads after hitting `Save Changes`, you should check the permissions of the `data` directory.  Make sure the IUSR_COMPUTERNAME user has modify permissions.
 
 If some images like InterWiki and WorldWideWeb don't show up, it could have been because of incorrect permissions or a bad "`url_prefix`" in "`wikiconfig.py`" or the cached pages need to be updated by an Edit or deleting them in the data folder.
+
+If you see an error message like:
+{{{
+Check your URL regular expressions in the "wikis" list in "farmconfig.py". Content-type: text/html;charset=utf-8
+MoinMoin Configuration Error
+Could not find a match for url: "servername/wikiname/moin.cgi?
+Check your URL regular expressions in the "wikis" list in "farmconfig.py".
+}}}
+
+and you don't intend on using a serverfarm, remove the farmconfig.py and farmconfig.pyc files and try again.  The error message shouldn't appear when you refresh the page. 

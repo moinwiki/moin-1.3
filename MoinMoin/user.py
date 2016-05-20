@@ -23,7 +23,7 @@ except AttributeError:
 
 
 from MoinMoin import config, caching, wikiutil
-from MoinMoin.util import datetime
+from MoinMoin.util import datetime, filesys
 
 
 def getUserList(request):
@@ -96,7 +96,7 @@ def encodePassword(pwd, charset='utf-8'):
 
     Compatible to Apache htpasswd SHA encoding.
 
-    When using different encoding then 'utf-8', the encoding might fail
+    When using different encoding than 'utf-8', the encoding might fail
     and raise UnicodeError.
 
     @param pwd: the cleartext password, (unicode)
@@ -132,8 +132,10 @@ def normalizeName(name):
     @rtype: unicode
     @return: user name that can be used in acl lines
     """
-    # Strip non alpha numeric characters, keep white space
-    name = ''.join([c for c in name if c.isalnum() or c.isspace()])
+    name = name.replace('_', ' ') # we treat _ as a blank
+    username_allowedchars = "'" # O'Brian :)
+    # Strip non alpha numeric characters (except username_allowedchars), keep white space
+    name = ''.join([c for c in name if c.isalnum() or c.isspace() or c in username_allowedchars])
 
     # Normalize white space. Each name can contain multiple 
     # words separated with only one space.
@@ -148,6 +150,7 @@ def isValidName(request, name):
     @param name: user name, unicode
     """
     normalized = normalizeName(name)
+    name = name.replace('_', ' ') # we treat _ as a blank
     return (name == normalized) and not wikiutil.isGroupPage(request, name)
 
 
@@ -254,7 +257,7 @@ class User:
         # if an account is disabled, it may be used for looking up
         # id -> username for page info and recent changes, but it
         # is not usable for the user any more:
-        # self.disabled   = 0
+        self.disabled = 0
         # is handled by checkbox now.
         
         # attrs not saved to profile
@@ -263,15 +266,7 @@ class User:
 
         # create checkbox fields (with default 0)
         for key, label in self._checkbox_fields:
-            setattr(self, key, 0)
-        self.show_page_trail = 1
-        self.show_fancy_links = 1
-        #self.show_emoticons = 1
-        self.show_toolbar = 1
-        self.show_nonexist_qm = self._cfg.nonexist_qm
-        self.show_fancy_diff = 1
-        self.want_trivial = 0
-        self.remember_me = 1
+            setattr(self, key, self._cfg.user_checkbox_defaults.get(key, 0))
 
         if not self.id and not self.auth_username:
             try:
@@ -385,6 +380,11 @@ class User:
                 return
             else:
                 self.trusted = 1
+
+        # Remove ignored checkbox values from user data
+        for key, label in self._checkbox_fields:
+            if user_data.has_key(key) and key in self._cfg.user_checkbox_disable:
+                del user_data[key]
 
         # Copy user data into user object
         for key, val in user_data.items():
@@ -505,9 +505,7 @@ class User:
             return
 
         user_dir = self._cfg.user_dir
-        if not os.path.isdir(user_dir):
-            os.mkdir(user_dir, 0777 & config.umask)
-            os.chmod(user_dir, 0777 & config.umask)
+        filesys.makeDirs(user_dir)
 
         self.last_saved = str(time.time())
 
@@ -572,15 +570,13 @@ class User:
         return time.strftime(datetime_fmt, self.getTime(tm))
 
 
-    def setBookmark(self, tm=None):
+    def setBookmark(self, tm):
         """
         Set bookmark timestamp.
         
-        @param tm: time (UTC UNIX timestamp), default: current time
+        @param tm: timestamp
         """
         if self.valid:
-            if tm is None:
-                tm = time.time()
             bmfile = open(self.__filename() + ".bookmark", "w")
             bmfile.write(str(tm)+"\n")
             bmfile.close()
@@ -588,28 +584,21 @@ class User:
                 os.chmod(self.__filename() + ".bookmark", 0666 & config.umask)
             except OSError:
                 pass
-            
-            # XXX Do we need that???
-            #try:
-            #    os.utime(self.__filename() + ".bookmark", (tm, tm))
-            #except OSError:
-            #    pass
-
 
     def getBookmark(self):
         """
         Get bookmark timestamp.
         
         @rtype: int
-        @return: bookmark time (UTC UNIX timestamp) or None
+        @return: bookmark timestamp or None
         """
+        bm = None
         if self.valid and os.path.exists(self.__filename() + ".bookmark"):
             try:
-                return int(open(self.__filename() + ".bookmark", 'r').readline())
+                bm = long(open(self.__filename() + ".bookmark", 'r').readline()) # must be long for py 2.2
             except (OSError, ValueError):
-                return None
-        return None
-
+                pass
+        return bm
 
     def delBookmark(self):
         """
@@ -634,7 +623,7 @@ class User:
         @return: quicklinks from user account
         """
         return self.quicklinks
-    
+
     def getSubscriptionList(self):
         """ Get list of pages this user has subscribed to
         
@@ -642,7 +631,7 @@ class User:
         @return: pages this user has subscribed to
         """
         return self.subscribed_pages
-    
+
     def isSubscribedTo(self, pagelist):
         """
         Check if user subscription matches any page in pagelist.
@@ -702,6 +691,9 @@ class User:
         
         @param pagename: the page name to add to the trail
         """
+        # TODO: acquire lock here, so multiple processes don't clober
+        # each one trail.
+
         if self.valid and (self.show_page_trail or self.remember_last_visit):
             # load trail if not known
             self.getTrail()      
@@ -721,17 +713,34 @@ class User:
             self._trail = filter(lambda p, pn=pagename: p != pn, self._trail)
             self._trail = self._trail[-(self._cfg.trail_size-1):]
             self._trail.append(pagename)
+            self.saveTrail()
 
-            # save new trail
-            trailfile = codecs.open(self.__filename() + ".trail", "w", config.charset)
-            for t in self._trail:
-                trailfile.write('%s\n' % t)
-            trailfile.close()
+            ## TODO: release lock here
+            
+    def saveTrail(self):
+        """ Save trail file
+
+        Save using one write call, which should be fine in most cases,
+        but will fail in rare cases without real file locking.
+        """
+        data = '\n'.join(self._trail) + '\n'
+        path = self.__filename() + ".trail"
+        try:
+            file = codecs.open(path, "w", config.charset)
             try:
-                os.chmod(self.__filename() + ".trail", 0666 & config.umask)
-            except OSError:
-                pass
+                file.write(data)
+            finally:
+                file.close()
 
+            # TODO: do we realy need to set perimssion for each save, which
+            # is on each request?
+            try:
+                os.chmod(path, 0666 & config.umask)
+            except OSError, err:
+                self._request.log("Can't change mode of trail file: %s" %
+                                  str(err))
+        except (IOError, OSError), err:
+            self._request.log("Can't save trail file: %s" % str(err))
 
     def getTrail(self):
         """
@@ -753,3 +762,27 @@ class User:
 
         return self._trail
 
+    def isCurrentUser(self):
+        return self._request.user.name == self.name
+
+    def host(self):
+        """ Return user host """
+        _ = self._request.getText
+        host = (self.isCurrentUser and self._cfg.show_hosts and
+                self._request.remote_addr)
+        return host or _("<unknown>")
+
+    def signature(self):
+        """ Return user signature using markup
+        
+        Users sign with a link to their homepage, or with text if they
+        don't have one. The text may be parsed as a link if its using
+        CamelCase. Visitors return their host address.
+        """
+        if not self.name:
+            return self.host()
+        if (self._cfg.allow_extended_names and
+            not wikiutil.isStrictWikiname(self.name)): 
+            # TODO: use current markup, not hardcoded wiki markup
+            return u'["%s"]' % self.name
+        return self.name        

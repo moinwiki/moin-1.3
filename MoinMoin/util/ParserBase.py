@@ -2,8 +2,8 @@
 """
 	MoinMoin - Base Source Parser
 
-	Copyright (c) 2002 by Taesu Pyo <bigflood@hitel.net>
-	All rights reserved.
+    @copyright: 2002 by Taesu Pyo <bigflood@hitel.net>
+    @license: All rights reserved.
 
     Docstrings and some refactoring by Oliver Graf <ograf@bitart.de>
 

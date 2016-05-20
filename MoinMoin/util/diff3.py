@@ -10,7 +10,7 @@ def text_merge(old, other, new, allow_conflicts=1,
                marker1='<<<<<<<<<<<<<<<<<<<<<<<<<\n',
                marker2='=========================\n',
                marker3='>>>>>>>>>>>>>>>>>>>>>>>>>\n'):
-    """ do line by line diff3 merge with three strings"""
+    """ do line by line diff3 merge with three strings """
     result = merge(old.splitlines(1), other.splitlines(1), new.splitlines(1),
                    allow_conflicts, marker1, marker2, marker3)
     return ''.join(result)
@@ -47,7 +47,8 @@ def merge(old, other, new, allow_conflicts=1,
                     other_nr += new_changed_lines
                 # both changed, conflict!
                 else:
-                    if not allow_conflicts: return None
+                    if not allow_conflicts:
+                        return None
                     old_m, other_m, new_m = tripple_match(
                         old, other, new, other_match, new_match)
                     result.append(marker1)
@@ -68,7 +69,8 @@ def merge(old, other, new, allow_conflicts=1,
                     new_nr += other_changed_lines
                 # both changed, conflict!
                 else:
-                    if not allow_conflicts: return None
+                    if not allow_conflicts:
+                        return None
                     old_m, other_m, new_m = tripple_match(
                         old, other, new, other_match, new_match)
                     result.append(marker1)
@@ -80,27 +82,26 @@ def merge(old, other, new, allow_conflicts=1,
 
     # process tail
     # all finished
-    if old_nr==old_len and other_nr==other_len  and new_nr==new_len:
+    if old_nr == old_len and other_nr == other_len  and new_nr == new_len:
         pass
     # new added lines
-    elif old_nr==old_len and other_nr==other_len:
+    elif old_nr == old_len and other_nr == other_len:
         result.extend(new[new_nr:])
     # other added lines
-    elif old_nr==old_len and new_nr==new_len:
+    elif old_nr == old_len and new_nr == new_len:
         result.extend(other[other_nr])
     # new deleted lines
-    elif (new_nr==new_len and (old_len-old_nr==other_len-other_nr) and
-          match(old, other, old_nr, other_nr, old_len-old_nr) ==
-          old_len-old_nr):
+    elif (new_nr == new_len and (old_len - old_nr == other_len - other_nr) and
+          match(old, other, old_nr, other_nr, old_len-old_nr) == old_len - old_nr):
         pass
     # other deleted lines
-    elif (other_nr==other_len and (old_len-old_nr==new_len-new_nr) and
-          match(old, new, old_nr, new_nr, old_len-old_nr) ==
-          old_len-old_nr):
+    elif (other_nr == other_len and (old_len - old_nr == new_len-new_nr) and
+          match(old, new, old_nr, new_nr, old_len-old_nr) == old_len - old_nr):
         pass
     # conflict
     else:
-        if not allow_conflicts: return None
+        if not allow_conflicts:
+            return None
         result.append(marker1)
         result.extend(other[other_nr:])
         result.append(marker2)
@@ -113,7 +114,7 @@ def tripple_match(old, other, new, other_match, new_match):
        return the position in all three lists
     """
     while 1:
-        difference = new_match[0]-other_match[0]
+        difference = new_match[0] - other_match[0]
         # new changed more lines
         if difference > 0:
             match_len = match(old, other, other_match[0], other_match[1],
@@ -131,7 +132,7 @@ def tripple_match(old, other, new, other_match, new_match):
                               difference)
             if match_len == difference:
                 return (other_match[0], other_match[1],
-                        new_match[0]+difference)
+                        new_match[0] + difference)
             else:
                 new_match =  find_match(old, new,
                                         new_match[0] + match_len,
@@ -152,7 +153,8 @@ def match(list1, list2, nr1, nr2, maxcount=3):
         nr1 += 1
         nr2 += 1
         i += 1
-        if i >= maxcount and maxcount>0: break
+        if i >= maxcount and maxcount > 0:
+            break
     return i
 
 def find_match(list1, list2, nr1, nr2, mincount=3):
@@ -166,14 +168,14 @@ def find_match(list1, list2, nr1, nr2, mincount=3):
     idx1 = nr1
     idx2 = nr2
 
-    while ((idx1 < len1) or (idx2 < len2)):
-        i =  nr1
+    while (idx1 < len1) or (idx2 < len2):
+        i = nr1
         while i <= idx1:
             hit_count = match(list1, list2, i, idx2, mincount)
             if hit_count >= mincount:
                 hit1 = (i, idx2)
                 break
-            i = i + 1
+            i += 1
             
         i = nr2
         while i < idx2:
@@ -181,18 +183,24 @@ def find_match(list1, list2, nr1, nr2, mincount=3):
             if hit_count >= mincount:
                 hit2 = (idx1, i)
                 break
-            i = i + 1
+            i += 1
 
-        if hit1 or hit2: break
-        if idx1 < len1: idx1 = idx1 + 1
-        if idx2 < len2: idx2 = idx2 + 1
+        if hit1 or hit2:
+            break
+        if idx1 < len1:
+            idx1 += 1
+        if idx2 < len2:
+            idx2 += 1
 
     if hit1 and hit2:
         #XXX which one?
         return hit1
-    elif hit1: return hit1
-    elif hit2: return hit2
-    else: return (len1, len2)
+    elif hit1:
+        return hit1
+    elif hit2:
+        return hit2
+    else:
+        return (len1, len2)
 
 def main():
 
@@ -245,6 +253,6 @@ AAA 014
     text = text_merge(text0, text1, text2)
     print(text)
 
-if __name__ == '__main__': main()
-                     
-    
+if __name__ == '__main__':
+    main()
+

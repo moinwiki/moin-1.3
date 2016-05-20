@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
-"PO-Revision-Date: 2004-11-17 12:37+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
+"PO-Revision-Date: 2005-03-21 20:17+0100\n"
 "Last-Translator: Jonas Smedegaard <dr@jones.dk>\n"
 "Language-Team: Danish <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -56,12 +56,14 @@ msgstr ""
 "[[BR]]\n"
 "for at bruge denne formular på andre sider.-~\n"
 
+msgid "Create New Page"
+msgstr "Opret ny side"
+
 msgid "You are not allowed to view this page."
 msgstr "Du har ikke lov til at se denne side!"
 
-#, fuzzy
 msgid "DeleteCache"
-msgstr "SletSide"
+msgstr "SletCache"
 
 #, python-format
 msgid "(cached %s)"
@@ -78,6 +80,9 @@ msgstr "Kan ikke redigere gamle udgaver!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "Låsen du holdt udløb, vær forberedt på redigeringskonflikter!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -251,9 +256,10 @@ msgstr "Ny side:\n"
 msgid "No differences found!\n"
 msgstr "Ingen forskelle fundet!\n"
 
-#, fuzzy, python-format
+#, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] %(trivial)sopdatering af \"%(pagename)s\""
+msgstr ""
+"[%(sitename)s] %(trivial)sopdatering af \"%(pagename)s\" af %(username)s"
 
 msgid "Trivial "
 msgstr "Simpel "
@@ -271,10 +277,10 @@ msgstr "## sikkerhedskopi af siden \"%(pagename)s\" indsendt %(date)s"
 
 #, python-format
 msgid "Page could not get locked. Unexpected error (errno=%d)."
-msgstr ""
+msgstr "Side kunne ikke låses. Uventet fejl (fejlnummer=%d)."
 
 msgid "Page could not get locked. Missing 'current' file?"
-msgstr ""
+msgstr "Side kunne ikke låses. Manglende 'current' fil?"
 
 msgid "You are not allowed to edit this page!"
 msgstr "Du har ikke lov til at redigere denne side!"
@@ -488,6 +494,26 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "Angiv venligst en korrekt email-adresse!"
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "Ingen brugerprofil blev fundet med email-adressen '%(email)s'!"
@@ -621,9 +647,9 @@ msgstr "Ingen ældre udgaver tilgængelig!"
 msgid "Diff for \"%s\""
 msgstr "Forskelle for \"%s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Differences between revisions %d and %d"
-msgstr "Forskelle mellem versionerne %s og %s"
+msgstr "Forskelle mellem versionerne %d og %d"
 
 #, python-format
 msgid "(spanning %d versions)"
@@ -637,7 +663,7 @@ msgid "The page was saved %(count)d times, though!"
 msgstr "Selvom siden dog er gemt %(count)d gange!"
 
 msgid "(ignoring whitespace)"
-msgstr ""
+msgstr "(ignorerer mellemrum)"
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignorér ændringer i antallet af mellemrum"
@@ -855,6 +881,15 @@ msgstr "Installerede fortolkere"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Installerede processorer (FORÆLDET -- brug fortolkere istedet)"
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr "Formulér venligst søgningen mere specifikt end {{{\"%s\"}}}"
@@ -940,8 +975,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "Fil at lægge op"
 
-msgid "Save as"
-msgstr "Gem som"
+#, fuzzy
+msgid "Rename to"
+msgstr "Omdøb side"
 
 msgid "Upload"
 msgstr "Overfør"
@@ -1036,9 +1072,9 @@ msgstr "Ingen sider ligner \"%s\"!"
 msgid "Exactly one page like \"%s\" found, redirecting to page."
 msgstr "Nøjagtigt een side fundet som ligner \"%s\" - omdirigerer til siden."
 
-#, fuzzy, python-format
+#, python-format
 msgid "Pages like \"%s\""
-msgstr "Sider der ligner %d"
+msgstr "Sider der ligner \"%s\""
 
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
@@ -1056,7 +1092,7 @@ msgstr "Anvend venligst den interaktive brugergrænseflade til at omdøbe sider!
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr ""
+msgstr "Kunne ikke omdøbe side pÝ grund af systemfejl: %s."
 
 msgid "Rename Page"
 msgstr "Omdøb side"
@@ -1113,6 +1149,7 @@ msgstr "Fuld liste over links for \"%s\""
 msgid ""
 "Cannot create a new page without a page name.  Please specify a page name."
 msgstr ""
+"Kan ikke oprette en ny side uden et sidenavn. Angiv venligst et sidenavn."
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
@@ -1141,10 +1178,6 @@ msgstr "Begyndelse"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slide %(pos)d ud af %(size)d"
-
-#, fuzzy
-msgid "Create New Page"
-msgstr "Opret denne side"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Ingen forældreløse sider i denne wiki."
@@ -1207,11 +1240,11 @@ msgid "No wanted pages in this wiki."
 msgstr "Ingen ønskede sider i denne wiki."
 
 msgid "**Maximum number of allowed includes exceeded**"
-msgstr ""
+msgstr "**Maksimum antal tilladte inkluderinger overskredet**"
 
 #, python-format
 msgid "**Could not find the referenced page: %s**"
-msgstr ""
+msgstr "**Kunne ikke finde den henviste side: %s**"
 
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
@@ -1241,25 +1274,24 @@ msgstr "Forventede et heltal·\"%(arg)s\"·efter·\"%(key)s\""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Forventede en farvekode·\"%(arg)s\"·efter·\"%(key)s\""
 
-msgid "XSLT option disabled!"
-msgstr "XSLT slået fra!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "XSLT-håndtering er ikke tilgængelig!"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s programfejl"
 
-msgid "RefreshCache"
-msgstr "OpdatérCache"
+#, fuzzy
+msgid "Views/day"
+msgstr "Vis"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "for denne side (husket siden %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Tabeller er ikke tilgængelige!"
+#, fuzzy
+msgid "Edits/day"
+msgstr "Redigér"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1278,6 +1310,9 @@ msgstr "dato"
 msgid "# of hits"
 msgstr "Antal besøg"
 
+msgid "Charts are not available!"
+msgstr "Tabeller er ikke tilgængelige!"
+
 msgid "Page Size Distribution"
 msgstr "Sidestørrelser"
 
@@ -1286,6 +1321,9 @@ msgstr "øvre grænse for sidestørrelse [bytes]"
 
 msgid "# of pages of this size"
 msgstr "Antal sider af denne størrelse"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Andre"
@@ -1300,25 +1338,25 @@ msgid "Home"
 msgstr "Hjem"
 
 msgid "[RSS]"
-msgstr ""
+msgstr "[RSS]"
 
 msgid "[DELETED]"
-msgstr ""
+msgstr "[SLETTET]"
 
 msgid "[UPDATED]"
-msgstr ""
+msgstr "[OPDATERET]"
 
 msgid "[NEW]"
-msgstr ""
+msgstr "[NY]"
 
 msgid "[DIFF]"
-msgstr ""
+msgstr "[DIFF]"
 
 msgid "[BOTTOM]"
-msgstr ""
+msgstr "[BUND]"
 
 msgid "[TOP]"
-msgstr ""
+msgstr "[TOP]"
 
 msgid "Click to do a full-text search for this title"
 msgstr "Klik her for at lave en fritekstsøgning efter denne titel"
@@ -1352,9 +1390,8 @@ msgstr "Vis rå tekst"
 msgid "Show Print View"
 msgstr "Vis udskriftsvenlig udgave"
 
-#, fuzzy
 msgid "Delete Cache"
-msgstr "Slet side"
+msgstr "Slet cache"
 
 msgid "Attach File"
 msgstr "Vedhæft fil"
@@ -1409,6 +1446,8 @@ msgstr "Bruger"
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
 msgstr ""
+"Desvürre, kan ikke gemme side fordi \"%(content)s\" ikke er tilladt i denne "
+"wiki."
 
 msgid "Line"
 msgstr "Linje"
@@ -1498,203 +1537,14 @@ msgstr "OmdøbSide"
 msgid "SpellCheck"
 msgstr "StaveKontrol"
 
-#~ msgid "MIME Type (optional)"
-#~ msgstr "MIME-type (valgfri)"
+#~ msgid "Save as"
+#~ msgstr "Gem som"
 
-#~ msgid "Refresh"
-#~ msgstr "Opdatér"
+#~ msgid "XSLT option disabled!"
+#~ msgstr "XSLT slået fra!"
 
-#~ msgid "(edit log entry is missing)"
-#~ msgstr "(besked i redigeringslog mangler)"
+#~ msgid "RefreshCache"
+#~ msgstr "OpdatérCache"
 
-#~ msgid "Rename"
-#~ msgstr "Omdøb"
-
-#~ msgid "[\"<html>\"]"
-#~ msgstr "[\"html\"]"
-
-#~ msgid "Send mail notification"
-#~ msgstr "Send email-orientering"
-
-#~ msgid "You will not be notified of your own changes!"
-#~ msgstr "Du vil ikke blive orienteret om dine egne rettelser!"
-
-#~ msgid "Nobody subscribed to this page, no mail sent."
-#~ msgstr "Ingen abonnerede på denne side. Ingen opdateringer sendt."
-
-#~ msgid "Unknown action"
-#~ msgstr "Ukendt rutine"
-
-#~ msgid "Needed %(timer).1f seconds."
-#~ msgstr "Krævede %(timer).1f sekunder"
-
-#~ msgid ""
-#~ "User names with group names are not allowed.\n"
-#~ "Please register a new account with a valid name."
-#~ msgstr ""
-#~ "Brugernavn indeholdende gruppenavne er ikke tilladt.\n"
-#~ "Registrér en ny konto med et gyldigt navn."
-
-#~ msgid "User name already exists!"
-#~ msgstr "Brugernavnet eksisterer allerede!"
-
-#~ msgid "Go"
-#~ msgstr "Fortsæt"
-
-#~ msgid "Exactly one matching page for \"%s\" found!"
-#~ msgstr "Netop ét resultat fundet for \"%s\"!"
-
-#~ msgid "Multiple matches for \"%s...%s\""
-#~ msgstr "Flere resultater for \"%s...%s\""
-
-#~ msgid "You cannot use LikePages on an extended pagename!"
-#~ msgstr "Du kan ikke bruge \"LikePages\" på et udvidet sidenavn!"
-
-#~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-#~ msgstr "Siden \"%s\" blev korrekt omdøbt til \"%s\"!"
-
-#~ msgid "Really delete bookmark?"
-#~ msgstr "Er du sikker på at bogmærket skal slettes?"
-
-#~ msgid "Update my bookmark timestamp"
-#~ msgstr "Opdatér datostemplet for mit bogmærke"
-
-#~ msgid "of this page"
-#~ msgstr "på denne side"
-
-#~ msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
-#~ msgstr "eller søg på titel %(titlesearch)s, al tekst %(textsearch)s eller"
-
-#~ msgid "Show all changes in the last %s days."
-#~ msgstr "Vis alle ændringer de seneste %s dage."
-
-#~ msgid "Site"
-#~ msgstr "Site"
-
-#~ msgid "Title: %(titlesearch)s[[BR]]Text: %(textsearch)s"
-#~ msgstr "Titel: %(titlesearch)s[[BR]] Tekst: %(textsearch)s"
-
-#~ msgid "No older revisions of the page stored, diff not available."
-#~ msgstr ""
-#~ "Ingen ældre udgaver af siden er gemt, og derfor ingen forskelle at vise."
-
-#~ msgid "The diff function returned with error code %(rc)s!"
-#~ msgstr "Diff-programmet returnerede fejlkoden %(rc)s!"
-
-#~ msgid "Show emoticons"
-#~ msgstr "Vis smilies"
-
-#~ msgid "Please enter your name like that: FirstnameLastname"
-#~ msgstr "Angiv venligst dit navn som her: FornavnEfternavn"
-
-#~ msgid "You are already subscribed to this page."
-#~ msgstr "Du abonnerer allerede på denne side."
-
-#~ msgid "Number of backup versions"
-#~ msgstr "Antal tidligere versioner"
-
-#~ msgid "Reduce editor size"
-#~ msgstr "Formindsk størrelsen på redigeringsvinduet"
-
-#~ msgid "An error occurred while reverting the page."
-#~ msgstr "Der opstod en fejl under tilbageførsel af siden."
-
-#~ msgid "Alternatively, use one of these templates:"
-#~ msgstr "Alternativt kan du anvende en af disse skabeloner:"
-
-#~ msgid ""
-#~ "To create your own templates, add a page with a name matching the regex "
-#~ "\"%(page_template_regex)s\"."
-#~ msgstr ""
-#~ "For at oprette dine egne skabeloner skal du tilføje en side der matcher "
-#~ "det regulære udtryk (regex) \"%(page_template_regex)s\"."
-
-#~ msgid "The following pages with similar names already exist..."
-#~ msgstr "Følgende sider med lignende navne eksisterer allerede..."
-
-#~ msgid "Account"
-#~ msgstr "Konto"
-
-#~ msgid "time"
-#~ msgstr "gang"
-
-#~ msgid "times"
-#~ msgstr "gange"
-
-#~ msgid "<small>[goto %s]</small>"
-#~ msgstr "<small>[gå til %s]</small>"
-
-#~ msgid "[Size limited to %dK]"
-#~ msgstr "[Størrelse begrænset til %dK]"
-
-#~ msgid "<div class=\"message\"><b>Bad chart type \"%s\"!</b></div>"
-#~ msgstr "<div class=\"message\"><b>Forkert tabeltype\"%s\"!</b></div>"
-
-#~ msgid "<div class=\"message\"><b>Charts are not available!</b></div>"
-#~ msgstr "<div class=\"message\"><b>Tabeller er ikke tilgængelige!</b></div>"
-
-#~ msgid "Your email address"
-#~ msgstr "Din email-adresse"
-
-#~ msgid "<b>Cookie deleted!</b>"
-#~ msgstr "<b>Infokage slettet!</b>"
-
-#~ msgid "LocalSpellingWords"
-#~ msgstr "LokalOrdliste"
-
-#~ msgid "Rename to (optional)"
-#~ msgstr "Omdøb til (valgfri)"
-
-#~ msgid "WantedPages"
-#~ msgstr "ØnskedeSider"
-
-#~ msgid "<h2>Attachment '%(filename)s'</h2>"
-#~ msgstr "<h2>Vedhæftet fil '%(filename)s'</h2>"
-
-#~ msgid "RandomPage"
-#~ msgstr "TilfældigSide"
-
-#~ msgid "AbandonedPages"
-#~ msgstr "EfterladteSider"
-
-#~ msgid "%(changecount)s changes"
-#~ msgstr "%(changecount)s rettelser"
-
-#~ msgid "Add \"Open in new window\" icon to pretty links"
-#~ msgstr "Tilføj \"Åbn i nyt vindue\"-ikon til de pæne links"
-
-#~ msgid "File \"%(filename)s for page \"%(pagename)s"
-#~ msgstr "Fil \"%(filename)s for siden \"%(pagename)s"
-
-#~ msgid "[New window]"
-#~ msgstr "[Nyt vindue]"
-
-#~ msgid "OrphanedPages"
-#~ msgstr "ForældreløseSider"
-
-#~ msgid "To login from a different machine, use this URL: "
-#~ msgstr "Anvend følgende URL for at logge på fra en anden computer: "
-
-#~ msgid "Return to general page information"
-#~ msgstr "Retur til generel sideinformation"
-
-#~ msgid "<b>No differences found!</b>"
-#~ msgstr "<b>Ingen forskelle fundet!</b>"
-
-#~ msgid "<Default>"
-#~ msgstr "<Standard>"
-
-#~ msgid "<b>You are not allowed to upload files.</b>"
-#~ msgstr "<b>Du har ikke lov til at lægge filer op!</b>"
-
-#~ msgid "Entries in event log"
-#~ msgstr "Emner i aktivitets-log"
-
-#~ msgid ""
-#~ "To create your own templates, add a page with a name ending in Template."
-#~ msgstr ""
-#~ "Du kan oprette dine egne skabeloner ved at tilføje sider med endelsen "
-#~ "\"Skabelon\"."
-
-#~ msgid "Detailed Information"
-#~ msgstr "Detaljeret information"
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "for denne side (husket siden %(date)s)"

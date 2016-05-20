@@ -4,6 +4,8 @@
 
     This macro creates a pie chart of the type of user agents
     accessing the wiki.
+    
+    TODO: should be refactored after hitcounts.
 
     @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
@@ -11,10 +13,10 @@
 
 _debug = 0
 
-from MoinMoin import wikiutil, caching
-from MoinMoin.logfile import eventlog
+from MoinMoin import wikiutil, caching 
 from MoinMoin.Page import Page
 from MoinMoin.util import MoinMoinNoFooter
+from MoinMoin.logfile import eventlog, logfile
 
 
 def linkto(pagename, request, params=''):
@@ -22,10 +24,7 @@ def linkto(pagename, request, params=''):
     _ = request.getText
 
     if not request.cfg.chart_options:
-        return (request.formatter.sysmsg(1) +
-                request.formatter.text(_('Charts are not available!')) +
-                request.formatter.sysmsg(0))
-
+        return text(pagename, request)
     if _debug:
         return draw(pagename, request)
 
@@ -47,6 +46,85 @@ def linkto(pagename, request, params=''):
     return result
 
 
+def get_data(request):
+    # get results from cache
+    cache = caching.CacheEntry(request, 'charts', 'useragents')
+    cache_date, data = 0, {}
+    if cache.exists():
+        try:
+            cache_date, data = eval(cache.content())
+        except:
+            cache.remove() # cache gone bad
+    
+    log = eventlog.EventLog(request)
+    try:
+        new_date = log.date()
+    except logfile.LogMissing:
+        new_date = None
+    
+    if new_date is not None:
+        log.set_filter(['VIEWPAGE', 'SAVEPAGE'])
+        for event in log.reverse():
+            if event[0] <= cache_date:
+                break
+            ua = event[2].get('HTTP_USER_AGENT')
+            if ua:
+                pos = ua.find(" (compatible; ")
+                if pos >= 0:
+                    ua = ua[pos:].split(';')[1].strip()
+                else:
+                    ua = ua.split()[0]
+                #ua = ua.replace(';', '\n')
+                data[ua] = data.get(ua, 0) + 1
+    
+        # write results to cache
+        cache.update("(%r, %r)" % (new_date, data))
+            
+    data = [(cnt, ua) for ua, cnt in data.items()]
+    data.sort()
+    data.reverse()
+    return data
+
+def text(pagename, request):
+    from MoinMoin.util.dataset import TupleDataset, Column
+    from MoinMoin.widget.browser import DataBrowserWidget
+    from cStringIO import StringIO
+
+    fmt = request.formatter
+    _ = request.getText
+    
+    data = get_data(request)
+
+    sum = 0.0
+    for cnt, ua in data:
+        sum += cnt
+
+
+    agents = TupleDataset()
+    agents.columns = [Column('agent', label=_("User agent"), align='left'),
+                      Column('value', label= '%', align='right')]
+
+    cnt_printed = 0
+    data = data[:10]
+    for cnt, ua in data:
+        try:
+            ua = unicode(ua)
+            agents.addRow((ua, "%.2f" % (100.0*cnt/sum)))
+            cnt_printed += cnt
+        except UnicodeError:
+            pass
+    agents.addRow((_('Others'), "%.2f" % (100*(sum-cnt_printed)/sum)))
+
+    buffer = StringIO()
+    request.redirect(buffer)
+    table = DataBrowserWidget(request)
+    table.setData(agents)
+    table.render()
+    request.redirect()
+
+    return buffer.getvalue()
+    
+
 def draw(pagename, request):
     import shutil, cStringIO, operator
     from MoinMoin.stats.chart import Chart, ChartData, Color
@@ -60,38 +138,8 @@ def draw(pagename, request):
               'blue', 'forestgreen', 'orange', 'cyan', 'fuchsia', 'lime']
     colors = ([Color(c) for c in colors])
 
-    # get results from cache
-    cache = caching.CacheEntry(request, 'charts', 'useragents')
-    if cache.exists():
-        try:
-            cache_date, data = eval(cache.content())
-        except:
-            cache_date, data = 0, {}
-    else:
-        cache_date, data = 0, {}
-    
-    logfile = eventlog.EventLog(request)
-    logfile.set_filter(['VIEWPAGE', 'SAVEPAGE'])
-    new_date = logfile.date()
-    for event in logfile.reverse():
-        if event[0] <= cache_date:
-            break
-        ua = event[2].get('HTTP_USER_AGENT')
-        if ua:
-            pos = ua.find(" (compatible; ")
-            if pos >= 0:
-                ua = ua[pos:].split(';')[1].strip()
-            else:
-                ua = ua.split()[0]
-            #ua = ua.replace(';', '\n')
-            data[ua] = data.get(ua, 0) + 1
+    data = get_data(request)
 
-    # write results to cache
-    cache.update("(%r, %r)" % (new_date, data))
-            
-    data = [(cnt, ua) for ua, cnt in data.items()]
-    data.sort()
-    data.reverse()
     maxdata = len(colors) - 1
     if len(data) > maxdata:
         others = [x[0] for x in data[maxdata:]]

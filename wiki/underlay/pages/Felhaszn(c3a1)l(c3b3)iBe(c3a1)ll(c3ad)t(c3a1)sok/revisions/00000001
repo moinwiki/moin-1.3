@@ -1,0 +1,24 @@
+##master-page:UserPreferences
+##master-date:2005-04-10 21:00:54
+#format wiki
+#language hu
+[[UserPreferences]]
+
+= Első alkalommal =
+Kérjük töltse ki a '''[[GetText(Name)]]''', a '''[[GetText(Password)]]''', a '''[[GetText(Password repeat)]]''' és az '''[[GetText(Email)]]''' mezőt.
+
+(!) Felhasználónévnek a legjobb egy WikiNév (Vezetéknév``Keresztnév), mert ebben az esetben az aláírása a Wiki``Honlapjára mutat. Az e-levél-címe azért kell, hogy értesülhessen a lapok változásairól, valamint hogy el tudjuk küldeni az elvesztett belépési adatait amennyiben erre szükség lenne.
+
+Amennyiben a '''[[GetText(Create Profile)]]''' gombra kattint létrejön a felhasználói profilja, és egyúttal be is lép.
+
+= Belépés =
+Ha újra be kíván lépni töltse ki a '''[[GetText(Name)]]''' és a '''[[GetText(Password)]]''' mezőt, majd kattintson a '''[[GetText(Login)]]''' gombra. Ha elfelejtette a jelszavát csak adja meg az levélcímét, és kattintson a '''[[GetText(Mail me my account data)]]''' feliratú gombra.
+
+= A beállítások megváltoztatása =
+A '''[[GetText(Save)]]''' gombra való kattintással elmentheti a megváltoztatott profilját.
+
+= Kilépés =
+A '''[[GetText(Logout)]]''' gombra kattintva a belépéskor létrejövő süti (cookie) törlődik.
+
+= A süti (cookie) =
+A süti éjfélkor jár le ha nem jelölte be '''[[GetText(Remember login information)]]''' opciót. Ha ezt az opciót bejelölte a süti nem jár le. Amennyiben a süti lejár újra be kell jelentkeznie.

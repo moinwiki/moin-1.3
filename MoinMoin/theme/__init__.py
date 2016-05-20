@@ -2,8 +2,8 @@
 """
     MoinMoin - Theme Package
 
-    Copyright (c) 2003 by Thomas Waldmann
-    All rights reserved, see COPYING for details.
+    @copyright: 2003-2005 by Thomas Waldmann (MoinMoin:ThomasWaldmann)
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin import i18n, wikiutil, config, version
@@ -172,12 +172,12 @@ class ThemeBase:
         """ Assemble the username / userprefs link
         
         @param d: parameter dictionary
-        @rtype: string
+        @rtype: unicode
         @return: username html
         """
-        from MoinMoin.Page import Page
         request = self.request
         _ = request.getText
+        preferencesPage = wikiutil.getSysPage(request, 'UserPreferences')
         
         userlinks = []
         # Add username/homepage link for registered users. We don't care
@@ -186,18 +186,16 @@ class ThemeBase:
             homepage = Page(request, request.user.name)
             title = homepage.split_title(request)
             homelink = homepage.link_to(request, text=title)
-            userlinks.append(homelink)
-        
+            userlinks.append(homelink)        
             # Set pref page to localized Preferences page
-            prefpage = wikiutil.getSysPage(request, 'UserPreferences')
-            title = prefpage.split_title(request)
-            userlinks.append(prefpage.link_to(request, text=title))
+            title = preferencesPage.split_title(request)
+            userlinks.append(preferencesPage.link_to(request, text=title))
         else:
             # Add prefpage links with title: Login
-            prefpage = wikiutil.getSysPage(request, 'UserPreferences')
-            userlinks.append(prefpage.link_to(request, text=_("Login")))
+            userlinks.append(preferencesPage.link_to(request, text=_("Login")))
             
-        html = '<ul id="username"><li>%s</li></ul>' % '</li>\n<li>'.join(userlinks)
+        userlinks = [u'<li>%s</li>\n' % link for link in userlinks]
+        html = u'<ul id="username">\n%s</ul>' % ''.join(userlinks)
         return html
 
     # Schemas supported in toolbar links, using [url label] foramrt
@@ -228,7 +226,6 @@ class ThemeBase:
                 pagename = title = text
 
             # Handle [url title] format
-            from MoinMoin import config
             for scheme in self.linkSchemas:
                 if pagename.startswith(scheme):
                     title = wikiutil.escape(title)
@@ -272,16 +269,20 @@ class ThemeBase:
         @rtype: unicode
         @return: shortened version.
         """
-        maxlen = 25
+        maxLength = self.maxPagenameLength()
         # First use only the sub page name, that might be enough
-        if len(name) > maxlen:
+        if len(name) > maxLength:
             name = name.split('/')[-1]
-            # If its not enough, cut the middle
-            if len(name) > maxlen:
-                # Replace middle with '...', keep total at maxlen
-                name = name[:11] + u'...' + name[-11:]
+            # If its not enough, replace the middle with '...'
+            if len(name) > maxLength:
+                half, left = divmod(maxLength - 3, 2)
+                name = u'%s...%s' % (name[:half + left], name[-half:])
         return name
         
+    def maxPagenameLength(self):
+        """ Return maximum length for shortened page names """
+        return 25 
+
     def navibar(self, d):
         """ Assemble the navibar
 
@@ -459,7 +460,7 @@ class ThemeBase:
 <ul id="pagetrail">
 %s
 </ul>''' % '\n'.join(items)
-            return html
+                return html
         return ''
 
     def html_stylesheets(self, d):
@@ -650,7 +651,7 @@ function searchFocus(e) {
     // Update search input content on focus
     if (e.value == '%(search_hint)s') {
         e.value = '';
-        e.style.color = 'black';
+        e.className = '';
         searchIsDisabled = false;
     }
 }
@@ -659,7 +660,7 @@ function searchBlur(e) {
     // Update search input content on blur
     if (e.value == '') {
         e.value = '%(search_hint)s';
-        e.style.color = 'gray';
+        e.className = 'disabled';
         searchIsDisabled = true;
     }
 }
@@ -994,12 +995,15 @@ actionsMenuInit('%(label)s');
         @rtype: unicode
         @return: page div with language and direction attribtues
         """
-        return u'<div id="page"%s><!-- start page -->\n' % \
-               self.content_lang_attr()
+        return u'<div id="page"%s>\n' % self.content_lang_attr()
             
     def endPage(self):
-        """ End page div """
-        return '</div> <!-- end page -->\n'        
+        """ End page div 
+        
+        Add an empty page bottom div to prevent floating elements to
+        float out of the page bottom over the footer.
+        """
+        return '<div id="pagebottom"></div>\n</div>\n'        
     
     # Public functions #####################################################
 

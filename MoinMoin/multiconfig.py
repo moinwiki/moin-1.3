@@ -1,8 +1,6 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - Multiple config handler
-    and
-    MoinMoin - Configuration defaults class
+    MoinMoin - Multiple config handler and Configuration defaults class
 
     @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
@@ -11,8 +9,9 @@
 import re, os, sys
 from MoinMoin import error
 
-
 _url_re = None
+config = {}
+
 def url_re():
     """ Return url matching regular expression
 
@@ -62,9 +61,10 @@ def getConfig(url):
         for name, value in match.groupdict().items():
             if value: break
 
-        # FIXME: we should cache config objects by wiki url and return
-        # here a ready to use config, instead of creating new instance
-        # for each request.
+        try:
+            return config[name]
+        except KeyError:
+            pass
         
         try:
             module =  __import__(name, globals(), {})
@@ -72,8 +72,9 @@ def getConfig(url):
             if Config:
                 # Config found, return config instance using name as
                 # site identifier (name must be unique of our url_re).
-                cfg = Config(name)
-                return cfg
+                # NOTE that this may reevaluate the Config and spawn
+                # multiple configs for one wiki in a farm.
+                return config.setdefault(name, Config(name))
             else:
                 # Broken config file, probably old config from 1.2
                 msg = '''
@@ -180,6 +181,7 @@ class DefaultConfig:
     datetime_fmt = '%Y-%m-%d %H:%M:%S'
     default_lang = 'en'
     default_markup = 'wiki'
+    docbook_html_dir = r"/usr/share/xml/docbook/stylesheet/nwalsh/html/" # correct for debian sarge
     edit_locking = 'warn 10' # None, 'warn <timeout mins>', 'lock <timeout mins>'
     edit_rows = 30
     hosts_deny = []
@@ -189,6 +191,8 @@ class DefaultConfig:
     html_head_index   = '''<meta name="robots" content="index,follow">\n'''
     html_head_normal  = '''<meta name="robots" content="index,nofollow">\n'''
     html_pagetitle = None
+
+    lupy_search = False # disabled until lupy is finished
 
     mail_login = None # or "user pwd" if you need to use SMTP AUTH
     mail_smarthost = None
@@ -253,9 +257,9 @@ class DefaultConfig:
     
     # a regex of HTTP_USER_AGENTS that should be excluded from logging
     # and receive a FORBIDDEN for anything except viewing a page
-    ua_spiders = ('archiver|crawler|curl|google|holmes|htdig|httrack|httpunit|jeeves|larbin|leech|'
-                  'linkbot|linkmap|linkwalk|mercator|mirror|nutbot|robot|scooter|'
-                  'search|sherlock|sitecheck|spider|wget')
+    ua_spiders = ('archiver|cfetch|crawler|curl|gigabot|google|holmes|htdig|httrack|httpunit|jeeves|larbin|leech|'
+                  'linkbot|linkmap|linkwalk|mercator|mirror|msnbot|nutbot|puf|robot|scooter|'
+                  'search|sherlock|sitecheck|spider|teleport|wget')
 
     # Wiki identity
     sitename = u'Untitled Wiki'
@@ -264,6 +268,23 @@ class DefaultConfig:
     interwikiname = None
     
     url_mappings = {}
+
+    # defaults for UserPreferences checkbox options
+    user_checkbox_defaults = {'edit_on_doubleclick': 0,
+                              'remember_last_visit': 0,
+                              'show_fancy_links':    1,
+                              'show_nonexist_qm':    nonexist_qm,
+                              'show_page_trail':     1,
+                              'show_toolbar':        1,
+                              'show_topbottom':      0,
+                              'show_fancy_diff':     1,
+                              'wikiname_add_spaces': 0,
+                              'remember_me':         1,
+                              'want_trivial':        0,
+                              }
+    # don't let the user change those
+    # user_checkbox_disable = ['disabled', 'want_trivial']
+    user_checkbox_disable = []
     
     xmlrpc_putpage_enabled = 0 # if 0, putpage will write to a test page only
     xmlrpc_putpage_trusted_only = 1 # if 1, you will need to be http auth authenticated
@@ -284,6 +305,9 @@ class DefaultConfig:
 
         # Load plugin module
         self._loadPluginModule()
+
+        # Preparse user dicts
+        self._fillDicts()
         
         # Normalize values
         self.default_lang = self.default_lang.lower()
@@ -323,6 +347,10 @@ class DefaultConfig:
         # we replace any string placeholders with config values
         # e.g u'%(page_front_page)s' % self
         self.navi_bar = [elem % self for elem in self.navi_bar]
+
+        # list to cache lupy searcher objects
+        self.lupy_searchers = []
+
 
     def _config_check(self):
         """ Check namespace and warn about unknown names
@@ -478,7 +506,18 @@ Make sure your data directory path is correct, check permissions, and
 that the data/plugin directory has an __init__.py file.
 ''' % {'path': self.data_dir, 'err': str(err)}
             raise error.ConfigurationError(msg)
-            
+
+    def _fillDicts(self):
+        """ fill config dicts
+
+        Fills in missing dict keys of derived user config by copying
+        them from this base class.
+        """
+        # user checkbox defaults
+        for key, value in DefaultConfig.user_checkbox_defaults.items():
+            if not self.user_checkbox_defaults.has_key(key):
+                self.user_checkbox_defaults[key] = value
+
     def __getitem__(self, item):
         """ Make it possible to access a config object like a dict """
         return getattr(self, item)

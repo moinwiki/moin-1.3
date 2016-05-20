@@ -91,6 +91,6 @@ stats:
 	done
 
 clean:
-	rm POTFILES
-	rm meta.wiki
+	rm -f POTFILES
+	rm -f meta.wiki
 

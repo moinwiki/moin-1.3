@@ -6,7 +6,7 @@
     @license: GNU GPL, see COPYING for details.
 """
     
-import os, re, difflib
+import os, re, difflib, urllib
 
 from MoinMoin import util, version, config
 from MoinMoin.util import pysupport
@@ -98,41 +98,20 @@ def decodeUserInput(s, charsets=[config.charset]):
 # FIXME: better name would be quoteURL, as this is useful for any
 # string, not only wiki names.
 def quoteWikinameURL(pagename, charset=config.charset):
-    """
-    Return a simple encoding of filename in plain ascii.
+    """ Return a url encoding of filename in plain ascii
 
-    Warning: will raise UnicodeError if pagename can not be encoded
-    using charset. The default config.charset, 'utf-8', can encode any
-    character.
+    Use urllib.quote to quote any character that is not always safe. 
 
-    FIXME: isn't it better to use here urllib.quote instead of duplicating
-    the code? If we use cgi, urllib is already available. if we do
-    duplicate the code from urllib, why we don't use also fast_quote as
-    urllib does?
-
-    FIXME: If we don't use urllib.quote, maybe this is cleaner and faster
-    to use re, in the same way quoteWikinameFS works.
-    
-    @param pagename: the original pagename, maybe containing non-ascii chars
+    @param pagename: the original pagename (unicode)
+    @charset: url text encoding, 'utf-8' recommended. Other charsert
+              might not be able to encode the page name and raise
+              UnicodeError. (default config.charset ('utf-8')).
     @rtype: string
-    @return: the quoted filename, all special chars encoded in (xx)
+    @return: the quoted filename, all unsafe characters encoded
     """
-    safe = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/+-_,\'*'
-    pagename = pagename.replace(u' ', u'_') # " " -> "_"
-    filename = pagename.encode(charset)
-    
-    res = list(filename)
-    c = None
-    for i in range(len(res)):
-        prev = c
-        c = res[i]
-        if c not in safe:
-            # FIXME: why are we doing this?
-            if c == '.' and prev == '/':
-                res[i] = '(%02x)' % ord(c)
-            else:
-                res[i] = '%%%02x' % ord(c)
-    return ''.join(res)
+    pagename = pagename.replace(u' ', u'_')
+    pagename = pagename.encode(charset)
+    return urllib.quote(pagename)
 
 
 def escape(s, quote=0):
@@ -588,11 +567,6 @@ def importPlugin(cfg, kind, name, function="execute"):
         
     return plugin
 
-
-# Here we cache our plugins until we have a wiki object.
-# WARNING: do not access directly in threaded enviromnent!
-_wiki_plugins = {}
-
 def importWikiPlugin(cfg, kind, name, function):
     """ Import plugin from the wiki data directory
     
@@ -607,19 +581,20 @@ def importWikiPlugin(cfg, kind, name, function):
     @rtype: callable
     @return: "function" of module "name" of kind "kind", or None
     """
-    global _wiki_plugins
 
     # Wiki plugins are located under 'wikiconfigname.plugin' module.
     modulename = '%s.plugin.%s.%s' % (cfg.siteid, kind, name)
     key = (modulename, function)
     try:
         # Try cache first - fast!
-        plugin = _wiki_plugins[key]
-    except KeyError:
+        plugin = cfg._wiki_plugins[key]
+    except (KeyError, AttributeError):
         # Try to import from disk and cache result - slow!
         plugin = pysupport.importName(modulename, function)
-        _wiki_plugins[key] = plugin
-
+        try:
+            cfg._wiki_plugins[key] = plugin
+        except AttributeError:
+            cfg._wiki_plugins = {key: plugin}
     return plugin
 
 # If we use threads, make this function thread safe
@@ -686,9 +661,6 @@ def getParserForExtension(cfg, extension):
     @rtype: class, None
     @returns: the parser class or None
     """
-    ##
-    ## this is not a caching until cfg is persistent between requests!!!
-    ##
     if not hasattr(cfg, '_EXT_TO_PARSER'):
         import types
         etp, etd = {}, None
@@ -702,8 +674,6 @@ def getParserForExtension(cfg, extension):
                             etp[ext] = Parser
                     elif str(exts) == '*':
                         etd = Parser
-        # Cache in cfg for current request - this is not thread safe
-        # when cfg will be cached per wiki in long running process.
         cfg._EXT_TO_PARSER = etp
         cfg._EXT_TO_PARSER_DEFAULT = etd
         
@@ -795,10 +765,9 @@ def taintfilename(basename):
     @rtype: string
     @return: (safer) filename
     """
-    basename = basename.replace(os.pardir, '_')
-    basename = basename.replace(':', '_')
-    basename = basename.replace('/', '_')
-    basename = basename.replace('\\', '_')
+    for x in (os.pardir, ':', '/', '\\', '<', '>'):
+        basename = basename.replace(x, '_')
+
     return basename
 
 
@@ -1033,6 +1002,7 @@ def send_title(request, text, **keywords):
     page_front_page = getFrontPage(request).page_name
     page_help_contents = getSysPage(request, 'HelpContents').page_name
     page_title_index = getSysPage(request, 'TitleIndex').page_name
+    page_site_navigation = getSysPage(request, 'SiteNavigation').page_name
     page_word_index = getSysPage(request, 'WordIndex').page_name
     page_user_prefs = getSysPage(request, 'UserPreferences').page_name
     page_help_formatting = getSysPage(request, 'HelpOnFormatting').page_name
@@ -1064,7 +1034,9 @@ def send_title(request, text, **keywords):
     # for the original, English pages as well as for (the possibly
     # modified) frontpage:
     elif pagename in [page_front_page, request.cfg.page_front_page,
-                      page_title_index, ]:
+                      page_title_index, 'TitleIndex',
+                      page_find_page, 'FindPage',
+                      page_site_navigation, 'SiteNavigation',]:
         user_head.append(request.cfg.html_head_index)
     # if it is a normal page, index it, but do not follow the links, because
     # there are a lot of illegal links (like actions) or duplicates:

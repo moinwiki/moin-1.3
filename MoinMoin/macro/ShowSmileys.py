@@ -57,7 +57,7 @@ def execute(macro, args):
     if data:
         browser = DataBrowserWidget(macro.request)
         browser.setData(data)
-        return browser.toHTML()
+        return fmt.rawHTML(browser.toHTML())
 
     return ''
 

@@ -1,7 +1,5 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:Unknown-Page
 ##master-date:Unknown-Date
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
@@ -10,7 +8,7 @@
 == Table Markup ==
 To create a table, you start and end a line using the table marker "{{{||}}}". Between those start and end markers, you can create any number of cells by separating them with "{{{||}}}". To get a centered cell that spans several columns, you start that cell with more than one cell marker. Adjacent lines of the same indent level containing table markup are combined into one table.
 
-For more information on the possible markup, see HelpOnEditing. 
+For more information on the possible markup, see HelpOnEditing.
 
 === Table Attributes ===
 
@@ -27,7 +25,7 @@ The wiki-like markup has the following options:
  * {{{<class="...">}}} will put that CSS class into cell (td) html
  * {{{<id="...">}}} will put that CSS id into cell (td) html
 
-The style stuff is ''all you need'' for styling your tables. Just use CSS formatted style there and it will be inlined in the generated HTML tag. Alternatively, extend moin's CSS by your own definitions and refer to them using class or id.
+The style stuff is ''all you need'' for styling your tables. Just use CSS formatted style there and it will be inlined in the generated HTML tag. Alternatively, the admin and the user (the admin in the theme file, the user via [[GetText(UserPreferences)]] can extend moin's CSS by his own definitions, so users can refer to them using class or id. You can use several options at the same time by writing them one after the other within the same angle brackets (e.g. {{{<tablestyle="..." rowstyle="...">}}} on the first cell, to set both the table-wide style and the first-row style).
 
 We still support the old table markup, but generate the effect by appending additional values to the `style` parameter:
  * {{{<50%>}}}: cell width (will append `width: 50%;` to style)
@@ -84,7 +82,7 @@ If you use several conflicting options like {{{<(:)>}}}, the last option wins. T
  ||<)> right ||
  Colors::
  ||<#FF8080> red ||<#80FF80> green ||<#8080FF> blue ||
-}}} 
+}}}
 
 === Display ===
  NEW STYLE: General table layout and HTML like options::
@@ -125,3 +123,4 @@ If you use several conflicting options like {{{<(:)>}}}, the last option wins. T
 
 === Insert Table Data from other sources ===
  * comma separated values: see wiki:Self:HelpOnParsers#csvparser
+ * include wiki pages: see wiki:Self:HelpOnMacros/Include

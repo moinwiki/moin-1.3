@@ -1,0 +1,45 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+
+[[Navigation(siblings)]]
+
+此宏命令会把指定页面中预格式的内容包含进插入位置，并且会递归的包含已经被包含的页面。系统将会自动探测并防止出现循环包含！
+
+'''用法：'''
+ {{{
+[[Include(pagename, heading, level, from="regex", to="regex", sort=ascending|descending, items=n, skipitems=n, titlesonly)]]
+}}}
+
+ pagename:: 需要包含的页面名，如果本参数以 "`^`" 开头，它将被作为正则表达式处理，并包含所有匹配的页面。
+ heading::  为引用部分增加一个标题（需要使用 "`'`" 包含，以防止其中的特殊字符过早被解释，本项为可选项）。
+ level::    为上一项所增加的标题定义标题级别（可用级别为1..5，本项为可选项）。
+ from::     需要包含页面中的部分内容时，选中内容的起始标志（可选项）。
+ to::       需要包含页面中的部分内容时，选中内容的结束标志（可选项）。
+ sort::     当 pagename 为正则表达式时，也就是以 "`^`" 开头时，所包含的页面的排序方式（可选项）。
+ items::    当使用正则表达式匹配到多个页面时，可以用此参数限制最多能显示出的页面个数（可选项）。
+ skipitems:: 当使用正则表达式匹配到多个页面时，可以使用此参数指定跳过前面的若干页面不显示（可选项）。
+ titlesonly:: 包含一个指向页面的链接，而不是页面的内容（可选项）。
+ 
+除了 pagename 以外的其他参数均为可选项，但是您必须遵循参数的顺序！如果你需要隐含 "`heading`" 参数，您必须使第二个参数值为空。
+
+'''示例：'''
+ * `[[Include(FooBar)]]` -- 将页面 `FooBar` 的内容包含入当前段落。
+ * `[[Include(FooBar, )]]` -- 为包含的内容增加一个内容为 'Foo Bar' 的H1标题
+ * `[[Include(FooBar, , 2)]]` -- 为包含的内容增加一个内容为 'Foo Bar' 的H2标题
+ * `[[Include(FooBar, 'All about Foo Bar', 2)]]` -- 增加一个 'All about Foo Bar' 的H2标题 
+ * `[[Include(FooBar, , from="^----$")]]` -- 仅包含第一条横线后的内容
+ * `[[Include(FooBar, , to="^----$")]]` -- 仅包含第一条横线以前的内容
+ * `[[Include(^FooBar/.*, , sort=descending)]]` -- 使包含的页按页面名称的字母顺序降序排列
+ * `[[Include(^FooBar/.*, , items=3)]]` -- 最多包含入3个页面
+ * `[[Include(^BlogBase/.*,, to="^----$", sort=descending, items=7)]]` -- 最多显示一个星期的blog项目
+ * `[[Include(^BlogBase/.*,, to="^----$", sort=descending, items=7, skipitems=7, titlesonly)]]` -- 仅显示上个星期的标题
+ * 您可以将本宏命令与 MoinMoin:MonthCalendar 结合使用来实现 blogging 功能：
+  * `[[Include(^FirstnameLastname/20..-..-..,,to="^----",sort=descending,items=3)]]` -- 显示月历中的最近的三个项目
+  * `[[Include(^FirstnameLastname/20..-..-..,,to="^----",sort=descending,items=4,skipitems=3,titlesonly)]]` -- 只显示下面的4个标题
+
+此页的英文版本：HelpOnMacros/Include

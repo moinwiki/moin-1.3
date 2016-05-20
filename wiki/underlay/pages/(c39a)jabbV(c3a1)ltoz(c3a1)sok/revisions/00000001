@@ -1,0 +1,18 @@
+##master-page:RecentChanges
+##master-date:2005-04-10 17:53:29
+#format wiki
+#language hu
+
+||<tablestyle="width: 100%; background: #E6EAF0; font-size: 0.85em;"> [[RandomQuote()]]||
+
+[[RecentChanges]]
+
+##végül de nem utolsósorban egy véletlen lap: [[RandomPage(1)]]
+
+||<:> [[Icon(diffrc)]] || régebbi lap, melyhez legalább egy elmentett változat tartozik (a szerzői különbségek megjelenítéséért kattintson rá)||
+||<:> [[Icon(updated)]] || könyvjelző hozzáadása után szerkesztett lap (a könyvjezői különbségek megjelenítéséért kattintson rá)||
+||<:> [[Icon(new)]] || könyvjelző hozzáadása után már nem szerkesztett lap||
+||<:> [[Icon(deleted)]] || laptörlés||
+----
+Ezen az oldalon a wikiben történt újabb változások listája szerepel.
+További információkat a RendszerInfó``tól kaphat. Más wikikben történt változásokat az OpenWiki:WikiSites/Aggregation lapon találhat.

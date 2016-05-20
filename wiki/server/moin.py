@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 """
     Start script for the standalone Wiki server.
-    Use this for small, private and local wikis *ONLY*,
-    like when using on your local PC or notebook.
 
     @copyright: 2004-2005 Thomas Waldmann, Nir Soffer
     @license: GNU GPL, see COPYING for details.
@@ -30,6 +28,7 @@ from MoinMoin.server.standalone import StandaloneConfig, run
 class Config(StandaloneConfig):
 
     # Path to moin shared files (default '/usr/share/moin/wiki/htdocs')
+    # If you installed with --prefix=PREFIX, use 'PREFIX/share/moin/wiki/htdocs'
     docs = '/usr/share/moin/htdocs'
 
     # The server will run with as this user and group (default 'www-data')
@@ -42,12 +41,34 @@ class Config(StandaloneConfig):
 
     # Interface (default 'localhost')
     # The default will listen only to localhost.
-    # '' - will listen to any interface
+    # '' will listen to any interface
     interface = 'localhost'
 
     # Log (default commented)
     # Log is written to stderr or to a file you specify here.
     ## logPath = 'moin.log'
+
+    # Server class (default ThreadPoolServer)
+    # 'ThreadPoolServer' - create a constant pool of threads, simplified
+    # Apache worker mpm.
+    # 'ThreadingServer' - serve each request in a new thread. Much
+    # slower for static files.
+    # 'ForkingServer' - serve each request on a new child process -
+    # experimental, slow.
+    # 'SimpleServer' - server one request at a time. Fast, low
+    # memory footprint.
+    # If you set one of the threading servers and threads are not
+    # available, the server will fallback to ForkingServer. If fork is
+    # not available, the server will fallback to SimpleServer.
+    serverClass = 'ThreadPoolServer'
+    
+    # Thread limit (default 10)
+    # Limit the number of threads created. Ignored on non threaded servers.
+    threadLimit = 10
+
+    # Request queue size (default 50)
+    # The size of the socket listen backlog.
+    requestQueueSize = 50
     
     # Memory profile (default commented)
     # Useful only if you are a developer or interested in moin memory usage

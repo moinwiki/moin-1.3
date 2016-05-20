@@ -7,7 +7,7 @@
 #language en
 = What is ReStructured Text? =
 
-!ReStructuredText is an easy-to-read, what-you-see-is-what-you-get plaintext markup syntax and parser system. It is useful for in-line program documentation (such as Python docstrings), for quickly creating simple web pages, and for stand-alone documents. !ReStructuredText is designed for extensibility for specific application domains. !ReStructuredText is a revision and re-interpretation of the !StructuredText and Setext lightweight markup systems.
+Re``Structured``Text is an easy-to-read, what-you-see-is-what-you-get plaintext markup syntax and parser system. It is useful for in-line program documentation (such as Python docstrings), for quickly creating simple web pages, and for stand-alone documents. Re``Structured``Text is designed for extensibility for specific application domains. Re``Structured``Text is a revision and re-interpretation of the Structured``Text and Setext lightweight markup systems.
 
 = ReStructuredText Parser =
 

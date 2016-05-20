@@ -1,7 +1,5 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpOnMacros
 ##master-date:
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
@@ -16,6 +14,8 @@ Makros erlauben das Einfügen von System-Eigenschaften in normale Wiki-Seiten; d
 Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEditieren.
 
 === Such-Makros ===
+MoinMoin benutzt nun eine neue Suchmaschine, die Sie anspruchsvolle Suchen sowohl mit den interaktiven Suchfunktionen als auch mit den Suchmakros ausführen lassen. Für weitere Hilfe, siehe HilfeZumSuchen.
+
 ||'''Makro'''||'''Beschreibung'''||'''Beispiel'''||
 ||{{{[[TitleSearch]]}}}     || durchsucht die Seitentitel  || siehe die SeiteFinden-Seite ||
 ||{{{[[FullSearch]]}}}      || durchsucht den Seiteninhalt || siehe die SeiteFinden-Seite ||

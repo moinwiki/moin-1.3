@@ -8,7 +8,7 @@
 
 import unittest
 from MoinMoin import error
-from MoinMoin._tests import request, TestConfig
+from MoinMoin._tests import TestConfig
 
 
 class EncodingTestCase(unittest.TestCase):
@@ -43,16 +43,5 @@ class EncodingTestCase(unittest.TestCase):
         test = 'value'
         err = error.Error(test)
         self.assertEqual('%(message)s' % err, test)
-        
-        
-# This let you run each test from the command line. When run with 
-# "make test" it is not used.     
-def suite():
-    test_cases = [unittest.makeSuite(obj, 'test') 
-        for name, obj in globals().items()
-        if name.endswith('TestCase')]
-    return unittest.TestSuite(test_cases)
-    
-if __name__ == '__main__':
-    unittest.TextTestRunner(verbosity=2).run(suite())
+
 

@@ -1,22 +1,49 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - Unit tests
+MoinMoin Testing Framework
+--------------------------
 
-    Sub package containing all unit tests. This is currently NOT
-    installed.
+All test modules must be named test_modulename to be included in the
+test suit. If you are testing a package, name the test module
+test_pakcage_module.
 
-    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
-    @license: GNU GPL, see COPYING for details.
+Each test_ module may contain test case classes sub classed from
+unittest.TestCase or subclass of it. Previous versions required TestCase
+suffix, but now its only a convention.
+
+Each test case class may contain multiply test methods, that must start
+with 'test'. Those methods will be run by the test suites.
+
+Test that need the current request, for example to create a page
+instance, can refer to self.request. It is injected into all test case
+classes by the framework.
+
+Tests that require certain configuration, like section_numbers = 1, must
+use a TestConfig to create the required configuration before the
+test. Deleting the TestConfig instance will restore the previous
+configuration.
+
+See _test_template.py for an example, and use it to create new tests.
+
+Typical Usage
+-------------
+
+Running all test in this package::
+
+    from MoinMoin._tests import run
+    run(request)
+
+Running only few modules::
+
+    run(request, names=['test_this', 'test_that'])
+
+@copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+@license: GNU GPL, see COPYING for details.
 """
 
-import os
-import sys
-import unittest
-from MoinMoin import config, multiconfig, user
-from MoinMoin.util import pysupport
+from unittest import TestLoader, TextTestRunner
 
 
-# Exceptions
 class TestSkiped(Exception):
     """ Raised when a tests is skipped """
 
@@ -31,25 +58,29 @@ class TestConfig:
     When you set custom values in a TestConfig, the previous values are saved,
     and when the TestConfig is deleted, they are restored automatically.
     
-    Typical use:
-
+    Typical Usage
+    ------------
+    ::
         from MoinMoin._tests import TestConfig
         class SomeTestCase(unittest.TestCase):
             def setUp(self):
-                self.config = TestConfig(defaults=key_list, key=value,...)              
+                self.config = TestConfig(self.request,
+                                         defaults=key_list, key=value,...)
             def tearDown(self):
                 del self.config
             def testSomething(self):
                 # test that needs those defaults and custom values
     """
     
-    def __init__(self, defaults=(), **custom):
+    def __init__(self, request, defaults=(), **custom):
         """ Create temporary configuration for a test 
-        
+
+        @param request: current request
         @param defaults: list of keys that should use the default value
         @param **custom: other keys using non default values, or new keys
                that request.cfg does not have already
         """
+        self.request = request
         self.old = {}  # Old config values
         self.new = []  # New added attributes
         self.setDefaults(defaults)
@@ -60,9 +91,10 @@ class TestConfig:
         
         Non existing default will raise an AttributeError.
         """
+        from MoinMoin.multiconfig import DefaultConfig
         for key in defaults:
-            self._setattr(key, getattr(multiconfig.DefaultConfig, key))              
-    
+            self._setattr(key, getattr(DefaultConfig, key))
+            
     def setCustom(self, **custom):
         """ Set custom values """
         for key, value in custom.items():
@@ -70,11 +102,11 @@ class TestConfig:
     
     def _setattr(self, key, value):
         """ Set a new value for key saving new added keys """
-        if hasattr(request.cfg, key):
-            self.old[key] = getattr(request.cfg, key)
+        if hasattr(self.request.cfg, key):
+            self.old[key] = getattr(self.request.cfg, key)
         else:
             self.new.append(key)
-        setattr(request.cfg, key, value)        
+        setattr(self.request.cfg, key, value)        
        
     def __del__(self):
         """ Restore previous request.cfg 
@@ -82,63 +114,59 @@ class TestConfig:
         Set old keys to old values and delete new keys.
         """
         for key, value in self.old.items():
-            setattr(request.cfg, key, value)
+            setattr(self.request.cfg, key, value)
         for key in self.new:
-            delattr(request.cfg, key)
+            delattr(self.request.cfg, key)
 
 
-# Request instance for tests
-request = None
+class MoinTestLoader(TestLoader):
+    """ Customized test loader that support long running process
 
-def makeSuite():
-    """ Automatically create tests and test suites for all tests.
-
-        For this to work, test modules must reside in MoinMoin._tests
-        (i.e. right here) and have names starting with "test_", and
-        contain test cases with names ending in "TestCase". Each test case
-        may contain multiply testAABBCC methods. Those methods will be run by 
-        the test suites. See _test_template.py for an example, and use it to
-        create new tests.
+    To enable testing long running process, we inject the current
+    request into each test case class. Later, each test can refer to
+    request as self.request.
     """
-    result = unittest.TestSuite()
-    test_modules = pysupport.getPackageModules(__file__)
-    # Sort test modules names by case insensitive compare to get nicer output
-    caseInsensitiveCompare = lambda a, b: cmp(a.lower(), b.lower())
-    test_modules.sort(caseInsensitiveCompare)
+    def __init__(self, request):
+        self.request = request
 
-    for mod_name in test_modules:
-        if not mod_name.startswith('test_'): continue
-
-        # Import module
-        module = __import__(__name__ + '.' + mod_name, 
-        	globals(), locals(), ['__file__'])
-        # Collect TestCase and create suite for each one
-        test_cases = [unittest.makeSuite(obj, 'test') 
-            for name, obj in module.__dict__.items()
-            if name.endswith('TestCase')]
-        
-        # Add tests suites
-        if test_cases:
-            suite = unittest.TestSuite(test_cases)
-            result.addTest(suite)
-
-    return result
+    def loadTestsFromTestCase(self, testCaseClass):
+        testCaseClass.request = self.request
+        return TestLoader.loadTestsFromTestCase(self, testCaseClass)        
 
 
-def run(provided_request=None):
-    global request
+def makeSuite(request, names=None):
+    """ Create test suites from modules in names
 
-    if provided_request:
-        request = provided_request
-    else:
+    @param request: current request
+    @param names: module names to get tests from. If the list is empty,
+        all test modules in the _tests package are used.
+    @rtype: C{unittest.TestSuite}
+    @return: test suite with all test cases in names
+    """
+    if not names:
+        from MoinMoin.util.pysupport import getPackageModules
+        names = getPackageModules(__file__)
+        names = ['%s.%s' % (__name__, name) for name in names
+                 if name.startswith('test_')]
+        caseInsensitiveCompare = lambda a, b: cmp(a.lower(), b.lower())
+        names.sort(caseInsensitiveCompare)
+    loader = MoinTestLoader(request)
+    return loader.loadTestsFromNames(names)
+
+
+def run(request=None, names=None):
+    """ Run test suit
+
+    @param request: current request
+    @param names: list fully qualified module names to test,
+        e.g MoinMoin._tests.test_error
+    """
+    if request is None:
         from MoinMoin.request import RequestCLI
-        request = RequestCLI()
-    
+        from MoinMoin.user import User
+        request = RequestCLI()   
         request.form = request.args = request.setup_args()
-        # {'query_string': 'action=print'}
-
-        request.user = user.User(request)
-
-    suite = makeSuite()
-    unittest.TextTestRunner(stream=request, verbosity=2).run(suite)
-
+        request.user = User(request)
+        
+    suite = makeSuite(request, names)
+    TextTestRunner(stream=request, verbosity=2).run(suite)

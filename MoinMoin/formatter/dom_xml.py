@@ -92,9 +92,10 @@ class Formatter(FormatterBase):
 
     def _close_tag(self, tag):
         """ low level function: closes tag right now
-            must be the last opend tag!!!
+            must be the last opened tag!!!
         """
-        if tag=='p': self.in_p = 0 #XXX
+        if tag == 'p':
+            self.in_p = 0 #XXX
         if self.tag_stack[-1][0] != tag:
             raise ValueError, "<%s> expected <%s> given" % (self.tag_stack[-1][0], tag)
         self.position = self.position.parentNode
@@ -163,12 +164,13 @@ class Formatter(FormatterBase):
         return ''
 
     def _check_p(self, opening_tag=None):
-        if ((opening_tag is not None) and
-            (opening_tag not in self.need_p)):
+        if (opening_tag is not None) and (opening_tag not in self.need_p):
             return
         for tag in self.tag_stack:
-            if tag[0] in self.no_p_after: return
-        if self.in_p: return
+            if tag[0] in self.no_p_after:
+                return
+        if self.in_p:
+            return
         self.in_p = 1
         self._open_tag('p', type=str(opening_tag))
 
@@ -181,7 +183,7 @@ class Formatter(FormatterBase):
         return self._set_tag('sysmesg', on, **kw)
 
     def startDocument(self, pagename):
-        return ""
+        return ''
 
     def endDocument(self):
         #return self.document.documentElement.toxml()
@@ -189,18 +191,6 @@ class Formatter(FormatterBase):
 
     def lang(self, on, lang_name):
         return self._set_tag('lang', on, value=lang_name)
-
-    def rawHTML(self, markup):
-        """ This allows emitting pre-formatted HTML markup, and should be
-            used wisely (i.e. very seldom).
-
-            Using this event while generating content results in unwanted
-            effects, like loss of markup or insertion of CDATA sections
-            when output goes to XML formats.
-        """
-        ## XXX
-        self.text(markup)
-        return ''
 
     def pagelink(self, on, pagename='', page=None, **kw):
         apply(FormatterBase.pagelink, (self, pagename, page), kw)
@@ -218,9 +208,9 @@ class Formatter(FormatterBase):
         # call the macro
         return self._add_tag('macro', name=name, args=(args or ''))
 
-    def processor(self, processor_name, lines, is_parser = 0):
+    def processor(self, processor_name, lines, is_parser=0):
         """ processor_name MUST be valid!
-            writes out the result insted of returning it!
+            writes out the result instead of returning it!
         """
         node = self.document.createElement('processor')
         node.setAttribute('name', processor_name)
@@ -268,6 +258,9 @@ class Formatter(FormatterBase):
 
     def icon(self, type):
         return self._add_tag('icon', type=type)
+
+    def smiley(self, type):
+        return self._add_tag('smiley', type=type)
 
     def strong(self, on):
         return self._set_tag('b', on)
@@ -325,16 +318,16 @@ class Formatter(FormatterBase):
     def table_row(self, on, attrs={}):
         return self._set_tag('tr', on, **self._check_attrs(attrs))
 
-
     def table_cell(self, on, attrs={}):
         return self._set_tag('td', on, **self._check_attrs(attrs))
 
     def anchordef(self, name):
         return self._add_tag('anchor', name=name)
 
-    def anchorlink(self, on, name, id = None):
+    def anchorlink(self, on, name, id=None):
         kw = {}
-        if id: kw['id'] = str(id)
+        if id:
+            kw['id'] = str(id)
         return self.url(on, "#" + name, **kw)
 
     def underline(self, on):
@@ -375,9 +368,11 @@ class Formatter(FormatterBase):
         kw = {'id' : code_id,
               'type' : code_type,
               'show' : show,
-              }
-        if start != -1: kw['start'] = start
-        if step != -1: kw['step'] = step
+             }
+        if start != -1:
+            kw['start'] = start
+        if step != -1:
+            kw['step'] = step
         return self._set_tag('codearea', on, **kw)
 
     def code_line(self, on):
@@ -385,3 +380,5 @@ class Formatter(FormatterBase):
 
     def code_token(self, on, tok_type):
         return self._set_tag('codetoken', on, type=tok_type)
+
+

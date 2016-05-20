@@ -6,8 +6,8 @@
     If started from commandline, it prints a merged list (moinmaster + MT) on
     stdout, and what it got additionally from MT on stderr.
     
+    @copyright: 2005 by Thomas Waldmann
     @license: GNU GPL, see COPYING for details
-    @author: Thomas Waldmann
 """
 
 # give some log entries to stderr
@@ -15,12 +15,16 @@ debug = 1
 
 import re, sys, time
 
+try:
+    import sets
+except ImportError:
+    from MoinMoin.support import sets
+
 if __name__ == '__main__':
     sys.path.insert(0, "../..")
 
 from MoinMoin.security import Permissions
 from MoinMoin import caching, wikiutil
-
 
 # Errors ---------------------------------------------------------------
 
@@ -74,6 +78,7 @@ def getblacklist(request, pagename, do_update):
     """
     from MoinMoin.PageEditor import PageEditor
     p = PageEditor(request, pagename, uid_override="Antispam subsystem")
+    invalidate_cache = False
     if do_update:
         tooold = time.time() - 3600
         mymtime = wikiutil.version2timestamp(p.mtime_usecs())
@@ -123,10 +128,12 @@ def getblacklist(request, pagename, do_update):
                                            response)
                     p._write_file(response)
 
-            except (timeoutsocket.Timeout, timeoutsocket.error), err:
+                invalidate_cache = True
+
+            except (timeoutsocket.Timeout, timeoutsocket.error, xmlrpclib.ProtocolError), err:
                 # Log the error
                 # TODO: check if this does not fill the logs!
-                dprint('Timeout or socket error when accessing'
+                dprint('Timeout / socket / protocol error when accessing'
                        ' moinmaster: %s' % str(err))
                 # update cache to wait before the next try
                 failure.update("")
@@ -140,7 +147,7 @@ def getblacklist(request, pagename, do_update):
             timeoutsocket.setDefaultSocketTimeout(old_timeout)
                 
     blacklist = p.get_raw_body()
-    return makelist(blacklist)
+    return invalidate_cache, makelist(blacklist)
 
 
 class SecurityPolicy(Permissions):
@@ -155,16 +162,38 @@ class SecurityPolicy(Permissions):
             request.clock.start('antispam')
             
             blacklist = []
+            invalidate_cache = not getattr(request.cfg, "_mmblcache", None)
             for pn in BLACKLISTPAGES:
                 do_update = (pn != "LocalBadContent")
-                blacklist += getblacklist(request, pn, do_update)
+                invalidate_cache_necessary, blacklist_entries = getblacklist(request, pn, do_update)
+                blacklist += blacklist_entries
+                invalidate_cache |= invalidate_cache_necessary
+
             if blacklist:
-                for blacklist_re in blacklist:
-                    try:
-                        match = re.search(blacklist_re, newtext, re.I)
-                    except re.error, err:
-                        dprint("Error in regex '%s': %s. Please check the pages %s." % (blacklist_re, str(err), ', '.join(BLACKLISTPAGES)))
-                        continue
+                if invalidate_cache:
+                    mmblcache = []
+                    for blacklist_re in blacklist:
+                        try:
+                            mmblcache.append(re.compile(blacklist_re, re.I))
+                        except re.error, err:
+                            dprint("Error in regex '%s': %s. Please check the pages %s." % (blacklist_re, str(err), ', '.join(BLACKLISTPAGES)))
+                            continue
+                    request.cfg._mmblcache = mmblcache
+
+                from MoinMoin.Page import Page
+
+                oldtext = ""
+                if rev > 0: # rev is the revision of the old page
+                    page = Page(request, editor.page_name, rev=rev)
+                    oldtext = page.get_raw_body()
+
+                newset = sets.ImmutableSet(newtext.splitlines(1))
+                oldset = sets.ImmutableSet(oldtext.splitlines(1))
+                difference = newset.difference(oldset)
+                addedtext = ''.join(difference) 
+                
+                for blacklist_re in request.cfg._mmblcache:
+                    match = blacklist_re.search(addedtext)
                     if match:
                         # Log error and raise SaveError, PageEditor
                         # should handle this.

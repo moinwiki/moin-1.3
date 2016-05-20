@@ -1,0 +1,14 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+
+== 笑脸图形 ==
+要插入笑脸图形，只需键入下表中你喜欢的那个即可。只有当图标代号''被两个“空白字符”夹在中间''时，它才会被转化为一个图标。
+
+[[ShowSmileys]]
+
+更多可能出现的 wiki 标记方法，请参见 ["帮助-编辑"] 。

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
 "PO-Revision-Date: 2004-11-27 16:28+0900\n"
 "Last-Translator: Hye-Shik Chang <perky@FreeBSD.org>\n"
 "Language-Team: Korean <moin-devel@lists.sourceforge.net>\n"
@@ -23,6 +23,7 @@ msgstr ""
 "X-Direction: ltr\n"
 "X-Language: 한국어\n"
 "X-Language-in-English: Korean\n"
+"X-HasWikiMarkup: True\n"
 
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
@@ -53,6 +54,10 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "매크로 호출을 넣으세요.-~\n"
 
+#, fuzzy
+msgid "Create New Page"
+msgstr "사용자 등록"
+
 msgid "You are not allowed to view this page."
 msgstr "이 글을 볼 수 있는 권한이 없습니다."
 
@@ -75,6 +80,9 @@ msgstr "옛 글은 고칠 수 없습니다."
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "글 잠금이 풀렸습니다. 다른 사람의 변경사항과 충돌될 경우를 대비하세요!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -479,6 +487,26 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "사용가능한 메일 주소를 써 주세요!"
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "메일 주소가 '%(email)s'로 되어있는 계정이 없습니다!"
@@ -846,6 +874,15 @@ msgstr "설치된 파서"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "설치된 프로세서 (낡음 -- 대신 파서를 쓰세요)"
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr "{{{\"%s\"}}} 대신 좀 더 드문 단어로 다시 찾아 주세요!"
@@ -928,8 +965,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "업로드할 파일"
 
-msgid "Save as"
-msgstr "저장 이름"
+#, fuzzy
+msgid "Rename to"
+msgstr "이름 바꾸기"
 
 msgid "Upload"
 msgstr "업로드"
@@ -1129,10 +1167,6 @@ msgstr "시작"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "슬라이드 총 %(size)d 중 %(pos)d"
 
-#, fuzzy
-msgid "Create New Page"
-msgstr "사용자 등록"
-
 msgid "No orphaned pages in this wiki."
 msgstr "이 위키에는 외톨이 글이 없습니다."
 
@@ -1229,25 +1263,24 @@ msgstr "\"%(key)s\"뒤에는 숫자 \"%(arg)s\"가 필요합니다."
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "\"%(key)s\"뒤에는 색상 값 \"%(arg)s\"가 필요합니다."
 
-msgid "XSLT option disabled!"
-msgstr "XSLT 옵션이 꺼져있습니다!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "XSLT 처리가 지원되지 않습니다."
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "처리중 에러: \"%(errortype)s\""
 
-msgid "RefreshCache"
-msgstr "캐시 갱신"
+#, fuzzy
+msgid "Views/day"
+msgstr "보기"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr " (%(date)s에 캐쉬됨)"
-
-msgid "Charts are not available!"
-msgstr "이 위키에서는 차트 그리기가 지원되지 않습니다."
+#, fuzzy
+msgid "Edits/day"
+msgstr "고침"
 
 # Don't translate some messages from here, they will be used in
 # gdcharts graphs and Hangul characters will not be shown properly.
@@ -1269,6 +1302,9 @@ msgstr "date"
 msgid "# of hits"
 msgstr "# of hits"
 
+msgid "Charts are not available!"
+msgstr "이 위키에서는 차트 그리기가 지원되지 않습니다."
+
 msgid "Page Size Distribution"
 msgstr "Page Size Distribution"
 
@@ -1277,6 +1313,9 @@ msgstr "page size upper bound [bytes]"
 
 msgid "# of pages of this size"
 msgstr "# of pages of this size"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Others"
@@ -1490,6 +1529,18 @@ msgstr "이름바꿈"
 msgid "SpellCheck"
 msgstr "철자검사"
 
+#~ msgid "Save as"
+#~ msgstr "저장 이름"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "XSLT 옵션이 꺼져있습니다!"
+
+#~ msgid "RefreshCache"
+#~ msgstr "캐시 갱신"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr " (%(date)s에 캐쉬됨)"
+
 #~ msgid "MIME Type (optional)"
 #~ msgstr "MIME 타입 (선택사항)"
 
@@ -1498,6 +1549,3 @@ msgstr "철자검사"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"
-
-#~ msgid "Rename"
-#~ msgstr "이름 바꾸기"

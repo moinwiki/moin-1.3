@@ -537,8 +537,6 @@ istnieje już plik o identycznej nazwie, musisz zmienić nazwę zbioru, który c
 W przeciwnym wypadku, kiedy pole "Zmień nazwę" jest puste, zostanie użyta nazwa oryginalna.''',
 '''File to upload''':
 '''Plik do przekazania''',
-'''Save as''':
-'''Zachowaj jako''',
 '''Upload''':
 '''Przekaż''',
 '''File attachments are not allowed in this wiki!''':
@@ -693,18 +691,8 @@ Spróbuj innej nazwy.''',
 '''Spodziewana wartość całkowita "%(arg)s"  po "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Spodziewana wartość koloru "%(arg)s" po "%(key)s"''',
-'''XSLT option disabled!''':
-'''Opcja XSLT wyłączona!''',
-'''XSLT processing is not available!''':
-'''Przetwarzanie XSLT niedostępne!''',
 '''%(errortype)s processing error''':
 '''błąd przetwarzania %(errortype)s''',
-'''RefreshCache''':
-'''Odśwież pamięć podręczną''',
-'''for this page (cached %(date)s)''':
-'''dla tej strony (w pamięci podręcznej od %(date)s)''',
-'''Charts are not available!''':
-'''Wykresy nie są dostępne!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s dla %(filterpage)s''',
 '''green=view
@@ -715,6 +703,8 @@ czerwony=edycja''',
 '''data''',
 '''# of hits''':
 '''# odwiedzin''',
+'''Charts are not available!''':
+'''Wykresy nie są dostępne!''',
 '''page size upper bound [bytes]''':
 '''rozmiar strony [bajtów]''',
 '''# of pages of this size''':

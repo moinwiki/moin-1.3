@@ -1,0 +1,135 @@
+#language hu
+A wikiben előforduló összes rendszerlap listája (beleértve a segédleteket is):
+
+Rendszerlapok:
+ * ÚjabbVáltozások
+ * CímJegyzék
+ * SzóJegyzék
+ * HelyiNavigáció
+ * KeresőLap
+ * FelhasználóiBeállítások
+ * HiányzóLap
+ * ElhagyottLapok
+ * ÁrvaLapok
+ * KívántLapok
+ * EseményStatisztika
+ * EseményStatisztika/TalálatokSzáma
+ * EseményStatisztika/WebKliensek
+ * LapMéretek
+ * LapTalálatok
+ * WikiPiac
+ * VéletlenLap
+ * RendszerInfó
+  * SystemPagesInHungarianGroup
+ * WikiHonlap
+ * WikiNév
+ * WikiHomokozó
+ * WikiWikiHáló
+ * ["AmiértAWikiMűködik"]
+ * XsltVáltozat
+ * MoinMoinLap
+ * MoinMoinLap/SzövegFormázás
+  * KezdőLap -- Ezt ne mozgasd az első szintre, mert nem akarjuk frissíteni!
+ * TippekTrükkökIdézetek
+
+Segédletek:
+ * HelpContents
+ * HelpForBeginners
+ * HelpForDevelopers
+ * HelpIndex
+ * HelpMiscellaneous
+ * HelpMiscellaneous/ExperimentalFeatures
+ * HelpMiscellaneous/FrequentlyAskedQuestions
+ * HelpOnAccessControlLists
+ * HelpOnActions
+ * HelpOnActions/AttachFile
+ * HelpOnAdministration
+ * HelpOnCategories
+ * HelpOnConfiguration
+ * HelpOnConfiguration/CascadingStyleSheets
+ * HelpOnConfiguration/EmailSupport
+ * HelpOnConfiguration/SecurityPolicy
+ * HelpOnConfiguration/ApacheVoodoo
+ * HelpOnConfiguration/FileAttachments
+ * HelpOnEditLocks
+ * HelpOnEditing
+ * HelpOnEditing/SubPages
+ * HelpOnFormatting
+ * HelpOnHeadlines
+ * MoinMoin/InstallDocs
+ * HelpOnInstalling
+ * HelpOnInstalling/ApacheOnMacOsx
+ * HelpOnInstalling/ApacheOnLinux
+ * HelpOnInstalling/ApacheOnLinuxFtp
+ * HelpOnInstalling/ApacheOnWin32
+ * HelpOnInstalling/ApacheWithFastCgi
+ * HelpOnInstalling/ApacheWithModPython
+ * HelpOnInstalling/BasicInstallation
+ * HelpOnInstalling/InternetInformationServer
+ * HelpOnInstalling/StandaloneServer
+ * HelpOnInstalling/TroubleShooting
+ * HelpOnInstalling/TwistedWeb
+ * HelpOnInstalling/WebLogic
+ * HelpOnInstalling/WikiInstanceCreation
+ * HelpOnLanguages
+ * HelpOnLinking
+ * HelpOnLists
+ * HelpOnMacros
+ * ["HelpOnMacros/Include"]
+ * HelpOnMacros/MailTo
+ * HelpOnNavigation
+ * HelpOnPageCreation
+ * HelpOnPageDeletion
+ * HelpOnParsers
+ * HelpOnParsers/ReStructuredText
+ * HelpOnParsers/ReStructuredText/RstPrimer
+ * HelpOnProcessingInstructions
+ * HelpOnProcessors
+ * HelpOnRules
+ * HelpOnSearching
+ * HelpOnSkins
+ * HelpOnSlideShows
+ * ["HelpOnSlideShows/000 Introduction"]
+ * ["HelpOnSlideShows/100 Creating the slides"]
+ * ["HelpOnSlideShows/900 Last but not least: Running your presentation."]
+ * HelpOnSmileys
+ * HelpOnSpellCheck
+ * HelpOnTables
+ * HelpOnThemes
+ * HelpOnUpdating
+ * HelpOnUpdatingPython
+ * HelpOnUserPreferences
+ * HelpOnXmlPages
+ * HelpTemplate
+ * SzerkesztésiSegédlet
+
+Wiki-tanfolyam:
+ * WikiCourse
+ * WikiCourse/BasicIntroduction
+ * ["WikiCourse/BasicIntroduction/000 What is a Wiki?"]
+ * ["WikiCourse/BasicIntroduction/050 First Steps"]
+ * ["WikiCourse/BasicIntroduction/060 How do I navigate?"]
+ * ["WikiCourse/BasicIntroduction/090 The Editor"]
+ * ["WikiCourse/BasicIntroduction/091 Tips on the Editor"]
+ * ["WikiCourse/BasicIntroduction/100 Text markup"]
+ * ["WikiCourse/BasicIntroduction/110 Headlines and Paragraphs"]
+ * ["WikiCourse/BasicIntroduction/130 Lists"]
+ * ["WikiCourse/BasicIntroduction/150 Tables"]
+ * ["WikiCourse/BasicIntroduction/180 Macros"]
+ * ["WikiCourse/BasicIntroduction/191 Creating new Pages"]
+ * ["WikiCourse/BasicIntroduction/195 Actions"]
+ * ["WikiCourse/BasicIntroduction/200 Wikiquette"]
+ * ["WikiCourse/BasicIntroduction/210 Organisation and Structure"]
+ * ["WikiCourse/BasicIntroduction/900 Exercises"]
+ * ["WikiCourse/BasicIntroductionHandOut"]
+
+Kategóriák:
+ * CategoryCategory
+ * CategoryHomepage
+
+Minták:
+ * HelpTemplate
+ * HomepageTemplate
+ * SlideShowHandOutTemplate
+ * SlideShowTemplate
+ * SlideTemplate

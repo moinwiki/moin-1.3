@@ -5,6 +5,7 @@
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format gettext
 #language nl
+
 #
 # MoinMoin nl system text translation
 #
@@ -12,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 01:15+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
 "PO-Revision-Date: 2005-03-13 17:43+0200\n"
 "Last-Translator: Reinout van Schouwen <reinout@cs.vu.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -50,11 +51,13 @@ msgid ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "macro call.-~\n"
 msgstr ""
-"~-Als u dit formulier indient dan worden de ingevulde waarden "
-"getoond.\n"
+"~-Als u dit formulier indient dan worden de ingevulde waarden getoond.\n"
 "Om dit formulier op andere pagina's te gebruiken, voeg een macro-aanroep\n"
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "toe.-~\n"
+
+msgid "Create New Page"
+msgstr "Nieuwe pagina aanmaken"
 
 msgid "You are not allowed to view this page."
 msgstr "U hebt geen toestemming deze pagina te bekijken."
@@ -77,6 +80,9 @@ msgstr "Bewerken van oude versies is niet mogelijk!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "Uw slot is verlopen. Houd rekening met bewerkingsconflicten!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -105,8 +111,7 @@ msgstr ""
 
 msgid "Someone else changed this page while you were editing!"
 msgstr ""
-"Iemand anders heeft deze pagina veranderd terwijl u hem aan het bewerken "
-"was!"
+"Iemand anders heeft deze pagina veranderd terwijl u hem aan het bewerken was!"
 
 #, python-format
 msgid ""
@@ -170,10 +175,10 @@ msgid ""
 "If you don't want that, hit '''%(cancel_button_text)s''' to cancel your "
 "changes."
 msgstr ""
-"Als u op '''%(save_button_text)s''' klikt plaats u je "
-"veranderingen onder de %(license_link)s.\n"
-"Als u dat niet wilt, klik '''%(cancel_button_text)s''' om u "
-"veranderingen te annuleren."
+"Als u op '''%(save_button_text)s''' klikt plaats u je veranderingen onder de "
+"%(license_link)s.\n"
+"Als u dat niet wilt, klik '''%(cancel_button_text)s''' om u veranderingen te "
+"annuleren."
 
 msgid "Preview"
 msgstr "Proeflezing"
@@ -201,20 +206,21 @@ msgid ""
 " Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing "
 "white space allowed after tables or titles."
 msgstr ""
-" Nadruk:: [[Verbatim('')]]''cursief''[[Verbatim('')]]; [[Verbatim(''')]]'''vet'''[[Verbatim(''')]]; "
-"[[Verbatim(''''')]]'''''vet cursief'''''[[Verbatim(''''')]]; "
-"[[Verbatim('')]]''gemixt ''[[Verbatim(''')]]'''''vet'''[[Verbatim(''')]] en cursief''[[Verbatim('')]]; "
-"[[Verbatim(----)]] horizontale lijn.\n"
-" Koppen:: "
-"[[Verbatim(=)]] Titel 1 [[Verbatim(=)]]; [[Verbatim(==)]] Titel 2 [[Verbatim(==)]]; "
-"[[Verbatim(===)]] Titel 3 [[Verbatim(===)]];   "
-"[[Verbatim(====)]] Titel 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Titel 5 [[Verbatim(=====)]].\n"
+" Nadruk:: [[Verbatim('')]]''cursief''[[Verbatim('')]]; [[Verbatim"
+"(''')]]'''vet'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''vet "
+"cursief'''''[[Verbatim(''''')]]; [[Verbatim('')]]''gemixt ''[[Verbatim"
+"(''')]]'''''vet'''[[Verbatim(''')]] en cursief''[[Verbatim('')]]; [[Verbatim"
+"(----)]] horizontale lijn.\n"
+" Koppen:: [[Verbatim(=)]] Titel 1 [[Verbatim(=)]]; [[Verbatim(==)]] Titel 2 "
+"[[Verbatim(==)]]; [[Verbatim(===)]] Titel 3 [[Verbatim(===)]];   [[Verbatim"
+"(====)]] Titel 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Titel 5 [[Verbatim"
+"(=====)]].\n"
 " Lijsten:: spatie en één van * punten; 1., a., A., i., I. genummerde punten; "
 "1.#n start nummering bij n; spatie alleen springt in.\n"
-" Links:: [[Verbatim(WoordenMetHoofdlettersAanElkaar)]]; [[Verbatim([\"haken en dubbele aanhalingstekens\"])]]; "
-" url; [url]; [url tekst].\n"
-" Tabellen:: || tekst in cel |||| tekst in cel over twee kolommen ||;    "
-"geen witruimte toegestaan na tabellen of titels."
+" Links:: [[Verbatim(WoordenMetHoofdlettersAanElkaar)]]; [[Verbatim([\"haken "
+"en dubbele aanhalingstekens\"])]];  url; [url]; [url tekst].\n"
+" Tabellen:: || tekst in cel |||| tekst in cel over twee kolommen ||;    geen "
+"witruimte toegestaan na tabellen of titels."
 
 msgid "Edit was cancelled."
 msgstr "Bewerking werd geannuleerd."
@@ -256,7 +262,8 @@ msgstr "Geen verschillen gevonden!\n"
 
 #, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] %(trivial)sBijwerking van \"%(pagename)s\" door %(username)s"
+msgstr ""
+"[%(sitename)s] %(trivial)sBijwerking van \"%(pagename)s\" door %(username)s"
 
 msgid "Trivial "
 msgstr "Triviaal "
@@ -311,8 +318,7 @@ msgstr ""
 
 #, python-format
 msgid "A backup of your changes is [%(backup_url)s here]."
-msgstr ""
-"Een reservekopie van u veranderingen is [%(backup_url)s hier]."
+msgstr "Een reservekopie van u veranderingen is [%(backup_url)s hier]."
 
 msgid "You did not change the page content, not saved!"
 msgstr "U hebt niets veranderd. Niet opgeslagen!"
@@ -320,8 +326,8 @@ msgstr "U hebt niets veranderd. Niet opgeslagen!"
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
-"U kunt op deze pagina geen ACL's veranderen want u hebt niet de rechten "
-"van een beheerder!"
+"U kunt op deze pagina geen ACL's veranderen want u hebt niet de rechten van "
+"een beheerder!"
 
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr "Dank voor de wijzigingen. Uw aandacht voor detail wordt gewaardeerd."
@@ -346,8 +352,8 @@ msgid ""
 "Other users will be ''warned'' until %(bumptime)s that you are editing this "
 "page."
 msgstr ""
-"Andere gebruikers zullen tot %(bumptime)s ''gewaarschuwd'' worden dat "
-"u deze pagina aan het bewerken bent."
+"Andere gebruikers zullen tot %(bumptime)s ''gewaarschuwd'' worden dat u deze "
+"pagina aan het bewerken bent."
 
 msgid "Use the Preview button to extend the locking period."
 msgstr "Gebruik de knop Proeflezing om de op-slot-periode te verlengen."
@@ -357,8 +363,8 @@ msgid ""
 "This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
 "s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Deze pagina is momenteel ''op slot'' voor bewerking door %(owner)s tot "
-"%(timestamp)s, dus gedurende %(mins_valid)d minuten."
+"Deze pagina is momenteel ''op slot'' voor bewerking door %(owner)s tot %"
+"(timestamp)s, dus gedurende %(mins_valid)d minuten."
 
 #, python-format
 msgid ""
@@ -496,6 +502,26 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "Geef een geldig e-mailadres op!"
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr ""
@@ -536,8 +562,8 @@ msgid ""
 "Please provide your email address. If you loose your login information, you "
 "can get it by email."
 msgstr ""
-"Geef uw e-mailadres op. Als u uw aanmeldgegevens verliest, "
-"kunt u deze per e-mail weer ontvangen."
+"Geef uw e-mailadres op. Als u uw aanmeldgegevens verliest, kunt u deze per e-"
+"mail weer ontvangen."
 
 msgid "This email already belongs to somebody else."
 msgstr "Dit e-mailadres behoort is al in gebruik."
@@ -758,8 +784,8 @@ msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr ""
-"U hebt nog geen gebruikersprofiel aangemaakt. Kies GerbuikersInstellingen in de "
-"hoek rechtsboven voor het aanmaken van een profiel."
+"U hebt nog geen gebruikersprofiel aangemaakt. Kies GerbuikersInstellingen in "
+"de hoek rechtsboven voor het aanmaken van een profiel."
 
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
@@ -868,6 +894,15 @@ msgstr "Geïnstalleerde parsers"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Geïnstalleerde processors (VEROUDERD -- gebruik Parsers)"
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr "Gebruik een specifiekere zoekterm dan {{{\"%s\"}}}!"
@@ -919,8 +954,8 @@ msgid ""
 "Do '''NOT''' use the URL of the {{{[get]}}} link, \n"
 "since this is subject to change and can break easily."
 msgstr ""
-"Om op een pagina naar een bijlage te verwijzen, gebruik "
-"'''{{{attachment:filename}}}''',\n"
+"Om op een pagina naar een bijlage te verwijzen, gebruik '''{{{attachment:"
+"filename}}}''',\n"
 "zoals hieronder getoond in de bestandenlijst.\n"
 "Gebruik '''NIET''' de URL van de verwijzing naar {{{[ophalen]}}},\n"
 "omdat deze aan veranderingen onderhevig is en eenvoudig kapot gaat."
@@ -957,8 +992,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "Bestand om op te sturen"
 
-msgid "Save as"
-msgstr "Opslaan als"
+#, fuzzy
+msgid "Rename to"
+msgstr "Pagina hernoemen"
 
 msgid "Upload"
 msgstr "Opsturen"
@@ -1112,8 +1148,7 @@ msgid "No spelling errors found!"
 msgstr "Geen spelfouten gevonden!"
 
 msgid "You can't check spelling on a page you can't read."
-msgstr ""
-"U kunt geen spelling controleren op een pagina die u niet kunt lezen."
+msgstr "U kunt geen spelling controleren op een pagina die u niet kunt lezen."
 
 #, python-format
 msgid "Title Search: \"%s\""
@@ -1159,9 +1194,6 @@ msgstr "Start"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Dia %(pos)d van %(size)d"
-
-msgid "Create New Page"
-msgstr "Nieuwe pagina aanmaken"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Geen weespagina's in deze wiki."
@@ -1258,25 +1290,24 @@ msgstr "Er werd een integer \"%(arg)s\" na \"%(key)s\" verwacht"
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Er werd een kleurwaarde \"%(arg)s\" na \"%(key)s\" verwacht"
 
-msgid "XSLT option disabled!"
-msgstr "De optie XSLT is uitgeschakeld!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "Verwerking van XSLT is niet beschikbaar!"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Verwerkingsfout %(errortype)s"
 
-msgid "RefreshCache"
-msgstr "VerversCache"
+#, fuzzy
+msgid "Views/day"
+msgstr "Bekijken"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "voor deze pagina (gecachet %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Diagrammen zijn niet beschikbaar!"
+#, fuzzy
+msgid "Edits/day"
+msgstr "Bewerken"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1295,6 +1326,9 @@ msgstr "datum"
 msgid "# of hits"
 msgstr "# treffers"
 
+msgid "Charts are not available!"
+msgstr "Diagrammen zijn niet beschikbaar!"
+
 msgid "Page Size Distribution"
 msgstr "Verdeling van de paginagrootte "
 
@@ -1303,6 +1337,9 @@ msgstr "bovengrens van paginagrootte [bytes]"
 
 msgid "# of pages of this size"
 msgstr "# pagina's van deze grootte"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Andere"
@@ -1515,3 +1552,15 @@ msgstr "PaginaHernoemen"
 
 msgid "SpellCheck"
 msgstr "Spellingscontrole"
+
+#~ msgid "Save as"
+#~ msgstr "Opslaan als"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "De optie XSLT is uitgeschakeld!"
+
+#~ msgid "RefreshCache"
+#~ msgstr "VerversCache"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "voor deze pagina (gecachet %(date)s)"

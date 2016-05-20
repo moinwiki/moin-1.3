@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
 "PO-Revision-Date: 2004-12-27 08:30+0100\n"
 "Last-Translator: S.P. <sergiusz-keyword-moinmoin.69c762@pawlowicz.name>\n"
 "Language-Team: Polish <sergiusz-keyword-moinmoin.69c762@pawlowicz.name>\n"
@@ -57,6 +57,10 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "makropolecenie.-~\n"
 
+#, fuzzy
+msgid "Create New Page"
+msgstr "Utwórz profil"
+
 msgid "You are not allowed to view this page."
 msgstr "Nie możesz oglądać tej strony."
 
@@ -79,6 +83,9 @@ msgstr "Nie można zmieniać starych wersji!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "Blokada tej strony wygasła, bądź przygotowany na ewentualne konflikty!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -486,6 +493,26 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "Podaj prawidłowy adres poczty elektronicznej!"
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "Brak odpowiednich kont do podanego adresu '%(email)s'!"
@@ -853,6 +880,15 @@ msgstr "Zainstalowane analizatory składni"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Zainstalowane procesory (NIEAKTUALNE -- użyj analizatorów składni)"
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr "Spróbuj bardziej selektywnego sposobu poszukiwań zamiast {{{\"%s\"}}}"
@@ -941,8 +977,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "Plik do przekazania"
 
-msgid "Save as"
-msgstr "Zachowaj jako"
+#, fuzzy
+msgid "Rename to"
+msgstr "Zmień nazwę strony"
 
 msgid "Upload"
 msgstr "Przekaż"
@@ -1141,10 +1178,6 @@ msgstr "Start"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slajd %(pos)d z %(size)d"
 
-#, fuzzy
-msgid "Create New Page"
-msgstr "Utwórz profil"
-
 msgid "No orphaned pages in this wiki."
 msgstr "Nie znaleziono stron - bękartów w tym wiki."
 
@@ -1240,25 +1273,24 @@ msgstr "Spodziewana wartość całkowita \"%(arg)s\"  po \"%(key)s\""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Spodziewana wartość koloru \"%(arg)s\" po \"%(key)s\""
 
-msgid "XSLT option disabled!"
-msgstr "Opcja XSLT wyłączona!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "Przetwarzanie XSLT niedostępne!"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "błąd przetwarzania %(errortype)s"
 
-msgid "RefreshCache"
-msgstr "Odśwież pamięć podręczną"
+#, fuzzy
+msgid "Views/day"
+msgstr "Zobacz"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "dla tej strony (w pamięci podręcznej od %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Wykresy nie są dostępne!"
+#, fuzzy
+msgid "Edits/day"
+msgstr "Edycja"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1277,6 +1309,9 @@ msgstr "data"
 msgid "# of hits"
 msgstr "# odwiedzin"
 
+msgid "Charts are not available!"
+msgstr "Wykresy nie są dostępne!"
+
 #, fuzzy
 msgid "Page Size Distribution"
 msgstr "Page Size Distribution"
@@ -1286,6 +1321,9 @@ msgstr "rozmiar strony [bajtów]"
 
 msgid "# of pages of this size"
 msgstr "# stron tego rozmiaru"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Inni"
@@ -1502,6 +1540,18 @@ msgstr "ZmieńNazwę"
 
 msgid "SpellCheck"
 msgstr "SprawdźPisownię"
+
+#~ msgid "Save as"
+#~ msgstr "Zachowaj jako"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "Opcja XSLT wyłączona!"
+
+#~ msgid "RefreshCache"
+#~ msgstr "Odśwież pamięć podręczną"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "dla tej strony (w pamięci podręcznej od %(date)s)"
 
 #~ msgid "MIME Type (optional)"
 #~ msgstr "Rodzaj MIME (opcjonalnie)"

@@ -5,7 +5,7 @@
     @copyright: 2004 by Matthew Gilbert <gilbert AT voxmea DOT net>
         and by Alexander Schremmer <alex AT alexanderweb DOT de>
     @license: GNU GPL, see COPYING for details.
-    
+
     REQUIRES docutils 0.3.3 or later
 """
 
@@ -77,13 +77,13 @@ def html_escape_unicode(node):
     return node
 
 class MoinWriter(html4css1.Writer):
-    
+
     config_section = 'MoinMoin writer'
     config_section_dependencies = ('writers',)
 
     #"""Final translated form of `document`."""
     output = None
-    
+
     def wiki_resolver(self, node):
         """
             Normally an unknown reference would be an error in an reST document.
@@ -105,9 +105,9 @@ class MoinWriter(html4css1.Writer):
         del node['refname']
         self.nodes.append(node)
         return 1
-    
+
     wiki_resolver.priority = 001
-    
+
     def __init__(self, formatter, request):
         html4css1.Writer.__init__(self)
         self.formatter = formatter
@@ -115,34 +115,34 @@ class MoinWriter(html4css1.Writer):
         # Add our wiki unknown_reference_resolver to our list of functions to
         # run when a target isn't found
         self.unknown_reference_resolvers = [self.wiki_resolver]
-        # We create a new parser to process MoinMoin wiki style links in the 
+        # We create a new parser to process MoinMoin wiki style links in the
         # reST.
         self.wikiparser = MoinMoin.parser.wiki.Parser('', self.request)
         self.wikiparser.formatter = self.formatter
         self.wikiparser.hilite_re = None
         self.nodes = []
-        
-        
+
+
     def translate(self):
-        visitor = MoinTranslator(self.document, 
-                                 self.formatter, 
+        visitor = MoinTranslator(self.document,
+                                 self.formatter,
                                  self.request,
                                  self.wikiparser,
                                  self)
         self.document.walkabout(visitor)
         self.visitor = visitor
         self.output = html_escape_unicode(visitor.astext())
-        
+
 
 class Parser:
     caching = 1
     Dependencies = Dependencies # copy dependencies from module-scope
-    
+
     def __init__(self, raw, request, **kw):
         self.raw = raw
         self.request = request
         self.form = request.form
-        
+
     def format(self, formatter):
         # Create our simple parser
         parser = MoinDirectives(self.request)
@@ -150,9 +150,12 @@ class Parser:
         parts =  publish_parts(source = self.raw,
                                writer = MoinWriter(formatter, self.request),
                                settings_overrides = {'halt_level': 5,
-                                                     'traceback': True}
+                                                     'traceback': True,
+                                                     'file_insertion_enabled': 0,
+                                                     'raw_enabled': 0,
+                                                     }
                               )
-        
+
         text = ''
         if parts['title']:
             text += '<h2>' + parts['title'] + '</h2>'
@@ -165,7 +168,7 @@ class Parser:
             text += parts['docinfo']
         text += parts['fragment']
         self.request.write(html_escape_unicode(text))
-        
+
 
 class MoinTranslator(html4css1.HTMLTranslator):
 
@@ -179,12 +182,12 @@ class MoinTranslator(html4css1.HTMLTranslator):
         self.wikiparser = parser
         self.wikiparser.request = request
         # MoinMoin likes to start the initial headers at level 3 and the title
-        # gets level 2, so to comply with their styles, we do here also. 
+        # gets level 2, so to comply with their styles, we do here also.
         # TODO: Could this be fixed by passing this value in settings_overrides?
         self.initial_header_level = 3
         # Temporary place for wiki returned markup. This will be filled when
         # replacing the default writer with the capture_wiki_formatting
-        # function (see visit_image for an example). 
+        # function (see visit_image for an example).
         self.wiki_text = ''
         self.setup_wiki_handlers()
 
@@ -193,11 +196,11 @@ class MoinTranslator(html4css1.HTMLTranslator):
             Captures MoinMoin generated markup to the instance variable
             wiki_text.
         """
-        # For some reason getting empty strings here which of course overwrites 
-        # what we really want (this is called multiple times per MoinMoin 
+        # For some reason getting empty strings here which of course overwrites
+        # what we really want (this is called multiple times per MoinMoin
         # format call, which I don't understand).
         self.wiki_text += text
-            
+
     def process_wiki_text(self, text):
         """
             This sequence is repeated numerous times, so its captured as a
@@ -205,8 +208,8 @@ class MoinTranslator(html4css1.HTMLTranslator):
             make the format call. format will call request.write which we've
             hooked to capture_wiki_formatting. If wiki_text is not blanked
             before a call to request.write we will get the old markup as well as
-            the newly generated markup. 
-            
+            the newly generated markup.
+
             TODO: Could implement this as a list so that it acts as a stack. I
             don't like having to remember to blank wiki_text.
         """
@@ -223,11 +226,11 @@ class MoinTranslator(html4css1.HTMLTranslator):
         self.body.append(self.wiki_text)
         self.wiki_text = ''
         raise docutils.nodes.SkipNode
-        
+
     def astext(self):
         self.request.write = self.original_write
         return html4css1.HTMLTranslator.astext(self)
-        
+
     def process_inline(self, node, uri_string):
         """
             Process the "inline:" link scheme. This can either ome from
@@ -239,7 +242,7 @@ class MoinTranslator(html4css1.HTMLTranslator):
             and SkipNode is raised.
         """
         self.process_wiki_text(node[uri_string])
-        # Only pass the src and alt parts to the writer. The reST writer 
+        # Only pass the src and alt parts to the writer. The reST writer
         # inserts its own tags so we don't need the MoinMoin html markup.
         src = re.search('src="([^"]+)"', self.wiki_text)
         if src:
@@ -252,13 +255,13 @@ class MoinTranslator(html4css1.HTMLTranslator):
             # Image doesn't exist yet for the page so just use what's
             # returned from MoinMoin verbatim
             self.add_wiki_markup()
-            
+
     def process_wiki_target(self, target):
         self.process_wiki_text(target)
-        # MMG: May need a call to fixup_wiki_formatting here but I 
+        # MMG: May need a call to fixup_wiki_formatting here but I
         # don't think so.
         self.add_wiki_markup()
-        
+
     def fixup_wiki_formatting(self, text):
         replacement = {'<p>': '', '</p>': '', '\n': '', '> ': '>'}
         for src, dst in replacement.items():
@@ -275,23 +278,23 @@ class MoinTranslator(html4css1.HTMLTranslator):
             the url and pass it on to the html4css1 writer to handle. Inline
             images are also handled by visit_image. Not sure what the "drawing:"
             link scheme is used for, so for now it is handled here.
-            
+
             Also included here is a hack to allow MoinMoin macros. This routine
             checks for a link which starts with "[[". This link is passed to the
             MoinMoin formatter and the resulting markup is inserted into the
-            document in the place of the original link reference. 
+            document in the place of the original link reference.
         """
         moin_link_schemes = ('wiki:', 'attachment:', 'drawing:', '[[',
                              'inline:')
-                             
+
         if 'refuri' in node.attributes:
             target = None
             refuri = node['refuri']
-            
+
             # MMG: Fix this line
-            if [scheme for scheme in moin_link_schemes if 
+            if [scheme for scheme in moin_link_schemes if
                     refuri.lstrip().startswith(scheme)]:
-                # For a macro, We want the actuall text from the user in target, 
+                # For a macro, We want the actuall text from the user in target,
                 # not the fully normalized version that is contained in refuri.
                 if refuri.startswith('[['):
                     target = node['name']
@@ -299,23 +302,23 @@ class MoinTranslator(html4css1.HTMLTranslator):
                     target = refuri
             # TODO: Figure out the following two elif's and comment
             # appropriately.
-            # The node should have a whitespace normalized name if the docutlis 
+            # The node should have a whitespace normalized name if the docutlis
             # reStructuredText parser would normally fully normalize the name.
-            elif ('name' in node.attributes and 
+            elif ('name' in node.attributes and
                   fully_normalize_name(node['name']) == refuri):
                 target = ':%s:' % (node['name'])
             # If its not a uri containing a ':' then its probably destined for
             # wiki space.
             elif ':' not in refuri:
                 target = ':%s:' % (refuri)
-            
+
             if target:
                 if target.startswith('inline:'):
                     self.process_inline(node, 'refuri')
                 elif target.startswith('[[') and target.endswith(']]'):
                     self.process_wiki_target(target)
                 else:
-                    # Not a macro or inline so hopefully its a link. Put the target in 
+                    # Not a macro or inline so hopefully its a link. Put the target in
                     # brackets so that MoinMoin knows its a link. Extract the
                     # href, if it exists, and let docutils handle it from there.
                     # If there is no href just add whatever MoinMoin returned.
@@ -329,16 +332,16 @@ class MoinTranslator(html4css1.HTMLTranslator):
                         self.wiki_text = self.fixup_wiki_formatting(self.wiki_text)
                         self.add_wiki_markup()
         html4css1.HTMLTranslator.visit_reference(self, node)
-    
+
     def visit_image(self, node):
-        """ 
+        """
             Need to intervene in the case of inline images. We need MoinMoin to
             give us the actual src line to the image and then we can feed this
             to the default html4css1 writer. NOTE: Since the writer can't "open"
             this image the scale attribute doesn't work without directly
             specifying the height or width (or both).
-            
-            TODO: Need to handle figures similarly. 
+
+            TODO: Need to handle figures similarly.
         """
         uri = node['uri'].lstrip()
         prefix = ''       # assume no prefix
@@ -351,7 +354,7 @@ class MoinTranslator(html4css1.HTMLTranslator):
                 node['uri'] = 'inline:' + uri
             self.process_inline(node, 'uri')
         html4css1.HTMLTranslator.visit_image(self, node)
-        
+
     def create_wiki_functor(self, moin_func):
         moin_callable = getattr(self.formatter, moin_func)
         def visit_func(self, node):
@@ -370,7 +373,7 @@ class MoinTranslator(html4css1.HTMLTranslator):
             are portions of the document that do not contain reST specific
             markup. This allows these portions of the document to look
             consistent with other wiki pages.
-            
+
             Setup dispatch routines to handle basic document markup. The
             hanlders dict is the html4css1 handler name followed by the wiki
             handler name.
@@ -395,7 +398,7 @@ class MoinTranslator(html4css1.HTMLTranslator):
             depart_func = new.instancemethod(depart_func, self, MoinTranslator)
             setattr(self, 'visit_%s' % (rest_func), visit_func)
             setattr(self, 'depart_%s' % (rest_func), depart_func)
-        
+
     # Enumerated list takes an extra paramter so we handle this differently
     def visit_enumerated_list(self, node):
         self.wiki_text = ''
@@ -407,13 +410,13 @@ class MoinTranslator(html4css1.HTMLTranslator):
         self.request.write(self.formatter.number_list(0))
         self.body.append(self.wiki_text)
 
-        
+
 class MoinDirectives:
     """
         Class to handle all custom directive handling. This code is called as
         part of the parsing stage.
     """
-    
+
     def __init__(self, request):
         self.request = request
 
@@ -422,29 +425,29 @@ class MoinDirectives:
 
         # used for MoinMoin macros
         directives.register_directive('macro', self.macro)
-        
+
         # disallow a few directives in order to prevent XSS
         # for directive in ('meta', 'include', 'raw'):
         for directive in ('meta', 'raw'):
             directives.register_directive(directive, None)
-            
+
         # disable the raw role
         roles._roles['raw'] = None
-        
-        # As a quick fix for infinite includes we only allow a fixed number of 
+
+        # As a quick fix for infinite includes we only allow a fixed number of
         # includes per page
         self.num_includes = 0
         self.max_includes = 10
-        
+
     # Handle the include directive rather than letting the default docutils
     # parser handle it. This allows the inclusion of MoinMoin pages instead of
     # something from the filesystem.
     def include(self, name, arguments, options, content, lineno,
                 content_offset, block_text, state, state_machine):
         # content contains the included file name
-        
+
         _ = self.request.getText
-        
+
         # Limit the number of documents that can be included
         if self.num_includes < self.max_includes:
             self.num_includes += 1
@@ -452,7 +455,7 @@ class MoinDirectives:
             lines = [_("**Maximum number of allowed includes exceeded**")]
             state_machine.insert_input(lines, 'MoinDirectives')
             return
-        
+
         if len(content):
             page = Page(page_name = content[0], request = self.request)
             if page.exists():
@@ -467,10 +470,10 @@ class MoinDirectives:
             # parsing
             state_machine.insert_input(lines, 'MoinDirectives')
         return
-        
+
     include.content = True
-    
-    # Add additional macro directive. 
+
+    # Add additional macro directive.
     # This allows MoinMoin macros to be used either by using the directive
     # directly or by using the substitution syntax. Much cleaner than using the
     # reference hack (`[[SomeMacro]]`_). This however simply adds a node to the
@@ -491,4 +494,4 @@ class MoinDirectives:
         return
 
     macro.content = True
-    
+

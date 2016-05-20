@@ -13,7 +13,7 @@
 """
 
 import re, time
-from MoinMoin import action, config, macro, util, search
+from MoinMoin import action, config, macro, util
 from MoinMoin import wikiutil, wikiaction, i18n
 from MoinMoin.Page import Page
 from MoinMoin.util import pysupport
@@ -178,7 +178,7 @@ class Macro:
             u'<div>',
             u'<input type="hidden" name="action" value="fullsearch">',
             u'<input type="hidden" name="titlesearch" value="%i">' % type,
-            u'<input name="value" size="30" value="%s">' % default,
+            u'<input type="text" name="value" size="30" value="%s">' % default,
             u'<input type="submit" value="%s">' % button,
             boxes,
             u'</div>',
@@ -198,7 +198,7 @@ class Macro:
         html = [
             u'<form method="get" action="">',
             u'<div>',
-            u'<input name="goto" size="30">',
+            u'<input type="text" name="goto" size="30">',
             u'<input type="submit" value="%s">' % _("Go To Page"),
             u'</div>',
             u'</form>',
@@ -211,9 +211,7 @@ class Macro:
         # Get page list readable by current user
         pages = self.request.rootpage.getPageList()
         map = {}
-        # XXX This re should be compiled once and cached
-        word_re = re.compile(u'[%s][%s]+' % (config.chars_upper,
-                                             config.chars_lower), re.UNICODE)
+        word_re = re.compile(u'[%s][%s]+' % (config.chars_upper, config.chars_lower), re.UNICODE)
         for name in pages:
             for word in word_re.findall(name):
                 try:
@@ -360,7 +358,9 @@ class Macro:
         if ftversion:
             row(_('4Suite Version'), ftversion)
         row(_('Number of pages'), str(len(pagelist)))
-        row(_('Number of system pages'), str(len(filter(lambda p,r=self.request: wikiutil.isSystemPage(r,p), pagelist))))
+        systemPages = [page for page in pagelist
+                       if wikiutil.isSystemPage(self.request, page)]
+        row(_('Number of system pages'), str(len(systemPages)))
         row(_('Accumulated page sizes'), str(totalsize))
 
         edlog = editlog.EditLog(self.request)
@@ -390,6 +390,8 @@ class Macro:
             ', '.join(parser.modules) or nonestr)
         row(_('Installed processors (DEPRECATED -- use Parsers instead)'), 
             ', '.join(processor.processors) or nonestr)
+        state = (_('Disabled'), _('Enabled'))
+        row(_('Lupy search'), state[self.request.cfg.lupy_search])
         buf.write(u'</dl')
 
         return self.formatter.rawHTML(buf.getvalue())
@@ -417,6 +419,7 @@ class Macro:
         return self.formatter.icon(icon)
 
     def _macro_PageList(self, needle):
+        from MoinMoin import search
         _ = self._
         literal=0
         case=0

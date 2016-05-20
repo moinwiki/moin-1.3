@@ -53,12 +53,6 @@ Although this setup is tested and verified on Weblogic server 8.1 on Windows, it
 }}} 
 
 === fix for application context issue ===
-{{{
-request.py:
-  self.script_name = env.get('APPLICATION_CONTEXT', '') +env.get('SCRIPT_NAME', '')
-
-moin.cgi:
-  os.environ['APPLICATION_CONTEXT'] = '/mywiki' 
-}}}
+In the file {{{moin.cgi}}} there is a line reading {{{request = RequestCGI()}}}. You have to add {{{properties = {'script_name': "/mywiki" + os.environ['SCRIPT_NAME']} }}} in the parenthesis. This will let MoinMoin generate correct URLs.
 
 You shall be able to access your MoinMoin front page at http://localhost/mywiki/cgi/moin.cgi after you have completed the setup steps above

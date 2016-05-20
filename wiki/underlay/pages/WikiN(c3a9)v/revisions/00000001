@@ -1,0 +1,28 @@
+##master-page:WikiName
+##master-date:2005-05-04 15:29:08
+#format wiki
+#language hu
+
+WikiNév``nek nevezzük a nagy kezdőbetűs szavakból összeragasztott kifejezéseket (Mint``Amilyen``Ez``Is``Például). 
+A Wiki``Nevek automágikusan kapoccsá (linkké) válnak. Egyébként a konfiguráció határozza meg, hogy mi is számít 
+nagy- avagy kisbetűnek. UTF-8-as kódolás használata esetén ezt nem kell külön beállítani: az alapkonfigurációval
+a wikinek helyesen kell működnie.
+
+A WikiNév``nél szereplő kérdőjel, vagy a név másfajta megjelenítése (pl. mint ez: NincsIlyenLapMég) arra utal, 
+hogy az illető lap még nem létezik. Ilyenkor a kérdőjelre (vagy a kapocsra) kattintva létrehozhatja ezt a lapot.
+A KívántLapok``ban találhatjuk meg azoknak a Wiki``Neveknek a listáját, melyekre hivatkoznak más lapokon, de még
+a hozzájuk tartozó lapok nem léteznek.
+
+Amikor egy lapcímre kattintunk (mint például itt a WikiNév``re) az adott címet tartalmazó összes lap listája fog előbukkanni;
+ez a dolog akkor is működik ha még a lap nem létezik.
+
+A WikiNév ''normál szövegként'' és nem kapocsként való megjelenítéséért egy félkövér betűkből álló üres betűsorozatot
+kell beszúrni a nevek közé (azaz hat darab aposztrófot), így: {{{Wiki''''''Név}}}; ugyanezt a hatást egy rövidebb sorozattal
+is elérhetjük két fordított aposztróffal így: {{{Wiki``Név}}}.
+
+/!\ Léteznek olyan wikik is, ahol a kis- és nagybetűket nem különböztetik meg, pl. az Újabb``Változások ugyanarra
+a lapra mutat, mint az ["újabbváltozások"]. Például a Mac OS X operációs rendszerben ez így működhet, mert
+ez a rendszer alapesetben ugyanígy nem különbözteti meg a kis- és nagybetűket.
+
+ * A wiki jelölésekről bővebben a SzerkesztésiSegédlet``ben olvashat (HelpOnEditing).
+ * Lásd még a KapocsSegédlet``et (HelpOnLinking), a Tetszőleges lapcímeknél ("Arbitrary Page Names").

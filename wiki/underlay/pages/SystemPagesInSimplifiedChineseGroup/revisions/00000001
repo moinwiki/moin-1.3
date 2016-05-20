@@ -6,12 +6,18 @@
 ##master-date:Unknown-Date
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
-#language en
+#language zh
 [[TableOfContents()]]
+
+= 感谢参与 =
+
+感谢您的热心参与。
+
+您需要首先在moinmoin master登记一个账号，登录后将您的帐号名添加到MoinPagesEditorGroup就可以翻译有关网页了。
 
 = 注意事项 =
 
-/!\ 本页第一层列表仅用于中文系统页的链接名. 请不要在这层列表中使用任何语言旗标, 原英文名和注释 - 最好把这些东西放到第二层列表上. 只有在第一层列表只包含中文系统页链接名时, 这个中文翻译组页才能被Moin很好地派上用场. 这一页上也不能把第一层列表用于别的用途. -- 英文原文自ThomasWaldmann [[DateTime(2004-11-27T12:16:52Z)]]
+/!\ 本页面的第一层列表必须只包含各页面的名字。不得有语言标志，不得有原来的英语名称，不得有注释 - 最好将它们放在一级列表下的二级列表项中。Moin 有专门的功能去使用组页面，但它们仅仅在第一层列表是“干净”的情况下才工作。那里也不应该有未定义的一级列表项存在于页面中。
 
 请注意在翻译的文本前加上（以["最新改动"]为例):
 {{{
@@ -51,7 +57,7 @@ info, information; 信息
 
 = 翻译进度 =
 
-This is a list of all english System``Pages (including Help``Pages) in this wiki, 大家一起来把它们翻成简体中文:
+下面是一个全部的英语系统页面(包括帮助页面)列表，大家一起来把它们翻成简体中文：
 
 下面的列表中
 || {en} ||只是刚从英文拷贝过来，没有翻译||simply copied from the english version, without any translation ||
@@ -102,7 +108,7 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["系统信息"]
   * {zh} SystemInfo
  * ["系统网页组"]
-  * {1} SystemPagesGroup
+  * {zh} SystemPagesGroup
  * ["维基个人网页"]
   * {zh} WikiHomePage
  * ["维基链接名"]
@@ -120,21 +126,21 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["简体中文MoinMoin/文本排版"]
   * {zh} MoinMoin/TextFormatting
   * ["首页"]
-   * {zh} FrontPage : - do not move this to 1st level as we do not want to update this page!
+   * {zh} FrontPage : - 不要将它移动到第一级列表!
  * ["名言警句"]
   * {zh} FortuneCookies
 
 == 帮助网页 ==
  * ["帮助目录"]
-  * {1} {zh} HelpContents
+  * {zh} HelpContents
  * ["帮助-新手入门"]
-  * {1} HelpForBeginners
+  * {zh} HelpForBeginners
  * ["帮助-开发指南"]
-  * HelpForDevelopers
+  * {zh} HelpForDevelopers
  * ["帮助索引"]
   * {zh} HelpIndex
  * ["帮助-其他"]
-  * HelpMiscellaneous
+  * {en} {zh} HelpMiscellaneous
  * ["帮助-其他/试验性的功能"]
   * HelpMiscellaneous/ExperimentalFeatures
  * ["帮助-其他/常见问题解答"]
@@ -148,7 +154,7 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-系统管理"]
   * HelpOnAdministration
  * ["帮助-系统设置"]
-  * {1} {zh} HelpOnConfiguration
+  * {en} {zh} HelpOnConfiguration
  * ["帮助-系统设置/层叠样式表"]
   * HelpOnConfiguration/CascadingStyleSheets
  * ["帮助-系统设置/邮件支持"]
@@ -160,11 +166,11 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-编辑"]
   * {zh} HelpOnEditing
  * ["帮助-编辑/子网页"]
-  * {en} {zh} HelpOnEditing/SubPages
+  * {zh} HelpOnEditing/SubPages
  * ["帮助-排版"]
   * {zh} HelpOnFormatting
  * ["帮助-标题"]
-  * HelpOnHeadlines
+  * {zh} HelpOnHeadlines
  * ["简体中文MoinMoin/安装手册"]
   * {1} MoinMoin/InstallDocs
  * ["帮助-安装"]
@@ -197,29 +203,29 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-语言"]
   * {1} HelpOnLanguages
  * ["帮助-链接"]
-  * {1} HelpOnLinking
+  * {en} {zh} HelpOnLinking
  * ["帮助-列表"]
-  * HelpOnLists
+  * {zh} HelpOnLists
  * ["帮助-宏"]
-  * {1} HelpOnMacros
+  * {en} {zh} HelpOnMacros
  * ["帮助-宏/Include"]
-  * ["HelpOnMacros/Include"]
+  * {en} {zh} ["HelpOnMacros/Include"] /!\ strange acl problem -_-
  * ["帮助-宏/MailTo"]
-  * HelpOnMacros/MailTo
+  * {en} {zh} HelpOnMacros/MailTo
  * ["帮助-导航"]
-  * HelpOnNavigation
+  * {zh} HelpOnNavigation
  * ["帮助-新建网页"]
-  * HelpOnPageCreation
+  * {en} {zh} HelpOnPageCreation
  * ["帮助-删除网页"]
   * HelpOnPageDeletion
  * ["帮助-分析插件"]
   * {en} HelpOnParsers
  * ["帮助-处理指令"]
-  * HelpOnProcessingInstructions
+  * {zh} HelpOnProcessingInstructions
  * ["帮助-处理插件"]
   * HelpOnProcessors
  * ["帮助-横线"]
-  * HelpOnRules
+  * {zh} HelpOnRules
  * ["帮助-搜索"]
   * HelpOnSearching
  * ["帮助-换肤"]
@@ -233,13 +239,13 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-放映幻灯片/900 最后: 放映开始"]
   * {en} {zh} ["HelpOnSlideShows/900 Last but not least: Running your presentation."]
  * ["帮助-笑脸"]
-  * HelpOnSmileys
+  * {zh} HelpOnSmileys
  * ["帮助-拼写检查"]
   * HelpOnSpellCheck
  * ["帮助-表格"]
-  * HelpOnTables
+  * {zh} HelpOnTables
  * ["帮助-主题"]
-  * HelpOnThemes
+  * {en} {zh} HelpOnThemes
  * ["帮助-升级"]
   * HelpOnUpdating
  * ["帮助-升级Python"]
@@ -251,7 +257,13 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-模板"]
   * HelpTemplate
  * ["语法参考"]
-  * {1} SyntaxReference
+  * {en} {zh} SyntaxReference
+
+== 维基桌面版 ==
+ * ["维基桌面版"]
+   * DesktopEdition
+ * ["维基桌面版/如何配置"]
+   * DesktopEdition/HowToConfigure
 
 == 维基教程 ==
  * ["维基教程"]

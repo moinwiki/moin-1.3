@@ -17,7 +17,7 @@ def runTest(request):
     # Note that importing here makes a difference, namely the request
     # object is already created
     import os, sys
-    from MoinMoin import version
+    from MoinMoin import version, config
     from MoinMoin.logfile import editlog, eventlog
 
     request.write('Release %s\n' % version.release)
@@ -80,15 +80,16 @@ def runTest(request):
     # run unit tests
     request.write("\n\nUnit Tests:\n")
 
-    # The unit test work currently only with CGI
-    # TODO: remove this check when we fix the test framework.
-    from MoinMoin.request import RequestCGI
-    if isinstance(request, RequestCGI):
+    # The unit tests are diabled on servers using threads, beause they
+    # change request.cfg, which is now shared between threads.
+    # TODO: check if we can enable them back in a safe way
+    if config.use_threads:
+        request.write("    *** The unit tests are disabled when using multi "
+                      "threading ***")
+    else:       
         try:    
             from MoinMoin import _tests
             _tests.run(request)
         except ImportError:
             request.write("    *** The unit tests are not available ***")
-    else:
-        request.write("    *** The unit tests are available only with CGI ***")
 

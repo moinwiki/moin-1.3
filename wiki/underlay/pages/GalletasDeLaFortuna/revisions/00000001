@@ -1,0 +1,22 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#format wiki
+#language es
+
+La macro `RandomQuote` selecciona citas en forma aleatoria y que se encuentran listadas en esta página.. Visita también AyudaSobreMacros.
+
+Aquí se listan algunos consejos para usuarios nuevos, o usuarios que no les gusta leer el maual:
+
+ * Edita la página GalletasDeLaFortuna para que se despliegue sabiduría en forma aleatoria aquí.
+
+ * Consejo: establece el idioma de tus páginas con la instrucción de procesamiento {{{#language es}}}. Visita además AyudaSobreIdiomas.
+
+ * Consejo: puedes agregar tus páginas favoritas a tu "barra de navegación" (`navibar`): Revisa tu lista de QuickLinks en PreferenciasDelUsuario.
+
+ * Consejo: puedes buscar múltiples palabras, igual que en Google. Visita también AyudaSobreBúsquedas.
+
+ * Consejo: recibe notificación vía e-mail cuando esta página sea modificada, sólo haz click en '''[[GetText(subscribe)]]'''.

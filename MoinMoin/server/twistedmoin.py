@@ -24,7 +24,7 @@
 # Twisted imports
 from twisted.application import internet, service
 from twisted.web import script, static, server, vhost, resource, util
-from twisted.internet import threads, reactor
+from twisted.internet import threads, reactor, ssl
 
 # Enable threads
 from twisted.python import threadable
@@ -204,6 +204,7 @@ class TwistedConfig(Config):
     virtualHosts = None
     memoryProfile = None
     hotshotProfile = None
+    sslcert = None # sslcert = ('/whereever/cert/sitekey.pem', '/whereever/cert/sitecert.pem')
 
     def __init__(self):
         Config.__init__(self)
@@ -241,7 +242,7 @@ def makeApp(ConfigClass):
     root = vhost.NameVirtualHost()
     root.default = default
     # ----------------------------------------------
-    site = MoinSite(root, logPath=config.logPath)
+    site = MoinSite(root, logPath=config.logPath, timeout=10*60) # 10 minutes timeout
 
     # Make application
     application = service.Application("web", uid=config.uid, gid=config.gid)
@@ -262,8 +263,12 @@ def makeApp(ConfigClass):
         # Might raise ValueError if not integer.
         # TODO: check if we can use string port, like 'http'
         port = int(port)                       
-        
-        s = internet.TCPServer(port, site, interface=interface)
+
+        if port == 443 and ssl.supported and config.sslcert:
+            sslContext = ssl.DefaultOpenSSLContextFactory(*config.sslcert)
+            s = internet.SSLServer(port, site, sslContext, interface=interface)
+        else:
+            s = internet.TCPServer(port, site, interface=interface)
         s.setServiceParent(sc)
 
     return application

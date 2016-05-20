@@ -111,6 +111,10 @@ help pages:
  * HelpTemplate
  * SyntaxReference
 
+DesktopEdition:
+ * DesktopEdition 
+ * DesktopEdition/HowToConfigure
+
 Wiki Course:
  * WikiCourse
  * WikiCourse/BasicIntroduction

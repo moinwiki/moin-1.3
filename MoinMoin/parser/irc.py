@@ -43,7 +43,7 @@ class Parser:
                 self.out.write(formatter.table_row(1))
                 for g in ('time', 'nick', 'msg'):
                     self.out.write(formatter.table_cell(1))
-                    self.out.write(wikiutil.escape(match.group(g) or ''))
+                    self.out.write(formatter.text(match.group(g) or ''))
                     self.out.write(formatter.table_cell(0))
                 self.out.write(formatter.table_row(0))
         self.out.write(formatter.table(0))

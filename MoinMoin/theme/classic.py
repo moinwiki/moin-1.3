@@ -24,6 +24,39 @@ class Theme(ThemeBase):
     
     name = "classic"
 
+    def footer(self, d, **keywords):
+        """ Assemble wiki footer
+        
+        @param d: parameter dictionary
+        @keyword ...:...
+        @rtype: unicode
+        @return: page footer html
+        """
+        parts = [# End of page
+                 self.endPage(),
+
+                 # Pre footer custom html (not recommended!)
+                 self.emit_custom_html(self.cfg.page_footer1),
+
+                 # Footer
+                 self.editbar(d, **keywords),
+                 self.credits(d),
+                 self.showversion(d, **keywords),
+                 
+                 # Post footer custom html
+                 self.emit_custom_html(self.cfg.page_footer2),]
+        return u'\n'.join(parts)
+
+    def editbar(self, d, **keywords):
+        if not self.shouldShowEditbar(d['page']):
+            return ''
+        parts = [u'<div id="footer">',
+                 self.footer_fragments(d, **keywords),
+                 self.edittext_link(d, **keywords),
+                 self.availableactions(d),
+                 u'</div>',]
+        return ''.join(parts)
+
     def iconbar(self, d):
         """
         Assemble the iconbar
@@ -167,45 +200,6 @@ class Theme(ThemeBase):
                 
             html = u'<p>%s %s</p>\n' % (_('Or try one of these actions:'),
                                        u', '.join(html))
-        return html
-    
-    def footer(self, d, **keywords):
-        """
-        Assemble page footer
-        
-        @param d: parameter dictionary
-        @keyword ...:...
-        @rtype: string
-        @return: page footer html
-        """
-        dict = {
-            'config_page_footer1_html': self.emit_custom_html(self.cfg.page_footer1),
-            'config_page_footer2_html': self.emit_custom_html(self.cfg.page_footer2),
-            'edittext_html': self.edittext_link(d, **keywords),
-            'available_actions_html': self.availableactions(d),
-            'credits_html': self.credits(d, **keywords),
-            'version_html': self.showversion(d, **keywords),
-            'footer_fragments_html': self.footer_fragments(d, **keywords),
-            'endpage_html': self.endPage(),
-        }
-        dict.update(d)
-        
-        html = """
-%(endpage_html)s
-
-%(config_page_footer1_html)s
-
-<div id="footer">
-%(footer_fragments_html)s
-%(edittext_html)s
-%(available_actions_html)s
-</div>
-%(credits_html)s
-%(version_html)s
-
-%(config_page_footer2_html)s
-""" % dict
-
         return html
 
 

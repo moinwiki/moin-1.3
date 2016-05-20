@@ -1,0 +1,254 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#format wiki
+#language hu
+#pragma section-numbers off
+
+{{{
+#pragma section-numbers off
+#acl All:admin,read,write,delete,revert
+#language en
+}}}
+
+Ezen az oldalon megpróbálunk minden formázási lehetőséget legalább egyszer bemutatni.
+
+{{{
+'''Index'''
+[[TableOfContents(2)]]
+}}}
+'''Index'''
+
+[[TableOfContents(2)]]
+
+= Fejlécek =
+== 2. Fejléc ==
+=== 3. Fejléc ===
+==== 4. Fejléc ====
+===== 5. Fejléc =====
+
+= Betűstílusok =
+{{{
+Normális szöveg, ''kiemelt'', '''félkövér''', __aláhúzott__, ,,alső index,,, ^felső index^, `gépíró` és {{{gépíró}}}.
+}}}
+
+Normális szöveg, ''kiemelt'', '''félkövér''', __aláhúzott__, ,,alső index,,, ^felső index^, `gépíró` és {{{gépíró}}}.
+
+== Szintakszis kiemelés ==
+ {{{#!python
+# python kód
+print code.colorize("abc", 1 + 1)
+}}}
+
+= Figurák =
+[[ShowSmileys]]
+
+= Hiperhivatkozások =
+== Belső ==
+{{{
+ * MoinMoin
+ * MoinMoin/TextFormatting
+ * MoinMoin/InstallDocs 
+ * ../InstallDocs 
+ * /SubPage
+ * Self:InterWiki
+}}}
+ * MoinMoin
+ * MoinMoin/TextFormatting
+ * MoinMoin/InstallDocs 
+ * ../InstallDocs 
+ * /SubPage
+ * Self:InterWiki
+
+{{{
+[#anchorname Horgony Kapocs]
+}}}
+[#anchorname Horgony Kapocs]
+
+== Külső ==
+{{{
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ MoinMoin Wiki]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png moinmoin.png]
+ * MeatBall:InterWiki
+ * wiki:MeatBall/InterWiki
+ * [wiki:MeatBall/InterWiki]
+ * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
+ * [file://servername/full/path/to/file/filename%20with%20spaces.txt Click here to read filename with spaces.txt]
+ * me@privacy.net
+}}}
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ MoinMoin Wiki]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png moinmoin.png]
+ * MeatBall:InterWiki
+ * wiki:MeatBall/InterWiki
+ * [wiki:MeatBall/InterWiki]
+ * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
+ * [file://servername/full/path/to/file/filename%20with%20spaces.txt Click here to read filename with spaces.txt]
+ * me@privacy.net
+== WikiNevek írása ==
+{{{
+Wiki''''''Név
+Wiki``Név
+}}}
+Wiki''''''Név
+Wiki``Név
+
+= Idézet blokk =
+{{{
+ Ez a sor beljebb kezdődik
+  Ez még inkább
+}}}
+ Ez a sor beljebb kezdődik
+  Ez még inkább
+
+= Listák =
+{{{
+ * 1. elem
+
+ * 2. elem, kis sorközzel
+ * 3. elem
+   * 3.1-es elem
+}}}
+ * 1. elem
+
+ * 2. elem, kis sorközzel
+ * 3. elem
+   * 3.1-es elem
+= Számozott listák =
+{{{
+ 1. 1. elem
+   i. 1. elem
+   i. 2. elem
+}}}
+ 1. 1. elem
+   i. 1. elem
+   i. 2. elem
+{{{
+ 1. 2. elem
+   a. 1. elem
+   a. 2. elem
+}}}
+ 1. 2. elem
+   a. 1. elem
+   a. 2. elem
+= Leírások + Definíciók =
+{{{
+ Fogalom:: Leírás
+ Címke:: Definíció
+}}}
+ Fogalom:: Leírás
+ Címke:: Definíció
+= Kód megjelenítése =
+ {{{
+1. sor
+    4 karakterrel beljebb
+}}}
+
+= Táblázatok =
+== Általános táblázat elrendezés HTML-szerű kapcsolókkal ==
+{{{
+ ||||||<tablewidth="80%">'''Fejléc'''||
+ ||1. cella||2. cella||3. cella||
+ ||<rowspan=2> sorok összeolvasztása||||<bgcolor='#E0E0FF'> 2 oszlop összeolvasztása||
+ ||<rowbgcolor="#FFFFE0">2. cella||3. cella||
+}}}
+ ||||||<tablewidth="80%">'''Fejléc'''||
+ ||1. cella||2. cella||3. cella||
+ ||<rowspan=2> sorok összeolvasztása||||<bgcolor='#E0E0FF'> 2 oszlop összeolvasztása||
+ ||<rowbgcolor="#FFFFE0">2. cella||3. cella||
+
+== Cella szélessége ==
+{{{
+ || keskeny ||<:99%> széles ||
+}}}
+ || keskeny ||<:99%> széles ||
+
+== Sorok és oszlopok csoportosítása ==
+{{{
+ ||<|2> 2 sor || 1. sor ||
+ || 2. sor ||
+ ||<-2> 3. sor 2 oszlopon át ||
+}}}
+ ||<|2> 2 sor || 1. sor ||
+ || 2. sor ||
+ ||<-2> 3. sor 2 oszlopon át ||
+
+== Igazítás ==
+{{{
+ ||<(> balra ||<^|3> fel ||<v|3> le ||
+ ||<:> középre ||
+ ||<)> jobbra ||
+}}}
+ ||<(> balra ||<^|3> fel ||<v|3> le ||
+ ||<:> középre ||
+ ||<)> jobbra ||
+
+== Színek ==
+{{{
+ ||<#FF8080> piros ||<#80FF80> zöld ||<#8080FF> kék ||
+}}}
+ ||<#FF8080> piros ||<#80FF80> zöld ||<#8080FF> kék ||
+
+== CSV táblák ==
+
+Az adat pontosvesszőkkel van elválasztva (ld. a nyers szöveget):
+{{{
+#!CSV -2
+1. oszlop;2. oszlop;3.oszlop;4. oszlop
+1;2;3;4
+a;b;c;d
+}}}
+ {{{#!CSV -2
+1. oszlop;2. oszlop;3.oszlop;4. oszlop
+1;2;3;4
+a;b;c;d
+}}}
+
+Vesszőkkel elválasztva (ld. a nyers szöveget):
+{{{#!CSV ,
+1. oszlop,2. oszlop,3.oszlop,4. oszlop
+1,2,3,4
+a,b,c,d
+}}}
+
+= Vonalak =
+{{{
+--- (nem vonal)
+----
+-----
+------
+-------
+--------
+---------
+----------
+-------------------------------------------- (10-nél nem lesz vastagabb)
+}}}
+--- (nem vonal)
+----
+-----
+------
+-------
+--------
+---------
+----------
+-------------------------------------------- (10-nél nem lesz vastagabb)
+
+= Makrók =
+{{{
+[[Anchor(horgonynév)]]
+'''[[PageCount]]''' oldalak száma
+[[RandomPage]]
+}}}
+[[Anchor(horgonynév)]]
+'''[[PageCount]]''' oldalak száma
+[[RandomPage]]

@@ -8,7 +8,7 @@
 
 import StringIO
 import keyword, token, tokenize, sha
-from MoinMoin import config
+from MoinMoin import config, wikiutil
 from MoinMoin.util.ParserBase import parse_start_step
 
 _KEYWORD = token.NT_OFFSET + 1
@@ -70,8 +70,8 @@ class Parser:
         except tokenize.TokenError, ex:
             msg = ex[0]
             line = ex[1][0]
-            self.request.write("<b>ERROR: %s</b><br>%s\n" % (
-                msg, self.formatter.text(self.raw[self.lines[line]:])))
+            self.request.write(self.formatter.rawHTML("<b>ERROR: %s</b><br>%s\n" % (
+                msg, wikiutil.escape(self.raw[self.lines[line]:]))))
         self.request.write(self.formatter.code_line(0))
         self.request.write(formatter.code_area(0, self._code_id))
 
@@ -94,7 +94,7 @@ class Parser:
 
         # send the original whitespace, if needed
         if newpos > oldpos:
-            self.request.write(self.raw[oldpos:newpos])
+            self.request.write(self.formatter.text(self.raw[oldpos:newpos]))
 
         # skip indenting tokens
         if toktype in [token.INDENT, token.DEDENT]:

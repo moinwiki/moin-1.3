@@ -52,12 +52,16 @@ def _loadWords(lines, dict):
 
 def _loadWordsFile(request, dict, filename):
     request.clock.start('spellread')
-    file = codecs.open(filename, 'rt', config.charset)
     try:
-        lines = file.readlines()
-        _loadWords(lines, dict)
+        try:
+            file = codecs.open(filename, 'rt', config.charset)
+            lines = file.readlines()
+        except UnicodeError:
+            file = codecs.open(filename, 'rt', 'iso-8859-1')
+            lines = file.readlines()
     finally:
         file.close()
+    _loadWords(lines, dict)
     request.clock.stop('spellread')
 
 def _loadWordsPage(request, dict, page):

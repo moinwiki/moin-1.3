@@ -8,7 +8,7 @@
 
 import unittest, os, dircache
 
-from MoinMoin._tests import request, TestConfig, TestSkiped
+from MoinMoin._tests import TestConfig, TestSkiped
 from MoinMoin import user, caching
 
 
@@ -41,17 +41,17 @@ class LoginWithPasswordTestCase(unittest.TestCase):
 
     def setUp(self):
         # Save original user and cookie
-        self.saved_cookie = request.saved_cookie
-        self.saved_user = request.user
+        self.saved_cookie = self.request.saved_cookie
+        self.saved_user = self.request.user
         
         # Create anon user for the tests
-        request.saved_cookie = ''
-        request.user = user.User(request)
+        self.request.saved_cookie = ''
+        self.request.user = user.User(self.request)
 
         # Prevent user list caching - we create and delete users too
         # fast for that.
         try:
-            del dircache.cache[request.cfg.user_dir]
+            del dircache.cache[self.request.cfg.user_dir]
         except KeyError:
             pass
         
@@ -70,16 +70,17 @@ class LoginWithPasswordTestCase(unittest.TestCase):
             del self.user
 
         # Restore original user
-        request.saved_cookie = self.saved_cookie
-        request.user = self.saved_user
+        self.request.saved_cookie = self.saved_cookie
+        self.request.user = self.saved_user
                 
         # Remove user name to id cache, or next test will fail
-        caching.CacheEntry(request, 'user', 'name2id').remove()
+        caching.CacheEntry(self.request, 'user', 'name2id').remove()
+        del self.request.cfg._name2id
         
         # Prevent user list caching - we create and delete users too
         # fast for that.
         try:
-            del dircache.cache[request.cfg.user_dir]
+            del dircache.cache[self.request.cfg.user_dir]
         except KeyError:
             pass
               
@@ -91,7 +92,7 @@ class LoginWithPasswordTestCase(unittest.TestCase):
         self.createUser(name, password)
         
         # Try to "login"           
-        theUser = user.User(request, name=name, password=password)
+        theUser = user.User(self.request, name=name, password=password)
         self.failUnless(theUser.valid, "Can't login with ascii password")
 
     def testUnicodePassword(self):
@@ -102,7 +103,7 @@ class LoginWithPasswordTestCase(unittest.TestCase):
         self.createUser(name, password)
         
         # Try to "login"
-        theUser = user.User(request, name=name, password=password)
+        theUser = user.User(self.request, name=name, password=password)
         self.failUnless(theUser.valid, "Can't login with unicode password")
 
     def testOldNonAsciiPassword(self):
@@ -120,7 +121,7 @@ class LoginWithPasswordTestCase(unittest.TestCase):
         self.createUser(name, password, charset='iso-8859-1')
         
         # Try to "login"           
-        theUser = user.User(request, name=name, password=password)
+        theUser = user.User(self.request, name=name, password=password)
         self.failUnless(theUser.valid, "Can't login with old unicode password")
 
     def testReplaceOldNonAsciiPassword(self):
@@ -137,11 +138,12 @@ class LoginWithPasswordTestCase(unittest.TestCase):
         self.createUser(name, password, charset='iso-8859-1')
         
         # Login - this should replace the old password in the user file         
-        theUser = user.User(request, name=name, password=password)
+        theUser = user.User(self.request, name=name, password=password)
         # Login again - the password should be new unicode password
         expected = user.encodePassword(password)
-        theUser = user.User(request, name=name, password=password)
-        self.assertEqual(theUser.enc_password, expected, "User password was not replaced with new")
+        theUser = user.User(self.request, name=name, password=password)
+        self.assertEqual(theUser.enc_password, expected,
+                         "User password was not replaced with new")
             
     # Helpers ---------------------------------------------------------
     
@@ -150,13 +152,11 @@ class LoginWithPasswordTestCase(unittest.TestCase):
         
         charset is used to create user with pre 1.3 password hash
         """
-        global request
-        
-        # Hack request form to contain the password
-        request.form['password'] = [password]  
+        # Hack self.request form to contain the password
+        self.request.form['password'] = [password]  
         
         # Create user
-        self.user = user.User(request)
+        self.user = user.User(self.request)
         self.user.name = name
         self.user.enc_password = user.encodePassword(password, charset=charset)
         
@@ -178,7 +178,8 @@ class LoginWithPasswordTestCase(unittest.TestCase):
 class GroupNameTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.config = TestConfig(page_group_regex = r'.+Group')              
+        self.config = TestConfig(self.request,
+                                 page_group_regex = r'.+Group')              
 
     def tearDown(self):
         del self.config
@@ -190,7 +191,7 @@ class GroupNameTestCase(unittest.TestCase):
         """ user: isValidName: reject group names """   
         test = u'AdminGroup'
         assert self.group.search(test)
-        result = user.isValidName(request, test)
+        result = user.isValidName(self.request, test)
         expected = False
         self.assertEqual(result, expected,
                         'Expected "%(expected)s" but got "%(result)s"' % locals()) 
@@ -208,10 +209,9 @@ class IsValidNameTestCase(unittest.TestCase):
         expected = False
         for c in invalid:
             name = base % c
-            result = user.isValidName(request, name)           
+            result = user.isValidName(self.request, name)           
         self.assertEqual(result, expected,
                          'Expected "%(expected)s" but got "%(result)s"' % locals()) 
-
 
     def testWhitespace(self):
         """ user: isValidName: reject leading, trailing or multiple whitespace """
@@ -222,7 +222,7 @@ class IsValidNameTestCase(unittest.TestCase):
             )
         expected = False
         for test in cases:
-            result = user.isValidName(request, test)          
+            result = user.isValidName(self.request, test)          
             self.assertEqual(result, expected,
                          'Expected "%(expected)s" but got "%(result)s"' % locals())
 
@@ -236,7 +236,7 @@ class IsValidNameTestCase(unittest.TestCase):
             )
         expected = True
         for test in cases:
-            result = user.isValidName(request, test)          
+            result = user.isValidName(self.request, test)          
             self.assertEqual(result, expected,
                              'Expected "%(expected)s" but got "%(result)s"' % locals())
 

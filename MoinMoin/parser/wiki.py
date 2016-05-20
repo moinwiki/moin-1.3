@@ -417,6 +417,7 @@ class Parser:
             return self.attachment([word])
 
         if wikiutil.isPicture(word):
+            word = wikiutil.mapURL(self.request, word)
             # Get image name http://here.com/dir/image.gif -> image
             name = word.split('/')[-1]
             name = ''.join(name.split('.')[:-1])

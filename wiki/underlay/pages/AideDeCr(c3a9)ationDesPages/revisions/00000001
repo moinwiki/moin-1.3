@@ -37,8 +37,6 @@ La sauvegarde d'un modèle et la prévisualisation ne provoque pas la substituio
 
 = Copie de sauvegarde =
 
-Si l'utilisateur a une page personnelle[[Footnote(Cela signifie que vous êtes enregsitré sous un nom qui est également le nom d'une page wiki existante.)]] indiquée par l'icône [[Icon(home)]], une copie du texte édité ou prévisualisé est effectuée comme une sous page `Nom``De``La``Page``Perso/Moin``Editor``Backup` (si les sous-pages sont autorisées) ou comme `Nom``De``La``Page``Perso``Moin``Editor``Backup (dans le cas inverse).
-
-If the user has a homepage[[FootNote(Having a homepage means you're logged in under a name that is also the name of an existing wiki page.)]] indicated by the [[Icon(home)]] icon, a backup of save/preview text is saved either as subpage `Home``Page``Name/Moin``Editor``Backup` (if subpages are allowed) or as page `Home``Page``Name``Moin``Editor``Backup` (if subpages are not allowed).
+Si l'utilisateur a une page personnelle[[FootNote(Cela signifie que vous êtes enregistré sous un nom qui est également le nom d'une page wiki existante.)]] indiquée par l'icône [[Icon(home)]], une copie du texte édité ou prévisualisé est effectuée comme une sous page `Nom``De``La``Page``Perso/Moin``Editor``Backup` (si les sous-pages sont autorisées) ou comme `Nom``De``La``Page``Perso``Moin``Editor``Backup (dans le cas inverse).
 
 Ainsi, pensez à prévisualiser souvent les changements pour les sauvegarder.

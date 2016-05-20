@@ -57,6 +57,8 @@ echo "Finished."
 
 If it doesn't display "CGI scripts work", well, then CGI scripts don't work. If it doesn't show one or more Python version numbers, then Python is not correctly installed. In both cases, before you can proceed, you will have to get in touch with the administrator of the server so that the problems get corrected.
 
+Also be sure to read ../ApacheOnLinuxFtp after you've completed the ../BasicInstallation illustrated here.
+
 = Download MoinMoin =
 
 To download the distribution archive, go to the [http://sourceforge.net/project/showfiles.php?group_id=8482 download area] and fetch the lastest archive.
@@ -88,7 +90,14 @@ The installation to a system location is easier, so choose that if possible.
 
 /!\ If you have several versions of Python installed, please use the same version for setup and for running the wiki. Usually, the latest Python version will get the best results.
 
-'''Note:''' On Linux, if you have problems with the `setup.py` install step, you may need to have the Python development files installed. Some Linux distribution put them in a separate package, not installed by default. For example, on Mandrake you need to install the `python-devel` package.
+If you have problems with the `setup.py` install step, try using the command:
+{{{
+> python -v setup.py --quiet install --record=install.log
+}}}
+
+The additional `-v` flag should provide you detailed verbose messages every step of the way.
+
+/!\ On Linux, if u get an error like `Invalid Python installation: cannot find /usr/lib/Python2.x/config/Makefile`, you may not have the python module '''`distutils`''' installed, it's usually a part of the '''Python development libarary (`python-dev`)'''. Some Linux distributions may not have installed it by default. For example, on Mandrake you need to install the '''`python-devel`''' package, on Debian it's called '''`python-dev`'''.
 
 == Installing in the default system location ==
 

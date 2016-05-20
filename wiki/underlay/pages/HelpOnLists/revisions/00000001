@@ -8,7 +8,7 @@
 #format wiki
 #language en
 == Lists and Indenting ==
-You can create bulleted and numbered lists in a quite natural way. All you do is inserting the line containing the list item. To get bulleted items, start the item with an asterisk "{{{*}}}"; to get numbered items, start it with a number template "{{{1.}}}", "{{{a.}}}", "{{{A.}}}", "{{{i.}}}" or "{{{I.}}}". Anything else will just indent the line. To start a numbered list with a certain initial value, append "{{{#}}}''value''" to the number template.
+You can create bulleted and numbered lists in a quite natural way. All you do is indent the line containing the list item. To get bulleted items, start the item with an asterisk "{{{*}}}"; to get numbered items, start it with a number template "{{{1.}}}", "{{{a.}}}", "{{{A.}}}", "{{{i.}}}" or "{{{I.}}}". Anything else will just indent the line. To start a numbered list with a certain initial value, append "{{{#}}}''value''" to the number template.
 
 /!\ The asterisk and the number template must be preceded and followed by at least one space.
 
@@ -32,7 +32,8 @@ And if you put asterisks at the start of the line
       * to several levels
   * you can put linebreaks in the wiki markup of a list item by
   indenting the additional lines at the same
-  level as the initial star (or number) that began the list item.
+  level as the initial star that began the list item.
+   <!> does not work for numbered list
 
 A numbered list, mixed with bullets:
   1. one
@@ -76,7 +77,8 @@ And if you put asterisks at the start of the line
       * to several levels
   * you can put linebreaks in the wiki markup of a list item by
   indenting the additional lines at the same
-  level as the initial star (or number) that began the list item.
+  level as the initial star that began the list item.
+   <!> does not work for numbered list
 
 A numbered list, mixed with bullets:
   1. one

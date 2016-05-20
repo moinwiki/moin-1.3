@@ -28,6 +28,8 @@ Pour utiliser ce formulaire sur d\'autres pages, insérez un appel à la macro 
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 -~
 ''',
+'''Create New Page''':
+'''Créer une page''',
 '''You are not allowed to view this page.''':
 '''Vous n\'êtes pas autorisé à voir cette page.''',
 '''DeleteCache''':
@@ -42,6 +44,8 @@ Pour utiliser ce formulaire sur d\'autres pages, insérez un appel à la macro 
 '''Impossible de modifier d\'anciennes versions''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
 '''Le verrou que vous déteniez à expiré, vos modifications risquent d\'engendrer des conflits''',
+'''Page name is too long, try shorter name.''':
+'''Nom de page trop long, essayez un nom plus court.''',
 '''Edit "%(pagename)s"''':
 '''Éditer « %(pagename)s »''',
 '''Preview of "%(pagename)s"''':
@@ -140,7 +144,7 @@ La page suivante a été modifiée par %(editor)s :
 '''Aucune différence n\'a été trouvée !
 ''',
 '''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
-'''[%(sitename)s] Mise à jour %(trivial)sde « %(pagename)s par %(username)s »''',
+'''[%(sitename)s] Mise à jour %(trivial)sde « %(pagename)s » par %(username)s''',
 '''Trivial ''':
 '''mineure ''',
 '''Status of sending notification mails:''':
@@ -187,13 +191,13 @@ car cela supprimerait les changements de l\'autre personne, ce qui particulière
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
 '''Le verrou de %(owner)s pour cette page a expiré il y a %(mins_ago)d minutes et il vous a été accordé.''',
 '''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
-'''Les autres utilisateurs seront \'\'empêchés\'\' d\'éditer cette page jusqu\'au %(bumptime)s.''',
+'''Les autres utilisateurs \'\'ne\'\' pourront \'\'pas\'\' éditer cette page jusqu\'au %(bumptime)s.''',
 '''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
 '''Les autres utilisateurs seront \'\'avertis\'\' jusqu\'au %(bumptime)s que vous êtes en train d\'éditer cette page.''',
 '''Use the Preview button to extend the locking period.''':
 '''Utilisez le bouton « Aperçu » pour prolonger la période de verrouillage.''',
 '''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''Cette page est pour l\'instant \'\'verrouillée\'\' en édition par %(owner)s jusqu\'au %(timestamp)s, i. e. pour %(mins_valid)d minutes.''',
+'''Cette page est pour l\'instant \'\'verrouillée\'\' en édition par %(owner)s jusqu\'au %(timestamp)s, i. e. pour %(mins_valid)d minutes.''',
 '''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
 \'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
 to avoid editing conflicts.\'\'\'[[BR]]
@@ -277,6 +281,36 @@ Contact the owner of the wiki, who can enable email.''':
 Contactez le propriétaire de ce wiki, qui pourra l\'activer.''',
 '''Please provide a valid email address!''':
 '''Veuillez fournir une adresse électronique valide !''',
+'''Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki\'s password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+''':
+'''Quelqu\'un à demandé l\'envoi des données relatives à votre compte à cette
+adresse électronique.
+
+Si vous avez oublié votre mot de passe, utilisez les informations ci-dessous
+et entrez simplement le mot de passe TEL QUEL dans le champs mot de passe
+du formulaire d\'identification du wiki (utilisez pour cela un copier-coller).
+
+Après vous être identifié avec succès, il vous est naturellement recommandé
+d\'enregistrer un nouveau mot de passe que vous connaissiez.
+''',
+'''Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+''':
+'''Nom : %s
+
+Mot de passe : %s
+
+URL de connexion : %s/?action=userform&uid=%s
+''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Aucun compte correspondant à l\'adresse « %(email)s » n\'a été trouvé !''',
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
@@ -497,6 +531,12 @@ Contactez le propriétaire de ce wiki, qui pourra l\'activer.''',
 '''Analyseurs installés''',
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''Processeurs installés (OBSOLÈTES -- utilisez plutôt les analyseurs)''',
+'''Disabled''':
+'''Désactivée''',
+'''Enabled''':
+'''Activée''',
+'''Lupy search''':
+'''Utilisation de Lupy pour les recherches''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
 '''Choisissez un critère de recherche plus sélectif que {{{« %s »}}}''',
 '''ERROR in regex \'%s\'''':
@@ -546,8 +586,8 @@ envoyer. Si ce n\'est pas le cas, lorsque « Renommer en » est laissé
 en blanc, le nom original sera conservé.''',
 '''File to upload''':
 '''Fichier à envoyer''',
-'''Save as''':
-'''Enregistrer sous''',
+'''Rename to''':
+'''Renommer en''',
 '''Upload''':
 '''Envoyer un fichier''',
 '''File attachments are not allowed in this wiki!''':
@@ -631,9 +671,9 @@ Essayez un autre nom.''',
 '''You can\'t check spelling on a page you can\'t read.''':
 '''Vous ne pouvez pas vérifier l\'orthographe d\'une page que vous ne pouvez pas lire.''',
 '''Title Search: "%s"''':
-'''Recherche de « %s » dans les titres''',
+'''Recherche de « %s » dans les titres''',
 '''Full Text Search: "%s"''':
-'''Recherche de « %s » dans les textes''',
+'''Recherche de « %s » dans les textes''',
 '''Full Link List for "%s"''':
 '''Liste de tout les liens pour « %s »''',
 '''Cannot create a new page without a page name.  Please specify a page name.''':
@@ -654,8 +694,6 @@ Essayez un autre nom.''',
 '''Démarrer''',
 '''Slide %(pos)d of %(size)d''':
 '''Transparent %(pos)d sur %(size)d ''',
-'''Create New Page''':
-'''Créer une page''',
 '''No orphaned pages in this wiki.''':
 '''Pas de page orpheline dans ce wiki''',
 '''No quotes on %(pagename)s.''':
@@ -665,7 +703,7 @@ Essayez un autre nom.''',
 '''Drawing \'%(filename)s\' saved.''':
 '''Enregistrement du dessin « %(filename)s ».''',
 '''%(hours)dh %(mins)dm ago''':
-'''Il y a %(hours)dh %(mins)dm ''',
+'''Il y a %(hours)dh %(mins)dm ''',
 '''(no bookmark set)''':
 '''(aucun signet n\'a été défini)''',
 '''(currently set to %s)''':
@@ -710,18 +748,16 @@ Essayez un autre nom.''',
 '''Un entier « %(arg)s » était attendu après « %(key)s »''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Une couleur « %(arg)s » était attendue après « %(key)s »''',
-'''XSLT option disabled!''':
-'''Option XSLT désactivée !''',
-'''XSLT processing is not available!''':
-'''Traitement XSLT non disponible''',
+'''XSLT option disabled, please look at HelpOnConfiguration.''':
+'''L\'option XSLT a été désactivée, consultez l\'AideDeConfiguration.''',
+'''XSLT processing is not available, please install 4suite 1.x.''':
+'''Impossible de réaliser des traitements XSLT, veuillez installer la version 1.x de 4suite.''',
 '''%(errortype)s processing error''':
 '''Erreur d\'exécution : %(errortype)s''',
-'''RefreshCache''':
-'''RafraîchirLeCache''',
-'''for this page (cached %(date)s)''':
-''' pour cette page (dans le cache depuis %(date)s)''',
-'''Charts are not available!''':
-'''Les graphiques ne sont pas disponibles !''',
+'''Views/day''':
+'''Consultations/jour''',
+'''Edits/day''':
+'''Éditions/jour''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s pour %(filterpage)s''',
 '''green=view
@@ -732,12 +768,16 @@ rouge=modifications''',
 '''date''',
 '''# of hits''':
 '''Nombre d\'accès''',
+'''Charts are not available!''':
+'''Les graphiques ne sont pas disponibles !''',
 '''Page Size Distribution''':
 '''Page Taille Répartition''',
 '''page size upper bound [bytes]''':
 '''limite supérieure de la taille d\'une page [octets]''',
 '''# of pages of this size''':
 '''Nombre de pages de cette taille''',
+'''User agent''':
+'''Agent utilisateur''',
 '''Others''':
 '''Autres''',
 '''Distribution of User-Agent Types''':
@@ -769,7 +809,7 @@ rouge=modifications''',
 '''last modified %(time)s''':
 '''dernière modification %(time)s''',
 '''Search:''':
-'''Rechercher :''',
+'''Rechercher :''',
 '''Text''':
 '''Texte''',
 '''Titles''':
@@ -793,7 +833,7 @@ rouge=modifications''',
 '''Do''':
 '''Exécuter''',
 '''Show Parent''':
-'''Niveau supérieur''',
+'''Page au-dessus''',
 '''Immutable Page''':
 '''Page immuable''',
 '''Show Changes''':

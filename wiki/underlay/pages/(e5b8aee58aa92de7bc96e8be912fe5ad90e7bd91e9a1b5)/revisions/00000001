@@ -10,38 +10,36 @@
 
 ["帮助目录"] > ["帮助-编辑"]
 
-== Creating Subpages ==
+== 创建子页面 ==
 
-Subpages are groups of pages that share a common prefix, which itself is another page. While this is also possible with "classic" wiki, by using names like {{{SomeTopicSubTopic}}}, the use of {{{SomeTopic/SubTopic}}} allows better navigational support, and you can omit the common prefix when linking from the parent page to the child page.
+子页面是一群共享某个前缀的页面，而它们每一个又都是一个完整的页面。当然，通过使用像{{{["某话题子话题"]}}} 形式的页面名称，"传统"维基也能实现这种功能；但 {{{["某话题/子话题"]}}} 的形式可以提供更好的浏览支持，当您需要从父级页面链接到子页面的时候可以省略掉该子页面的前缀。
 
-Thus, by using "/" to concatenate several WikiName''''''s, you can create arbitrarily deep hierarchies (within limits, especially the length of filenames on your system). In reality, subpages are normal pages that contain a "/" in their name, and thus they are stored besides all other pages in the file system. Subpages are a configurable feature, but they're on by default and it's recommended that you keep it that way, since the help pages themselves use this feature.
+也就是说，使用 "/" 把几个["维基链接名"]联接在一起你就可以创建任意深度层次的页面（主要受限制于您使用的系统的最长文件名）。事实上这些页面只是页面名中包含有 "/" 字符的普通页面，因此，他们是和其他的页面存放在一起的。子页面是一个可以配置的功能，只是默认配置中已经打开了该功能，并且我们建议您保持打开该功能，因为帮助页面会用到这一功能。
 
-Links to sibling pages start with "`../`", for example ["../子网页"] (a link to this page).
+指向兄弟页面的链接可以使用 "`../`" 开头，例如： ["../子网页"] （一个指向本页的链接）。
 
-=== Example ===
+=== 示例 ===
 {{{
- * HelpOnEditing/SubPages
  * ["帮助-编辑/子网页"]
  * [wiki:帮助-编辑/子网页 就是此页]
  * [wiki:Self:帮助-编辑/子网页 就是此页]
- * /ThirdLevel
- * [wiki:/ThirdLevel A page below this one]
+ * ["/第三层子网页"]
+ * [wiki:/第三层子网页 这个子网页更下面的一层]
  * ["../子网页"]
- * ["../"] (anonymous parent link)
- * [:../:free parent link]
+ * ["../"] （匿名父级链接）
+ * [:../:自由父级链接]
 }}} 
 
-=== Display ===
- * HelpOnEditing/SubPages
+=== 显示 ===
  * ["帮助-编辑/子网页"]
  * [wiki:帮助-编辑/子网页 就是此页]
  * [wiki:Self:帮助-编辑/子网页 就是此页]
- * /ThirdLevel
- * [wiki:/ThirdLevel A page below this one]
+ * ["/第三层子网页"]
+ * [wiki:/第三层子网页 这个子网页更下面的一层]
  * ["../子网页"]
- * ["../"] (anonymous parent link)
- * [:../:free parent link]
+ * ["../"] （匿名父级链接）
+ * [:../:自由父级链接]
 
-/!\ Please do all of us a favour and don't create the /ThirdLevel pages, it's just an example!
+ /!\ 请您不要创建这个 ["/第三层子网页"] 页面，它仅仅是一个示例！
 
 此页的英文版本：HelpOnEditing/SubPages

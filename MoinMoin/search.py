@@ -1,9 +1,10 @@
+# -*- coding: iso-8859-1 -*-
 """
-    MoinMoin search engine
+    MoinMoin - search engine
     
-    @copyright: MoinMoin:FlorianFesti
-                MoinMoin:NirSoffer
-                MoinMoin:AlexanderSchremmer
+    @copyright: 2005 MoinMoin:FlorianFesti
+    @copyright: 2005 MoinMoin:NirSoffer
+    @copyright: 2005 MoinMoin:AlexanderSchremmer
     @license: GNU GPL, see COPYING for details
 """
 
@@ -11,10 +12,15 @@ import re, time, sys, StringIO
 from MoinMoin import wikiutil, config
 from MoinMoin.Page import Page
 
-#try:
-#    import xapian
-#except ImportError:
-#    xapian = False
+from MoinMoin.support.lupy.search.term import TermQuery
+from MoinMoin.support.lupy.search.phrase import PhraseQuery
+from MoinMoin.support.lupy.search.boolean import BooleanQuery, BooleanScorer
+from MoinMoin.support.lupy.search.prefix import PrefixQuery
+from MoinMoin.support.lupy.search.camelcase import CamelCaseQuery
+from MoinMoin.support.lupy.search.regularexpression import RegularExpressionQuery
+from MoinMoin.support.lupy.index.term import Term
+
+from MoinMoin.lupy import Index, tokenizer
 
 #############################################################################
 ### query objects
@@ -40,7 +46,7 @@ class BaseExpression:
         it. Return a function that get a page name, and return bool.
 
         The default expression does not have any filter function and
-        return None. Sub class may define custom filter fuctions.
+        return None. Sub class may define custom filter functions.
         """
         return None
 
@@ -48,7 +54,7 @@ class BaseExpression:
         """ Search a page
 
         Returns a list of Match objects or None if term didn't find
-        anything (viceversa if negate() was called).  Terms containing
+        anything (vice versa if negate() was called).  Terms containing
         other terms must call this method to aggregate the results.
         This Base class returns True (Match()) if not negated.
         """
@@ -73,13 +79,6 @@ class BaseExpression:
         """
         return ''
 
-    def indexed_query(self):
-        """ Experimental/unused
-
-        May become interface to the indexing search engine
-        """
-        return self
-
     def _build_re(self, pattern, use_re=False, case=False):
         """ Make a regular expression out of a text pattern """
         if case:
@@ -96,6 +95,8 @@ class BaseExpression:
                 pattern = re.escape(pattern)
                 self.pattern = pattern
                 self.search_re = re.compile(pattern, flags)
+            else:
+                self.pattern = pattern
         else:
             pattern = re.escape(pattern)
             self.search_re = re.compile(pattern, flags)
@@ -103,7 +104,7 @@ class BaseExpression:
 
 
 class AndExpression(BaseExpression):
-    """ A term connecting several subterms with a logical AND """
+    """ A term connecting several sub terms with a logical AND """
 
     operator = ' '
 
@@ -180,34 +181,16 @@ class AndExpression(BaseExpression):
             
         return '|'.join(result)
 
-    def indexed_query(self):
-        indexed_terms = []
-        sub_terms = []
+    def lupy_term(self):
+        required = self.operator== " "
+        lupy_term = BooleanQuery()
         for term in self._subterms:
-            term = term.indexed_query()
-            if term is isinstance(BaseExpression):
-                subterms.append(term)
-            else:
-                indexed_terms.append(term)
-
-        if indexed_terms:
-
-            if not sub_terms:
-                return indexed_terms
-
-    def indexed_search(self):
-        if self.indexed_query:
-            indexed_result = self.indexed_query.indexed_query()
-            result = []
-            for foundpage in indexed_result:
-                matches = self.search(foundpage.page)
-                if matches:
-                    result.append(foundpage)
-                    foundpage.add_matches(matches)
+            lupy_term.add(term.lupy_term(), required, term.negated)
+        return lupy_term
 
 
 class OrExpression(AndExpression):
-    """ A term connecting several subterms with a logical OR """
+    """ A term connecting several sub terms with a logical OR """
     
     operator = ' or '
 
@@ -242,6 +225,8 @@ class TextSearch(BaseExpression):
         """
         self._pattern = unicode(pattern)
         self.negated = 0
+        self.use_re = use_re
+        self.case = case
         self._build_re(self._pattern,
                        use_re=use_re, case=case)
         self.titlesearch = TitleSearch(self._pattern, use_re=use_re, case=case)
@@ -268,7 +253,7 @@ class TextSearch(BaseExpression):
         # Search in page body
         body = page.get_raw_body()
         for match in self.search_re.finditer(body):
-            matches.append(TextMatch(match.start(),match.end()))
+            matches.append(TextMatch(re_match=match))
 
         # Decide what to do with the results.
         if ((self.negated and matches) or
@@ -280,10 +265,35 @@ class TextSearch(BaseExpression):
             # XXX why not return None or empty list?
             return [Match()]
 
-    def indexed_query(self):
-        return xapian.Query(self._pattern)
-
-
+    def lupy_term(self):
+        or_term = BooleanQuery()
+        term = self.titlesearch.lupy_term()
+        or_term.add(term, False, False)
+        pattern = self._pattern.lower()
+        if self.use_re:
+            if pattern[0]=='^':
+                pattern = pattern[1:]
+            if pattern[:2]=='\b':
+                pattern = pattern[2:]
+            term = RegularExpressionQuery(Term("text", pattern))
+        else:
+            terms = pattern.lower().split()
+            terms = [list(tokenizer(t)) for t in terms]
+            term = BooleanQuery()
+            for t in terms:
+                if len(t)==1:
+                    term.add(CamelCaseQuery(Term("text", t[0])), True, False)
+                else:
+                    phrase = PhraseQuery()
+                    for w in t:
+                        phrase.add(Term("text", w))
+                    term.add(phrase, True, False)
+            #term = CamelCaseQuery(Term("text", pattern))
+            #term = PrefixQuery(Term("text", pattern), 3)
+            #term = TermQuery(Term("text", pattern))
+        or_term.add(term, False, False)
+        return or_term
+        
 class TitleSearch(BaseExpression):
     """ Term searches in pattern in page title only """
 
@@ -294,8 +304,10 @@ class TitleSearch(BaseExpression):
         @param use_re: treat pattern as re of plain text, bool
         @param case: do case sensitive search, bool 
         """
-        self._pattern = pattern
+        self._pattern = unicode(pattern)
         self.negated = 0
+        self.use_re = use_re
+        self.case = case
         self._build_re(unicode(pattern), use_re=use_re, case=case)
         
     def costs(self):
@@ -323,7 +335,7 @@ class TitleSearch(BaseExpression):
         # Get matches in page name
         matches = []
         for match in self.search_re.finditer(page.page_name):
-            matches.append(TitleMatch(match.start(),match.end()))
+            matches.append(TitleMatch(re_match=match))
         
         if ((self.negated and matches) or
             (not self.negated and not matches)):
@@ -334,9 +346,15 @@ class TitleSearch(BaseExpression):
             # XXX why not return None or empty list?
             return [Match()]
 
-    def indexed_query(self):
-        return self
-
+    def lupy_term(self):
+        pattern = self._pattern.lower()
+        if self.use_re:
+            if pattern[0]=='^': pattern = pattern[1:]
+            term = RegularExpressionQuery(Term("title", pattern))
+        else:
+            term = PrefixQuery(Term("title", pattern), 3)
+        #term.boost = 100.0
+        return term
     
 class LinkSearch(BaseExpression):
     """ Search the term in the pagelinks """
@@ -353,6 +371,8 @@ class LinkSearch(BaseExpression):
         # used for search in text
         self._textpattern = '(' + self._pattern.replace('/', '|') + ')'
         self.negated = 0
+        self.use_re = use_re
+        self.case = case
         self.textsearch = TextSearch(self._textpattern, use_re=1, case=case)
         self._build_re(unicode(pattern), use_re=use_re, case=case)
 
@@ -409,25 +429,21 @@ class LinkSearch(BaseExpression):
             # XXX why not return None or empty list?
             return [Match()]
 
-    def indexed_query(self):
-        return self
-
-    
-
-class IndexedQuery:
-    """unused and experimental"""
-    def __init__(self, queryobject):
-        self.queryobject = queryobject
-    def indexed_search(self):
-        pass
-        # return list of results
-    
+    def lupy_term(self):        
+        pattern = self.pattern
+        if self.use_re:
+            if pattern[0]=="^": pattern = pattern[1:]
+            term = RegularExpressionQuery(Term("links", pattern))
+        else:
+            term = TermQuery(Term("links", pattern))
+        term.boost = 10.0
+        return term
 
 ############################################################################
 ### Results
 ############################################################################
 
-class Match:
+class Match(object):
     """ Base class for all Matches (found pieces of pages).
     
     This class represents a empty True value as returned from negated searches.
@@ -435,9 +451,13 @@ class Match:
     # Default match weight
     _weight = 1.0
     
-    def __init__(self, start=0, end=0):
-        self.start = start
-        self.end = end
+    def __init__(self, start=0, end=0, re_match=None):
+        self.re_match = re_match
+        if not re_match:
+            self._start = start
+            self._end = end
+        else:
+            self._start = self._end = 0
 
     def __len__(self):
         return self.end - self.start
@@ -457,17 +477,23 @@ class Match:
     def weight(self):
         return self._weight
 
+    def _get_start(self):
+        if self.re_match:
+            return self.re_match.start()
+        return self._start
+
+    def _get_end(self):
+        if self.re_match:
+            return self.re_match.end()
+        return self._end
+
+    # object properties
+    start = property(_get_start)
+    end   = property(_get_end)
+
 
 class TextMatch(Match):
     """ Represents a match in the page content """
-    pass
-
-
-class MatchInAttachment(Match):
-    """ Represents a match in a attachment content
-
-    Not used yet.
-    """
     pass
 
 
@@ -480,6 +506,14 @@ class TitleMatch(Match):
     # seems to make all pages that have matches in the title to appear
     # before pages that their title does not match.
     _weight = 100.0
+
+
+class AttachmentMatch(Match):
+    """ Represents a match in a attachment content
+
+    Not used yet.
+    """
+    pass
 
 
 class FoundPage:
@@ -566,7 +600,7 @@ class FoundPage:
         # Get first match into matches list
         matches = [tmp[0][1]]
 
-        # Add rest of matches ignoring identical matches
+        # Add the remaining ones of matches ignoring identical matches
         for item in tmp[1:]:
             if item[1] == matches[-1]:
                 continue
@@ -648,7 +682,7 @@ class QueryParser:
         ops = match.group("OPS")
         if ops == '(':
             result = self._or_expression()
-            if match.group("NEG"): restult.negate()
+            if match.group("NEG"): result.negate()
             return result
         elif ops == ')':
             return None
@@ -656,8 +690,8 @@ class QueryParser:
             return None
         modifiers = match.group('MOD').split(":")[:-1]
         text = match.group('TERM')
-        if ((text[0] == text[-1] == '"') or
-            (text[0] == text[-1] == "'")): text = text[1:-1]
+        if self.isQuoted(text):
+            text = text[1:-1]
 
         title_search = self.titlesearch
         regex = self.regex
@@ -685,6 +719,16 @@ class QueryParser:
             obj.negate()
         return obj                
 
+    def isQuoted(self, text):
+        # Empty string '' is not considered quoted
+        if len(text) < 3:
+            return False
+        return (text.startswith('"') and text.endswith('"') or
+                text.startswith("'") and text.endswith("'"))
+
+############################################################################
+### Search results formatting
+############################################################################
 
 class SearchResults:
     """ Manage search results, supply different views
@@ -973,7 +1017,7 @@ class SearchResults:
 
         @param page: found page
         @rtype: unicode
-        @return: formated title
+        @return: formatted title
         """
         # Get unique title matches sorted by match.start
         matches = page.get_matches(unique=1, sort='start', type=TitleMatch)
@@ -1009,7 +1053,7 @@ class SearchResults:
         @param match: search match in text
         @param location: current location in text
         @rtype: unicode
-        @return: formated match or empty string
+        @return: formatted match or empty string
         """        
         start = max(location, match.start)
         if start < match.end:
@@ -1032,7 +1076,7 @@ class SearchResults:
         return querystr
 
     def formatInfo(self, page):
-        """ Return formated match info """
+        """ Return formatted match info """
         # TODO: this will not work with non-html formats
         template = u'<span class="info"> . . . %s %s</span>'
         # Count number of unique matches in text of all types
@@ -1041,9 +1085,9 @@ class SearchResults:
         return self.formatter.rawHTML(info)         
 
     def getvalue(self):
-        """ Return output in div with css class """
+        """ Return output in div with CSS class """
         write = self.request.write
-        # TODO: this will not work with other formatter then
+        # TODO: this will not work with other formatter than
         # text_html. we should add a div/section creation method to all
         # formatters.
         value = [
@@ -1068,48 +1112,109 @@ class SearchResults:
         # Use 1 match, 2 matches...
         _ = request.getText    
         self.matchLabel = (_('match'), _('matches'))
-            
 
 ##############################################################################
 ### Searching
 ##############################################################################
 
+class Search:
+    """ A search run """
+    
+    def __init__(self, request, query):
+        self.request = request
+        self.query = query
+        self.filtered = False
+
+    def run(self):
+        """ Preform search and return results object """
+        start = time.time()
+        if self.request.cfg.lupy_search:
+            hits = self._lupySearch()
+        else:
+            hits = self._moinSearch()
+            
+        # important - filter deleted pages or pages the user may not read!
+        if not self.filtered:
+            hits = self._filter(hits)
+            
+        hits = [FoundPage(page.page_name, match) for page, match in hits]
+        elapsed = time.time() - start
+        count = self.request.rootpage.getPageCount()
+        return SearchResults(self.query, hits, count, elapsed)
+
+    # ----------------------------------------------------------------
+    # Private!
+
+    def _lupySearch(self):
+        """ Search using lupy
+        
+        Get a list of pages using fast lupy search and return moin
+        search in those pages.
+        """
+        index = Index(self.request)
+        if not index.exists():
+            return self._moinSearch()
+        self.request.clock.start('_lupySearch')
+        try:
+            hits = index.search(self.query.lupy_term())
+            pages = [hit.get('pagename') for hit in hits]
+        except index.LockedException:
+            pages = None
+        self.request.clock.stop('_lupySearch')
+        if pages == []:
+            return pages
+        return self._moinSearch(pages)
+
+    def _moinSearch(self, pages=None):
+        """ Search pages using moin built in full text search 
+        
+        Return list of tuples (page, match). The list may contain
+        deleted pages or pages the user may not read.
+        """
+        self.request.clock.start('_moinSearch')
+        from MoinMoin.Page import Page
+        if not pages:
+            pages = self._getPageList()
+        hits = []
+        for name in pages:
+            page = Page(self.request, name)
+            match = self.query.search(page)
+            if match:
+                hits.append((page, match))
+        self.request.clock.stop('_moinSearch')
+        return hits
+
+    def _getPageList(self):
+        """ Get list of pages to search in 
+        
+        If the query has a page filter, use it to filter pages before
+        searching. If not, get a unfiltered page list. The filtering
+        will happen later on the hits, which is faster with current
+        slow storage.
+        """
+        filter = self.query.pageFilter()
+        if filter:
+            # There is no need to filter the results again.
+            self.filtered = True
+            return self.request.rootpage.getPageList(filter=filter)
+        else:
+            return self.request.rootpage.getPageList(user='', exists=0)
+        
+    def _filter(self, hits):
+        """ Filter out deleted or acl protected pages """
+        userMayRead = self.request.user.may.read
+        filtered = [(page, match) for page, match in hits
+                    if page.exists() and userMayRead(page.page_name)]    
+        return filtered
+        
+        
 def searchPages(request, query, **kw):
-    """
-    Search the text of all pages for query.
+    """ Search the text of all pages for query.
+    
+    @param request: current request
     @param query: the expression we want to search for
     @rtype: SearchResults instance
     @return: search results
-    """   
-    from MoinMoin.Page import Page
-    hits = []
+    """
+    return Search(request, query).run()
 
-    start = time.time()
-
-    filter = query.pageFilter()
-    if filter:
-        # Get a list of readable pages, filtered by query page filter.
-        pages = request.rootpage.getPageList(filter=filter)
-    else:
-        # Get an unfiltered list, then filter the hits. This works much
-        # faster for common cases, and is even faster when you can't
-        # read any page!  This might change if we cache the page list,
-        # or storage will be faster.
-        pages = request.rootpage.getPageList(user='', exists=0)
-        
-    # Search through pages
-    for name in pages:
-        page = Page(request, name)
-        result = query.search(page)
-        if result:
-            if not filter:
-                # Filter deleted pages or pages the user can't read.
-                if not (page.exists() and request.user.may.read(name)):
-                    continue
-            hits.append(FoundPage(name, result))
-            
-    elapsed = time.time() - start
-    count = request.rootpage.getPageCount()
-    results = SearchResults(query, hits, count, elapsed)
-    return results
-   

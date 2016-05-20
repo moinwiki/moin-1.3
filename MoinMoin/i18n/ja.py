@@ -28,6 +28,8 @@ macro call.-~
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 を埋め込んでください。-~
 ''',
+'''Create New Page''':
+'''新しいページを作成''',
 '''You are not allowed to view this page.''':
 '''このページを読む権限がありません。''',
 '''DeleteCache''':
@@ -41,7 +43,9 @@ macro call.-~
 '''Cannot edit old revisions!''':
 '''古いリビジョンを編集することはできません。''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
-'''ファイルのロックが期限切れになりました。他のユーザが行う編集と衝突する可能性があります。''',
+'''ページのロックが期限切れになりました。他のユーザが行う編集と衝突する可能性があります。''',
+'''Page name is too long, try shorter name.''':
+'''ページ名が長すぎます。短い名前を指定してください。''',
 '''Edit "%(pagename)s"''':
 '''"%(pagename)s"を編集''',
 '''Preview of "%(pagename)s"''':
@@ -141,6 +145,8 @@ The following page has been changed by %(editor)s:
 ''':
 '''違いは見つかりませんでした。
 ''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s] %(username)sによる"%(pagename)s"の%(trivial)s更新''',
 '''Trivial ''':
 '''ささいな''',
 '''Status of sending notification mails:''':
@@ -149,6 +155,10 @@ The following page has been changed by %(editor)s:
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''"%(pagename)s"のバックアップが%(date)sに作成されました。''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''ページをロックすることができませんでした。予期しないエラー(errno=%d)が発生しました。''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''ページをロックすることができませんでした。\'最新\'のファイルが存在しないのかもしれません。''',
 '''You are not allowed to edit this page!''':
 '''このページを削除する権限がありません。''',
 '''You cannot save empty pages.''':
@@ -273,6 +283,35 @@ Contact the owner of the wiki, who can enable email.''':
 管理者に問い合わせてください。''',
 '''Please provide a valid email address!''':
 '''正しいメールアドレスを入力してください。''',
+'''Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki\'s password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+''':
+'''要求により、あなたのアカウント情報をこのメールアドレスに送信しました。
+
+パスワードを忘れてしまった場合には、下に書かれている情報を利用して、
+Wikiのパスワード入力欄にパスワードを入力してください。
+(コピー＆ペーストを利用して、表示されているとおりのパスワードを
+入力してください。)
+
+ログインに成功したあとは、新たにパスワードを設定し直すことをお勧めします。
+''',
+'''Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+''':
+'''ログイン名: %s
+
+ログインパスワード: %s
+
+ログインURL: %s/?action=userform&uid=%s
+''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''メールアドレス\'%(email)s\'に該当するアカウントが見つかりません。''',
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
@@ -363,6 +402,8 @@ Contact the owner of the wiki, who can enable email.''':
 '''差分は見つかりませんでした。''',
 '''The page was saved %(count)d times, though!''':
 '''その間の保存: %(count)d回''',
+'''(ignoring whitespace)''':
+'''(ホワイトスペースを無視)''',
 '''Ignore changes in the amount of whitespace''':
 '''空白文字数の違いを無視''',
 '''General Information''':
@@ -491,6 +532,12 @@ Contact the owner of the wiki, who can enable email.''':
 '''インストールされているパーサ''',
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''インストールされているプロセッサ(現在はパーサの利用を推奨)''',
+'''Disabled''':
+'''無効''',
+'''Enabled''':
+'''有効''',
+'''Lupy search''':
+'''Lupyによる検索''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
 '''検索キーワード{{{"%s"}}}が適切ではありません。他のキーワードでやり直してください。''',
 '''ERROR in regex \'%s\'''':
@@ -535,8 +582,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''アップロードでは既存のファイルを上書きしません。同じファイル名が存在する場合には、アップロードするファイルの名前を変更してください。"名前の変更"が空白の場合、オリジナルのファイル名が使われます。''',
 '''File to upload''':
 '''アップロードするファイル''',
-'''Save as''':
-'''保存するファイル名を指定''',
+'''Rename to''':
+'''名前の変更''',
 '''Upload''':
 '''アップロード''',
 '''File attachments are not allowed in this wiki!''':
@@ -642,8 +689,6 @@ Try a different name.''':
 '''開始''',
 '''Slide %(pos)d of %(size)d''':
 '''スライド番号 %(pos)d/%(size)d''',
-'''Create New Page''':
-'''新しいページを作成''',
 '''No orphaned pages in this wiki.''':
 '''このwikiに参照元がないページはありません。''',
 '''No quotes on %(pagename)s.''':
@@ -698,18 +743,16 @@ Try a different name.''':
 '''"%(key)s"の後には整数値"%(arg)s"が必要です。''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''"%(key)s"の後には色の値"%(arg)s"が必要です。''',
-'''XSLT option disabled!''':
-'''XSLTオプションは無効になっています。''',
-'''XSLT processing is not available!''':
-'''XSLT processingは利用できません。''',
+'''XSLT option disabled, please look at HelpOnConfiguration.''':
+'''XSLTオプションが無効になっています。HelpOnConfigurationを参照してください。''',
+'''XSLT processing is not available, please install 4suite 1.x.''':
+'''XSLT processingは利用できません。4suite 1.xをインストールしてください。''',
 '''%(errortype)s processing error''':
 '''processingエラー: %(errortype)s''',
-'''RefreshCache''':
-'''キャッシュの更新''',
-'''for this page (cached %(date)s)''':
-'''(キャッシュ作成日時 %(date)s)''',
-'''Charts are not available!''':
-'''チャートは利用できません。''',
+'''Views/day''':
+'''表示/日''',
+'''Edits/day''':
+'''編集/日''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s for %(filterpage)s''',
 '''green=view
@@ -720,12 +763,16 @@ red=edit''':
 '''日付''',
 '''# of hits''':
 '''ヒットカウント''',
+'''Charts are not available!''':
+'''チャートは利用できません。''',
 '''Page Size Distribution''':
 '''ページサイズの分布''',
 '''page size upper bound [bytes]''':
 '''ページサイズの上限[バイト]''',
 '''# of pages of this size''':
 '''このサイズのページ数''',
+'''User agent''':
+'''ユーザエージェント''',
 '''Others''':
 '''その他''',
 '''Distribution of User-Agent Types''':

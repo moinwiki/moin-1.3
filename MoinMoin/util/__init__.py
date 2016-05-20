@@ -117,3 +117,21 @@ def FixScriptName(script):
         This is needed on Windows/Apache.
     """
     return '/'.join([x for x in script.split('/') if not x.endswith('.')])
+
+class simpleIO:
+    """ A simple StringIO replacement for code that calls us
+        with ascii, Unicode and iso-8859-1 data. Wee, that is fun. """
+
+    def __init__(self):
+        self.buffer = []
+        
+    def write(self, foo):
+        if not isinstance(foo, unicode):
+            foo = foo.decode("iso-8859-1", "replace")
+        self.buffer.append(foo)
+    
+    def getvalue(self):
+        return u''.join(self.buffer)
+
+    def close(self):
+        self.buffer = None

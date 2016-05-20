@@ -9,7 +9,7 @@
 #format wiki
 #language en
 
-This page describes the particular steps that need to be taken when you use Moin``Moin on Linux with the Apache web server. You should have already performed the ../BasicInstallation.
+This page describes the particular steps that need to be taken to create a wiki instance using Moin``Moin on Linux with the Apache web server. '''You should have already performed the ../BasicInstallation.'''
 
 Two scenarios are possible. You might be the administrator (root) of the server, able to install and modify files almost anywhere on the machine, and notably able to modifiy the Apache configuration. You might also be a simple user, only able to write files into your home directory, and unable to alter the master Apache config file. The two scenarios are discussed below.
 
@@ -200,6 +200,8 @@ sys.path.insert(0, '/home/mm/share/moin/mywiki')
 Of course, you need to adapt the paths to your situation. The first two lines should help locate the Moin``Moin modules, the last one should help locate the `wikiconfig.py` file.
 
 '''Note:''' You might also need to edit the first line of the file, to point to the correct version of Python. The default should be fine, but a line like "`#! /usr/bin/python2.3`" might help you if the default does not work.
+
+'''Note 2:''' In this file there is a line reading {{{request = RequestCGI()}}}. If you have a complex mod_rewrite case, you might want to add {{{properties = {'script_name': '/mywiki'} }}} in the parenthesis. This will let MoinMoin generate URLs that start with {{{/mywiki}}} and not the path that the webserver passed to MoinMoin.
 
 === Configure MoinMoin ===
 

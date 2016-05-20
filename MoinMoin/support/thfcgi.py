@@ -571,7 +571,7 @@ class THFCGI(FCGIbase):
         """Wait & serve. Calls request_handler in new
         thread on every request."""
         import thread
-        self.sock.listen(5)
+        self.sock.listen(50)
         
         while 1:
             (conn, addr) = self.sock.accept()
@@ -587,7 +587,7 @@ class unTHFCGI(FCGIbase):
     
     def run(self):
         """Wait & serve. Calls request handler for every request (blocking)."""
-        self.sock.listen(5)
+        self.sock.listen(50)
         
         while 1:
             (conn, addr) = self.sock.accept()

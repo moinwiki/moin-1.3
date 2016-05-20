@@ -23,7 +23,7 @@ MoinMoin skulle sakna ganska många funktioner om det inte vore för all hjälp 
  * testa MoinMoin på en speciell plattform eller med någon speciell Python-version
  * ...
 
-I många fall behöver du prenumerera på den engelska e-post-listan [http://lists.sourceforge.net/lists/listinfo/moin-devel MoinMoin Developer List].
+I många fall behöver du prenumerera på den engelska e-post-listan [wiki:MoinMoin:MoinMoinMailingLists MoinMoin List].
 Mer information om MoinMoin''''''s källkod och andra utvecklingsaspekter kan du finna på MoinMoin-wikin eller på MoinMoin:MoinDev och dess undersidor.
 
 == Bidrag till MoinMoin ==

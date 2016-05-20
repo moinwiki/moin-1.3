@@ -25,6 +25,13 @@ This page tries to use each supported markup element at least once.
 
 [[TableOfContents(2)]]
 
+{{{
+= Headers =
+== Header 2 ==
+=== Header 3 ===
+==== Header 4 ====
+===== Header 5 =====
+}}}
 = Headers =
 == Header 2 ==
 === Header 3 ===
@@ -81,7 +88,7 @@ print code.colorize("abc", 1 + 1)
  * wiki:MeatBall/InterWiki
  * [wiki:MeatBall/InterWiki]
  * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
- * [file://servername/full/path/to/file/filename%20with%20spaces.txt Click here to read filename with spaces.txt]
+ * [file:///servername/full/path/to/file/filename%20with%20spaces.txt Click here to read filename with spaces.txt]
  * me@privacy.net
 }}}
  * http://moinmoin.wikiwikiweb.de/
@@ -94,7 +101,7 @@ print code.colorize("abc", 1 + 1)
  * wiki:MeatBall/InterWiki
  * [wiki:MeatBall/InterWiki]
  * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
- * [file://servername/full/path/to/file/filename%20with%20spaces.txt Click here to read filename with spaces.txt]
+ * [file:///servername/full/path/to/file/filename%20with%20spaces.txt Click here to read filename with spaces.txt]
  * me@privacy.net
 == Escaping WikiNames ==
 {{{

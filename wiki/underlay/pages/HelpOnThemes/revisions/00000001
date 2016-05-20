@@ -1,12 +1,12 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-##master-page:Unknown-Page
-##master-date:Unknown-Date
+##master-page:None
+##master-date:None
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language en
 
-MoinMoin has a theme plugin system that make it easy to change the look and feel without touching the core code. You can customize colors by editing the stylesheets, or create totally new user interface by writing a new theme plugin in Python. When you upgrade MoinMoin, you theme is not touched - it will work with the new version, or needs only small changes due to theme API changes.
+MoinMoin has a theme plugin system that makes it easy to change the look and feel without touching the core code. You can customize colors by editing the stylesheets, or create a totally new user interface by writing a new theme plugin in Python. When you upgrade MoinMoin, your theme is not touched - it will work with the new version, or needs only small changes due to theme API changes.
 
 A theme "THEMENAME" is made of these components:
  * a python module in `MoinMoin/theme/THEMENAME.py` or in your wiki `data/plugin/theme/THEMENAME.py`

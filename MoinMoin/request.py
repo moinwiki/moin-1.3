@@ -7,17 +7,10 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, time, sys, types, cgi
+import os, time, sys, cgi
 from MoinMoin import config, wikiutil, user, error
 from MoinMoin.util import MoinMoinNoFooter, IsWin9x, FixScriptName
 
-# this needs sitecustomize.py in python path to work!
-# use our encoding as default encoding:
-## sys.setappdefaultencoding(config.charset)
-# this is the default python uses without this hack:
-## sys.setappdefaultencoding("ascii")
-# we could maybe use this to find places where implicit encodings are used:
-## sys.setappdefaultencoding("undefined")
 
 # Timing ---------------------------------------------------------------
 
@@ -49,7 +42,7 @@ class Clock:
 
 # Request Base ----------------------------------------------------------
 
-class RequestBase:
+class RequestBase(object):
     """ A collection for all data associated with ONE request. """
 
     # Header set to force misbehaved proxies and browsers to keep their
@@ -68,11 +61,12 @@ class RequestBase:
 
         # Pages meta data that we collect in one request
         self.pages = {}
-                    
+              
         self.sent_headers = 0
         self.user_headers = []
         self.page = None
-
+        self._dicts = None
+        
         # Fix dircaching problems on Windows 9x
         if IsWin9x():
             import dircache
@@ -116,7 +110,6 @@ class RequestBase:
             self.rootpage = Page(self, rootname, is_rootpage=1)
 
             self.user = user.User(self)
-            ## self.dicts = self.initdicts()
 
             from MoinMoin import i18n
 
@@ -127,8 +120,8 @@ class RequestBase:
                 theme_name = self.user.theme_name
             self.loadTheme(theme_name)
             
-            self.args = None
-            self.form = None
+            self.args = {}
+            self.form = {}
             self.logger = None
             self.pragma = {}
             self.mode_getpagelinks = 0
@@ -145,15 +138,23 @@ class RequestBase:
             self.getText = lambda text, i18n=self.i18n, request=self, lang=self.lang, **kv: i18n.getText(text, request, lang, kv.get('formatted', True))
 
             self.opened_logs = 0
-
             self.reset()
         
-    def __getattr__(self, name):
-        "load things on demand"
-        if name == "dicts":
-            self.dicts = self.initdicts()
-            return self.dicts
-        raise AttributeError
+    def getDicts(self):
+        """ Lazy initialize the dicts on the first access """
+        if self._dicts is None:
+            from MoinMoin import wikidicts
+            dicts = wikidicts.GroupDict(self)
+            dicts.scandicts()
+            self._dicts = dicts
+        return self._dicts
+        
+    def delDicts(self):
+        """ Delete the dicts, used by some tests """
+        del self._dicts
+        self._dicts = None
+
+    dicts = property(getDicts, None, delDicts)
 
     def _load_multi_cfg(self):
         # protect against calling multiple times
@@ -224,7 +225,7 @@ class RequestBase:
         # path_info is transformed into the system code page by the webserver
         # Additionally, paths containing dots let most webservers choke.
 
-        #  Fig. I - Broken environment variables in different environments:
+        # Fig. I - Broken environment variables in different environments:
         #         path_info script_name
         # Apache1     X          X      PI does not contain dots
         # Apache2     X          X      PI is not encoded correctly
@@ -369,14 +370,12 @@ class RequestBase:
         """
         self._footer_fragments[key] = htmlcode
 
-
     def getPragma(self, key, defval=None):
         """ Query a pragma value (#pragma processing instruction)
 
             Keys are not case-sensitive.
         """
         return self.pragma.get(key.lower(), defval)
-
 
     def setPragma(self, key, value):
         """ Set a pragma value (#pragma processing instruction)
@@ -398,13 +397,14 @@ class RequestBase:
     def getKnownActions(self):
         """ Create a dict of avaiable actions
 
-        Return cached version if avaiable. TODO: when we have a wiki
-        object in long running process, we should get it from it.
+        Return cached version if avaiable.
        
         @rtype: dict
         @return: dict of all known actions
         """
-        if self._known_actions is None:
+        try:
+            self.cfg._known_actions # check
+        except AttributeError:
             from MoinMoin import wikiaction
             # Add built in  actions from wikiaction
             actions = [name[3:] for name in wikiaction.__dict__
@@ -420,10 +420,10 @@ class RequestBase:
            
             # TODO: Use set when we require Python 2.3
             actions = dict(zip(actions, [''] * len(actions)))            
-            self._known_actions = actions
+            self.cfg._known_actions = actions
 
         # Return a copy, so clients will not change the dict.
-        return self._known_actions.copy()        
+        return self.cfg._known_actions.copy()        
 
     def getAvailableActions(self, page):
         """ Get list of avaiable actions for this request
@@ -436,7 +436,7 @@ class RequestBase:
         @return: dict of avaiable actions
         """
         if self._available_actions is None:
-            # Add actions for existing pages only!, incliding deleted pages.
+            # Add actions for existing pages only, including deleted pages.
             # Fix *OnNonExistingPage bugs.
             if not (page.exists(includeDeleted=1) and
                     self.user.may.read(page.page_name)):
@@ -510,7 +510,7 @@ class RequestBase:
         wd = []
         for d in data:
             try:
-                if isinstance(d, type(u'')):
+                if isinstance(d, unicode):
                     # if we are REALLY sure, we can use "strict"
                     d = d.encode(config.charset, 'replace') 
                 wd.append(d)
@@ -544,7 +544,7 @@ class RequestBase:
                 try:
                     page = unicode(page, 'utf-8', 'strict')
                     # Fit data into config.charset, replacing what won't
-                    # fit. Better have few "?" in the name then crash.
+                    # fit. Better have few "?" in the name than crash.
                     page = page.encode(config.charset, 'replace')
                 except UnicodeError:
                     pass
@@ -614,12 +614,6 @@ class RequestBase:
         """ Flush output stream.
         """
         raise NotImplementedError
-
-    def initdicts(self):
-        from MoinMoin import wikidicts
-        dicts = wikidicts.GroupDict(self)
-        dicts.scandicts()
-        return dicts
         
     def isForbidden(self):
         """ check for web spiders and refuse anything except viewing """
@@ -670,7 +664,7 @@ class RequestBase:
         # values.
         for key in form.keys():
             values = form[key]
-            if not isinstance(values, types.ListType):
+            if not isinstance(values, list):
                 values = [values]
             fixedResult = []
             for i in values:
@@ -682,7 +676,6 @@ class RequestBase:
                         # multiple uploads to same form field are stupid!
                         args[key+'__filename__'] = decode(i.filename, self.decode_charsets)
                     else:
-                        # we do not have a file upload, so we decode:
                         data = decode(data, self.decode_charsets)
                 # Append decoded value
                 fixedResult.append(data)
@@ -694,7 +687,6 @@ class RequestBase:
     def getBaseURL(self):
         """ Return a fully qualified URL to this script. """
         return self.getQualifiedURL(self.getScriptname())
-
 
     def getQualifiedURL(self, uri=None):
         """ Return a full URL starting with schema, server name and port.
@@ -716,8 +708,8 @@ class RequestBase:
         if uri:
             result = result + uri
 
-        return result
-
+        # return mapped result
+        return wikiutil.mapURL(self, result)
 
     def getUserAgent(self):
         """ Get the user agent. """
@@ -731,17 +723,16 @@ class RequestBase:
         ])
         self.write('You are not allowed to access this!\r\n')
         self.setResponseCode(403)
-        return self.finish()
         
     def run(self):
         # __init__ may have failed
         if self.failed or self.forbidden:
-            return
+            return self.finish()
         
         if self.isForbidden():
             self.makeForbidden()
             if self.forbidden:
-                return
+                return self.finish()
 
         self.open_logs()
         _ = self.getText
@@ -778,7 +769,7 @@ class RequestBase:
             self.http_headers()
             self.print_exception()
             return self.finish()
-
+        
         try:
             # Handle request. We have these options:
             
@@ -902,11 +893,18 @@ space between words. Group page name is not allowed.""") % self.user.name
 
         except error.FatalError, err:
             self.fail(err)
+            return self.finish()
             
-        except: # catch and print any exception
+        except: 
+            # Catch and print any exception
             saved_exc = sys.exc_info()
             self.reset_output()
+            
+            # Send 500 error code
+            self.http_headers(['Status: 500 MoinMoin Internal Error'])
+            self.setResponseCode(500)
             self.http_headers()
+            
             self.write(u"\n<!-- ERROR REPORT FOLLOWS -->\n")
             try:
                 from MoinMoin.support import cgitb
@@ -939,15 +937,17 @@ space between words. Group page name is not allowed.""") % self.user.name
     def fail(self, err):
         """ Fail with nice error message when we can't continue
 
-        Log the error, then try to print nice error message.
+        Log the error, then try to print nice error message. Send 500
+        status code with the error name. Reference: 
+        http://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6.1.1
 
         @param err: MoinMoin.error.FatalError instance or subclass.
         """
         self.failed = 1 # save state for self.run()
         self.log(err.asLog())
-        self.http_headers()
+        self.http_headers(['Status: 500 %(name)s' % err])
+        self.setResponseCode(500)
         self.write(err.asHTML())    
-        return self.finish()
             
     def print_exception(self, type=None, value=None, tb=None, limit=None):
         if type is None:
@@ -976,7 +976,7 @@ space between words. Group page name is not allowed.""") % self.user.name
         @returns: an unique id
         @rtype: unicode
         """
-        if not isinstance(base, types.UnicodeType):
+        if not isinstance(base, unicode):
             base=unicode(str(base),'ascii','ignore')
         count = self._page_ids.get(base,-1) + 1
         self._page_ids[base] = count
@@ -989,33 +989,39 @@ space between words. Group page name is not allowed.""") % self.user.name
 
         See http://www.cse.ohio-state.edu/cgi-bin/rfc/rfc2068.html#sec-3.3
 
-        Http 1.1 server should use only rfc1123 date, but cookies
-        expires field should use older rfc850 date.
+        A http 1.1 server should use only rfc1123 date, but cookie's
+        "expires" field should use the older obsolete rfc850 date.
+
+        Note: we can not use strftime() because that honors the locale
+        and rfc2822 requires english day and month names.
+
+        We can not use email.Utils.formatdate because it formats the
+        zone as '-0000' instead of 'GMT', and creates only rfc1123
+        dates. This is a modified version of email.Utils.formatdate
+        from Python 2.4.
 
         @param when: seconds from epoch, as returned by time.time()
-        @param rfc: either '1123' or '850'
+        @param rfc: conform to rfc ('1123' or '850')
         @rtype: string
-        @return: http date
+        @return: http date conforming to rfc1123 or rfc850
         """
         if when is None:
             when = time.time()
-        if rfc not in ['1123', '850']:
-            raise ValueError("%s: Invalid rfc value" % rfc)
-
-        import locale
-        t = time.gmtime(when)
-        
-        # TODO: make this a critical section for persistent environments
-        # Should acquire lock here
-        loc=locale.setlocale(locale.LC_TIME, 'C')
+        now = time.gmtime(when)
+        month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+                 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][now.tm_mon - 1]
         if rfc == '1123':
-            date = time.strftime("%A, %d %b %Y %H:%M:%S GMT", t)
+            day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][now.tm_wday]
+            date = '%02d %s %04d' % (now.tm_mday, month, now.tm_year)
+        elif rfc == '850':
+            day = ["Monday", "Tuesday", "Wednesday", "Thursday",
+                    "Friday", "Saturday", "Sunday"][now.tm_wday]
+            date = '%02d-%s-%s' % (now.tm_mday, month, str(now.tm_year)[-2:])
         else:
-            date = time.strftime("%A, %d-%b-%Y %H:%M:%S GMT", t)
-        locale.setlocale(locale.LC_TIME, loc)
-        # Should release lock here
+            raise ValueError("Invalid rfc value: %s" % rfc)
         
-        return date
+        return '%s, %s %02d:%02d:%02d GMT' % (day, date, now.tm_hour,
+                                              now.tm_min, now.tm_sec)
     
     def disableHttpCaching(self):
         """ Prevent caching of pages that should not be cached
@@ -1208,7 +1214,6 @@ class RequestCGI(RequestBase):
     def setHttpHeader(self, header):
         self.user_headers.append(header)
 
-
     def http_headers(self, more_headers=[]):
         # Send only once
         if getattr(self, 'sent_headers', None):
@@ -1280,7 +1285,7 @@ class RequestTwisted(RequestBase):
 
             # need config here, so check:
             self._load_multi_cfg()
-            
+
             if self.cfg.auth_http_enabled and self.cfg.auth_http_insecure:
                 self.auth_username = self.twistd.getUser()
             # TODO password check, twisted does NOT do that for us
@@ -1291,7 +1296,14 @@ class RequestTwisted(RequestBase):
             #print "request.RequestTwisted.__init__: received_headers=\n" + str(self.twistd.received_headers)
 
         except error.FatalError, err:
-            self.fail(err)
+            self.delayedError = err
+
+    def run(self):
+        """ Handle delayed errors then invoke base class run """
+        if hasattr(self, 'delayedError'):
+            self.fail(self.delayedError)
+            return self.finish()
+        RequestBase.run(self)
             
     def setup_args(self, form=None):
         args = {}
@@ -1299,7 +1311,7 @@ class RequestTwisted(RequestBase):
             if key[-12:] == "__filename__":
                 args[key] = wikiutil.decodeUserInput(values, self.decode_charsets)
                 continue
-            if not isinstance(values, types.ListType):
+            if not isinstance(values, list):
                 values = [values]
             fixedResult = []
             for v in values:
@@ -1369,7 +1381,7 @@ class RequestTwisted(RequestBase):
         have_ct = 0
 
         # set http headers
-        for header in more_headers + self.user_headers:
+        for header in more_headers + getattr(self, 'user_headers', []):
             if header.lower().startswith("content-type:"):
                 # don't send content-type multiple times!
                 if have_ct: continue
@@ -1385,7 +1397,7 @@ class RequestTwisted(RequestBase):
             # no https method??
             url = "http://%s:%s%s" % (self.server_name, self.server_port, url)
 
-        if isinstance(url, type(u'')):
+        if isinstance(url, unicode):
             url = url.encode('ascii')
         self.twistd.redirect(url)
         # calling finish here will send the rest of the data to the next
@@ -1406,7 +1418,7 @@ class RequestCLI(RequestBase):
         self.saved_cookie = ''
         self.path_info = self.decodePagename('/' + pagename)
         self.query_string = ''
-        self.remote_addr = '127.0.0.127'
+        self.remote_addr = '127.0.0.1'
         self.is_ssl = 0
         self.auth_username = None
         self.http_user_agent = 'CLI/Script'
@@ -1620,11 +1632,13 @@ class RequestStandAlone(RequestBase):
     def http_headers(self, more_headers=[]):
         if getattr(self, 'sent_headers', None):
             return
+        
         self.sent_headers = 1
-
+        user_headers = getattr(self, 'user_headers', [])
+        
         # check for status header and send it
         our_status = 200
-        for header in more_headers + self.user_headers:
+        for header in more_headers + user_headers:
             if header.lower().startswith("status:"):
                 try:
                     our_status = int(header.split(':',1)[1].strip().split(" ", 1)[0]) 
@@ -1637,7 +1651,7 @@ class RequestStandAlone(RequestBase):
 
         # send http headers
         have_ct = 0
-        for header in more_headers + self.user_headers:
+        for header in more_headers + user_headers:
             if type(header) is unicode:
                 header = header.encode('ascii')
             if header.lower().startswith("content-type:"):
@@ -1682,12 +1696,42 @@ class RequestModPy(RequestBase):
                 env=dict(req.subprocess_env)
             else:
                 env=req.subprocess_env
+            # Must be called BEFORE _setup_vars_from_std_env
+            self.fixScriptNameAndPathInfo(env)
             self._setup_vars_from_std_env(env)
             RequestBase.__init__(self)
 
         except error.FatalError, err:
             self.fail(err)
             
+    def fixScriptNameAndPathInfo(self, env):
+        """ Set script_name and path_info using httpd config
+        
+        When configuring using Apache <location> directive and path
+        like /a/b/c, the only way to set correct script_name and
+        path_info is to pass the required script_name using
+        PythonOption. See example configuration:
+        
+        <Location /url/to/mywiki>
+            PythonOption Location /url/to/mywiki      
+        </location>
+        
+        Must be called before self._setup_vars_from_std_env
+        """
+        location = self.mpyreq.get_options().get('Location')
+        if location is None:
+            return
+        restoredURI = env['SCRIPT_NAME'] + env['PATH_INFO']
+        if not restoredURI.startswith(location):
+            message = '''Wrong "PythonOption Location %s".
+
+PythonOption Location value should match Apache Location directive. Fix
+and restart Apache.              
+''' % location
+            raise error.ConfigurationError(message)
+        env['SCRIPT_NAME'] = location
+        env['PATH_INFO'] = restoredURI[len(location):]
+
     def setup_args(self, form=None):
         """ Sets up args by using mod_python.util.FieldStorage, which
             is different to cgi.FieldStorage. So we need a separate
@@ -1700,7 +1744,7 @@ class RequestModPy(RequestBase):
         args = {}
         for key in form.keys():
             values = form[key]
-            if not isinstance(values, types.ListType):
+            if not isinstance(values, list):
                 values = [values]
             fixedResult = []
             for i in values:
@@ -1794,7 +1838,7 @@ class RequestModPy(RequestBase):
 
             @keyword more_headers: list of strings, defaults to []
         """
-        for header in more_headers:
+        for header in more_headers + getattr(self, 'user_headers', []):
             self.setHttpHeader(header)
         # if we don't had an content-type header, set text/html
         if self._have_ct == 0:
@@ -1879,7 +1923,6 @@ class RequestFastCGI(RequestBase):
         """ Save header for later send. """
         self.user_headers.append(header)
 
-
     def http_headers(self, more_headers=[]):
         """ Send out HTTP headers. Possibly set a default content-type.
         """
@@ -1889,7 +1932,7 @@ class RequestFastCGI(RequestBase):
         have_ct = 0
 
         # send http headers
-        for header in more_headers + self.user_headers:
+        for header in more_headers + getattr(self, 'user_headers', []):
             if type(header) is unicode:
                 header = header.encode('ascii')
             if header.lower().startswith("content-type:"):

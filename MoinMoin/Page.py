@@ -6,19 +6,11 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import StringIO, os, re, urllib, random, codecs
 
-# MoinMoin imports
 from MoinMoin import config, caching, user, util, wikiutil
 from MoinMoin.logfile import eventlog
 from MoinMoin.util import filesys, web
-
-
-# There are many places accessing ACLs even without actually sending
-# the page. This cache ensures that we don't have to parse ACLs for
-# some page twice.
-_acl_cache = {}
 
 class Page:
     """Page - Manage an (immutable) page associated with a WikiName.
@@ -39,19 +31,21 @@ class Page:
         @param page_name: WikiName of the page
         @keyword rev: number of older revision
         @keyword formatter: formatter instance
+        @keyword include_self: if 1, include current user (default: 0)
         """
         self.rev = keywords.get('rev', 0) # revision of this page
         self.is_rootpage = keywords.get('is_rootpage', 0) # is this __init__ of rootpage?
+        self.include_self = keywords.get('include_self', 0)
         self.request = request
         self.cfg = request.cfg
-        
+
         self.page_name = page_name
-        
+
         # XXX uncomment to see how many pages we create....
         #import sys, traceback
         #print >>sys.stderr, "page %s" % repr(page_name)
         #traceback.print_stack(limit=4, file=sys.stderr)
-        
+
         if keywords.has_key('formatter'):
             self.formatter = keywords.get('formatter')
             self.default_formatter = 0
@@ -70,7 +64,7 @@ class Page:
         page_name = self.page_name
         # page_name quoted for file system usage, needs to be reset to
         # None when pagename changes
-        
+
         qpagename = wikiutil.quoteWikinameFS(page_name)
         self.page_name_fs = qpagename
 
@@ -88,7 +82,7 @@ class Page:
         else:
             normalpath = self.request.rootpage.getPagePath("pages", qpagename,
                                                            check_create=0, use_underlay=0)
-        
+
         # TUNING - remember some essential values
 
         # does the page come from normal page storage (0) or from
@@ -108,7 +102,7 @@ class Page:
         # does a page in _pagepath (current revision) exist?  XXX needs
         # to be reset when rev is created/deleted
         self._exists = [None, None]
-        
+
     def get_current_from_pagedir(self, pagedir):
         """ get the current revision number from an arbitrary pagedir.
             does not modify page object's state, uncached, direct disk access.
@@ -124,9 +118,9 @@ class Page:
         except:
             rev = 99999999 # XXX
         return rev
-        
+
     def get_rev_dir(self, pagedir, rev=0):
-        """ 
+        """
         get a revision of a page from an arbitrary pagedir.
         does not modify page object's state, uncached, direct disk access.
         @param pagedir: the path to the pagedir
@@ -136,15 +130,15 @@ class Page:
         """
         if rev == 0:
             rev = self.get_current_from_pagedir(pagedir)
-        
+
         revstr = '%08d' % rev
         pagefile = os.path.join(pagedir, 'revisions', revstr)
         exists = os.path.exists(pagefile)
         return pagefile, rev, exists
-    
+
     def get_rev(self, use_underlay=-1, rev=0):
-        """ 
-        get a revision of this page 
+        """
+        get a revision of this page
         @param use_underlay: -1 == auto, 0 == normal, 1 == underlay
         @param rev: int revision to get (default is 0 and means the current
                     revision (in this case, the real revint is returned)
@@ -165,7 +159,7 @@ class Page:
                 self._current_rev[underlay] = realrev # XXX XXX
             else:
                 realrev = self._current_rev[underlay]
-        
+
             _exists = self._exists[underlay]
             _realrev = self._current_rev[underlay]
             _pagefile = self._pagefile[underlay]
@@ -174,13 +168,13 @@ class Page:
                 return _pagefile, _realrev, _exists
         else:
             realrev = rev
-        
+
         pagefile, realrev, exists = self.get_rev_dir(pagedir, realrev)
         if rev == 0:
             self._exists[underlay] = exists # XXX XXX
             self._current_rev[underlay] = realrev # XXX XXX
             self._pagefile[underlay] = pagefile # XXX XXX
-            
+
         return pagefile, realrev, exists
 
     def current_rev(self):
@@ -213,7 +207,7 @@ class Page:
         standardpath, underlaypath = self._pagepath
         if underlaypath is None:
             use_underlay = 0
-        
+
         # self is a NORMAL page
         if not self is self.request.rootpage:
             if use_underlay == -1: # automatic
@@ -222,15 +216,15 @@ class Page:
                     pagefile, rev, exists = self.get_rev(use_underlay=0)
                     if not exists:
                         pagefile, rev, exists = self.get_rev(use_underlay=1)
-                        if exists:                         
+                        if exists:
                             underlay, path = 1, underlaypath
                     self._underlay = underlay # XXX XXX
                 else:
                     underlay = self._underlay
                     path = self._pagepath[underlay]
             else: # normal or underlay
-                underlay, path = use_underlay, self._pagepath[use_underlay]                
-        
+                underlay, path = use_underlay, self._pagepath[use_underlay]
+
         # self is rootpage
         else:
             # our current rootpage is not a toplevel, but under another page
@@ -249,8 +243,8 @@ class Page:
                         underlay = self._underlay
                         path = self._pagepath[underlay]
                 else: # normal or underlay
-                    underlay, path = use_underlay, self._pagepath[use_underlay]                
-            
+                    underlay, path = use_underlay, self._pagepath[use_underlay]
+
             # our current rootpage is THE virtual rootpage, really at top of all
             else:
                 # 'auto' doesn't make sense here. maybe not even 'underlay':
@@ -260,7 +254,7 @@ class Page:
                 else:
                     # this is the location of the virtual root page
                     underlay, path = 0, self.cfg.data_dir
-        
+
         return underlay, path
 
     def getPageStatus(self, *args, **kw):
@@ -293,7 +287,7 @@ class Page:
             if not os.path.exists(dirname):
                 filesys.makeDirs(dirname)
         return underlay, fullpath
-    
+
     def getPagePath(self, *args, **kw):
         return self.getPageStatus(*args, **kw)[1]
 
@@ -301,7 +295,7 @@ class Page:
         """
         Return a string with the page name split by spaces, if
         the user wants that.
-        
+
         @param request: the request object
         @param force: if != 0, then force splitting the page_name
         @rtype: unicode
@@ -309,19 +303,17 @@ class Page:
         """
         if not force and not request.user.wikiname_add_spaces:
             return self.page_name
-    
+
         # look for the end of words and the start of a new word,
         # and insert a space there
-        # XXX CFG cache that!
-        SPLIT_RE = re.compile('([%s])([%s])' % (config.chars_lower,
-                                                config.chars_upper))
-        splitted = SPLIT_RE.sub(r'\1 \2', self.page_name)
+        split_re = re.compile('([%s])([%s])' % (config.chars_lower, config.chars_upper))
+        splitted = split_re.sub(r'\1 \2', self.page_name)
         return splitted
 
     def _text_filename(self, **kw):
         """
         The name of the page file, possibly of an older page.
-        
+
         @keyword rev: page revision, overriding self.rev
         @rtype: string
         @return: complete filename (including path) to this page
@@ -337,7 +329,7 @@ class Page:
     def _tmp_filename(self):
         """
         The name of the temporary file used while saving.
-        
+
         @rtype: string
         @return: temporary filename (complete path + filename)
         """
@@ -361,7 +353,7 @@ class Page:
         """
         Return the last edit.
         This is used by wikirpc(2).py.
-        
+
         @param request: the request object
         @rtype: dict
         @return: timestamp and editor information
@@ -393,7 +385,7 @@ class Page:
 
     def lastEditInfo(self, request=None):
         """ Return the last edit info.
-        
+
         @param request: the request object
         @rtype: dict
         @return: timestamp and editor information
@@ -420,7 +412,7 @@ class Page:
 
     def isWritable(self):
         """ Can this page be changed?
-        
+
         @rtype: bool
         @return: true, if this page is writable or does not exist
         """
@@ -450,14 +442,14 @@ class Page:
         @return: true if page lives in the data dir
         """
         return self.exists(domain='standard', includeDeleted=includeDeleted)
-                
+
     def exists(self, rev=0, domain=None, includeDeleted=False):
         """ Does this page exist?
 
         This is the lower level method for checking page existence. Use
         the higher level methods isUnderlayPagea and isStandardPage for
         cleaner code.
-        
+
         @param rev: revision to look for. Default check current
         @param domain: where to look for the page. Default look in all,
             available values: 'underlay', 'standard'
@@ -468,8 +460,8 @@ class Page:
         # Edge cases
         if domain == 'underlay' and not self.request.cfg.data_underlay_dir:
             return False
-                        
-        if includeDeleted:                
+
+        if includeDeleted:
             # Look for page directory, ignore page state
             if domain is None:
                 checklist = [0, 1]
@@ -494,7 +486,7 @@ class Page:
 
     def size(self, rev=0):
         """ Get Page size.
-        
+
         @rtype: int
         @return: page size, 0 for non-existent pages.
         """
@@ -508,18 +500,18 @@ class Page:
             import errno
             if e.errno == errno.ENOENT: return 0
             raise
-             
+
     def mtime_usecs(self):
         """
         Get modification timestamp of this page.
-        
-        @rtype: int
+
+        @rtype: long
         @return: mtime of page (or 0 if page does not exist)
         """
 
         from MoinMoin.logfile import editlog
 
-        mtime = 0
+        mtime = 0L
 
         current_wanted = (self.rev == 0) # True if we search for the current revision
         wanted_rev = "%08d" % self.rev
@@ -538,7 +530,7 @@ class Page:
     def mtime_printable(self, request):
         """
         Get printable modification timestamp of this page.
-        
+
         @rtype: string
         @return: formatted string with mtime of page
         """
@@ -573,7 +565,7 @@ class Page:
                 pages = self._listPages()
         count = len(pages)
         self.request.clock.stop('getPageCount')
-        
+
         return count
 
     def getPageList(self, user=None, exists=1, filter=None):
@@ -598,7 +590,7 @@ class Page:
         smallest data set.
 
         Filter those annoying /MoinEditorBackup pages.
-        
+
         @param user: the user requesting the pages (MoinMoin.user.User)
         @param filter: filter function
         @param exits: filter existing pages
@@ -621,7 +613,7 @@ class Page:
                 # Filter those annoying editor backups
                 if pagename.endswith(u'/MoinEditorBackup'):
                     continue
-                
+
                 cache[pagename] = None
 
         if user or exists or filter:
@@ -638,13 +630,13 @@ class Page:
                     continue
 
                 # Filter out page user may not read.
-                if user and not user.may.read(name): 
+                if user and not user.may.read(name):
                     continue
 
                 pages.append(name)
         else:
             pages = cache.keys()
-            
+
         request.clock.stop('getPageList')
         return pages
 
@@ -653,7 +645,7 @@ class Page:
 
         Invoke getPageList then create a dict from the page list. See
         getPageList docstring for more details.
-                
+
         @param user: the user requesting the pages
         @param filter: filter function
         @param exits: only existing pages
@@ -672,9 +664,9 @@ class Page:
         really need it.
 
         NOTE: names are returned in file system encoding, not in unicode!
-        
+
         @rtype: dict
-        @return: dict of page names using file system encoding 
+        @return: dict of page names using file system encoding
         """
         # Get pages in standard dir
         path = self.getPagePath('pages')
@@ -685,15 +677,15 @@ class Page:
             path = self.getPagePath('pages', use_underlay=1)
             underlay = self._listPageInPath(path)
             pages.update(underlay)
-                                
+
         return pages
 
     def _listPageInPath(self, path):
-        """ List page names in domain, using path 
+        """ List page names in domain, using path
 
         This is the lowest level disk access, don't use it unless you
         really need it.
-        
+
         NOTE: names are returned in file system encoding, not in unicode!
 
         @param path: directory to list (string)
@@ -701,26 +693,26 @@ class Page:
         @return: dict of page names using file system encoding
         """
         import dircache
-        
+
         pages = {}
         for name in dircache.listdir(path):
             # Filter non-pages in quoted wiki names
             # List all pages in pages directory - assume flat namespace
             if name.startswith('.') or name.startswith('#') or name == 'CVS':
                 continue
-            
+
             pages[name] = None
-            
+
         return pages
 
     def getlines(self):
         lines = self.get_raw_body().split('\n')
         return lines
-    
+
     def get_raw_body(self):
         """
         Load the raw markup from the page file.
-        
+
         @rtype: string
         @return: raw page contents of this page
         """
@@ -774,7 +766,7 @@ class Page:
         """
         url = '%s/%s' % (request.getScriptname(),
                      wikiutil.quoteWikinameURL(self.page_name))
-        
+
         if querystr:
             querystr = web.makeQueryString(querystr)
 
@@ -786,12 +778,12 @@ class Page:
                 warnings.warn("In moin 1.4 query string in url will not be"
                               " escaped. See"
                               " http://moinmoin.wikiwikiweb.de/ApiChanges")
-                querystr = wikiutil.escape(querystr)          
+                querystr = wikiutil.escape(querystr)
 
             url = '%s?%s' % (url, querystr)
 
         return url
-        
+
     def link_to(self, request, text=None, querystr=None, anchor=None, **kw):
         """ Return HTML markup that links to this page.
 
@@ -832,7 +824,7 @@ class Page:
         # Create a link to attachments if any exist
         if kw.get('attachment_indicator', 0):
             from MoinMoin.action import AttachFile
-            link += AttachFile.getIndicator(request, self.page_name)           
+            link += AttachFile.getIndicator(request, self.page_name)
 
         return link
 
@@ -847,13 +839,13 @@ class Page:
         @rtype: dict
         @return: lists of subscribed email addresses in a dict by language key
         """
-        include_self = kw.get('include_self', 0)
+        include_self = kw.get('include_self', self.include_self)
         return_users = kw.get('return_users', 0)
         trivial = kw.get('trivial', 0)
 
         # extract categories of this page
         pageList = self.getCategories(request)
-        
+
         # add current page name for list matching
         pageList.append(self.page_name)
 
@@ -890,7 +882,7 @@ class Page:
                     subscriber_list[lang].append(subscriber.email)
 
         return subscriber_list
-  
+
 
     def send_page(self, request, msg=None, **keywords):
         """
@@ -901,6 +893,7 @@ class Page:
         @keyword content_only: if 1, omit page header and footer
         @keyword content_id: set the id of the enclosing div
         @keyword count_hit: if 1, add an event to the log
+        @keyword send_missing_page: if 1, assume that page to be sent is MissingPage
         """
         from MoinMoin import i18n
         request.clock.start('send_page')
@@ -915,6 +908,7 @@ class Page:
         content_only = keywords.get('content_only', 0)
         content_id = keywords.get('content_id', 'content')
         do_cache = keywords.get('do_cache', 1)
+        send_missing_page = keywords.get('send_missing_page', 0)
         if request.form.has_key('highlight'):
             self.hilite_re = request.form['highlight'][0]
         else:
@@ -935,7 +929,7 @@ class Page:
         self.formatter.setPage(self)
         if self.hilite_re: self.formatter.set_highlight_re(self.hilite_re)
         request.formatter = self.formatter
-        
+
         # default is wiki markup
         pi_format = self.cfg.default_markup or "wiki"
         pi_formatargs = ''
@@ -1063,9 +1057,14 @@ class Page:
 
         # start document output
         doc_leader = self.formatter.startDocument(self.page_name)
+        page_exists = self.exists()
         if not content_only:
             # send the document leader
-            request.http_headers()
+            if page_exists:
+                request.http_headers()
+            else:
+                request.http_headers(['Status: 404 NOTFOUND'])
+                request.setResponseCode(404)
             request.write(doc_leader)
 
             # send the page header
@@ -1083,7 +1082,7 @@ class Page:
                             'rev': self.rev,
                             'date': self.mtime_printable(request)
                         }, msg)
-                
+
                 # This redirect message is very annoying.
                 # Less annoying now without the warning sign.
                 if request.form.has_key('redirect'):
@@ -1097,13 +1096,13 @@ class Page:
                         _('This page redirects to page "%(page)s"') % {'page': wikiutil.escape(pi_redirect)},
                         msg)
 
-                
+
                 # Page trail
                 trail = None
-                if not print_mode and request.user.valid and request.user.show_page_trail:
+                if not print_mode:
                     request.user.addTrail(self.page_name)
                     trail = request.user.getTrail()
-                
+
                 wikiutil.send_title(request, title,  page=self, link=link, msg=msg,
                                     pagename=self.page_name, print_mode=print_mode,
                                     media=media, pi_refresh=pi_refresh,
@@ -1131,13 +1130,23 @@ class Page:
             # default to plain text formatter (i.e. show the page source)
             del Parser
             from parser.plain import Parser
-        
+
         # start wiki content div
         request.write(self.formatter.startContent(content_id))
-        
+
         # new page?
-        if not self.exists() and self.default_formatter and not content_only:
-            self._emptyPageText(request)
+        if not page_exists and (not content_only or (content_only
+                                                     and send_missing_page)):
+            if self.default_formatter and not content_only:
+                self._emptyPageText(request)
+            elif content_only and send_missing_page:
+                # We should send MissingPage but it is not there
+                import warnings
+                warnings.warn("Error - The page MissingPage could not be found."
+                              " Check your underlay directory setting.")
+                url = '%s?action=edit' % wikiutil.quoteWikinameURL(self.page_name)
+                request.write(wikiutil.link_tag(self.request, url, text=_("Create New Page"),
+                                                formatter=self.formatter))
         elif not request.user.may.read(self.page_name):
             request.write("<strong>%s</strong><br>" % _("You are not allowed to view this page."))
         else:
@@ -1151,7 +1160,7 @@ class Page:
 
         # end wiki content div
         request.write(self.formatter.endContent())
-        
+
         # end document output
         doc_trailer = self.formatter.endDocument()
         if not content_only:
@@ -1160,16 +1169,13 @@ class Page:
                 wikiutil.send_footer(request, self.page_name, print_mode=print_mode)
 
             request.write(doc_trailer)
-        
+
         # cache the pagelinks
-        if do_cache and self.default_formatter and self.exists():
-            arena = self
-            key = 'pagelinks'
-            cache = caching.CacheEntry(request, arena, key)
+        if do_cache and self.default_formatter and page_exists:
+            cache = caching.CacheEntry(request, self, 'pagelinks')
             if cache.needsUpdate(self._text_filename()):
                 links = self.formatter.pagelinks
-                links.sort()
-                cache.update('\n'.join(links), True)
+                cache.update('\n'.join(links) + '\n', True)
 
         request.clock.stop('send_page')
 
@@ -1181,7 +1187,7 @@ class Page:
         """
         if not hasattr(self, 'formatter'):
             return ''
-        
+
         name = str(self.formatter.__class__)
         name = name.replace('MoinMoin.formatter.', '').replace('.Formatter', '')
         return name
@@ -1222,7 +1228,7 @@ class Page:
         @param needsupdate: if 1, force update of the cached compiled page
         """
         request.clock.start('send_page_content')
-        
+
         formatter_name = self.getFormatterName()
 
         # if we should not or can not use caching
@@ -1266,7 +1272,7 @@ class Page:
                 request.log(err)
                 # And also update the cache
                 needsupdate = 1
-                        
+
         # render page
         if needsupdate:
             # Save request state before - rendering page might
@@ -1285,14 +1291,14 @@ class Page:
             text = buffer.getvalue()
             buffer.close()
             src = formatter.assemble_code(text)
-            ## request.write(src) # debug 
+            ## request.write(src) # debug
             code = compile(src.encode(config.charset),
                            self.page_name.encode(config.charset), 'exec')
             cache.update(marshal.dumps(code))
-            
+
             # Restore request state
             request.current_lang = saved_current_lang
-            
+
         # send page
         formatter = self.formatter
         parser = Parser(body, request)
@@ -1313,31 +1319,31 @@ class Page:
             self.send_page_content(request, Parser, body, needsupdate=1)
             request.clock.start('send_page_content')
             cache = caching.CacheEntry(request, arena, key)
-                    
+
         # Save my cache modification time, this info might be used by
         # themes - but only after the page content was sent.
         self.cache_mtime = cache.mtime()
 
         # TODO: move this into theme (currently used only by classic)
-        url = wikiutil.quoteWikinameURL(self.page_name) + '?action=refresh' 
+        url = wikiutil.quoteWikinameURL(self.page_name) + '?action=refresh'
         link = wikiutil.link_tag(request, url, _("DeleteCache", formatted=False))
         date = self.request.user.getFormattedDateTime(cache.mtime())
         fragment = link + ' ' +  _('(cached %s)') % date
         self.request.add2footer('DeleteCache', fragment)
 
         request.clock.stop('send_page_content')
-        
+
     def _emptyPageText(self, request):
         """
         Output the default page content for new pages.
- 
+
         @param request: the request object
         """
         missingpage = wikiutil.getSysPage(request, 'MissingPage')
         missingpagefn = missingpage._text_filename()
         missingpage.page_name = self.page_name
         missingpage._text_filename_force = missingpagefn
-        missingpage.send_page(request, content_only=1)
+        missingpage.send_page(request, content_only=1, send_missing_page=1)
 
 
     def getRevList(self):
@@ -1362,7 +1368,6 @@ class Page:
                 revisions.sort()
                 revisions.reverse()
         return revisions
-
 
     def olderrevision(self, rev=0):
         """
@@ -1390,7 +1395,7 @@ class Page:
         # same regex, compiled once when the first call in an instance is done.
         if isinstance(self.__class__.header_re, (str, unicode)):
             self.__class__.header_re = re.compile(self.__class__.header_re, re.MULTILINE | re.UNICODE)
-				    
+
         body = self.get_raw_body() or ''
         header = self.header_re.search(body)
         if header:
@@ -1417,7 +1422,7 @@ class Page:
         body = self.get_raw_body() or ''
         header = self.header_re.search(body)
         if header:
-            text = header.group()           
+            text = header.group()
             # Return length characters from start of text
             if length is None:
                 return text[start:]
@@ -1427,38 +1432,51 @@ class Page:
 
     def getPageLinks(self, request):
         """ Get a list of the links on this page.
-        
+
         @param request: the request object
         @rtype: list
         @return: page names this page links to
         """
-        if not self.exists(): return []
-
-        arena = self
-        key = 'pagelinks'
-        cache = caching.CacheEntry(request, arena, key)
+        if not self.exists():
+            return []
+        cache = caching.CacheEntry(request, self, 'pagelinks')
         if cache.needsUpdate(self._text_filename()):
-            # this is normally never called, but is here to fill the cache
-            # in existing wikis; thus, we do a "null" send_page here, which
-            # is not efficient, but reduces code duplication
-            # !!! it is also an evil hack, and needs to be removed
-            # !!! by refactoring Page to separate body parsing & send_page
-            request.redirect(StringIO.StringIO())
-            try:
-                try:
-                    request.mode_getpagelinks = 1
-                    Page(request, self.page_name).send_page(request, content_only=1)
-                except:
-                    import traceback
-                    traceback.print_exc()
-                    cache.update('')
-            finally:
-                request.mode_getpagelinks = 0
-                request.redirect()
-                if hasattr(request, '_fmt_hd_counters'):
-                    del request._fmt_hd_counters
-        return filter(None, cache.content(True).split('\n'))
+            links = self.parsePageLinks(request)
+            cache.update('\n'.join(links) + '\n', True)
+            return links
+        return cache.content(True).split('\n')
 
+    def parsePageLinks(self, request):
+        """ Parse page links by formatting with a pagelinks formatter 
+        
+        This is a old hack to get the pagelinks by rendering the page
+        with send_page. We can remove this hack after factoring
+        send_page and send_page_content into small reuseable methods.
+        
+        More efficient now by using special pagelinks formatter and
+        redirecting possible output into null file.
+        """
+        request.clock.start('parsePagelinks')
+        class Null:
+            def write(self, str): pass
+        request.redirect(Null())
+        request.mode_getpagelinks = 1
+        try:
+            try:
+                from MoinMoin.formatter.pagelinks import Formatter
+                formatter = Formatter(request, store_pagelinks=1)
+                page = Page(request, self.page_name, formatter=formatter)
+                page.send_page(request, content_only=1)
+            except:
+                import traceback
+                traceback.print_exc()
+        finally:
+            request.mode_getpagelinks = 0
+            request.redirect()
+            if hasattr(request, '_fmt_hd_counters'):
+                del request._fmt_hd_counters
+            request.clock.stop('parsePagelinks')
+        return formatter.pagelinks
 
     def getCategories(self, request):
         """ Get categories this page belongs to.
@@ -1484,57 +1502,62 @@ class Page:
         return None
 
     def getACL(self, request):
-        """ Get ACLs of this page.
-
-        Page acl is cached for long running processes in the global
-        _acl_cache. ACL object are saved with the acl revision. For
-        existing pages, the current revision is saved, for deleted
-        pages, the previous revision is saved.
+        """ Get cached ACLs of this page.
+        
+        Return cached ACL or invoke parseACL and update the cache.
 
         @param request: the request object
         @rtype: MoinMoin.wikiacl.AccessControlList
         @return: ACL of this page
         """
-        request.clock.start('getACL')
         import wikiacl
-        global _acl_cache
-
         # Return new empty acl when acl is not enabled
         if not self.cfg.acl_enabled:
             return wikiacl.AccessControlList(request)
-
-        # Get page state
-        pagefile, revision, exists = self.get_rev()
-        if not exists:
-            # Get previous revision
-            revisions = self.getRevList()
-            if len(revisions) > 1:
-                revision = revisions[1]
-            
-        # Try to get value from cache
-        key = (request.cfg.siteid, self.page_name)
-        aclRevision, acl = _acl_cache.get(key, (None, None))
-        
-        if aclRevision != revision or acl is None:
-            # Parse acl from page and save in cache
-            if exists:
-                body = self.get_raw_body()
-            else:
-                body = Page(request, self.page_name, rev=revision).get_raw_body()
-            acl = wikiacl.parseACL(request, body)
-            _acl_cache[key] = (revision, acl)
-        
+        request.clock.start('getACL')
+        # Try the cache or parse acl and update the cache
+        currentRevision = self.current_rev()
+        key = self.page_name
+        try:
+            aclRevision, acl = request.cfg._acl_cache.get(key, (None, None))
+        except AttributeError:
+            request.cfg._acl_cache = {}
+            aclRevision, acl = None, None
+        if aclRevision != currentRevision:
+            acl = self.parseACL()
+            request.cfg._acl_cache[key] = (currentRevision, acl)
         request.clock.stop('getACL')
         return acl
+
+    def parseACL(self):
+        """ Return ACLs parsed from the last available revision 
+        
+        The effective ACL is always from the last revision, even if
+        you access an older revision.
+        """
+        import wikiacl
+        if self.exists() and self.rev == 0:
+            return wikiacl.parseACL(self.request, self.get_raw_body())
+        try:
+            lastRevision = self.getRevList()[0]
+        except IndexError:
+            return wikiacl.AccessControlList(self.request)
+        body = Page(self.request, self.page_name,
+                    rev=lastRevision).get_raw_body()
+        return wikiacl.parseACL(self.request, body)
 
     def clean_acl_cache(self):
         """
         Clean ACL cache entry of this page (used by PageEditor on save)
         """
-        key = (self.cfg.siteid, self.page_name)
-        global _acl_cache
-        if _acl_cache.has_key(key):
-            del _acl_cache[key]
+        request = self.request
+        key = self.page_name
+        try:
+            del request.cfg._acl_cache[key]
+        except KeyError:
+            pass
+        except AttributeError:
+            request.cfg._acl_cache = {}
 
     # Text format -------------------------------------------------------
 
@@ -1542,11 +1565,11 @@ class Page:
         """ Encode text from moin internal representation to text/* mime type
 
         Make sure text uses CRLF line ends, keep trailing newline.
-        
+
         @param text: text to encode (unicode)
         @rtype: unicode
         @return: encoded text
-        """ 
+        """
         if text:
             lines = text.splitlines()
             # Keep trailing newline
@@ -1561,7 +1584,7 @@ class Page:
         @param text: text to decode (unicode). Text must use CRLF!
         @rtype: unicode
         @return: text using internal representation
-        """ 
+        """
         text = text.replace(u'\r', u'')
         return text
 

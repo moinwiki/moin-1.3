@@ -4,7 +4,7 @@
 meta = {
   'language': 'Spanish',
   'elanguage': 'Spanish',
-  'maintainer': 'Mauricio Hernandez Z <mhz@esfera.cl>',
+  'maintainer': 'Mauricio Hernandez Z <mhz.chile@gmail.com>',
   'encoding': 'utf-8',
   'direction': 'ltr',
   'wikimarkup': True,
@@ -28,6 +28,8 @@ Para usar este formulario en otras páginas inserta una
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 llamada macro.-~
 ''',
+'''Create New Page''':
+'''Crear Nueva Página''',
 '''You are not allowed to view this page.''':
 '''No tienes permisos para ver esta página.''',
 '''DeleteCache''':
@@ -546,8 +548,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 De lo contrario; si el campo "Cambiar nombre a" queda vacío, se usará el nombre original del archivo.''',
 '''File to upload''':
 '''Archivo a subir''',
-'''Save as''':
-'''Guardar como''',
 '''Upload''':
 '''Subir''',
 '''File attachments are not allowed in this wiki!''':
@@ -654,8 +654,6 @@ Intenta con un nombre distinto.''',
 '''Empezar''',
 '''Slide %(pos)d of %(size)d''':
 '''Diapositiva %(pos)d de %(size)d''',
-'''Create New Page''':
-'''Crear Nueva Página''',
 '''No orphaned pages in this wiki.''':
 '''No hay páginas huérfanas en este wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -710,18 +708,8 @@ Intenta con un nombre distinto.''',
 '''Esperaba un entero "%(arg)s" después de "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Esperaba un valor de color "%(arg)s" después de "%(key)s"''',
-'''XSLT option disabled!''':
-'''!Opción XSLT desactivada!''',
-'''XSLT processing is not available!''':
-'''¡El procesamiento de XSLT no está disponible!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s error de procesamiento''',
-'''RefreshCache''':
-'''RefrescarCache''',
-'''for this page (cached %(date)s)''':
-'''para esta página (en cache desde el %(date)s)''',
-'''Charts are not available!''':
-'''¡Los gráficos no están disponibles!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s para %(filterpage)s''',
 '''green=view
@@ -732,6 +720,8 @@ rojo=editar''',
 '''fecha''',
 '''# of hits''':
 '''# de hits''',
+'''Charts are not available!''':
+'''¡Los gráficos no están disponibles!''',
 '''Page Size Distribution''':
 '''Distribución del Tamaño de Página''',
 '''page size upper bound [bytes]''':

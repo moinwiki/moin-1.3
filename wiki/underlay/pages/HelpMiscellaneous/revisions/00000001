@@ -1,9 +1,7 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-##master-page:Unknown-Page
-##master-date:Unknown-Date
+##master-page:None
+##master-date:None
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language en
@@ -15,13 +13,21 @@
 
 '''Contents''' [[TableOfContents]]
 
+=== Lost password for a user ===
+
+If you have mail configured for your moin (see HelpOnConfiguration) then
+users can have their password sent to the email address in their current
+record.  If SMTP is not configured, then the "Mail me my password" button
+is not shown on UserPreferences, and subscribed pages cannot be sent to
+users.
+
 === Adding an icon to your wiki setup ===
 
 You maybe want to add some icon to your wiki site, commonly known as `favicon.ico`.
 To get those little icons besides bookmarks and with tabbed browsing, add this to your `wikiconfig.py`:
 {{{
 html_head = '''
-<link rel="icon" href="/images/icon.png" type="image/png">
+<link rel="shortcut icon" href="/wiki/favicon.ico">
 <!-- ... more header stuff ... -->
 '''
 }}}

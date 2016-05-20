@@ -4,26 +4,35 @@
 
     This is the backend of the search form. Search pages and print results.
     
-    @copyright: (c) 2001 by Jürgen Hermann <jh@web.de>
+    @copyright: 2001 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin.Page import Page
-from MoinMoin import wikiutil, search
+from MoinMoin import wikiutil
 from MoinMoin.formatter.text_html import Formatter
 from MoinMoin.util import MoinMoinNoFooter
 
+
+def isTitleSearch(request):
+    """ Return True for title search, False for full text search 
+    
+    When used in FullSearch macro, we have 'titlesearch' parameter with
+    '0' or '1'. In standard search, we have either 'titlesearch' or
+    'fullsearch' with localized string. If both missing, default to
+    True (might happen with Safari).
+    """
+    try:
+        return int(request.form['titlesearch'][0])
+    except ValueError:
+        return True
+    except KeyError:
+        return 'fullsearch' not in request.form
+
+
 def execute(pagename, request, fieldname='value', titlesearch=0):
     _ = request.getText
-
-    # Get titlesearch. It either a hidden field in a search macro form
-    # using '0' or '1', or a submit button in the search box, in which
-    # case its a localized 'Titles' string.
-    try:
-        titlesearch = int(request.form.get('titlesearch', [0])[0])
-    except ValueError:
-        # "Titles" button was clicked in the standard search box.
-        titlesearch = 1
+    titlesearch = isTitleSearch(request)
 
     # context is relevant only for full search
     if titlesearch:        
@@ -49,6 +58,7 @@ def execute(pagename, request, fieldname='value', titlesearch=0):
         return
 
     # search the pages
+    from MoinMoin import search
     query = search.QueryParser(case=case, regex=regex,
                                titlesearch=titlesearch).parse_query(needle)
     results = search.searchPages(request, query)

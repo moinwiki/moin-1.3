@@ -1,0 +1,29 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language pl
+
+Zestawienie najważniejszych stron pomocy:
+ * PomocDlaPoczątkujących - jeżeli dopiero zaczynasz ze stronami wiki
+ * PomocPrzyNawigacji - opowiada o elementach nawigacyjnych na stronie wiki
+ * PomocPrzyTworzeniuStron - jak utworzyć nową stronę i jak używać szablonów
+ * PomocPrzyPreferencjachUżytkownika - przedstaw się stronie wiki i dostosuj jej zachowanie do swoich upodobań
+ * PomocPrzyEdycji - jak edytować strony
+ * PomocPrzyAkcjach - narzędzia używane do wszystkich stron wiki
+ * PomocInne - więcej szczegółów i często zadawane pytania
+
+Te strony zawierają informacje istotne tylko dla administratorów i programistów:
+ * PomocPrzyAdministracji - jak utrzymywać wiki MoinMoin
+ * PomocPrzyInstalacji - jak zainstalować wiki MoinMoin
+ * PomocDlaProgramistów - jak dodawać własną funkcjonalność modyfikując kod wiki
+
+Istnieje automatycznie wygenerowany IndeksPomocy. Zobacz też PomocInne/CzęstoZadawanePytania, żeby znaleźć odpowiedzi na najczęściej pojawiające pytania.
+
+Jeżeli znajdziesz jakieś błędy na stronach pomocy, opisz je na MoinMoin:HelpErrata. 
+
+''[Nie edytuj ani nie twórz stron pomocy na stronach wiki innych niż Moin``Master (zobacz MoinMaster:ZawartośćPomocy), ponieważ strony z Moin``Master nadpiszą wszystkie inne zmiany podczas uaktualniania oprogramowania Moin``Moin. Trzymaj się ustalonej struktury stron pomocy jeżeli chcesz zmieniać strony na Moin``Master. Zanim zrobisz poważne zmiany, przedyskutuj je wcześniej na liście mailingowej Moin``Moin.]''

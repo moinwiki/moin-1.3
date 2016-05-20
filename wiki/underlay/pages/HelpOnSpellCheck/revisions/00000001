@@ -37,6 +37,6 @@ If you need words files for US English or German, you can find them [http://moin
 
 === If it does not work ===
 
-If you change the contents of {{{MoinMoin/dict/}}} (because of adding new / removing old dictionaries) or if you create a new {{{MoinMoin/dict/}}} directory, then you have to delete the file {{{spellchecker.dict}}} (a new one will be created automagically).
+If you change the contents of {{{MoinMoin/dict/}}} (because of adding new / removing old dictionaries) or if you create a new {{{MoinMoin/dict/}}} directory, then you have to delete the file {{{<yourwiki>/data/cache/spellchecker.dict}}} (a new one will be created automagically).
 
 If you don't, your new dictionaries won't be recognized (e.g. it will use only LocalSpellingWords). Another possible cause of problems is that you did not place the dictionaries in the ''active'' "MoinMoin" package directory, i.e. the one that is actually imported by your CGI script.

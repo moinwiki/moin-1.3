@@ -11,12 +11,41 @@
 
 import unittest
 import re
-from MoinMoin._tests import request, TestConfig
+from StringIO import StringIO
+from MoinMoin._tests import TestConfig
 from MoinMoin.Page import Page
 from MoinMoin.parser.wiki import Parser
 
 
-class ParagraphsTestCase(unittest.TestCase):
+class ParserTestCase(unittest.TestCase):
+    """ Helper class that provide a parsing method """
+    
+    def parse(self, body):
+        """Parse body and return html
+
+        Create a page with body, then parse it and format using html formatter
+        """
+        assert body is not None
+        self.request.reset()
+        page = Page(self.request, 'ThisPageDoesNotExistsAndWillNeverBeReally')
+        page.set_raw_body(body)
+        from MoinMoin.formatter.text_html import Formatter
+        page.formatter = Formatter(self.request)
+        self.request.formatter = page.formatter
+        page.formatter.setPage(page)
+        page.hilite_re = None
+        
+        output = StringIO()
+        saved_write = self.request.write
+        self.request.write = output.write
+        try:
+            Parser(body, self.request).format(page.formatter)
+        finally:
+            self.request.write = saved_write
+        return output.getvalue()
+
+
+class ParagraphsTestCase(ParserTestCase):
     """ Test paragraphs creating
 
     All tests ignoring white space in output
@@ -24,14 +53,14 @@ class ParagraphsTestCase(unittest.TestCase):
 
     def testFirstParagraph(self):
          """ parser.wiki: first paragraph should be in <p> """
-         result = parse('First')
+         result = self.parse('First')
          expected = re.compile(r'<p>\s*First\s*</p>')
          self.assert_(expected.search(result),
                       '"%s" not in "%s"' % (expected.pattern, result))
 
     def testEmptyLineBetweenParagraphs(self):
         """ parser.wiki: empty line separates paragraphs """
-        result = parse('First\n\nSecond')
+        result = self.parse('First\n\nSecond')
         expected = re.compile(r'<p>\s*Second\s*</p>')
         self.assert_(expected.search(result),
                      '"%s" not in "%s"' % (expected.pattern, result))
@@ -51,20 +80,20 @@ class ParagraphsTestCase(unittest.TestCase):
             )
         for item in markup:
             text = item + 'Paragraph'
-            result = parse(text)
+            result = self.parse(text)
             expected = re.compile(r'<p.*?>\s*Paragraph\s*</p>')
             self.assert_(expected.search(result),
                          '"%s" not in "%s"' % (expected.pattern, result))
 
 
-class HeadingsTestCase(unittest.TestCase):
+class HeadingsTestCase(ParserTestCase):
     """ Test various heading problems """
 
     def setUp(self):
         """ Require show_section_numbers = 0 to workaround counter
         global state saved in request.
         """
-        self.config = TestConfig(show_section_numbers=0)
+        self.config = TestConfig(self.request, show_section_numbers=0)
     
     def tearDown(self):
         del self.config
@@ -81,20 +110,20 @@ class HeadingsTestCase(unittest.TestCase):
             '= head  =\n', # trailing
             '=  head  =\n' # both
                  )
-        expected = parse('= head =')
+        expected = self.parse('= head =')
         for test in tests:            
-            result = parse(test)
+            result = self.parse(test)
             self.assertEqual(result, expected,
                 'Expected "%(expected)s" but got "%(result)s"' % locals())
 
 
-class TOCTestCase(unittest.TestCase):
+class TOCTestCase(ParserTestCase):
 
     def setUp(self):
         """ Require show_section_numbers = 0 to workaround counter
         global state saved in request.
         """
-        self.config = TestConfig(show_section_numbers=0)
+        self.config = TestConfig(self.request, show_section_numbers=0)
     
     def tearDown(self):
         del self.config
@@ -117,13 +146,13 @@ Text
 =   heading   =
 Text
 """
-        expected = parse(standard)
-        result = parse(withWhitespace)
+        expected = self.parse(standard)
+        result = self.parse(withWhitespace)
         self.assertEqual(result, expected,
             'Expected "%(expected)s" but got "%(result)s"' % locals())
         
 
-class DateTimeMacroTestCase(unittest.TestCase):
+class DateTimeMacroTestCase(ParserTestCase):
    """ Test DateTime macro
 
    Might fail due to libc problems, therefore the fail message warn
@@ -146,7 +175,8 @@ class DateTimeMacroTestCase(unittest.TestCase):
 
    def setUp(self):
        """ Require default date and time format config values """
-       self.config = TestConfig(defaults=('date_fmt', 'datetime_fmt'))
+       self.config = TestConfig(self.request,
+                                defaults=('date_fmt', 'datetime_fmt'))
    
    def tearDown(self):
        del self.config
@@ -161,13 +191,13 @@ class DateTimeMacroTestCase(unittest.TestCase):
        aid=902172&group_id=5470&atid=105470>"""
 
        for test, expected in self._tests:
-           html = parse(self.text % test)
+           html = self.parse(self.text % test)
            result = self.needle.search(html).group(1)
            self.assertEqual(result, expected,
                'Expected "%(expected)s" but got "%(result)s"; %(note)s' % locals())
                        
 
-class TextFormatingTestCase(unittest.TestCase):
+class TextFormatingTestCase(ParserTestCase):
     """ Test wiki markup """
     
     text = 'XXX %s XXX'
@@ -187,13 +217,13 @@ class TextFormatingTestCase(unittest.TestCase):
     def testTextFormating(self):
         """ parser.wiki: text formating """
         for test, expected in self._tests:
-            html = parse(self.text % test)
+            html = self.parse(self.text % test)
             result = self.needle.search(html).group(1)
             self.assertEqual(result, expected,
                              'Expected "%(expected)s" but got "%(result)s"' % locals())
 
 
-class CloseInlineTestCase(unittest.TestCase):
+class CloseInlineTestCase(ParserTestCase):
 
     def testCloseOneInline(self):
         """ parser.wiki: close open inline tag when block close """
@@ -208,29 +238,29 @@ class CloseInlineTestCase(unittest.TestCase):
             )
         for test, expected in cases:
             needle = re.compile(expected)
-            result = parse(test)
+            result = self.parse(test)
             self.assert_(needle.search(result),
                          'Expected "%(expected)s" but got "%(result)s"' % locals())
 
 
-class InlineCrossingTestCase_Disabled(unittest.TestCase):
+class InlineCrossingTestCase(ParserTestCase):
     """
     This test case fail with current parser/formatter and should be
     fixed in 1.4
     """
     
-    def testInlineCrossing(self):
+    def disabled_testInlineCrossing(self):
         """ parser.wiki: prevent inline crossing <a><b></a></b> """
 
         expected = ("<p><em>a<strong>ab</strong></em><strong>b</strong>\s*</p>")
         test = "''a'''ab''b'''\n"
         needle = re.compile(expected)
-        result = parse(test)
+        result = self.parse(test)
         self.assert_(needle.search(result),
                      'Expected "%(expected)s" but got "%(result)s"' % locals())
        
 
-class EscapeHTMLTestCase(unittest.TestCase):
+class EscapeHTMLTestCase(ParserTestCase):
     
     def testEscapeInTT(self):
         """ parser.wiki: escape html markup in `tt` """
@@ -273,27 +303,27 @@ class EscapeHTMLTestCase(unittest.TestCase):
 
     def testEscapeInGetTextFormatted(self):
         """ parser.wiki: escape html markup in getText formatted call """
-        test = request.getText('<escape-me>', formatted=1)
+        test = self.request.getText('<escape-me>', formatted=1)
         self._test(test)
 
     def testEscapeInGetTextFormatedLink(self):
         """ parser.wiki: escape html markup in getText formatted call with link """
-        test = request.getText('["<escape-me>"]', formatted=1)
+        test = self.request.getText('["<escape-me>"]', formatted=1)
         self._test(test)
 
     def testEscapeInGetTextUnFormatted(self):
         """ parser.wiki: escape html markup in getText non formatted call """
-        test = request.getText('<escape-me>', formatted=0)
+        test = self.request.getText('<escape-me>', formatted=0)
         self._test(test)
 
     def _test(self, test):
         expected = r'&lt;escape-me&gt;'
-        result = parse(test)
+        result = self.parse(test)
         self.assert_(re.search(expected, result),
                      'Expected "%(expected)s" but got "%(result)s"' % locals())         
 
 
-class EscapeWikiTableMarkupTestCase(unittest.TestCase):
+class EscapeWikiTableMarkupTestCase(ParserTestCase):
 
     def testEscapeInTT(self):
         """ parser.wiki: escape wiki table markup in `tt` """
@@ -331,24 +361,24 @@ class EscapeWikiTableMarkupTestCase(unittest.TestCase):
 
     def do(self, test):
         expected = r'&lt;tablewidth="80"&gt;'
-        result = parse(test)
+        result = self.parse(test)
         self.assert_(re.search(expected, result),
                      'Expected "%(expected)s" but got "%(result)s"' % locals())         
 
 
-class RuleTestCase(unittest.TestCase):
+class RuleTestCase(ParserTestCase):
     """ Test rules markup """
 
     def testNotRule(self):
         """ parser.wiki: --- is no rule """
-        result = parse('---')
+        result = self.parse('---')
         expected = '---' # inside <p>
         self.assert_(expected in result,
                      'Expected "%(expected)s" but got "%(result)s"' % locals())
 
     def testStandardRule(self):
         """ parser.wiki: ---- is standard rule """
-        result = parse('----')
+        result = self.parse('----')
         expected = '<hr>'
         self.assert_(expected in result,
                      'Expected "%(expected)s" but got "%(result)s"' % locals())
@@ -358,7 +388,7 @@ class RuleTestCase(unittest.TestCase):
 
         for size in range(5, 11):
             test = '-' * size         
-            result = parse(test)
+            result = self.parse(test)
             expected = '<hr class="hr%d">' % (size - 4)
             self.assert_(expected in result,
                      'Expected "%(expected)s" but got "%(result)s"' % locals())
@@ -366,13 +396,13 @@ class RuleTestCase(unittest.TestCase):
     def testLongRule(self):
         """ parser.wiki: ------------ long rule shortened to hr6 """
         test = '-' * 254        
-        result = parse(test)
+        result = self.parse(test)
         expected = '<hr class="hr6">'
         self.assert_(expected in result,
                      'Expected "%(expected)s" but got "%(result)s"' % locals())
 
 
-class BlockTestCase(unittest.TestCase):
+class BlockTestCase(ParserTestCase):
     cases = (
         # test, block start
         ('----\n', '<hr'),
@@ -394,7 +424,7 @@ class BlockTestCase(unittest.TestCase):
             # We dont test here formatter white space generation
             expected = r'<p>XXX\s*</p>\n+%s' % blockstart
             needle = re.compile(expected, re.MULTILINE)
-            result = parse(text % test)
+            result = self.parse(text % test)
             match = needle.search(result)
             self.assert_(match is not None,
                          'Expected "%(expected)s" but got "%(result)s"' % locals())
@@ -415,43 +445,9 @@ class BlockTestCase(unittest.TestCase):
         for test, blockstart in self.cases:
             expected = r'<p>XXX\s*</p>\n+%s' % blockstart
             needle = re.compile(expected, re.MULTILINE)
-            result = parse(text % test)
+            result = self.parse(text % test)
             match = needle.search(result)
             self.assert_(match is not None,
                          'Expected "%(expected)s" but got "%(result)s"' % locals())
 
-            
-
-def parse(body):
-    """Parse body and return html
-    
-    Create a page with body, then parse it and format using html formatter
-    """
-    assert body is not None
-
-    request.reset()
-
-    pg = Page(request, 'ThisPageDoesNotExistsAndWillNeverBeReally')
-    pg.set_raw_body(body)
-
-    from MoinMoin.formatter.text_html import Formatter
-    pg.formatter = Formatter(request)
-    request.formatter = pg.formatter
-    pg.formatter.setPage(pg)
-    pg.hilite_re = None
-
-    output = []
-    
-    # Temporarily replace request.write with custom write function that 
-    # write into our output object.
-    def write_output(text, o=output):
-        o.append(text)
-    saved_write = request.write
-    request.write = write_output
-    try:
-        Parser(body, request).format(pg.formatter)
-    finally:
-        request.write = saved_write
-
-    return ''.join(output)
 

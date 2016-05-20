@@ -1,7 +1,10 @@
+# -*- coding: iso-8859-1 -*-
 """
-    site-wide configuration defaults (NOT per single wiki!)
-"""
+    MoinMoin - site-wide configuration defaults (NOT per single wiki!)
 
+    @copyright: 2005 by Thomas Waldmann (MoinMoin:ThomasWaldmann)
+    @license: GNU GPL, see COPYING for details.
+"""
 import re
 
 # Threads flag - if you write a moin server that use threads, import

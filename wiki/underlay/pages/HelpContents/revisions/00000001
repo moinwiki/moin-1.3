@@ -1,7 +1,5 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:Unknown-Page
 ##master-date:Unknown-Date
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
@@ -11,6 +9,7 @@
 Here is a tour of the most important help pages:
  * HelpForBeginners - if you are new to wikis
  * HelpOnNavigation - explains the navigational elements on a page
+ * HelpOnSearching - explains the search functions
  * HelpOnPageCreation - how to create a new page, and how to use page templates
  * HelpOnUserPreferences - how to make yourself known to the wiki, and adapt default behaviour to your taste
  * HelpOnEditing - how to edit a page

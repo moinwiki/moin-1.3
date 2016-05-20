@@ -5,8 +5,16 @@
 """
 
 from __future__ import generators
-import os, codecs
+import os, codecs, errno
 from MoinMoin import config, wikiutil
+
+
+class LogError(Exception):
+    """ Base class for log errors """
+
+class LogMissing(LogError):
+    """ Raised when the log is missing """
+
 
 class LineBuffer:
     """
@@ -59,13 +67,15 @@ class LineBuffer:
             i = i + 1
         self.offsets[0] = offset
 
+
 class LogFile:
     """
     .filter: function that gets the values from .parser.
        must return True to keep it or False to remove it
     Overwrite .parser() and .add() to customize this class to
-    spezial log files
+    special log files
     """
+    
     def __init__(self, filename, buffer_size=65536):
         """
         @param filename: name of the log file
@@ -95,6 +105,9 @@ class LogFile:
             
     def sanityCheck(self):
         """ Check for log file write access.
+        
+        TODO: os.access should not be used here.
+        
         @rtype: string (error message) or None
         """
         if not os.access(self.__filename, os.W_OK):
@@ -129,50 +142,69 @@ class LogFile:
             try:
                 os.chmod(self.__filename, 0666 & config.umask)
             except OSError:
+                # TODO: should not ignore errors like this!
                 pass
             return self._output
         else:
             raise AttributeError(name)
 
     def size(self):
-        """
-        @return: size of logfile in bytes
+        """ Return log size in bytes
+        
+        Return 0 if the file does not exists. Raises other OSError.
+        
+        @return: size of log file in bytes
         @rtype: Int
         """
-        import os.path
         try:
-            size = os.path.getsize(self.__filename)
-        except OSError:
-            size = 0
-        return size
+            return os.path.getsize(self.__filename)
+        except OSError, err:
+            if err.errno == errno.ENOENT:
+                return 0            
+            raise
 
     def lines(self):
-        """
-        O(n)
-        @return: size of logfile in lines
+        """ Return number of lines in the log file
+        
+        Return 0 if the file does not exists. Raises other OSError.
+
+        Expensive for big log files - O(n)
+        
+        @return: size of log file in lines
         @rtype: Int
         """
         try:
             f = codecs.open(self.__filename, 'r')
-            i = 0
-            for line in f:
-                i += 1
-            f.close()
-        except IOError:
-            i = 0
-        return i
+            try:
+                count = 0
+                for line in f:
+                    count += 1
+                return count
+            finally:
+                f.close()
+        except (OSError, IOError), err:
+            if err.errno == errno.ENOENT:
+                return 0
+            raise
 
     def date(self):
-        """Return timestamp of logfile in usecs"""
-        import os.path
-        return wikiutil.timestamp2version(os.path.getmtime(self.__filename))
+        """ Return timestamp of log file in usecs """
+        try:
+            mtime = os.path.getmtime(self.__filename)            
+        except OSError, err:
+            if err.errno == errno.ENOENT:
+                # This can happen on fresh wiki when building the index
+                # Usually the first request will create an event log
+                raise LogMissing(str(err))
+            raise
+        return wikiutil.timestamp2version(mtime)
 
     def peek(self, lines):
         """ What does this method do?
 
         @param lines: number of lines, may be negative to move backward 
             moves file position by lines.
-        @return: True if moving more than (WHAT?) to the begining and moving
+        @return: True if moving more than (WHAT?) to the beginning and moving
             to the end or beyond
         @rtype: boolean
         peek adjusts .__lineno if set
@@ -298,16 +330,18 @@ class LogFile:
         self.__lineno = None
 
     def position(self):
-        """return a value containing the actual file position
-        this can be converted into a String using backticks and then be rebuild
-        For this plain file implementation position is an Integer
+        """ Return the current file position
+        
+        This can be converted into a String using back-ticks and then
+        be rebuild.
+        For this plain file implementation position is an Integer.
         """
         return self.__buffer.offsets[self.__rel_index]
         
     def seek(self, position, line_no=None):
-        """ moves file position to an value formerly got from .position() 
-        to enabling line counting line_no must be provided
-        .seek is much more efficient for moving long distances than .peek
+        """ moves file position to an value formerly gotten from .position().
+        To enable line counting line_no must be provided.
+        .seek is much more efficient for moving long distances than .peek.
         raises ValueError if position is invalid
         """
         if self.__buffer1.offsets[0] <= position < self.__buffer1.offsets[-1]:
@@ -334,14 +368,14 @@ class LogFile:
         self.__lineno = line_no
 
     def line_no(self):
-        """@return: the actual line number or None if line number is unknown"""
+        """@return: the current line number or None if line number is unknown"""
         return self.__lineno
     
     def calculate_line_no(self):
         """ Calculate the current line number from buffer offsets
         
-        if line number is unknown it is calculated
-        by parsing the whole file. This may be expensive.
+        If line number is unknown it is calculated by parsing the whole file.
+        This may be expensive.
         """
         self._input.seek(0, 0)
         lines = self._input.read(self.__buffer.offsets[self.__rel_index])
@@ -353,7 +387,7 @@ class LogFile:
         @param line: line as read from file
         @return: parsed line or None on error
         Converts the line from file to program representation
-        This implementation uses TAB seperated strings.
+        This implementation uses TAB separated strings.
         This method should be overwritten by the sub classes.
         """
         return line.split("\t")
@@ -361,7 +395,7 @@ class LogFile:
     def add(self, *data):
         """
         add line to log file
-        This implementation save the values as TAB seperated strings.
+        This implementation save the values as TAB separated strings.
         This method should be overwritten by the sub classes.
         """
         line = "\t".join(data)
@@ -377,3 +411,4 @@ class LogFile:
             if line[-1] != '\n':
                 line += '\n'
             self._output.write(line)
+

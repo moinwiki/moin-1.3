@@ -533,8 +533,6 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 để trống thì tên file gốc sẽ được dùng.''',
 '''File to upload''':
 '''File để tải lên''',
-'''Save as''':
-'''Lưu với tên khác''',
 '''Upload''':
 '''Tải lên''',
 '''File attachments are not allowed in this wiki!''':
@@ -687,18 +685,8 @@ Vui lòng dùng tên khác.''',
 '''Dự đoán một số nguyên "%(arg)s" đứng sau "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Dự đoán một giá trị màu "%(arg)s" đứng sau "%(key)s"''',
-'''XSLT option disabled!''':
-'''Tuỳ chọn XSLT đã bị tắt!''',
-'''XSLT processing is not available!''':
-'''XSLT không thể được thực hiện!''',
 '''%(errortype)s processing error''':
 '''lỗi xử lý %(errortype)s''',
-'''RefreshCache''':
-'''Làm mới cache''',
-'''for this page (cached %(date)s)''':
-'''cho trang này (cached vào ngày %(date)s)''',
-'''Charts are not available!''':
-'''Biểu đồ không thể được thực hiện!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s ở trang %(filterpage)s''',
 '''green=view
@@ -709,6 +697,8 @@ red=edit''':
 '''ngày''',
 '''# of hits''':
 '''số lần xem''',
+'''Charts are not available!''':
+'''Biểu đồ không thể được thực hiện!''',
 '''Page Size Distribution''':
 '''Thống kê theo kích thước trang''',
 '''page size upper bound [bytes]''':

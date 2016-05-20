@@ -150,7 +150,6 @@ class AccessControlList:
         @param aclstring: acl string from page or cfg
         @param remember: should add the line to self.acl_lines
         """
-        # FIXME: should compile this once and cache (in cfg?)
         group_re = re.compile(cfg.page_group_regex)
 
         # Remember lines

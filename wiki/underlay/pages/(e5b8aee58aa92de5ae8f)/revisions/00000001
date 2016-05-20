@@ -8,4 +8,67 @@
 #format wiki
 #language zh
 
+[[Navigation(children)]]
+[[TableOfContents]]
+
+== 宏命令 ==
+通过宏命令您可以在普通 wiki 页面中插入系统功能；使这种页面与众不同的唯一原因就是它们含有宏。如果你曾经编辑过类似 RecentChanges 或 SystemInfo 的页面，你就会看到宏是什么。
+
+关于更多可能出现的 wiki 标记，请参见 HelpOnEditingZh 。 
+
+=== 用于查找的宏 ===
+||'''宏名'''||'''描述'''||'''示例'''||
+||{{{[[TitleSearch]]}}}     || 查找页标题 || 参见 FindPage ||
+||{{{[[FullSearch]]}}}      || 查找页内容 || 参见 FindPage ||
+||{{{[[FullSearch()]]}}}      || 在所有的页面中查找当前页面的标题（就象点击页面标题的效果一样）|| 参见页面 CategoryCategory ||
+||{{{[[FullSearch('text')]]}}} || 在所有页面里查找字符串 "text" || 查找 {{{powered}}}：[[FullSearch('powered')]] ||
+||{{{[[GoTo]]}}}            || 直接跳转到您输入的页面 || 参见 FindPage ||
+||{{{[[PageList(regex)]]}}} || 标题可以匹配正则表达式 regxp 的页面的列表 || 参见 HelpIndex ||
+
+=== 用于浏览的宏 ===
+||'''宏名'''||'''描述'''||'''示例'''||
+||{{{[[RecentChanges]]}}}   || 最近被编辑的页面的列表 || 参见 RecentChanges ||
+||{{{[[TitleIndex]]}}}      || 所有页标题的索引 || 参见 TitleIndex ||
+||{{{[[WordIndex]]}}}       || 所有页标题中使用过的单词的索引 || 参见 WordIndex ||
+||{{{[[WantedPages]]}}} || 所有在 Wiki 系统中被引用的但实际并不存在的页面的列表 || 参见 WantedPages ||
+||{{{[[OrphanedPages]]}}} || 所有不被其他页面引用的页的列表 || 参见 OrphanedPages ||
+||{{{[[AbandonedPages]]}}} || 列出保持不被改动状态最长的页面 || 参见 AbandonedPages ||
+||{{{[[RandomPage]]}}}      || 指向随机一个页面的链接 || [[RandomPage]] ||
+||{{{[[RandomPage(#)]]}}}   || 指向 "#" 个随机页面的链接 || 两个随机链接：[[RandomPage(2)]] ||
+||{{{[[TableOfContents([maxdepth])]]}}} || 显示一个当前页面的目录，可以控制其最大深度 || 参见本页开头 ||
+||{{{[[Anchor(anchorname)]]}}} || 在页面中插入定位标记（锚链） || [[Anchor(这里)]][#这里] ||
+||{{{[[Navigation(children[,maxdepth])]]}}} || 列出一个页面的所有子页面 || 参见本页的开头 ||
+||{{{[[Navigation(siblings[,maxdepth])]]}}} || 列出所有兄弟页 || 参见 /MailToZh ||
+||{{{[[Navigation(slideshow)]]}}} || FuzzTransZh 创建一个切换幻灯模式和wiki模式的链接，和一个开始幻灯模式的链接 || 参见 HelpOnSlideShows ||
+||{{{[[Navigation(slides)]]}}} || 显示 第一个/前一个/下一个/最后 链接 || 参见 HelpOnSlideShows ||
+
+=== 系统信息宏 ===
+||'''宏名'''||'''描述'''||'''示例'''||
+||{{{[[InterWiki]]}}}       || 所有已知的 InterWiki 名的列表 || InterWiki ||
+||{{{[[SystemInfo]]}}}      || 关于当前 wiki 的信息，python 解释器和系统 || SystemInfo ||
+||{{{[[PageCount]]}}}       || 当前页面总数 || 共 [[PageCount]] 页 ||
+||{{{[[PageSize]]}}}        || 所有页面的总大小 || 参见 PageSize ||
+||{{{[[StatsChart(type)]]}}} || 显示统计图表（当前已定义类型：hitcounts（浏览次数）， pagesize（页面大小）， useragents（客户端类型）） || 参见 EventStats 及其子页面  ||
+||{{{[[SystemAdmin]]}}} || wiki 管理员的 Web 管理界面（在 1.0 版本中还未实现） || 参见 SystemInfo ||
+
+=== 其他宏 ===
+||'''宏名'''||'''描述'''||'''示例'''||
+||{{{[[Icon(image)]]}}}     || 显示系统中所支持的小图标 || 参见 HelpOnNavigation ||
+||{{{[[UserPreferences]]}}} || 显示用户首选项对话框 || 参见 UserPreferences ||
+||{{{[[BR]]}}} || 插入一个断行符 || 第一行[[BR]]第二行 ||
+||{{{[[RandomQuote(pagename)]]}}} || 从指定的页面随机引用一句话，如果省略 pagename 将从 `FortuneCookies` 中引用 || [[RandomQuote]] ||
+||{{{[[Include(HelloWorld[,"heading"[,level]])]]}}} || 包含另一页的目录 || 详细使用方法参见 /IncludeZh ||
+||{{{[[FootNote(text)]]}}} || 增加一个脚注（脚注中不能包含任何 wiki 标记），当省略参数 text 时，将在插入点显示所有已收集的脚注 || 示例参见 HelpOnPageCreationZh ||
+||{{{[[Date(timestamp)]]}}} || 根据系统设置显示一个时间戳 || [[Date()]] ||
+||{{{[[DateTime(timestamp)]]}}} || 根据用户设置显示一个时间戳[[FootNote("timestamp" 可以为空（代表当前时间），或者一个从1970年开始计算的秒数（ unix 时间），或者一个符合 W3C 时间表示规范的字符串（"2002-01-23T12:34:56"）。)]] || [[DateTime()]] ||
+||{{{[[GetText(text)]]}}} || 载入 I18N 文字 （主要用于帮助页面） || "Edit``Text" 将被转换为 "[[GetText(EditText)]]" ||
+||{{{[[TeudView]]}}} || 适用于内部网开发者 wiki ，可以察看通过 XSLT 样式表格式化的后的 pydoc 文档，详细用法参见 EfnetPythonWiki:TeudProject || 参见 EfnetPythonWiki:TeudViewer?module=MoinMoin.macro.TeudView ||
+||{{{[[MailTo(email)]]}}} || 防止你的邮件地址被垃圾邮件机器人搜集到 || 详细用法参见 /MailToZh ||
+
+[[FootNote]]
+
+== 示例显示 ==
+抱歉，因为篇幅关系，我们不能在这里提供所有宏命令的示例。下面是 {{{[[SystemInfo]]}}} 宏显示的信息：
+ [[SystemInfo]]
+
 [[Include(HelpOnMacros)]]

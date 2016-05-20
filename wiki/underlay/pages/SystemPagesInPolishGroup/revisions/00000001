@@ -6,7 +6,7 @@
 ##master-date:Unknown-Date
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
-#language en
+#language pl
 
 This is a list of all polish System``Pages (including Help``Pages) in this wiki:
 
@@ -32,7 +32,7 @@ system pages:
   * SystemPagesGroup
  * StronaDomowaWiki
  * NazwaWiki
- * WikiBrudnopis
+ * BrudnopisWiki
  * SiećWikiWiki
  * DlaczegoWikiDziała
  * WersjaXslt
@@ -42,74 +42,76 @@ system pages:
  * ListaFortunek
 
 help pages:
- * HelpContents
- * HelpForBeginners
- * HelpForDevelopers
- * HelpIndex
- * HelpMiscellaneous
- * HelpMiscellaneous/ExperimentalFeatures
- * HelpMiscellaneous/FrequentlyAskedQuestions
- * HelpOnAccessControlLists
- * HelpOnActions
- * HelpOnActions/AttachFile
- * HelpOnAdministration
- * HelpOnCategories
- * HelpOnConfiguration
- * HelpOnConfiguration/CascadingStyleSheets
- * HelpOnConfiguration/EmailSupport
- * HelpOnConfiguration/SecurityPolicy
- * HelpOnConfiguration/ApacheVoodoo
- * HelpOnConfiguration/FileAttachments
- * HelpOnEditLocks
- * HelpOnEditing
- * HelpOnEditing/SubPages
- * HelpOnFormatting
- * HelpOnHeadlines
- * MoinMoin/InstallDocs
- * HelpOnInstalling
- * HelpOnInstalling/ApacheOnMacOsx
- * HelpOnInstalling/ApacheOnLinux
- * HelpOnInstalling/ApacheOnWin32
- * HelpOnInstalling/ApacheWithFastCgi
- * HelpOnInstalling/ApacheWithModPython
- * HelpOnInstalling/BasicInstallation
- * HelpOnInstalling/InternetInformationServer
- * HelpOnInstalling/StandaloneServer
- * HelpOnInstalling/TroubleShooting
- * HelpOnInstalling/TwistedWeb
- * HelpOnInstalling/WebLogic
- * HelpOnInstalling/WikiInstanceCreation
- * HelpOnLanguages
- * HelpOnLinking
- * HelpOnLists
- * HelpOnMacros
- * ["HelpOnMacros/Include"]
- * HelpOnMacros/MailTo
- * HelpOnNavigation
- * HelpOnPageCreation
- * HelpOnPageDeletion
- * HelpOnParsers
- * HelpOnParsers/ReStructuredText
- * HelpOnParsers/ReStructuredText/RstPrimer
- * HelpOnProcessingInstructions
- * HelpOnProcessors
- * HelpOnRules
- * HelpOnSearching
- * HelpOnSkins
- * HelpOnSlideShows
- * ["HelpOnSlideShows/000 Introduction"]
- * ["HelpOnSlideShows/100 Creating the slides"]
- * ["HelpOnSlideShows/900 Last but not least: Running your presentation."]
- * HelpOnSmileys
- * HelpOnSpellCheck
- * HelpOnTables
- * HelpOnThemes
- * HelpOnUpdating
- * HelpOnUpdatingPython
- * HelpOnUserPreferences
- * HelpOnXmlPages
- * HelpTemplate
- * SyntaxReference
+ * ZawartośćPomocy
+  * HelpContents
+ * PomocDlaPoczątkujących
+  * HelpForBeginners
+ * PomocDlaProgramistów
+ * IndeksPomocy
+ * PomocInne
+ * PomocInne/RzeczyEksperymentalne
+ * PomocInne/CzęstoZadawanePytania
+ * PomocPrzyAkcjach
+ * PomocPrzyAkcjach/DołączPlik
+ * PomocPrzyAdministracji
+ * PomocPrzyKategoriach
+ * PomocPrzyKonfiguracji
+ * PomocPrzyKonfiguracji/KaskadoweArkuszeStylów
+ * PomocPrzyKonfiguracji/PocztaElektroniczna
+ * PomocPrzyKonfiguracji/PolitykaBezpieczeństwa
+ * PomocPrzyKonfiguracji/ApacheVoodoo
+ * PomocPrzyKonfiguracji/ZałączonePliki
+ * PomocPrzyEdycji
+ * PomocPrzyEdycji/PodStrony
+ * PomocPrzyFormatowaniu
+ * PomocPrzyNagłówkach
+ * PomocPrzyInstalacji
+ * PomocPrzyInstalacji/ApachePodLinuksem
+ * PomocPrzyInstalacji/TworzenieInstancjiWiki
+ * English pages for reference
+  * HelpOnEditLocks
+  * MoinMoin/InstallDocs
+  * HelpOnInstalling/ApacheOnMacOsx
+  * HelpOnInstalling/ApacheOnWin32
+  * HelpOnInstalling/ApacheWithFastCgi
+  * HelpOnInstalling/ApacheWithModPython
+  * HelpOnInstalling/BasicInstallation
+  * HelpOnInstalling/InternetInformationServer
+  * HelpOnInstalling/StandaloneServer
+  * HelpOnInstalling/TroubleShooting
+  * HelpOnInstalling/TwistedWeb
+  * HelpOnInstalling/WebLogic
+  * HelpOnLanguages
+  * HelpOnLinking
+  * HelpOnLists
+  * HelpOnMacros
+  * ["HelpOnMacros/Include"]
+  * HelpOnMacros/MailTo
+  * HelpOnNavigation
+  * HelpOnPageCreation
+  * HelpOnPageDeletion
+  * HelpOnParsers
+  * HelpOnParsers/ReStructuredText
+  * HelpOnParsers/ReStructuredText/RstPrimer
+  * HelpOnProcessingInstructions
+  * HelpOnProcessors
+  * HelpOnRules
+  * HelpOnSearching
+  * HelpOnSkins
+  * HelpOnSlideShows
+  * ["HelpOnSlideShows/000 Introduction"]
+  * ["HelpOnSlideShows/100 Creating the slides"]
+  * ["HelpOnSlideShows/900 Last but not least: Running your presentation."]
+  * HelpOnSmileys
+  * HelpOnSpellCheck
+  * HelpOnTables
+  * HelpOnThemes
+  * HelpOnUpdating
+  * HelpOnUpdatingPython
+  * HelpOnUserPreferences
+  * HelpOnXmlPages
+  * HelpTemplate
+  * SyntaxReference
 
 Wiki Course:
  * WikiCourse

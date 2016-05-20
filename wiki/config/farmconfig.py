@@ -96,7 +96,7 @@ class FarmConfig(DefaultConfig):
 
     # IMPORTANT: grant yourself admin rights! replace YourName with
     # your user name. See HelpOnAccessControlLists for more help.
-    # All acl_right_xxx must use unicode [Unicode]
+    # All acl_rights_xxx options must use unicode [Unicode]
     #acl_rights_before = u"YourName:read,write,delete,revert,admin"
     
     # Link spam protection for public wikis (uncomment to enable).

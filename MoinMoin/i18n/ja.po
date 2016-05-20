@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
-"PO-Revision-Date: 2005-01-23 02:19+0900\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
+"PO-Revision-Date: 2005-07-29 09:57+0900\n"
 "Last-Translator: Fujio Nobori <toh@fuji-climb.org>\n"
 "Language-Team: Japanese <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,9 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "を埋め込んでください。-~\n"
 
+msgid "Create New Page"
+msgstr "新しいページを作成"
+
 msgid "You are not allowed to view this page."
 msgstr "このページを読む権限がありません。"
 
@@ -75,8 +78,11 @@ msgstr "古いリビジョンを編集することはできません。"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
-"ファイルのロックが期限切れになりました。他のユーザが行う編集と衝突する可能性"
-"があります。"
+"ページのロックが期限切れになりました。他のユーザが行う編集と衝突する可能性が"
+"あります。"
+
+msgid "Page name is too long, try shorter name."
+msgstr "ページ名が長すぎます。短い名前を指定してください。"
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -249,9 +255,9 @@ msgstr "新しいページ:\n"
 msgid "No differences found!\n"
 msgstr "違いは見つかりませんでした。\n"
 
-#, fuzzy, python-format
+#, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] \"%(pagename)s\"の%(trivial)s更新"
+msgstr "[%(sitename)s] %(username)sによる\"%(pagename)s\"の%(trivial)s更新"
 
 msgid "Trivial "
 msgstr "ささいな"
@@ -270,9 +276,13 @@ msgstr "\"%(pagename)s\"のバックアップが%(date)sに作成されました
 #, python-format
 msgid "Page could not get locked. Unexpected error (errno=%d)."
 msgstr ""
+"ページをロックすることができませんでした。予期しないエラー(errno=%d)が発生し"
+"ました。"
 
 msgid "Page could not get locked. Missing 'current' file?"
 msgstr ""
+"ページをロックすることができませんでした。'最新'のファイルが存在しないのかも"
+"しれません。"
 
 msgid "You are not allowed to edit this page!"
 msgstr "このページを削除する権限がありません。"
@@ -483,6 +493,39 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "正しいメールアドレスを入力してください。"
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+"要求により、あなたのアカウント情報をこのメールアドレスに送信しました。\n"
+"\n"
+"パスワードを忘れてしまった場合には、下に書かれている情報を利用して、\n"
+"Wikiのパスワード入力欄にパスワードを入力してください。\n"
+"(コピー＆ペーストを利用して、表示されているとおりのパスワードを\n"
+"入力してください。)\n"
+"\n"
+"ログインに成功したあとは、新たにパスワードを設定し直すことをお勧めします。\n"
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+"ログイン名: %s\n"
+"\n"
+"ログインパスワード: %s\n"
+"\n"
+"ログインURL: %s/?action=userform&uid=%s\n"
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "メールアドレス'%(email)s'に該当するアカウントが見つかりません。"
@@ -631,7 +674,7 @@ msgid "The page was saved %(count)d times, though!"
 msgstr "その間の保存: %(count)d回"
 
 msgid "(ignoring whitespace)"
-msgstr ""
+msgstr "(ホワイトスペースを無視)"
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "空白文字数の違いを無視"
@@ -849,6 +892,15 @@ msgstr "インストールされているパーサ"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "インストールされているプロセッサ(現在はパーサの利用を推奨)"
 
+msgid "Disabled"
+msgstr "無効"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Lupy search"
+msgstr "Lupyによる検索"
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr ""
@@ -934,8 +986,8 @@ msgstr ""
 msgid "File to upload"
 msgstr "アップロードするファイル"
 
-msgid "Save as"
-msgstr "保存するファイル名を指定"
+msgid "Rename to"
+msgstr "名前の変更"
 
 msgid "Upload"
 msgstr "アップロード"
@@ -1135,9 +1187,6 @@ msgstr "開始"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "スライド番号 %(pos)d/%(size)d"
 
-msgid "Create New Page"
-msgstr "新しいページを作成"
-
 msgid "No orphaned pages in this wiki."
 msgstr "このwikiに参照元がないページはありません。"
 
@@ -1234,25 +1283,23 @@ msgstr "\"%(key)s\"の後には整数値\"%(arg)s\"が必要です。"
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "\"%(key)s\"の後には色の値\"%(arg)s\"が必要です。"
 
-msgid "XSLT option disabled!"
-msgstr "XSLTオプションは無効になっています。"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
+"XSLTオプションが無効になっています。HelpOnConfigurationを参照してください。"
 
-msgid "XSLT processing is not available!"
-msgstr "XSLT processingは利用できません。"
+msgid "XSLT processing is not available, please install 4suite 1.x."
+msgstr ""
+"XSLT processingは利用できません。4suite 1.xをインストールしてください。"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "processingエラー: %(errortype)s"
 
-msgid "RefreshCache"
-msgstr "キャッシュの更新"
+msgid "Views/day"
+msgstr "表示/日"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "(キャッシュ作成日時 %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "チャートは利用できません。"
+msgid "Edits/day"
+msgstr "編集/日"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1271,6 +1318,9 @@ msgstr "日付"
 msgid "# of hits"
 msgstr "ヒットカウント"
 
+msgid "Charts are not available!"
+msgstr "チャートは利用できません。"
+
 msgid "Page Size Distribution"
 msgstr "ページサイズの分布"
 
@@ -1279,6 +1329,9 @@ msgstr "ページサイズの上限[バイト]"
 
 msgid "# of pages of this size"
 msgstr "このサイズのページ数"
+
+msgid "User agent"
+msgstr "ユーザエージェント"
 
 msgid "Others"
 msgstr "その他"
@@ -1492,6 +1545,18 @@ msgstr "ページ名変更"
 msgid "SpellCheck"
 msgstr "スペルチェック"
 
+#~ msgid "Save as"
+#~ msgstr "保存するファイル名を指定"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "XSLTオプションは無効になっています。"
+
+#~ msgid "RefreshCache"
+#~ msgstr "キャッシュの更新"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "(キャッシュ作成日時 %(date)s)"
+
 #~ msgid "MIME Type (optional)"
 #~ msgstr "MIMEタイプ (省略可)"
 
@@ -1506,9 +1571,6 @@ msgstr "スペルチェック"
 
 #~ msgid "(edit log entry is missing)"
 #~ msgstr "(編集ログがありません)"
-
-#~ msgid "Rename"
-#~ msgstr "名前の変更"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"

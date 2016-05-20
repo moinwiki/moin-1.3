@@ -2,8 +2,7 @@
 ## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:None
 ##master-date:None
-##acl MoinPagesEditorGroup:read,write,delete,revert All:read
-#acl All:read,write
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format gettext
 #language it
 
@@ -14,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
 "PO-Revision-Date: 2004-11-21 22:09+0100\n"
 "Last-Translator: gian paolo ciceri <gp.ciceri@acm.org>\n"
 "Language-Team: Italian <moin-devel@lists.sourceforge.net>\n"
@@ -58,6 +57,9 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''.[[BR]][[BR]]\n"
 "~-\n"
 
+msgid "Create New Page"
+msgstr "Crea questa pagina"
+
 msgid "You are not allowed to view this page."
 msgstr "Non sei autorizzato a leggere questa pagina."
 
@@ -78,7 +80,11 @@ msgid "Cannot edit old revisions!"
 msgstr "Non è permesso modificare le versioni precedenti!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
-msgstr "Il lock che detenevi è spirato, preparati per conflitti di modifiche!"
+msgstr ""
+"Il lock che detenevi è scaduto, preparati a possibili conflitti di modifiche!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -100,13 +106,14 @@ msgstr ""
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
 msgstr ""
-"Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto tra # secondi."
+"Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto tra # "
+"secondi."
 
 msgid "Someone else deleted this page while you were editing!"
-msgstr "Qualcun altro ha rimosso la pagina mentre la stavi modificando"
+msgstr "Qualcun altro ha rimosso la pagina mentre la stavi modificando tu!"
 
 msgid "Someone else changed this page while you were editing!"
-msgstr "Qualcun altro ha cambiato la pagina mentre la stavi modificando"
+msgstr "Qualcun altro ha cambiato la pagina mentre la stavi modificando tu!"
 
 #, python-format
 msgid ""
@@ -114,9 +121,9 @@ msgid ""
 "Please review the page and save then. Do not save this page as it is!\n"
 "Have a look at the diff of %(difflink)s to see what has been changed."
 msgstr ""
-"Qualcun altro ha salvato la pagina mentre la stavi modificandoPer favore, "
-"rivedi la pagina e salvala. Non salvarla così come è\n"
-"Dai un'occhiata alle diff in %(difflink)s per vedere cosa è cambiato."
+"Qualcun altro ha salvato la pagina mentre la stavi modificando. Per favore, "
+"rivedi la pagina e salvala. Non salvarla così com'è!\n"
+"Dai un'occhiata alle differenze in %(difflink)s per vedere cosa è cambiato."
 
 #, python-format
 msgid "[Content of new page loaded from %s]"
@@ -251,7 +258,9 @@ msgstr "Non ho riscontrato nessuna differenza!\n"
 
 #, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] %(trivial)sCambiamenti della \"%(pagename)s\" ad opera di %(username)s"
+msgstr ""
+"[%(sitename)s] %(trivial)sCambiamenti della \"%(pagename)s\" ad opera di %"
+"(username)s"
 
 msgid "Trivial "
 msgstr "Banale "
@@ -292,15 +301,15 @@ msgid ""
 "delete the changes of the other person, which is excessively rude!''\n"
 msgstr ""
 "Mi dispiace, ma qualcun altro ha salvato la pagina mentre la stavi "
-"modificando\n"
+"modificando.\n"
 "\n"
 "Dovresti tornare alla pagina precedende e copiarti il\n"
-"testo che hai inserito, dopodich&eacute; tornare qui, premere "
-"ModificaIlTesto di nuovo\n"
-"Ora re-integra le tue modifiche nella pagina corrente.\n"
+"testo che hai inserito, dopodiché tornare qui, premere ModificaIlTesto di "
+"nuovo.\n"
+"A quel punto re-integra le tue modifiche nella pagina corrente.\n"
 "\n"
 "''Non limitarti a sostituire il contenuto della pagina con le tue\n"
-"modifiche, perchè; in tal modo cancelleresti le modifiche dell'altra\n"
+"modifiche, perché in tal modo cancelleresti le modifiche dell'altra\n"
 "persona, che sarebbe eccessivamente sgarbato!''\n"
 
 #, python-format
@@ -320,14 +329,14 @@ msgstr ""
 
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr ""
-"Grazie per il tuo contributo. La tua attenzione ai dettagli è apprezzata"
+"Grazie per il tuo contributo. La tua attenzione ai dettagli è apprezzata."
 
 #, python-format
 msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
 "granted the lock for this page."
 msgstr ""
-"Il lock di %(owner)s è spirato %(mins_ago)d minute(s) fa, e ti è stato "
+"Il lock di %(owner)s è scaduto %(mins_ago)d minute(s) fa, e ti è stato "
 "concesso il lock per questa pagina."
 
 #, python-format
@@ -343,18 +352,18 @@ msgid ""
 "page."
 msgstr ""
 "Gli altri utenti saranno ''avvisati'' fino a %(bumptime)s che stai "
-"modificando la paginas."
+"modificando la pagina."
 
 msgid "Use the Preview button to extend the locking period."
-msgstr "Usa il bottone Anteprima per estendere il periodo di locking."
+msgstr "Usa il pulsante Anteprima per estendere il periodo di locking."
 
 #, python-format
 msgid ""
 "This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
 "s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Questa pagina rimarrà;''bloccata'' fino alle %(timestamp)s, vale a dire "
-"ancora per %(mins_valid)d minuti, perchè %(owner)s la sta modificando."
+"Questa pagina rimarrà ''bloccata'' fino alle %(timestamp)s, vale a dire "
+"ancora per %(mins_valid)d minuti, perché %(owner)s la sta modificando."
 
 #, python-format
 msgid ""
@@ -423,7 +432,7 @@ msgstr "Login"
 
 #, python-format
 msgid " %s and try again."
-msgstr " %s and prova ancora."
+msgstr " %s e prova ancora."
 
 msgid "Can't work out query"
 msgstr "Non riesco a impostare la query di ricerca"
@@ -437,10 +446,10 @@ msgid "%.2f seconds"
 msgstr "%.2f secondi"
 
 msgid "match"
-msgstr " corrispondenza"
+msgstr "corrispondenza"
 
 msgid "matches"
-msgstr " corrispondenze"
+msgstr "corrispondenze"
 
 msgid "Open editor on double click"
 msgstr "Con un doppio click, apri l'editor"
@@ -454,15 +463,14 @@ msgstr "Enfatizza i collegamenti esterni"
 msgid "Show question mark for non-existing pagelinks"
 msgstr "Mostra un punto di domanda al posto dei collegamenti non esistenti"
 
-#, python-format
 msgid "Show page trail"
-msgstr "Mostra il più di pagina"
+msgstr "Mostra il piè di pagina"
 
 msgid "Show icon toolbar"
 msgstr "Mostra la barra con le icone"
 
 msgid "Show top/bottom links in headings"
-msgstr "Mostra i link top/bottom nelle intstazioni"
+msgstr "Mostra i link inizio/fine nelle intestazioni"
 
 msgid "Show fancy diffs"
 msgstr "Evidenzia le differenze"
@@ -491,6 +499,26 @@ msgstr ""
 
 msgid "Please provide a valid email address!"
 msgstr "Per favore immetti un indirizzo email valido!"
+
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
 
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
@@ -524,7 +552,7 @@ msgid "Passwords don't match!"
 msgstr "Le password non coincidono!"
 
 msgid "Please specify a password!"
-msgstr "specifica una password!"
+msgstr "Per favore specifica una password!"
 
 msgid ""
 "Please provide your email address. If you loose your login information, you "
@@ -538,7 +566,7 @@ msgstr "Questo indirizzo email è gia utilizzato da qualcun altro."
 
 #, python-format
 msgid "The theme '%(theme_name)s' could not be loaded!"
-msgstr "Il tema '%(theme_name)s' nno può essere caricato"
+msgstr "Il tema '%(theme_name)s' no può essere caricato"
 
 msgid "User preferences saved!"
 msgstr "Le preferenze sono state memorizzate!"
@@ -714,7 +742,7 @@ msgid "Revision History"
 msgstr "Cronologia revisioni"
 
 msgid "No log entries found."
-msgstr "Non sono stati trovate informazioni nel log"
+msgstr "Non sono stati trovate informazioni nel log."
 
 #, python-format
 msgid "Info for \"%s\""
@@ -862,9 +890,18 @@ msgstr "Parser installati"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Processori installati (DEPRECATO -- usa i Parser)"
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
-msgstr "Per favore usa un termine di ricerca più; selettivo di {{{\"%s\"}}}"
+msgstr "Per favore usa un termine di ricerca più selettivo di {{{\"%s\"}}}"
 
 #, python-format
 msgid "ERROR in regex '%s'"
@@ -922,7 +959,7 @@ msgid "No attachments stored for %(pagename)s"
 msgstr "Non ci sono allegati per la pagina %(pagename)s"
 
 msgid "Edit drawing"
-msgstr ">Modifica il disegno"
+msgstr "Modifica il disegno"
 
 msgid "Attached Files"
 msgstr "File allegati"
@@ -947,8 +984,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "File da caricare"
 
-msgid "Save as"
-msgstr " Salva come"
+#, fuzzy
+msgid "Rename to"
+msgstr "Rinomina Pagina"
 
 msgid "Upload"
 msgstr "Carica"
@@ -1070,7 +1108,7 @@ msgid "New name"
 msgstr "Nuovo nome"
 
 msgid "Optional reason for the renaming"
-msgstr "Ragione facoltativa per la rinuminazione"
+msgstr "Ragione facoltativa per la rinominazione"
 
 #, python-format
 msgid ""
@@ -1078,7 +1116,7 @@ msgid ""
 "\n"
 "Try a different name."
 msgstr ""
-"'''Una pagina con il nome {{{'%s'}}} esiste gia.'''\n"
+"'''Una pagina con il nome {{{'%s'}}} esiste già.'''\n"
 "\n"
 "Prova un nome differente."
 
@@ -1120,7 +1158,8 @@ msgstr "Elenco completo dei collegamenti per \"%s\""
 msgid ""
 "Cannot create a new page without a page name.  Please specify a page name."
 msgstr ""
-"Impossibile creare una nuova pagina senza nome.  Inserire il nome della pagina"
+"Impossibile creare una nuova pagina senza nome.  Inserire il nome della "
+"pagina"
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
@@ -1132,14 +1171,13 @@ msgstr "Non risulta nulla per \"%s\""
 
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
-msgstr "Schema di navigazione '%(scheme)s' non supportato1"
+msgstr "Schema di navigazione '%(scheme)s' non supportato!"
 
-#, python-format
 msgid "No parent page found!"
 msgstr "La pagina sovrastante non è stata trovata!"
 
 msgid "Wiki"
-msgstr "wiki"
+msgstr "Wiki"
 
 msgid "Slideshow"
 msgstr "Diapositive"
@@ -1150,10 +1188,6 @@ msgstr "Inizia"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slide %(pos)d di %(size)d "
-
-#, python-format
-msgid "Create New Page"
-msgstr "Crea questa pagina"
 
 msgid "No orphaned pages in this wiki."
 msgstr ""
@@ -1209,7 +1243,7 @@ msgstr "Devi specificare un tipo di grafico!"
 
 #, python-format
 msgid "Bad chart type \"%s\"!"
-msgstr "tipo di grafico \"%s\" non valido!"
+msgstr "Tipo di grafico \"%s\" non valido!"
 
 msgid "Download XML export of this wiki"
 msgstr "Scarica una versione XML di questo wiki"
@@ -1252,25 +1286,24 @@ msgstr "Atteso un intero \"%(arg)s\" prima di \"%(key)s\""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Atteso un colore \"%(arg)s\" prima di \"%(key)s\""
 
-msgid "XSLT option disabled!"
-msgstr "Opzione XSLT disabilitata!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "Formattazione XSLT non disponibile"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Errore di elaborazione di tipo \"%(errortype)s\""
 
-msgid "RefreshCache"
-msgstr "AggiornaCache"
+#, fuzzy
+msgid "Views/day"
+msgstr "mostra"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "per questa pagina (memorizzata il %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Grafici non disponibili"
+#, fuzzy
+msgid "Edits/day"
+msgstr "Modifica"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1289,6 +1322,9 @@ msgstr "data"
 msgid "# of hits"
 msgstr "n. di accessi"
 
+msgid "Charts are not available!"
+msgstr "Grafici non disponibili!"
+
 msgid "Page Size Distribution"
 msgstr "Distribuzione delle pagine per dimensione"
 
@@ -1297,6 +1333,9 @@ msgstr "dimensione massima della pagina [bytes]"
 
 msgid "# of pages of this size"
 msgstr "n. di pagine di questa dimensione"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Altre"
@@ -1364,7 +1403,7 @@ msgid "Show Print View"
 msgstr "Versione stampabile"
 
 msgid "Delete Cache"
-msgstr "Cancella File Temporanei"
+msgstr "Cancella file temporanei"
 
 msgid "Attach File"
 msgstr "File allegati"
@@ -1418,7 +1457,8 @@ msgstr "Utente"
 #, python-format
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
-msgstr "Impossibile salvare la pagina, \"%(content)s\" non è ammesso in questo wiki."
+msgstr ""
+"Impossibile salvare la pagina, \"%(content)s\" non è ammesso in questo wiki."
 
 msgid "Line"
 msgstr "Linea"
@@ -1507,3 +1547,15 @@ msgstr "RinominaPagina"
 
 msgid "SpellCheck"
 msgstr "ControlloOrtografico"
+
+#~ msgid "Save as"
+#~ msgstr " Salva come"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "Opzione XSLT disabilitata!"
+
+#~ msgid "RefreshCache"
+#~ msgstr "AggiornaCache"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "per questa pagina (memorizzata il %(date)s)"

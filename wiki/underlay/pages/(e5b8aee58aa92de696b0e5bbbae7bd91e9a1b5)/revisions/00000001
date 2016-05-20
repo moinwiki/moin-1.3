@@ -1,0 +1,44 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+
+== 创建新页面 ==
+
+要创建新页面，只要在已有的页面上加入它的 WikiName 然后保存之。这时，您就可以在这个刚刚修改过得页面上点击它，因为它已经自动变成链接了。
+
+现在你已经得到了你的新页面了，而且你可以像编辑其他页面那样编辑它了。当你 ''第一次'' 保存它之后，它就会被自动创建出来了。通常情况下页面是无法被删除[[FootNote( wiki 管理员可以激活页面删除功能（建议仅仅用于内部网络）。)]]的，所以在写下新的 WikiName 之前应该保证它的正确性。
+
+关于如何创建指向子页面的连接，请参见 HelpOnEditing/SubPages 。
+
+== 创建和使用模板页 ==
+要创建一个模板页面，只要按照上面的步骤创建一个用名称以 "'''Template'''"[[FootNote(如果管理员修改了默认社设置，定义模板页所使用的名称规则可能会不同。)]] 结尾的页面即可。这个模板页将会被加入那个当你试图察看不存在的页面时显示的模板页列表。例如，NonExiststantHelpPage 中就包含一个链接到 HelpTemplate 模板页的链接，当你点击那个链接时，就会将 HelpTemplate 的内容载入到编辑栏。
+
+[[Anchor(variablesubstitution)]]
+== 保存页面时的变量替换 ==
+
+在一个页面被''最终''保存的时候，下面的变量将被替换。注意，预览的时候他们是不会被替换的！
+
+|| @''''''PAGE@     || 页名称（多用于模板页面） ||
+|| @''''''DATE@     || 按系统格式显示的当前日期 ||
+|| @''''''TIME@     || 按用户定义格式显示的当前日期 ||
+|| @''''''USERNAME@ || 用户名称（或者他/她的域名/IP地址） ||
+|| @''''''USER@     || 签名 ”-- 登录名“ ||
+|| @''''''SIG@      || 带日期签名 “-- 登录名 日期 时间” ||
+|| @''''''MAILTO@   || 一个神秘的带有用户信息的 mailto: 链接 ||
+
+注意，模板的保存或者编辑页面时进行的预览是''不会''对变量进行替换的。另外，变量替换将发生在页面的各个地方，包括代码显示、注释、处理指令以及页面内其它你自认为不会发生替换的"特殊"区域。
+
+= 编者备份 =
+
+如果一个用户拥有一个用[[Icon(home)]]标识的主页[[FootNote(拥有主页就是说 wiki 中有一个和你的登录名同名的页面。)]]，他的所保存的和预览的内容将以子页面 `Home``Page``Name/Moin``Editor``Backup` （允许生成子页面时）的形式或者以页面 `Home``Page``Name``Moin``Editor``Backup` （不允许生成子页面）的形式备份。
+
+所以，如果你有经常预览的习惯，即使你的浏览器崩溃了你也不会丢失你所作的修改。
+
+注意：此功能曾经通过一个名为 `moin-editor-backup.txt` 的主页附件来实现，但是由于一些安全问题的出现而引入访问``控制``列表（参见 HelpOnAccessControlLists ）后，改成了现在的方式。
+
+
+[[Include(HelpOnPageCreation)]]

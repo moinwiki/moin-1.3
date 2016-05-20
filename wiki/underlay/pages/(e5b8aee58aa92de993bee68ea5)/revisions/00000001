@@ -8,4 +8,78 @@
 #format wiki
 #language zh
 
-[[Include(HelpOnLinking)]]
+== 任意格式名称 ==
+如果你{{{["像这样"]}}}用方括号括起任意的字符，那就会将使它成为一个页名称。该功能可以在 MoinMoin 中用于特殊用途（就好比列出某些物品的列表，例如：你收藏的CD辑，你可以使用它们本来的名称来创建页名），或者你需要创建非西方字符编码页名称的时候也会用到。 
+
+/!\ '''此功能是通过 `allow_extended_names` 来启动的可选功能，所以它可能无法正常工作（未启用）！'''
+
+== 超链接和内嵌图片 ==
+在文本中插入外部引用[[FootNote(相对于外部链接，是内部的，自动生成的["维基链接名"]链接。)]]有几种方法：
+ * 直接插入超链接；如果超链接以图像文件扩展名（"{{{.gif}}}", "{{{.jpg}}}" or "{{{.png}}}"）结束，该链接将被自动转化为图像标记。
+ * 方括号链接。
+ * InterWiki 链接。
+ * 电子邮件地址。
+
+如果你在普通的文本中键入超链接，探测什么是超链接的一部分和什么不是链接的组成不分是很困难的。有四种方法可以强制指明一个超链接的结尾：
+ * 在超链接的末尾加一个空格。
+ * 使用 Wiki:SixSingleQuotes 特殊形式。
+ * 将超链接放入双引号之间。
+ * 使用方括号链接语法。
+
+支持的链接类型为：`http`，`https`，`ftp`，`nntp`，`news`，`mailto`，`telnet`以及`file`。您的wiki管理员可以通过扩展{{{config.url_schemas}}}变量来增加对其他类型链接的支持（参见["帮助-系统设置"]）。
+
+除了标准的链接类型，MoinMoin 还提供了一些特殊的链接类型：`wiki`，`attachment`，`inline`以及`drawing`。"`wiki`" 表示一个["维基链"]（InterWiki），所以 `MoinMoin:首页` 和 `wiki:MoinMoin:首页` 是等价的；一般情况下你可以选择比较短的形式来书写，当使用方括号形式链接的时候 "`wiki`" 将变得比较重要，因为该方式需要明确链接的类型。另外三种类型是用于文件附件的，将在 HelpOnActions/AttachFile 对它们进行解释。
+
+如果配置选项 `bang_meta` 被设为真时，您将可以通过在["维基链接名"]前加一个感叹号（''bang''）来禁止["维基链接名"]转换为链接，例如：`!WikiName`。本功能默认是关闭的。
+
+关于更多可能遇到的标记，请参见["帮助-编辑"]。关于如何链接子页面，请参见["帮助-编辑/子网页"]。
+
+To ''insert'' anchors into a page you need the [wiki:HelpOnMacros macro] ''Anchor'': `[[Anchor(anchorname)]]`, where "anchorname" is the actual identifier of the anchor. To reference an anchor on the same wiki page use `[#anchorname]` or `[#anchorname label text]`. To link to an anchor on another wiki page write `[wiki:Self:PageName#anchorname]` or `[wiki:Self:PageName#anchorname label text]`, where "Page``Name" is the name of the other page and "anchorname" is the identifier of the anchor on that page.
+
+It is often desirable to create a link to a Wiki page in the current Wiki, but have the link appear with a different text label. While you can use an InterWiki link with a Wiki name of Self, this results in an InterWiki icon prefix which might be misleading since you're not leaving the current Wiki at all. Use the syntax of `[:WikiPage:Label text]` to achieve a link to a current Wiki page without creating an InterWiki link. 
+
+/!\ On some Wikis, a link to the page RecentChanges might refer to the same page as this link: ["recentchanges"]. This is especially true for Windows and Mac OS X systems because they are not case-sensitive normally.
+
+[[FootNote]]
+
+=== 示例 ===
+{{{
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ MoinMoin 的主页]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png  moinmoin.png]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki MeatBall上的维基链（InterWiki）页面]
+ * jh@web.de
+ * [:维基链:这个维基上的维基链页面]
+ * [#anchorname Link to anchor on this page]
+ * [wiki:Self:OtherPage#anchorname Link to anchor on another wiki page]
+ * [:OtherPage#anchorname:Link to page in current wiki with label text]
+}}} 
+
+=== 显示 ===
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ MoinMoin 的主页]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png  moinmoin.png]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki MeatBall上的维基链（InterWiki）页面]
+ * jh@web.de
+ * [:维基链:这个维基上的维基链页面]
+ * [#anchorname Link to anchor on this page]
+ * [wiki:Self:OtherPage#anchorname Link to anchor on another wiki page]
+ * [:OtherPage#anchorname:Link to page in current wiki with label text]
+
+此页的英文版本：HelpOnLinking

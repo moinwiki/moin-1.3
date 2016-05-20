@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"POT-Creation-Date: 2005-08-04 21:06+0200\n"
 "PO-Revision-Date: 2005-01-8 00:00+0100\n"
 "Last-Translator: Thomas Waldmann <tw-public@gmx.de>\n"
 "Language-Team: German <moin-devel@lists.sourceforge.net>\n"
@@ -50,6 +50,9 @@ msgid ""
 "macro call.-~\n"
 msgstr ""
 
+msgid "Create New Page"
+msgstr ""
+
 msgid "You are not allowed to view this page."
 msgstr ""
 
@@ -71,6 +74,9 @@ msgstr ""
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr "The lock you held timed out. Be prepared for editing conflicts!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -418,8 +424,32 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr ""
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
+msgstr ""
+
+#, python-format
+msgid "[%(sitename)s] Your wiki account data"
 msgstr ""
 
 #, python-format
@@ -773,6 +803,15 @@ msgstr ""
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr ""
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr ""
@@ -849,7 +888,7 @@ msgstr ""
 msgid "File to upload"
 msgstr ""
 
-msgid "Save as"
+msgid "Rename to"
 msgstr ""
 
 msgid "Upload"
@@ -1039,9 +1078,6 @@ msgstr ""
 msgid "Slide %(pos)d of %(size)d"
 msgstr ""
 
-msgid "Create New Page"
-msgstr ""
-
 msgid "No orphaned pages in this wiki."
 msgstr ""
 
@@ -1137,24 +1173,20 @@ msgstr ""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr ""
 
-msgid "XSLT option disabled!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
 msgstr ""
 
-msgid "XSLT processing is not available!"
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr ""
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr ""
 
-msgid "RefreshCache"
+msgid "Views/day"
 msgstr ""
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr ""
-
-msgid "Charts are not available!"
+msgid "Edits/day"
 msgstr ""
 
 #, python-format
@@ -1172,6 +1204,9 @@ msgstr ""
 msgid "# of hits"
 msgstr ""
 
+msgid "Charts are not available!"
+msgstr ""
+
 msgid "Page Size Distribution"
 msgstr ""
 
@@ -1179,6 +1214,9 @@ msgid "page size upper bound [bytes]"
 msgstr ""
 
 msgid "# of pages of this size"
+msgstr ""
+
+msgid "User agent"
 msgstr ""
 
 msgid "Others"

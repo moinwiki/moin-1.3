@@ -239,8 +239,11 @@ class Formatter(FormatterBase):
         wikiurl = wikiutil.mapURL(self.request, wikiurl)
 
         if wikitag == 'Self': # for own wiki, do simple links
-            href = wikiutil.join_wiki(wikiurl, wikiutil.AbsPageName(self.request, self.page.page_name, wikitail))
-            return (self.url(1, href, unescaped=0, pretty_url=kw.get('pretty_url', 0)))
+            import urllib
+            if wikitail.find('#')>-1:
+                wikitail, kw['anchor'] = wikitail.split('#', 1)
+            wikitail = urllib.unquote(wikitail)
+            return apply(self.pagelink, (on, wikiutil.AbsPageName(self.request, self.page.page_name, wikitail)), kw)
         else: # return InterWiki hyperlink
             href = wikiutil.join_wiki(wikiurl, wikitail)
             if wikitag_bad:
@@ -259,14 +262,16 @@ class Formatter(FormatterBase):
     def url(self, on, url=None, css=None, **kw):
         """
             Keyword params:
-                title - title attribute
-                ... some more (!!! TODO) 
+                type - "www" or "mailto" to use that icon
+                title - <a> title attribute
+                attrs -  just include those <a> attrs "as is"
         """
         if url is not None:
             url = wikiutil.mapURL(self.request, url)
-        pretty = kw.get('pretty_url', 0)
         title = kw.get('title', None)
+        attrs = kw.get('attrs', None)
 
+        #pretty = kw.get('pretty_url', 0)
         #if not pretty and wikiutil.isPicture(url):
         #    # XXX
         #    return '<img src="%s" alt="%s">' % (url,url)
@@ -279,6 +284,8 @@ class Formatter(FormatterBase):
             str = '%s class="%s"' % (str, css)
         if title:
             str = '%s title="%s"' % (str, title)
+        if attrs:
+            str = '%s %s' % (str, attrs)
         str = '%s href="%s">' % (str, wikiutil.escape(url, 1))
 
         type = kw.get('type', '')
@@ -691,7 +698,7 @@ document.write('<a href="#" onClick="return togglenumber(\'%s\', %d, %d);" \
         result = []
         if on:
             # Open div to get correct alignment with table width smaller
-            # then 100%
+            # than 100%
             result.append(self.open('div', newline=1))
 
             # Open table
@@ -729,3 +736,7 @@ document.write('<a href="#" onClick="return togglenumber(\'%s\', %d, %d);" \
 
     def escapedText(self, text):
         return wikiutil.escape(text)
+
+    def rawHTML(self, markup):
+        return markup
+

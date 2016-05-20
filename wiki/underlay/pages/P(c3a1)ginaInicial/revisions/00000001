@@ -1,0 +1,7 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language es
+#pragma section-numbers off
+
+Mhz, please paste the new content here - don't mess with acl or try to delete this page!

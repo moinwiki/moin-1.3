@@ -41,7 +41,8 @@ The following is a list of ''internal'' actions that are used to implement the v
  * userform: save user preferences.
  * bookmark: set bookmark for RecentChanges.
  * raw: send the raw wiki markup as text/plain (e.g. for backup purposes via wget); Self:SystemInfo?action=raw shows the markup of SystemInfo.
- * format: emit specially formatted views of a page.
+ * format: emit specially formatted views of a page. Parameter `mimetype` specifies the wanted mime-type.
+  * You can use it to generate '''DocBook''' markup from your pages. Just append `?action=format&mimetype=xml/docbook` to the address.
  * rss_rc: generate a RSS feed of RecentChanges.
  * chart: display charts.
  * export: export the wiki content. ''[experimental]''

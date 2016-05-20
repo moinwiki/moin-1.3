@@ -1,0 +1,16 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#format wiki
+#language pt
+
+Um WikiNome são duas ou mais palavras com as iniciais maiúsculas, isto serve para criar um link ao seu nome direcionando para sua página pessoal. O MoinMoin trabalha com codificação UTF-8. 
+
+  * Para tirar o link do WikiNome: {{{Wiki''''''Name}}}.
+  * Outra opção mais curta seria: {{{Wiki``Name}}}.
+
+ * Para aprender mais sobre formatação, veja AjudaNaEdição.
+ * Veja também AjudaNaLigação.

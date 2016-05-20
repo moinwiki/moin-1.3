@@ -1,0 +1,29 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+
+== 数据处理指令 ==
+MoinMoin 的数据处理指令与 XML 数据处理指令具有相同的意义：它们控制处理页面所采取的方式。数据处理指令是一些由 "{{{#}}}" 字符开头的关键字加上一些可选的参数组成的行；这些关键字总是大小写敏感的。由两个井字符号开头的行是注释行，将不被显示在处理过得页面中。
+
+本维基支持的数据处理指令有：
+ * {{{##}}} ''任意文字'' ：注释
+ * {{{#FORMAT}}} ''格式定义'' ：指定当前页面使用的数据格式，支持的数据格式有：
+   * '''Wiki''' ：默认为 MoinMoin 维基标记语言
+   * '''Plain''' ：普通文本
+   * '''Python''' ：带有语法高亮的 Python 代码
+   * '''StructuredText''' （ <!> 还未实现 ）
+ * {{{#REDIRECT}}} ''页面名''：重定向到一个另一个页面（参见 MeatBall:PageRedirect'''''' ）
+ * {{{#REFRESH}}} ''延迟'' ''[页面名称或URL]''：在指定的延迟时间到达时重定向到其他页面（或外部URL又或者仅仅更新当前页面，如果不起作用 — 请使用 `config.refresh` 激活本功能）
+ * `#PRAGMA` ''模式'' ''参数''：为当前页面设置处理模式；模式名称大小写不敏感，已知的处理模式有：
+    * `#pragma section-numbers off` （或 "0"）关闭标题行自动编号功能，使用 "on" 或者 "1" 来打开自动编号（该模式的默认值定义于 `show_section_numbers` 配置项中）。 `#pragma section-numbers 2` 仅显示级别为2以及更高级别（3到6）的标题编号。
+ * {{{#DEPRECATED}}}: 将该页标记为不推荐使用的，也就是说，此后对该页的更改将不创建任何备份版本并且在显示该页时将同时显示当前版本（一般为不推荐使用该页的原因）和最后一个备份版本的内容。这样可以有效的冻结该页的最后版本，使之不能被查找到（不命中陈旧内容），但其内容仍可以浏览。
+
+所有的数据处理指令必须出现现在页面的开头。注释处理指令例外，它们可以出现在使用 "wiki" 格式（不能出现在使用其他格式的页面中）的页面的任意位置。
+
+关于更多的可能出现的标记，请参见["帮助-编辑"]。
+
+此页的英文版本:HelpOnProcessingInstructions

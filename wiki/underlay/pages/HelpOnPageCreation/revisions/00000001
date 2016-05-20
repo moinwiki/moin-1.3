@@ -1,46 +1,86 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-##master-page:Unknown-Page
-##master-date:Unknown-Date
+##master-page:None
+##master-date:None
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language en
 
- <!> Needs update for 1.3
+= Creating a new page =
+## We should test this section with beginners
+## Beginner
 
-== Creating a New Page ==
+You create a new page by visiting the page. If the page does not exists, `MoinMoin` will suggest to create it. There are several ways to create a new page:
 
-To create a page, add its WikiName to an existing page (make sure you spelled it correctly) and save it. After that, you can click on it on the revised page, since it automatically becomes a hyperlink.
+== By Adding a link on another page ==
+ 1. Edit another page
+ 1. Add a link to the new page, either as a WikiName or as `["Name With Spaces"]`
+ 1. Save the page and click the new link
+ 1. Click one of the template names
+ 1. Edit your new page and save it
 
-You will then be presented with your new page, which you can edit in the normal way. After you ''first'' saved it, it will be automatically created.
+For more information on linking to other pages, see HelpOnLinking.
 
-On details on how to create and link to subpages, see HelpOnEditing/SubPages. 
+== By visiting the page ==
+## Can a complete beginner use this?
 
-== Creating and Using Template Pages ==
-To create a template, follow the above description and create a page with a name ending in "'''Template'''"[[FootNote(If the wiki administrator changed the default settings, rules for what names are template pages might be different.)]]. This page will then be added to the list of template pages displayed when you try to show a non-existent page. For example, NonExistentHelpPage has a link to HelpTemplate that loads the content of HelpTemplate into the editor box, when you click on that link.
+ 1. Enter the address of the new page, e.g `http://example.com/wiki/MyNewPage` in the browser location box and press Enter
+ 1. Click one of the template names
+ 1. Edit your new page and save it
 
-== Variable Substitution when Saving a Page ==
+ (!) Might not work on all browsers if the page name contains non ASCII characters.
+
+== By using the NewPage macro ==
+
+If the current page uses the `NewPage` macro:
+ 1. Enter the page name in the text box and click "[[GetText(Create New Page)]]"
+ 1. Edit your page and save it
+
+Example:
+ [[NewPage(HelpTemplate)]]
+
+The `NewPage` macro make it easy to create new pages in one step, using certain template or automatically creating a sub page. For more help on `NewPage` macro, see HelpOnMacros.
+
+== By using the GoTo macro ==
+
+If the current page uses the `GoTo` macro:
+ 1. Enter the page name in the text box and click "[[GetText(Go To Page)]]"
+ 1. Click "Create new page"
+ 1. Edit your page and save it
+
+Example:
+ [[GoTo]]
+
+= Creating and using template pages =
+## Advanced
+
+To create a template, follow the above description and create a page with a name ending in "'''Template'''". This page will then be added to the list of template pages displayed when you try to show a non-existent page. For example, NonExistentHelpPage has a link to HelpTemplate that loads the content of HelpTemplate into the editor box, when you click on that link.
+
+ (!) The wiki administrator can change the template pages name rules, for example, allow templates pages using multiple languages.
+
+= Variable substitution when saving a page =
+## Advanced
 
 [[Anchor(variablesubstitution)]]
-The following variables are substituted when a page is ''finally'' saved. Note that they'll appear unreplaced in the preview!
+The following variables are substituted when a page is saved. Note that they will appear unreplaced in the preview!
 
 || Variable         || Description                                  || Example ||
-|| @''''''PAGE@     || Name of the page (useful for template pages) || HelpOnPageCreation ||
-|| @''''''DATE@     || Current date in the system's format          || [[Date(2004-08-30T06:38:05Z)]] ||
-|| @''''''TIME@     || Current date and time in the user's format   || [[DateTime(2004-08-30T06:38:05Z)]] ||
-|| @''''''USERNAME@ || Just the user's name (or his domain/IP)      || TheAnarcat ||
-|| @''''''USER@     || Signature "-- loginname"                     || -- TheAnarcat ||
-|| @''''''SIG@      || Dated Signature "-- loginname date time"     || -- TheAnarcat [[DateTime(2004-08-30T06:38:05Z)]] ||
-|| @''''''MAILTO@   || A fancy mailto: link with the user's data    || None - on public sites, better use the Mail``To macro) ||
+|| @``PAGE@     || Name of the page (useful for template pages) || HelpOnPageCreation ||
+|| @``DATE@     || Current date in the system's format          || [[Date(2004-08-30T06:38:05Z)]] ||
+|| @``TIME@     || Current date and time in the user's format   || [[DateTime(2004-08-30T06:38:05Z)]] ||
+|| @``USERNAME@ || Just the user's name (or his domain/IP)      || TheAnarcat ||
+|| @``USER@     || Signature "-- loginname"                     || -- TheAnarcat ||
+|| @``SIG@      || Dated Signature "-- loginname date time"     || -- TheAnarcat [[DateTime(2004-08-30T06:38:05Z)]] ||
+|| @``MAILTO@   || A fancy mailto: link with the user's data    || None - on public sites, better use the Mail``To macro) ||
 
-You can use Home``Page``Name/Wiki``Dict to expand those variables, just put a WikiDict there with your variables and values.
+You can use Home``Page``Name/My``Dict to expand those variables, just put a WikiDict there with your variables and values.
 
 Note that saving template or form definition pages and using preview does ''not'' expand variables. Other than that, variable expansion is very global and happens anywhere on the page, including code displays, comments, processing instructions and other "special" areas of a page you might think are excluded.
 
 = Editor backup =
+## Advanced
 
-If the user has a homepage[[FootNote(Having a homepage means you're logged in under a name that is also the name of an existing wiki page.)]] indicated by the [[Icon(home)]] icon, a backup of save/preview text is saved either as subpage `Home``Page``Name/Moin``Editor``Backup` (if subpages are allowed) or as page `Home``Page``Name``Moin``Editor``Backup` (if subpages are not allowed).
+If you have a homepage (a page with the same name as your user name), each time you save or preview a page, a backup of the text is saved as `UserName/MoinEditorBackup`. If your browser crashed when editing a page and you did a preview, you can get the text from the backup. Use preview often!
 
-So if you preview often, you will keep your changes, even if your browser crashes.
+## TODO: remove this stupidity, sub page should be allowed always
+ (!) If sub pages are disabled, the backup is saved as `UserNameMoinEditorBackup`

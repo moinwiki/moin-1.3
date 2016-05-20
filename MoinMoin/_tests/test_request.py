@@ -9,7 +9,7 @@
 """
 
 import unittest
-from MoinMoin._tests import request, TestConfig
+from MoinMoin._tests import TestConfig
 from MoinMoin import config
 
 class NormalizePagenameTestCase(unittest.TestCase):
@@ -21,7 +21,7 @@ class NormalizePagenameTestCase(unittest.TestCase):
         """
         test  = u'\u0000\u202a\u202b\u202c\u202d\u202e'
         expected = u''
-        result = request.normalizePagename(test)
+        result = self.request.normalizePagename(test)
         self.assertEqual(result, expected,
                          ('Expected "%(expected)s" but got "%(result)s"') % locals())
 
@@ -35,7 +35,7 @@ class NormalizePagenameTestCase(unittest.TestCase):
             (u'a b/////c d/////e f', u'a b/c d/e f'),
             )
         for test, expected in cases:
-            result = request.normalizePagename(test)
+            result = self.request.normalizePagename(test)
             self.assertEqual(result, expected,
                              ('Expected "%(expected)s" but got "%(result)s"') %
                              locals())
@@ -52,7 +52,7 @@ class NormalizePagenameTestCase(unittest.TestCase):
             (config.chars_spaces, u''),
             )
         for test, expected in cases:
-            result = request.normalizePagename(test)
+            result = self.request.normalizePagename(test)
             self.assertEqual(result, expected,
                              ('Expected "%(expected)s" but got "%(result)s"') %
                              locals())
@@ -71,7 +71,7 @@ class NormalizePagenameTestCase(unittest.TestCase):
             (u'a__b__/__c__d__/__e__f', u'a b/c d/e f'),
             )
         for test, expected in cases:
-            result = request.normalizePagename(test)
+            result = self.request.normalizePagename(test)
             self.assertEqual(result, expected,
                              ('Expected "%(expected)s" but got "%(result)s"') %
                              locals())
@@ -80,7 +80,8 @@ class NormalizePagenameTestCase(unittest.TestCase):
 class GroupPagesTestCase(unittest.TestCase):
 
    def setUp(self):
-       self.config = TestConfig(page_group_regex = r'.+Group')              
+       self.config = TestConfig(self.request,
+                                page_group_regex = r'.+Group')              
 
    def tearDown(self):
        del self.config
@@ -101,20 +102,22 @@ class GroupPagesTestCase(unittest.TestCase):
        for test, expected in cases:
            # validate we are testing valid group names
            assert group.search(test)
-           result = request.normalizePagename(test)
+           result = self.request.normalizePagename(test)
            self.assertEqual(result, expected,
                             ('Expected "%(expected)s" but got "%(result)s"') %
                             locals())
 
 
-# This let you run each test from the command line. When run with 
-# "make test" it is not used.     
-def suite():
-    test_cases = [unittest.makeSuite(obj, 'test') 
-        for name, obj in globals().items()
-        if name.endswith('TestCase')]
-    return unittest.TestSuite(test_cases)
-    
-if __name__ == '__main__':
-    unittest.TextTestRunner(verbosity=2).run(suite())
+class HTTPDateTests(unittest.TestCase):
 
+    def testRFC1123Date(self):
+        """ request: httpDate default rfc1123 """
+        self.failUnlessEqual(self.request.httpDate(0), 
+                             'Thu, 01 Jan 1970 00:00:00 GMT',
+                             'wrong date string')
+
+    def testRFC850Date(self):
+        """ request: httpDate rfc850 """
+        self.failUnlessEqual(self.request.httpDate(0, rfc='850'), 
+                             'Thursday, 01-Jan-70 00:00:00 GMT',
+                             'wrong date string')

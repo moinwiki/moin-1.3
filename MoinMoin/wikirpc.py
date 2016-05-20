@@ -30,6 +30,7 @@ from MoinMoin import config, user, wikiutil
 from MoinMoin.Page import Page
 from MoinMoin.PageEditor import PageEditor
 from MoinMoin.logfile import editlog
+from MoinMoin.formatter import text_html
 
 _debug = 0
 
@@ -213,7 +214,7 @@ class XmlRpcBase:
 
         # Get page info
         last_edit = page.last_edit(self.request)           
-        mtime = wikiutil.version2timestamp(int(last_edit['timestamp']))
+        mtime = wikiutil.version2timestamp(long(last_edit['timestamp'])) # must be long for py 2.2.x
         gmtuple = tuple(time.gmtime(mtime))
         
         version = rev # our new rev numbers: 1,2,3,4,....
@@ -393,6 +394,16 @@ class XmlRpcBase:
         self.request.redirect()
 
         return xmlrpclib.Boolean(1)
+
+    def xmlrpc_searchPages(self, query_string):
+        from MoinMoin import search
+        query = search.QueryParser().parse_query(query_string)
+        results = search.searchPages(self.request, query)
+        results.formatter = text_html.Formatter(self.request)
+        results.request = self.request
+        return [(self._outstr(hit.page_name),
+                 self._outstr(results.formatContext(hit, 180, 1)))
+                for hit in results.hits]
 
     def process(self):
         """ xmlrpc v1 and v2 dispatcher """

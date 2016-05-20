@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
 "PO-Revision-Date: 2004-11-19 21:03+0800\n"
 "Last-Translator: Nam T. Nguyen <nnt@nntsoft.com>\n"
 "Language-Team: Vietnamese <moin-devel@lists.sourceforge.net>\n"
@@ -55,6 +55,10 @@ msgstr ""
 "Để dùng đơn này ở trang khác, chèn vào một câu lênh gọi\n"
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 
+#, fuzzy
+msgid "Create New Page"
+msgstr "Tạo trang này"
+
 msgid "You are not allowed to view this page."
 msgstr "Bạn không xem trang này được."
 
@@ -79,6 +83,9 @@ msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 "Thời gian dành riêng cho bạn đã hết, bạn có thể sẽ gặp sự cố trong việc "
 "chỉnh sửa trang!"
+
+msgid "Page name is too long, try shorter name."
+msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -486,6 +493,26 @@ msgstr ""
 msgid "Please provide a valid email address!"
 msgstr "Vui lòng cho biết địa chỉ thư điện tử hợp lệ!"
 
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "Không tìm thấy account có địa chỉ thư điện tử '%(email)s'!"
@@ -856,6 +883,15 @@ msgstr "Parser đã cài"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Processor đã cài (KHÔNG CÒN DÙNG -- dùng parser)"
 
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Lupy search"
+msgstr ""
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr "Vui lòng dùng từ khoá tìm kiếm khác thay cho {{{\"%s\"}}}"
@@ -940,8 +976,9 @@ msgstr ""
 msgid "File to upload"
 msgstr "File để tải lên"
 
-msgid "Save as"
-msgstr "Lưu với tên khác"
+#, fuzzy
+msgid "Rename to"
+msgstr "Đổi tên"
 
 msgid "Upload"
 msgstr "Tải lên"
@@ -1139,10 +1176,6 @@ msgstr "Bắt đầu"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slide %(pos)d kích thước %(size)d"
 
-#, fuzzy
-msgid "Create New Page"
-msgstr "Tạo trang này"
-
 msgid "No orphaned pages in this wiki."
 msgstr "Không có trang lẻ trong wiki này."
 
@@ -1239,25 +1272,24 @@ msgstr "Dự đoán một số nguyên \"%(arg)s\" đứng sau \"%(key)s\""
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Dự đoán một giá trị màu \"%(arg)s\" đứng sau \"%(key)s\""
 
-msgid "XSLT option disabled!"
-msgstr "Tuỳ chọn XSLT đã bị tắt!"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr ""
 
-msgid "XSLT processing is not available!"
+#, fuzzy
+msgid "XSLT processing is not available, please install 4suite 1.x."
 msgstr "XSLT không thể được thực hiện!"
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "lỗi xử lý %(errortype)s"
 
-msgid "RefreshCache"
-msgstr "Làm mới cache"
+#, fuzzy
+msgid "Views/day"
+msgstr "Xem"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "cho trang này (cached vào ngày %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Biểu đồ không thể được thực hiện!"
+#, fuzzy
+msgid "Edits/day"
+msgstr "Sửa"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1276,6 +1308,9 @@ msgstr "ngày"
 msgid "# of hits"
 msgstr "số lần xem"
 
+msgid "Charts are not available!"
+msgstr "Biểu đồ không thể được thực hiện!"
+
 msgid "Page Size Distribution"
 msgstr "Thống kê theo kích thước trang"
 
@@ -1284,6 +1319,9 @@ msgstr "kích thước giới hạn của trang [bytes]"
 
 msgid "# of pages of this size"
 msgstr "số trang cùng dung lượng"
+
+msgid "User agent"
+msgstr ""
 
 msgid "Others"
 msgstr "Các thứ khác"
@@ -1496,6 +1534,18 @@ msgstr "RenamePage"
 msgid "SpellCheck"
 msgstr "SpellCheck"
 
+#~ msgid "Save as"
+#~ msgstr "Lưu với tên khác"
+
+#~ msgid "XSLT option disabled!"
+#~ msgstr "Tuỳ chọn XSLT đã bị tắt!"
+
+#~ msgid "RefreshCache"
+#~ msgstr "Làm mới cache"
+
+#~ msgid "for this page (cached %(date)s)"
+#~ msgstr "cho trang này (cached vào ngày %(date)s)"
+
 #~ msgid "MIME Type (optional)"
 #~ msgstr "Loại file (MIME) (không bắt buộc)"
 
@@ -1504,9 +1554,6 @@ msgstr "SpellCheck"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"
-
-#~ msgid "Rename"
-#~ msgstr "Đổi tên"
 
 #~ msgid "(edit log entry is missing)"
 #~ msgstr "(thiếu mục trong edit log)"

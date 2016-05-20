@@ -80,19 +80,35 @@ Contact the owner of the wiki, who can enable email.""")
             except KeyError:
                 return _("Please provide a valid email address!")
     
-            text = ''
+            text = _("""\
+Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki's password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+""", formatted=False)
             users = user.getUserList(self.request)
             for uid in users:
                 theuser = user.User(self.request, uid)
                 if theuser.valid and theuser.email.lower() == email:
-                    text = "%s\n\nID: %s\nName: %s\nPassword: %s\nLogin URL: %s/?action=userform&amp;uid=%s" % (
-                        text, theuser.id, theuser.name, theuser.enc_password, self.request.getBaseURL(), theuser.id)
-   
+                    text += '\n' + _("""\
+Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+""", formatted=False) % (
+                        theuser.name, theuser.enc_password, self.request.getBaseURL(), theuser.id)
+
             if not text:
                 return _("Found no account matching the given email address '%(email)s'!") % {'email': wikiutil.escape(email)}
-    
-            mailok, msg = util.mail.sendmail(self.request, [email], 
-                'Your wiki account data', text, mail_from=self.cfg.mail_from)
+
+            subject = _('[%(sitename)s] Your wiki account data',
+                formatted=False) % {'sitename': self.cfg.sitename or "Wiki"}
+            mailok, msg = util.mail.sendmail(self.request, [email], subject,
+                text, mail_from=self.cfg.mail_from)
             return wikiutil.escape(msg)
 
         if form.has_key('login'):
@@ -240,13 +256,14 @@ space between words. Group page name is not allowed.""") % wikiutil.escape(theus
             # checkbox options
             if not newuser:
                 for key, label in user.User._checkbox_fields:
-                    value = form.get(key, ["0"])[0]
-                    try:
-                        value = int(value)
-                    except ValueError:
-                        pass
-                    else:
-                        setattr(theuser, key, value)
+                    if key not in self.cfg.user_checkbox_disable:
+                        value = form.get(key, ["0"])[0]
+                        try:
+                            value = int(value)
+                        except ValueError:
+                            pass
+                        else:
+                            setattr(theuser, key, value)
     
             # quicklinks for navibar
             theuser.quicklinks = self.decodePageList('quicklinks')            
@@ -396,8 +413,8 @@ class UserSettings:
                 ('login', _('Login')),
                 ("save", _('Create Profile')),
             ]
-            if self.cfg.mail_smarthost:
-                buttons.append(("login_sendmail", _('Mail me my account data')))
+        if self.cfg.mail_smarthost:
+            buttons.append(("login_sendmail", _('Mail me my account data')))
                                         
         self.make_row(_('Name'), [
             html.INPUT(
@@ -466,7 +483,8 @@ class UserSettings:
             for key, label in checkbox_fields:
                 bool_options.extend([
                     html.INPUT(type="checkbox", name=key, value="1",
-                        checked=getattr(self.request.user, key, 0)),
+                        checked=getattr(self.request.user, key, 0),
+                        disabled=key in self.cfg.user_checkbox_disable and True or None),
                     ' ', label(_), html.BR(),
                 ])
             self.make_row(_('General options'), bool_options, valign="top")

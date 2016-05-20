@@ -1,18 +1,22 @@
 #!/usr/bin/env python
+# -*- coding: iso-8859-1 -*-
 """
-Print statistics gathered by hotshot profiler
+    MoinMoin - Print statistics gathered by hotshot profiler
 
-Usage:
-    print_stats.py statsfile
+    Usage:
+        print_stats.py statsfile
     
-Typical usage:
- 1. Edit moin.py and activate the hotshot profiler, set profile file name
- 2. Run moin.py
- 3. Do some request, with a browser, script or ab
- 4. Stop moin.py
- 5. Run this tool: print_stats.py moin.prof
+    Typical usage:
+     1. Edit moin.py and activate the hotshot profiler, set profile file name
+     2. Run moin.py
+     3. Do some request, with a browser, script or ab
+     4. Stop moin.py
+     5. Run this tool: print_stats.py moin.prof
 
-Currently CGI and twisted also have a hotshot profiler integration.
+    Currently CGI and twisted also have a hotshot profiler integration.
+    
+    @copyright: 2005 by Thomas Waldmann (MoinMoin:ThomasWaldmann)
+    @license: GNU GPL, see COPYING for details.
 """
 
 import sys

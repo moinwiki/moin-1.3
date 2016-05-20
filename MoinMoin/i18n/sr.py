@@ -84,7 +84,7 @@ izmenilo.''',
 '''Prekinuti''',
 '''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
 If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
-'''Ako kliknete na <strong>%(save_button_text)s</strong> , postavljate vaše promene pod %(license_link)s.
+'''Ako kliknete na \'\'\'%(save_button_text)s\'\'\', postavljate vaše promene pod %(license_link)s.
 Ako to ne želite, kliknite na \'\'\'%(cancel_button_text)s\'\'\' , da biste Vaše promene poništili.''',
 '''Preview''':
 '''Predgled''',
@@ -304,6 +304,8 @@ Koristite \'\'Prekinuti\'\' da bi ste napustili Editor.''',
 '''Prethodne revizije ne postoje!''',
 '''Diff for "%s"''':
 '''Razlika za "%s"''',
+'''Differences between revisions %d and %d''':
+'''Razlike u verzijama od %d i %d''',
 '''(spanning %d versions)''':
 '''(u %d poslednjih verzija)''',
 '''No differences found!''':
@@ -475,8 +477,6 @@ konflikt, moraćete promeniti ime fajla koji hoćete da snimite.
 Inače, možete polje "Snimit kao" ostaviti praznim, i tako će originalno ime fajla biti korišćeno.''',
 '''File to upload''':
 '''Fajl koji treba de se snimi''',
-'''Save as''':
-'''Snimi kao''',
 '''Upload''':
 '''Snimi''',
 '''File attachments are not allowed in this wiki!''':
@@ -575,6 +575,8 @@ Inače, možete polje "Snimit kao" ostaviti praznim, i tako će originalno ime f
 '''(trenutno postavljen na %s)''',
 '''Delete Bookmark''':
 '''deaktiviraj obeleživač''',
+'''Set bookmark''':
+'''Aktiviraj obeleživač''',
 '''set bookmark''':
 '''aktiviraj obeleživač''',
 '''[Bookmark reached]''':
@@ -607,18 +609,8 @@ Inače, možete polje "Snimit kao" ostaviti praznim, i tako će originalno ime f
 '''Očekivan celi broj "%(arg)s" posle "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Očekivana farbna vrednost "%(arg)s" posle "%(key)s"''',
-'''XSLT option disabled!''':
-'''XSLT opcija isključena!''',
-'''XSLT processing is not available!''':
-'''XSLT procesiranje trenutno ne postoji!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s greška u obradi''',
-'''RefreshCache''':
-'''OsvežiCache''',
-'''for this page (cached %(date)s)''':
-'''za ovu stranicu (cached %(date)s)''',
-'''Charts are not available!''':
-'''Grafikoni trenutno ne postoje!''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s za %(filterpage)s''',
 '''green=view
@@ -629,6 +621,8 @@ crveno=obrade''',
 '''datum''',
 '''# of hits''':
 '''# zahteva''',
+'''Charts are not available!''':
+'''Grafikoni trenutno ne postoje!''',
 '''Page Size Distribution''':
 '''Statistika veličine stranica''',
 '''page size upper bound [bytes]''':

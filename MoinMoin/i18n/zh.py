@@ -28,8 +28,12 @@ macro call.-~
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 宏调用.-~
 ''',
+'''Create New Page''':
+'''创建网页''',
 '''You are not allowed to view this page.''':
 '''您无权阅读此页.''',
+'''DeleteCache''':
+'''删除缓存''',
 '''(cached %s)''':
 '''(%s缓存)''',
 '''You are not allowed to edit this page.''':
@@ -45,11 +49,11 @@ macro call.-~
 '''Preview of "%(pagename)s"''':
 '''"%(pagename)s"预览''',
 '''Your edit lock on %(lock_page)s has expired!''':
-'''您对"%(lock_page)s"的编辑锁定已经超时!''',
+'''您对 %(lock_page)s 的编辑锁定已经超时!''',
 '''Your edit lock on %(lock_page)s will expire in # minutes.''':
-'''您对"%(lock_page)s"的锁定将在#分钟内失效.''',
+'''您对 %(lock_page)s 的锁定将在#分钟内失效.''',
 '''Your edit lock on %(lock_page)s will expire in # seconds.''':
-'''您对"%(lock_page)s"的锁定将在#秒内失效.''',
+'''您对 %(lock_page)s 的锁定将在#秒内失效.''',
 '''Someone else deleted this page while you were editing!''':
 '''在您编辑此页时, 别的用户删除了此页!''',
 '''Someone else changed this page while you were editing!''':
@@ -61,17 +65,17 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 请勿直接保存您的改动!
 请先比较一下(%(difflink)s), 看看哪里被别人修改过了, 再决定是否进一步编辑、保存此页.''',
 '''[Content of new page loaded from %s]''':
-'''[新页的内容由"%s"载入]''',
+'''[新页的内容由 %s 载入]''',
 '''[Template %s not found]''':
-'''[未找到模板"%s"]''',
+'''[未找到模板 %s]''',
 '''[You may not read %s]''':
-'''[您不可以阅读"%s"]''',
+'''[您不可以阅读 %s]''',
 '''Skip to preview''':
 '''转至预览''',
 '''[current page size \'\'\'%(size)d\'\'\' bytes]''':
 '''[此页占\'\'\'%(size)d\'\'\'字节]''',
 '''Describe %s here.''':
-'''在这里详述"%s".''',
+'''在这里详述 %s.''',
 '''Optional comment about this change''':
 '''此页备注(可选)''',
 '''<No addition>''':
@@ -138,6 +142,8 @@ The following page has been changed by %(editor)s:
 ''':
 '''没有区别!
 ''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s]的"%(pagename)s"由%(username)s进行了%(trivial)s更新''',
 '''Trivial ''':
 '''小的''',
 '''Status of sending notification mails:''':
@@ -146,6 +152,10 @@ The following page has been changed by %(editor)s:
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## 此页"%(pagename)s"已经在%(date)s备份好了''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''网页未能被锁定. 未知错误(errorno=%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''网页未能被锁定. 缺少\'当前\'文件?''',
 '''You are not allowed to edit this page!''':
 '''您无权编辑此页!''',
 '''You cannot save empty pages.''':
@@ -360,6 +370,8 @@ Contact the owner of the wiki, who can enable email.''':
 '''未发现区别!''',
 '''The page was saved %(count)d times, though!''':
 '''尽管此页保存了%(count)d次!''',
+'''(ignoring whitespace)''':
+'''(忽略空格)''',
 '''Ignore changes in the amount of whitespace''':
 '''忽略空格数量的改变''',
 '''General Information''':
@@ -377,7 +389,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''Size''':
 '''大小''',
 '''Diff''':
-'''区别''',
+'''比较''',
 '''Editor''':
 '''编辑''',
 '''Comment''':
@@ -516,7 +528,7 @@ Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link,
 since this is subject to change and can break easily.''':
 '''如果要在正文中引用附件, 请参考下表, 使用\'\'\'{{{attachment:filename}}}\'\'\', 
 请\'\'\'不要\'\'\'用{{{[下载]}}}指向的 URL, 
-因为那个位置可能会变, 很可能就不能用了.</p>''',
+因为那个位置可能会变, 很可能就不能用了.''',
 '''No attachments stored for %(pagename)s''':
 '''%(pagename)s没有附件''',
 '''Edit drawing''':
@@ -535,8 +547,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 这样就会采用原文件名.''',
 '''File to upload''':
 '''待上载文件''',
-'''Save as''':
-'''另存为''',
 '''Upload''':
 '''上载''',
 '''File attachments are not allowed in this wiki!''':
@@ -564,7 +574,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Attachment \'%(filename)s\'''':
 '''附件\'%(filename)s\'''',
 '''Unknown file type, cannot display this attachment inline.''':
-'''不明文件类型, 不能内嵌在正文中.</p>''',
+'''不明文件类型, 不能内嵌在正文中.''',
 '''attachment:%(filename)s of %(pagename)s''':
 '''附件:%(pagename)s的%(filename)s''',
 '''You are not allowed to delete this page.''':
@@ -595,6 +605,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''本维基不开放网页改名!''',
 '''Please use the interactive user interface to rename pages!''':
 '''请使用用户界面交互地为网页改名!''',
+'''Could not rename page because of file system error: %s.''':
+'''网页改名失败, 文件系统异常: %s.''',
 '''Rename Page''':
 '''改名''',
 '''New name''':
@@ -623,6 +635,8 @@ Try a different name.''':
 '''全文检索: "%s"''',
 '''Full Link List for "%s"''':
 '''连向"%s"的网页''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''没有网页名就无法创建新网页. 请指定一个网页名.''',
 '''Invalid include arguments "%s"!''':
 '''无效的include参数"%s"!''',
 '''Nothing found for "%s"!''':
@@ -675,6 +689,10 @@ Try a different name.''':
 '''下载本维基的XML输出''',
 '''No wanted pages in this wiki.''':
 '''本维基中没有未定义的网页.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**太多的包含(include)**''',
+'''**Could not find the referenced page: %s**''':
+'''**未能找到引用的网页: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''创建新图片"%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
@@ -689,18 +707,8 @@ Try a different name.''':
 '''"%(key)s"后面要的是整数"%(arg)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''"%(key)s"后面要接颜色值"%(arg)s"''',
-'''XSLT option disabled!''':
-'''XSLT 功能停用!''',
-'''XSLT processing is not available!''':
-'''没有XSLT处理套件!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s处理错误''',
-'''RefreshCache''':
-'''刷新缓存''',
-'''for this page (cached %(date)s)''':
-'''(此页于%(date)s刷新到缓存)''',
-'''Charts are not available!''':
-'''不能绘制图表''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(filterpage)s的%(chart_title)s图''',
 '''green=view
@@ -711,6 +719,8 @@ red=edit''':
 '''日期''',
 '''# of hits''':
 '''点击次数''',
+'''Charts are not available!''':
+'''不能绘制图表''',
 '''Page Size Distribution''':
 '''网页大小分布''',
 '''page size upper bound [bytes]''':
@@ -723,14 +733,30 @@ red=edit''':
 '''浏览器类型分布''',
 '''Unsubscribe''':
 '''取消订阅''',
+'''Home''':
+'''主页''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[已删除]''',
+'''[UPDATED]''':
+'''[已更新]''',
+'''[NEW]''':
+'''[新建]''',
+'''[DIFF]''':
+'''[比较]''',
+'''[BOTTOM]''':
+'''[底部]''',
+'''[TOP]''':
+'''[顶部]''',
 '''Click to do a full-text search for this title''':
 '''点击对这个标题进行全文检索''',
 '''Clear message''':
 '''清除此提示信息''',
 '''last edited %(time)s by %(editor)s''':
-'''(%(time)s由%(editor)s编辑)''',
+'''%(time)s由%(editor)s编辑''',
 '''last modified %(time)s''':
-'''(最后修改时间: %(time)s''',
+'''最后修改时间: %(time)s''',
 '''Search:''':
 '''搜索:''',
 '''Text''':
@@ -743,6 +769,8 @@ red=edit''':
 '''显示源码''',
 '''Show Print View''':
 '''打印视图''',
+'''Delete Cache''':
+'''删除缓存''',
 '''Attach File''':
 '''附件''',
 '''Delete Page''':
@@ -775,6 +803,8 @@ red=edit''':
 '''访问历史''',
 '''User''':
 '''用户''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''抱歉, 由于"%(content)s"在本维基被禁止, 网页不能存储.''',
 '''Line''':
 '''行号''',
 '''Deletions are marked like this.''':

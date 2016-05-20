@@ -6,7 +6,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, time, codecs, re
+import os, time, codecs, re, errno
 
 from MoinMoin import caching, config, user, util, wikiutil, error
 from MoinMoin.Page import Page
@@ -113,10 +113,6 @@ class PageEditor(Page):
         """
         Page.__init__(self, request, page_name, **keywords)
         
-        # already done:
-        #self.request = request
-        #self.cfg = request.cfg
-        
         self._ = request.getText
 
         self.do_revision_backup = keywords.get('do_revision_backup', 1)
@@ -193,15 +189,20 @@ class PageEditor(Page):
             # the web interface, but catch it just in case...
             msg = _('Cannot edit old revisions!')
         else:
-            # try to acquire edit lock
-            ok, edit_lock_message = self.lock.aquire()
-            if not ok:
-                # failed to get the lock
-                if preview is not None:
-                    edit_lock_message = _('The lock you held timed out, be prepared for editing conflicts!'
-                        ) + "<br>" + edit_lock_message
-                else:
-                    msg = edit_lock_message
+            try:
+                # try to acquire edit lock
+                ok, edit_lock_message = self.lock.acquire()
+                if not ok:
+                    # failed to get the lock
+                    if preview is not None:
+                        edit_lock_message = _('The lock you held timed out, be prepared for editing conflicts!'
+                            ) + "<br>" + edit_lock_message
+                    else:
+                        msg = edit_lock_message
+            except OSError, err:
+                if err.errno != errno.ENAMETOOLONG:
+                    raise err
+                msg = _("Page name is too long, try shorter name.")
 
         # Did one of the prechecks fail?
         if msg:
@@ -444,11 +445,9 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
             self.send_page(self.request, content_id='preview', content_only=1,
                            hilite_re=badwords_re)
 
-        self.request.write(self.request.formatter.endContent()) # end content div
-        self.request.theme.emit_custom_html(self.cfg.page_footer1)
-        self.request.theme.emit_custom_html(self.cfg.page_footer2)
-
-
+        self.request.write(self.request.formatter.endContent())
+        wikiutil.send_footer(self.request, self.page_name)
+        
     def sendCancel(self, newtext, rev):
         """
         User clicked on Cancel button. If edit locking is active,
@@ -483,7 +482,6 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         try:
             os.remove(self._text_filename())
         except OSError, er:
-            import errno
             if er.errno != errno.ENOENT: raise er
         
         # reset page object
@@ -591,25 +589,6 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         # No mail sent, no message.
         return ''
 
-
-    def _user_variable(self):
-        """
-        If user has a profile return the user name from the profile
-        else return the remote address or "<unknown>"
-
-        If the user name contains spaces it is wiki quoted to allow
-        links to the wiki user homepage (if one exists).
-        
-        @rtype: string
-        @return: wiki freelink to user's homepage or remote address
-        """
-        username = self.request.user.name
-        if username and self.cfg.allow_extended_names and \
-                username.count(' ') and Page(self.request, username).exists():
-            username = '["%s"]' % username
-        return user.getUserIdentification(self.request, username)
-
-
     def _expand_variables(self, text):
         """
         Expand @VARIABLE@ in `text`and return the expanded text.
@@ -618,33 +597,32 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         @rtype: string
         @return: new text of wikipage, variables replaced
         """
-        #!!! TODO: Allow addition of variables via wikiconfig (and/or a text file)
+        # TODO: Allow addition of variables via wikiconfig or a global
+        # wiki dict.
         now = time.strftime("%Y-%m-%dT%H:%M:%SZ", util.datetime.tmtuple())
-        system_vars = {
-            'PAGE': lambda s=self: s.page_name,
-            'TIME': lambda t=now: "[[DateTime(%s)]]" % t,
-            'DATE': lambda t=now: "[[Date(%s)]]" % t,
-            'USERNAME': lambda s=self: s._user_variable(),
-            'USER': lambda s=self: "-- %s" % (s._user_variable(),),
-            'SIG': lambda s=self, t=now: "-- %s [[DateTime(%s)]]"
-                % (s._user_variable(), t,),
+        user = self.request.user
+        signature = user.signature()
+        variables = {
+            'PAGE': self.page_name,
+            'TIME': "[[DateTime(%s)]]" % now,
+            'DATE': "[[Date(%s)]]" % now,
+            'USERNAME': signature,
+            'USER': "-- %s" % signature,
+            'SIG': "-- %s [[DateTime(%s)]]" % (signature, now),
         }
 
-        if self.request.user.valid and self.request.user.name:
-            if self.request.user.email:
-                system_vars['MAILTO'] = lambda u=self.request.user: \
-                    "[mailto:%s %s]" % (u.email, u.name)
-            # users can define their own vars via UserHomepage/MyDict
-            uservarspagename = self.request.user.name + "/MyDict"
-            dicts = self.request.dicts
-            if dicts.has_dict(uservarspagename):
-                userdict = dicts.dict(uservarspagename)
-                for key in userdict.keys():
-                    text = text.replace('@%s@' % key, userdict[key])
+        if user.valid and user.name:
+            if user.email:
+                variables['MAILTO'] = "[[MailTo(%s)]]" % user.email
+            # Users can define their own variables via
+            # UserHomepage/MyDict, which override the default variables.
+            userDictPage = user.name + "/MyDict"
+            if self.request.dicts.has_dict(userDictPage):
+                variables.update(self.request.dicts.dict(userDictPage))
                     
         # TODO: Use a more stream-lined re.sub algorithm
-        for name, val in system_vars.items():
-            text = text.replace('@%s@' % name, val())
+        for name in variables:
+            text = text.replace('@%s@' % name, variables[name])
         return text
 
     def normalizeText(self, text, **kw):
@@ -792,61 +770,64 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
             f.close()
             os.chmod(cfn, 0666 & config.umask)
             
-        got_lock= False
+        got_lock = False
         retry = 0
-        while not got_lock and retry < 100:
-            retry += 1
-            try:
-                filesys.rename(cfn, clfn)
-                got_lock = True
-            except OSError, err:
-                got_lock = False
-                if err.errno == 2: # there was no 'current' file
-                    time.sleep(0.1)
-                else:
-                    raise self.CouldNotLock, _("Page could not get locked. Unexpected error (errno=%d).") % err.errno
-        
-        if not got_lock:
-            raise self.CouldNotLock, _("Page could not get locked. Missing 'current' file?")
-        
-        # increment rev number of current(-locked) page
-        f = open(clfn)
-        revstr = f.read()
-        f.close()
-        rev = int(revstr)
-        if not was_deprecated:
-            if self.do_revision_backup or rev == 0:
-                rev += 1
-        revstr = '%08d' % rev
-        f = open(clfn, 'w')
-        f.write(revstr+'\n')
-        f.close()
-        
-        # save to page file
-        pagefile = os.path.join(revdir, revstr)
-        f = codecs.open(pagefile, 'wb', config.charset)
-        # Write the file using text/* mime type
-        f.write(self.encodeTextMimeType(text))
-        f.close()
-        os.chmod(pagefile, 0666 & config.umask)
-        mtime_usecs = wikiutil.timestamp2version(os.path.getmtime(pagefile))
-        # set in-memory content
-        self.set_raw_body(text)
-        
-        # reset page object
-        self.reset()
-        
-        # write the editlog entry
-        # for now simply make 2 logs, better would be some multilog stuff maybe
-        if self.do_revision_backup:
-            # do not globally log edits with no revision backup (like /MoinEditorBackup pages)
-            # if somebody edits a deprecated page, log it in global log, but not local log
-            glog.add(self.request, mtime_usecs, rev, action, self.page_name, None, extra, comment)
-        if not was_deprecated and self.do_revision_backup:
-            # if we did not create a new revision number, do not locally log it
-            llog.add(self.request, mtime_usecs, rev, action, self.page_name, None, extra, comment)
 
-        filesys.rename(clfn, cfn)
+        try:
+                while not got_lock and retry < 100:
+                    retry += 1
+                    try:
+                        filesys.rename(cfn, clfn)
+                        got_lock = True
+                    except OSError, err:
+                        got_lock = False
+                        if err.errno == 2: # there was no 'current' file
+                            time.sleep(0.1)
+                        else:
+                            raise self.CouldNotLock, _("Page could not get locked. Unexpected error (errno=%d).") % err.errno
+                
+                if not got_lock:
+                    raise self.CouldNotLock, _("Page could not get locked. Missing 'current' file?")
+                
+                # increment rev number of current(-locked) page
+                f = open(clfn)
+                revstr = f.read()
+                f.close()
+                rev = int(revstr)
+                if not was_deprecated:
+                    if self.do_revision_backup or rev == 0:
+                        rev += 1
+                revstr = '%08d' % rev
+                f = open(clfn, 'w')
+                f.write(revstr+'\n')
+                f.close()
+                
+                # save to page file
+                pagefile = os.path.join(revdir, revstr)
+                f = codecs.open(pagefile, 'wb', config.charset)
+                # Write the file using text/* mime type
+                f.write(self.encodeTextMimeType(text))
+                f.close()
+                os.chmod(pagefile, 0666 & config.umask)
+                mtime_usecs = wikiutil.timestamp2version(os.path.getmtime(pagefile))
+                # set in-memory content
+                self.set_raw_body(text)
+                
+                # reset page object
+                self.reset()
+                
+                # write the editlog entry
+                # for now simply make 2 logs, better would be some multilog stuff maybe
+                if self.do_revision_backup:
+                    # do not globally log edits with no revision backup (like /MoinEditorBackup pages)
+                    # if somebody edits a deprecated page, log it in global log, but not local log
+                    glog.add(self.request, mtime_usecs, rev, action, self.page_name, None, extra, comment)
+                if not was_deprecated and self.do_revision_backup:
+                    # if we did not create a new revision number, do not locally log it
+                    llog.add(self.request, mtime_usecs, rev, action, self.page_name, None, extra, comment)
+        finally:
+            if got_lock:
+                filesys.rename(clfn, cfn)
 
         # add event log entry
         elog = eventlog.EventLog(self.request)
@@ -941,6 +922,14 @@ delete the changes of the other person, which is excessively rude!''
             if self.request.cfg.mail_smarthost:
                 msg = msg + self._notifySubscribers(comment, trivial)
           
+            if self.request.cfg.lupy_search:
+                from MoinMoin import lupy
+                index = lupy.Index(self.request)
+                # When we have automatic index building, we can add to
+                # the queue even if the index is missing.
+                if index.exists():
+                    index.update_page(self)
+
         # remove lock (forcibly if we were allowed to break it by the UI)
         # !!! this is a little fishy, since the lock owner might not notice
         # we broke his lock ==> but revision checking during preview will
@@ -983,13 +972,13 @@ class PageLock:
                         pass
 
 
-    def aquire(self):
+    def acquire(self):
         """
         Begin an edit lock depending on the mode chosen in the config.
 
         @rtype: tuple
         @return: tuple is returned containing 2 values:
-              * a bool indicating successful aquiry
+              * a bool indicating successful acquiry
               * a string giving a reason for failure or an informational msg
         """
         if not self.locktype:

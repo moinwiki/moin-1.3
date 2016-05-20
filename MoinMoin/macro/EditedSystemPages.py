@@ -1,9 +1,9 @@
 # -*- coding: iso-8859-1 -*-
 """
-EditedSystemPages - list system pages that has been edited in this wiki.
+    EditedSystemPages - list system pages that has been edited in this wiki.
 
-@copyright: 2004 Nir Soffer <nirs@freeshell.org>
-@license: GNU GPL, see COPYING for details.
+    @copyright: 2004 Nir Soffer <nirs@freeshell.org>
+    @license: GNU GPL, see COPYING for details.
 """
 
 class EditedSystemPages:

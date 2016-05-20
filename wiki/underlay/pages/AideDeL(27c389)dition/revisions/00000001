@@ -25,6 +25,6 @@ Les pages suivantes (pas encore traduites!) décrivent les éléments (wiki mark
  * HelpOnProcessingInstructions - comment influencer le formatage des pages
  * HelpOnXmlPages - comment stocker des pages au contenu XML, et les traiter (pas sûre de la traduction) via XSLT
  * HelpOnEditLocks - ccomportement correct quand le verrouillage d'édition est activé (éditer une page se fait sous edit lock ou verrouillage d'édition, en temps limité)
- * /SousPages - comment grouper ensemble les informations ayant unlien entre elles
+ * /SousPages - comment regrouper des informations ayant un lien entre elles
 
-Pour s'entraîner aux caractères wiki, aller dans le bac à sable WikiSandBox et cliquer sur "Edition''''''Texte" en bas de page. Utiliser l'ouverture dans une nouvelle fenêtre de votre navigateur (ou dans un nouvel onglet - vive Mozilla, vive Netscape) pour ouvrir les pages côte à côte et pas les refermer pendant l'édition.
+Pour s'entraîner aux caractères wiki, aller dans le ["BacÀSable"] et cliquer sur "[[GetText(Edit)]]" en bas de page. Utiliser l'ouverture dans une nouvelle fenêtre de votre navigateur (ou dans un nouvel onglet - vive Mozilla, vive Netscape) pour ouvrir les pages côte à côte et pas les refermer pendant l'édition.

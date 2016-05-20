@@ -1,0 +1,77 @@
+## page was renamed from WikiDühöngő
+##master-page:WikiSandBox
+##master-date:2005-04-22 00:41:05
+#format wiki
+#language hu
+
+'''Ezen a lapon nyugodtan kipróbálhatja a wiki szövegformázási lehetőségeit - kérjük ezt ezen a lapon tegye meg, és csak ezért ne hozzon létre új lapot! A négy kötőjel után szabadon szerkeszthet, kísérletezhet.'''
+
+'''Tipp:''' A SzerkesztésiSegédlet``et (HelpOnEditing) nyissa meg egy új ablakban - ebben a segédletben áttekintheti a
+szövegformázási lehetőségeket.
+----
+
+== Formázás ==
+
+''kurzív'' '''félkövér''' {{{írógép}}} 
+
+`írógép fordított aposztrófokkal` (konfigurálható)
+
+~+ nagyobb +~ ~- kisebb -~
+
+{{{
+előreformázott szöveg
+egy sor
+még egy sor
+
+}}}
+
+{{{#!python
+def syntax(highlight):
+    print "on"
+    return None
+}}}
+
+{{{#!java
+  public void main(String[] args]){
+     System.out.println("Hello world!");
+  } 
+
+}}}
+
+== Kapcsok (linkek) ==
+
+SzerkesztésiSegédlet MoinMoin:InterWiki 
+
+http://moinmoin.wikiwikiweb.de/ [http://www.python.org/ Python]
+
+valaki@valah.ol
+
+=== Képes kapocs ===
+http://c2.com/sig/wiki.gif
+
+== Jelek ==
+
+/!\ Figyelmeztetés
+
+== Listák ==
+
+=== Bütykök ===
+ * első
+   1. beágyazott
+   1. és számozott
+ * második
+ * harmadik
+
+ idézetblokk
+   beljebb
+
+=== Szójegyzék ===
+ Kifejezés:: Definíció
+
+=== Rajz ===
+drawing:teszt
+
+= 1. szintű cím =
+== 2. szintű cím ==
+=== 3. szintű cím ===
+==== 4. szintű cím ====

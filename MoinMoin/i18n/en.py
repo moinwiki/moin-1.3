@@ -28,6 +28,8 @@ To use this form on other pages, insert a
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 macro call.-~
 ''',
+'''Create New Page''':
+'''Create New Page''',
 '''You are not allowed to view this page.''':
 '''You are not allowed to view this page.''',
 '''DeleteCache''':
@@ -42,6 +44,8 @@ macro call.-~
 '''Cannot edit old revisions!''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
 '''The lock you held timed out. Be prepared for editing conflicts!''',
+'''Page name is too long, try shorter name.''':
+'''Page name is too long, try shorter name.''',
 '''Edit "%(pagename)s"''':
 '''Edit "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
@@ -280,8 +284,38 @@ Contact the owner of the wiki, who can enable email.''':
 Contact the owner of the wiki, who can enable email.''',
 '''Please provide a valid email address!''':
 '''Please provide a valid email address!''',
+'''Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki\'s password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+''':
+'''Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki\'s password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+''',
+'''Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+''':
+'''Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Found no account matching the given email address \'%(email)s\'!''',
+'''[%(sitename)s] Your wiki account data''':
+'''[%(sitename)s] Your wiki account data''',
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''',
 '''Missing password. Please enter user name and password.''':
@@ -500,6 +534,12 @@ Contact the owner of the wiki, who can enable email.''',
 '''Installed parsers''',
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''Installed processors (DEPRECATED -- use Parsers instead)''',
+'''Disabled''':
+'''Disabled''',
+'''Enabled''':
+'''Enabled''',
+'''Lupy search''':
+'''Lupy search''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
 '''Please use a more selective search term instead of {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
@@ -548,8 +588,8 @@ conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.''',
 '''File to upload''':
 '''File to upload''',
-'''Save as''':
-'''Save as''',
+'''Rename to''':
+'''Rename to''',
 '''Upload''':
 '''Upload''',
 '''File attachments are not allowed in this wiki!''':
@@ -656,8 +696,6 @@ Try a different name.''',
 '''Start''',
 '''Slide %(pos)d of %(size)d''':
 '''Slide %(pos)d of %(size)d''',
-'''Create New Page''':
-'''Create New Page''',
 '''No orphaned pages in this wiki.''':
 '''No orphaned pages in this wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -712,18 +750,16 @@ Try a different name.''',
 '''Expected an integer "%(arg)s" after "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Expected a color value "%(arg)s" after "%(key)s"''',
-'''XSLT option disabled!''':
-'''XSLT option disabled!''',
-'''XSLT processing is not available!''':
-'''XSLT processing is not available!''',
+'''XSLT option disabled, please look at HelpOnConfiguration.''':
+'''XSLT option disabled, please look at HelpOnConfiguration.''',
+'''XSLT processing is not available, please install 4suite 1.x.''':
+'''XSLT processing is not available, please install 4suite 1.x.''',
 '''%(errortype)s processing error''':
 '''%(errortype)s processing error''',
-'''RefreshCache''':
-'''RefreshCache''',
-'''for this page (cached %(date)s)''':
-'''for this page (cached %(date)s)''',
-'''Charts are not available!''':
-'''Charts are not available!''',
+'''Views/day''':
+'''Views/day''',
+'''Edits/day''':
+'''Edits/day''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s for %(filterpage)s''',
 '''green=view
@@ -734,12 +770,16 @@ red=edit''',
 '''date''',
 '''# of hits''':
 '''# of hits''',
+'''Charts are not available!''':
+'''Charts are not available!''',
 '''Page Size Distribution''':
 '''Page Size Distribution''',
 '''page size upper bound [bytes]''':
 '''page size upper bound [bytes]''',
 '''# of pages of this size''':
 '''# of pages of this size''',
+'''User agent''':
+'''User agent''',
 '''Others''':
 '''Others''',
 '''Distribution of User-Agent Types''':

@@ -99,6 +99,8 @@ td p {
 	padding: 0;
 }
 
+#pagebottom {clear: both;}
+
 /* standard rule ---- */
 hr {
 	height: 1px;

@@ -48,7 +48,7 @@ Par contre, pour les blocs de code, ils sont sur des lignes différentes : { { {
 
 /!\ Dans les exemples ci-dessus, les accolades ont été espacées par un espace pour leur faire perdre leur sens.
 
-=== Display ===
+=== Affichage ===
 __Mélange__ ''italique'' et '''gras''':
  * '''''Mélange''' au début''
  * '''''Mélange'' au début'''

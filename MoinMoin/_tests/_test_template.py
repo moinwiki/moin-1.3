@@ -10,7 +10,7 @@
 
 import unittest
 from MoinMoin import module_tested
-from MoinMoin._tests import request, TestConfig
+from MoinMoin._tests import TestConfig
 
 
 class SimplestTestCase(unittest.TestCase):
@@ -28,7 +28,10 @@ class SimplestTestCase(unittest.TestCase):
         The first line of this docstring will show on the test output:
            module_tested: test description ... ok
         """
-        result = module_tested.some_function('test_value')
+        # You can access the current request with self.request. It is
+        # injected for you into the test class when by moin test
+        # framework.
+        result = module_tested.some_function(self.request, 'test_value')
         expected = 'expected value'
         self.assertEqual(result, expected,
                          ('Expected "%(expected)s" but got "%(result)s"') % locals())
@@ -50,7 +53,8 @@ class ComplexTestCase(unittest.TestCase):
 
         Some test needs specific config values, or they will fail.
         """
-        self.config = TestConfig(defaults=['this option', 'that option'], 
+        self.config = TestConfig(self.request,
+                                 defaults=['this option', 'that option'], 
                                  another_option='non default value')
     
     def tearDown(self):
@@ -73,20 +77,9 @@ class ComplexTestCase(unittest.TestCase):
 
         Keep the test non interesting deatils out of the way.
         """
-        module_tested.do_this()
+        module_tested.do_this(self.request)
         module_tested.do_that()
 
         return result
 
-
-# This let you run each test from the command line. When run with 
-# "make test" it is not used.     
-def suite():
-    test_cases = [unittest.makeSuite(obj, 'test') 
-        for name, obj in globals().items()
-        if name.endswith('TestCase')]
-    return unittest.TestSuite(test_cases)
-    
-if __name__ == '__main__':
-    unittest.TextTestRunner(verbosity=2).run(suite())
 

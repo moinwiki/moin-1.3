@@ -4,7 +4,7 @@
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:XsltVersion
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
-#format wiki
+#format xslt
 #language zh-tw
 <?xml version="1.0" encoding="UTF-8"?>
 

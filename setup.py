@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - Package installer
+    MoinMoin installer
 
     @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
@@ -213,6 +213,9 @@ only requiring a Python installation.
         'MoinMoin.stats',
         'MoinMoin.support',
         'MoinMoin.support.optik',
+        'MoinMoin.support.lupy',
+        'MoinMoin.support.lupy.index',
+        'MoinMoin.support.lupy.search',
         'MoinMoin.theme',
         'MoinMoin.util',
         'MoinMoin.webapi',

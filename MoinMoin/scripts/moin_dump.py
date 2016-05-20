@@ -1,17 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - Dump a MoinMoin wiki to static pages
+MoinMoin - Dump a MoinMoin wiki to static pages
 
-    @copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
-    @license: GNU GPL, see COPYING for details.
+You must run this script as owner of the wiki files, usually this is the
+web server user.
+
+@copyright: 2002-2004 by Jürgen Hermann <jh@web.de>
+@license: GNU GPL, see COPYING for details.
 """
 
-__version__ = "20040329"
+__version__ = "20050725"
 
-# use this if your moin installation is not in sys.path:
+import os, time, StringIO, codecs, shutil, errno
+
+# Insert the path to MoinMoin in the start of the path
 import sys
-sys.path.insert(0, '../..') # path to MoinMoin
+sys.path.insert(0, os.path.join(os.path.dirname(sys.argv[0]), 
+                                os.pardir, os.pardir))
+
+from MoinMoin import config, wikiutil, Page
+from MoinMoin.scripts import _util
+from MoinMoin.request import RequestCLI
 
 logo_html = '<img src="moinmoin.png">'
 
@@ -46,28 +56,20 @@ page_template = u'''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://ww
 </html>
 '''
 
-import os, time, StringIO, codecs, shutil
-from MoinMoin import config, wikiutil, Page
-from MoinMoin.scripts import _util
-from MoinMoin.request import RequestCLI
 
 class MoinDump(_util.Script):
+    
     def __init__(self):
         _util.Script.__init__(self, __name__, "[options] <target-directory>")
-
-        # --config=DIR            
         self.parser.add_option(
-            "--config", metavar="DIR", dest="configdir",
-            help="Path to wikiconfig.py (or its directory)"
+            "--config-dir", metavar="DIR", dest="config_dir",
+            help=("Path to the directory containing the wiki "
+                  "configuration files. [default: current directory]")
         )
-
-        # --wiki=URL             
         self.parser.add_option(
-            "--wiki", metavar="WIKIURL", dest="wiki_url",
-            help="URL of wiki to dump (e.g. moinmaster.wikiwikiweb.de)"
+            "--wiki-url", metavar="WIKIURL", dest="wiki_url",
+            help="URL of wiki e.g. localhost/mywiki/ [default: CLI]"
         )
-        
-        # --page=NAME             
         self.parser.add_option(
             "--page", metavar="NAME", dest="page",
             help="Dump a single page (with possibly broken links)"
@@ -83,26 +85,27 @@ class MoinDump(_util.Script):
         # Prepare output directory
         outputdir = self.args[0]
         outputdir = os.path.abspath(outputdir)
-        if not os.path.isdir(outputdir):
-            try:
-                os.mkdir(outputdir)
-                _util.log("Created output directory '%s'!" % outputdir)
-            except OSError:
+        try:
+            os.mkdir(outputdir)
+            _util.log("Created output directory '%s'!" % outputdir)
+        except OSError, err:
+            if err.errno != errno.EEXIST:
                 _util.fatal("Cannot create output directory '%s'!" % outputdir)
 
-        # Load the configuration
-        configdir = self.options.configdir
-        if configdir:
-            if os.path.isfile(configdir): configdir = os.path.dirname(configdir)
-            if not os.path.isdir(configdir):
-                _util.fatal("Bad path given to --config parameter")
-            configdir = os.path.abspath(configdir)
-            sys.path[0:0] = [configdir]
-            os.chdir(configdir)
+        # Insert config dir or the current directory to the start of the
+        # path.
+        config_dir = self.options.config_dir
+        if config_dir and os.path.isfile(config_dir):
+            config_dir = os.path.dirname(config_dir)
+        if config_dir and not os.path.isdir(config_dir):
+            _util.fatal("bad path given to --config-dir option")
+        sys.path.insert(0, os.path.abspath(config_dir or os.curdir))
 
-        # Dump the wiki
-        request = RequestCLI(self.options.wiki_url)
-        request.form = request.args = request.setup_args()
+        # Create request 
+        if self.options.wiki_url:
+            request = RequestCLI(self.options.wiki_url)
+        else:
+            request = RequestCLI()
 
         # fix url_prefix so we get relative paths in output html
         request.cfg.url_prefix = url_prefix
@@ -111,8 +114,8 @@ class MoinDump(_util.Script):
             pages = [self.options.page]
         else:
             # Get all existing pages in the wiki
-            pages = list(request.rootpage.getPageList(user=''))
-        pages.sort()
+            pages = request.rootpage.getPageList(user='')
+            pages.sort()
 
         wikiutil.quoteWikinameURL = lambda pagename, qfn=wikiutil.quoteWikinameFS: (qfn(pagename) + HTML_SUFFIX)
 
@@ -129,11 +132,13 @@ class MoinDump(_util.Script):
             navibar_html += '&nbsp;[<a href="%s">%s</a>]' % (wikiutil.quoteWikinameFS(p), wikiutil.escape(p))
 
         for pagename in pages:
-            file = wikiutil.quoteWikinameURL(pagename) # we have the same name in URL and FS
+            # we have the same name in URL and FS
+            file = wikiutil.quoteWikinameURL(pagename) 
             _util.log('Writing "%s"...' % file)
             try:
                 pagehtml = ''
                 page = Page.Page(request, pagename)
+                request.page = page
                 try:
                     request.reset()
                     out = StringIO.StringIO()
@@ -176,8 +181,10 @@ class MoinDump(_util.Script):
         if errcnt:
             print >>sys.stderr, "*** %d error(s) occurred, see '%s'!" % (errcnt, errfile)
 
+
 def run():
     MoinDump().run()
+
 
 if __name__ == "__main__":
     run()

@@ -1,0 +1,29 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpForDevelopers
+##master-date:2005-01-21 22:58:35
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+'''目录'''
+[[TableOfContents]]
+
+== 帮助 MoinMoin 开发 ==
+
+如果没有一些用户的参与帮助 MoinMoin 可能不会有这么多的特色功能。通过下列工作您可以帮助 MoinMoin 做得更好，同时也可以使您自己受益：
+ * 开发扩展新功能（宏，动作，处理器，解析器）
+ * 运行处于开发阶段的版本来帮助测试其新功能
+ * 在某些特定的系统平台上或者在某些特定的 Python 版本上测试 MoinMoin
+ * 帮助进行翻译工作，特别是加入新的语言支持
+ * 帮助开发新主题，CSS和图标
+ * ...
+
+不管哪种方式，您都应该订阅[wiki:MoinMoin:MoinMoinMailingLists MoinMoin 开发者邮件列表]。从 MoinMoin 主维基 MoinMoin:MoinDev 及其子页面上您将获得更多关于 MoinMoin 源代码和其他有关开发的信息。
+
+== 用户扩展 ==
+
+参见 MoinMoin:MoinMoinExtensions 。
+
+此页的英文版本：HelpForDevelopers

@@ -19,10 +19,5 @@ def execute(macro, args):
     """ Return a translation of args, or args as is """
     translation = macro.request.getText(args, formatted=False)
 
-    # If we got same text, it means there was no translation, and this
-    # is unsafe user text that must be escaped.
-    if translation == args:
-        translation = wikiutil.escape(args)
-        
-    return translation
+    return macro.formatter.text(translation)
 

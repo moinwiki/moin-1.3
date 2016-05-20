@@ -1,0 +1,76 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+
+[[Navigation(siblings)]]
+
+通过使用 '''`MailTo`''' 宏，您可以安全的将您的电子邮件地址插入到 wiki 中，而不必担心您的邮件地址被垃圾邮件机器人程序（这种机器人程序专门收集电子邮件地址）收集到或造垃圾邮件被制者非法使用
+
+= 用法 =
+
+`[[MailTo(Firstname DOT Lastname AT example DOT net)]]`
+
+or 
+
+`[[MailTo(Firstname DOT Lastname AT example DOT net, link text)]]`
+
+= 这个宏应该做些什么？ =
+
+我们需要区分已登陆用户和匿名用户（其中包含了垃圾邮件机器人程序）。
+
+已登陆用户应该可以看到，并应该可以通过简单的点击（否则，人们就不会在 wiki 中发布电子邮件地址了）来使用该电子邮件地址。
+
+而匿名用户就的情况就比较棘手 — 他们可能是“普通”用户，也可能是一些专门收集电子邮件地址然后通过向它们发送未被订阅的商业邮件等手段非法使用这些电子邮件地址（这是因特网上普遍存在的问题）的人或者其他什么东西（就好比垃圾邮件机器人）。
+
+== 已登陆用户 ==
+
+他们将得到下面的结果：
+ Firstname.Lastname@example.net
+
+所以他们可以得到一个可读的并且可以点击的 `mailto:` 链接。
+
+== 匿名用户 ==
+
+匿名用户（比如垃圾邮件机器人程序和其它用途的机器人程序）将只能得到和宏参数一样的结果：
+
+ Firstname DOT Lastname AT example DOT net
+
+纯文本，没有 `mailto:` 链接。聪明的“人类”将可以解释这些文字，并手工把得到的地址填入电子邮件程序中。
+
+但是一个自动化的机器应该不能从中提取出什么信息然后简单的忽略它（除非这种机器人程序非常聪明，这种情况下，请看下面）— 这个宏命令就达到了它的目的，防止垃圾邮件。
+
+= 工作原理及更多示例 =
+
+对于匿名用户，本宏命令会简单得将其得到的参数直接输出。
+
+对于已登陆用户，本宏命令会按照如下方法处理其参数：
+
+ 1. 下面的“全大写”单词将被替换成对应字符：
+
+  || AT   || `@` ||
+  || DOT  || `.` ||
+  || DASH || `-` ||
+
+ 1. 其他的“全大写”单词，例如：NO SPAM NOSPAM WHATEVER I DONT WANT SPAM 等等。将会被清除（替换成空字符串）。
+
+ 1. 删除所有空白字符。
+
+ 1. 创建一个能够被点击的 `mailto:` 链接。
+
+当然，很可能一个特别聪明的垃圾邮件机器人能够正确地识别并转换通常用作“垃圾邮件保护单词”的单词，例如： AT, DOT 和 NOSPAM 。如果你在其中加入了''任意''的单词或空格，这种事情就不太可能发生了。但垃圾邮件机器人还是能够识别出它里面包含有您的邮件地址. ;)
+
+这里，您可以简单的比较一下已登陆用户和匿名用户见到的 `MailTo` 的不同效果：
+
+ * `[[MailTo(Firstname DOT Lastname AT example DOT net)]]` 变成 [[MailTo(Firstname DOT Lastname AT example DOT net)]]
+ * `[[MailTo(Firstname . Lastname AT exa mp le DOT n e t)]]` 变成 [[MailTo(Firstname . Lastname AT exa mp le DOT n e t)]]
+ * `[[MailTo(Firstname I DONT WANT SPAM . Lastname@example DOT net)]]` 变成 [[MailTo(Firstname I DONT WANT SPAM . Lastname@example DOT net)]]
+ * `[[MailTo(First name I Lastname DONT AT WANT SPAM example DOT n e t)]]` 变成 [[MailTo(First name I Lastname DONT AT WANT SPAM example DOT n e t)]]
+ * `[[MailTo(Vorname DOT Nachname AT example DOT net, Me, Myself, and I)]]` 变成 [[MailTo(Vorname DOT Nachname AT example DOT net, Me, Myself, and I)]]
+
+(!) 有了随意加入“全大写”单词的能力，每个用户都可以随意增加机器人或者非登陆用户看懂他的电子邮件地址的障碍。如果你使它难以被人看懂，你收到的邮件可能不会像先前那么多了。 ;)
+
+此页的英文版本：HelpOnMacros/MailTo

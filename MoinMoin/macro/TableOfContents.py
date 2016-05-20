@@ -29,7 +29,7 @@ _args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s%s)?$' % (
     _arg_skipitems, _arg_titlesonly, _arg_editlink)
 
 # from Include, too, but with extra htext group around header text
-_title_re = r"^(?P<heading>\s*(?P<hmarker>=+)\s(?P<htext>.*)\s(?P=hmarker))$"
+_title_re = r"^(?P<heading>(?P<hmarker>=+)\s(?P<htext>.*)\s(?P=hmarker))$"
 
 class TableOfContents:
     """
@@ -75,7 +75,7 @@ class TableOfContents:
         for i in range(self.baseindent, self.indent):
             self.result.append(self.macro.formatter.listitem(0))
             self.result.append(self.macro.formatter.number_list(0))
-        return '\n'.join(self.result)
+        return ''.join(self.result)
 
     def process_lines(self, lines, pagename):
         for line in lines:

@@ -10,6 +10,7 @@ from MoinMoin import util, config, wikiutil
 from MoinMoin.util import web
 
 class EventLog(LogFile):
+    
     def __init__(self, request, filename=None, buffer_size=65536, **kw):
         if filename == None:
             rootpagename = kw.get('rootpagename', None)
@@ -20,7 +21,8 @@ class EventLog(LogFile):
                 filename = request.rootpage.getPagePath('event-log', isfile=1)
         LogFile.__init__(self, filename, buffer_size)
 
-    def add(self, request, eventtype, values=None, add_http_info=1, mtime_usecs=None):
+    def add(self, request, eventtype, values=None, add_http_info=1,
+            mtime_usecs=None):
         """ Write an event of type `eventtype, with optional key/value
         pairs appended (i.e. you have to pass a dict).
         """

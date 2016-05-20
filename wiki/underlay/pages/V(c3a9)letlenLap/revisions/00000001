@@ -1,0 +1,8 @@
+##master-page:RandomPage
+##master-date:2005-05-04 15:20:52
+#format wiki
+#language hu
+
+25 véletlenszerűen kiválasztott lap (az összesen [[PageCount]] lapból):
+
+[[RandomPage(25)]]

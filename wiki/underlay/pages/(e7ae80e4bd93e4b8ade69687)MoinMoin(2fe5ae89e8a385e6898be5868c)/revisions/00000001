@@ -8,4 +8,69 @@
 #format wiki
 #language zh
 
-[[Include(MoinMoin/InstallDocs)]]
+这个HTML页面包含基本的安装文档，其英文文档保留在http://moinmaster.wikiwikiweb.de/MoinMoin/InstallDocs。它包含有WIKI的安装、运行的所有必要的信息，甚至不必在线就可看到。假如你永久的连接到Internet，那么你可以在安装页面的帮助目录看到这些最新的文档。
+
+遵照这个页面的安装步骤执行之后，你的WIKI就能正常运行并且能浏览在线文档的其他部分。
+
+= 怎样来安装你自己的 MoinMoin wiki =
+这个页面描述了MoinMoin的安装步骤。在下一节，将有具体环境中的安装简介，那会帮助你理解怎样把这些指令应用到各个不同的环境中去。假如你已经有了一个正在运行的Wiki想升级，请看 MoinMaster:HelpOnUpdating。
+一个MoinMoin的安装过程可以分为以下几个基本的步骤：
+  *[#basic-install 基本安装]详细解释了安装过程中的"'setup.py'"步骤。它被用来把MoinMoin代码和Wiki的模板安装到你的系统中。这可以应用到所有的情况下，因此在你尝试安装之前应该阅读它。
+
+  * [#wikiinstance-creation Wiki 实例的创建]解释了你怎么来创建一个Wiki实例（数据和配置文件），这对所有的情况都是适用的。
+  *当你打开Wiki页面时，让你的WEB服务器执行moin代码。在以CGI, FastCGI, mod_python or Twisted or the built-in stand alone server 等方式运行时需要去做。－－－根据你运行的WEB服务器的不同而稍微有些区别－请看下面。
+  *在成功安装之后，作为一个Wiki管理员，你可能想了解更多的配置和其它的选项。MoinMaster:HelpOnAdministration包含有指向这些主题的链接。特别的是MoinMaster:HelpOnAdministration 页面提供关于Wiki设置和维护的附加的信息。
+  *[#trouble-shooting Trouble-shooting]帮助你解决一些常见的问题，可能在一些安装平台上遇到的。
+[[Anchor(installscenarios)]]
+= Installation steps specific for some web servers and operating systems =
+
+The following links will show you concrete examples of installation sessions, showing the commands used and explaining what they do. You ''must first read the general information on installing above'' before doing the installation steps described on the pages linked from below:
+
+Linux:
+ * [#linuxapache-install Linux Installation using Apache]
+ * [#linuxstandalone-install Linux Installation using standalone server]
+
+Long-Running-Process Setup:
+ * [#fastcgi-install FastCGI Setup using Apache]
+ * [#modpy-install mod_python Setup using Apache]
+ * [#twisted-install Setup using twisted]
+
+Mac OS X:
+ * [#macosx-install Mac OS X Installation]
+
+Windows:
+ * [#win32apache-install Windows Installation using Apache]
+ * [#win32iis-install Windows Installation using IIS]
+
+[[Anchor(basic-install)]]
+[[Include(HelpOnInstalling/BasicInstallation)]]
+------
+[[Anchor(wikiinstance-creation)]]
+[[Include(HelpOnInstalling/WikiInstanceCreation)]]
+-----
+[[Anchor(linuxapache-install)]]
+[[Include(HelpOnInstalling/ApacheOnLinux, "Linux Installation using Apache", 1)]]
+------
+[[Anchor(fastcgi-install)]]
+[[Include(HelpOnInstalling/ApacheWithFastCgi, "FastCGI Setup using Apache", 1)]]
+------
+[[Anchor(modpy-install)]]
+[[Include(HelpOnInstalling/ApacheWithModPython, "mod_python Setup using Apache", 1)]]
+------
+[[Anchor(twisted-install)]]
+[[Include(HelpOnInstalling/TwistedWeb, "Setup using Twisted", 1)]]
+------
+[[Anchor(linuxstandalone-install)]]
+[[Include(HelpOnInstalling/StandaloneServer, "Linux Installation using standalone server", 1)]]
+------
+[[Anchor(macosx-install)]]
+[[Include(HelpOnInstalling/ApacheOnMacOsx, "Mac OS X Installation using Apache", 1)]]
+-----
+[[Anchor(win32apache-install)]]
+[[Include(HelpOnInstalling/ApacheOnWin32, "Windows Installation using Apache", 1)]]
+------
+[[Anchor(win32iis-install)]]
+[[Include(HelpOnInstalling/InternetInformationServer, "Windows Installation using IIS", 1)]]
+------
+[[Anchor(trouble-shooting)]]
+[[Include(HelpOnInstalling/TroubleShooting, "Trouble-shooting", 1)]]

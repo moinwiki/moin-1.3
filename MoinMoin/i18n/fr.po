@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 03:16+0100\n"
-"PO-Revision-Date: 2005-02-05 11:00+0100\n"
+"POT-Creation-Date: 2005-07-28 19:27+0200\n"
+"PO-Revision-Date: 2005-07-30 12:17+0200\n"
 "Last-Translator: JP Guerard <fevrier@tigreraye.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,9 @@ msgstr ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "-~\n"
 
+msgid "Create New Page"
+msgstr "Créer une page"
+
 msgid "You are not allowed to view this page."
 msgstr "Vous n'êtes pas autorisé à voir cette page."
 
@@ -81,6 +84,9 @@ msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 "Le verrou que vous déteniez à expiré, vos modifications risquent d'engendrer "
 "des conflits"
+
+msgid "Page name is too long, try shorter name."
+msgstr "Nom de page trop long, essayez un nom plus court."
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -256,7 +262,8 @@ msgstr "Aucune différence n'a été trouvée !\n"
 
 #, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
-msgstr "[%(sitename)s] Mise à jour %(trivial)sde « %(pagename)s par %(username)s »"
+msgstr ""
+"[%(sitename)s] Mise à jour %(trivial)sde « %(pagename)s » par %(username)s"
 
 msgid "Trivial "
 msgstr "mineure "
@@ -342,7 +349,7 @@ msgstr ""
 msgid ""
 "Other users will be ''blocked'' from editing this page until %(bumptime)s."
 msgstr ""
-"Les autres utilisateurs seront ''empêchés'' d'éditer cette page jusqu'au %"
+"Les autres utilisateurs ''ne'' pourront ''pas'' éditer cette page jusqu'au %"
 "(bumptime)s."
 
 #, python-format
@@ -363,7 +370,7 @@ msgid ""
 "s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
 "Cette page est pour l'instant ''verrouillée'' en édition par %(owner)s "
-"jusqu'au %(timestamp)s, i. e. pour %(mins_valid)d minutes."
+"jusqu'au %(timestamp)s, i. e. pour %(mins_valid)d minutes."
 
 #, python-format
 msgid ""
@@ -501,6 +508,42 @@ msgstr ""
 
 msgid "Please provide a valid email address!"
 msgstr "Veuillez fournir une adresse électronique valide !"
+
+msgid ""
+"Somebody has requested to submit your account data to this email address.\n"
+"\n"
+"If you lost your password, please use the data below and just enter the\n"
+"password AS SHOWN into the wiki's password form field (use copy and paste\n"
+"for that).\n"
+"\n"
+"After successfully logging in, it is of course a good idea to set a new and "
+"known password.\n"
+msgstr ""
+"Quelqu'un à demandé l'envoi des données relatives à votre compte à cette\n"
+"adresse électronique.\n"
+"\n"
+"Si vous avez oublié votre mot de passe, utilisez les informations ci-"
+"dessous\n"
+"et entrez simplement le mot de passe TEL QUEL dans le champs mot de passe\n"
+"du formulaire d'identification du wiki (utilisez pour cela un copier-"
+"coller).\n"
+"\n"
+"Après vous être identifié avec succès, il vous est naturellement recommandé\n"
+"d'enregistrer un nouveau mot de passe que vous connaissiez.\n"
+
+#, python-format
+msgid ""
+"Login Name: %s\n"
+"\n"
+"Login Password: %s\n"
+"\n"
+"Login URL: %s/?action=userform&uid=%s\n"
+msgstr ""
+"Nom : %s\n"
+"\n"
+"Mot de passe : %s\n"
+"\n"
+"URL de connexion : %s/?action=userform&uid=%s\n"
 
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
@@ -881,6 +924,15 @@ msgstr "Analyseurs installés"
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr "Processeurs installés (OBSOLÈTES -- utilisez plutôt les analyseurs)"
 
+msgid "Disabled"
+msgstr "Désactivée"
+
+msgid "Enabled"
+msgstr "Activée"
+
+msgid "Lupy search"
+msgstr "Utilisation de Lupy pour les recherches"
+
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr "Choisissez un critère de recherche plus sélectif que {{{« %s »}}}"
@@ -966,8 +1018,8 @@ msgstr ""
 msgid "File to upload"
 msgstr "Fichier à envoyer"
 
-msgid "Save as"
-msgstr "Enregistrer sous"
+msgid "Rename to"
+msgstr "Renommer en"
 
 msgid "Upload"
 msgstr "Envoyer un fichier"
@@ -1130,11 +1182,11 @@ msgstr ""
 
 #, python-format
 msgid "Title Search: \"%s\""
-msgstr "Recherche de « %s » dans les titres"
+msgstr "Recherche de « %s » dans les titres"
 
 #, python-format
 msgid "Full Text Search: \"%s\""
-msgstr "Recherche de « %s » dans les textes"
+msgstr "Recherche de « %s » dans les textes"
 
 #, python-format
 msgid "Full Link List for \"%s\""
@@ -1173,9 +1225,6 @@ msgstr "Démarrer"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Transparent %(pos)d sur %(size)d "
 
-msgid "Create New Page"
-msgstr "Créer une page"
-
 msgid "No orphaned pages in this wiki."
 msgstr "Pas de page orpheline dans ce wiki"
 
@@ -1193,7 +1242,7 @@ msgstr "Enregistrement du dessin « %(filename)s »."
 
 #, python-format
 msgid "%(hours)dh %(mins)dm ago"
-msgstr "Il y a %(hours)dh %(mins)dm "
+msgstr "Il y a %(hours)dh %(mins)dm "
 
 msgid "(no bookmark set)"
 msgstr "(aucun signet n'a été défini)"
@@ -1273,25 +1322,23 @@ msgstr "Un entier « %(arg)s » était attendu après « %(key)s »"
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
 msgstr "Une couleur « %(arg)s » était attendue après « %(key)s »"
 
-msgid "XSLT option disabled!"
-msgstr "Option XSLT désactivée !"
+msgid "XSLT option disabled, please look at HelpOnConfiguration."
+msgstr "L'option XSLT a été désactivée, consultez l'AideDeConfiguration."
 
-msgid "XSLT processing is not available!"
-msgstr "Traitement XSLT non disponible"
+msgid "XSLT processing is not available, please install 4suite 1.x."
+msgstr ""
+"Impossible de réaliser des traitements XSLT, veuillez installer la version 1."
+"x de 4suite."
 
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Erreur d'exécution : %(errortype)s"
 
-msgid "RefreshCache"
-msgstr "RafraîchirLeCache"
+msgid "Views/day"
+msgstr "Consultations/jour"
 
-#, python-format
-msgid "for this page (cached %(date)s)"
-msgstr " pour cette page (dans le cache depuis %(date)s)"
-
-msgid "Charts are not available!"
-msgstr "Les graphiques ne sont pas disponibles !"
+msgid "Edits/day"
+msgstr "Éditions/jour"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
@@ -1310,6 +1357,9 @@ msgstr "date"
 msgid "# of hits"
 msgstr "Nombre d'accès"
 
+msgid "Charts are not available!"
+msgstr "Les graphiques ne sont pas disponibles !"
+
 msgid "Page Size Distribution"
 msgstr "Page Taille Répartition"
 
@@ -1318,6 +1368,9 @@ msgstr "limite supérieure de la taille d'une page [octets]"
 
 msgid "# of pages of this size"
 msgstr "Nombre de pages de cette taille"
+
+msgid "User agent"
+msgstr "Agent utilisateur"
 
 msgid "Others"
 msgstr "Autres"
@@ -1367,7 +1420,7 @@ msgid "last modified %(time)s"
 msgstr "dernière modification %(time)s"
 
 msgid "Search:"
-msgstr "Rechercher :"
+msgstr "Rechercher :"
 
 msgid "Text"
 msgstr "Texte"
@@ -1403,7 +1456,7 @@ msgid "Do"
 msgstr "Exécuter"
 
 msgid "Show Parent"
-msgstr "Niveau supérieur"
+msgstr "Page au-dessus"
 
 msgid "Immutable Page"
 msgstr "Page immuable"

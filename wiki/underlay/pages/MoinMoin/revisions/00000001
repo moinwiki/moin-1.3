@@ -12,10 +12,8 @@ MoinMoin is a Python Wiki:WikiClone, based on Wiki:PikiPiki. The name is a commo
 
 The following pages are about the development of MoinMoin:
  * MoinMoin:MoinMoinQuestions - Questions about MoinMoin (installing, etc.)
- * MoinMoin:MoinMoinTips - Tips & tricks for MoinMoin
  * MoinMoin:MoinMoinTranslation - discussion about translating MoinMoin
  * MoinMoin:MoinMoinBugs - bugs in the software
- * MoinMoin:MoinMoinDiscussion - discussion about new features
  * MoinMoin:MoinMoinIdeas - you are encouraged to ''add'' wishes and ideas to this page
  * MoinMoin:MoinMoinMailingLists - discussion about MoinMoin via email
  * MoinMoin:MoinDev - information for MoinMoin developers
@@ -23,7 +21,7 @@ The following pages are about the development of MoinMoin:
 
 These pages provide information about using and installing MoinMoin:
  * HelpOnInstalling - how to install MoinMoin
- * /TextFormatting - a page containing samples of all the markup options
+ * /TextFormatting - a page containing samples of most of the markup options
  * MoinMoin:MoinMoinSuccessStories - what do other people use MoinMoin for?
  * HelpContents - The main page of the help system
  * HelpMiscellaneous/FrequentlyAskedQuestions - Frequently Asked Questions (ask your own on MoinMoin:MoinMoinQuestions)

@@ -1,0 +1,27 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#format wiki
+#language pt
+NavegaçãoDoSite é o lugar central para explorar este wiki. No MoinMoin existem estes MeatBall:IndexingScheme''''''s (Esquema de Índices):
+
+ * MudançasRecentes
+ * ÍndiceDeTítulos
+ * ÍndiceDePalavras
+ * BuscaPágina
+ * PáginasProcuradas
+ * PáginasÓrfãs
+ * PáginasEsquecidas
+ * PáginaAleatória
+ * TamanhoDaPágina
+ * ContagemDeAcesso
+
+Em cada página, há ações que permitem navegar em outras páginas relacionado à página atual:
+
+ * Like''''''Pages
+ * Local''''''Site''''''Map
+
+Adicionalmente, há os macros {{{[[PageList]]}}}, {{{[[FullSearch('text')]]}}} e {{{[[TableOfContents]]}}}, que o permitem automaticamente gerar índices para partes coesivas de um wiki. 

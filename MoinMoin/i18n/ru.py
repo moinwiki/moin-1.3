@@ -27,6 +27,8 @@ macro call.-~
 Для использования этой формы на других страницах вставьте вызов макро:
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]-~
 ''',
+'''Create New Page''':
+'''Создать страницу''',
 '''You are not allowed to view this page.''':
 '''Вам не разрешено просматривать эту страницу.''',
 '''DeleteCache''':
@@ -41,6 +43,8 @@ macro call.-~
 '''Старые версии нельзя изменять!''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
 '''Привилегия на изменения истекла, приготовьтесь к конфликтам!''',
+'''Page name is too long, try shorter name.''':
+'''Слишком длинное имя страницы, попробуйте что-нибудь покороче.''',
 '''Edit "%(pagename)s"''':
 '''Правка "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
@@ -274,6 +278,33 @@ Contact the owner of the wiki, who can enable email.''':
 '''В этом вики запрещена отправка почты. Свяжитесь с владельцем вики, который может разрешить отправку.''',
 '''Please provide a valid email address!''':
 '''Пожалуйста укажите правильный почтовый адрес!''',
+'''Somebody has requested to submit your account data to this email address.
+
+If you lost your password, please use the data below and just enter the
+password AS SHOWN into the wiki\'s password form field (use copy and paste
+for that).
+
+After successfully logging in, it is of course a good idea to set a new and known password.
+''':
+'''Кто-то запросил выслать свои данные на этот адрес.
+
+Если вы забыли пароль, используйте эти данные и введите пароль КАК ЗДЕСЬ НАПИСАНО
+(воспользуйтесь операциями Copy/Paste для точного переноса).
+
+После успешного входа в систему неплохо бы поменять пароль на ваш собственный.
+''',
+'''Login Name: %s
+
+Login Password: %s
+
+Login URL: %s/?action=userform&uid=%s
+''':
+'''Имя: %s
+
+Пароль: %s
+
+URL для входа: %s/?action=userform&uid=%s
+''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Не найдено пользователя с таким адресом \'%(email)s\'!''',
 '''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
@@ -494,6 +525,12 @@ Contact the owner of the wiki, who can enable email.''':
 '''Доступные парсеры''',
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''Доступные процессоры (УСТАРЕЛО - используйте парсеры)''',
+'''Disabled''':
+'''Выключен''',
+'''Enabled''':
+'''Включен''',
+'''Lupy search''':
+'''Общий поиск''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
 '''Пожалуйста уточните что искать вместо {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
@@ -542,8 +579,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 Или же, если поле "Записать в" оставить пустым, будет использовано имя вашего файла.''',
 '''File to upload''':
 '''Приложить файл''',
-'''Save as''':
-'''Записать в''',
+'''Rename to''':
+'''Переименовать в''',
 '''Upload''':
 '''Загрузить''',
 '''File attachments are not allowed in this wiki!''':
@@ -650,8 +687,6 @@ Try a different name.''':
 '''Начало''',
 '''Slide %(pos)d of %(size)d''':
 '''Кадр %(pos)d из %(size)d''',
-'''Create New Page''':
-'''Создать страницу''',
 '''No orphaned pages in this wiki.''':
 '''В этом вики нет одиноких страниц.''',
 '''No quotes on %(pagename)s.''':
@@ -706,18 +741,16 @@ Try a different name.''':
 '''Нужно число "%(arg)s" после "%(key)s"''',
 '''Expected a color value "%(arg)s" after "%(key)s"''':
 '''Нужен код цвета "%(arg)s" после "%(key)s"''',
-'''XSLT option disabled!''':
-'''XSLT выключен!''',
-'''XSLT processing is not available!''':
-'''XSLT недоступен!''',
+'''XSLT option disabled, please look at HelpOnConfiguration.''':
+'''XSLT  выключен, смотри КакКонфигурировать''',
+'''XSLT processing is not available, please install 4suite 1.x.''':
+'''Обработка XSLT невозможна без установки 4suite 1.x.''',
 '''%(errortype)s processing error''':
 '''ошибка обработки %(errortype)s''',
-'''RefreshCache''':
-'''ОбновитьКэш''',
-'''for this page (cached %(date)s)''':
-'''этой страницы (кеширована %(date)s)''',
-'''Charts are not available!''':
-'''Диаграммы недоступены!''',
+'''Views/day''':
+'''Просмотров/день''',
+'''Edits/day''':
+'''Правок/день''',
 '''%(chart_title)s for %(filterpage)s''':
 '''%(chart_title)s для %(filterpage)s''',
 '''green=view
@@ -728,12 +761,16 @@ red=edit''':
 '''дата''',
 '''# of hits''':
 '''Число обращений''',
+'''Charts are not available!''':
+'''Диаграммы недоступены!''',
 '''Page Size Distribution''':
 '''Распределение размера страниц''',
 '''page size upper bound [bytes]''':
 '''предел размера страниц [в байтах]''',
 '''# of pages of this size''':
 '''число страниц этого размера''',
+'''User agent''':
+'''Смотрелка''',
 '''Others''':
 '''Другие''',
 '''Distribution of User-Agent Types''':
@@ -835,7 +872,7 @@ red=edit''':
 '''SiteNavigation''':
 '''ПойтиПоСайту''',
 '''HelpContents''':
-'''КакНаписать''',
+'''ПомощьПоГлавам''',
 '''HelpOnFormatting''':
 '''КакФорматировать''',
 '''UserPreferences''':

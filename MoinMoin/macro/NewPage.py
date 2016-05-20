@@ -1,15 +1,15 @@
 # -*- coding: iso-8859-1 -*-
 """
-New Page macro
+    MoinMoin - New Page macro
 
-Thanks to Jos Yule's "blogpost" action and his modified Form for
-giving me the pieces I needed to figure all this stuff out:
-http://moinmoin.wikiwikiweb.de/JosYule
+    Thanks to Jos Yule's "blogpost" action and his modified Form for
+    giving me the pieces I needed to figure all this stuff out:
+    http://moinmoin.wikiwikiweb.de/JosYule
 
-@copyright: 2004 Vito Miliano (vito_moinnewpagewithtemplate@perilith.com)
-@copyright: 2004 by Nir Soffer <nirs@freeshell.org>
-@copyright: 2004 Alexander Schremmer <alex AT alexanderweb DOT de>
-@license: GNU GPL, see COPYING for details.
+    @copyright: 2004 Vito Miliano (vito_moinnewpagewithtemplate@perilith.com)
+    @copyright: 2004 by Nir Soffer <nirs@freeshell.org>
+    @copyright: 2004 Alexander Schremmer <alex AT alexanderweb DOT de>
+    @license: GNU GPL, see COPYING for details.
 """
 
 from MoinMoin import wikiutil
@@ -79,7 +79,7 @@ class NewPage:
         
         if label:
             # Try to get a translation, this will probably not work in
-            # most case, but better then nothing.
+            # most case, but better than nothing.
             label = _(label)
         else:
             label = _("Create New Page")

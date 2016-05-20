@@ -1,0 +1,46 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
+#pragma section-numbers on
+
+
+== 段落标题 ==
+您可以将一到五个等号放置在一行的开头和结尾来创建标题。标题文字放在这些标记之间，并使用一个空格符将其于标记分开。
+
+你可以控制在每一页激活或者取消标题文字自动编号（参见["帮助-处理指令"]中的 `#pragma section-numbers` ）也可以修改整个站点的自动编号设置（参见["帮助-系统设置"]中关于 `show_section_numbers` 的解释）。
+
+关于更多可能遇到的标记方式，请参见["帮助-编辑"]。
+
+ /!\ 标题中不允许包含维基标记。
+
+ /!\ 你不能在标题中使用段落缩进。
+
+=== 示例 ===
+{{{
+ = 标题 =
+ == 副标题 ==
+ === 三级标题 ===
+ ==== 四级标题 ====
+ ===== 五级标题 =====
+}}}
+
+=== 显示 ===
+
+= 标题 =
+
+== 副标题 ==
+
+=== 三级标题 ===
+
+==== 四级标题 ====
+
+===== 五级标题 =====
+
+
+注意，要的到合适的标题编号，您必须使用正确的结构来组织您的段落，也就是说正确的嵌套。我们的示例并没有这么做，所以您看到的可能并不是预期的编号方案。
+
+HelpOnHeadlines

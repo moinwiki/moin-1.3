@@ -1,14 +1,20 @@
 #!/usr/bin/env python
+# -*- coding: iso-8859-1 -*-
 """
-Convert data in encoding src_enc to encoding dst_enc, both specified
-on command line. Data is read from standard input and written to
-standard output.
+    MoinMoin - file encoding conversion
 
-Usage:
+    @copyright: 2005 by Thomas Waldmann (MoinMoin:ThomasWaldmann)
+    @license: GNU GPL, see COPYING for details.
+
+    Convert data in encoding src_enc to encoding dst_enc, both specified
+    on command line. Data is read from standard input and written to
+    standard output.
+
+    Usage:
 
     ./recode.py src_enc dst_enc < src  > dst
 
-Example:
+    Example:
 
     # Using non utf-8 editor to edit utf-8 file:
 
@@ -28,7 +34,6 @@ Example:
 """
 
 import sys
-
 
 def error(msg):
     sys.stderr.write(msg + '\n')
