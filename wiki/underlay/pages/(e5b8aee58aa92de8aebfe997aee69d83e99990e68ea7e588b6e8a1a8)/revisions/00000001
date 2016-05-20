@@ -1,0 +1,269 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnAccessControlLists
+##master-date:2005-02-24 14:50:15
+#format wiki
+#language zh
+#pragma section-numbers 2
+
+= 访问权限控制表 =
+
+当打开'''访问权限控制表'''(简称为 ACL)时，你可以控制谁可以对维基页面做什么操作。
+
+== 内容 ==
+[[TableOfContents]]
+
+== 基本 ==
+首先，要了解 ACL 支持默认是关闭的。见 [#Configuration 配置] 以了解如何打开。
+
+在 moin 中使用 ACL 简单到只需要在你要做控制的页面的顶部包括一个控制行，象下面的这一行：
+{{{
+#acl SomeUser:read,write All:read
+}}}
+/!\ 要增加或者修改这样一个 ACL 行，你需要具有 `admin` 权限。
+
+这将允许 `SomeUser` 读写该页，而其他用户能够读但不能编辑它 (除非你在站点配置中做了一些特殊的设置)。
+
+当通过 moin 维基引擎访问附件时，附件也受它们所在页面的 ACL 的保护。
+
+/!\ 当服务器配置为直接访问附件时，附件'''不受'''保护 (也就是当 wikiconfig.py 使用了 {{{attachments}}} 选项时)。
+
+== 语法 ==
+每行的语法如下：
+{{{
+#acl [+-]User[,SomeGroup,...]:[right[,right,...]] [[+-]OtherUser:...] [[+-]Trusted:...] [[+-]Known:...] [[+-]All:...] [Default]
+}}}
+
+其中：
+
+ * '''User''' 是个用户名，仅在用户匹配时触发。 
+ * '''Some``Group''' 是一个匹配 {{{page_group_regex}}} 的页面，其中的一些行是 “ * Member” 的形式 (见 [#Groups 组])。
+ * '''Trusted''' 是一个特殊组，包括所有的用 HTTP-Basic-authentication 进行验证的已验证用户。
+ * '''Known''' 是一个特殊组，包括所有有效用户 (使用 cookie 验证方法)。
+ * '''All''' 是一个特殊组，包括所有用户 ( Known 和匿名用户)。
+ * '''Default''' 是一个特殊项，它在给定的位置插入 {{{acl_rights_default}}} 中的项 (见 [#Default 默认项])。
+ * '''right''' 可以是象 read、write、delete、revert 和 admin 这样的任意单词。只有 {{{acl_rights_valid}}} 列出的单词被接受，其它的被忽略。允许不指定任何权限，这意味着没有任何权限。
+
+== 可用的权限 ==
+这些是你可以用在 ACL 项中的权限。注意如果用户不是 `Known` 的话，即使授予了 `delete` 权限，也不允许 '''删除页面''' 和 '''重命名页面'''。 
+
+ read::
+ 指定的用户能够读取该页面的内容。
+
+ write::
+ 指定的用户能够写(编辑)该页面的内容。
+
+ delete::
+ 指定的用户能够删除该页和它的附件。
+
+ revert::
+ 指定的用户能够将该页面还原到旧版本。
+
+ admin::
+ 指定的用户将具有该页面的管理权限，这表示用户能够改变 ACL 设置，包括将 “admin” 权限授予他人和剥夺他人的 “admin” 权限。
+
+== 处理逻辑 ==
+当某个用户试图访问某个 ACL 保护的资源时， ACL 将按照出现的先后顺序被处理。'''第一个匹配用户的 ACL'''将判定用户是否能访问该资源，并且用户匹配一个 ACL 项后，ACL 处理停止。
+
+(!) 由于'''第一匹配'''算法，你应该将 ACL 排序：首先是单个用户名，然后是特殊组，然后是普通组，然后是 `Known` ，最后是 `All`。
+
+例如，下面的这个 ACL 判断 `SomeUser` 可以读写由该 ACL 保护的资源，而 `SomeGroup` 的任何成员 (如果 `SomeUser` 是该组的一部分，则不包括 `SomeUser` ) 可以管理该资源，而所有其他用户可以读取该资源。
+{{{
+#acl SomeUser:read,write SomeGroup:read,write,admin All:read
+}}}
+
+为了让权限系统更为灵活，还提供了两个修饰符：“+” 和 “-” 前缀。当使用它们的时候，仅当特定的用户请求的权限同时匹配给定的 ACL 项的用户和权限时，处理才停止；如果正在查找另外的权限 (或者用户)，处理继续。在 “+” 的情形，权限被授予；在 “-” 的情形，权限被拒绝 (并停止处理)。
+
+举例说明，假设 `SomeUser` 是 `SomeGroup` 的一个成员，上面的那个 ACL 也可以写成：
+{{{
+#acl -SomeUser:admin SomeGroup:read,write,admin All:read
+}}}
+
+这个例子仅特殊对待 `SomeUser`，因为当查询 `SomeUser` 是否有 admin 权限时，权限将被拒绝且处理停止。任何其它情形，处理继续 (翻译者注：例如查询是否具有 read 权限)。
+
+甚至：
+{{{
+#acl +All:read -SomeUser:admin SomeGroup:read,write,admin
+}}}
+
+`+All:read` 表明当任何用户请求 read 权限时，权限被赋予且处理停止。任何其它情况下，处理继续。如果查询 `SomeUser` 的 admin 权限，将被拒绝且处理停止。任何其它情况下，处理继续。最后，如果 `SomeGroup` 的成员请求某个权限，如果指定则赋予，反之则拒绝。所有其它的用户除了配置中给予的权限外，没有任何权限。
+
+注意，你可能不会在页面的 ACL 项中使用第二个和第三个例子那样的 ACL，但是在站点配置项中它们是很有用的。
+
+[[Anchor(Default)]]
+== 继承默认权限 ==
+某些情况下，不过多影响默认权限并把权限给予某个用户是很有用的。例如，假设你在配置中有下列项：
+{{{
+
+acl_rights_default = "TrustedGroup:read,write,delete,revert All:read"
+acl_rights_before  = "AdminGroup:admin,read,write,delete,revert +TrustedGroup:admin"
+}}}
+
+现在，你要在某个页面上给 `SomeUser` “write” 权限，但也要求保持 All 和 `TrustedGroup` 的默认行为。你可以轻松地用 '''Default''' 项实现：
+{{{
+#acl SomeUser:read,write Default
+}}}
+
+这个设置将把 {{{acl_rights_default}}} 中的项插入到 Default 被使用的确切地方。也就是说，上面的项，用上面给定的配置，相当于下列项：
+{{{
+#acl SomeUser:read,write TrustedGroup:read,write,delete,revert All:read
+}}}
+
+来看本章中的第一个例子：
+{{{acl_rights_before  = "AdminGroup:admin,read,write,delete,revert +TrustedGroup:admin"}}}
+
+ACL 处理的顺序是 “before” 然后 “page/default” 然后是 “after”，“自左而右地进行”。
+
+所以，处理开始于左边的 “before”，即 `AdminGroup:...` - 这匹配你是否是管理员组成员。
+如果匹配，你获得那些权限 (arwdr)，ACL 处理停止。
+
+如果不匹配，ACL 处理继续到 `+TrustedGroup:admin`
+- 这匹配你是否是 `TrustedGroup` 组成员。
+
+如果匹配，你获得权限 - 因为修饰符的关系
+- ACL 处理'''仍然继续'''！所以如果有另外的项匹配该组、或者你的用户名、或者 `Known:`、或者 `All:`，你也将得到那些权限。
+
+如果不匹配，ACL 处理继续到页面的 ACL (如果有的话) 或者默认 ACL (如果没有页面 ACL)，最后是 “after” ACL。
+
+虽然它们提供的是同样的东西，从默认权限继承有好处：能够自动获得默认设置中所做的任何后续修改。
+
+[[Anchor(Configuration)]]
+== 配置 ==
+这些是设置一个 moin 网站的 ACL 时可以用的配置项。
+
+||'''项目'''||'''默认值'''||'''描述'''||
+||acl_enabled||{{{0}}}||为真将启用 ACL 支持。||
+||acl_rights_before||{{{""}}}||在页面或默认 ACL '''之前'''起作用。||
+||acl_rights_after||{{{""}}}||在页面或默认 ACL '''之后'''起作用。||
+||acl_rights_default||{{{"Trusted:read,write,delete,revert \}}}[[BR]]{{{Known:read,write,delete,revert \}}}[[BR]]{{{All:read,write"}}}||'''仅'''用于被访问的页面'''没有其它的''' ACL 时。||
+||acl_rights_valid||`["read", ` `"write", ` `"delete", ` `"revert", ` `"admin"]`||这些是被接收的(已知的)权限 (如果需要的话，可以在这里进行扩展)。||
+
+所以，你现在已经知道它'''做什么'''，但'''含义'''呢？
+ * “before” 表示 '''强制性内容''' (原因是第一匹配算法)。
+ * “after” 表示 '''不容忘记的内容''' (比如给所有用户读的权限)。
+ * “default” 表示 '''如果页面上没有 ACL 就要做的'''。它相当于把同样的 ACL 写在页面里。
+
+[[Anchor(Groups)]]
+== 组 ==
+用户组让给大的组指定权限变得容易。
+
+仅 `SomeUser` 的朋友可以读写该页面：
+{{{
+#acl SomeUser:read,write SomeUser/FriendsGroup:read,write
+}}}
+
+`SomeUser/FriendsGroup` 是一个页面，其中每个最高级别列表项代表一个组成员的维基用户名：{{{
+#acl SomeUser:read,write,admin,delete,revert
+ * JoeSmith
+ * JoeDoe
+ * JoeMiller
+}}}
+
+名为 `AdminGroup` 的页面可以定义一个名为 `AdminGroup` 的组，并且可以被 ACL 保护：
+{{{
+#acl AdminGroup:admin,read,write All:read
+ * SomeUser
+ * OtherUser
+   * 目前被忽略。
+其它所有不是第一级列表的文本都被忽略。
+}}}
+
+/!\ 第一级列表的星号前只有一个空格 (当然在星号后也应该有一个空格)。下面的不会起作用：
+{{{
+  * some user
+-- 有两个空格所以不起作用
+}}}
+
+你可以配置哪些页面名称会被当作组定义页面 (例如，对于非英语维基)：
+{{{
+page_group_regex =  '[a-z]Group$'    # 这是默认设置
+}}}
+
+== 使用场合 ==
+
+=== 互联网上的公开社区维基 ===
+最重要的原则是仅在需要的时候使用 ACL。维基依赖于信息的公开性和自由地编辑，它们使用软性的安全措施去清除“坏”内容，所以通常不需要 ACL。如果你过多使用 ACL，你可能会破坏维基的作用。
+
+这就是为什么要么 ACL 不应该被使用 (默认情况)，或者，如果使用的话，wikiconfig.py 应该看起来象这样：
+{{{
+acl_rights_before = 'WikiEditorName:read,write,admin,delete,revert +AdminGroup:admin BadGuy:' 
+}}}
+
+默认的 {{{acl_rights_default}}} 选项应该满足你的要求：
+{{{
+acl_rights_default = 'Known:read,write,delete,revert All:read,write' 
+}}}
+
+好的建议是 `AdminGroup` 中仅有几个且非常受信任的管理员 (他们应该非常清楚维基怎样工作，否则他们可能会最终破坏维基的工作方式：因为它的开放性，而不是因为封闭！)。
+
+如果使用 `AdminGroup`，你应该定义一个叫做 `AdminGroup` 的页面，并且用它来定义哪些人获得管理权限。
+
+指定象上面的 `BadGuy` 仅仅是将他排除在外 - 他不能用他的帐号读写任何内容。这只是暂时实行时有意义，否则你可以直接删除那个帐号。当然，这个 `BadGuy` 也可以匿名行事，所以这不是真正的保护 (这是软性安全措施起作用的地方)。
+
+=== 维基作为一个简单的 CMS ===
+如果你要用维基来方便地创建网页内容，但是你不想让它被公众编辑 (仅一些 webmaster 们编辑)，你可以在 wikiconfig.py 里这样设置：
+{{{
+acl_rights_default = 'All:read' 
+acl_rights_before  = 'WebMaster,OtherWebMaster:read,write,admin,delete,revert' 
+}}}
+
+这样，所有的人可以读，但只有 Webmaster 们可以做任何事情。当他们在新页面上编辑的时候，他们可以放上
+{{{
+#acl All: 
+}}}
+，这样没人会看到还没有完成的页面。当完成页面后，不要忘了去掉那行，这样 {{{acl_rights_default}}} 被使用。
+
+一些页面可以允许公开的评论 (例如叫做 `PublicComments` 的页面)，这样你可以在那个页面上给更多的权限：
+{{{
+#acl All:read,write 
+}}}
+
+=== 内部网上的维基 ===
+如果你想在内部网上使用维基，并且你信任你的用户 (不会做恶意的事情，例如把其它人排除或者劫持页面) 能够明智地使用管理功能，你可以这样用：
+{{{
+acl_rights_default = 'Known:admin,read,write,delete,revert All:read,write'
+acl_rights_before  = 'WikiAdmin,BigBoss:read,write,admin,delete,revert' 
+}}}
+
+这样，所有人都可以读、写和改变 ACL，`WikiAdmin` 和 `BigBoss` 可以做任何事情，已知用户通过 {{{acl_rights_default}}} 获得管理权限 (所以只要页面上没有其它 ACL 他们就可以获得)
+
+后果：
+ * 在新建页面上，创建者可以放上任何 ACL
+ * 在已存在的页面上，如果没有 ACL，任何已知用户能够设置任何 ACL
+ * 在没有 ACL 的页面上，所有人 (除 `WikiAdmin` 和 `BigBoss`) 都能被 (已知的) 任何其他人排除
+
+=== 维基作为公司页面 ===
+如果你要用维基作为公司主页，不希望所有用户都能更改公司页面内容，你可以使用：
+{{{
+acl_rights_default = "TrustedGroup:admin,read,write,delete,revert All:read"
+acl_rights_before  = "AdminGroup:admin,read,write,delete,revert +TrustedGroup:admin"
+}}}
+
+这表示：
+ * 默认情况下，已知用户和匿名用户仅被允许读页面
+ * 在新建的页面上，如果没有 ACL，任何 `TrustedGroup` 的用户都可以设置任意的 ACL
+ * 除了 `AdminGroup` 外，所有人都可以被其他管理员或受信任用户排除
+ * `TrustedGroup` 成员可以在任何他们可以写的页面上使用管理权限，即使有特定的 ACL
+
+=== 在只读页面上进行评论 ===
+通过使用可写的子页面，你可以很方便地给只读页面添加评论部分，并允许用户在上面写内容。例如，你可以这样定义 `SomePage` 页面：
+{{{
+#acl SomeUser:read,write All:read
+'''一些只读内容 '''
+
+...
+
+''' 用户评论 '''
+[[Include(SomePage/Comments)]]
+}}}
+
+象这样添加 `SomePage/Comments` 页面：
+{{{
+#acl All:read,write
+在这里添加你对 SomePage 的评论。
+}}}
+
+
+此页的英文版本：HelpOnAccessControlLists

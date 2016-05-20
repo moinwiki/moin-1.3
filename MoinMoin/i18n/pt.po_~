@@ -1,3 +1,11 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format gettext
+#language pt
+
 # MoinMoin translation
 #
 msgid ""
@@ -5,44 +13,51 @@ msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-11-30 01:16+0100\n"
-"PO-Revision-Date: 2004-01-11 22:08+0100\n"
-"Last-Translator: ***vacant***\n"
-"Language-Team: Finnish <moin-devel@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2004-01-11 22:09+0100\n"
+"Last-Translator: Jorge Godoy <godoy@ieee.org>\n"
+"Language-Team: Portuguese <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
-"X-Language: Suomi\n"
-"X-Language-in-English: Finnish\n"
+"X-Language: Português\n"
+"X-Language-in-English: Portuguese\n"
 
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
 msgstr ""
+"O conteúdo de backup desta página é velho e não será incluso nos resultados "
+"das buscas!"
 
-#, python-format
+#, fuzzy, python-format
 msgid "Revision %(rev)d as of %(date)s"
-msgstr ""
+msgstr "Versão de %(date)s"
 
 #, python-format
 msgid "Redirected from page \"%(page)s\""
-msgstr ""
+msgstr "Redirecionado da página \"%(page)s\""
 
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
-msgstr ""
+msgstr "Esta página redireciona para a página \"%(page)s\""
 
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "~-If you submit this form, the submitted values will be displayed.\n"
 "To use this form on other pages, insert a\n"
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "macro call.-~\n"
 msgstr ""
+"<p><small>Se você enviar este form, os valores enviados serão mostrados.\n"
+"Para usar este form em outras páginas, insira uma macro\n"
+"<br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
+"b><br><br>\n"
+"na página.</b></small></p>\n"
 
 #, fuzzy
 msgid "You are not allowed to view this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 msgid "RefreshCache"
 msgstr ""
@@ -53,7 +68,7 @@ msgstr ""
 
 #, fuzzy
 msgid "You are not allowed to edit this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 msgid "Page is immutable!"
 msgstr ""
@@ -66,11 +81,11 @@ msgstr ""
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
-msgstr "Muokkaa \"%(pagename)s\""
+msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Preview of \"%(pagename)s\""
-msgstr "Muokkaa \"%(pagename)s\""
+msgstr ""
 
 #, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
@@ -99,11 +114,11 @@ msgstr ""
 
 #, python-format
 msgid "[Content of new page loaded from %s]"
-msgstr ""
+msgstr "[Conteúdo da nova página carregado de %s]"
 
 #, python-format
 msgid "[Template %s not found]"
-msgstr ""
+msgstr "[Template %s não encontrado]"
 
 #, python-format
 msgid "[You may not read %s]"
@@ -118,7 +133,7 @@ msgstr ""
 
 #, python-format
 msgid "Describe %s here."
-msgstr "Kuvaile %s t�ss�."
+msgstr "Descreva %s aqui."
 
 msgid "Optional comment about this change"
 msgstr ""
@@ -131,13 +146,13 @@ msgid "Make this page belong to category %(category)s"
 msgstr ""
 
 msgid "Check Spelling"
-msgstr "Oikolue"
+msgstr ""
 
 msgid "Save Changes"
-msgstr "Talleta muutokset"
+msgstr "Salvar Mudanças"
 
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -148,15 +163,15 @@ msgid ""
 msgstr ""
 
 msgid "Preview"
-msgstr "Esikatsele"
+msgstr "Previsão"
 
-#, fuzzy
 msgid "Trivial change"
-msgstr "S�hk�posti"
-
-msgid "Remove trailing whitespace from each line"
 msgstr ""
 
+msgid "Remove trailing whitespace from each line"
+msgstr "Remover espaço em branco no final de cada linha"
+
+#, fuzzy
 msgid ""
 " Emphasis:: [[Verbatim('')]]''italics''[[Verbatim('')]]; [[Verbatim"
 "(''')]]'''bold'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''bold "
@@ -174,9 +189,27 @@ msgid ""
 " Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing "
 "white space allowed after tables or titles."
 msgstr ""
+"<hr>\n"
+"<font face=\"Verdana\" size=\"-1\">\n"
+"<b>Ênfase:</b> ''<i>itálico</i>''; '''<b>negrito</b>'''; '''''<b><i>negrito "
+"e itálico</i></b>''''';\n"
+"    ''<i>misto de '''<b>negrito</b>''' e itálico</i>''; ---- barra "
+"horizontal.<br>\n"
+"<b>Cabeçalhos:</b> = Título 1 =; == Título 2 ==; === Título 3 ===;\n"
+"    ==== Título 4 ====; ===== Título 5 =====.<br>\n"
+"<b>Listas:</b> espaço e um dos marcadores * ; 1., a., A., i., I. itens "
+"numerados;\n"
+"    1.#n inicia a numeração em n; um espaço por si só indenta o texto.<br>\n"
+"<b>Links:</b> UnaPalavrasEmMaiúsculas; [\"colchetes e aspas duplas\"];\n"
+"    url; [url]; [url nome].<br>\n"
+"<b>Tabelas</b>: || texto de uma célula |||| texto de uma célula cobrindo "
+"duas colunas ||;\n"
+"    nenhum espaço em branco é permitido após tabelas ou cabeçalhos.<br>\n"
+"</font>\n"
+"<hr>\n"
 
 msgid "Edit was cancelled."
-msgstr "Muokkaus peruttu."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -199,21 +232,22 @@ msgstr ""
 
 #, fuzzy
 msgid "New page:\n"
-msgstr "Nimi"
-
-msgid "No differences found!\n"
-msgstr ""
-
-#, fuzzy, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
-msgstr "liite:%(filename)s / %(pagename)s"
+msgstr "Nome"
 
 #, fuzzy
-msgid "Trivial "
-msgstr "S�hk�posti"
+msgid "No differences found!\n"
+msgstr "<b>Nenhuma differença encontrada!</b>"
 
-msgid "Status of sending notification mails:"
+#, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr ""
+
+msgid "Trivial "
+msgstr ""
+
+#, fuzzy
+msgid "Status of sending notification mails:"
+msgstr "Enviar notificação por mail"
 
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
@@ -225,11 +259,13 @@ msgstr ""
 
 #, fuzzy
 msgid "You are not allowed to edit this page!"
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
+#, fuzzy
 msgid "You cannot save empty pages."
-msgstr ""
+msgstr "<b>Você não pode salvar páginas vazias.</b>"
 
+#, fuzzy
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
 "\n"
@@ -241,6 +277,15 @@ msgid ""
 "the content editbox with your version of the page, because that would\n"
 "delete the changes of the other person, which is excessively rude!''\n"
 msgstr ""
+"<b>Desculpe, alguém gravou esta página enquanto você a editava.\n"
+"<p>Por favor, faça o seguinte: Use o botão voltar de seu browser e "
+"cut&paste\n"
+"suas mudanças dali. Então avance para cá, e selecione EditText novamente.\n"
+"Agora reinsira suas mudanças no conteúdo atual da página.\n"
+"<p><em>Não troque apenas o conteúdo da caixa de edição com sua versão da "
+"página\n"
+"pois isto irá remover as mudanças da outra pessoa, o que é extremamente rude!"
+"</em></b>\n"
 
 #, python-format
 msgid "A backup of your changes is [%(backup_url)s here]."
@@ -256,8 +301,8 @@ msgstr ""
 #, fuzzy
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr ""
-"<b>Kiitos muutoksistasi.\n"
-"Huolellisuttasi arvostetaan.</b>"
+"<b>Obrigado por suas mudanças.\n"
+"Sua atenção aos detalhes é apreciada.</b>"
 
 #, python-format
 msgid ""
@@ -305,7 +350,7 @@ msgid "Info"
 msgstr ""
 
 msgid "Edit"
-msgstr "Muokkaa"
+msgstr ""
 
 msgid "UnSubscribe"
 msgstr ""
@@ -324,7 +369,7 @@ msgstr ""
 
 #, fuzzy
 msgid "View"
-msgstr "n�yt�"
+msgstr "visualizar"
 
 msgid "Up"
 msgstr ""
@@ -338,33 +383,33 @@ msgstr ""
 
 #, fuzzy, python-format
 msgid "You are not allowed to do %s on this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
-#, fuzzy
 msgid "Login"
-msgstr " Kirjoittaudu sis��n "
+msgstr ""
 
 #, python-format
 msgid " %s and try again."
 msgstr ""
 
 msgid "Can't work out query"
-msgstr ""
+msgstr "Não posso elaborar a busca"
 
-#, python-format
+#, fuzzy, python-format
 msgid "%(hits)d results out of %(pages)d pages."
-msgstr ""
+msgstr "%(hits)d acertos de um total de %(pages)d páginas procuradas."
 
 #, python-format
 msgid "%.2f seconds"
 msgstr ""
 
+#, fuzzy
 msgid "match"
-msgstr ""
+msgstr " combina"
 
 #, fuzzy
 msgid "matches"
-msgstr "Muut"
+msgstr " combinam"
 
 msgid "Open editor on double click"
 msgstr ""
@@ -395,7 +440,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Remember login information"
-msgstr "Yleiset Tiedot"
+msgstr "Informações genéricas"
 
 msgid "Subscribe to trivial changes"
 msgstr ""
@@ -411,12 +456,15 @@ msgid ""
 "Contact the owner of the wiki, who can enable email."
 msgstr ""
 
+#, fuzzy
 msgid "Please provide a valid email address!"
-msgstr ""
+msgstr "<b>Por favor, forneça um endereço de e-mail válido!</b>"
 
-#, python-format
+#, fuzzy, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr ""
+"<b>Não foi encontrada nenhuma conta que combine com o endereço '%(email)s'!</"
+"b>"
 
 #, python-format
 msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
@@ -458,115 +506,121 @@ msgstr ""
 msgid "The theme '%(theme_name)s' could not be loaded!"
 msgstr ""
 
+#, fuzzy
 msgid "User preferences saved!"
-msgstr ""
+msgstr "<b>Preferências de usuário salvas!</b>"
 
 msgid "Default"
-msgstr "Oletusarvo"
+msgstr "Padrão"
 
 msgid "<Browser setting>"
 msgstr ""
 
 #, fuzzy
 msgid "Save"
-msgstr " Talleta "
+msgstr " Salvar "
 
-#, fuzzy
 msgid "Logout"
-msgstr " Kirjoittaudu ulos "
+msgstr ""
 
 #, fuzzy
 msgid "Create Profile"
-msgstr " Luo Profiili "
+msgstr " Criar Perfil "
 
+#, fuzzy
 msgid "Mail me my account data"
-msgstr ""
+msgstr " Envie os dados de minha conta por e-mail "
 
 msgid "Name"
-msgstr "Nimi"
+msgstr "Nome"
 
 msgid "(Use FirstnameLastname)"
 msgstr ""
 
 msgid "Password"
-msgstr "Tunnussana"
+msgstr "Senha"
 
 #, fuzzy
 msgid "Password repeat"
-msgstr "Tunnussana"
+msgstr "Senha"
 
 msgid "(Only when changing passwords)"
 msgstr ""
 
 msgid "Email"
-msgstr "S�hk�posti"
+msgstr ""
 
 msgid "Preferred theme"
 msgstr ""
 
+#, fuzzy
 msgid "User CSS URL"
-msgstr ""
+msgstr "URL do CSS"
 
+#, fuzzy
 msgid "(Leave it empty for disabling user CSS)"
-msgstr ""
+msgstr "(\"None\" para desabilitar o CSS)"
 
 msgid "Editor size"
-msgstr "Editointikent�n koko"
+msgstr "Tamanho do editor"
 
 msgid "Time zone"
-msgstr "Aikavy�hyke"
+msgstr "Fuso-horário"
 
 msgid "Your time is"
-msgstr "Aikasi on"
+msgstr "Sua hora é"
 
 msgid "Server time is"
-msgstr "Palvelimen aika on"
+msgstr "A hora no servidor é"
 
 msgid "Date format"
-msgstr "P�iv�m��r�n muoto"
+msgstr "Formato da data"
 
 msgid "Preferred language"
 msgstr ""
 
+#, fuzzy
 msgid "General options"
-msgstr "Yleiset Asetukset"
+msgstr "Informações genéricas"
 
 msgid "Quick links"
 msgstr ""
 
 msgid "This list does not work, unless you have entered a valid email address!"
-msgstr ""
+msgstr "Esta lista só funciona se você entrou com um email válido!"
 
+#, fuzzy
 msgid "Subscribed wiki pages (one regex per line)"
-msgstr ""
+msgstr "Páginas cadastradas no wiki<br>(uma regex por linha)"
 
 msgid "No older revisions available!"
 msgstr ""
 
 #, python-format
 msgid "Diff for \"%s\""
-msgstr ""
+msgstr "Diferenças para \"%s\""
 
-#, python-format
+#, fuzzy, python-format
 msgid "Differences between revisions %d and %d"
-msgstr ""
+msgstr "<b>Diferenças entre a versão datada de %s e %s"
 
 #, python-format
 msgid "(spanning %d versions)"
 msgstr ""
 
+#, fuzzy
 msgid "No differences found!"
-msgstr ""
+msgstr "<b>Nenhuma differença encontrada!</b>"
 
-#, python-format
+#, fuzzy, python-format
 msgid "The page was saved %(count)d times, though!"
-msgstr ""
+msgstr "Embora a página tenha sido salva %(count)d%(times)s!"
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr ""
 
 msgid "General Information"
-msgstr "Yleiset Tiedot"
+msgstr "Informações genéricas"
 
 #, python-format
 msgid "Page size: %d"
@@ -575,32 +629,35 @@ msgstr ""
 msgid "SHA digest of this page's content is:"
 msgstr ""
 
+#, fuzzy
 msgid "The following users subscribed to this page:"
-msgstr ""
+msgstr "<b>Você foi cadastrado a esta página.</b>"
 
+#, fuzzy
 msgid "This page links to the following pages:"
-msgstr ""
+msgstr "Esta página tem links para as seguintes páginas:<br>"
 
 msgid "Date"
-msgstr "P�iv�m��r�"
+msgstr "Data"
 
 msgid "Size"
-msgstr "Koko"
+msgstr "Tamanho"
 
 msgid "Diff"
 msgstr ""
 
+#, fuzzy
 msgid "Editor"
-msgstr "Editori"
+msgstr "Tamanho do editor"
 
 msgid "Comment"
-msgstr "Huomautus"
-
-msgid "Action"
 msgstr ""
 
+msgid "Action"
+msgstr "Ação"
+
 msgid "view"
-msgstr "n�yt�"
+msgstr "visualizar"
 
 msgid "raw"
 msgstr ""
@@ -608,56 +665,59 @@ msgstr ""
 msgid "print"
 msgstr ""
 
+#, fuzzy
 msgid "revert"
-msgstr "palauta"
+msgstr "Previsão"
 
 #, python-format
 msgid "Revert to revision %(rev)d."
 msgstr ""
 
 msgid "edit"
-msgstr "muokkaa"
+msgstr ""
 
 msgid "get"
-msgstr "hae"
+msgstr ""
 
 msgid "del"
-msgstr "poista"
+msgstr ""
 
 msgid "N/A"
 msgstr ""
 
 msgid "Revision History"
-msgstr "Versiohistoria"
+msgstr "Histórico de Revisões"
 
+#, fuzzy
 msgid "No log entries found."
-msgstr ""
+msgstr "<b>Nenhuma differença encontrada!</b>"
 
 #, python-format
 msgid "Info for \"%s\""
-msgstr ""
+msgstr "Informação para  \"%s\""
 
 #, python-format
 msgid "Show \"%(title)s\""
-msgstr "N�yt� \"%(title)s\""
+msgstr ""
 
 #, fuzzy
 msgid "General Page Infos"
-msgstr "Yleiset Tiedot"
+msgstr "Informações genéricas"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Show chart \"%(title)s\""
-msgstr "N�yt� \"%(title)s\""
+msgstr ""
 
 msgid "Page hits and edits"
 msgstr ""
 
+#, fuzzy
 msgid "You are not allowed to revert this page!"
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 #, fuzzy
 msgid "You are not allowed to subscribe to a page you can't read."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 msgid ""
 "This wiki is not enabled for mail processing. Contact the owner of the wiki, "
@@ -676,26 +736,30 @@ msgstr ""
 
 #, fuzzy
 msgid "Your subscribtion to this page has been removed."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Ninguém cadastrado a esta página, nenhuma mensagem enviada."
 
 msgid "Can't remove regular expression subscription!"
 msgstr ""
 
+#, fuzzy
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
 "subscription list."
 msgstr ""
+"<br>\n"
+"<b>Para descadastro, vá para seu perfil e delete esta página\n"
+"da lista de inscritas.</b>\n"
 
 #, fuzzy
 msgid "You have been subscribed to this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "<b>Você foi cadastrado a esta página.</b>"
 
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
 msgstr ""
 
 msgid "Submitted form data:"
-msgstr ""
+msgstr "Formulário de dados enviado:"
 
 msgid "Search Titles"
 msgstr ""
@@ -719,35 +783,36 @@ msgid "Exclude system pages"
 msgstr ""
 
 msgid "Plain title index"
-msgstr ""
+msgstr "Índice de texto puro"
 
 msgid "XML title index"
-msgstr ""
+msgstr "Índice de títulos em XML"
 
 msgid "Python Version"
-msgstr "Python Versio"
+msgstr ""
 
 msgid "MoinMoin Version"
-msgstr "MoinMoin Versio"
+msgstr ""
 
 #, python-format
 msgid "Release %s [Revision %s]"
-msgstr ""
+msgstr "Liberar %s [Revisão %s]"
 
 msgid "4Suite Version"
-msgstr "4Suite Versio"
+msgstr ""
 
 msgid "Number of pages"
-msgstr ""
+msgstr "Número de páginas"
 
+#, fuzzy
 msgid "Number of system pages"
-msgstr ""
+msgstr "Número de páginas"
 
 msgid "Accumulated page sizes"
 msgstr ""
 
 msgid "Entries in edit log"
-msgstr ""
+msgstr "Entradas no registro de edição"
 
 #, python-format
 msgid "%(logcount)s (%(logsize)s bytes)"
@@ -757,16 +822,16 @@ msgid "NONE"
 msgstr ""
 
 msgid "Global extension macros"
-msgstr ""
+msgstr "Macros de extensão global"
 
 msgid "Local extension macros"
-msgstr ""
+msgstr "Macros de extensão local"
 
 msgid "Global extension actions"
-msgstr ""
+msgstr "Ações de extensão global"
 
 msgid "Local extension actions"
-msgstr ""
+msgstr "Ações de extensão local"
 
 msgid "Installed parsers"
 msgstr ""
@@ -774,13 +839,13 @@ msgstr ""
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
 msgstr ""
 
-#, python-format
+#, fuzzy, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
-msgstr ""
+msgstr "Por favor, use a interface interativa para remover páginas!"
 
 #, python-format
 msgid "ERROR in regex '%s'"
-msgstr ""
+msgstr "ERRO na regex '%s'"
 
 #, python-format
 msgid "Bad timestamp '%s'"
@@ -809,13 +874,15 @@ msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
 "page."
 msgstr ""
+"Existe(m) <a href=\"%(link)s\">%(count)s anexo(s)</a> armazenados para esta "
+"página."
 
 msgid "Filename of attachment not specified!"
 msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(filename)s' does not exist!"
-msgstr "liite:%(filename)s / %(pagename)s"
+msgstr ""
 
 msgid ""
 "To refer to attachments on a page, use '''{{{attachment:filename}}}''', \n"
@@ -826,19 +893,17 @@ msgstr ""
 
 #, python-format
 msgid "No attachments stored for %(pagename)s"
-msgstr "Sivulla %(pagename)s ei ole liitteit�"
+msgstr "Nenhum anexo armazenado para %(pagename)s"
 
-#, fuzzy
 msgid "Edit drawing"
-msgstr "<h2>Muokkaa piirrosta</h2>"
+msgstr ""
 
-#, fuzzy
 msgid "Attached Files"
-msgstr "<h2>Liitetiedostot</h2>"
+msgstr ""
 
 #, fuzzy
 msgid "You are not allowed to attach a file to this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 msgid "New Attachment"
 msgstr ""
@@ -858,18 +923,18 @@ msgstr ""
 
 #, fuzzy
 msgid "Save as"
-msgstr " Talleta "
+msgstr " Salvar "
 
 msgid "Upload"
 msgstr ""
 
 #, fuzzy
 msgid "File attachments are not allowed in this wiki!"
-msgstr "Sinulla ei ole oikeutta postaa sivuja t�ss� wikiss�!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 #, fuzzy
 msgid "You are not allowed to save a drawing on this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 msgid ""
 "No file content. Delete non ASCII characters from the file name and try "
@@ -878,15 +943,15 @@ msgstr ""
 
 #, fuzzy
 msgid "You are not allowed to delete attachments on this page."
-msgstr "Sinulla ei ole oikeutta postaa sivuja t�ss� wikiss�!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 #, fuzzy
 msgid "You are not allowed to get attachments from this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 #, fuzzy
 msgid "You are not allowed to view attachments of this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 #, python-format
 msgid "Unsupported upload action: %s"
@@ -894,7 +959,7 @@ msgstr ""
 
 #, fuzzy, python-format
 msgid "Attachments for \"%(pagename)s\""
-msgstr "Sivulla %(pagename)s ei ole liitteit�"
+msgstr "Nenhum anexo armazenado para %(pagename)s"
 
 #, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
@@ -906,48 +971,48 @@ msgid ""
 "saved."
 msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(filename)s' deleted."
-msgstr "<h2>Liite '%(filename)s'</h2>"
+msgstr ""
 
 #, fuzzy, python-format
 msgid "Attachment '%(filename)s'"
-msgstr "<h2>Liite '%(filename)s'</h2>"
+msgstr "Nenhum anexo armazenado para %(pagename)s"
 
 msgid "Unknown file type, cannot display this attachment inline."
 msgstr ""
 
-#, python-format
+#, fuzzy, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
-msgstr "liite:%(filename)s / %(pagename)s"
+msgstr "Nenhum anexo armazenado para %(pagename)s"
 
 #, fuzzy
 msgid "You are not allowed to delete this page."
-msgstr "Sinulla ei ole oikeutta palauttaa t�t� sivua!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
 msgid "This page is already deleted or was never created!"
-msgstr ""
+msgstr "Esta página já está removida ou nunca foi criada!"
 
 msgid "Please use the interactive user interface to delete pages!"
-msgstr ""
+msgstr "Por favor, use a interface interativa para remover páginas!"
 
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
-msgstr "Sivu \"%s\" poistettiin onnistuneesti!"
+msgstr "Página \"%s\" foi removida com sucesso!"
 
 msgid "Really delete this page?"
-msgstr "Haluatko varmasti poistaa t�m�n sivun?"
+msgstr "Realmente remover esta página?"
 
 #, fuzzy
 msgid "Delete"
-msgstr " Poista "
+msgstr " Deletar "
 
 msgid "Optional reason for the deletion"
 msgstr ""
 
-#, python-format
+#, fuzzy, python-format
 msgid "No pages like \"%s\"!"
-msgstr ""
+msgstr "Nenhuma página combina com \"%s\"!"
 
 #, python-format
 msgid "Exactly one page like \"%s\" found, redirecting to page."
@@ -959,18 +1024,19 @@ msgstr ""
 
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
-msgstr ""
+msgstr "%(matchcount)d %(matches)s para \"%(title)s\""
 
 #, python-format
 msgid "Local Site Map for \"%s\""
-msgstr ""
+msgstr "Mapa local do site para \"%s\""
 
 #, fuzzy
 msgid "You are not allowed to rename pages in this wiki!"
-msgstr "Sinulla ei ole oikeutta postaa sivuja t�ss� wikiss�!"
+msgstr "Você não tem permissão para remover páginas neste wiki!"
 
+#, fuzzy
 msgid "Please use the interactive user interface to rename pages!"
-msgstr ""
+msgstr "Por favor, use a interface interativa para remover páginas!"
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
@@ -978,11 +1044,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Rename Page"
-msgstr "Tyhjenn� viesti"
+msgstr "Apagar mensagem"
 
 #, fuzzy
 msgid "New name"
-msgstr "Nimi"
+msgstr "Nome"
 
 msgid "Optional reason for the renaming"
 msgstr ""
@@ -994,18 +1060,20 @@ msgid ""
 "Try a different name."
 msgstr ""
 
-#, python-format
+#, fuzzy, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
-msgstr ""
+msgstr " (incluindo %(localwords)d %(pagelink)s)"
 
 #, python-format
 msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
 "(totalwords)d words%(localwords)s and are highlighted below:"
 msgstr ""
+"As seguintes %(badwords)d palavras não foram encontradas no dicionário com %"
+"(totalwords)d palavras%(localwords)s e estão destacadas abaixo:"
 
 msgid "Add checked words to dictionary"
-msgstr ""
+msgstr "Adicionar palavras selecionadas ao dicionário"
 
 msgid "No spelling errors found!"
 msgstr ""
@@ -1013,25 +1081,25 @@ msgstr ""
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
 
-#, python-format
+#, fuzzy, python-format
 msgid "Title Search: \"%s\""
-msgstr ""
+msgstr "Buscar título para \"%s\""
 
-#, python-format
+#, fuzzy, python-format
 msgid "Full Text Search: \"%s\""
-msgstr ""
+msgstr "Busca completa por \"%s\""
 
-#, python-format
+#, fuzzy, python-format
 msgid "Full Link List for \"%s\""
-msgstr ""
+msgstr "Busca completa por \"%s\""
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
-msgstr ""
+msgstr "Parâmetros de inclusão inválidos \"%s\"!"
 
-#, python-format
+#, fuzzy, python-format
 msgid "Nothing found for \"%s\"!"
-msgstr ""
+msgstr "Informação para  \"%s\""
 
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
@@ -1053,42 +1121,42 @@ msgstr ""
 msgid "Slide %(pos)d of %(size)d"
 msgstr ""
 
-#, fuzzy
 msgid "No orphaned pages in this wiki."
-msgstr "Sinulla ei ole oikeutta postaa sivuja t�ss� wikiss�!"
+msgstr "Nenhuma página órfã neste wiki."
 
 #, fuzzy, python-format
 msgid "No quotes on %(pagename)s."
-msgstr "Sivulla %(pagename)s ei ole liitteit�"
+msgstr "Nenhum anexo armazenado para %(pagename)s"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Upload of attachment '%(filename)s'."
-msgstr "<h2>Liite '%(filename)s'</h2>"
+msgstr ""
 
 #, python-format
 msgid "Drawing '%(filename)s' saved."
-msgstr "Piirrustus '%(filename)s' talletettu."
-
-#, python-format
-msgid "%(hours)dh %(mins)dm ago"
 msgstr ""
+
+#, fuzzy, python-format
+msgid "%(hours)dh %(mins)dm ago"
+msgstr "[%(hours)dh&nbsp;%(mins)dm&nbsp;atrás]"
 
 msgid "(no bookmark set)"
-msgstr ""
+msgstr "(nenhum marcador configurado)"
 
 #, python-format
 msgid "(currently set to %s)"
-msgstr ""
+msgstr "(atualmente configurado para %s)"
 
+#, fuzzy
 msgid "Delete Bookmark"
-msgstr ""
+msgstr "ajustar bookmark"
 
 #, fuzzy
 msgid "Set bookmark"
-msgstr "Haluatko varmasti poistaa t�m�n sivun?"
+msgstr "ajustar bookmark"
 
 msgid "set bookmark"
-msgstr ""
+msgstr "ajustar bookmark"
 
 msgid "[Bookmark reached]"
 msgstr ""
@@ -1112,21 +1180,20 @@ msgstr ""
 msgid "Download XML export of this wiki"
 msgstr ""
 
-#, fuzzy
 msgid "No wanted pages in this wiki."
-msgstr "Sinulla ei ole oikeutta postaa sivuja t�ss� wikiss�!"
+msgstr "Nenhuma página solicitada neste wiki."
 
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
-msgstr "Luo uusi piirrustus \"%(filename)s\""
+msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Upload new attachment \"%(filename)s\""
-msgstr "Luo uusi piirrustus \"%(filename)s\""
+msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Edit drawing %(filename)s"
-msgstr "Luo uusi piirrustus \"%(filename)s\""
+msgstr ""
 
 #, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
@@ -1152,11 +1219,11 @@ msgstr ""
 
 #, python-format
 msgid "%(errortype)s processing error"
-msgstr ""
+msgstr "%(errortype)s erros de processamento"
 
 #, fuzzy, python-format
 msgid "for this page (cached %(date)s)"
-msgstr " t�lle sivulle (v�limuistissa %(date)s)"
+msgstr " para esta página (cached %(date)s)"
 
 msgid "Charts are not available!"
 msgstr ""
@@ -1170,8 +1237,9 @@ msgid ""
 "red=edit"
 msgstr ""
 
+#, fuzzy
 msgid "date"
-msgstr "p�iv�m��r�"
+msgstr "Data"
 
 msgid "# of hits"
 msgstr ""
@@ -1186,41 +1254,43 @@ msgid "# of pages of this size"
 msgstr ""
 
 msgid "Others"
-msgstr "Muut"
+msgstr ""
 
 msgid "Distribution of User-Agent Types"
 msgstr ""
 
+#, fuzzy
 msgid "Click to do a full-text search for this title"
 msgstr ""
+"Clique aqui para fazer uma busca completa no texto procurando este título"
 
 msgid "Clear message"
-msgstr "Tyhjenn� viesti"
+msgstr "Apagar mensagem"
 
 #, python-format
 msgid "last edited %(time)s by %(editor)s"
 msgstr ""
 
-#, python-format
+#, fuzzy, python-format
 msgid "last modified %(time)s"
-msgstr ""
+msgstr "(última modificação %s)"
 
 msgid "Search:"
 msgstr ""
 
-#, fuzzy
 msgid "Text"
-msgstr "Muokkaa"
+msgstr ""
 
 #, fuzzy
 msgid "Titles"
-msgstr "Koko"
+msgstr "Índice de títulos em XML"
 
 msgid "Unsubscribe"
 msgstr ""
 
+#, fuzzy
 msgid "More Actions:"
-msgstr ""
+msgstr "Ação"
 
 msgid "Show Raw Text"
 msgstr ""
@@ -1228,19 +1298,19 @@ msgstr ""
 msgid "Show Print View"
 msgstr ""
 
-#, fuzzy
 msgid "Attach File"
-msgstr "<h2>Liitetiedostot</h2>"
+msgstr ""
 
 #, fuzzy
 msgid "Delete Page"
-msgstr " Poista "
+msgstr " Deletar "
 
 msgid "Show Like Pages"
 msgstr ""
 
+#, fuzzy
 msgid "Show Local Site Map"
-msgstr ""
+msgstr "Mapa local do site para \"%s\""
 
 msgid "Do"
 msgstr ""
@@ -1256,7 +1326,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Show Changes"
-msgstr "Talleta muutokset"
+msgstr "Salvar Mudanças"
 
 msgid "Get Info"
 msgstr ""
@@ -1265,42 +1335,40 @@ msgstr ""
 msgid "Show %s days."
 msgstr ""
 
-#, fuzzy
 msgid "EditText"
-msgstr "Muokkaa"
+msgstr ""
 
 msgid "Immutable page"
 msgstr ""
 
+#, fuzzy
 msgid "Or try one of these actions:"
-msgstr ""
+msgstr "Ou tente uma destas ações: "
 
 msgid "Page"
 msgstr ""
 
-#, fuzzy
 msgid "Trail"
-msgstr "S�hk�posti"
+msgstr ""
 
 msgid "User"
 msgstr ""
 
-#, fuzzy
 msgid "Line"
-msgstr " Kirjoittaudu sis��n "
+msgstr ""
 
 msgid "Deletions are marked like this."
-msgstr ""
+msgstr "Deleções são marcadas assim."
 
 msgid "Additions are marked like this."
-msgstr ""
+msgstr "Adições são marcadas assim."
 
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr ""
 
 msgid "Mail sent OK"
-msgstr "S�hk�posti l�hetetty onnistuneesti"
+msgstr "Mail enviado OK"
 
 msgid "[\"<html>\"]"
 msgstr ""
@@ -1310,10 +1378,11 @@ msgstr ""
 
 #, fuzzy
 msgid "RecentChanges"
-msgstr "Talleta muutokset"
+msgstr "Salvar Mudanças"
 
+#, fuzzy
 msgid "TitleIndex"
-msgstr ""
+msgstr "Índice de títulos em XML"
 
 msgid "WordIndex"
 msgstr ""
@@ -1330,8 +1399,9 @@ msgstr ""
 msgid "HelpOnFormatting"
 msgstr ""
 
+#, fuzzy
 msgid "UserPreferences"
-msgstr ""
+msgstr "<b>Preferências de usuário salvas!</b>"
 
 msgid "WikiLicense"
 msgstr ""
@@ -1360,47 +1430,119 @@ msgstr ""
 msgid "Sun"
 msgstr ""
 
-#, fuzzy
 msgid "AttachFile"
-msgstr "<h2>Liitetiedostot</h2>"
+msgstr ""
 
 #, fuzzy
 msgid "DeletePage"
-msgstr " Poista "
+msgstr " Deletar "
 
 msgid "LikePages"
 msgstr ""
 
+#, fuzzy
 msgid "LocalSiteMap"
-msgstr ""
+msgstr "Mapa local do site para \"%s\""
 
 #, fuzzy
 msgid "RenamePage"
-msgstr "Tyhjenn� viesti"
+msgstr "Apagar mensagem"
 
 msgid "SpellCheck"
 msgstr ""
 
-#, fuzzy
-#~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-#~ msgstr "Sivu \"%s\" poistettiin onnistuneesti!"
+#~ msgid "Send mail notification"
+#~ msgstr "Enviar notificação por mail"
+
+#~ msgid "Nobody subscribed to this page, no mail sent."
+#~ msgstr "Ninguém cadastrado a esta página, nenhuma mensagem enviada."
+
+#~ msgid "Unknown action"
+#~ msgstr "Ação desconhecida"
+
+#~ msgid "Multiple matches for \"%s...%s\""
+#~ msgstr "Múltiplos resultados para \"%s...%s\""
 
 #, fuzzy
+#~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
+#~ msgstr "Página \"%s\" foi removida com sucesso!"
+
+#, fuzzy
+#~ msgid "Really delete bookmark?"
+#~ msgstr "Realmente remover esta página?"
+
+#~ msgid "Update my bookmark timestamp"
+#~ msgstr "Atualizar data e hora de meu bookmark"
+
 #~ msgid "of this page"
-#~ msgstr "Luo t�m� sivu"
+#~ msgstr "desta página"
+
+#, fuzzy
+#~ msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
+#~ msgstr ""
+#~ " navegando, fazendo uma busca no título %(titlesearch)s, fazendo uma "
+#~ "busca no texto %(textsearch)s ou um índice<br>"
 
 #, fuzzy
 #~ msgid "Site"
-#~ msgstr "Koko"
+#~ msgstr "Tamanho"
+
+#, fuzzy
+#~ msgid "Title: %(titlesearch)s[[BR]]Text: %(textsearch)s"
+#~ msgstr ""
+#~ " navegando, fazendo uma busca no título %(titlesearch)s, fazendo uma "
+#~ "busca no texto %(textsearch)s ou um índice<br>"
+
+#, fuzzy
+#~ msgid "You are already subscribed to this page."
+#~ msgstr "<b>Você já está cadastrado a esta página.</b>"
+
+#~ msgid "Number of backup versions"
+#~ msgstr "Número de versões de backup"
 
 #~ msgid "Reduce editor size"
-#~ msgstr "Pienenn� editointi ikkunan kokoa"
+#~ msgstr "Reduzir tamanho do editor"
 
 #~ msgid "Create this page"
-#~ msgstr "Luo t�m� sivu"
+#~ msgstr "Criar esta página"
+
+#~ msgid "Alternatively, use one of these templates:"
+#~ msgstr "Alternativamente, podem ser usados templates:"
+
+#, fuzzy
+#~ msgid ""
+#~ "To create your own templates, add a page with a name matching the regex "
+#~ "\"%(page_template_regex)s\"."
+#~ msgstr ""
+#~ "Para criar seus próprios templates, crie uma página terminada em Template."
+
+#, fuzzy
+#~ msgid "Account"
+#~ msgstr "Ação"
+
+#, fuzzy
+#~ msgid "time"
+#~ msgstr " vez"
+
+#, fuzzy
+#~ msgid "times"
+#~ msgstr " vezes"
 
 #~ msgid "Your email address"
-#~ msgstr "S�hk�postisi on"
+#~ msgstr "Seu endereço de email"
 
-#~ msgid "Detailed Information"
-#~ msgstr "Yksityiskohtaiset Tiedot"
+#~ msgid "<b>Cookie deleted!</b>"
+#~ msgstr "<b>Cookie deletado!</b>"
+
+#~ msgid ""
+#~ "Sent a mail notification to these addresses: %s\n"
+#~ "<br>Result was: "
+#~ msgstr ""
+#~ "Enviada notificação por e-mail para estes endereços: %s\n"
+#~ "<br>O resultado foi: "
+
+#~ msgid "To login from a different machine, use this URL: "
+#~ msgstr "Para efetuar o login de uma máquina diferente, use esta URL: "
+
+#~ msgid "<b>NONE</b>"
+#~ msgstr "<b>NENHUM</b>"

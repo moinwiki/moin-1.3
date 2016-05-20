@@ -124,8 +124,6 @@ Ova stranica je promenjena od strane %(editor)s :
 ''':
 '''Nijedna razlika nije pronađena!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)sObnova za "%(pagename)s"''',
 '''Trivial ''':
 '''Sitna izmena''',
 '''Status of sending notification mails:''':

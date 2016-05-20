@@ -157,7 +157,7 @@ class Parser:
             else:
                 text = url
                 url = ""
-        elif config.allow_subpages and url[0] == wikiutil.CHILD_PREFIX:
+        elif config.allow_subpages and url.startswith(wikiutil.CHILD_PREFIX):
             # fancy link to subpage [wiki:/SubPage text]
             return self._word_repl(url, text)
         elif Page(self.request, url).exists():
@@ -384,9 +384,9 @@ class Parser:
         # check for parent links
         # !!! should use wikiutil.AbsPageName here, but setting `text`
         # correctly prevents us from doing this for now
-        if config.allow_subpages and word.startswith(self.PARENT_PREFIX):
+        if config.allow_subpages and word.startswith(wikiutil.PARENT_PREFIX):
             if not text: text = word
-            word = '/'.join(filter(None, self.formatter.page.page_name.split('/')[:-1] + [word[3:]]))
+            word = '/'.join(filter(None, self.formatter.page.page_name.split('/')[:-1] + [word[wikiutil.PARENT_PREFIX_LEN:]]))
 
         if not text:
             # if a simple, self-referencing link, emit it as plain text
@@ -394,7 +394,7 @@ class Parser:
                 return self.formatter.text(word)
             text = word
         if config.allow_subpages and word.startswith(wikiutil.CHILD_PREFIX):
-            word = self.formatter.page.page_name + word
+            word = self.formatter.page.page_name + '/' + word[wikiutil.CHILD_PREFIX_LEN:]
         return (self.formatter.pagelink(1, word) +
                 self.formatter.text(text) +
                 self.formatter.pagelink(0, word))

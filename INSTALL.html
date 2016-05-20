@@ -782,7 +782,7 @@ Alias /wiki/ "/usr/share/moin/htdocs/"
 &lt;/Directory&gt;
 
 ScriptAlias /mywiki "/usr/share/moin/mywiki/cgi-bin/moin.cgi"
-&lt;Directory "/usr/share/moin/mywiki/cgi-bin/moin.cgi"&gt;
+&lt;Directory "/usr/share/moin/mywiki/cgi-bin"&gt;
    Order deny,allow
    Allow from all
 &lt;/Directory&gt;
@@ -1085,8 +1085,7 @@ LoadModule rewrite_module modules/mod_rewrite.so
 
 <h4 id="head-7b2283d5184932488fe551b2cee08e28fb18230c">Use a wrapper script</h4>
 
-<p><a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> 1.2.x came with a <tt>moin_modpy.py</tt> wrapper script, and this could be used by changing the <tt>PythonPath</tt> and <tt>PythonHandler</tt> directives as shown in the <tt>moin_modpy.htaccess</tt> file. </p>
-<p>This wrapper is not supplied with <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> 1.3.x </p>
+<p><a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> come with a <tt>moinmodpy.py</tt> wrapper script, and this could be used by changing the <tt>PythonPath</tt> and <tt>PythonHandler</tt> directives as shown in the <tt>moinmodpy.htaccess</tt> file. The wrapper was named <tt>moin_modpy.py</tt> in <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> 1.2. </p>
 
 <h4 id="head-f2a32b29f0aff0101a91c87d692d063a6e0a4ec2">Fix mod_python</h4>
 
@@ -1454,8 +1453,8 @@ $ ./moin.py
 Serving on localhost:8000, documents in '/usr/share/moin/wiki/htdocs'
 </pre>
 <p>Test your wiki at <a href="http://localhost:8000/"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://localhost:8000/</a> </p>
-<p>To stop the server, interrupt it with <tt>Control&nbsp;+&nbsp;C</tt>. </p>
 <p>On Windows, you can double click <tt>moin.py</tt> to start the server. A new terminal window will be opened. Close the window or press <tt>CTRL</tt> + <tt>Pause</tt> to stop the server. </p>
+<p>On Unix, interrupt the server with <tt>Control&nbsp;+&nbsp;C</tt> in order to shut it down. </p>
 
 <h3 id="head-3da0e8e1ef007d5e29a21fda332f1982c4e7140b">Serving port 80 on Unix</h3>
 
@@ -1517,13 +1516,14 @@ python setup.py install --install-data='/usr/local'
 </pre>
 <ul>
 <li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/idea.png" alt="(!)" height="15" width="15"> The --install-data='/usr/local' will put the shared data in the convenient <tt>'/usr/local/share/moin'</tt> folder. If you don't use it, your shared data will be at <tt>'/System/Library/Frameworks/Python.framework/Versions/2.3/share/moin'</tt>. On OX X '/usr' belong to Apple, and it is safer to install in '/usr/local'. </p>
+<p><img src="wiki/htdocs/modern/img/idea.png" alt="(!)" height="15" width="15"> The default Python used by Apache is the framework one supplied by Apple.  If you have added another Python version such as through <a class="nonexistent" href="http://moinmaster.wikiwikiweb.de/DarwinPorts">DarwinPorts</a> or Fink, then you should substitute "/usr/bin/python" for "python" above or you should substitute the specific path for the Python that will be used by Apache. </p>
 </li>
 </ul>
-<p>Now installation is finished. You will not have to repeat this step unless you upgrade moin. </p>
+<p>Now the installation is finished. You will not have to repeat this step unless you upgrade moin. </p>
 
 <h2 id="head-0cd30234950a8438af556cb7a93ef4dd346358a3">Creating a wiki</h2>
 
-<p>After you installed the software, you create a wiki. You may create several wikis if you need. </p>
+<p>After you have installed the software, you need to create a wiki. You may create several wikis if you need. </p>
 
 <h3 id="head-df71f35b5f6ca32f75dd1e1d9c71a7113906c308">Copying a template wiki</h3>
 
@@ -1561,7 +1561,7 @@ chmod -R o-rwx mywiki
 <pre>
 pico /etc/httpd/httpd.conf
 </pre>
-<p>Go the end of the Aliases section and edit like the example below: 
+<p>Go to the end of the Aliases section and edit like the example below: 
 </p>
 <pre>
     Alias /wiki/ "/usr/local/share/moin/htdocs/"      
@@ -1592,7 +1592,7 @@ exit
 
 <p>The wiki you created is a new "Untitled Wiki", using the default configuration. You want to give a better name and setup some configuration values. Open <tt>wikiconfig.py</tt> and read the comments. You can edit the file with any text editor, like pico, emacs, or BBEdit.  </p>
 <ul>
-<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/idea.png" alt="(!)" height="15" width="15"> Note that the file belong to user and group www:www. You can edit the file as root, or change the group of the file to yourself with <tt>chown&nbsp;www:username&nbsp;wikiconfig.py</tt>. </p>
+<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/idea.png" alt="(!)" height="15" width="15"> Note that the file belongs to user and group www:www. You can edit the file as root, or change the group of the file to yourself with <tt>chown&nbsp;www:username&nbsp;wikiconfig.py</tt>. </p>
 </li>
 </ul>
 <p>For more help on configuration, see <a href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration">HelpOnConfiguration</a>. </p>
@@ -1602,7 +1602,7 @@ exit
 
 <h3 id="head-223faa3a0e587eb269f79e3faf05d3851d778e8d">RSS</h3>
 
-<p>If you want to that your wiki will support RSS and Mozilla Firefox Live Bookmarks features, you have to install PyXML. Get PyXML from <a href="http://sourceforge.net/projects/pyxml/"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://sourceforge.net/projects/pyxml/</a> and install according to the instructions. </p>
+<p>If you want your wiki to support RSS and Mozilla Firefox Live Bookmarks features, you have to install PyXML. Get PyXML from <a href="http://sourceforge.net/projects/pyxml/"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://sourceforge.net/projects/pyxml/</a> and install according to the instructions. </p>
 <a id="bottom_Include_HelpOnInstalling(2f)ApacheOnMacOsx"></a>
 
 </div>
@@ -1969,7 +1969,7 @@ ScriptAlias /mywiki    "C:/Moin/mywiki/moin.cgi"
 
 <h3 id="head-060b14babb0736cc50274d972342cb03248902b9">Requirements</h3>
 
-<p>Before you install <a class="interwiki" title="MoinMoin" href="http://moinmaster.wikiwikiweb.de/MoinMoin"><img src="wiki/htdocs/modern/img/moin-inter.png" alt="[MoinMoin]" height="16" width="16">MoinMoin</a>, make sure you have the necessary infra-structure in place, namely the <em>Internet Information Services</em> webserver (any version should be OK), and a <em>Python</em> installation (version 2.2.2 is required, 2.3 or higher is recommended). </p>
+<p>Before you install <a class="interwiki" title="MoinMoin" href="http://moinmoin.wikiwikiweb.de/MoinMoin"><img src="wiki/htdocs/modern/img/moin-inter.png" alt="[MoinMoin]" height="16" width="16">MoinMoin</a>, make sure you have the necessary infra-structure in place, namely the <em>Internet Information Services</em> webserver (any version should be OK), and a <em>Python</em> installation (version 2.2.2 is required, 2.3 or higher is recommended). </p>
 <p>In the following description, we assume that you have installed or will install things to these locations: </p>
 <ul>
 <li><p> IIS to its default location </p>
@@ -1980,8 +1980,7 @@ ScriptAlias /mywiki    "C:/Moin/mywiki/moin.cgi"
 </li>
 </ul>
 <p>Quite often, you might want to install things elsewhere, which is no problem at all; you just have to adapt any paths that appear in a command or config file to the locations you have chosen. </p>
-<p>Old: This installation procedure was tested with IIS 5 for Windows running on Windows 2000sp2, and using Python 2.2.2. </p>
-<p>This installation procedure was tested with IIS 5.1 for Windows running on Windows XPsp2, using Python 2.4. </p>
+<p>This installation procedure was tested with IIS 5.1 for Windows running on Windows XP SP2, using Python 2.4. </p>
 
 <h3 id="head-5ba445062f460e5652dc22727c85420aeece6353">Preparation</h3>
 
@@ -2100,7 +2099,7 @@ document.write('<a href="#" onClick="return togglenumber(\'CA-acbc60d12efe38198c
 <p>Right click on <em>Default Web Site</em> and choose <em>New =&gt; Virtual directory</em>. This will bring up a wizard with the manditory useless first screen, hit next. Enter "<tt>wiki</tt>" for the alias name and hit next. Browse to "<tt>C:\Moin\share\moin\htdocs</tt>" and hit next. Leave the <em>Access permissions</em> at their defaults and hit next. And now you're done, hit finish! </p>
 <p>Now follow the same steps, but set the alias to "<tt>mywiki</tt>" and the path to "<tt>C:\Moin\mywiki</tt>".  </p>
 <p>Use IIS Admin to remove permissions to read the data directory: expand the "<tt>mywiki</tt>" node, right click on <tt>data</tt>, select <tt>Properties</tt>, and uncheck <tt>Read</tt>. Repeat these steps with the <tt>underlay</tt> directory. </p>
-<p>Now you need to setup the 'mywiki' alias so that it will run Python to interpret <tt>.cgi</tt> files. Right click on your new 'mywiki' alias and choose <em>Properties</em>. On the first tab (<em>Virtual Directory</em>), click the <em>Configuration</em> button. The first tab is the <em>App Mappings</em> tab, which defines which programs to use for each file exetension. Click <em>Add</em>. Browse to your <tt>python.exe</tt> (probably something like <tt>c:\pythonXX\python.exe</tt>). Then add <tt>-u&nbsp;%s&nbsp;%s</tt> after the Python executable path. The <em>Executable</em> line will look something like this: <tt>"C:\Python22\python.exe"&nbsp;-u&nbsp;"%s"&nbsp;"%s"</tt>. In the <em>Extension</em> box enter <tt>.cgi</tt> with the begining period. Confirm that the <em>Check that file exists</em> option is not checked (if it is, MoinMoin won't be able to display sub pages). Ok, you're done with the alias configuration, click <em>OK</em> several times to get back out of all the dialog boxes. </p>
+<p>Now you need to setup the 'mywiki' alias so that it will run Python to interpret <tt>.cgi</tt> files. Right click on your new 'mywiki' alias and choose <em>Properties</em>. On the first tab (<em>Virtual Directory</em>), click the <em>Configuration</em> button. The first tab is the <em>App Mappings</em> tab, which defines which programs to use for each file exetension. Click <em>Add</em>. Browse to your <tt>python.exe</tt> (probably something like <tt>c:\pythonXX\python.exe</tt>). Then add <tt>-u&nbsp;"%s"&nbsp;"%s"</tt> after the Python executable path. The <em>Executable</em> line will look something like this: <tt>"C:\Python22\python.exe"&nbsp;-u&nbsp;"%s"&nbsp;"%s"</tt>. In the <em>Extension</em> box enter <tt>.cgi</tt> with the begining period. Make sure that the <em>Check that file exists</em> option is not checked (if it is, MoinMoin won't be able to display sub pages). Ok, you're done with the alias configuration, click <em>OK</em> several times to get back out of all the dialog boxes. </p>
 <p>If you add another wiki instance, you'll only need to setup the reference to its folder, they can safely share the "<tt>wiki</tt>" alias which points to static files only. </p>
 <p>That is all, try to access your new-born wiki with the URL "<tt>http://127.0.0.1/mywiki/</tt>". You should see the FrontPage, try to edit and save it, and if that works, see if your edit is reflected on the RecentChanges page. </p>
 <p>Finally, edit "<tt>wikiconfig.py</tt>" and at least change "<tt>sitename</tt>" and "<tt>logo_url</tt>" to some personal values: 
@@ -2142,7 +2141,6 @@ allowed_actions = ['DeletePage', 'AttachFile', 'RenamePage', ]
 <p>If you see an error like Error 13: Permission Denied, it means that your web user permissions for the files do not have write/modify enabled. </p>
 <p>If the page never loads after hitting <tt>Save&nbsp;Changes</tt>, you should check the permissions of the <tt>data</tt> directory.  Make sure the IUSR_COMPUTERNAME user has modify permissions. </p>
 <p>If some images like <a href="http://moinmaster.wikiwikiweb.de/InterWiki">InterWiki</a> and <a class="nonexistent" href="http://moinmaster.wikiwikiweb.de/WorldWideWeb">WorldWideWeb</a> don't show up, it could have been because of incorrect permissions or a bad "<tt>url_prefix</tt>" in "<tt>wikiconfig.py</tt>" or the cached pages need to be updated by an Edit or deleting them in the data folder. </p>
-<p>If you cannot access pages that have characters in their names which are not in the system codepage (e. g. using Chinese characters on an English Windows server), this is due to a bug in the internal IIS charset conversion. If you see a traceback instead of a pagename that contains questionmarks, please contact <a class="interwiki" title="MoinMoin" href="http://moinmaster.wikiwikiweb.de/AlexanderSchremmer"><img src="wiki/htdocs/modern/img/moin-inter.png" alt="[MoinMoin]" height="16" width="16">AlexanderSchremmer</a>. Especially, contact him if you want to help the core team to find a durable solution. </p>
 <a id="bottom_Include_HelpOnInstalling(2f)InternetInformationServer"></a>
 
 </div>

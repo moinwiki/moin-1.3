@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,7 +202,7 @@ msgid "No differences found!\n"
 msgstr ""
 
 #, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
 msgstr ""
 
 msgid "Trivial "
@@ -217,6 +217,13 @@ msgstr ""
 
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
+msgstr ""
+
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr ""
+
+msgid "Page could not get locked. Missing 'current' file?"
 msgstr ""
 
 msgid "You are not allowed to edit this page!"
@@ -544,6 +551,9 @@ msgstr ""
 
 #, python-format
 msgid "The page was saved %(count)d times, though!"
+msgstr ""
+
+msgid "(ignoring whitespace)"
 msgstr ""
 
 msgid "Ignore changes in the amount of whitespace"

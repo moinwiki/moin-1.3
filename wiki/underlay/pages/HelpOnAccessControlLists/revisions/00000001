@@ -80,7 +80,7 @@ For example, the following ACL tells that `SomeUser` is able to read and write t
 To make the system more flexible, there are also two modifiers: the prefixes '+' and '-'. When they are used, processing will only stop when requested right for some specific user matches the user and right(s) in the given ACL entry, but will continue if you are looking for another right (or another user).
 In case of '+' the right will be given, in case of '-' the right will be denied (for the stopping case).
 
-As an example, the above ACL could also be written as:
+As an example, assuming that `SomeUser` is a member of `SomeGroup`, the above ACL could also be written as:
 {{{
 #acl -SomeUser:admin SomeGroup:read,write,admin All:read
 }}}
@@ -146,8 +146,8 @@ These are the configuration items used to setup ACLs on a moin site.
 ||acl_enabled||{{{0}}}||If true will enable ACL support.||
 ||acl_rights_before||{{{""}}}||applied '''before''' page or default ACLs||
 ||acl_rights_after||{{{""}}}||applied '''after''' page or default ACLs||
-||acl_rights_default||{{{"Trusted:read,write,delete,revert Known:read,write,delete,revert All:read,write"}}}||'''only''' used when '''no other''' ACLs are given on the page being accessed||
-||acl_rights_valid||{{{["read", "write", "delete", "revert", "admin"]}}}||These are the acceptable (known) rights (and the place to extend, if necessary).||
+||acl_rights_default||{{{"Trusted:read,write,delete,revert \}}}[[BR]]{{{Known:read,write,delete,revert \}}}[[BR]]{{{All:read,write"}}}||'''only''' used when '''no other''' ACLs are given on the page being accessed||
+||acl_rights_valid||`["read", ` `"write", ` `"delete", ` `"revert", ` `"admin"]`||These are the acceptable (known) rights (and the place to extend, if necessary).||
 
 So you know now what it ''does'', but what does it ''mean''?
  * "before" means '''forcing stuff''' (this is because of first match algorithm)
@@ -180,7 +180,7 @@ A page named `AdminGroup` could define a group of that name and could be also pr
 Any other text not in first level list will be ignored.
 }}}
 
-/!\ a first level list is one with only one space before the asterisk (and there also has to be one space after the asterisk). The following won't work:
+/!\ A first level list is one with only one space before the asterisk (and there also has to be one space after the asterisk). The following won't work:
 {{{
   * some user
 -- two spaces so doesn't work
@@ -190,6 +190,9 @@ You can configure which page names are considered as group definition pages (e.g
 {{{
 page_group_regex =  '[a-z]Group$'    # this is the default
 }}}
+
+/!\ If changes to the group page do not take effect, let MoinMoin rebuild the cache by simply removing all files in the directory {{{path_to_your_wiki_instance/data/cache/wikidicts/}}}
+
 
 == Usage cases ==
 

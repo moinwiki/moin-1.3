@@ -47,6 +47,13 @@ def listdir(path):
     return names
 
 
+def makedir(newdir):
+    """ Create a directory, if it doesn't exist """
+    try:
+        os.mkdir(newdir)
+    except OSError:
+        pass
+
 def copy_dir(dir_from, dir_to):
     """ Copy a complete directory """
     print "%s/ -> %s/" % (dir_from, dir_to)

@@ -1,0 +1,7 @@
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language pl
+
+Lista nieistniejących stron, zawierająca również listy stron, które się do nich odnoszą:
+[[WantedPages]]

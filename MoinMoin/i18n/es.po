@@ -1,10 +1,19 @@
-# MoinMoin translation
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format gettext
+#language es
+
+#
+# MoinMoin es system text translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: 2004-11-21 00:00+0000\n"
 "Last-Translator: Mauricio Hernandez Z <mhz@esfera.cl>\n"
 "Language-Team: Spanish <moin-devel@lists.sourceforge.net>\n"
@@ -245,8 +254,8 @@ msgid "No differences found!\n"
 msgstr "¡No se encontraron diferencias!\n"
 
 #, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
-msgstr "[%(sitename)s] %(trivial)s Actualización de \"%(pagename)s\""
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
+msgstr "[%(sitename)s] %(trivial)s Actualización de \"%(pagename)s\" por %(username)s"
 
 msgid "Trivial "
 msgstr "Trivial"
@@ -261,6 +270,13 @@ msgstr "[%(lang)s] %(recipients)s: %(status)s"
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## respaldo de la página \"%(pagename)s\" enviado %(date)s"
+
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr "La página no pudo ser bloqueada. Error inesperado (errno=%d)."
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr "La página no pudo ser bloqueada. No se encuentra el archivo 'current'"
 
 msgid "You are not allowed to edit this page!"
 msgstr "¡No tienes permisos para editar esta página!"
@@ -631,6 +647,9 @@ msgstr "¡No se encontraron diferencias!"
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "¡Aun así, la página se guardó %(count)d veces!"
+
+msgid "(ignoring whitespace)"
+msgstr "(espacio en blanco ignorado)"
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignorar cambios en la cantidad de espacios en blanco"

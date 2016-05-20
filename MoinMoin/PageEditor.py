@@ -246,7 +246,7 @@ class PageEditor(Page):
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.""") % {
                         'difflink': self.link_to(self.request,
-                                                 querystr='action=diff&amp;rev=%d' % rev)
+                                                 querystr='action=diff&rev=%d' % rev)
                         }
                     rev = self.current_rev()
             if conflict_msg:
@@ -525,7 +525,7 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
             'You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.\n\n'
             "The following page has been changed by %(editor)s:\n"
             "%(pagelink)s\n\n", formatted=False) % {
-                'editor': user.getUserIdentification(self.request),
+                'editor': self.uid_override or user.getUserIdentification(self.request),
                 'pagelink': self.request.getQualifiedURL(self.url(self.request)),
                 'sitename': self.cfg.sitename or self.request.getBaseURL(),
         }
@@ -549,10 +549,11 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
                 mailBody = mailBody + _("No differences found!\n", formatted=False)
         
         return util.mail.sendmail(self.request, emails,
-            _('[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"', formatted=False) % {
-                'trivial' : (trivial and _("Trivial ")) or "",
+            _('[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s', formatted=False) % {
+                'trivial' : (trivial and _("Trivial ", formatted=False)) or "",
                 'sitename': self.cfg.sitename or "Wiki",
                 'pagename': self.page_name,
+                'username': self.uid_override or user.getUserIdentification(self.request),
             },
             mailBody, mail_from=self.cfg.mail_from)
 
@@ -756,6 +757,7 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         @rtype: int
         @return: mtime_usec of new page
         """
+        _ = self._
         #is_deprecated = self._get_pragmas(text).has_key("deprecated")
         was_deprecated = self._get_pragmas(self.get_raw_body()).has_key("deprecated")
 
@@ -913,7 +915,7 @@ delete the changes of the other person, which is excessively rude!''
             # rights. This is a good place to update acl cache - instead
             # of wating for next request.
             acl = self.getACL(self.request)
-            if (not acl.may(self.request, self.request.user.name, "admin") and
+            if (not self.request.user.may.admin(self.page_name) and
                 parseACL(self.request, newtext) != acl and
                 action != "SAVE/REVERT"):
                 msg = _("You can't change ACLs on this page since you have no admin rights on it!")

@@ -138,8 +138,6 @@ Følgende sider er redigert av %(editor)s:
 ''':
 '''Fant ingen endringer!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)soppdatering av "%(pagename)s"''',
 '''Trivial ''':
 '''Enkelt ''',
 '''Status of sending notification mails:''':

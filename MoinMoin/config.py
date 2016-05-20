@@ -89,6 +89,11 @@ smileys = {
     "{sv}":  (18, 12, 0, "flag-sv.png"),
     "{us}":  (20, 12, 0, "flag-us.png"),
     "{zh}":  (18, 12, 0, "flag-zh.png"),
+
+    # version 1.3.4 (stars)
+    # try {*}{*}{o}
+    "{*}":   (15, 15, 0, "star_on.png"),
+    "{o}":   (15, 15, 0, "star_off.png"),
 }
 
 # unicode: set the char types (upper, lower, digits, spaces)

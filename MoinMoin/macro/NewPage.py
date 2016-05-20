@@ -40,7 +40,7 @@ class NewPage:
             and create the page as a subpage of MoinMoinBugs.
     """
 
-    arguments = ['template', 'buttonLabel', 'parentPage']
+    arguments = ['template', 'buttonLabel', 'parentPage', 'nameTemplate']
 
     def __init__(self, macro, args):
         self.macro = macro
@@ -73,6 +73,10 @@ class NewPage:
         parent = self.args.get('parentPage') or ''
         template = self.args.get('template') or ''
         label = self.args.get('buttonLabel')
+        nametemplate = self.args.get('nameTemplate') or u'%s'
+        
+        requires_input = nametemplate.find('%s') != -1
+        
         if label:
             # Try to get a translation, this will probably not work in
             # most case, but better then nothing.
@@ -86,7 +90,14 @@ class NewPage:
             u'<input type="hidden" name="action" value="newpage">',
             u'<input type="hidden" name="parent" value="%s">' % wikiutil.escape(parent, 1),
             u'<input type="hidden" name="template" value="%s">' % wikiutil.escape(template, 1),
-            u'<input type="text" name="pagename" size="30">',
+            u'<input type="hidden" name="nametemplate" value="%s">' % wikiutil.escape(nametemplate,1),
+        ]
+        
+        if requires_input:
+            html += [
+                u'<input type="text" name="pagename" size="30">',
+            ]
+        html += [
             u'<input type="submit" value="%s">' % wikiutil.escape(label, 1),
             u'</div></form>',
             ]

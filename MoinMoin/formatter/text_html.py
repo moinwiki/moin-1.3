@@ -237,11 +237,12 @@ class Formatter(FormatterBase):
         
         wikitag, wikiurl, wikitail, wikitag_bad = wikiutil.resolve_wiki(self.request, '%s:%s' % (interwiki, pagename))
         wikiurl = wikiutil.mapURL(self.request, wikiurl)
-        href = wikiutil.join_wiki(wikiurl, wikitail)
 
         if wikitag == 'Self': # for own wiki, do simple links
+            href = wikiutil.join_wiki(wikiurl, wikiutil.AbsPageName(self.request, self.page.page_name, wikitail))
             return (self.url(1, href, unescaped=0, pretty_url=kw.get('pretty_url', 0)))
         else: # return InterWiki hyperlink
+            href = wikiutil.join_wiki(wikiurl, wikitail)
             if wikitag_bad:
                 html_class = 'badinterwiki'
             else:
@@ -261,7 +262,8 @@ class Formatter(FormatterBase):
                 title - title attribute
                 ... some more (!!! TODO) 
         """
-        url = wikiutil.mapURL(self.request, url)
+        if url is not None:
+            url = wikiutil.mapURL(self.request, url)
         pretty = kw.get('pretty_url', 0)
         title = kw.get('title', None)
 

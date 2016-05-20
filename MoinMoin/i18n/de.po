@@ -1,15 +1,24 @@
-# MoinMoin translation
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format gettext
+#language de
+
+#
+# MoinMoin de system text translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
-"PO-Revision-Date: 2004-12-25 19:56+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
+"PO-Revision-Date: 2005-01-29 10:00+0100\n"
 "Last-Translator: Thomas Waldmann <tw-public@gmx.de>\n"
 "Language-Team: German <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Language: Deutsch\n"
 "X-Language-in-English: German\n"
@@ -48,28 +57,28 @@ msgstr ""
 "auf diesen Seiten platziert werden.-~\n"
 
 msgid "You are not allowed to view this page."
-msgstr "Sie dürfen diese Seite nicht ansehen."
+msgstr "Sie dÃ¼rfen diese Seite nicht ansehen."
 
 msgid "DeleteCache"
-msgstr "CacheLöschen"
+msgstr "CacheLÃ¶schen"
 
 #, python-format
 msgid "(cached %s)"
 msgstr "(gecached %s)"
 
 msgid "You are not allowed to edit this page."
-msgstr "Sie dürfen diese Seite nicht editieren."
+msgstr "Sie dÃ¼rfen diese Seite nicht editieren."
 
 msgid "Page is immutable!"
-msgstr "Die Seite ist gegen Änderungen geschützt!"
+msgstr "Die Seite ist gegen Ã„nderungen geschÃ¼tzt!"
 
 msgid "Cannot edit old revisions!"
-msgstr "Alte Versionen können nicht editiert werden!"
+msgstr "Alte Versionen kÃ¶nnen nicht editiert werden!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 "Die von Ihnen gehaltene Sperre ist abgelaufen, das Auftreten von "
-"Änderungskonflikten ist wahrscheinlich!"
+"Ã„nderungskonflikten ist wahrscheinlich!"
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -77,7 +86,7 @@ msgstr "\"%(pagename)s\" editieren"
 
 #, python-format
 msgid "Preview of \"%(pagename)s\""
-msgstr "Vorschau für \"%(pagename)s\""
+msgstr "Vorschau fÃ¼r \"%(pagename)s\""
 
 #, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
@@ -85,17 +94,17 @@ msgstr "Ihre Sperre der Seite %(lock_page)s ist abgelaufen!"
 
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
-msgstr "Ihre Sperre der Seite %(lock_page)s läuft in # Minuten ab."
+msgstr "Ihre Sperre der Seite %(lock_page)s lÃ¤uft in # Minuten ab."
 
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
-msgstr "Ihre Sperre der Seite %(lock_page)s läuft in # Sekunden ab."
+msgstr "Ihre Sperre der Seite %(lock_page)s lÃ¤uft in # Sekunden ab."
 
 msgid "Someone else deleted this page while you were editing!"
-msgstr "Ein anderer Benutzer hat diese Seite inzwischen gelöscht!"
+msgstr "Ein anderer Benutzer hat diese Seite inzwischen gelÃ¶scht!"
 
 msgid "Someone else changed this page while you were editing!"
-msgstr "Ein anderer Benutzer hat diese Seite inzwischen geändert!"
+msgstr "Ein anderer Benutzer hat diese Seite inzwischen geÃ¤ndert!"
 
 #, python-format
 msgid ""
@@ -103,11 +112,11 @@ msgid ""
 "Please review the page and save then. Do not save this page as it is!\n"
 "Have a look at the diff of %(difflink)s to see what has been changed."
 msgstr ""
-"Ein anderer Benutzer hat gespeichert, während Sie editiert haben!\n"
+"Ein anderer Benutzer hat gespeichert, wÃ¤hrend Sie editiert haben!\n"
 "Bitte schauen Sie die Seite nochmal durch und speichern Sie dann. Speichern "
 "Sie die Seite nicht so, wie sie ist!\n"
 "Schauen Sie sich auch die Differenz von %(difflink)s an, um zu sehen, was "
-"geändert wurde."
+"geÃ¤ndert wurde."
 
 #, python-format
 msgid "[Content of new page loaded from %s]"
@@ -119,34 +128,34 @@ msgstr "[Vorlage %s nicht gefunden]"
 
 #, python-format
 msgid "[You may not read %s]"
-msgstr "[Sie dürfen %s nicht lesen]"
+msgstr "[Sie dÃ¼rfen %s nicht lesen]"
 
 msgid "Skip to preview"
 msgstr "Zur Vorschau springen"
 
 #, python-format
 msgid "[current page size '''%(size)d''' bytes]"
-msgstr "[aktuelle Seitengröße '''%(size)d''' Bytes]"
+msgstr "[aktuelle SeitengrÃ¶ÃŸe '''%(size)d''' Bytes]"
 
 #, python-format
 msgid "Describe %s here."
 msgstr "%s hier beschreiben..."
 
 msgid "Optional comment about this change"
-msgstr "Optionaler Kommentar zu dieser Änderung"
+msgstr "Optionaler Kommentar zu dieser Ã„nderung"
 
 msgid "<No addition>"
-msgstr "<Keine Änderung>"
+msgstr "<Keine Ã„nderung>"
 
 #, python-format
 msgid "Make this page belong to category %(category)s"
-msgstr "Diese Seite zur folgenden Kategorie hinzufügen: %(category)s"
+msgstr "Diese Seite zur folgenden Kategorie hinzufÃ¼gen: %(category)s"
 
 msgid "Check Spelling"
-msgstr "Rechtschreibung prüfen"
+msgstr "Rechtschreibung prÃ¼fen"
 
 msgid "Save Changes"
-msgstr "Änderungen speichern"
+msgstr "Ã„nderungen speichern"
 
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -158,16 +167,16 @@ msgid ""
 "If you don't want that, hit '''%(cancel_button_text)s''' to cancel your "
 "changes."
 msgstr ""
-"Durch Anklicken von '''%(save_button_text)s''' stellen Sie Ihre Änderungen "
+"Durch Anklicken von '''%(save_button_text)s''' stellen Sie Ihre Ã„nderungen "
 "unter die %(license_link)s.\n"
 "Wenn Sie das nicht wollen, klicken Sie auf '''%(cancel_button_text)s''', um "
-"Ihre Änderungen zu verwerfen."
+"Ihre Ã„nderungen zu verwerfen."
 
 msgid "Preview"
 msgstr "Vorschau anzeigen"
 
 msgid "Trivial change"
-msgstr "Triviale Änderung"
+msgstr "Triviale Ã„nderung"
 
 msgid "Remove trailing whitespace from each line"
 msgstr "Leerzeichen am Ende jeder Zeile entfernen"
@@ -194,17 +203,17 @@ msgstr ""
 "kursiv'''''[[Verbatim(''''')]]; [[Verbatim('')]]''gemischt ''[[Verbatim"
 "(''')]]'''''fett'''[[Verbatim(''')]] und kursiv''[[Verbatim('')]]; [[Verbatim"
 "(----)]] horizontaler Balken.\n"
-" Überschriften:: [[Verbatim(=)]] Überschrift 1 [[Verbatim(=)]]; [[Verbatim"
-"(==)]] Überschrift 2 [[Verbatim(==)]]; [[Verbatim(===)]] Ü 3 [[Verbatim"
-"(===)]];   [[Verbatim(====)]] Ü 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Ü "
+" Ãœberschriften:: [[Verbatim(=)]] Ãœberschrift 1 [[Verbatim(=)]]; [[Verbatim"
+"(==)]] Ãœberschrift 2 [[Verbatim(==)]]; [[Verbatim(===)]] Ãœ 3 [[Verbatim"
+"(===)]];   [[Verbatim(====)]] Ãœ 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Ãœ "
 "5 [[Verbatim(=====)]].\n"
 " Listen:: Leerzeichen und eins von: * Punkte; 1., a., A., i., I. numerierte "
-"Punkte; 1.#n starte Numerierung bei n; nur Leerzeichen rückt ein.\n"
-" Links:: [[Verbatim(ZusammenGeschriebeneGroßeWorte)]]; [[Verbatim"
-"([\"Klammern und doppelte  Anführungszeichen\"])]]; url; [url]; [url "
+"Punkte; 1.#n starte Numerierung bei n; nur Leerzeichen rÃ¼ckt ein.\n"
+" Links:: [[Verbatim(ZusammenGeschriebeneGroÃŸeWorte)]]; [[Verbatim"
+"([\"Klammern und doppelte  AnfÃ¼hrungszeichen\"])]]; url; [url]; [url "
 "label].\n"
-" Tabellen:: || Zellentext |||| Zellentext, 2 Zellen überspannend ||;    "
-"keine anhängenden Leerzeichen nach Überschriften oder Tabellen."
+" Tabellen:: || Zellentext |||| Zellentext, 2 Zellen Ã¼berspannend ||;    "
+"keine anhÃ¤ngenden Leerzeichen nach Ãœberschriften oder Tabellen."
 
 msgid "Edit was cancelled."
 msgstr "Editierung wurde abgebrochen."
@@ -222,10 +231,10 @@ msgid ""
 msgstr ""
 "Sehr geehrter Wikibenutzer,\n"
 "\n"
-"Sie haben die Änderungen einer Wikiseite oder Kategorie von \"%(sitename)s\" "
+"Sie haben die Ã„nderungen einer Wikiseite oder Kategorie von \"%(sitename)s\" "
 "abonniert.\n"
 "\n"
-"Die folgende Seite wurde durch %(editor)s verändert:\n"
+"Die folgende Seite wurde durch %(editor)s verÃ¤ndert:\n"
 "%(pagelink)s\n"
 "\n"
 
@@ -235,7 +244,7 @@ msgid ""
 "%(comment)s\n"
 "\n"
 msgstr ""
-"Der Kommentar zur Änderung ist:\n"
+"Der Kommentar zur Ã„nderung ist:\n"
 "%(comment)s\n"
 "\n"
 
@@ -243,17 +252,17 @@ msgid "New page:\n"
 msgstr "Neue Seite:\n"
 
 msgid "No differences found!\n"
-msgstr "Es wurden keine Änderungen gefunden!\n"
+msgstr "Es wurden keine Ã„nderungen gefunden!\n"
 
 #, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
-msgstr "[%(sitename)s] %(trivial)sÄnderung von \"%(pagename)s\""
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
+msgstr "[%(sitename)s] %(trivial)sÃ„nderung von \"%(pagename)s\" von %(username)s"
 
 msgid "Trivial "
 msgstr "Triviale "
 
 msgid "Status of sending notification mails:"
-msgstr "Status des Versands der Änderungsnachrichten:"
+msgstr "Status des Versands der Ã„nderungsnachrichten:"
 
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
@@ -263,11 +272,18 @@ msgstr "[%(lang)s] %(recipients)s: %(status)s"
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## Sicherung der Seite \"%(pagename)s\" vom %(date)s"
 
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr "Seite konnte nicht gesperrt werden. Unerwarteter Fehler (errno=%d)."
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr "Seite konnte nicht gesperrt werden. Fehlende Datei 'current'?"
+
 msgid "You are not allowed to edit this page!"
-msgstr "Sie dürfen diese Seite nicht editieren!"
+msgstr "Sie dÃ¼rfen diese Seite nicht editieren!"
 
 msgid "You cannot save empty pages."
-msgstr "Leere Seiten können nicht gespeichert werden!"
+msgstr "Leere Seiten kÃ¶nnen nicht gespeichert werden!"
 
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
@@ -280,33 +296,33 @@ msgid ""
 "the content editbox with your version of the page, because that would\n"
 "delete the changes of the other person, which is excessively rude!''\n"
 msgstr ""
-"Unglücklicherweise hat bereits jemand diese Seite verändert.\n"
+"UnglÃ¼cklicherweise hat bereits jemand diese Seite verÃ¤ndert.\n"
 "\n"
-"Bitte wie folgt vorgehen: Mit dem Knopf \"Zurück\" des Browsers zurück zum "
-"Editor gehen und die Änderungen in die Zwischenablage legen.\n"
-"Dann wieder auf diese Seite \"Vorwärts\" gehen und nochmals \"Editieren\" "
+"Bitte wie folgt vorgehen: Mit dem Knopf \"ZurÃ¼ck\" des Browsers zurÃ¼ck zum "
+"Editor gehen und die Ã„nderungen in die Zwischenablage legen.\n"
+"Dann wieder auf diese Seite \"VorwÃ¤rts\" gehen und nochmals \"Editieren\" "
 "anklicken.\n"
 "\n"
-"Schließlich die Änderungen zum aktuellen Stand der Seite wieder hinzufügen.\n"
+"SchlieÃŸlich die Ã„nderungen zum aktuellen Stand der Seite wieder hinzufÃ¼gen.\n"
 "\n"
-"''Bitte nicht einfach die Änderungen des anderen Autoren durch Cut&Paste "
-"vollständig überschreiben, das ist sehr unhöflich!''\n"
+"''Bitte nicht einfach die Ã„nderungen des anderen Autoren durch Cut&Paste "
+"vollstÃ¤ndig Ã¼berschreiben, das ist sehr unhÃ¶flich!''\n"
 
 #, python-format
 msgid "A backup of your changes is [%(backup_url)s here]."
-msgstr "Eine Sicherung Ihrer Änderungen befindet sich [%(backup_url)s hier]."
+msgstr "Eine Sicherung Ihrer Ã„nderungen befindet sich [%(backup_url)s hier]."
 
 msgid "You did not change the page content, not saved!"
-msgstr "Der Seiteninhalt wurde nicht verändert und folglich nicht gesichert!"
+msgstr "Der Seiteninhalt wurde nicht verÃ¤ndert und folglich nicht gesichert!"
 
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
-"Sie dürfen keine ACLs auf dieser Seite ändern, weil Sie keine admin-Rechte "
+"Sie dÃ¼rfen keine ACLs auf dieser Seite Ã¤ndern, weil Sie keine admin-Rechte "
 "auf ihr haben!"
 
 msgid "Thank you for your changes. Your attention to detail is appreciated."
-msgstr "Danke für die Änderung und die Sorgfalt beim Editieren."
+msgstr "Danke fÃ¼r die Ã„nderung und die Sorgfalt beim Editieren."
 
 #, python-format
 msgid ""
@@ -314,7 +330,7 @@ msgid ""
 "granted the lock for this page."
 msgstr ""
 "Die Sperre von %(owner)s ist vor %(mins_ago)d Minute(n) abgelaufen und wurde "
-"an Sie übertragen."
+"an Sie Ã¼bertragen."
 
 #, python-format
 msgid ""
@@ -332,14 +348,14 @@ msgstr ""
 "Seite editieren."
 
 msgid "Use the Preview button to extend the locking period."
-msgstr "Mit \"Vorschau anzeigen\" können Sie diesen Zeitraum verlängern."
+msgstr "Mit \"Vorschau anzeigen\" kÃ¶nnen Sie diesen Zeitraum verlÃ¤ngern."
 
 #, python-format
 msgid ""
 "This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
 "s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Diese Seite ist derzeit zur Editierung durch %(owner)s gegen Änderungen "
+"Diese Seite ist derzeit zur Editierung durch %(owner)s gegen Ã„nderungen "
 "''gesperrt'' bis %(timestamp)s, also weitere %(mins_valid)d Minute(n)."
 
 #, python-format
@@ -352,10 +368,10 @@ msgid ""
 "To leave the editor, press the Cancel button."
 msgstr ""
 "Diese Seite wurde zum letzten Mal um %(timestamp)s durch %(owner)s zum "
-"Editieren geöffnet\n"
+"Editieren geÃ¶ffnet\n"
 "oder in der Vorschau angezeigt.[[BR]]\n"
-"'''Sie sollten diese Seite für mindestens weitere %(mins_valid)d Minute(n) "
-"''nicht editieren'', um Konflikte auszuschließen.'''[[BR]]\n"
+"'''Sie sollten diese Seite fÃ¼r mindestens weitere %(mins_valid)d Minute(n) "
+"''nicht editieren'', um Konflikte auszuschlieÃŸen.'''[[BR]]\n"
 "Benutzen Sie \"Abbrechen\" zum Verlassen des Editors."
 
 msgid "<unknown>"
@@ -397,14 +413,14 @@ msgid ""
 "Name may contain any Unicode alpha numeric character, with optional one\n"
 "space between words. Group page name is not allowed."
 msgstr ""
-"Ungültiger Benutzername {{{'%s'}}}.\n"
+"UngÃ¼ltiger Benutzername {{{'%s'}}}.\n"
 "Der Name darf beliebige alphanumerische Unicode-Zeichen enthalten, mit "
 "optional einem\n"
 "Leerzeichen zwischen den Worten. Gruppennamen sind nicht erlaubt."
 
 #, python-format
 msgid "You are not allowed to do %s on this page."
-msgstr "Sie dürfen die Aktion %s nicht ausführen auf dieser Seite."
+msgstr "Sie dÃ¼rfen die Aktion %s nicht ausfÃ¼hren auf dieser Seite."
 
 msgid "Login"
 msgstr "Anmelden"
@@ -431,7 +447,7 @@ msgid "matches"
 msgstr "Treffer"
 
 msgid "Open editor on double click"
-msgstr "Editor per Doppelklick öffnen"
+msgstr "Editor per Doppelklick Ã¶ffnen"
 
 msgid "Remember last page visited"
 msgstr "Zuletzt besuchte Seite merken"
@@ -443,13 +459,13 @@ msgid "Show question mark for non-existing pagelinks"
 msgstr "Verweise auf unbekannte Seiten mit Fragezeichen markieren"
 
 msgid "Show page trail"
-msgstr "Kürzlich besuchte Seiten anzeigen (Verlauf)"
+msgstr "KÃ¼rzlich besuchte Seiten anzeigen (Verlauf)"
 
 msgid "Show icon toolbar"
 msgstr "Werkzeugleiste mit Bildsymbolen anzeigen"
 
 msgid "Show top/bottom links in headings"
-msgstr "Verweise zum Anfang und Ende der Seite in Überschriften anzeigen"
+msgstr "Verweise zum Anfang und Ende der Seite in Ãœberschriften anzeigen"
 
 msgid "Show fancy diffs"
 msgstr "Unterschiede farbig markiert anzeigen"
@@ -461,24 +477,24 @@ msgid "Remember login information"
 msgstr "Speichere Login-Informationen"
 
 msgid "Subscribe to trivial changes"
-msgstr "Triviale Änderungen abonnieren"
+msgstr "Triviale Ã„nderungen abonnieren"
 
 msgid "Disable this account forever"
-msgstr "Dieses Benutzerkonto für immer deaktivieren"
+msgstr "Dieses Benutzerkonto fÃ¼r immer deaktivieren"
 
 msgid "Cookie deleted. You are now logged out."
-msgstr "Das \"Cookie\" wurde gelöscht. Sie sind jetzt abgemeldet."
+msgstr "Das \"Cookie\" wurde gelÃ¶scht. Sie sind jetzt abgemeldet."
 
 msgid ""
 "This wiki is not enabled for mail processing.\n"
 "Contact the owner of the wiki, who can enable email."
 msgstr ""
 "In diesem Wiki ist Mail-Verarbeitung nicht eingeschaltet.\n"
-"Bitte kontaktieren Sie den Eigentümer des Wiki, der die Mailfunktionen "
+"Bitte kontaktieren Sie den EigentÃ¼mer des Wiki, der die Mailfunktionen "
 "einschalten kann."
 
 msgid "Please provide a valid email address!"
-msgstr "Bitte eine gültige E-Mail-Adresse angeben!"
+msgstr "Bitte eine gÃ¼ltige E-Mail-Adresse angeben!"
 
 #, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
@@ -498,7 +514,7 @@ msgid "Sorry, wrong password."
 msgstr "Falsches Passwort."
 
 msgid "Bad relogin URL."
-msgstr "Ungültige Relogin-URL."
+msgstr "UngÃ¼ltige Relogin-URL."
 
 msgid "Unknown user."
 msgstr "Unbekannter Benutzer."
@@ -507,7 +523,7 @@ msgid "Empty user name. Please enter a user name."
 msgstr "Leerer Benutzername, bitte geben Sie einen Benutzernamen ein."
 
 msgid "This user name already belongs to somebody else."
-msgstr "Dieser Benutzername gehört bereits jemand anderem."
+msgstr "Dieser Benutzername gehÃ¶rt bereits jemand anderem."
 
 msgid "Passwords don't match!"
 msgstr "Die Passworte sind nicht gleich!"
@@ -520,17 +536,17 @@ msgid ""
 "can get it by email."
 msgstr ""
 "Bitte geben Sie Ihre E-Mail-Adresse an. Wenn Sie Ihre Login-Informationen "
-"verlieren können Sie sie per E-Mail wieder bekommen."
+"verlieren kÃ¶nnen Sie sie per E-Mail wieder bekommen."
 
 msgid "This email already belongs to somebody else."
-msgstr "Diese E-Mail-Adresse gehört bereits jemand anderem."
+msgstr "Diese E-Mail-Adresse gehÃ¶rt bereits jemand anderem."
 
 #, python-format
 msgid "The theme '%(theme_name)s' could not be loaded!"
 msgstr "Das Theme '%(theme_name)s' konnte nicht geladen werden!"
 
 msgid "User preferences saved!"
-msgstr "Persönliche Einstellungen gespeichert!"
+msgstr "PersÃ¶nliche Einstellungen gespeichert!"
 
 msgid "Default"
 msgstr "Standardeinstellung"
@@ -563,7 +579,7 @@ msgid "Password repeat"
 msgstr "Passwort wiederholen"
 
 msgid "(Only when changing passwords)"
-msgstr "(Nur bei Passwort-Änderung)"
+msgstr "(Nur bei Passwort-Ã„nderung)"
 
 msgid "Email"
 msgstr "E-Mail"
@@ -578,7 +594,7 @@ msgid "(Leave it empty for disabling user CSS)"
 msgstr "Leer lassen, um benutzerdefiniertes CSS auszuschalten)"
 
 msgid "Editor size"
-msgstr "Größe des Texteingabefelds"
+msgstr "GrÃ¶ÃŸe des Texteingabefelds"
 
 msgid "Time zone"
 msgstr "Zeitzone"
@@ -603,18 +619,18 @@ msgstr "Expressverweise"
 
 msgid "This list does not work, unless you have entered a valid email address!"
 msgstr ""
-"Änderungsnachrichten werden nur versandt, wenn eine gültige E-Mail-Adresse "
+"Ã„nderungsnachrichten werden nur versandt, wenn eine gÃ¼ltige E-Mail-Adresse "
 "eingegeben wurde!"
 
 msgid "Subscribed wiki pages (one regex per line)"
-msgstr "Abonnierte Wiki-Seiten (ein regulärer Ausdruck pro Zeile)"
+msgstr "Abonnierte Wiki-Seiten (ein regulÃ¤rer Ausdruck pro Zeile)"
 
 msgid "No older revisions available!"
-msgstr "Es sind keine älteren Versionen dieser Seite verfügbar!"
+msgstr "Es sind keine Ã¤lteren Versionen dieser Seite verfÃ¼gbar!"
 
 #, python-format
 msgid "Diff for \"%s\""
-msgstr "Änderungen von \"%s\""
+msgstr "Ã„nderungen von \"%s\""
 
 #, python-format
 msgid "Differences between revisions %d and %d"
@@ -622,24 +638,27 @@ msgstr "Unterschiede zwischen den Revisionen %d und %d"
 
 #, python-format
 msgid "(spanning %d versions)"
-msgstr "(über %d Versionen hinweg)"
+msgstr "(Ã¼ber %d Versionen hinweg)"
 
 msgid "No differences found!"
-msgstr "Es wurden keine Änderungen gefunden!"
+msgstr "Es wurden keine Ã„nderungen gefunden!"
 
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "Die Seite wurde jedoch %(count)d mal gespeichert!"
 
+msgid "(ignoring whitespace)"
+msgstr "(ignoriere Leerraum)"
+
 msgid "Ignore changes in the amount of whitespace"
-msgstr "Ausschließlich Leerraum betreffende Änderungen ignorieren"
+msgstr "AusschlieÃŸlich Leerraum betreffende Ã„nderungen ignorieren"
 
 msgid "General Information"
 msgstr "Allgemeine Informationen"
 
 #, python-format
 msgid "Page size: %d"
-msgstr "Seitengröße: %d"
+msgstr "SeitengrÃ¶ÃŸe: %d"
 
 msgid "SHA digest of this page's content is:"
 msgstr "Signatur des Seiteninhalts nach dem SHA-Verfahren:"
@@ -654,7 +673,7 @@ msgid "Date"
 msgstr "Datum"
 
 msgid "Size"
-msgstr "Größe"
+msgstr "GrÃ¶ÃŸe"
 
 msgid "Diff"
 msgstr "Differenz"
@@ -685,13 +704,13 @@ msgid "Revert to revision %(rev)d."
 msgstr "Revision %(rev)d restauriert."
 
 msgid "edit"
-msgstr "ändern"
+msgstr "Ã¤ndern"
 
 msgid "get"
 msgstr "laden"
 
 msgid "del"
-msgstr "löschen"
+msgstr "lÃ¶schen"
 
 msgid "N/A"
 msgstr "k.A."
@@ -700,11 +719,11 @@ msgid "Revision History"
 msgstr "Versionshistorie"
 
 msgid "No log entries found."
-msgstr "Keine Log-Einträge gefunden."
+msgstr "Keine Log-EintrÃ¤ge gefunden."
 
 #, python-format
 msgid "Info for \"%s\""
-msgstr "Info für \"%s\""
+msgstr "Info fÃ¼r \"%s\""
 
 #, python-format
 msgid "Show \"%(title)s\""
@@ -718,56 +737,56 @@ msgid "Show chart \"%(title)s\""
 msgstr "Diagramm \"%(title)s\" anzeigen"
 
 msgid "Page hits and edits"
-msgstr "Seitenzugriffe und Änderungen"
+msgstr "Seitenzugriffe und Ã„nderungen"
 
 msgid "You are not allowed to revert this page!"
-msgstr "Sie dürfen diese Seite nicht restaurieren!"
+msgstr "Sie dÃ¼rfen diese Seite nicht restaurieren!"
 
 msgid "You are not allowed to subscribe to a page you can't read."
-msgstr "Sie dürfen keine Seiten abonnieren, die Sie nicht lesen dürfen."
+msgstr "Sie dÃ¼rfen keine Seiten abonnieren, die Sie nicht lesen dÃ¼rfen."
 
 msgid ""
 "This wiki is not enabled for mail processing. Contact the owner of the wiki, "
 "who can either enable email, or remove the \"Subscribe\" icon."
 msgstr ""
 "In diesem Wiki ist Mail-Verarbeitung nicht eingeschaltet. Bitte kontaktieren "
-"Sie den Eigentümer des Wiki, der dann entweder die Mailfunktionen "
+"Sie den EigentÃ¼mer des Wiki, der dann entweder die Mailfunktionen "
 "einschalten oder das \"Abonnieren\"-Symbol entfernen kann."
 
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr ""
-"Sie haben noch kein Profil angelegt. Wählen Sie BenutzerEinstellungen in der "
+"Sie haben noch kein Profil angelegt. WÃ¤hlen Sie BenutzerEinstellungen in der "
 "oberen rechten Ecke, um ein Profil anzulegen."
 
 msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
 msgstr ""
-"Sie haben keine E-Mail-Adresse in Ihrem Profil eingegeben. Wählen Sie Ihren "
+"Sie haben keine E-Mail-Adresse in Ihrem Profil eingegeben. WÃ¤hlen Sie Ihren "
 "Namen (BenutzerEinstellungen) in der rechten oberen Ecke an und geben Sie "
-"eine gültige E-Mail-Adresse ein."
+"eine gÃ¼ltige E-Mail-Adresse ein."
 
 msgid "Your subscribtion to this page has been removed."
-msgstr "Ihr Abonnements für diese Seite wurde entfernt."
+msgstr "Ihr Abonnements fÃ¼r diese Seite wurde entfernt."
 
 msgid "Can't remove regular expression subscription!"
-msgstr "Kann nicht Abonnement mit regulärem Ausdruck entfernen."
+msgstr "Kann nicht Abonnement mit regulÃ¤rem Ausdruck entfernen."
 
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
 "subscription list."
 msgstr ""
-"Um das Abo zu kündigen, muss der Name der Seite aus der Abo-Liste der "
-"persönlichen Einstellungen entfernt werden."
+"Um das Abo zu kÃ¼ndigen, muss der Name der Seite aus der Abo-Liste der "
+"persÃ¶nlichen Einstellungen entfernt werden."
 
 msgid "You have been subscribed to this page."
-msgstr "Die Seite wurde zur Liste abonnierter Seiten hinzugefügt."
+msgstr "Die Seite wurde zur Liste abonnierter Seiten hinzugefÃ¼gt."
 
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
-msgstr "Benötigtes Attribut \"%(attrname)s\" fehlt"
+msgstr "BenÃ¶tigtes Attribut \"%(attrname)s\" fehlt"
 
 msgid "Submitted form data:"
 msgstr "Gesendete Formulardaten:"
@@ -779,7 +798,7 @@ msgid "Display context of search results"
 msgstr "Umgebung der Treffer anzeigen"
 
 msgid "Case-sensitive searching"
-msgstr "Groß-/Kleinschreibung beachten"
+msgstr "GroÃŸ-/Kleinschreibung beachten"
 
 msgid "Search Text"
 msgstr "Text durchsuchen"
@@ -788,10 +807,10 @@ msgid "Go To Page"
 msgstr "Gehe zu Seite"
 
 msgid "Include system pages"
-msgstr "Systemseiten einschließen"
+msgstr "Systemseiten einschlieÃŸen"
 
 msgid "Exclude system pages"
-msgstr "Systemseiten ausschließen"
+msgstr "Systemseiten ausschlieÃŸen"
 
 msgid "Plain title index"
 msgstr "Titelindex in Textform"
@@ -819,10 +838,10 @@ msgid "Number of system pages"
 msgstr "Anzahl der Systemseiten"
 
 msgid "Accumulated page sizes"
-msgstr "Kumulierte Seitengrößen"
+msgstr "Kumulierte SeitengrÃ¶ÃŸen"
 
 msgid "Entries in edit log"
-msgstr "Einträge in der Änderungshistorie"
+msgstr "EintrÃ¤ge in der Ã„nderungshistorie"
 
 #, python-format
 msgid "%(logcount)s (%(logsize)s bytes)"
@@ -857,11 +876,11 @@ msgstr ""
 
 #, python-format
 msgid "ERROR in regex '%s'"
-msgstr "FEHLER in regulärem Ausdruck '%s'"
+msgstr "FEHLER in regulÃ¤rem Ausdruck '%s'"
 
 #, python-format
 msgid "Bad timestamp '%s'"
-msgstr "Ungültige Zeitangabe '%s'"
+msgstr "UngÃ¼ltige Zeitangabe '%s'"
 
 #, python-format
 msgid "Expected \"=\" to follow \"%(token)s\""
@@ -879,14 +898,14 @@ msgstr "Druckansicht"
 
 #, python-format
 msgid "[%d attachments]"
-msgstr "[%d Anhänge]"
+msgstr "[%d AnhÃ¤nge]"
 
 #, python-format
 msgid ""
 "There are <a href=\"%(link)s\">%(count)s attachment(s)</a> stored for this "
 "page."
 msgstr ""
-"Es sind <a href=\"%(link)s\">%(count)s Anhänge</a> für diese Seite "
+"Es sind <a href=\"%(link)s\">%(count)s AnhÃ¤nge</a> fÃ¼r diese Seite "
 "gespeichert."
 
 msgid "Filename of attachment not specified!"
@@ -902,25 +921,25 @@ msgid ""
 "Do '''NOT''' use the URL of the {{{[get]}}} link, \n"
 "since this is subject to change and can break easily."
 msgstr ""
-"Um Dateianhänge in eine Seite einzufügen, sollte unbedingt eine Angabe\n"
+"Um DateianhÃ¤nge in eine Seite einzufÃ¼gen, sollte unbedingt eine Angabe\n"
 "wie '''{{{attachment:filename}}}''' benutzt werden, \n"
 "wie sie auch in der folgenden Liste der Dateien auftaucht. \n"
 "Es sollte '''NIEMALS''' die URL des Verweises {{{[get]}}} kopiert werden, \n"
-"da sich diese jederzeit ändern kann und damit der Verweis auf die Datei "
+"da sich diese jederzeit Ã¤ndern kann und damit der Verweis auf die Datei "
 "bricht."
 
 #, python-format
 msgid "No attachments stored for %(pagename)s"
-msgstr "Es wurden keine Anhänge für die Seite %(pagename)s gespeichert."
+msgstr "Es wurden keine AnhÃ¤nge fÃ¼r die Seite %(pagename)s gespeichert."
 
 msgid "Edit drawing"
 msgstr "Zeichnung editieren"
 
 msgid "Attached Files"
-msgstr "Gespeicherte Dateianhänge"
+msgstr "Gespeicherte DateianhÃ¤nge"
 
 msgid "You are not allowed to attach a file to this page."
-msgstr "Sie dürfen keine Anhänge an diese Seite anhängen!"
+msgstr "Sie dÃ¼rfen keine AnhÃ¤nge an diese Seite anhÃ¤ngen!"
 
 msgid "New Attachment"
 msgstr "Neuer Dateianhang"
@@ -931,7 +950,7 @@ msgid ""
 "Otherwise, if \"Rename to\" is left blank, the original filename will be "
 "used."
 msgstr ""
-"Ein neuer Anhang überschreibt niemals einen bereits vorhandenen gleichen "
+"Ein neuer Anhang Ã¼berschreibt niemals einen bereits vorhandenen gleichen "
 "Namens.\n"
 "Besteht ein Namenskonflikt, muss dem neuen Anhang ein alternativer Name "
 "zugewiesen werden.\n"
@@ -948,39 +967,39 @@ msgid "Upload"
 msgstr "Datei hochladen"
 
 msgid "File attachments are not allowed in this wiki!"
-msgstr "Dateianhänge sind in diesem Wiki nicht erlaubt!"
+msgstr "DateianhÃ¤nge sind in diesem Wiki nicht erlaubt!"
 
 msgid "You are not allowed to save a drawing on this page."
-msgstr "Sie dürfen auf dieser Seite keine Zeichnung speichern."
+msgstr "Sie dÃ¼rfen auf dieser Seite keine Zeichnung speichern."
 
 msgid ""
 "No file content. Delete non ASCII characters from the file name and try "
 "again."
 msgstr ""
-"Kein Dateiinhalt. Löschen Sie nicht-ASCII-Zeichen aus dem Dateinamen und "
+"Kein Dateiinhalt. LÃ¶schen Sie nicht-ASCII-Zeichen aus dem Dateinamen und "
 "probieren Sie es noch einmal."
 
 msgid "You are not allowed to delete attachments on this page."
-msgstr "Sie dürfen keine Anhänge dieser Seite löschen!"
+msgstr "Sie dÃ¼rfen keine AnhÃ¤nge dieser Seite lÃ¶schen!"
 
 msgid "You are not allowed to get attachments from this page."
-msgstr "Sie dürfen auf keine Anhänge dieser Seite zugreifen."
+msgstr "Sie dÃ¼rfen auf keine AnhÃ¤nge dieser Seite zugreifen."
 
 msgid "You are not allowed to view attachments of this page."
-msgstr "Sie dürfen keine Anhänge dieser Seite ansehen."
+msgstr "Sie dÃ¼rfen keine AnhÃ¤nge dieser Seite ansehen."
 
 #, python-format
 msgid "Unsupported upload action: %s"
-msgstr "Unbekannte Aktion für Dateianhang: %s"
+msgstr "Unbekannte Aktion fÃ¼r Dateianhang: %s"
 
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
-msgstr "Dateianhänge für \"%(pagename)s\""
+msgstr "DateianhÃ¤nge fÃ¼r \"%(pagename)s\""
 
 #, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
 msgstr ""
-"Dateianhang '%(target)s' (ursprünglicher Name '%(filename)s') existiert "
+"Dateianhang '%(target)s' (ursprÃ¼nglicher Name '%(filename)s') existiert "
 "bereits."
 
 #, python-format
@@ -988,12 +1007,12 @@ msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
 "saved."
 msgstr ""
-"Dateianhang '%(target)s' (ursprünglicher Name '%(filename)s') mit %(bytes)d "
+"Dateianhang '%(target)s' (ursprÃ¼nglicher Name '%(filename)s') mit %(bytes)d "
 "Bytes gesichert."
 
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
-msgstr "Dateianhang '%(filename)s' wurde gelöscht."
+msgstr "Dateianhang '%(filename)s' wurde gelÃ¶scht."
 
 #, python-format
 msgid "Attachment '%(filename)s'"
@@ -1006,33 +1025,33 @@ msgstr ""
 
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
-msgstr "[[Verbatim(attachment:)]]%(filename)s für %(pagename)s"
+msgstr "[[Verbatim(attachment:)]]%(filename)s fÃ¼r %(pagename)s"
 
 msgid "You are not allowed to delete this page."
-msgstr "Sie dürfen diese Seite nicht löschen."
+msgstr "Sie dÃ¼rfen diese Seite nicht lÃ¶schen."
 
 msgid "This page is already deleted or was never created!"
-msgstr "Diese Seite wurde bereits gelöscht oder wurde bisher nicht angelegt!"
+msgstr "Diese Seite wurde bereits gelÃ¶scht oder wurde bisher nicht angelegt!"
 
 msgid "Please use the interactive user interface to delete pages!"
-msgstr "Zum Löschen von Seiten bitte nur die vorgesehenen Webseiten benutzen!"
+msgstr "Zum LÃ¶schen von Seiten bitte nur die vorgesehenen Webseiten benutzen!"
 
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
-msgstr "Seite \"%s\" wurde erfolgreich gelöscht!"
+msgstr "Seite \"%s\" wurde erfolgreich gelÃ¶scht!"
 
 msgid "Really delete this page?"
-msgstr "Diese Seite wirklich löschen?"
+msgstr "Diese Seite wirklich lÃ¶schen?"
 
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 msgid "Optional reason for the deletion"
-msgstr "Optionale Begründung für die Löschung"
+msgstr "Optionale BegrÃ¼ndung fÃ¼r die LÃ¶schung"
 
 #, python-format
 msgid "No pages like \"%s\"!"
-msgstr "Keine Seite ähnlich wie \"%s\"!"
+msgstr "Keine Seite Ã¤hnlich wie \"%s\"!"
 
 #, python-format
 msgid "Exactly one page like \"%s\" found, redirecting to page."
@@ -1040,7 +1059,7 @@ msgstr "Genau eine Seite wie \"%s\" gefunden, leite dorthin weiter."
 
 #, python-format
 msgid "Pages like \"%s\""
-msgstr "Seiten ähnlich wie \"%s\""
+msgstr "Seiten Ã¤hnlich wie \"%s\""
 
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
@@ -1048,10 +1067,10 @@ msgstr "%(matchcount)d %(matches)s passen zu \"%(title)s\""
 
 #, python-format
 msgid "Local Site Map for \"%s\""
-msgstr "Lokale Seitenverweise für \"%s\""
+msgstr "Lokale Seitenverweise fÃ¼r \"%s\""
 
 msgid "You are not allowed to rename pages in this wiki!"
-msgstr "Sie dürfen in diesem Wiki keine Seiten umbenennen!"
+msgstr "Sie dÃ¼rfen in diesem Wiki keine Seiten umbenennen!"
 
 msgid "Please use the interactive user interface to rename pages!"
 msgstr ""
@@ -1069,7 +1088,7 @@ msgid "New name"
 msgstr "Neuer Name"
 
 msgid "Optional reason for the renaming"
-msgstr "Optionale Begründung für das Umbenennen"
+msgstr "Optionale BegrÃ¼ndung fÃ¼r das Umbenennen"
 
 #, python-format
 msgid ""
@@ -1089,20 +1108,20 @@ msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
 "(totalwords)d words%(localwords)s and are highlighted below:"
 msgstr ""
-"Die nachfolgenden %(badwords)d Worte konnten nicht im Wörterbuch mit %"
+"Die nachfolgenden %(badwords)d Worte konnten nicht im WÃ¶rterbuch mit %"
 "(totalwords)d Worten%(localwords)s gefunden werden und sind im Text "
 "hervorgehoben:"
 
 msgid "Add checked words to dictionary"
-msgstr "Markierte Wörter zum Wörterbuch hinzufügen"
+msgstr "Markierte WÃ¶rter zum WÃ¶rterbuch hinzufÃ¼gen"
 
 msgid "No spelling errors found!"
 msgstr "Keine Rechtschreibfehler gefunden!"
 
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
-"Sie dürfen keine Seite auf Rechtschreibung prüfen, die Sie nicht lesen "
-"können."
+"Sie dÃ¼rfen keine Seite auf Rechtschreibung prÃ¼fen, die Sie nicht lesen "
+"kÃ¶nnen."
 
 #, python-format
 msgid "Title Search: \"%s\""
@@ -1114,7 +1133,7 @@ msgstr "Volltextsuche: \"%s\""
 
 #, python-format
 msgid "Full Link List for \"%s\""
-msgstr "Liste aller Seitenverweise für \"%s\""
+msgstr "Liste aller Seitenverweise fÃ¼r \"%s\""
 
 msgid ""
 "Cannot create a new page without a page name.  Please specify a page name."
@@ -1124,7 +1143,7 @@ msgstr ""
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
-msgstr "Ungültige \"Include\"-Argumente: \"%s\"!"
+msgstr "UngÃ¼ltige \"Include\"-Argumente: \"%s\"!"
 
 #, python-format
 msgid "Nothing found for \"%s\"!"
@@ -1180,7 +1199,7 @@ msgid "(currently set to %s)"
 msgstr "(derzeit %s)"
 
 msgid "Delete Bookmark"
-msgstr "Lesezeichen löschen"
+msgstr "Lesezeichen lÃ¶schen"
 
 msgid "Set bookmark"
 msgstr "Lesezeichen setzen"
@@ -1211,10 +1230,10 @@ msgid "Download XML export of this wiki"
 msgstr "XML-Export des Wiki-Inhalts herunter laden"
 
 msgid "No wanted pages in this wiki."
-msgstr "Es existieren keine gewünschten Seiten in diesem Wiki."
+msgstr "Es existieren keine gewÃ¼nschten Seiten in diesem Wiki."
 
 msgid "**Maximum number of allowed includes exceeded**"
-msgstr "**Maximale Anzahl erlaubter Includesi überschritten**"
+msgstr "**Maximale Anzahl erlaubter Includesi Ã¼berschritten**"
 
 #, python-format
 msgid "**Could not find the referenced page: %s**"
@@ -1252,7 +1271,7 @@ msgid "XSLT option disabled!"
 msgstr "Die XSLT-Option ist nicht aktiviert!"
 
 msgid "XSLT processing is not available!"
-msgstr "Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar!"
+msgstr "Die Verarbeitung von XSLT-Stylesheets ist nicht verfÃ¼gbar!"
 
 #, python-format
 msgid "%(errortype)s processing error"
@@ -1266,18 +1285,18 @@ msgid "for this page (cached %(date)s)"
 msgstr "auffrischen (erstellt am %(date)s)"
 
 msgid "Charts are not available!"
-msgstr "Die Diagrammoption ist nicht verfügbar!"
+msgstr "Die Diagrammoption ist nicht verfÃ¼gbar!"
 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
-msgstr "%(chart_title)s für %(filterpage)s"
+msgstr "%(chart_title)s fÃ¼r %(filterpage)s"
 
 msgid ""
 "green=view\n"
 "red=edit"
 msgstr ""
-"grün=Anzeigen\n"
-"rot=Änderungen"
+"grÃ¼n=Anzeigen\n"
+"rot=Ã„nderungen"
 
 msgid "date"
 msgstr "Datum"
@@ -1286,13 +1305,13 @@ msgid "# of hits"
 msgstr "Anzahl der Zugriffe"
 
 msgid "Page Size Distribution"
-msgstr "Verteilung der Seitengrößen"
+msgstr "Verteilung der SeitengrÃ¶ÃŸen"
 
 msgid "page size upper bound [bytes]"
-msgstr "Obere Grenze der Seitengröße [bytes]"
+msgstr "Obere Grenze der SeitengrÃ¶ÃŸe [bytes]"
 
 msgid "# of pages of this size"
-msgstr "Anzahl der Seiten in dieser Größenklasse"
+msgstr "Anzahl der Seiten in dieser GrÃ¶ÃŸenklasse"
 
 msgid "Others"
 msgstr "Sonstige"
@@ -1310,7 +1329,7 @@ msgid "[RSS]"
 msgstr "[RSS]"
 
 msgid "[DELETED]"
-msgstr "[GELÖSCHT]"
+msgstr "[GELÃ–SCHT]"
 
 msgid "[UPDATED]"
 msgstr "[AKTUALISIERT]"
@@ -1328,18 +1347,18 @@ msgid "[TOP]"
 msgstr "[KOPF]"
 
 msgid "Click to do a full-text search for this title"
-msgstr "Hier klicken für eine Liste der Seiten, die auf diese verweisen"
+msgstr "Hier klicken fÃ¼r eine Liste der Seiten, die auf diese verweisen"
 
 msgid "Clear message"
-msgstr "Nachricht löschen"
+msgstr "Nachricht lÃ¶schen"
 
 #, python-format
 msgid "last edited %(time)s by %(editor)s"
-msgstr "zuletzt geändert am %(time)s durch %(editor)s"
+msgstr "zuletzt geÃ¤ndert am %(time)s durch %(editor)s"
 
 #, python-format
 msgid "last modified %(time)s"
-msgstr "zuletzt geändert %(time)s"
+msgstr "zuletzt geÃ¤ndert %(time)s"
 
 msgid "Search:"
 msgstr "Suchen:"
@@ -1360,31 +1379,31 @@ msgid "Show Print View"
 msgstr "Druckansicht"
 
 msgid "Delete Cache"
-msgstr "Cache löschen"
+msgstr "Cache lÃ¶schen"
 
 msgid "Attach File"
-msgstr "Dateianhänge"
+msgstr "DateianhÃ¤nge"
 
 msgid "Delete Page"
-msgstr "Seite löschen"
+msgstr "Seite lÃ¶schen"
 
 msgid "Show Like Pages"
-msgstr "Ähnliche Seiten"
+msgstr "Ã„hnliche Seiten"
 
 msgid "Show Local Site Map"
-msgstr "Übersichtskarte"
+msgstr "Ãœbersichtskarte"
 
 msgid "Do"
 msgstr "Los!"
 
 msgid "Show Parent"
-msgstr "Übergeordnete Seite anzeigen"
+msgstr "Ãœbergeordnete Seite anzeigen"
 
 msgid "Immutable Page"
-msgstr "Geschützte Seite"
+msgstr "GeschÃ¼tzte Seite"
 
 msgid "Show Changes"
-msgstr "Änderungen anzeigen"
+msgstr "Ã„nderungen anzeigen"
 
 msgid "Get Info"
 msgstr "Infos anzeigen"
@@ -1397,7 +1416,7 @@ msgid "EditText"
 msgstr "Editieren"
 
 msgid "Immutable page"
-msgstr "Geschützte Seite"
+msgstr "GeschÃ¼tzte Seite"
 
 msgid "Or try one of these actions:"
 msgstr "Oder benutze eine dieser Aktionen:"
@@ -1422,14 +1441,14 @@ msgid "Line"
 msgstr "Zeile"
 
 msgid "Deletions are marked like this."
-msgstr "Gelöschter Text ist auf diese Art markiert."
+msgstr "GelÃ¶schter Text ist auf diese Art markiert."
 
 msgid "Additions are marked like this."
-msgstr "Hinzugefügter Text ist auf diese Art markiert."
+msgstr "HinzugefÃ¼gter Text ist auf diese Art markiert."
 
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
-msgstr "Verbindung zum Mailserver '%(server)s' gestört: %(reason)s"
+msgstr "Verbindung zum Mailserver '%(server)s' gestÃ¶rt: %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "E-Mail wurde erfolgreich versandt"
@@ -1438,7 +1457,7 @@ msgid "FrontPage"
 msgstr "StartSeite"
 
 msgid "RecentChanges"
-msgstr "AktuelleÄnderungen"
+msgstr "AktuelleÃ„nderungen"
 
 msgid "TitleIndex"
 msgstr "TitelIndex"
@@ -1489,31 +1508,19 @@ msgid "Sun"
 msgstr "So"
 
 msgid "AttachFile"
-msgstr "DateiAnhänge"
+msgstr "DateiAnhÃ¤nge"
 
 msgid "DeletePage"
-msgstr "SeiteLöschen"
+msgstr "SeiteLÃ¶schen"
 
 msgid "LikePages"
-msgstr "ÄhnlicheSeiten"
+msgstr "Ã„hnlicheSeiten"
 
 msgid "LocalSiteMap"
-msgstr "ÜbersichtsKarte"
+msgstr "ÃœbersichtsKarte"
 
 msgid "RenamePage"
 msgstr "SeiteUmbenennen"
 
 msgid "SpellCheck"
 msgstr "RechtSchreibung"
-
-#~ msgid "MIME Type (optional)"
-#~ msgstr "MIME-Typ (optional)"
-
-#~ msgid "Refresh"
-#~ msgstr "Auffrischen"
-
-#~ msgid "<escape>"
-#~ msgstr "<escape>"
-
-#~ msgid "[\"<escape>\"]"
-#~ msgstr "[\"<escape>\"]"

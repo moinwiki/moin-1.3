@@ -1,10 +1,7 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-##||{{{[[ ]]}}} ||  ||  ||
-##master-page:Unknown-Page
-##master-date:Unknown-Date
+##master-page:None
+##master-date:None
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language en
@@ -19,7 +16,7 @@ For more information on the possible markup, see HelpOnEditing.
 
 === Search macros ===
 
-MoinMoin use now a new search engine, that lets your make sophisticated searches using both the interactive search box or any of the search macros. For more help, see HelpOnSearching.
+MoinMoin now uses a new search engine, that lets your make sophisticated searches using both the interactive search box or any of the search macros. For more help, see HelpOnSearching.
 
 ||'''Macro'''||'''Description'''||'''Example'''||
 ||{{{[[TitleSearch]]}}}     || create a search box on the page, which search the page titles || See FindPage ||
@@ -54,7 +51,7 @@ MoinMoin use now a new search engine, that lets your make sophisticated searches
 ||'''Macro'''||'''Description'''||'''Example'''||
 ||{{{[[InterWiki]]}}}       || a list of all known InterWiki names || InterWiki ||
 ||{{{[[SystemInfo]]}}}      || info on the wiki, the python interpreter and the host system || SystemInfo ||
-||{{{[[PageCount]]}}}       || current page count || [[PageCount]] pages ||
+||{{{[[PageCount(exists)]]}}}  || current page count. If `exists` is supplied as an argument, only existing pages will be shown. || [[PageCount]] pages ||
 ||{{{[[PageSize]]}}}        || list the sizes of all pages || See PageSize ||
 ||{{{[[StatsChart(type)]]}}} || shows statistical charts (currently defined types: hitcounts, pagesize, useragents) || See EventStats and subpages  ||
 ||{{{[[SystemAdmin]]}}} || Information for system administrators || Needs admin rights.[[BR]] [[SystemAdmin]] ||
@@ -68,11 +65,14 @@ MoinMoin use now a new search engine, that lets your make sophisticated searches
 ||{{{[[Include(HelloWorld[,"heading"[,level]])]]}}} || include contents of another page || for details see ["/Include"] ||
 ||{{{[[FootNote(text)]]}}} || Add a footnote (the text cannot contain any wiki markup), or explicitely display collected footnotes when no args are given || See HelpOnPageCreation for an example ||
 ||{{{[[Date(timestamp)]]}}} || display a timestamp according to system settings || [[Date()]] ||
-||{{{[[DateTime(timestamp)]]}}} || display a timestamp[[FootNote("timestamp" can be empty (current time), a number of seconds since 1970 (unix timestamp), or a W3C time specification ("2002-01-23T12:34:56").)]] according to user settings || [[DateTime()]] ||
+||{{{[[DateTime(timestamp)]]}}} || display a timestamp[[FootNote("timestamp" can be empty (current time), a number of seconds since 1970 (unix timestamp), or a W3C time specification ("2002-01-23T12:34:56"). See RFC822, sect. 5. )]] according to user settings || [[DateTime()]] ||
 ||{{{[[GetText(text)]]}}} || loads I18N texts (mainly intended for use on Help pages) || "Edit``Text" is translated to "[[GetText(EditText)]]" ||
 ||{{{[[TeudView]]}}} || useful for intranet developer wikis, a means to view pydoc documentation, formatted via a XSLT stylesheet || See [http://twistedmatrix.com/wiki/python/TeudProject] ||
 ||{{{[[MailTo(email)]]}}} || protect your email address from spam bots || for details see /MailTo ||
-||{{{[[NewPage(PageNameTemplate, ButtonLabel, ParentPage)]]}}}|| Allow the user to create (sub-) pages easily || [[NewPage(CategoryTemplate, Create new category)]]||
+||{{{[[NewPage(PageTemplate,ButtonLabel,ParentPage[,NameTemplate])]]}}}|| Allow the user to create (sub-) pages easily, using the page `PageTemplate`as the template for the new page and the string `NameTemplate` as a template for the name.[[FootNote(`NameTemplate` is formatted with `time.strftime()`, with the exception of `%s` which is replaced by the input into the edit box (which is only shown if necessary). If `NameTemplate` is not specified or empty, it defaults to `%s`.)]] || [[NewPage(CategoryTemplate, Create new category,,Category%s)]]||
+||{{{[[GetVal(NeatSnippets,regards)]]}}} || Retrieve dictionary entries from dict pages. || If you have a page called GermanDict which contains the entry ''Test'', you should see the translation here: [[GetVal(GermanDict,Test)]] ||
+
+[[FootNote()]]
 
 === Writing your own macro ===
 Create a python file called {{{MacroName.py}}} located in your {{{data/plugins/macro}}} directory. Ensure it has a single method called {{{execute(macro, arguments)}}}, which is the entry-point.
@@ -90,9 +90,13 @@ For example, your wiki page has the following line on it:
    
 You could write a !MacroName.py file like this:
 {{{
+Dependencies = []
+
 def execute(macro, args):
     return macro.formatter.text("I got these args from a macro %s: %s" %
     (str(macro), args))
 }}}
+
+ /!\ You have to fill the dependencies list if your macro's output does not solely depend on the parameters. This is true for macros that output random data or query other data sources like e.g. databases. You may use arbitrary items to fill this list but should look at other macros' dependencies lists. 
 
 [[FootNote]]

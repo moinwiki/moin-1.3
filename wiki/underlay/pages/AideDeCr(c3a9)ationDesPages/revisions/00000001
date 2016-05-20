@@ -1,12 +1,13 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## Please edit system and help pages ONLY in the moinmaster wiki!
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-##master-page:Unknown-Page
+## Merci de n'éditer les pages systèmes et d'aide QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnPageCreation
 ##master-date:Unknown-Date
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language fr
+
 == Créer une nouvelle page ==
 
 Pour créer une page, ajoutez son NomWiki à une page existante et sauvez-la. Après cette manipulation, vous pouvez suivre le lien créé.

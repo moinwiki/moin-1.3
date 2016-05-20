@@ -141,8 +141,6 @@ The following page has been changed by %(editor)s:
 ''':
 '''違いは見つかりませんでした。
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] "%(pagename)s"の%(trivial)s更新''',
 '''Trivial ''':
 '''ささいな''',
 '''Status of sending notification mails:''':

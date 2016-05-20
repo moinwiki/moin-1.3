@@ -29,6 +29,8 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Вам не разрешено просматривать эту страницу.''',
+'''DeleteCache''':
+'''СтеретьКэш''',
 '''(cached %s)''':
 '''(запомнен %s)''',
 '''You are not allowed to edit this page.''':
@@ -52,7 +54,7 @@ macro call.-~
 '''Someone else deleted this page while you were editing!''':
 '''Кто-то стер страницу пока вы ее меняли!''',
 '''Someone else changed this page while you were editing!''':
-'''Кто-то изменил страницу пока вы ее меняли!''',
+'''Кто-то уже изменил эту страницу пока вы ее меняли!''',
 '''Someone else saved this page while you were editing!
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.''':
@@ -100,12 +102,9 @@ If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your c
  Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
 ''' Выделить:: [[Verbatim(\'\')]]\'\'курсивом\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'жирным\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'жирным курсивом\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'смешаным \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'жирным\'\'\'[[Verbatim(\'\'\')]] и курсивом\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] горизонтальной чертой.
  Заголовки:: [[Verbatim(=)]] Уровня 1 [[Verbatim(=)]]; [[Verbatim(==)]] Уровня 2 [[Verbatim(==)]]; [[Verbatim(===)]] Уровня 3 [[Verbatim(===)]]; [[Verbatim(====)]] Уровня 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Уровня 5 [[Verbatim(=====)]].
- Списки:: пробел и один из * буллетов - ненумерованный список; 1., a., A., i., I. - нумерованный список;
-    1.#n начать нумерацию с n; только пробел дает отступ.
- Ссылки:: `ЗаглавныеСловаСлитно`; [[Verbatim(["скобки и двойные кавычки"])]];
-url; [url]; [url метка].
- Таблицы:: || текст клетки |||| текст клетки растянутый на 2 колонки ||;
-после таблиц и заголовков нельзя оставлять пробелы.''',
+ Списки:: пробел и один из * буллетов - ненумерованный список; 1., a., A., i., I. - нумерованный список; 1.#n начать нумерацию с n; только пробел дает отступ.
+ Ссылки:: `ЗаглавныеСловаСлитно`; [[Verbatim(["скобки и двойные кавычки"])]]; url; [url]; [url метка].
+ Таблицы:: || текст клетки |||| текст клетки растянутый на 2 колонки ||; после таблиц и заголовков нельзя оставлять пробелы.''',
 '''Edit was cancelled.''':
 '''Изменение отменено.''',
 '''Dear Wiki user,
@@ -140,16 +139,20 @@ The following page has been changed by %(editor)s:
 ''':
 '''Различий не найдено!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)sобновил(а) "%(pagename)s"''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s] %(username)s %(trivial)sобновил(а) "%(pagename)s"''',
 '''Trivial ''':
-'''слегка''',
+'''слегка ''',
 '''Status of sending notification mails:''':
 '''Состояние отправки уведомлений:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## Страница "%(pagename)s" архивирована %(date)s''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''Неожиданная ошибка при попытке блокировки страницы (errno=%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''Ошибка при попытке блокировки страницы. Может нет \'текущего\' файла?''',
 '''You are not allowed to edit this page!''':
 '''Вам нельзя исправлять эту страницу!''',
 '''You cannot save empty pages.''':
@@ -229,7 +232,7 @@ space between words. Group page name is not allowed.''':
 '''Login''':
 '''Войти''',
 ''' %s and try again.''':
-'''%s и попробуйте еще раз.''',
+''' %s и попробуйте еще раз.''',
 '''Can\'t work out query''':
 '''Не могу выполнить запрос''',
 '''%(hits)d results out of %(pages)d pages.''':
@@ -361,6 +364,8 @@ Contact the owner of the wiki, who can enable email.''':
 '''Нет разницы!''',
 '''The page was saved %(count)d times, though!''':
 '''Страницу сохраняли %(count)d раз!''',
+'''(ignoring whitespace)''':
+'''(пробелы игнорируются)''',
 '''Ignore changes in the amount of whitespace''':
 '''Игнорировать разницу в количестве пробелов''',
 '''General Information''':
@@ -597,6 +602,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Вам нельзя переименовывать страницы в этом вики!''',
 '''Please use the interactive user interface to rename pages!''':
 '''Пожалуйста воспользуйтесь интерфейсом пользователя для переименования страниц!''',
+'''Could not rename page because of file system error: %s.''':
+'''Страница не была переименована из-за системной ошибки: %s.''',
 '''Rename Page''':
 '''Переименовать''',
 '''New name''':
@@ -625,6 +632,8 @@ Try a different name.''':
 '''Поиск по тексту: "%s"''',
 '''Full Link List for "%s"''':
 '''Полный список ссылок для "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''Не могу создать страницу без имени. Укажите имя страницы.''',
 '''Invalid include arguments "%s"!''':
 '''Неправильные аргументы для include "%s"!''',
 '''Nothing found for "%s"!''':
@@ -641,6 +650,8 @@ Try a different name.''':
 '''Начало''',
 '''Slide %(pos)d of %(size)d''':
 '''Кадр %(pos)d из %(size)d''',
+'''Create New Page''':
+'''Создать страницу''',
 '''No orphaned pages in this wiki.''':
 '''В этом вики нет одиноких страниц.''',
 '''No quotes on %(pagename)s.''':
@@ -677,6 +688,10 @@ Try a different name.''':
 '''Сохранить XML версию этого вики''',
 '''No wanted pages in this wiki.''':
 '''В этом вики нет требуемых страниц.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**Превышено максимальное число вставок include**''',
+'''**Could not find the referenced page: %s**''':
+'''**Не могу найти страницу по ссылке: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''Нарисовать "%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
@@ -725,6 +740,22 @@ red=edit''':
 '''Распределение броузеров по типам''',
 '''Unsubscribe''':
 '''Отписка''',
+'''Home''':
+'''МояСтраница''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[УДАЛЕНА]''',
+'''[UPDATED]''':
+'''[ОБНОВЛЕНА]''',
+'''[NEW]''':
+'''[НОВАЯ]''',
+'''[DIFF]''':
+'''[РАЗНИЦА]''',
+'''[BOTTOM]''':
+'''[ВНИЗ]''',
+'''[TOP]''':
+'''[ВВЕРХ]''',
 '''Click to do a full-text search for this title''':
 '''Нажмите сюда для поиска этого названия везде''',
 '''Clear message''':
@@ -745,6 +776,8 @@ red=edit''':
 '''Показать разметку''',
 '''Show Print View''':
 '''Версия для печати''',
+'''Delete Cache''':
+'''Убрать из кэша''',
 '''Attach File''':
 '''Приложить файл''',
 '''Delete Page''':
@@ -764,7 +797,7 @@ red=edit''':
 '''Get Info''':
 '''Справка''',
 '''Show %s days.''':
-'''Показать за %s дней.''',
+'''Показать изменения за %s дней.''',
 '''EditText''':
 '''ИсправитьТекст''',
 '''Immutable page''':
@@ -777,6 +810,8 @@ red=edit''':
 '''След''',
 '''User''':
 '''Кто''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Извините, но страницу нельзя записать, потому что "%(content)s" запрещено в этом вики.''',
 '''Line''':
 '''Строка''',
 '''Deletions are marked like this.''':

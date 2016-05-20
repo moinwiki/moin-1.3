@@ -17,6 +17,7 @@ To write bold, enclose the text in triple single quotes.
 __Underlined text__ needs a double underscore on each side.
 You get ^superscripted text^ by enclosing it into caret characters,
 and ,,subscripts,, have to be embedded into double commas.
+If you need something ~-smaller-~ or ~+larger+~ you can get that by writing {{{~-smaller-~}}} or {{{~+larger+~}}}.
 
 To insert program source in a {{{monospace font}}} without reformatting, use three curly braces:
 {{{

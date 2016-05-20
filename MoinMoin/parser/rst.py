@@ -135,8 +135,6 @@ class MoinWriter(html4css1.Writer):
         
 
 class Parser:
-    
-    # allow caching - This should be turned off when testing.
     caching = 1
     Dependencies = Dependencies # copy dependencies from module-scope
     
@@ -148,9 +146,12 @@ class Parser:
     def format(self, formatter):
         # Create our simple parser
         parser = MoinDirectives(self.request)
-        
+
         parts =  publish_parts(source = self.raw,
-                               writer = MoinWriter(formatter, self.request))
+                               writer = MoinWriter(formatter, self.request),
+                               settings_overrides = {'halt_level': 5,
+                                                     'traceback': True}
+                              )
         
         text = ''
         if parts['title']:

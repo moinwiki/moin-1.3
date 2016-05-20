@@ -665,7 +665,7 @@ def do_admin_browser(request):
                 filepath = os.path.join(page_dir, filename)
                 data.addRow((
                     Page(request, pagename).link_to(request, querystr="action=AttachFile"),
-                    wikiutil.escape(filename),
+                    wikiutil.escape(filename.decode(config.charset)),
                     os.path.getsize(filepath),
                     # '',
                 ))

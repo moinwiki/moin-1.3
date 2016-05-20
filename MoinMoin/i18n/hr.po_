@@ -1,15 +1,24 @@
-# MoinMoin translation
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format gettext
+#language hr
+
+#
+# MoinMoin hr system text translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: 2004-02-15 23:19+0100\n"
 "Last-Translator: Davor Cengija <dcengija@yahoo.com>\n"
 "Language-Team: Croatian <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
 "X-Language: Hrvatski\n"
@@ -19,8 +28,8 @@ msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
 msgstr ""
-"Spremljene kopije ove stranice su zastarjele i neæe biti ukljuèene u\n"
-"pretra¾ivanje"
+"Spremljene kopije ove stranice su zastarjele i neÄ‡e biti ukljuÄene u\n"
+"pretraÅ¾ivanje"
 
 #, fuzzy, python-format
 msgid "Revision %(rev)d as of %(date)s"
@@ -28,7 +37,7 @@ msgstr "Verzija od %(date)s"
 
 #, python-format
 msgid "Redirected from page \"%(page)s\""
-msgstr "Proslijeğen sa stranice \"%(page)s\""
+msgstr "ProslijeÄ‘en sa stranice \"%(page)s\""
 
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
@@ -46,8 +55,9 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "Brisanje stranice nije dozvoljeno!"
 
-msgid "RefreshCache"
-msgstr "Osvje¾iCache"
+#, fuzzy
+msgid "DeleteCache"
+msgstr " ObriÅ¡i "
 
 #, python-format
 msgid "(cached %s)"
@@ -59,7 +69,7 @@ msgstr "Brisanje stranice nije dozvoljeno!"
 
 #, fuzzy
 msgid "Page is immutable!"
-msgstr "Sadr¾aj ove stranice se ne mo¾e mijenjati!"
+msgstr "SadrÅ¾aj ove stranice se ne moÅ¾e mijenjati!"
 
 msgid "Cannot edit old revisions!"
 msgstr ""
@@ -68,12 +78,12 @@ msgstr ""
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
 "<strong class=\"highlight\">Isteklo je vrijeme u kojem ste imali ekskluzivno "
-"pravo mijenjanja sadr¾aja ove stranice.\n"
-"Moguæe je da se pojave problemi kod spremanja sadr¾aja.</strong><br>"
+"pravo mijenjanja sadrÅ¾aja ove stranice.\n"
+"MoguÄ‡e je da se pojave problemi kod spremanja sadrÅ¾aja.</strong><br>"
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
-msgstr "Promjena sadr¾aja stranice \"%(pagename)s\""
+msgstr "Promjena sadrÅ¾aja stranice \"%(pagename)s\""
 
 #, python-format
 msgid "Preview of \"%(pagename)s\""
@@ -106,26 +116,26 @@ msgstr ""
 
 #, python-format
 msgid "[Content of new page loaded from %s]"
-msgstr "[Sadr¾aj nove strnanice uèitan s %s]"
+msgstr "[SadrÅ¾aj nove strnanice uÄitan s %s]"
 
 #, python-format
 msgid "[Template %s not found]"
-msgstr "[Predlo¾ak %s nije pronağen]"
+msgstr "[PredloÅ¾ak %s nije pronaÄ‘en]"
 
 #, python-format
 msgid "[You may not read %s]"
 msgstr ""
 
 msgid "Skip to preview"
-msgstr "Preskoèi edit i prika¾i kako æe stranica izgledati"
+msgstr "PreskoÄi edit i prikaÅ¾i kako Ä‡e stranica izgledati"
 
 #, fuzzy, python-format
 msgid "[current page size '''%(size)d''' bytes]"
-msgstr "[trenutaèna velièina stranice <strong>%(size)d</strong> bytes]"
+msgstr "[trenutaÄna veliÄina stranice <strong>%(size)d</strong> bytes]"
 
 #, python-format
 msgid "Describe %s here."
-msgstr "Opi¹i %s ovdje."
+msgstr "OpiÅ¡i %s ovdje."
 
 msgid "Optional comment about this change"
 msgstr "Komentar o ovoj promjeni (nije obavezan)"
@@ -161,7 +171,7 @@ msgid "Trivial change"
 msgstr ""
 
 msgid "Remove trailing whitespace from each line"
-msgstr "Izbri¹i blankove s kraja svake linije."
+msgstr "IzbriÅ¡i blankove s kraja svake linije."
 
 #, fuzzy
 msgid ""
@@ -181,25 +191,25 @@ msgid ""
 " Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing "
 "white space allowed after tables or titles."
 msgstr ""
-"<b>Nagla¹avanje:</b> ''<i>ukoso</i>''; '''<b>masno</b>'''; '''''<b><i>ukoso "
+"<b>NaglaÅ¡avanje:</b> ''<i>ukoso</i>''; '''<b>masno</b>'''; '''''<b><i>ukoso "
 "masno</i></b>''''';\n"
-"    ''<i>mije¹ano '''<b>masno</b>''' i ukoso</i>''; ---- vodoravna crta."
+"    ''<i>mijeÅ¡ano '''<b>masno</b>''' i ukoso</i>''; ---- vodoravna crta."
 "<br>\n"
-"<b>Naslovi:</b> = Prvog reda (1) =; == Drugog reda (2) ==; === Treæeg reda "
+"<b>Naslovi:</b> = Prvog reda (1) =; == Drugog reda (2) ==; === TreÄ‡eg reda "
 "(3) ===;\n"
-"    ==== Èetvrtog reda (4) ====; ===== Petog reda (5) =====.<br>\n"
-"<b>Liste:</b> razmak i neki od sljedeæih elemenata *; 1., a., A., i., I. "
-"numerirani èlanovi liste;\n"
-"    1.#n Poèni brojati od broja n; Samo razmak uvlaèi red.<br>\n"
-"<b>Linkovi:</b> SpojeneRijeèiSVelikimSlovima; [\"uglate zagrade i navodnici"
+"    ==== ÄŒetvrtog reda (4) ====; ===== Petog reda (5) =====.<br>\n"
+"<b>Liste:</b> razmak i neki od sljedeÄ‡ih elemenata *; 1., a., A., i., I. "
+"numerirani Älanovi liste;\n"
+"    1.#n PoÄni brojati od broja n; Samo razmak uvlaÄi red.<br>\n"
+"<b>Linkovi:</b> SpojeneRijeÄiSVelikimSlovima; [\"uglate zagrade i navodnici"
 "\"];\n"
 "    url; [url]; [url tekst].<br>\n"
-"<b>Tablice</b>: || tekst polja |||| tekst jednog polja koji obuhvaæa dvije "
+"<b>Tablice</b>: || tekst polja |||| tekst jednog polja koji obuhvaÄ‡a dvije "
 "kolone||;\n"
 "    Blankovi nisu dozvoljeni nakon tablica ili naslova.<br>\n"
 
 msgid "Edit was cancelled."
-msgstr "Promjena sadr¾aja je poni¹tena."
+msgstr "Promjena sadrÅ¾aja je poniÅ¡tena."
 
 #, fuzzy, python-format
 msgid ""
@@ -231,17 +241,17 @@ msgstr "Ime"
 
 #, fuzzy
 msgid "No differences found!\n"
-msgstr "Nisu pronağene nikakve razlike!\n"
+msgstr "Nisu pronaÄ‘ene nikakve razlike!\n"
 
 #, fuzzy, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
 msgstr "[%(sitename)s] Promjena na stranici \"%(pagename)s\""
 
 msgid "Trivial "
 msgstr ""
 
 msgid "Status of sending notification mails:"
-msgstr "Rezultat slanja obavijesti o promjeni sadr¾aja:"
+msgstr "Rezultat slanja obavijesti o promjeni sadrÅ¾aja:"
 
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
@@ -251,13 +261,20 @@ msgstr ""
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr ""
 
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr ""
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr ""
+
 #, fuzzy
 msgid "You are not allowed to edit this page!"
 msgstr "Brisanje stranice nije dozvoljeno!"
 
 #, fuzzy
 msgid "You cannot save empty pages."
-msgstr "Ne mo¾ete spremiti prazne stranice."
+msgstr "Ne moÅ¾ete spremiti prazne stranice."
 
 #, fuzzy
 msgid ""
@@ -271,18 +288,18 @@ msgid ""
 "the content editbox with your version of the page, because that would\n"
 "delete the changes of the other person, which is excessively rude!''\n"
 msgstr ""
-"Na ¾alost, netko drugi je spremio svoje promjene na ovoj stranici updavo\n"
+"Na Å¾alost, netko drugi je spremio svoje promjene na ovoj stranici updavo\n"
 "dok ste je vi editirali.\n"
-"<p>Molim uèinite sljedeæe: Kliknite \"Natrag -- Back\" gumb i kopirajte "
+"<p>Molim uÄinite sljedeÄ‡e: Kliknite \"Natrag -- Back\" gumb i kopirajte "
 "svoje izmjene s\n"
 "te stranice. Zatim kliknite \"Naprijed -- Forward\" do ove stranice i "
 "kliknite\n"
-"PromijeniTekst (EditText). Sad mo¾ete dodati svoje izmjene na trenutni "
-"sadr¾aj\n"
+"PromijeniTekst (EditText). Sad moÅ¾ete dodati svoje izmjene na trenutni "
+"sadrÅ¾aj\n"
 "stranice.\n"
-"<p><em>Nemojte samo zamijeniti postojeæi sadr¾aj sa svojim jer æe to "
-"poni¹titi\n"
-"sve promjene tog drugog korisnika, ¹to je vrlo nepristojno!"
+"<p><em>Nemojte samo zamijeniti postojeÄ‡i sadrÅ¾aj sa svojim jer Ä‡e to "
+"poniÅ¡titi\n"
+"sve promjene tog drugog korisnika, Å¡to je vrlo nepristojno!"
 
 #, python-format
 msgid "A backup of your changes is [%(backup_url)s here]."
@@ -290,7 +307,7 @@ msgstr ""
 
 #, fuzzy
 msgid "You did not change the page content, not saved!"
-msgstr "Sadr¾aj stranice nije promijenjen, tako da stranica nije spremljena!"
+msgstr "SadrÅ¾aj stranice nije promijenjen, tako da stranica nije spremljena!"
 
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
@@ -298,7 +315,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Thank you for your changes. Your attention to detail is appreciated."
-msgstr "Hvala za poslane promjene. Cijenimo Va¹u pa¾nju i brigu o detaljima."
+msgstr "Hvala za poslane promjene. Cijenimo VaÅ¡u paÅ¾nju i brigu o detaljima."
 
 #, python-format
 msgid ""
@@ -312,7 +329,7 @@ msgstr ""
 msgid ""
 "Other users will be ''blocked'' from editing this page until %(bumptime)s."
 msgstr ""
-"Ostali korisnici <em>neæe moæi mijenjati</em> sadr¾aj ove stranice sve do\n"
+"Ostali korisnici <em>neÄ‡e moÄ‡i mijenjati</em> sadrÅ¾aj ove stranice sve do\n"
 "%(bumptime)s."
 
 #, fuzzy, python-format
@@ -320,20 +337,20 @@ msgid ""
 "Other users will be ''warned'' until %(bumptime)s that you are editing this "
 "page."
 msgstr ""
-"Ostali korisnici æe biti <em>upozoravani</em> do %(bumptime)s da mijenjate\n"
-"sadr¾aj ove stranice."
+"Ostali korisnici Ä‡e biti <em>upozoravani</em> do %(bumptime)s da mijenjate\n"
+"sadrÅ¾aj ove stranice."
 
 msgid "Use the Preview button to extend the locking period."
 msgstr ""
-"Koristite \"Provjeri izgled\" gumb kako biste produ¾ili period upozorenja."
+"Koristite \"Provjeri izgled\" gumb kako biste produÅ¾ili period upozorenja."
 
 #, fuzzy, python-format
 msgid ""
 "This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
 "s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Ova se stranica trenutno <em>ne mo¾e mijenjati</em> jer %(owner)s ima "
-"ekskluzivno pravo sve do %(timestamp)s, tj. sljedeæih %(mins_valid)d min."
+"Ova se stranica trenutno <em>ne moÅ¾e mijenjati</em> jer %(owner)s ima "
+"ekskluzivno pravo sve do %(timestamp)s, tj. sljedeÄ‡ih %(mins_valid)d min."
 
 #, fuzzy, python-format
 msgid ""
@@ -344,10 +361,10 @@ msgid ""
 "to avoid editing conflicts.'''[[BR]]\n"
 "To leave the editor, press the Cancel button."
 msgstr ""
-"%(owner)s trenutno mijenja sadr¾aj ove stranice (vrijeme posljednje "
+"%(owner)s trenutno mijenja sadrÅ¾aj ove stranice (vrijeme posljednje "
 "provjere: %(timestamp)s).<br>\n"
-"<strong class=\"highlight\">Ne biste trebali mijenjati sadr¾aj ove stranice "
-"bar jo¹ sljedeæih %(mins_valid)d minuta,\n"
+"<strong class=\"highlight\">Ne biste trebali mijenjati sadrÅ¾aj ove stranice "
+"bar joÅ¡ sljedeÄ‡ih %(mins_valid)d minuta,\n"
 "kako bi se izbjegli problemi sa spremanjem.</strong><br>\n"
 "Kliknite \"Odustani\" gumb."
 
@@ -410,7 +427,7 @@ msgstr "Nerazumljiv upit"
 
 #, fuzzy, python-format
 msgid "%(hits)d results out of %(pages)d pages."
-msgstr "%(hits)d pogodaka od ukupno %(pages)d pretra¾enih stranica."
+msgstr "%(hits)d pogodaka od ukupno %(pages)d pretraÅ¾enih stranica."
 
 #, python-format
 msgid "%.2f seconds"
@@ -428,32 +445,32 @@ msgid "Open editor on double click"
 msgstr "Otvori editor na dvostruki klik"
 
 msgid "Remember last page visited"
-msgstr "Zapamti zadnju posjeæenu stranicu"
+msgstr "Zapamti zadnju posjeÄ‡enu stranicu"
 
 msgid "Show fancy links"
-msgstr "Poka¾i ikone sa slièicama"
+msgstr "PokaÅ¾i ikone sa sliÄicama"
 
 msgid "Show question mark for non-existing pagelinks"
-msgstr "Poka¾i upitnik pored linka koji vodi na nepostojeæu stranicu"
+msgstr "PokaÅ¾i upitnik pored linka koji vodi na nepostojeÄ‡u stranicu"
 
 msgid "Show page trail"
-msgstr "Poka¾i linkove na zadnjih nekoliko posjeæenih stranica"
+msgstr "PokaÅ¾i linkove na zadnjih nekoliko posjeÄ‡enih stranica"
 
 msgid "Show icon toolbar"
-msgstr "Poka¾i toolbar ikone"
+msgstr "PokaÅ¾i toolbar ikone"
 
 msgid "Show top/bottom links in headings"
-msgstr "Poka¾i na vrh/na dno linkove u naslovima"
+msgstr "PokaÅ¾i na vrh/na dno linkove u naslovima"
 
 msgid "Show fancy diffs"
-msgstr "Poka¾i ¹areni diff"
+msgstr "PokaÅ¾i Å¡areni diff"
 
 msgid "Add spaces to displayed wiki names"
 msgstr "Dodaj razmake u wiki imena"
 
 #, fuzzy
 msgid "Remember login information"
-msgstr "Opæi podaci"
+msgstr "OpÄ‡i podaci"
 
 msgid "Subscribe to trivial changes"
 msgstr ""
@@ -475,11 +492,11 @@ msgstr "Molim unesite ispravnu email adresu!"
 
 #, fuzzy, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
-msgstr "Korisnièki raèun s email adresom '%(email)s' nije pronağen!"
+msgstr "KorisniÄki raÄun s email adresom '%(email)s' nije pronaÄ‘en!"
 
 #, fuzzy, python-format
 msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
-msgstr "Molim upi¹ite korisnièko ime!"
+msgstr "Molim upiÅ¡ite korisniÄko ime!"
 
 msgid "Missing password. Please enter user name and password."
 msgstr ""
@@ -495,7 +512,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Empty user name. Please enter a user name."
-msgstr "Molim upi¹ite korisnièko ime!"
+msgstr "Molim upiÅ¡ite korisniÄko ime!"
 
 msgid "This user name already belongs to somebody else."
 msgstr ""
@@ -520,7 +537,7 @@ msgstr ""
 
 #, fuzzy
 msgid "User preferences saved!"
-msgstr "Korisnièke postavke su spremljene!"
+msgstr "KorisniÄke postavke su spremljene!"
 
 msgid "Default"
 msgstr ""
@@ -538,11 +555,11 @@ msgstr " Odjava "
 
 #, fuzzy
 msgid "Create Profile"
-msgstr " Kreiraj korisnièki raèun "
+msgstr " Kreiraj korisniÄki raÄun "
 
 #, fuzzy
 msgid "Mail me my account data"
-msgstr " Po¹alji mi emailom podatke o mom korisnièkom raèunu "
+msgstr " PoÅ¡alji mi emailom podatke o mom korisniÄkom raÄunu "
 
 msgid "Name"
 msgstr "Ime"
@@ -573,16 +590,16 @@ msgstr "URL za CSS"
 
 #, fuzzy
 msgid "(Leave it empty for disabling user CSS)"
-msgstr "(\"None\" ako ne ¾elite koristiti CSS)"
+msgstr "(\"None\" ako ne Å¾elite koristiti CSS)"
 
 msgid "Editor size"
-msgstr "Velièina editora"
+msgstr "VeliÄina editora"
 
 msgid "Time zone"
 msgstr "Vremenska zona"
 
 msgid "Your time is"
-msgstr "Va¹e vrijeme je"
+msgstr "VaÅ¡e vrijeme je"
 
 msgid "Server time is"
 msgstr "Vrijeme na serveru je"
@@ -594,17 +611,17 @@ msgid "Preferred language"
 msgstr "Odabrani jezik"
 
 msgid "General options"
-msgstr "Opæe postavke"
+msgstr "OpÄ‡e postavke"
 
 msgid "Quick links"
 msgstr "Brzi linkovi"
 
 msgid "This list does not work, unless you have entered a valid email address!"
-msgstr "Ova mailing lista neæe raditi dok ne upi¹ete ispravnu email adresu!"
+msgstr "Ova mailing lista neÄ‡e raditi dok ne upiÅ¡ete ispravnu email adresu!"
 
 #, fuzzy
 msgid "Subscribed wiki pages (one regex per line)"
-msgstr "Wiki stranice na koje ste pretplaæeni (jedan regularni izraz po redu)"
+msgstr "Wiki stranice na koje ste pretplaÄ‡eni (jedan regularni izraz po redu)"
 
 #, fuzzy
 msgid "No older revisions available!"
@@ -616,25 +633,28 @@ msgstr "Razlika za \"%s\""
 
 #, fuzzy, python-format
 msgid "Differences between revisions %d and %d"
-msgstr "Razlike meğu verzijama s datumima %s i %s"
+msgstr "Razlike meÄ‘u verzijama s datumima %s i %s"
 
 #, fuzzy, python-format
 msgid "(spanning %d versions)"
-msgstr "(broj obuhvaæenih verzija: %d)"
+msgstr "(broj obuhvaÄ‡enih verzija: %d)"
 
 #, fuzzy
 msgid "No differences found!"
-msgstr "Nisu pronağene nikakve razlike!"
+msgstr "Nisu pronaÄ‘ene nikakve razlike!"
 
 #, fuzzy, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "Ova stranica je mijenjana i spemljena %(count)d puta!"
 
+msgid "(ignoring whitespace)"
+msgstr ""
+
 msgid "Ignore changes in the amount of whitespace"
-msgstr "Ignoriraj promjenu ako se razlikuje samo u kolièini blank znakova"
+msgstr "Ignoriraj promjenu ako se razlikuje samo u koliÄini blank znakova"
 
 msgid "General Information"
-msgstr "Opæi podaci"
+msgstr "OpÄ‡i podaci"
 
 #, python-format
 msgid "Page size: %d"
@@ -642,28 +662,28 @@ msgstr ""
 
 #, fuzzy
 msgid "SHA digest of this page's content is:"
-msgstr "SHA digest sadr¾aja ove stranice je:"
+msgstr "SHA digest sadrÅ¾aja ove stranice je:"
 
 #, fuzzy
 msgid "The following users subscribed to this page:"
-msgstr "Pretplaæeni ste na ovu stranicu."
+msgstr "PretplaÄ‡eni ste na ovu stranicu."
 
 #, fuzzy
 msgid "This page links to the following pages:"
-msgstr "Sljedeæe stranice su vezane na ovu:"
+msgstr "SljedeÄ‡e stranice su vezane na ovu:"
 
 msgid "Date"
 msgstr "Datum"
 
 msgid "Size"
-msgstr "Velièina"
+msgstr "VeliÄina"
 
 msgid "Diff"
 msgstr ""
 
 #, fuzzy
 msgid "Editor"
-msgstr "Velièina editora"
+msgstr "VeliÄina editora"
 
 msgid "Comment"
 msgstr "Komentar"
@@ -705,7 +725,7 @@ msgstr "Povijest promjena"
 
 #, fuzzy
 msgid "No log entries found."
-msgstr "Nisu pronağene gre¹ke u pravopisu!"
+msgstr "Nisu pronaÄ‘ene greÅ¡ke u pravopisu!"
 
 #, python-format
 msgid "Info for \"%s\""
@@ -713,18 +733,18 @@ msgstr "Informacije o \"%s\""
 
 #, python-format
 msgid "Show \"%(title)s\""
-msgstr "Poka¾i \"%(title)s\""
+msgstr "PokaÅ¾i \"%(title)s\""
 
 #, fuzzy
 msgid "General Page Infos"
-msgstr "Opæi podaci"
+msgstr "OpÄ‡i podaci"
 
 #, python-format
 msgid "Show chart \"%(title)s\""
-msgstr "Poka¾i graf \"%(title)s\""
+msgstr "PokaÅ¾i graf \"%(title)s\""
 
 msgid "Page hits and edits"
-msgstr "Broj uèitavanja i izmjena sadr¾aja"
+msgstr "Broj uÄitavanja i izmjena sadrÅ¾aja"
 
 #, fuzzy
 msgid "You are not allowed to revert this page!"
@@ -744,7 +764,7 @@ msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
 "right corner to create a profile."
 msgstr ""
-"Jo¹ niste kreirali svoj korisnièki raèun. Kliknite UserPreferences u\n"
+"JoÅ¡ niste kreirali svoj korisniÄki raÄun. Kliknite UserPreferences u\n"
 "gornjem desnom kutu."
 
 #, fuzzy
@@ -752,12 +772,12 @@ msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
 msgstr ""
-"Jo¹ niste kreirali svoj korisnièki raèun. Kliknite UserPreferences u\n"
+"JoÅ¡ niste kreirali svoj korisniÄki raÄun. Kliknite UserPreferences u\n"
 "gornjem desnom kutu."
 
 #, fuzzy
 msgid "Your subscribtion to this page has been removed."
-msgstr "Nitko nije pretplaæen na ovu stranicu; nijedan email nije poslan."
+msgstr "Nitko nije pretplaÄ‡en na ovu stranicu; nijedan email nije poslan."
 
 msgid "Can't remove regular expression subscription!"
 msgstr ""
@@ -767,12 +787,12 @@ msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
 "subscription list."
 msgstr ""
-"Da bi ste poni¹tili pretplatu, otvorite Postavke (UserPreferences) i\n"
-"pobri¹ite ovu stranicu iz popisa.\n"
+"Da bi ste poniÅ¡tili pretplatu, otvorite Postavke (UserPreferences) i\n"
+"pobriÅ¡ite ovu stranicu iz popisa.\n"
 
 #, fuzzy
 msgid "You have been subscribed to this page."
-msgstr "Pretplaæeni ste na ovu stranicu."
+msgstr "PretplaÄ‡eni ste na ovu stranicu."
 
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
@@ -792,7 +812,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Search Text"
-msgstr "Poka¾iTekst"
+msgstr "PokaÅ¾iTekst"
 
 msgid "Go To Page"
 msgstr ""
@@ -831,7 +851,7 @@ msgid "Number of system pages"
 msgstr "Broj sistemskih stranica"
 
 msgid "Accumulated page sizes"
-msgstr "Ukupna velièina stranica"
+msgstr "Ukupna veliÄina stranica"
 
 msgid "Entries in edit log"
 msgstr "Ukupan broj izmjena svih stranica"
@@ -864,23 +884,23 @@ msgstr ""
 
 #, fuzzy, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
-msgstr "Molim koristite interaktivno korisnièko suèelje za brisanje stranica!"
+msgstr "Molim koristite interaktivno korisniÄko suÄelje za brisanje stranica!"
 
 #, python-format
 msgid "ERROR in regex '%s'"
-msgstr "GRE©KA u regularnom izrazu '%s'"
+msgstr "GREÅ KA u regularnom izrazu '%s'"
 
 #, python-format
 msgid "Bad timestamp '%s'"
-msgstr "Pogre¹an datum '%s'"
+msgstr "PogreÅ¡an datum '%s'"
 
 #, python-format
 msgid "Expected \"=\" to follow \"%(token)s\""
-msgstr "Oèekuje se \"=\" poslije \"%(token)s\""
+msgstr "OÄekuje se \"=\" poslije \"%(token)s\""
 
 #, python-format
 msgid "Expected a value for key \"%(token)s\""
-msgstr "Oèekuje se vrijednost za kljuè \"%(token)s\""
+msgstr "OÄekuje se vrijednost za kljuÄ \"%(token)s\""
 
 msgid "Wiki Markup"
 msgstr ""
@@ -938,16 +958,13 @@ msgid ""
 "Otherwise, if \"Rename to\" is left blank, the original filename will be "
 "used."
 msgstr ""
-"Upload nikad neæe prepisati postojeæi file. Ako file s istim imenom veæ\n"
-"postoji, morate promijeniti ime onom fajlu kojeg ¾elite uploadati.\n"
-"Inaèe, ako je polje \"Novo ime\" prazno, originalno ime fajla æe biti\n"
+"Upload nikad neÄ‡e prepisati postojeÄ‡i file. Ako file s istim imenom veÄ‡\n"
+"postoji, morate promijeniti ime onom fajlu kojeg Å¾elite uploadati.\n"
+"InaÄe, ako je polje \"Novo ime\" prazno, originalno ime fajla Ä‡e biti\n"
 "upotrijebljeno.\n"
 
 msgid "File to upload"
 msgstr "File za upload"
-
-msgid "MIME Type (optional)"
-msgstr "MIME Type (nije obavezno)"
 
 #, fuzzy
 msgid "Save as"
@@ -983,7 +1000,7 @@ msgstr "Nije dozvoljeno brisati attachmente."
 
 #, fuzzy, python-format
 msgid "Unsupported upload action: %s"
-msgstr "Upload akcija nije podr¾ana: %s"
+msgstr "Upload akcija nije podrÅ¾ana: %s"
 
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
@@ -998,7 +1015,7 @@ msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
 "saved."
 msgstr ""
-"Attachment '%(target)s' (ime na serveru '%(filename)s') velièine %(bytes)d "
+"Attachment '%(target)s' (ime na serveru '%(filename)s') veliÄine %(bytes)d "
 "bytes je spremljen."
 
 #, python-format
@@ -1021,21 +1038,21 @@ msgid "You are not allowed to delete this page."
 msgstr "Brisanje stranice nije dozvoljeno!"
 
 msgid "This page is already deleted or was never created!"
-msgstr "Ova stranica je veæ pobrisana ili nije nikad niti bila kreirana!"
+msgstr "Ova stranica je veÄ‡ pobrisana ili nije nikad niti bila kreirana!"
 
 msgid "Please use the interactive user interface to delete pages!"
-msgstr "Molim koristite interaktivno korisnièko suèelje za brisanje stranica!"
+msgstr "Molim koristite interaktivno korisniÄko suÄelje za brisanje stranica!"
 
 #, fuzzy, python-format
 msgid "Page \"%s\" was successfully deleted!"
-msgstr "Stranica \"%s\" je uspje¹no pobrisana!"
+msgstr "Stranica \"%s\" je uspjeÅ¡no pobrisana!"
 
 msgid "Really delete this page?"
-msgstr "Zaista ¾elite obrisati ovu stranicu?"
+msgstr "Zaista Å¾elite obrisati ovu stranicu?"
 
 #, fuzzy
 msgid "Delete"
-msgstr " Obri¹i "
+msgstr " ObriÅ¡i "
 
 msgid "Optional reason for the deletion"
 msgstr "Razlog brisanja stranice (nije obavezno)"
@@ -1066,7 +1083,7 @@ msgstr "Brisanje stranice nije dozvoljeno!"
 
 #, fuzzy
 msgid "Please use the interactive user interface to rename pages!"
-msgstr "Molim koristite interaktivno korisnièko suèelje za brisanje stranica!"
+msgstr "Molim koristite interaktivno korisniÄko suÄelje za brisanje stranica!"
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
@@ -1089,26 +1106,26 @@ msgid ""
 "'''A page with the name {{{'%s'}}} already exists.'''\n"
 "\n"
 "Try a different name."
-msgstr "Sljedeæe stranice sa sliènim imenima veæ postoje..."
+msgstr "SljedeÄ‡e stranice sa sliÄnim imenima veÄ‡ postoje..."
 
 #, fuzzy, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
-msgstr " (ukljuèujuæi %(localwords)d %(pagelink)s)"
+msgstr " (ukljuÄujuÄ‡i %(localwords)d %(pagelink)s)"
 
 #, python-format
 msgid ""
 "The following %(badwords)d words could not be found in the dictionary of %"
 "(totalwords)d words%(localwords)s and are highlighted below:"
 msgstr ""
-"Sljedeæih %(badwords)d rijeèi nisu nağene u rjeèniku od ukupno  %(totalwords)"
-"d rijeèi %(localwords)s te su dolje oznaèene:"
+"SljedeÄ‡ih %(badwords)d rijeÄi nisu naÄ‘ene u rjeÄniku od ukupno  %(totalwords)"
+"d rijeÄi %(localwords)s te su dolje oznaÄene:"
 
 msgid "Add checked words to dictionary"
-msgstr "Dodaj oznaèene rijeèi u rjeènik"
+msgstr "Dodaj oznaÄene rijeÄi u rjeÄnik"
 
 #, fuzzy
 msgid "No spelling errors found!"
-msgstr "Nisu pronağene gre¹ke u pravopisu!"
+msgstr "Nisu pronaÄ‘ene greÅ¡ke u pravopisu!"
 
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
@@ -1119,15 +1136,19 @@ msgstr "Pretraga po naslovu: \"%s\""
 
 #, fuzzy, python-format
 msgid "Full Text Search: \"%s\""
-msgstr "Pretraga po sadr¾aju: \"%s\""
+msgstr "Pretraga po sadrÅ¾aju: \"%s\""
 
 #, fuzzy, python-format
 msgid "Full Link List for \"%s\""
-msgstr "Pretraga po sadr¾aju: \"%s\""
+msgstr "Pretraga po sadrÅ¾aju: \"%s\""
+
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
-msgstr "Nepravilni argumenti za ukljuèivanje stranica: \"%s\"!"
+msgstr "Nepravilni argumenti za ukljuÄivanje stranica: \"%s\"!"
 
 #, fuzzy, python-format
 msgid "Nothing found for \"%s\"!"
@@ -1154,6 +1175,10 @@ msgstr "Subota"
 msgid "Slide %(pos)d of %(size)d"
 msgstr ""
 
+#, fuzzy
+msgid "Create New Page"
+msgstr "Kreiraj ovu stranicu"
+
 msgid "No orphaned pages in this wiki."
 msgstr "Ovaj wiki nema niti jednu stranicu koja nije povezana s drugima"
 
@@ -1167,7 +1192,7 @@ msgstr "Postavi (upload) attachment '%(filename)s'."
 
 #, python-format
 msgid "Drawing '%(filename)s' saved."
-msgstr "Crte¾ '%(filename)s' je spremljen."
+msgstr "CrteÅ¾ '%(filename)s' je spremljen."
 
 #, fuzzy, python-format
 msgid "%(hours)dh %(mins)dm ago"
@@ -1202,7 +1227,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Filename"
-msgstr "PronağiStranicu"
+msgstr "PronaÄ‘iStranicu"
 
 #, fuzzy
 msgid "You need to provide a chart type!"
@@ -1213,15 +1238,22 @@ msgid "Bad chart type \"%s\"!"
 msgstr ""
 
 msgid "Download XML export of this wiki"
-msgstr "Spusti sadr¾aj ovog wiki sistema u XML formatu"
+msgstr "Spusti sadrÅ¾aj ovog wiki sistema u XML formatu"
 
 #, fuzzy
 msgid "No wanted pages in this wiki."
 msgstr "Ovaj wiki nema niti jednu stranicu koja nije povezana s drugima"
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
-msgstr "Kreiraj novi crte¾ \"%(filename)s\""
+msgstr "Kreiraj novi crteÅ¾ \"%(filename)s\""
 
 #, python-format
 msgid "Upload new attachment \"%(filename)s\""
@@ -1229,23 +1261,23 @@ msgstr "Postavite (upload) novi attachment \"%(filename)s\""
 
 #, fuzzy, python-format
 msgid "Edit drawing %(filename)s"
-msgstr "Kreiraj novi crte¾ %(filename)s"
+msgstr "Kreiraj novi crteÅ¾ %(filename)s"
 
 #, fuzzy, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
-msgstr "Oèekuje se vrijednost za kljuè \"%(token)s\""
+msgstr "OÄekuje se vrijednost za kljuÄ \"%(token)s\""
 
 #, fuzzy, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
-msgstr "Oèekuje se vrijednost za kljuè \"%(token)s\""
+msgstr "OÄekuje se vrijednost za kljuÄ \"%(token)s\""
 
 #, fuzzy, python-format
 msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
-msgstr "Oèekuje se vrijednost za kljuè \"%(token)s\""
+msgstr "OÄekuje se vrijednost za kljuÄ \"%(token)s\""
 
 #, fuzzy, python-format
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
-msgstr "Oèekuje se vrijednost za kljuè \"%(token)s\""
+msgstr "OÄekuje se vrijednost za kljuÄ \"%(token)s\""
 
 msgid "XSLT option disabled!"
 msgstr ""
@@ -1255,7 +1287,10 @@ msgstr ""
 
 #, python-format
 msgid "%(errortype)s processing error"
-msgstr "Gre¹ka u radu: %(errortype)s"
+msgstr "GreÅ¡ka u radu: %(errortype)s"
+
+msgid "RefreshCache"
+msgstr "OsvjeÅ¾iCache"
 
 #, fuzzy, python-format
 msgid "for this page (cached %(date)s)"
@@ -1271,22 +1306,22 @@ msgstr "%(chart_title)s za %(filterpage)s"
 msgid ""
 "green=view\n"
 "red=edit"
-msgstr "z=uèit,c=izmj"
+msgstr "z=uÄit,c=izmj"
 
 msgid "date"
 msgstr "datum"
 
 msgid "# of hits"
-msgstr "# uèitavanja"
+msgstr "# uÄitavanja"
 
 msgid "Page Size Distribution"
-msgstr "Velièine stranica"
+msgstr "VeliÄine stranica"
 
 msgid "page size upper bound [bytes]"
-msgstr "gornja granica velièine stranice [bytes]"
+msgstr "gornja granica veliÄine stranice [bytes]"
 
 msgid "# of pages of this size"
-msgstr "# stranica ove velièine"
+msgstr "# stranica ove veliÄine"
 
 msgid "Others"
 msgstr "Ostali"
@@ -1294,12 +1329,39 @@ msgstr "Ostali"
 msgid "Distribution of User-Agent Types"
 msgstr ""
 
+msgid "Unsubscribe"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
 #, fuzzy
 msgid "Click to do a full-text search for this title"
-msgstr "Klikni ovdje za pokretanje pretra¾ivanja po sadr¾aju za ovaj naslov"
+msgstr "Klikni ovdje za pokretanje pretraÅ¾ivanja po sadrÅ¾aju za ovaj naslov"
 
 msgid "Clear message"
-msgstr "Pobri¹i poruku"
+msgstr "PobriÅ¡i poruku"
 
 #, fuzzy, python-format
 msgid "last edited %(time)s by %(editor)s"
@@ -1311,7 +1373,7 @@ msgstr "(posljednja promjena: %s)"
 
 #, fuzzy
 msgid "Search:"
-msgstr "Poka¾iTekst"
+msgstr "PokaÅ¾iTekst"
 
 #, fuzzy
 msgid "Text"
@@ -1320,9 +1382,6 @@ msgstr "PromijeniTekst"
 #, fuzzy
 msgid "Titles"
 msgstr "IndeksNaslova"
-
-msgid "Unsubscribe"
-msgstr ""
 
 #, fuzzy
 msgid "More Actions:"
@@ -1335,16 +1394,20 @@ msgid "Show Print View"
 msgstr ""
 
 #, fuzzy
+msgid "Delete Cache"
+msgstr " ObriÅ¡i "
+
+#, fuzzy
 msgid "Attach File"
 msgstr "Attached files"
 
 #, fuzzy
 msgid "Delete Page"
-msgstr " Obri¹i "
+msgstr " ObriÅ¡i "
 
 #, fuzzy
 msgid "Show Like Pages"
-msgstr "SlièneStranice"
+msgstr "SliÄneStranice"
 
 #, fuzzy
 msgid "Show Local Site Map"
@@ -1355,14 +1418,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Show Parent"
-msgstr "Poka¾i linkove na zadnjih nekoliko posjeæenih stranica"
+msgstr "PokaÅ¾i linkove na zadnjih nekoliko posjeÄ‡enih stranica"
 
 msgid "Immutable Page"
 msgstr ""
-
-#, fuzzy
-msgid "Refresh"
-msgstr "Osvje¾iCache"
 
 #, fuzzy
 msgid "Show Changes"
@@ -1387,7 +1446,7 @@ msgstr "Ili odaberite jedan od ovih linkova: "
 
 #, fuzzy
 msgid "Page"
-msgstr "PronağiStranicu"
+msgstr "PronaÄ‘iStranicu"
 
 msgid "Trail"
 msgstr ""
@@ -1395,24 +1454,26 @@ msgstr ""
 msgid "User"
 msgstr ""
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr ""
 
 msgid "Deletions are marked like this."
-msgstr "Obrisani elementi su oznaèeni ovako."
+msgstr "Obrisani elementi su oznaÄeni ovako."
 
 msgid "Additions are marked like this."
-msgstr "Dodani elementi su oznaèeni ovako."
+msgstr "Dodani elementi su oznaÄeni ovako."
 
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr ""
 
 msgid "Mail sent OK"
-msgstr "Email uspje¹no poslan"
-
-msgid "[\"<html>\"]"
-msgstr ""
+msgstr "Email uspjeÅ¡no poslan"
 
 msgid "FrontPage"
 msgstr "Naslovnica"
@@ -1424,19 +1485,19 @@ msgid "TitleIndex"
 msgstr "IndeksNaslova"
 
 msgid "WordIndex"
-msgstr "IndeksRijeèi"
+msgstr "IndeksRijeÄi"
 
 msgid "FindPage"
-msgstr "PronağiStranicu"
+msgstr "PronaÄ‘iStranicu"
 
 msgid "SiteNavigation"
 msgstr "RasporedStranica"
 
 msgid "HelpContents"
-msgstr "Pomoæ"
+msgstr "PomoÄ‡"
 
 msgid "HelpOnFormatting"
-msgstr "PomoæPriFormatiranju"
+msgstr "PomoÄ‡PriFormatiranju"
 
 msgid "UserPreferences"
 msgstr "Postavke"
@@ -1446,7 +1507,7 @@ msgstr ""
 
 #, fuzzy
 msgid "MissingPage"
-msgstr "PronağiStranicu"
+msgstr "PronaÄ‘iStranicu"
 
 msgid "Mon"
 msgstr "Ponedjeljak"
@@ -1458,7 +1519,7 @@ msgid "Wed"
 msgstr "Srijeda"
 
 msgid "Thu"
-msgstr "Èetvrtak"
+msgstr "ÄŒetvrtak"
 
 msgid "Fri"
 msgstr "Petak"
@@ -1475,10 +1536,10 @@ msgstr "Attached files"
 
 #, fuzzy
 msgid "DeletePage"
-msgstr " Obri¹i "
+msgstr " ObriÅ¡i "
 
 msgid "LikePages"
-msgstr "SlièneStranice"
+msgstr "SliÄneStranice"
 
 msgid "LocalSiteMap"
 msgstr "LokalnaStrukturaStranica"
@@ -1490,41 +1551,48 @@ msgstr "Ime"
 msgid "SpellCheck"
 msgstr ""
 
+#~ msgid "MIME Type (optional)"
+#~ msgstr "MIME Type (nije obavezno)"
+
+#, fuzzy
+#~ msgid "Refresh"
+#~ msgstr "OsvjeÅ¾iCache"
+
 #, fuzzy
 #~ msgid "Rename"
 #~ msgstr "Ime"
 
 #~ msgid "Needed %(timer).1f seconds."
-#~ msgstr "Trajanje pretra¾ivanja: %(timer).1f sekundi."
+#~ msgstr "Trajanje pretraÅ¾ivanja: %(timer).1f sekundi."
 
 #~ msgid "Go"
 #~ msgstr "Kreni!"
 
 #~ msgid "Send mail notification"
-#~ msgstr "Po¹alji email obavijesti"
+#~ msgstr "PoÅ¡alji email obavijesti"
 
 #, fuzzy
 #~ msgid "You will not be notified of your own changes!"
 #~ msgstr ""
-#~ "Pa¾nja, neæete dobiti email obavijest za promjene na stranicama koje\n"
+#~ "PaÅ¾nja, neÄ‡ete dobiti email obavijest za promjene na stranicama koje\n"
 #~ "sami napravite!"
 
 #~ msgid "Nobody subscribed to this page, no mail sent."
-#~ msgstr "Nitko nije pretplaæen na ovu stranicu; nijedan email nije poslan."
+#~ msgstr "Nitko nije pretplaÄ‡en na ovu stranicu; nijedan email nije poslan."
 
 #~ msgid "Unknown action"
 #~ msgstr "Nepoznata akcija"
 
 #~ msgid "Multiple matches for \"%s...%s\""
-#~ msgstr "Vi¹estruko pronağeni \"%s...%s\""
+#~ msgstr "ViÅ¡estruko pronaÄ‘eni \"%s...%s\""
 
 #, fuzzy
 #~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-#~ msgstr "Stranica \"%s\" je uspje¹no pobrisana!"
+#~ msgstr "Stranica \"%s\" je uspjeÅ¡no pobrisana!"
 
 #, fuzzy
 #~ msgid "Really delete bookmark?"
-#~ msgstr "Zaista ¾elite obrisati ovu stranicu?"
+#~ msgstr "Zaista Å¾elite obrisati ovu stranicu?"
 
 #~ msgid "Update my bookmark timestamp"
 #~ msgstr "Postavi bookmark"
@@ -1540,11 +1608,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Show all changes in the last %s days."
-#~ msgstr "Poka¾i sve izmjene u zadnjih %s dana<br>"
+#~ msgstr "PokaÅ¾i sve izmjene u zadnjih %s dana<br>"
 
 #, fuzzy
 #~ msgid "Site"
-#~ msgstr "Velièina"
+#~ msgstr "VeliÄina"
 
 #, fuzzy
 #~ msgid "Title: %(titlesearch)s[[BR]]Text: %(textsearch)s"
@@ -1553,35 +1621,32 @@ msgstr ""
 #~ "(textsearch)s ili indeksa"
 
 #~ msgid "Show emoticons"
-#~ msgstr "Poka¾i emotikone"
+#~ msgstr "PokaÅ¾i emotikone"
 
 #, fuzzy
 #~ msgid "You are already subscribed to this page."
-#~ msgstr "Veæ ste pretplaæeni na ovu stranicu."
+#~ msgstr "VeÄ‡ ste pretplaÄ‡eni na ovu stranicu."
 
 #~ msgid "Number of backup versions"
 #~ msgstr "Broj spremljenih starih verzija stranica"
 
 #~ msgid "Reduce editor size"
-#~ msgstr "Smanji velièinu editora"
-
-#~ msgid "Create this page"
-#~ msgstr "Kreiraj ovu stranicu"
+#~ msgstr "Smanji veliÄinu editora"
 
 #~ msgid "Alternatively, use one of these templates:"
-#~ msgstr "Mo¾ete koristiti i neki od sljedeæih predlo¾aka:"
+#~ msgstr "MoÅ¾ete koristiti i neki od sljedeÄ‡ih predloÅ¾aka:"
 
 #~ msgid ""
 #~ "To create your own templates, add a page with a name matching the regex "
 #~ "\"%(page_template_regex)s\"."
 #~ msgstr ""
-#~ "Ako ¾elite sami napraviti svoj predlo¾ak za stranice, kreirajte novu\n"
-#~ "stranicu s imenom koje zavr¹ava na Template (regularni izraz:\n"
+#~ "Ako Å¾elite sami napraviti svoj predloÅ¾ak za stranice, kreirajte novu\n"
+#~ "stranicu s imenom koje zavrÅ¡ava na Template (regularni izraz:\n"
 #~ "\"%(page_template_regex)s\")."
 
 #, fuzzy
 #~ msgid "The following pages with similar names already exist..."
-#~ msgstr "Sljedeæe stranice sa sliènim imenima veæ postoje..."
+#~ msgstr "SljedeÄ‡e stranice sa sliÄnim imenima veÄ‡ postoje..."
 
 #, fuzzy
 #~ msgid "Account"
@@ -1594,7 +1659,7 @@ msgstr ""
 #~ msgstr "<div class=\"message\"><b>Grafikoni nisu dostupni.</b></div>"
 
 #~ msgid "Your email address"
-#~ msgstr "Va¹a email adresa"
+#~ msgstr "VaÅ¡a email adresa"
 
 #~ msgid "<b>Cookie deleted!</b>"
 #~ msgstr "<b>Cookie pobrisan!</b>"
@@ -1603,13 +1668,13 @@ msgstr ""
 #~ msgstr "Instalirani dodatni makroi"
 
 #~ msgid " by browsing, searching, or an index<br>"
-#~ msgstr " browsanjem, pretra¾ivanjem ili preko indeksa<br>"
+#~ msgstr " browsanjem, pretraÅ¾ivanjem ili preko indeksa<br>"
 
 #~ msgid " times"
 #~ msgstr " puta"
 
 #~ msgid "LocalSpellingWords"
-#~ msgstr "RijeèiIzRjeènika"
+#~ msgstr "RijeÄiIzRjeÄnika"
 
 #~ msgid "%(changecount)s changes"
 #~ msgstr "%(changecount)s promjena"
@@ -1621,7 +1686,7 @@ msgstr ""
 #~ "Sent a mail notification to these addresses: %s\n"
 #~ "<br>Result was: "
 #~ msgstr ""
-#~ "Obavijest putem emaila je poslana na sljedeæe adrese: %s\n"
+#~ "Obavijest putem emaila je poslana na sljedeÄ‡e adrese: %s\n"
 #~ "<br>Rezultat: "
 
 #~ msgid "Installed extension actions"
@@ -1642,10 +1707,10 @@ msgstr ""
 #~ "b></div>"
 
 #~ msgid "To login from a different machine, use this URL: "
-#~ msgstr "Za prijavu u sistem s drugog raèunala korisitite ovaj URL: "
+#~ msgstr "Za prijavu u sistem s drugog raÄunala korisitite ovaj URL: "
 
 #~ msgid "Return to general page information"
-#~ msgstr "Vrati se na stranicu s opæim podacima"
+#~ msgstr "Vrati se na stranicu s opÄ‡im podacima"
 
 #~ msgid "<b>You are not allowed to upload files.</b>"
 #~ msgstr "<b>Nije dozvoljeno uploadati datoteke.</b>"
@@ -1653,12 +1718,12 @@ msgstr ""
 #~ msgid ""
 #~ "To create you own templates, add a page with a name ending in Template."
 #~ msgstr ""
-#~ "Ako ¾elite sami napraviti svoj predlo¾ak za stranice, kreirajte novu "
+#~ "Ako Å¾elite sami napraviti svoj predloÅ¾ak za stranice, kreirajte novu "
 #~ "stranicu\n"
-#~ "s imenom koje zavr¹ava na Template."
+#~ "s imenom koje zavrÅ¡ava na Template."
 
 #~ msgid "<b>NONE</b>"
-#~ msgstr "<b>NI©TA</b>"
+#~ msgstr "<b>NIÅ TA</b>"
 
 #~ msgid "Detailed Information"
 #~ msgstr "Detaljniji podaci"

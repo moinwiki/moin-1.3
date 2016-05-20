@@ -1,10 +1,19 @@
-# MoinMoin translation
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format gettext
+#language sr
+
+#
+# MoinMoin sr system text translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: 2004-11-16 17:53+0200\n"
 "Last-Translator: Thomas W. Horna <sarman@t-online.de>\n"
 "Language-Team: Serbian <moin-devel@lists.sourceforge.net>\n"
@@ -231,8 +240,8 @@ msgstr "Nova stranica:\n"
 msgid "No differences found!\n"
 msgstr "Nijedna razlika nije pronađena!\n"
 
-#, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
 msgstr "[%(sitename)s] %(trivial)sObnova za \"%(pagename)s\""
 
 msgid "Trivial "
@@ -248,6 +257,13 @@ msgstr "[%(lang)s] %(recipients)s: %(status)s"
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## rezervna kopija ove stranice \"%(pagename)s\" je od %(date)s"
+
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr ""
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr ""
 
 msgid "You are not allowed to edit this page!"
 msgstr "Vama nije dozvoljeno da obrađujete ovu stranicu!"
@@ -606,6 +622,9 @@ msgstr "Razlike nisu pronađene!"
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "Stranica je bre već %(count)d puta snimljena!"
+
+msgid "(ignoring whitespace)"
+msgstr ""
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignorisati izmene u blankovima"

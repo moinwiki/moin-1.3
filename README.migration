@@ -49,16 +49,17 @@ When upgrading, choose your entry point depending on your version:
  version you use         start with mig script
  ---------------------------------------------
  before 1.2              first upgrade to 1.2.4 and test for a while
- 1.2.x                   mig1 - check from_encoding in script!
- 1.3 <patch-78           mig2
- 1.3 <patch-101          mig3
- 1.3 <patch-196, =beta2  mig4
- 1.3 <patch-221, =beta3  mig5
- 1.3 <patch-248          mig6 - check from_encoding in script!
- 1.3 <patch-275, =beta5  mig7
- 1.3 <patch-305, =beta6  mig8
- 1.3 <patch-332, =beta7  mig9
+ 1.2.x                   mig01 - check from_encoding in script!
+ 1.3 <patch-78           mig02
+ 1.3 <patch-101          mig03
+ 1.3 <patch-196, =beta2  mig04
+ 1.3 <patch-221, =beta3  mig05
+ 1.3 <patch-248          mig06 - check from_encoding in script!
+ 1.3 <patch-275, =beta5  mig07
+ 1.3 <patch-305, =beta6  mig08
+ 1.3 <patch-332, =beta7  mig09
  1.3rc1                  -
+ any later               mig10
 
  Modifying from_encoding setting in the scripts is necessary if your old moin
  installation did not use iso-8859-1 encoding (as it was the default in moin
@@ -83,7 +84,9 @@ Read the comments in the scripts for details, especially in mig5.
 
 After conversion, maybe rename your old data/ dir in the original location to
 data.12 (or similar) and copy your new data/ directory from the scripts
-directory to that original location.
+directory to that original location. Check permissions as the conversion
+scripts have changed them (on UNIX: mode, owner, group, fix by chown -R and
+chmod -R).
 
 Note that the migration scripts only convert your data, they do NOT magically
 convert your plugin scripts to new APIs of moin 1.3. So if your plugins do not

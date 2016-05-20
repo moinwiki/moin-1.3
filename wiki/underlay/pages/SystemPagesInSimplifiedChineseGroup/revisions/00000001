@@ -140,7 +140,7 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-其他/常见问题解答"]
   * {1} HelpMiscellaneous/FrequentlyAskedQuestions
  * ["帮助-访问权限控制表"]
-  * HelpOnAccessControlLists
+  * {zh} HelpOnAccessControlLists
  * ["帮助-操作"]
   * HelpOnActions
  * ["帮助-附件"]
@@ -158,7 +158,7 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-编辑锁定"]
   * HelpOnEditLocks
  * ["帮助-编辑"]
-  * {en} {zh} HelpOnEditing
+  * {zh} HelpOnEditing
  * ["帮助-编辑/子网页"]
   * {en} {zh} HelpOnEditing/SubPages
  * ["帮助-排版"]
@@ -192,7 +192,6 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
  * ["帮助-安装/WebLogic"]
   * HelpOnInstalling/WebLogic
  * ["帮助-安装/维基Farm"]
-  * HelpOnInstalling/WikiFarm
  * ["帮助-安装/创建维基例程"]
   * HelpOnInstalling/WikiInstanceCreation
  * ["帮助-语言"]

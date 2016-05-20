@@ -1,6 +1,9 @@
 # -*- coding: iso8859-1 -*-
 """
     MoinMoin - Wiki XMLRPC v1 and v2 Interface
+
+    If you want to use wikirpc function "putPage", read the comments in
+    xmlrpc_putPage or it won't work!
     
     Parts of this code are based on Jürgen Hermann's wikirpc.py,
     Les Orchard's "xmlrpc.cgi" and further work by Gustavo Niemeyer.
@@ -17,7 +20,7 @@
     when really necessary (like for transferring binary files like
     attachments maybe).
 
-    @copyright: 2003-2004 by Thomas Waldmann
+    @copyright: 2003-2005 by Thomas Waldmann
     @license: GNU GPL, see COPYING for details
 """
 
@@ -66,23 +69,25 @@ class XmlRpcBase:
         """ Convert inbound base64-encoded utf-8 to Large OBject.
         
         @param text: the text to convert
-        @rtype: str
-        @return: string in config.charset
+        @rtype: unicode
+        @return: text
         """
-        text = text.data
-        if config.charset != 'utf-8':
-            text = unicode(text, 'utf-8').encode(config.charset)
+        text = text.data #this is a already base64-decoded 8bit string
+        text = unicode(text, 'utf-8')
         return text
 
     def _outlob(self, text):
         """ Convert outbound Large OBject to base64-encoded utf-8.
         
-        @param text: the text to convert XXX unicode? str? both?
+        @param text: the text, either unicode or utf-8 string
         @rtype: str
         @return: xmlrpc Binary object
         """
-        if config.charset != 'utf-8':
-            text = unicode(text, config.charset).encode('utf-8')
+        if isinstance(text, unicode):
+            text = text.encode('utf-8')
+        else:
+            if config.charset != 'utf-8':
+                text = unicode(text, config.charset).encode('utf-8')
         return xmlrpclib.Binary(text)
                     
     def _dump_exc(self):
@@ -336,21 +341,36 @@ class XmlRpcBase:
     def xmlrpc_putPage(self, pagename, pagetext):
         """
         save a page / change a page to a new text
-        @param pagename: the page name (utf-8)
-        @param pagetext: the new page text (content, utf-8)
+        @param pagename: the page name (unicode or utf-8)
+        @param pagetext: the new page text (content, unicode or utf-8)
         @rtype: bool
         @return: true on success
         """
+        # READ THIS OR IT WILL NOT WORK ===================================
+        
+        # we use a test page instead of using the requested pagename, if
+        # xmlrpc_putpage_enabled was not set in wikiconfig.
+        
+        if self.request.cfg.xmlrpc_putpage_enabled:
+            pagename = self._instr(pagename)
+        else:
+            pagename = u"PutPageTestPage"
 
-        # we use a test page instead of using the requested pagename until
-        # we have authentication set up - so nobody will be able to raid the wiki
-        #pagename = self._instr(pagename)
-        pagename = "PutPageTestPage"
-
-        # only authenticated (trusted) users may use putPage!
-        # TODO: maybe replace this with an ACL right 'rpcwrite'
-        if not (self.request.user.trusted and self.request.user.may.write(pagename)):
+        # By default, only authenticated (trusted) users may use putPage!
+        # Trusted currently means being authenticated by http auth.
+        # if you also want untrusted users to be able to write pages, then
+        # change your wikiconfig to have xmlrpc_putpage_trusted_only = 0
+        # and make very very sure that nobody untrusted can access your wiki
+        # via network or somebody will raid your wiki some day!
+        
+        if self.request.cfg.xmlrpc_putpage_trusted_only and not self.request.user.trusted:
             return xmlrpclib.Fault(1, "You are not allowed to edit this page")
+
+        # also check ACLs
+        if not self.request.user.may.write(pagename):
+            return xmlrpclib.Fault(1, "You are not allowed to edit this page")
+
+        # =================================================================
 
         page = PageEditor(self.request, pagename)
         try:
@@ -376,17 +396,19 @@ class XmlRpcBase:
 
     def process(self):
         """ xmlrpc v1 and v2 dispatcher """
-        # read request
-        data = self.request.read()
-
-        params, method = xmlrpclib.loads(data)
-
-        if _debug:
-            sys.stderr.write('- XMLRPC ' + '-' * 70 + '\n')
-            sys.stderr.write('%s(%s)\n\n' % (method, repr(params)))
-
-        # generate response
         try:
+            try:
+                #print self.request.env
+                length = int(self.request.env['content-length'])
+            except:
+                length = None
+            data = self.request.read(length)
+            params, method = xmlrpclib.loads(data)
+    
+            if _debug:
+                sys.stderr.write('- XMLRPC ' + '-' * 70 + '\n')
+                sys.stderr.write('%s(%s)\n\n' % (method, repr(params)))
+            
             try:
                 fn = getattr(self, 'xmlrpc_' + method)
                 response = fn(*params)
@@ -405,7 +427,7 @@ class XmlRpcBase:
             response = xmlrpclib.dumps(response, methodresponse=1)
 
         self.request.http_headers([
-            "Content-Type: text/xml; charset=utf-8",
+            "Content-Type: text/xml;charset=utf-8",
             "Content-Length: %d" % len(response),
         ])
         self.request.write(response)
@@ -432,32 +454,27 @@ class XmlRpc1(XmlRpcBase):
     def _instr(self, text):
         """ Convert string we get from xmlrpc into internal representation
 
-        @param text: quoted text (str)
-        @rtype: str
-        @return: text encoded in config.charset
+        @param text: quoted text (str or unicode object)
+        @rtype: unicode
+        @return: text
         """
+        if isinstance(text, unicode):
+            text = text.encode('utf-8') # ascii should also work
         text = urllib.unquote(text)
-
-        # Recode from utf-8 to config.charset
-        if config.charset != 'utf-8':
-            text = unicode(text, 'utf-8').encode(config.charset)
+        text = unicode(text, 'utf-8')
         return text
 
     def _outstr(self, text):
         """ Convert string from internal representation to xmlrpc
 
-        @param text: XXX unicode or string? both?
+        @param text: unicode or string in config.charset
         @rtype: str
         @return: text encoded in utf-8 and quoted
         """
-        # Handle both unicode and string, as its not clear now what we
-        # should get here
         if isinstance(text, unicode):
-            text = text.encode('utf-8')           
+            text = text.encode('utf-8')
         elif config.charset != 'utf-8':        
-            # Recode from config.charset to utf-8
-            text = unicode(text, config.charset).encode('utf-8')               
-        
+            text = unicode(text, config.charset).encode('utf-8')
         text = urllib.quote(text)
         return text
 
@@ -471,32 +488,24 @@ class XmlRpc2(XmlRpcBase):
     def _instr(self, text):
         """ Convert string we get from xmlrpc into internal representation
 
-        @param text: XXX unicode?
-        @rtype: str
-        @return: text encoded in config.charset
+        @param text: unicode or utf-8 string
+        @rtype: unicode
+        @return: text
         """
-        if config.charset != 'utf-8':
-            text = text.encode(config.charset)
-            #This is not text = unicode(text, 'UTF-8').encode(config.charset)
-            #because we already get unicode! Strange, but true...
-        else:
-            text = text.encode('utf-8')
-            #as we obviously get unicode, we have to encode to utf-8 again
+        if not isinstance(text, unicode):
+            text = unicode(text, 'utf-8')
         return text
 
     def _outstr(self, text):
         """ Convert string from internal representation to xmlrpc
 
-        @param text: XXX unicode or string? both?
+        @param text: unicode or string in config.charset
         @rtype: str
         @return: text encoded in utf-8
         """
-        # Handle both unicode and string, as its not clear now what we
-        # should get here
         if isinstance(text, unicode):
             text = text.encode('utf-8')           
         elif config.charset != 'utf-8':        
-            # Recode from config.charset
             text = unicode(text, config.charset).encode('utf-8')               
         return text
 

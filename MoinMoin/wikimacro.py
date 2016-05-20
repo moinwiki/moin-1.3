@@ -472,21 +472,27 @@ class Macro:
             # we ignore any time zone offsets here, assume UTC,
             # and accept (and ignore) any trailing stuff
             try:
-                tm = (
-                    int(args[0:4]),
-                    int(args[5:7]),
-                    int(args[8:10]),
-                    int(args[11:13]),
-                    int(args[14:16]),
-                    int(args[17:19]),
-                    0, 0, 0
-                )
+                year, month, day = int(args[0:4]), int(args[5:7]), int(args[8:10]) 
+                hour, minute, second = int(args[11:13]), int(args[14:16]), int(args[17:19]) 
+                tz = args[19:] # +HHMM, -HHMM or Z or nothing (then we assume Z)
+                tzoffset = 0 # we assume UTC no matter if there is a Z
+                if tz:
+                    sign = tz[0]
+                    if sign in '+-':
+                        tzh, tzm = int(tz[1:3]), int(tz[3:])
+                        tzoffset = (tzh*60+tzm)*60
+                        if sign == '-':
+                            tzoffset = -tzoffset
+                tm = (year, month, day, hour, minute, second, 0, 0, 0)
             except ValueError, e:
                 return "<strong>%s: %s</strong>" % (
                     _("Bad timestamp '%s'") % (args,), e)
             # as mktime wants a localtime argument (but we only have UTC),
             # we adjust by our local timezone's offset
-            tm = time.mktime(tm) - time.timezone
+            try:
+                tm = time.mktime(tm) - time.timezone - tzoffset
+            except (OverflowError, ValueError), err:
+                tm = 0 # incorrect, but we avoid an ugly backtrace
         else:
             # try raw seconds since epoch in UTC
             try:

@@ -137,8 +137,6 @@ Trang sau đã được thay đổi bởi %(editor)s:
 ''':
 '''Không có sự khác biệt!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] Cập nhật %(trivial)scủa "%(pagename)s"''',
 '''Trivial ''':
 '''nhỏ nhặt ''',
 '''Status of sending notification mails:''':

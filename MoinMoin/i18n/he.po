@@ -1,10 +1,17 @@
+# # Please edit system and help pages ONLY in the moinmaster wiki! For more
+# # information, please see MoinMaster:MoinPagesEditorGroup.
+# #master-page:None
+# #master-date:None
+# acl MoinPagesEditorGroup:read,write,delete,revert All:read
+# format gettext
+# language he
 # MoinMoin translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: 2005-01-21 00:00+0200\n"
 "Last-Translator: Nir Soffer <nirs@freeshell.org>\n"
 "Language-Team: Hebrew <moin-devel@lists.sourceforge.net>\n"
@@ -231,12 +238,12 @@ msgid "No differences found!\n"
 msgstr "לא נמצאו הבדלים.\n"
 
 #, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
-msgstr "[%(sitename)s] עידכון של \"%(pagename)s\"%(trivial)s"
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
+msgstr ""
+"[%(sitename)s] עידכון%(trivial)s של \"%(pagename)s\" על ידי %(username)s"
 
-# Can't be translated, must be "trivial update" "עדכון פעוט"
 msgid "Trivial "
-msgstr " "
+msgstr " פעוט"
 
 msgid "Status of sending notification mails:"
 msgstr "הודעות על השינוי:"
@@ -248,6 +255,13 @@ msgstr "[%(lang)s] %(recipients)s: %(status)s"
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## גיבוי של דף \"%(pagename)s\" מתאריך %(date)s"
+
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr ""
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr ""
 
 msgid "You are not allowed to edit this page!"
 msgstr "אין לכם הרשאות לערוך את הדף."
@@ -589,6 +603,9 @@ msgstr "לא נמצאו הבדלים."
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "הדף נשמר %(count)d פעמים."
+
+msgid "(ignoring whitespace)"
+msgstr ""
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "התעלם משינויים בכמות השטח הלבן (White Space)"

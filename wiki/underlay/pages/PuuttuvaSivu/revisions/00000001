@@ -1,0 +1,14 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:MissingPage
+##master-date:2005-01-23 00:28:35
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language fi
+
+'''Tätä sivua ei vielä ole. Voit aloittaa tyhjästä sivusta tai käyttää jotain sivupohjista. Ennen kuin luot uuden sivun, tarkista olisiko samankaltainen sivu mahdollisesti jo olemassa.
+
+[[Action(edit,Aloita tyhjästä sivusta)]]
+
+|| '''Sivupohjat:''' || '''Samankaltaisesti nimettyjä sivuja:''' ||
+||<^> [[EditTemplates]] ||<^> [[LikePages((none))]] ||

@@ -25,14 +25,25 @@ def isImportable(module):
 
 def getPackageModules(packagefile):
     """ Return a list of modules for a package, omitting any modules
-        starting with an underscore (note that this uses file system
-        calls, i.e. it won't work with ZIPped packages and the like).
+        starting with an underscore.
     """
     import os, re
 
-    pyre = re.compile(r"^([^_].*)\.py$")
-    pyfiles = filter(None, map(pyre.match, os.listdir(os.path.dirname(packagefile))))
+    packagedir = os.path.dirname(packagefile)
+
+    moinmodule = __import__('MoinMoin')
+    if hasattr(moinmodule, '__loader__'):                   # Is it in zipfile?
+        pyre = re.compile(r"^([^_].*)\.py(?:c|o)$")
+        zipfiles = moinmodule.__loader__._files
+        dirlist = [file[0].replace(r'/', '\\').split('\\')[-1]
+                   for file in zipfiles.values() if packagedir in file[0]]
+    else:
+        pyre = re.compile(r"^([^_].*)\.py$")
+        dirlist = os.listdir(packagedir)
+
+    pyfiles = filter(None, map(pyre.match, dirlist))
     modules = map(lambda x: x.group(1), pyfiles)
+
     modules.sort()
     return modules
 

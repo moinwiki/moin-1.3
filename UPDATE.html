@@ -127,8 +127,8 @@
 <h4 id="head-93651cf60ec7638f011aa01673f747b168e68c9e">Updating files</h4>
 
 <dl>
-<dt>Images</dt>
-<dd><p>On every update, you should copy the content of the "share/moin/htdocs/img" directory to the image directory visible to your web server, normally a new release has some new images in it. If you use the default distutils setup scheme, this is no longer necessary (distutils updates the files for you, and your webserver gets the files from the installed images). </p>
+<dt>Images and CSS</dt>
+<dd><p>On every update, you should copy the content of the "share/moin/htdocs/" directory to the directory visible to your web server, normally a new release has some new images and CSS in it. If you use the default distutils setup scheme, this is no longer necessary (distutils updates the files for you, and your webserver gets the files from the installed images and CSS). </p>
 </dd>
 <dt>System pages</dt>
 <dd><p>When upgrading to a new version, copy at least the help pages ("Help*") to your existing directory. Then check whether you miss any new system pages. In 1.3 these pages are kept separate in the underlay directory. </p>
@@ -308,7 +308,7 @@ done
 <p><img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> Upgrading to moin 1.3 will be non-trivial. It will definitely take you more than 5 minutes. <img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> </p>
 <p>This is because of many changes to configuration, data format, filenames and pathes. </p>
 <p>In any case, make a backup or you risk destroying your wiki's content. </p>
-<p>Please read the <tt>CHANGES</tt> file in the toplevel directory of your moin archive for details on what changed and how to upgrade. </p>
+<p>Please read the files <tt>CHANGES</tt> and <tt>README.migration</tt> in the toplevel directory of your moin archive for details on what changed and how to upgrade. </p>
 
 <h4 id="head-64b74b335c0bb5764150db10b4f12dc7b9b1154f">Deprecation Note</h4>
 
@@ -316,7 +316,7 @@ done
 <a id="bottom"></a>
 
 </div>
-<p id="pageinfo" class="info" lang="en" dir="ltr">last edited 2005-01-22 22:28:34 by <span title="127.0.0.127=127.0.0.127">127</span></p>
+<p id="pageinfo" class="info" lang="en" dir="ltr">last edited 2005-02-02 20:39:41 by <span title="p5082DDED.dip0.t-ipconnect.de">AlexanderSchremmer</span></p>
 </div> <!-- end page -->
 </body>
 </html>

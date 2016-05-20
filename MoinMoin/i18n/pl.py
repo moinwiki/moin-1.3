@@ -138,8 +138,6 @@ Następująca strona została zaktualizowana przez %(editor)s:
 ''':
 '''Nie znaleziono różnic!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)sAktualizacja strony "%(pagename)s"''',
 '''Trivial ''':
 '''Drobna ''',
 '''Status of sending notification mails:''':

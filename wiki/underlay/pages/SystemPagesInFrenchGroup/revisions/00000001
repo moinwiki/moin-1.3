@@ -1,8 +1,6 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## Please edit system and help pages ONLY in the moinmaster wiki!
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Merci de n'éditer les pages systèmes et d'aide QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:SystemPagesInEnglishGroup
 ##master-date:2004-11-23 20:11:21
@@ -55,7 +53,7 @@ Pages d'aide :
  * AidesDiverses/QuestionsUsuelles
  * ["AideDesListesDeContrôleD'Accès"]
  * AideDesActions
- * AideDesActions/JoindreUnFichier
+ * AideDesActions/AttachFile
  * ["AideD'Administration"]
  * AideDeConfiguration
  * ["AideDeConfiguration/FeuillesDeStyleCSS"]
@@ -89,7 +87,7 @@ Pages d'aide :
  * AideDesMacros/MailTo
  * AideDeNavigation
  * AideDeCréationDesPages
- * ["AideD'EffacemmentDesPages"]
+ * ["AideD'EffacementDesPages"]
  * AideDesAnalyseurs
  * AideDesInstructionsDeTraitement
  * AideDesProcesseurs

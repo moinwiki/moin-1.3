@@ -1,11 +1,11 @@
-# -*- coding: ascii -*-
+# -*- coding: utf-8 -*-
 # Text translations for English (en).
 # Automatically generated - DO NOT EDIT, edit en.po instead!
 meta = {
   'language': 'English',
   'elanguage': 'English',
   'maintainer': 'Thomas Waldmann <tw-public@gmx.de>',
-  'encoding': 'ascii',
+  'encoding': 'utf-8',
   'direction': 'ltr',
   'wikimarkup': True,
 }
@@ -140,8 +140,8 @@ The following page has been changed by %(editor)s:
 ''':
 '''No differences found!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''',
 '''Trivial ''':
 '''Trivial ''',
 '''Status of sending notification mails:''':
@@ -150,6 +150,10 @@ The following page has been changed by %(editor)s:
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## backup of page "%(pagename)s" submitted %(date)s''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''Page could not get locked. Unexpected error (errno=%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''Page could not get locked. Missing \'current\' file?''',
 '''You are not allowed to edit this page!''':
 '''You are not allowed to edit this page!''',
 '''You cannot save empty pages.''':
@@ -366,6 +370,8 @@ Contact the owner of the wiki, who can enable email.''',
 '''No differences found!''',
 '''The page was saved %(count)d times, though!''':
 '''The page was saved %(count)d times, though!''',
+'''(ignoring whitespace)''':
+'''(ignoring whitespace)''',
 '''Ignore changes in the amount of whitespace''':
 '''Ignore changes in the amount of whitespace''',
 '''General Information''':

@@ -29,4 +29,4 @@ If emailing is available, the UserPreferences dialog is expanded with a field "[
 
 === Change Notification ===
 
-Any user can subscribe to changes of wiki pages by either clicking on the envelope icon [[Icon(subscribe)]], or by adding a regex to the "Subscribed wiki pages" field of his UserPreferences. The system then sends, whenever a page is changed and the author doesn't uncheck the "[[GetText(Send mail notification)]]" checkbox, an email with the author, a link to the page, and the diff of the change.
+Any user can subscribe to changes of wiki pages by either clicking on the envelope icon [[Icon(subscribe)]], or by adding a regex to the "Subscribed wiki pages" field of his UserPreferences. The system then sends, whenever a page is changed and the author doesn't uncheck the "[[GetText(Send mail notification)]]" checkbox, an email with the author, a link to the page, and the diff of the change. The author does not get notified of his own changes.

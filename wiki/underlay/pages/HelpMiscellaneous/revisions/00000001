@@ -110,11 +110,20 @@ The following shows how certain features can help you to optimize your configura
  * shared code base and icons
 
 ==== Remapping URLs ====
-The configuration variable "`url_mappings`" can be used to remap absolute URLs to relative ones, or change certain URL prefixes to totally different ones. This is especially useful in intranets, when whole trees of documents hosted outside of the wiki move around.
+The configuration variable "`url_mappings`" can be used to remap URLs, for example to change certain URL prefixes to totally different ones. This is especially useful in intranets, when whole trees of documents hosted outside of the wiki move around. It does not apply to most intra-wiki links as those are relative and are not remapped.
 
-"`url_mappings`" is a lookup table in the form of a dict, the key is the prefix to be replaced, the value is the replacement. A typical example is `url_mappings = {'http://my.server.net/': '/'}`, which removes the scheme from local URLs, and thus makes links to your own server work for both `http` ''and'' `https`.
+"`url_mappings`" is a lookup table in the form of a dict, the key is the prefix to be replaced, the value is the replacement.
+
+You could also use "`url_mappings`" to include a dereferer-script for external links, like this: {{{
+url_mappings = {
+    'http://my-wiki/': 'http://my-wiki/',
+    'http://': '/cgi-bin/derefer.cgi?url=http://'
+  }
+}}}
+The reason you might want to use this is to avoid google spamming in your wiki (although this is unlikely to be noticed and would only counter the link spamming if done large-scale) or to keep your wikipages secret. Note that your own wiki needs to be included explicitly because URLs that might be generated automatically (for example for email notifications) would otherwise be remapped to your referrer script as well.
 
 '''Please notice:''' If you want to ''redirect'' a single page to another, just type `#REDIRECT` and the name of the page to direct to in the first line of your page. See HelpOnProcessingInstructions.
+
 === TODO ===
 
 <!> TODO: explain the following things in detail, and add more detail to the above sections

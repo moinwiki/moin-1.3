@@ -1,10 +1,7 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## Please edit system and help pages ONLY in the moinmaster wiki!
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit system and help pages ONLY in the moinmaster wiki! For more 
-## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
-## Pour plus d'informations, consultez MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et d'aide QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpMiscellaneous/ExperimentalFeatures
 ##master-date:2004-11-23 10:12:42
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read

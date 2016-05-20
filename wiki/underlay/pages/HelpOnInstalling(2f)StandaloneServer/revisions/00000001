@@ -56,9 +56,9 @@ Serving on localhost:8000, documents in '/usr/share/moin/wiki/htdocs'
 
 Test your wiki at http://localhost:8000/
 
-To stop the server, interrupt it with `Control + C`.
-
 On Windows, you can double click `moin.py` to start the server. A new terminal window will be opened. Close the window or press `CTRL` + `Pause` to stop the server.
+
+On Unix, interrupt the server with `Control + C` in order to shut it down.
 
 == Serving port 80 on Unix ==
 

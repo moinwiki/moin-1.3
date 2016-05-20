@@ -1,14 +1,12 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit system and help pages ONLY in the moinmaster wiki! For more 
-## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Please edit system and help pages ONLY in the moinmaster wiki!
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et d'aide QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
-##language:fr
 ##master-page:HelpOnSlideShows/900 Last but not least: Running your presentation.
 ##master-date:2005-01-10 22:19:09
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
-#language en
+#language fr
 #pragma section-numbers off
 
 = Présenter vos transparents =

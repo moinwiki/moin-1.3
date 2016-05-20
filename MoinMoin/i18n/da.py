@@ -137,8 +137,6 @@ Følgende sider er ændret af %(editor)s:
 ''':
 '''Ingen forskelle fundet!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)sopdatering af "%(pagename)s"''',
 '''Trivial ''':
 '''Simpel ''',
 '''Status of sending notification mails:''':

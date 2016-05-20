@@ -163,6 +163,7 @@ class DefaultConfig:
     allow_xslt = 0
     attachments = None # {'dir': path, 'url': url-prefix}
     auth_http_enabled = 0
+    auth_http_insecure = 0
     bang_meta = 0
     backtick_meta = 1
     caching_formats = ['text_html']
@@ -198,9 +199,7 @@ class DefaultConfig:
     page_credits = [
         '<a href="http://moinmoin.wikiwikiweb.de/">MoinMoin Powered</a>',
         '<a href="http://www.python.org/">Python Powered</a>',
-        '''<a href="http://validator.w3.org/check?uri=referer"><img
-  src="http://www.w3.org/Icons/valid-html401"
-  alt="Valid HTML 4.01!" height="20" width="52"></a>''',
+        '<a href="http://validator.w3.org/check?uri=referer">Valid HTML 4.01</a>',
         ]
     page_footer1 = ''
     page_footer2 = ''
@@ -254,9 +253,9 @@ class DefaultConfig:
     
     # a regex of HTTP_USER_AGENTS that should be excluded from logging
     # and receive a FORBIDDEN for anything except viewing a page
-    ua_spiders = ('archiver|crawler|curl|google|htdig|httrack|jeeves|larbin|leech|'
+    ua_spiders = ('archiver|crawler|curl|google|holmes|htdig|httrack|httpunit|jeeves|larbin|leech|'
                   'linkbot|linkmap|linkwalk|mercator|mirror|nutbot|robot|scooter|'
-                  'search|sitecheck|spider|wget')
+                  'search|sherlock|sitecheck|spider|wget')
 
     # Wiki identity
     sitename = u'Untitled Wiki'
@@ -265,6 +264,10 @@ class DefaultConfig:
     interwikiname = None
     
     url_mappings = {}
+    
+    xmlrpc_putpage_enabled = 0 # if 0, putpage will write to a test page only
+    xmlrpc_putpage_trusted_only = 1 # if 1, you will need to be http auth authenticated
+    
     SecurityPolicy = None
 
     def __init__(self, siteid):

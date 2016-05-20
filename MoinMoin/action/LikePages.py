@@ -105,7 +105,7 @@ def findMatches(pagename, request, s_re=None, e_re=None,):
     # matches. Order is important!
     for name in matches.keys():
         page = Page(request, name)
-        if not page.exists() and request.user.may.read(name):
+        if not (page.exists() and request.user.may.read(name)):
             del matches[name]    
 
     # Finally, merge both dicts

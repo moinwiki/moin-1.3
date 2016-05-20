@@ -1,12 +1,20 @@
-# MoinMoin translation
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#acl All:read,write
+#format gettext
+#language it
+
 #
-# Lele Gaifax <lele@seldati.it> is also working on "it" translation.
+# MoinMoin it system text translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: 2004-11-21 22:09+0100\n"
 "Last-Translator: gian paolo ciceri <gp.ciceri@acm.org>\n"
 "Language-Team: Italian <moin-devel@lists.sourceforge.net>\n"
@@ -44,19 +52,17 @@ msgid ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "macro call.-~\n"
 msgstr ""
-"<p><small>Se confermi questa maschera, ne verranno visualizzati i dati.\n"
+"~-Se confermi questa maschera, ne verranno visualizzati i dati.\n"
 "Per usare questa maschera su altre pagine, inserisci una chiamata alla "
 "macro\n"
-"<br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
-"b><br><br>\n"
-".</b></small></p>\n"
+"[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''.[[BR]][[BR]]\n"
+"~-\n"
 
 msgid "You are not allowed to view this page."
 msgstr "Non sei autorizzato a leggere questa pagina."
 
-#, fuzzy
 msgid "DeleteCache"
-msgstr "CancellaPagina"
+msgstr "CancellaFileTemporanei"
 
 #, python-format
 msgid "(cached %s)"
@@ -89,12 +95,12 @@ msgstr "Il tuo veto alle modifiche su %(lock_page)s è scaduto!"
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
 msgstr ""
-"Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto in # minuti."
+"Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto tra # minuti."
 
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
 msgstr ""
-"Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto in # secondi."
+"Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto tra # secondi."
 
 msgid "Someone else deleted this page while you were editing!"
 msgstr "Qualcun altro ha rimosso la pagina mentre la stavi modificando"
@@ -244,8 +250,8 @@ msgid "No differences found!\n"
 msgstr "Non ho riscontrato nessuna differenza!\n"
 
 #, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
-msgstr "[%(sitename)s] %(trivial)sCambiamenti della \"%(pagename)s\""
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
+msgstr "[%(sitename)s] %(trivial)sCambiamenti della \"%(pagename)s\" ad opera di %(username)s"
 
 msgid "Trivial "
 msgstr "Banale "
@@ -260,6 +266,13 @@ msgstr "[%(lang)s] %(recipients)s: %(status)s"
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## backup della pagina \"%(pagename)s\" inviato %(date)s"
+
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr "Impossibile bloccare la pagina. Errore inaspettato (errno=%d)."
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr "Impossibile bloccare la pagina. Manca il file 'current'?"
 
 msgid "You are not allowed to edit this page!"
 msgstr "Non sei autorizzato a modificare questa pagina!"
@@ -441,8 +454,9 @@ msgstr "Enfatizza i collegamenti esterni"
 msgid "Show question mark for non-existing pagelinks"
 msgstr "Mostra un punto di domanda al posto dei collegamenti non esistenti"
 
+#, python-format
 msgid "Show page trail"
-msgstr "Mostra il pi�di pagina"
+msgstr "Mostra il più di pagina"
 
 msgid "Show icon toolbar"
 msgstr "Mostra la barra con le icone"
@@ -536,7 +550,7 @@ msgid "<Browser setting>"
 msgstr "<Impostazioni del browser>"
 
 msgid "Save"
-msgstr " Salva"
+msgstr "Salva"
 
 msgid "Logout"
 msgstr "Logout"
@@ -627,6 +641,9 @@ msgstr "Non ho riscontrato nessuna differenza!"
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "La pagina è stata comunque salvata %(count)d volte!"
+
+msgid "(ignoring whitespace)"
+msgstr "(ignorando gli spazi vuoti)"
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignora differenze nella spaziatura"
@@ -1005,7 +1022,7 @@ msgstr "Per favore usa l'interfaccia interattiva per cancellare le pagine!"
 
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
-msgstr "La pagina \"%s\" �stata cancellata correttamente!"
+msgstr "La pagina \"%s\" è stata cancellata correttamente!"
 
 msgid "Really delete this page?"
 msgstr "Vuoi veramente cancellare questa pagina?"
@@ -1044,7 +1061,7 @@ msgstr "Per favore usa l'interfaccia interattiva per rinominare le pagine!"
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr ""
+msgstr "Impossibile rinominare la pagina per un errore del file system: %s."
 
 msgid "Rename Page"
 msgstr "Rinomina Pagina"
@@ -1103,6 +1120,7 @@ msgstr "Elenco completo dei collegamenti per \"%s\""
 msgid ""
 "Cannot create a new page without a page name.  Please specify a page name."
 msgstr ""
+"Impossibile creare una nuova pagina senza nome.  Inserire il nome della pagina"
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
@@ -1116,8 +1134,9 @@ msgstr "Non risulta nulla per \"%s\""
 msgid "Unsupported navigation scheme '%(scheme)s'!"
 msgstr "Schema di navigazione '%(scheme)s' non supportato1"
 
+#, python-format
 msgid "No parent page found!"
-msgstr "La pagina sovrastante non �stata trovata!"
+msgstr "La pagina sovrastante non è stata trovata!"
 
 msgid "Wiki"
 msgstr "wiki"
@@ -1132,7 +1151,7 @@ msgstr "Inizia"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slide %(pos)d di %(size)d "
 
-#, fuzzy
+#, python-format
 msgid "Create New Page"
 msgstr "Crea questa pagina"
 
@@ -1199,11 +1218,11 @@ msgid "No wanted pages in this wiki."
 msgstr "Non ci sono pagine \"non scritte\" in questo wiki."
 
 msgid "**Maximum number of allowed includes exceeded**"
-msgstr ""
+msgstr "**Superato il limite massimo di inclusioni consentite**"
 
 #, python-format
 msgid "**Could not find the referenced page: %s**"
-msgstr ""
+msgstr "**Impossibile trovare la pagina referenziata: %s**"
 
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
@@ -1292,25 +1311,25 @@ msgid "Home"
 msgstr "Home"
 
 msgid "[RSS]"
-msgstr ""
+msgstr "[RSS]"
 
 msgid "[DELETED]"
-msgstr ""
+msgstr "[CANCELLATO]"
 
 msgid "[UPDATED]"
-msgstr ""
+msgstr "[AGGIORNATO]"
 
 msgid "[NEW]"
-msgstr ""
+msgstr "[NUOVO]"
 
 msgid "[DIFF]"
-msgstr ""
+msgstr "[DIFFERENZE]"
 
 msgid "[BOTTOM]"
-msgstr ""
+msgstr "[FINE]"
 
 msgid "[TOP]"
-msgstr ""
+msgstr "[INIZIO]"
 
 msgid "Click to do a full-text search for this title"
 msgstr "Clicca qui per effettuare una ricerca full-text per questo titolo"
@@ -1344,9 +1363,8 @@ msgstr "Mostra il testo grezzo"
 msgid "Show Print View"
 msgstr "Versione stampabile"
 
-#, fuzzy
 msgid "Delete Cache"
-msgstr "Cancella Pagina"
+msgstr "Cancella File Temporanei"
 
 msgid "Attach File"
 msgstr "File allegati"
@@ -1400,7 +1418,7 @@ msgstr "Utente"
 #, python-format
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
-msgstr ""
+msgstr "Impossibile salvare la pagina, \"%(content)s\" non è ammesso in questo wiki."
 
 msgid "Line"
 msgstr "Linea"
@@ -1489,227 +1507,3 @@ msgstr "RinominaPagina"
 
 msgid "SpellCheck"
 msgstr "ControlloOrtografico"
-
-#~ msgid "MIME Type (optional)"
-#~ msgstr "Tipo MIME (opzionale)"
-
-#~ msgid "Refresh"
-#~ msgstr "Aggiorna"
-
-#~ msgid "[\"<html>\"]"
-#~ msgstr "[\"<html>\"]"
-
-#~ msgid "(edit log entry is missing)"
-#~ msgstr "(informazione mancante)"
-
-#~ msgid "Rename"
-#~ msgstr "Rinomina"
-
-#~ msgid "Needed %(timer).1f seconds."
-#~ msgstr "in %(timer).1f secondi."
-
-#~ msgid "User name already exists!"
-#~ msgstr "Il nome utente esiste gia!"
-
-#~ msgid "Go"
-#~ msgstr "Vai"
-
-#~ msgid "Send mail notification"
-#~ msgstr "Invia una mail di notifica"
-
-#, fuzzy
-#~ msgid "You will not be notified of your own changes!"
-#~ msgstr ""
-#~ "<p><b>Visto che le modifiche le hai fatte tu, non ti &egrave; stata "
-#~ "spedita la notifica via e-mail!</b></p>"
-
-#~ msgid "Nobody subscribed to this page, no mail sent."
-#~ msgstr "Nessuno risulta abbonato a questa pagina, non spedisco alcuna mail."
-
-#~ msgid "Unknown action"
-#~ msgstr "Azione sconosciuta"
-
-#~ msgid "Exactly one matching page for \"%s\" found!"
-#~ msgstr "Trovata una sola pagina che corrisponde esattamente a \"%s\"!"
-
-#~ msgid "Multiple matches for \"%s...%s\""
-#~ msgstr "Corrispondenze multiple per \"%s...%s\""
-
-#, fuzzy
-#~ msgid "You cannot use LikePages on an extended pagename!"
-#~ msgstr "<b>Non puoi utilizzare \"LikePages\" sul nome di pagina esteso!</b>"
-
-#, fuzzy
-#~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-#~ msgstr "La pagina \"%s\" �stata cancellata correttamente!"
-
-#, fuzzy
-#~ msgid "Really delete bookmark?"
-#~ msgstr "Vuoi veramente cancellare questa pagina?"
-
-#~ msgid "Update my bookmark timestamp"
-#~ msgstr "Sincronizza l'ora del mio segnalibro"
-
-#~ msgid "of this page"
-#~ msgstr "di questa pagina"
-
-#, fuzzy
-#~ msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
-#~ msgstr ""
-#~ " per Titolo %(titlesearch)s, o che contiene il testo %(textsearch)s o "
-#~ "consultando un indice<br>"
-
-#, fuzzy
-#~ msgid "Show all changes in the last %s days."
-#~ msgstr ""
-#~ "Mostra tutte le modifiche effettuate negli ultimi %(days)s giorni<br>"
-
-#, fuzzy
-#~ msgid "Site"
-#~ msgstr "Dimensione"
-
-#, fuzzy
-#~ msgid "Title: %(titlesearch)s[[BR]]Text: %(textsearch)s"
-#~ msgstr ""
-#~ " per Titolo %(titlesearch)s, o che contiene il testo %(textsearch)s o "
-#~ "consultando un indice<br>"
-
-#~ msgid "No older revisions of the page stored, diff not available."
-#~ msgstr ""
-#~ "Non ci sono revisioni precedenti della pagina, non �possibile riassumere "
-#~ "le differenze."
-
-#, fuzzy
-#~ msgid "The diff function returned with error code %(rc)s!"
-#~ msgstr "Il programma `diff' ha ritornato un codice di errore: %(rc)s!"
-
-#~ msgid "Show emoticons"
-#~ msgstr "Mostra faccine"
-
-#, fuzzy
-#~ msgid "Please enter your name like that: FirstnameLastname"
-#~ msgstr "<b>Inserisci il tuo nome in questo modo: NomeCognome</b>"
-
-#, fuzzy
-#~ msgid "You are already subscribed to this page."
-#~ msgstr "<b>Risulti gi�abbonato a questa pagina.</b>"
-
-#~ msgid "Number of backup versions"
-#~ msgstr "Numero di versioni precedenti"
-
-#~ msgid "Reduce editor size"
-#~ msgstr "Riduci la dimensione dell'editor"
-
-#~ msgid "An error occurred while reverting the page."
-#~ msgstr "E' avvenuto un errore nel ripristinare la pagina!"
-
-#~ msgid "Alternatively, use one of these templates:"
-#~ msgstr "In alternativa, puoi utilizzare uno di questi modelli:"
-
-#~ msgid ""
-#~ "To create your own templates, add a page with a name matching the regex "
-#~ "\"%(page_template_regex)s\"."
-#~ msgstr ""
-#~ "Per creare i tuoi modelli, aggiungi una pagina con il nome che "
-#~ "corrisponda alla regex \"%(page_template_regex)s\"."
-
-#, fuzzy
-#~ msgid "The following pages with similar names already exist..."
-#~ msgstr "<p>Esistono gia con un nome simile, le seguenti pagine...</p>"
-
-#, fuzzy
-#~ msgid "Account"
-#~ msgstr "Azione"
-
-#, fuzzy
-#~ msgid "time"
-#~ msgstr " volta"
-
-#, fuzzy
-#~ msgid "times"
-#~ msgstr " volte"
-
-#~ msgid "<small>[goto %s]</small>"
-#~ msgstr "<small>[vai a %s]</small>"
-
-#~ msgid ""
-#~ "You can browse the changes visiting\n"
-#~ "%s?action=diff\n"
-#~ msgstr ""
-#~ "Puoi esaminare le modifiche apportate visitando\n"
-#~ "%s?action=diff\n"
-
-#~ msgid "[Size limited to %dK]"
-#~ msgstr "[Dimensione limitata a %dK]"
-
-#~ msgid "<div class=\"message\"><b>Bad chart type \"%s\"!</b></div>"
-#~ msgstr "<div class=\"message\"><b>Tipo di grafico errato \"%s\"!</b></div>"
-
-#~ msgid "<div class=\"message\"><b>Charts are not available!</b></div>"
-#~ msgstr "<div class=\"message\"><b>Grafici non disponibili!</b></div>"
-
-#~ msgid "Your email address"
-#~ msgstr "Tuo indirizzo email"
-
-#~ msgid "<b>You are not allowed to save drawings.</b>"
-#~ msgstr "<b>Non ti �consentito di salvare i disegni.</b>"
-
-#~ msgid "Here below the diff between the two latest revisions of the page"
-#~ msgstr "Segue una comparazione tra le ultime due revisioni della pagina"
-
-#~ msgid "LocalSpellingWords"
-#~ msgstr "ParoleItalianeVerificate"
-
-#~ msgid "Rename to (optional)"
-#~ msgstr "Rinomina come... (opzionale)"
-
-#~ msgid "<h2>Attachment '%(filename)s'</h2>"
-#~ msgstr "<h2>Allegato '%(filename)s'</h2>"
-
-#~ msgid "User account browser"
-#~ msgstr "Elenco degli Utenti registrati"
-
-#~ msgid "%(changecount)s changes"
-#~ msgstr "%(changecount)s modifiche"
-
-#~ msgid "Add \"Open in new window\" icon to pretty links"
-#~ msgstr "Aggiungi l'icona \"Apri in nuova finestra\" nei link utili"
-
-#~ msgid "File \"%(filename)s for page \"%(pagename)s"
-#~ msgstr "File \"%(filename)s per la pagina \"%(pagename)s"
-
-#~ msgid "Add a summary of the changes to the notification email"
-#~ msgstr "Aggiungi un sommario delle modifiche nella email di notifica"
-
-#~ msgid "[New window]"
-#~ msgstr "[Nuova finestra]"
-
-#~ msgid "To login from a different machine, use this URL: "
-#~ msgstr "Per collegarti da una macchina diversa, usa questo URL: "
-
-#~ msgid "Return to general page information"
-#~ msgstr "Torna alle informazioni generali"
-
-#~ msgid "<b>No differences found!</b>"
-#~ msgstr "<b>Non ho riscontrato nessuna differenza!</b>"
-
-#~ msgid "Someone coming from '%s'"
-#~ msgstr "Qualcuno, collegato da '%s'"
-
-#~ msgid "<b>You are not allowed to upload files.</b>"
-#~ msgstr "<b>Non sei autorizzato a caricare file.</b>"
-
-#~ msgid "Entries in event log"
-#~ msgstr "Voci nel registro degli eventi"
-
-#~ msgid "<b>NONE</b>"
-#~ msgstr "<b>NESSUNA</b>"
-
-#~ msgid ""
-#~ "To create your own templates, add a page with a name ending in Template."
-#~ msgstr ""
-#~ "Per creare i tuoi modelli, aggiungi una pagina con il nome che termina "
-#~ "per \"Modello\"."
-
-#~ msgid "Detailed Information"
-#~ msgstr "Ulteriori informazioni"

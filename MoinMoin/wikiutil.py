@@ -18,13 +18,36 @@ class InvalidFileNameError(Exception):
     pass
 
 # constants for page names
-PARENT_PREFIX = "../" # changing this might work, but it's not tested
-CHILD_PREFIX = "/" # changing this will not really work
+PARENT_PREFIX = "../"
+PARENT_PREFIX_LEN = len(PARENT_PREFIX)
+CHILD_PREFIX = "/"
+CHILD_PREFIX_LEN = len(CHILD_PREFIX)
 
 #############################################################################
 ### Getting data from user/Sending data to user
 #############################################################################
 
+def decodeWindowsPath(text):
+    """ Decode Windows path names correctly. This is needed because many CGI
+    servers follow the RFC recommendation and re-encode the path_info variable
+    according to the file system semantics.
+    
+    @param text: the text to decode, string
+    @rtype: unicode
+    @return: decoded text
+    """
+
+    import locale
+    import codecs
+    cur_charset = locale.getdefaultlocale()[1]
+    try:
+        return unicode(text, 'utf-8')
+    except UnicodeError:
+        try:
+            return unicode(text, cur_charset, 'replace')
+        except LookupError:
+            return unicode(text, 'iso-8859-1', 'replace')
+    
 def decodeUnknownInput(text):
     """ Decode unknown input, like text attachments
 
@@ -519,9 +542,9 @@ def AbsPageName(request, context, pagename):
     """
     if config.allow_subpages:
         if pagename.startswith(PARENT_PREFIX):
-            pagename = '/'.join(filter(None, context.split('/')[:-1] + [pagename[3:]]))
+            pagename = '/'.join(filter(None, context.split('/')[:-1] + [pagename[PARENT_PREFIX_LEN:]]))
         elif pagename.startswith(CHILD_PREFIX):
-            pagename = context + pagename
+            pagename = context + '/' + pagename[CHILD_PREFIX_LEN:]
 
     return pagename
 
@@ -855,12 +878,10 @@ def link_tag(request, params, text=None, formatter=None, on=None, **kw):
     if text is None:
         text = params # default
     if formatter:
+        url = "%s/%s" % (request.getScriptname(), params)
         if on != None:
-            return formatter.url(on, "%s/%s" % (request.getScriptname(),
-                                                params),
-                                 css_class, **kw)
-        return (formatter.url(1, "%s/%s" % (request.getScriptname(), params),
-                              css_class, **kw) +
+            return formatter.url(on, url, css_class, **kw)
+        return (formatter.url(1, url, css_class, **kw) +
                 formatter.rawHTML(text) +
                 formatter.url(0))
     if on != None and not on:
@@ -1019,13 +1040,20 @@ def send_title(request, text, **keywords):
     page_home_page = getattr(getHomePage(request), 'page_name', None)
     page_parent_page = getattr(page.getParentPage(), 'page_name', None)
     
-    # Print the HTML <head> element
+    # Prepare the HTML <head> element
     user_head = [request.cfg.html_head]
 
     # include charset information - needed for moin_dump or any other case
     # when reading the html without a web server
     user_head.append('''<meta http-equiv="Content-Type" content="text/html;charset=%s">\n''' % config.charset)
-    
+
+    meta_keywords = request.getPragma('keywords')
+    meta_desc = request.getPragma('description')
+    if meta_keywords:
+        user_head.append('<meta name="keywords" content="%s">\n' % escape(meta_keywords, 1))
+    if meta_desc:
+        user_head.append('<meta name="description" content="%s">\n' % escape(meta_desc, 1))
+
     # search engine precautions / optimization:
     # if it is an action or edit/search, send query headers (noindex,nofollow):
     if request.query_string:

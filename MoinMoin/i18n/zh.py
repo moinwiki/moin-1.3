@@ -138,8 +138,6 @@ The following page has been changed by %(editor)s:
 ''':
 '''没有区别!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s]的"%(pagename)s"有%(trivial)s更新''',
 '''Trivial ''':
 '''小的''',
 '''Status of sending notification mails:''':

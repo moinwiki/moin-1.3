@@ -21,11 +21,12 @@ _arg_from = r'(,\s*from=(?P<fquote>[\'"])(?P<from>.+?)(?P=fquote))?'
 _arg_to = r'(,\s*to=(?P<tquote>[\'"])(?P<to>.+?)(?P=tquote))?'
 _arg_sort = r'(,\s*sort=(?P<sort>(ascending|descending)))?'
 _arg_items = r'(,\s*items=(?P<items>\d+))?'
-_arg_jumpitems = r'(,\s*jumpitems=(?P<jumpitems>\d+))?'
+_arg_skipitems = r'(,\s*skipitems=(?P<skipitems>\d+))?'
 _arg_titlesonly = r'(,\s*(?P<titlesonly>titlesonly))?'
-_args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s)?$' % (
+_arg_editlink = r'(,\s*(?P<editlink>editlink))?'
+_args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s%s)?$' % (
     _arg_heading, _arg_level, _arg_from, _arg_to, _arg_sort, _arg_items,
-    _arg_jumpitems, _arg_titlesonly)
+    _arg_skipitems, _arg_titlesonly, _arg_editlink)
 
 # from Include, too, but with extra htext group around header text
 _title_re = r"^(?P<heading>\s*(?P<hmarker>=+)\s(?P<htext>.*)\s(?P=hmarker))$"

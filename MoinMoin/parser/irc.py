@@ -27,15 +27,23 @@ class Parser:
 
     def format(self, formatter):
         lines = self.raw.split('\n')
-        pattern = re.compile(r"\(?(.\d:\d\d)\)?\s+\<\s*(.*?)\s*\>\s+(.*)")
+        # TODO: Add support for displaying things like join and part messages.
+        pattern = re.compile(r"""
+            ((\[|\()?                      # Opening bracket for the timestamp (if it exists)
+                (?P<time>([\d]?\d[:.]?)+)  # Timestamp as one or more :/.-separated groups of 1 or 2 digits (if it exists)
+            (\]|\))?\s+)?                  # Closing bracket for the timestamp (if it exists) plus whitespace
+             <\s*?(?P<nick>.*)\s*?>        # Nick
+            \s+                            # Space between the nick and message
+            (?P<msg>.*)                    # Message
+        """, re.VERBOSE + re.UNICODE)
         self.out.write(formatter.table(1))
         for line in lines:
             match = pattern.match(line)
             if match:
                 self.out.write(formatter.table_row(1))
-                for g in [1,2,3]:
+                for g in ('time', 'nick', 'msg'):
                     self.out.write(formatter.table_cell(1))
-                    self.out.write(wikiutil.escape(match.group(g)))
+                    self.out.write(wikiutil.escape(match.group(g) or ''))
                     self.out.write(formatter.table_cell(0))
                 self.out.write(formatter.table_row(0))
         self.out.write(formatter.table(0))

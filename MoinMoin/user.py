@@ -88,7 +88,7 @@ def getUserIdentification(request, username=None):
     if username is None:
         username = request.user.name
 
-    return username or request.remote_addr or _("<unknown>")
+    return username or (request.cfg.show_hosts and request.remote_addr) or _("<unknown>")
 
 
 def encodePassword(pwd, charset='utf-8'):
@@ -246,6 +246,7 @@ class User:
         self.css_url = ""
         self.language = ""
         self.quicklinks = []
+        self.date_fmt = ""
         self.datetime_fmt = ""
         self.subscribed_pages = []
         self.theme_name = self._cfg.theme_default
@@ -555,7 +556,8 @@ class User:
         @rtype: string
         @return: formatted date, see cfg.date_fmt
         """
-        return time.strftime(self._cfg.date_fmt, self.getTime(tm))
+        date_fmt = self.date_fmt or self._cfg.date_fmt
+        return time.strftime(date_fmt, self.getTime(tm))
 
 
     def getFormattedDateTime(self, tm):
@@ -748,5 +750,6 @@ class User:
             else:
                 self._trail = filter(None, map(string.strip, self._trail))
                 self._trail = self._trail[-self._cfg.trail_size:]
+
         return self._trail
 

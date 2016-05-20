@@ -68,6 +68,7 @@ help pages:
  * HelpOnInstalling
  * HelpOnInstalling/ApacheOnMacOsx
  * HelpOnInstalling/ApacheOnLinux
+ * HelpOnInstalling/ApacheOnLinuxFtp
  * HelpOnInstalling/ApacheOnWin32
  * HelpOnInstalling/ApacheWithFastCgi
  * HelpOnInstalling/ApacheWithModPython

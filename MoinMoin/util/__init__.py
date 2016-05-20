@@ -7,7 +7,10 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, re, time
+import os
+import sys
+import re
+import time
 
 #############################################################################
 ### XML helper functions
@@ -99,3 +102,18 @@ def dumpFormData(form):
 
     return result
 
+def IsWin9x():
+    """ Returns true if run on Windows 95, 98 or ME. """
+    if hasattr(sys, 'getwindowsversion'):
+        if sys.getwindowsversion()[3] == 1:
+            return True
+    elif os.environ.get('comspec', '').find('command'):
+        return True
+    return False
+
+def FixScriptName(script):
+    """
+        Removes elements ending in . from the path.
+        This is needed on Windows/Apache.
+    """
+    return '/'.join([x for x in script.split('/') if not x.endswith('.')])

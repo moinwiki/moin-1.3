@@ -6,5 +6,5 @@
 ##master-date:Unknown-Date
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
-#language en
-Siehe HelpOnConfiguration/EmailSupport.
+#language de
+#redirect HelpOnConfiguration/EmailSupport

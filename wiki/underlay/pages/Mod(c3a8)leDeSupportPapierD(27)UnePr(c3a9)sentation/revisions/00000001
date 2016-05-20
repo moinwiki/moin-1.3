@@ -1,19 +1,11 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-## page was renamed from ModèleSupportPapierD'UnePrésentation
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
-## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
-##[[Navigation(slides)]]
-##master-page:SlideShowHandOutTemplate
-##master-date:2005-01-10 22:19:10
 #format wiki
 #language fr
 #pragma section-numbers on
 
 (!) Imprimez cette page en '''version d'impression''' pour obtenir la version papier de votre présentation.
 
-## these are just samples, use YOUR pages in the include statements.
+## Ce sont des exemples. Indiquez les noms de vos PROPRES pages
+## dans les instructions include.
 
 [[Include(AideDesPrésentations/000 Introduction)]]
 

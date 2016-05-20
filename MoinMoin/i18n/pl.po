@@ -1,13 +1,19 @@
-# MoinMoin translation
-# Copyright (C) 2005 Sergiusz Pawłowicz
-# This file is distributed under the same license as the MoinMoin package.
-# Sergiusz Pawłowicz <sergiusz-keyword-moinmoin.69c762@pawlowicz.name>
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format gettext
+#language pl
+
+#
+# MoinMoin pl system text translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: 2004-12-27 08:30+0100\n"
 "Last-Translator: S.P. <sergiusz-keyword-moinmoin.69c762@pawlowicz.name>\n"
 "Language-Team: Polish <sergiusz-keyword-moinmoin.69c762@pawlowicz.name>\n"
@@ -246,8 +252,8 @@ msgstr "Nowa strona:\n"
 msgid "No differences found!\n"
 msgstr "Nie znaleziono różnic!\n"
 
-#, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
 msgstr "[%(sitename)s] %(trivial)sAktualizacja strony \"%(pagename)s\""
 
 msgid "Trivial "
@@ -263,6 +269,13 @@ msgstr "[%(lang)s] %(recipients)s: %(status)s"
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## kopia zapasowa strony \"%(pagename)s\" wprowadzona %(date)s"
+
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr ""
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr ""
 
 msgid "You are not allowed to edit this page!"
 msgstr "Nie możesz zmieniać zawartości tej strony!"
@@ -620,6 +633,9 @@ msgstr "Nie znaleziono różnic!"
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "Strona została zachowana %(count)d razy, wszelako!"
+
+msgid "(ignoring whitespace)"
+msgstr ""
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignoruj zmiany w ilości spacji"

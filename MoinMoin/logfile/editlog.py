@@ -39,7 +39,7 @@ class EditLogLine:
             The type id is one of 'ip' (DNS or numeric IP), 'user' (user name)
             or 'homepage' (Page instance of user's homepage).
         """
-        result = ('ip', self.hostname)
+        result = ('ip', (request.cfg.show_hosts and self.hostname) or '')
         if self.userid:
             if not self._usercache.has_key(self.userid):
                 self._usercache[self.userid] = user.User(request, self.userid)
@@ -59,14 +59,17 @@ class EditLogLine:
         """
         kind, editor = self.getEditorData(request)
         if kind == 'homepage':
-            return '<span title="%s">%s</span>' % (wikiutil.escape(self.hostname), editor.link_to(request))
+            return '<span title="%s">%s</span>' % (wikiutil.escape(self.hostname),
+                                                   editor.link_to(request))
         elif kind == 'ip':
             idx = editor.find('.')
             if idx==-1:
                 idx = len(editor)
-            return '<span title="%s">%s</span>' % (wikiutil.escape("%s=%s" % (self.addr,editor)), wikiutil.escape(editor[:idx]))
+            return '<span title="%s">%s</span>' % (wikiutil.escape(
+                (request.cfg.show_hosts and ("%s=%s" % (self.addr,editor))) or ''), wikiutil.escape(editor[:idx]))
         else:
-            return '<span title="%s">%s</span>' % (wikiutil.escape(self.hostname), wikiutil.escape(editor))
+            return '<span title="%s">%s</span>' % (wikiutil.escape(
+                (request.cfg.show_hosts and self.hostname) or ''), wikiutil.escape(editor))
 
 
 class EditLog(LogFile):

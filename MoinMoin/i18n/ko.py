@@ -138,8 +138,6 @@ The following page has been changed by %(editor)s:
 ''':
 '''차이점이 없습니다!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] "%(pagename)s"를 %(trivial)s수정''',
 '''Trivial ''':
 '''약간 ''',
 '''Status of sending notification mails:''':

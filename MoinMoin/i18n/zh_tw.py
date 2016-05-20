@@ -138,8 +138,6 @@ The following page has been changed by %(editor)s:
 ''':
 '''新舊版完全相同!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)s更動通知: "%(pagename)s"''',
 '''Trivial ''':
 '''些微''',
 '''Status of sending notification mails:''':

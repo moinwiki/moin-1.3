@@ -41,11 +41,13 @@ python setup.py install --install-data='/usr/local'
 
  (!) The --install-data='/usr/local' will put the shared data in the convenient `'/usr/local/share/moin'` folder. If you don't use it, your shared data will be at `'/System/Library/Frameworks/Python.framework/Versions/2.3/share/moin'`. On OX X '/usr' belong to Apple, and it is safer to install in '/usr/local'.
 
-Now installation is finished. You will not have to repeat this step unless you upgrade moin.
+ (!) The default Python used by Apache is the framework one supplied by Apple.  If you have added another Python version such as through DarwinPorts or Fink, then you should substitute "/usr/bin/python" for "python" above or you should substitute the specific path for the Python that will be used by Apache.
+
+Now the installation is finished. You will not have to repeat this step unless you upgrade moin.
 
 = Creating a wiki =
 
-After you installed the software, you create a wiki. You may create several wikis if you need.
+After you have installed the software, you need to create a wiki. You may create several wikis if you need.
 
 == Copying a template wiki ==
 
@@ -81,7 +83,7 @@ We'll use the pico editor:
 pico /etc/httpd/httpd.conf
 }}}
 
-Go the end of the Aliases section and edit like the example below:
+Go to the end of the Aliases section and edit like the example below:
 {{{
     Alias /wiki/ "/usr/local/share/moin/htdocs/"      
     ScriptAlias /mywiki "/usr/local/share/moin/mywiki/moin.cgi"       
@@ -116,7 +118,7 @@ You should see a report on the wiki and tests results for the MoinMoin engine. I
 
 The wiki you created is a new "Untitled Wiki", using the default configuration. You want to give a better name and setup some configuration values. Open {{{wikiconfig.py}}} and read the comments. You can edit the file with any text editor, like pico, emacs, or BBEdit. 
 
- (!) Note that the file belong to user and group www:www. You can edit the file as root, or change the group of the file to yourself with {{{chown www:username wikiconfig.py}}}.
+ (!) Note that the file belongs to user and group www:www. You can edit the file as root, or change the group of the file to yourself with {{{chown www:username wikiconfig.py}}}.
 
 For more help on configuration, see HelpOnConfiguration.
 
@@ -124,4 +126,4 @@ For more help on configuration, see HelpOnConfiguration.
 
 == RSS ==
 
-If you want to that your wiki will support RSS and Mozilla Firefox Live Bookmarks features, you have to install PyXML. Get PyXML from http://sourceforge.net/projects/pyxml/ and install according to the instructions.
+If you want your wiki to support RSS and Mozilla Firefox Live Bookmarks features, you have to install PyXML. Get PyXML from http://sourceforge.net/projects/pyxml/ and install according to the instructions.

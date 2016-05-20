@@ -94,7 +94,6 @@ help pages:
  * MoinMoin/InstallDocs
  * HelpOnInstalling
  * HelpOnInstalling/ApacheOnMacOsx
- * HelpOnInstalling/ApacheOnUnix
  * HelpOnInstalling/ApacheOnLinux
  * HelpOnInstalling/ApacheOnWin32
  * HelpOnInstalling/ApacheWithFastCgi
@@ -106,7 +105,6 @@ help pages:
  * HelpOnInstalling/TroubleShooting
  * HelpOnInstalling/TwistedWeb
  * HelpOnInstalling/WebLogic
- * HelpOnInstalling/WikiFarm
  * HelpOnInstalling/WikiInstanceCreation
  * HelpOnLanguages
  * HelpOnLinking

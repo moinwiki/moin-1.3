@@ -136,8 +136,6 @@ A megváltozott lap: %(pagelink)s, amit %(editor)s szerkesztett.
 ''':
 '''Nics különbség!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)sváltoztatás a(z) "%(pagename)s" lapon''',
 '''Trivial ''':
 '''lényegtelen ''',
 '''Status of sending notification mails:''':

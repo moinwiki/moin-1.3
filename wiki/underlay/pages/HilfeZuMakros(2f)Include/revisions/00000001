@@ -1,7 +1,5 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpOnMacros/Include
 ##master-date:2003-10-11 18:35:26
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
@@ -13,7 +11,7 @@ Dieses Makro fügt den formatierten Inhalt der angegebenen Seite(n) ein und mach
 
 '''Benutzung:'''
  {{{
-[[Include(pagename, heading, level, from="regex", to="regex", sort=ascending|descending, items=n, skipitems=n, titlesonly)]]
+[[Include(pagename, heading, level, from="regex", to="regex", sort=ascending|descending, items=n, skipitems=n, titlesonly, editlink)]]
 }}}
 
  pagename:: Name der Seite, die eingefügt werden soll - wenn er mit einem "`^`" anfängt, ein regulärer Ausdruck von Seiten, die eingefügt werden sollen.
@@ -25,6 +23,7 @@ Dieses Makro fügt den formatierten Inhalt der angegebenen Seite(n) ein und mach
  items::    Maximale Anzahl der einzufügenden Seiten (optional).
  skipitems:: Anzahl der vom Start her zu überspringenden Seiten (optional).
  titlesonly:: Nur einen Link zur Seite einfügen, keinen Seiteninhalt (optional).
+ editlink:: Fügt einen Footer mit Verweis auf die einzufügende Seite hinzu, als auch einen Verweis, um die Seite zu bearbeiten (optional, benötigt MoinMoin 1.3.4).
 
 Alle Parameter außer pagename sind optional, Sie müssen aber die angegebene Reihenfolge einhalten! Wenn Sie "`heading`" auslassen wollen, müssen Sie den zweiten Parameter leer lassen.
 

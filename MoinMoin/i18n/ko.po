@@ -1,11 +1,19 @@
-# MoinMoin Korean Translation
-# This file is distributed under the same license as the MoinMoin package.
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:None
+##master-date:None
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format gettext
+#language ko
+
+#
+# MoinMoin ko system text translation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"POT-Creation-Date: 2005-02-28 03:16+0100\n"
 "PO-Revision-Date: 2004-11-27 16:28+0900\n"
 "Last-Translator: Hye-Shik Chang <perky@FreeBSD.org>\n"
 "Language-Team: Korean <moin-devel@lists.sourceforge.net>\n"
@@ -238,8 +246,8 @@ msgstr "새 이름:\n"
 msgid "No differences found!\n"
 msgstr "차이점이 없습니다!\n"
 
-#, python-format
-msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
+#, fuzzy, python-format
+msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\" by %(username)s"
 msgstr "[%(sitename)s] \"%(pagename)s\"를 %(trivial)s수정"
 
 msgid "Trivial "
@@ -255,6 +263,13 @@ msgstr "[%(lang)s] %(recipients)s: %(status)s"
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
 msgstr "## 글 \"%(pagename)s\"의 %(date)s 백업"
+
+#, python-format
+msgid "Page could not get locked. Unexpected error (errno=%d)."
+msgstr ""
+
+msgid "Page could not get locked. Missing 'current' file?"
+msgstr ""
 
 msgid "You are not allowed to edit this page!"
 msgstr "이 글을 고칠 권한이 없습니다!"
@@ -611,6 +626,9 @@ msgstr "차이점이 없습니다!"
 #, python-format
 msgid "The page was saved %(count)d times, though!"
 msgstr "이 글은 %(count)d번 변경되었습니다!"
+
+msgid "(ignoring whitespace)"
+msgstr ""
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "비교할 때 공백은 무시"
@@ -1233,7 +1251,7 @@ msgstr "이 위키에서는 차트 그리기가 지원되지 않습니다."
 
 # Don't translate some messages from here, they will be used in
 # gdcharts graphs and Hangul characters will not be shown properly.
-#
+# 
 #, python-format
 msgid "%(chart_title)s for %(filterpage)s"
 msgstr "%(chart_title)s for %(filterpage)s"

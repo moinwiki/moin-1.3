@@ -2,7 +2,7 @@
 """
     MoinMoin - XML Parser
 
-    This code works with 4Suite 1.0a1 or higher only!
+    This code works with 4Suite 1.0a1 (up to & including 4Suite 1.0a4)
 
     @copyright: 2001, 2003 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
@@ -21,7 +21,7 @@ class Parser:
     Dependencies = Dependencies # copy dependencies
 
     def __init__(self, raw, request, **kw):
-        self.raw = raw
+        self.raw = raw.encode(config.charset) # we need a string, not unicode obj
         self.request = request
         self.form = request.form
         self._ = request.getText
@@ -39,7 +39,7 @@ class Parser:
             plain.Parser(self.raw, self.request).format(formatter)
             return
 
-        arena = page
+        arena = formatter.page
         key   = 'xslt'
         cache = caching.CacheEntry(self.request, arena, key)
         if not cache.needsUpdate(formatter.page._text_filename()):
@@ -66,16 +66,31 @@ class Parser:
             try:
                 base_uri = u'wiki://Self/'
 
-                # patch 4Suite 1.0a1
-                if ft_version == "1.0a":
-                    class MoinResolver(Uri.SchemeRegistryResolver):
+                # patch broken 4Suite 1.0a1 (announces as "1.0a")
+                # 1.0a3 ("1.0a3") is broken, too
+                # thus, I assume 1.0a2 is also broken and announces either as "1.0a" or "1.0a2", hopefully
+                if ft_version not in ["1.0a", "1.0a2", "1.0a3", "1.0a4",]: # you can add more broken versions here
+                    MoinResolver = Uri.SchemeRegistryResolver
+                else:
+                    if ft_version == "1.0a4":  # 1.0a4 changes location of SchemeRegistryResolver
+                        from Ft.Lib import Resolvers
+                        SchemeRegistryResolverPATH = Resolvers.SchemeRegistryResolver
+                    else:
+                        SchemeRegistryResolverPATH = Uri.SchemeRegistryResolver
+
+                    class MoinResolver(SchemeRegistryResolverPATH):
                         def normalize(self, uri, base):
                             from Ft.Lib import Uri
+                            if ft_version == "1.0a4":
+                                GetSchemeFunc = Uri.GetScheme
+                            else:
+                                GetSchemeFunc = Uri._getScheme
 
-                            scheme = Uri._getScheme(uri)
+                            scheme = GetSchemeFunc(uri)
+
                             if not scheme:
                                 if base:
-                                    scheme = Uri._getScheme(base)
+                                    scheme = GetSchemeFunc(base)
                                 if not scheme:
                                     return Uri.BaseUriResolver.normalize(self, uri, base)
                                 else:
@@ -83,16 +98,15 @@ class Parser:
                                     if not uri:
                                         return base
                             return uri
-                else:
-                    MoinResolver = Uri.SchemeRegistryResolver
 
                 wiki_resolver = MoinResolver()
 
-                def _resolve_page(uri, base=None, Uri=Uri, base_uri=base_uri, resolver=wiki_resolver):
+                def _resolve_page(uri, base=None, Uri=Uri, base_uri=base_uri, resolver=wiki_resolver, request=self.request):
                     """ Check whether uri is a valid pagename.
                     """
                     if uri.startswith(base_uri):
-                        page = Page.Page(uri[len(base_uri):].encode(config.charset))
+                        pagename = uri[len(base_uri):]
+                        page = Page.Page(request, pagename)
                         if page.exists():
                             return StringIO.StringIO(page.get_raw_body())
                         else:
@@ -104,17 +118,11 @@ class Parser:
                     'wiki': _resolve_page,
                 }
 
-
                 out_file = StringIO.StringIO()
-                input_factory = InputSource.InputSourceFactory(
-                    resolver=wiki_resolver
-                )
-                page_uri = u"%s%s" % (base_uri, unicode(formatter.page.page_name, config.charset))
+                input_factory = InputSource.InputSourceFactory(resolver=wiki_resolver)
+                page_uri = u"%s%s" % (base_uri, formatter.page.page_name)
 
-                processor.run(
-                    input_factory.fromString(self.raw, uri=page_uri),
-                    outputStream=out_file)
-
+                processor.run(input_factory.fromString(self.raw, uri=page_uri), outputStream=out_file)
                 result = out_file.getvalue()
             except xml.sax.SAXParseException, msg:
                 etype = "SAX"

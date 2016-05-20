@@ -1,7 +1,5 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:Unknown-Page
 ##master-date:Unknown-Date
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
@@ -46,7 +44,7 @@ This is especially true for:
 
 === Updating files ===
 
- Images:: On every update, you should copy the content of the "share/moin/htdocs/img" directory to the image directory visible to your web server, normally a new release has some new images in it. If you use the default distutils setup scheme, this is no longer necessary (distutils updates the files for you, and your webserver gets the files from the installed images).
+ Images and CSS:: On every update, you should copy the content of the "share/moin/htdocs/" directory to the directory visible to your web server, normally a new release has some new images and CSS in it. If you use the default distutils setup scheme, this is no longer necessary (distutils updates the files for you, and your webserver gets the files from the installed images and CSS).
 
  System pages:: When upgrading to a new version, copy at least the help pages ("Help*") to your existing directory. Then check whether you miss any new system pages. In 1.3 these pages are kept separate in the underlay directory.
 
@@ -176,7 +174,7 @@ This is because of many changes to configuration, data format, filenames and pat
 
 In any case, make a backup or you risk destroying your wiki's content.
 
-Please read the `CHANGES` file in the toplevel directory of your moin archive for details on what changed and how to upgrade.
+Please read the files `CHANGES` and `README.migration` in the toplevel directory of your moin archive for details on what changed and how to upgrade.
 
 === Deprecation Note ===
 

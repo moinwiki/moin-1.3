@@ -23,13 +23,15 @@ To use this form on other pages, insert a
 [[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 macro call.-~
 ''':
-'''<p><small>Se confermi questa maschera, ne verranno visualizzati i dati.
+'''~-Se confermi questa maschera, ne verranno visualizzati i dati.
 Per usare questa maschera su altre pagine, inserisci una chiamata alla macro
-<br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
-.</b></small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'.[[BR]][[BR]]
+~-
 ''',
 '''You are not allowed to view this page.''':
 '''Non sei autorizzato a leggere questa pagina.''',
+'''DeleteCache''':
+'''CancellaFileTemporanei''',
 '''(cached %s)''':
 '''(%s in cache)''',
 '''You are not allowed to edit this page.''':
@@ -47,9 +49,9 @@ Per usare questa maschera su altre pagine, inserisci una chiamata alla macro
 '''Your edit lock on %(lock_page)s has expired!''':
 '''Il tuo veto alle modifiche su %(lock_page)s è scaduto!''',
 '''Your edit lock on %(lock_page)s will expire in # minutes.''':
-'''Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto in # minuti.''',
+'''Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto tra # minuti.''',
 '''Your edit lock on %(lock_page)s will expire in # seconds.''':
-'''Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto in # secondi.''',
+'''Il blocco alle modifiche sulla pagina %(lock_page)s verrà tolto tra # secondi.''',
 '''Someone else deleted this page while you were editing!''':
 '''Qualcun altro ha rimosso la pagina mentre la stavi modificando''',
 '''Someone else changed this page while you were editing!''':
@@ -134,8 +136,8 @@ Le pagine seguenti sono state moduiificate da %(editor)s:
 ''':
 '''Non ho riscontrato nessuna differenza!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)sCambiamenti della "%(pagename)s"''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s] %(trivial)sCambiamenti della "%(pagename)s" ad opera di %(username)s''',
 '''Trivial ''':
 '''Banale ''',
 '''Status of sending notification mails:''':
@@ -144,6 +146,10 @@ Le pagine seguenti sono state moduiificate da %(editor)s:
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## backup della pagina "%(pagename)s" inviato %(date)s''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''Impossibile bloccare la pagina. Errore inaspettato (errno=%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''Impossibile bloccare la pagina. Manca il file \'current\'?''',
 '''You are not allowed to edit this page!''':
 '''Non sei autorizzato a modificare questa pagina!''',
 '''You cannot save empty pages.''':
@@ -245,7 +251,7 @@ Il nome può contenere ogni carattere alfanumerico Unicode , con opzionale unosp
 '''Show question mark for non-existing pagelinks''':
 '''Mostra un punto di domanda al posto dei collegamenti non esistenti''',
 '''Show page trail''':
-'''Mostra il pi�di pagina''',
+'''Mostra il più di pagina''',
 '''Show icon toolbar''':
 '''Mostra la barra con le icone''',
 '''Show top/bottom links in headings''':
@@ -300,7 +306,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''<Browser setting>''':
 '''<Impostazioni del browser>''',
 '''Save''':
-''' Salva''',
+'''Salva''',
 '''Logout''':
 '''Logout''',
 '''Create Profile''':
@@ -357,6 +363,8 @@ Contact the owner of the wiki, who can enable email.''':
 '''Non ho riscontrato nessuna differenza!''',
 '''The page was saved %(count)d times, though!''':
 '''La pagina è stata comunque salvata %(count)d volte!''',
+'''(ignoring whitespace)''':
+'''(ignorando gli spazi vuoti)''',
 '''Ignore changes in the amount of whitespace''':
 '''Ignora differenze nella spaziatura''',
 '''General Information''':
@@ -573,7 +581,7 @@ usato il nome originale del file.''',
 '''Please use the interactive user interface to delete pages!''':
 '''Per favore usa l\'interfaccia interattiva per cancellare le pagine!''',
 '''Page "%s" was successfully deleted!''':
-'''La pagina "%s" �stata cancellata correttamente!''',
+'''La pagina "%s" è stata cancellata correttamente!''',
 '''Really delete this page?''':
 '''Vuoi veramente cancellare questa pagina?''',
 '''Delete''':
@@ -594,6 +602,8 @@ usato il nome originale del file.''',
 '''Non sei autorizzato a rinominare pagine in questo wiki!''',
 '''Please use the interactive user interface to rename pages!''':
 '''Per favore usa l\'interfaccia interattiva per rinominare le pagine!''',
+'''Could not rename page because of file system error: %s.''':
+'''Impossibile rinominare la pagina per un errore del file system: %s.''',
 '''Rename Page''':
 '''Rinomina Pagina''',
 '''New name''':
@@ -622,6 +632,8 @@ Prova un nome differente.''',
 '''Ricerca nel contenuto per "%s"''',
 '''Full Link List for "%s"''':
 '''Elenco completo dei collegamenti per "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''Impossibile creare una nuova pagina senza nome.  Inserire il nome della pagina''',
 '''Invalid include arguments "%s"!''':
 '''Argomento per "Include" non valido: "%s"!''',
 '''Nothing found for "%s"!''':
@@ -629,7 +641,7 @@ Prova un nome differente.''',
 '''Unsupported navigation scheme \'%(scheme)s\'!''':
 '''Schema di navigazione \'%(scheme)s\' non supportato1''',
 '''No parent page found!''':
-'''La pagina sovrastante non �stata trovata!''',
+'''La pagina sovrastante non è stata trovata!''',
 '''Wiki''':
 '''wiki''',
 '''Slideshow''':
@@ -638,6 +650,8 @@ Prova un nome differente.''',
 '''Inizia''',
 '''Slide %(pos)d of %(size)d''':
 '''Slide %(pos)d di %(size)d ''',
+'''Create New Page''':
+'''Crea questa pagina''',
 '''No orphaned pages in this wiki.''':
 '''Non ci sono pagine orfane (non referenziate da qualche altra pagina) in questo wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -674,6 +688,10 @@ Prova un nome differente.''',
 '''Scarica una versione XML di questo wiki''',
 '''No wanted pages in this wiki.''':
 '''Non ci sono pagine "non scritte" in questo wiki.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**Superato il limite massimo di inclusioni consentite**''',
+'''**Could not find the referenced page: %s**''':
+'''**Impossibile trovare la pagina referenziata: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''Crea un nuovo disegno "%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
@@ -724,6 +742,20 @@ rosso=Mod''',
 '''Annulla sottoscrizione''',
 '''Home''':
 '''Home''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[CANCELLATO]''',
+'''[UPDATED]''':
+'''[AGGIORNATO]''',
+'''[NEW]''':
+'''[NUOVO]''',
+'''[DIFF]''':
+'''[DIFFERENZE]''',
+'''[BOTTOM]''':
+'''[FINE]''',
+'''[TOP]''':
+'''[INIZIO]''',
 '''Click to do a full-text search for this title''':
 '''Clicca qui per effettuare una ricerca full-text per questo titolo''',
 '''Clear message''':
@@ -744,6 +776,8 @@ rosso=Mod''',
 '''Mostra il testo grezzo''',
 '''Show Print View''':
 '''Versione stampabile''',
+'''Delete Cache''':
+'''Cancella File Temporanei''',
 '''Attach File''':
 '''File allegati''',
 '''Delete Page''':
@@ -776,6 +810,8 @@ rosso=Mod''',
 '''Coda''',
 '''User''':
 '''Utente''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Impossibile salvare la pagina, "%(content)s" non è ammesso in questo wiki.''',
 '''Line''':
 '''Linea''',
 '''Deletions are marked like this.''':

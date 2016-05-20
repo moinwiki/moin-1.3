@@ -19,6 +19,7 @@ Dependencies = ["time"] # works around MoinMoinBugs/TableOfContentsLacksLinks
 import re, StringIO
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
+from MoinMoin.util import web
 
 _sysmsg = '<p><strong class="%s">%s</strong></p>'
 
@@ -31,9 +32,10 @@ _arg_sort = r'(,\s*sort=(?P<sort>(ascending|descending)))?'
 _arg_items = r'(,\s*items=(?P<items>\d+))?'
 _arg_skipitems = r'(,\s*skipitems=(?P<skipitems>\d+))?'
 _arg_titlesonly = r'(,\s*(?P<titlesonly>titlesonly))?'
-_args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s)?$' % (
+_arg_editlink = r'(,\s*(?P<editlink>editlink))?'
+_args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s%s)?$' % (
     _arg_heading, _arg_level, _arg_from, _arg_to, _arg_sort, _arg_items,
-    _arg_skipitems, _arg_titlesonly)
+    _arg_skipitems, _arg_titlesonly, _arg_editlink)
 
 _title_re = r"^(?P<heading>\s*(?P<hmarker>=+)\s.*\s(?P=hmarker))$"
 
@@ -93,6 +95,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern), title_re=re.compi
     if args.group("skipitems"):
         skipitems = int(args.group("skipitems"))
     titlesonly = args.group('titlesonly')
+    editlink = args.group('editlink')
 
     # iterate over pages
     for inc_name in pagelist:
@@ -172,16 +175,10 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern), title_re=re.compi
 
         if not hasattr(request, "_Include_backto"):
             request._Include_backto = this_page.page_name
-        # edit icon
-        #edit_icon = inc_page.link_to(request,
-        #    request.theme.make_icon("edit"),
-        #    css_class="include-edit-link",
-        #    querystr={'action': 'edit', 'backto': request._Include_backto})
-        #edit_icon = edit_icon.replace('&amp;','&')
         
         # do headings
         level = None
-        if args.group('heading'):
+        if args.group('heading') and args.group('hquote'):
             heading = args.group('htext') or inc_page.split_title(request)
             level = 1
             if args.group('level'):
@@ -232,13 +229,13 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern), title_re=re.compi
             del this_page._macroInclude_pagelist[inc_name]
 
         # if no heading and not in print mode, then output a helper link
-        #if not (level or print_mode):
-        #    result.extend([
-        #        '<div class="include-link">',
-        #        inc_page.link_to(request, '[%s]' % (inc_name,), css_class="include-page-link"),
-        #        edit_icon,
-        #        '</div>',
-        #    ])
+        if editlink and not (level or print_mode):
+            result.extend([
+                '<div class="include-link">',
+                inc_page.link_to(request, '[%s]' % (inc_name,), css_class="include-page-link"),
+                inc_page.link_to(request, '[%s]' % (_('edit'),), css_class="include-edit-link", querystr={'action': 'edit', 'backto': request._Include_backto}),
+                '</div>',
+            ])
         # XXX page.link_to is wrong now, it escapes the edit_icon html as it escapes normal text
 
     # return include text

@@ -173,11 +173,11 @@ def do_diff(pagename, request):
             request.write(msg)
         else:
             if ignorews:
-                request.write('(ignoring whitespace)' + '<p>')
+                request.write(_('(ignoring whitespace)') + '<br>')
             else:
-                qstr = 'action=diff&amp;ignorews=1'
-                if rev1: qstr = '%s&amp;rev1=%s' % (qstr, rev1)
-                if rev2: qstr = '%s&amp;rev2=%s' % (qstr, rev2)
+                qstr = 'action=diff&ignorews=1'
+                if rev1: qstr = '%s&rev1=%s' % (qstr, rev1)
+                if rev2: qstr = '%s&rev2=%s' % (qstr, rev2)
                 request.write(Page(request, pagename).link_to(request,
                     text=_('Ignore changes in the amount of whitespace'),
                     querystr=qstr) + '<p>')
@@ -445,6 +445,10 @@ def do_recall(pagename, request):
 
 
 def do_show(pagename, request):
+    # We must check if the current page has different ACLs.
+    if not request.user.may.read(pagename):
+        Page(request, pagename).send_page(request)
+        return
     if request.form.has_key('rev'):
         try:
             rev = request.form['rev'][0]
@@ -613,7 +617,7 @@ def do_savepage(pagename, request):
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.""") % {
                     'difflink': pg.link_to(pg.request,
-                                           querystr='action=diff&amp;rev=%d' % rev)
+                                           querystr='action=diff&rev=%d' % rev)
                     }
                 # We don't send preview when we do merge conflict
                 pg.sendEditor(msg=conflict_msg, comment=comment)

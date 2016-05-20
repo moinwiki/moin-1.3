@@ -16,9 +16,6 @@ def execute(macro, args):
     if cache.exists():
         try:
             cache_date, pagehits = eval(cache.content())
-            # refresh because of a bugfix in a decoder
-            if cache_date < 1106440000000000L:
-                raise Exception
         except:
             cache_date, pagehits = 0, {}
     else:

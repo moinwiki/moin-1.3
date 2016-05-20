@@ -1,6 +1,94 @@
 MoinMoin Version History
 ========================
 
+Version 1.3.4 (2005-03-13, Revision moin--main--1.3--patch-666)
+
+Fixes:
+
+    * Fixed ACL check in LikePages macro that caused links to unreadable 
+      pages to show.
+    * Fixed ACL check in newpage action.
+    * Fixed a security problem when admin policy defined in a custom
+      SecurityPolicy class was ignored.
+    * Fixed ACL check in action=show so that a user who may not read a page
+      also can't find out WHEN the protected page was updated.
+    * Workaround on Windows 95, 98, ME in order to clear the dircache.
+      This fixes some bugs related to an outdated page list and newly created
+      pages that did not appear immediately.
+    * Fixed decoding issues of page names on Windows, finally.
+      http://moinmoin.wikiwikiweb.de/MoinMoinBugs/BrokenUmlautsInLinksIn131
+    * Fixed traceback on IIS.
+      http://moinmoin.wikiwikiweb.de/MoinMoinBugs/request%2epy_broken_on_IIS
+    * Fixed wikirpc for standalone server.
+    * Other fixes (encoding and str/unicode data type related) to wikirpc
+      server, fixing some non-ascii issues hopefully.
+    * Fixed broken query strings for Standalone installations.
+    * Fixed backlinks - the result did not always show all links, often it 
+      showed too many irrelevant matches (MoinMoinBugs/BacklinksAreBroken).
+    * Fixed the acceptance of the show_hosts setting. Now you should be able
+      to hide any IP or host name from being published by MoinMoin by enabling
+      this option.
+    * Fixed wrong line endings on email messages.
+    * Fixed MoinMoinBugs/StandaloneUnquotesTooMuch.
+    * Fixed crash when trail file is missing.
+    * Fixed a traceback when searching for single ( or ).
+    * Added mig10 script to fix crashes with uncoverted edit-locks and file
+      attachments. Just use it as you did with mig1..mig9 before.
+    * Added mig11 script to add __init__.py files to data/plugin (and below).
+    * added some fixes for the xslt parser (thanks to fanbanlo), it might be
+      still broken, but someone with deeper knowledge about xslt should fix it.
+    * Replaced image link with W3C's "html 4.01 compliance" icon by a simple
+      text link to avoid https: or config trouble.
+    * Catch OverflowError backtrace when illegal date strings (e.g. <1970 or
+      >2038) are fed to moinmoin's time routines. It will just output current
+      date / time in those cases.
+    * UserPreferences now also set a date_fmt preference and Date macro
+      honours it. You may have to reset your UserPreferences value for that.
+    * Fixed free parent and subpage links in interwiki notation.
+      http://moinmoin.wikiwikiweb.de/MoinMoinBugs/FreeParentLinksAreBroken
+    * Fixed a traceback for invalid ReST markup.
+    * Fixed UnicodeError in SystemAdmin's Attachment Browser.
+
+Other Changes:
+
+    * Optimized the IRC parser.
+    * Support for zipimport of the MoinMoin package. This allows you to use
+      py2exe and similar programs.
+    * Show the editor's name in the mail subject.
+    * Added the pragmas description and keywords. They will add <meta> headers
+      if used.
+    * Added MoinMoin/scripts/xmlrpc-tools/putPageTest.py example script, useful
+      as a starting point for importing data using wiki xmlrpc.
+    * Optimised display on Opera browser.
+
+New features:
+
+    * The search modifier "linkto:" was introduced. You can use it to search
+      for links.
+    * The NewPage macro now can take a PageTemplate parameter, see HelpOnMacros.
+    * New config settings (so you don't need to edit wikirpc.py any more):
+      xmlrpc_putpage_enabled = 0 (if 1, enables writing to arbitrary page names)
+      xmlrpc_putpage_trusted_only = 1 (if 0, doesn't require users to be
+       authenticated by http auth - DANGEROUS, DO NOT SET TO 0!!!)
+    * Added support for Digest and NTLM authentication with CGI (e.g. if you
+      use those Apache modules)
+    * The datetime string accepted by Date and DateTime macros was extended to
+      accept a timezone specification, so now +/-HHMM is also valid, e.g.:
+      2005-03-06T15:15:57Z (UTC, same as +0000)
+      2005-03-06T15:15:57+0000 (UTC)
+      2005-03-06T16:15:57+0100 (same time given as local time for time zone
+                                with offset +0100, that is CET, e.g. Germany)
+      2005-03-06T10:15:57-0500 (same time given as local time for time zone
+                                with offset -0500, EST, US Eastern Std. Time)
+      The values given as macro argument will be transformed to UTC internally
+      and then adapted again according to viewing user's UserPreferences, so
+      the user will see the same moment in time but shown in his local time
+      zone's time (at least if he set his UserPreferences correctly and didn't
+      forget changing them twice a year for DST and non-DST).
+    * Readded (now optional) editlink footer to Include macro. Add
+      ',editlink' to call to enable this.
+    * star "smileys" e.g. {*}{*}{*}{o}{o}
+
 
 Version 1.3.3 (2005-01-24, Revision moin--main--1.3--patch-595)
 

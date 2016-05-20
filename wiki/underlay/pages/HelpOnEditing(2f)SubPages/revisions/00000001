@@ -24,6 +24,7 @@ Links to sibling pages start with "`../`", for example ../SubPages (a link to th
  * [wiki:Self:HelpOnEditing/SubPages This very page]
  * /ThirdLevel
  * [wiki:/ThirdLevel A page below this one]
+ * ["/sub page with arbitrary page name"]
  * ../SubPages
  * ["../"] (anonymous parent link)
  * [:../:free parent link]
@@ -35,6 +36,7 @@ Links to sibling pages start with "`../`", for example ../SubPages (a link to th
  * [wiki:Self:HelpOnEditing/SubPages This very page]
  * /ThirdLevel
  * [wiki:/ThirdLevel A page below this one]
+ * ["/sub page with arbitrary page name"]
  * ../SubPages
  * ["../"] (anonymous parent link)
  * [:../:free parent link]

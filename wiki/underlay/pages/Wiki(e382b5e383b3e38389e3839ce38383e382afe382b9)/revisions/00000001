@@ -1,8 +1,7 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-##master-page:Unknown-Page
+##master-page:WikiSandBox
 ##master-date:Unknown-Date
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language ja
 下の4つの'-'以下で、自由に編集を試してください。ただし、単に実験のために'''新しいページを作成しないでください'''。

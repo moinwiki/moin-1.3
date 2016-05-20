@@ -637,8 +637,7 @@ class Page:
                 if exists and not Page(request, name).exists():
                     continue
 
-                # Filter out page user may not read. Bypass user.may.read
-                # to avoid duplicate page instance and page exists call. 
+                # Filter out page user may not read.
                 if user and not user.may.read(name): 
                     continue
 
@@ -1071,26 +1070,12 @@ class Page:
 
             # send the page header
             if self.default_formatter:
-
-                def quote_whitespace(x):
-                    if x.find(" ")!=-1:
-                        return "'%s'" % x
-                    else:
-                        return x
-                page_needle = quote_whitespace(self.page_name)
-                if config.allow_subpages and page_needle.count('/'):
-                    #parts = page_needle.split('/')
-                    #for level in range(1, len(parts)):
-                    #    page_needle += (" !" + quote_whitespace(
-                    #        "/".join(parts[:level])) + " " +
-                    #                    quote_whitespace(
-                    #        "/" + "/".join(parts[level:])))   
-                    page_needle = '/' + page_needle.split('/')[-1]
-                    
-                link = '%s/%s?action=fullsearch&amp;value=%s&amp;literal=1&amp;case=1&amp;context=180' % (
+                full_text_query = 'linkto:"%s"' % self.page_name
+                link = '%s/%s?action=fullsearch&amp;value=%s&amp;context=180' % (
                     request.getScriptname(),
                     wikiutil.quoteWikinameURL(self.page_name),
-                    urllib.quote_plus(page_needle.encode(config.charset), ''))
+                    urllib.quote_plus(full_text_query.encode(config.charset)))
+
                 title = self.split_title(request)
                 if self.rev:
                     msg = "<strong>%s</strong><br>%s" % (
@@ -1314,6 +1299,12 @@ class Page:
         macro_obj = wikimacro.Macro(parser)
 
         try:
+            # if this code module is in a .zip file, mess with __file__
+            # in order to get caching right
+            moinmodule = __import__('MoinMoin')
+            if hasattr(moinmodule, '__loader__'):
+                __file__ = os.path.join(moinmodule.__loader__.archive, 'dummy')
+
             exec code
         except 'CacheNeedsUpdate':
             # if something goes wrong, try without caching

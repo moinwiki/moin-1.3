@@ -250,7 +250,7 @@ Alias /wiki/ "/usr/share/moin/htdocs/"
 </Directory>
 
 ScriptAlias /mywiki "/usr/share/moin/mywiki/cgi-bin/moin.cgi"
-<Directory "/usr/share/moin/mywiki/cgi-bin/moin.cgi">
+<Directory "/usr/share/moin/mywiki/cgi-bin">
    Order deny,allow
    Allow from all
 </Directory>

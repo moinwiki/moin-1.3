@@ -38,6 +38,6 @@ Finally, you will probably need to edit HelpOnUserPreferences and change the wor
   1. Copy your htdocs/classic dir (containing the css and img subdirs) to htdocs/mytheme
   1. Copy python/site-packages/MoinMoin/themes/classic.py to python/site-packages/MoinMoin/themes/mytheme.py
   1. Add to your wikiconfig.py '' theme_default = 'mytheme' ''.
- 1. Modify the mytheme CSS files (common.css, screen.css and print.css) to change the style and the mytheme.py to change order or appearance of elements in the produced html. 
+ 1. Modify the mytheme CSS files (common.css, screen.css and print.css) to change the style and the mytheme.py to change order or appearance of elements in the produced html. At least, make sure that you change the value of the variable ''name'' to '' 'mytheme' '' (at the top of class ''Theme''), otherwise your changes to the mytheme CSS files may have no effect.
 
 In this way, you will already have your personal theme available to simplify new upgrades. 

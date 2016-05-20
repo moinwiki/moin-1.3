@@ -140,8 +140,8 @@ La siguiente página ha sido modificada por %(editor)s:
 ''':
 '''¡No se encontraron diferencias!
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] %(trivial)s Actualización de "%(pagename)s"''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s] %(trivial)s Actualización de "%(pagename)s" por %(username)s''',
 '''Trivial ''':
 '''Trivial''',
 '''Status of sending notification mails:''':
@@ -150,6 +150,10 @@ La siguiente página ha sido modificada por %(editor)s:
 '''[%(lang)s] %(recipients)s: %(status)s''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## respaldo de la página "%(pagename)s" enviado %(date)s''',
+'''Page could not get locked. Unexpected error (errno=%d).''':
+'''La página no pudo ser bloqueada. Error inesperado (errno=%d).''',
+'''Page could not get locked. Missing \'current\' file?''':
+'''La página no pudo ser bloqueada. No se encuentra el archivo \'current\'''',
 '''You are not allowed to edit this page!''':
 '''¡No tienes permisos para editar esta página!''',
 '''You cannot save empty pages.''':
@@ -365,6 +369,8 @@ Contacta el propietario del wiki. El es quien puede habilitar e-mails''',
 '''¡No se encontraron diferencias!''',
 '''The page was saved %(count)d times, though!''':
 '''¡Aun así, la página se guardó %(count)d veces!''',
+'''(ignoring whitespace)''':
+'''(espacio en blanco ignorado)''',
 '''Ignore changes in the amount of whitespace''':
 '''Ignorar cambios en la cantidad de espacios en blanco''',
 '''General Information''':

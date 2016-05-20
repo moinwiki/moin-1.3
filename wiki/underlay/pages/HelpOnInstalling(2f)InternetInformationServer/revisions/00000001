@@ -22,9 +22,7 @@ In the following description, we assume that you have installed or will install 
 
 Quite often, you might want to install things elsewhere, which is no problem at all; you just have to adapt any paths that appear in a command or config file to the locations you have chosen.
 
-Old: This installation procedure was tested with IIS 5 for Windows running on Windows 2000sp2, and using Python 2.2.2.
-
-This installation procedure was tested with IIS 5.1 for Windows running on Windows XPsp2, using Python 2.4.
+This installation procedure was tested with IIS 5.1 for Windows running on Windows XP SP2, using Python 2.4.
 
 == Preparation ==
 
@@ -98,7 +96,7 @@ Now follow the same steps, but set the alias to "`mywiki`" and the path to "`C:\
 
 Use IIS Admin to remove permissions to read the data directory: expand the "`mywiki`" node, right click on `data`, select `Properties`, and uncheck `Read`. Repeat these steps with the `underlay` directory.
 
-Now you need to setup the 'mywiki' alias so that it will run Python to interpret `.cgi` files. Right click on your new 'mywiki' alias and choose ''Properties''. On the first tab (''Virtual Directory''), click the ''Configuration'' button. The first tab is the ''App Mappings'' tab, which defines which programs to use for each file exetension. Click ''Add''. Browse to your `python.exe` (probably something like `c:\pythonXX\python.exe`). Then add {{{-u %s %s}}} after the Python executable path. The ''Executable'' line will look something like this: {{{"C:\Python22\python.exe" -u "%s" "%s"}}}. In the ''Extension'' box enter {{{.cgi}}} with the begining period. Confirm that the ''Check that file exists'' option is not checked (if it is, Moin``Moin won't be able to display sub pages). Ok, you're done with the alias configuration, click ''OK'' several times to get back out of all the dialog boxes.
+Now you need to setup the 'mywiki' alias so that it will run Python to interpret `.cgi` files. Right click on your new 'mywiki' alias and choose ''Properties''. On the first tab (''Virtual Directory''), click the ''Configuration'' button. The first tab is the ''App Mappings'' tab, which defines which programs to use for each file exetension. Click ''Add''. Browse to your `python.exe` (probably something like `c:\pythonXX\python.exe`). Then add {{{-u "%s" "%s"}}} after the Python executable path. The ''Executable'' line will look something like this: {{{"C:\Python22\python.exe" -u "%s" "%s"}}}. In the ''Extension'' box enter {{{.cgi}}} with the begining period. Make sure that the ''Check that file exists'' option is not checked (if it is, Moin``Moin won't be able to display sub pages). Ok, you're done with the alias configuration, click ''OK'' several times to get back out of all the dialog boxes.
 
 If you add another wiki instance, you'll only need to setup the reference to its folder, they can safely share the "`wiki`" alias which points to static files only.
 
@@ -142,6 +140,3 @@ If you see an error like Error 13: Permission Denied, it means that your web use
 If the page never loads after hitting `Save Changes`, you should check the permissions of the `data` directory.  Make sure the IUSR_COMPUTERNAME user has modify permissions.
 
 If some images like InterWiki and WorldWideWeb don't show up, it could have been because of incorrect permissions or a bad "`url_prefix`" in "`wikiconfig.py`" or the cached pages need to be updated by an Edit or deleting them in the data folder.
-
-If you cannot access pages that have characters in their names which are not in the system codepage (e. g. using Chinese characters on an English Windows server), this is due to a bug in the internal IIS charset conversion.
-If you see a traceback instead of a pagename that contains questionmarks, please contact MoinMoin:AlexanderSchremmer. Especially, contact him if you want to help the core team to find a durable solution.

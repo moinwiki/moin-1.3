@@ -32,7 +32,7 @@ For more information on the possible markup, see HelpOnEditing.
 
 A !ParserBase colorization parser understands the following arguments to a `#FORMAT` pi or a hashbang line. Just add those arguments after the name of the parser (`#FORMAT python start=10 step=10 numbering=on` or `#!python numbering=off`).
 
- numbers:: if linenumbering should be added. defaults to 'on'. possible values: 'on', 'off' (no linenumbers, but javascript to add them), 'disable' (no line numbers at all)
+ numbers:: if line numbering should be added. defaults to 'on'. possible values: 'on', 'off' (no linenumbers, but javascript to add them), 'disable' (no line numbers at all)
  start:: where to start with numbering. defaults to 1
  step:: increment to the linenumber. defaults to 1
 
@@ -84,6 +84,20 @@ Colorizes python code. It is not derived from Parser``Basem, but it allows the s
 {{{#!python
 def hello():
     print "Hello World!"
+}}}
+
+== IRC ==
+
+Puts an IRC log into a table.
+
+{{{#!irc
+(23:18) <     jroes> ah
+(23:19) <     jroes> hm, i like the way {{{ works, but i was hoping the lines would wrap
+(23:21) -!- gpciceri [~gpciceri@host181-130.pool8248.interbusiness.it] has quit [Read error: 110 (Connection timed out)]
+(23:36) < ThomasWal> you could also write a parser or processor
+(23:38) <     jroes> i could?
+(23:38) <     jroes> would that require modification on the moin end though?
+(23:38) <     jroes> i cant change the wiki myself :x
 }}}
 
 [[Anchor(csvparser)]]

@@ -1,7 +1,9 @@
 """
     MoinMoin search engine
     
-    @copyright: Florian Festi TODO: email
+    @copyright: MoinMoin:FlorianFesti
+                MoinMoin:NirSoffer
+                MoinMoin:AlexanderSchremmer
     @license: GNU GPL, see COPYING for details
 """
 
@@ -30,6 +32,17 @@ class BaseExpression:
     def negate(self):
         """ Negate the result of this term """
         self.negated = 1 
+
+    def pageFilter(self):
+        """ Return a page filtering function
+
+        This function is used to filter page list before we search
+        it. Return a function that get a page name, and return bool.
+
+        The default expression does not have any filter function and
+        return None. Sub class may define custom filter fuctions.
+        """
+        return None
 
     def search(self, page):
         """ Search a page
@@ -124,7 +137,7 @@ class AndExpression(BaseExpression):
         This function is used to filter page list before we search
         it.
 
-        Return a function that get a page name, and return bool.
+        Return a function that get a page name, and return bool, or None.
         """
         # Sort terms by cost, then get all title searches
         self.sortByCost()
@@ -244,10 +257,6 @@ class TextSearch(BaseExpression):
     def highlight_re(self):
         return u"(%s)" % self._pattern
 
-    def pageFilter(self):
-        """ Page filter function for single text search """
-        return None
-
     def search(self, page):
         matches = []
 
@@ -329,6 +338,82 @@ class TitleSearch(BaseExpression):
         return self
 
     
+class LinkSearch(BaseExpression):
+    """ Search the term in the pagelinks """
+
+    def __init__(self, pattern, use_re=False, case=True):
+        """ Init a title search
+
+        @param pattern: pattern to search for, ascii string or unicode
+        @param use_re: treat pattern as re of plain text, bool
+        @param case: do case sensitive search, bool 
+        """
+        # used for search in links
+        self._pattern = pattern
+        # used for search in text
+        self._textpattern = '(' + self._pattern.replace('/', '|') + ')'
+        self.negated = 0
+        self.textsearch = TextSearch(self._textpattern, use_re=1, case=case)
+        self._build_re(unicode(pattern), use_re=use_re, case=case)
+
+    def _build_re(self, pattern, use_re=False, case=False):
+        """ Make a regular expression out of a text pattern """
+        flags = (re.U | re.I, re.U)[case]
+
+        try:
+            if not use_re:
+                raise re.error
+            self.search_re = re.compile(pattern, flags)
+            self.static = False
+        except re.error:
+            self.pattern = pattern
+            self.static = True
+        
+    def costs(self):
+        return 5000 # cheaper than a TextSearch
+
+    def __unicode__(self):
+        return u'%s!"%s"' % (('', '-')[self.negated], unicode(self._pattern))
+
+    def highlight_re(self):
+        return u"(%s)" % self._textpattern    
+
+    def search(self, page):
+        # Get matches in page name
+        matches = []
+
+        Found = True
+        
+        for link in page.getPageLinks(page.request):
+            if ((self.static and self.pattern == link) or
+                (not self.static and self.search_re.match(link))):
+                break
+        else:
+            Found = False
+                
+        if Found:
+            # Search in page text
+            results = self.textsearch.search(page)
+            if results:
+                matches.extend(results)
+            else: #This happens e.g. for pages that use navigation macros
+                matches.append(TextMatch(0,0))
+
+        # Decide what to do with the results.
+        if ((self.negated and matches) or
+            (not self.negated and not matches)):
+            return None
+        elif matches:
+            return matches
+        else:
+            # XXX why not return None or empty list?
+            return [Match()]
+
+    def indexed_query(self):
+        return self
+
+    
+
 class IndexedQuery:
     """unused and experimental"""
     def __init__(self, queryobject):
@@ -577,6 +662,7 @@ class QueryParser:
         title_search = self.titlesearch
         regex = self.regex
         case = self.case
+        linkto = 0
 
         for m in modifiers:
             if "title".startswith(m):
@@ -585,8 +671,12 @@ class QueryParser:
                 regex = True
             elif "case".startswith(m):
                 case = True
+            elif "linkto".startswith(m):
+                linkto = True
 
-        if title_search:
+        if linkto:
+            obj = LinkSearch(text, use_re=regex, case=case)
+        elif title_search:
             obj = TitleSearch(text, use_re=regex, case=case)
         else:
             obj = TextSearch(text, use_re=regex, case=case)
@@ -782,7 +872,7 @@ class SearchResults:
                 if matches[j].start >= start:
                     break
 
-            # Add all matches in context and the text between them                
+            # Add all matches in context and the text between them 
             while 1:
                 match = matches[j]
                 # Ignore matches behind the current position

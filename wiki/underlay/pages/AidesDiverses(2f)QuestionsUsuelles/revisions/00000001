@@ -1,9 +1,6 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## Please edit system and help pages ONLY in the moinmaster wiki!
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit system and help pages ONLY in the moinmaster wiki! For more 
-## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Merci de n'éditer les pages systèmes et d'aide QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpMiscellaneous/FrequentlyAskedQuestions
 ##master-date:2004-12-05 12:56:16
@@ -38,7 +35,7 @@ Voici quelques-unes des caractéristiques importantes des wikis :
  * Possibilité de voir l'historique des modifications d'un document.
  * Possibilité d'ajouter de nouvelles informations  ou de modifier les informations existantes.
 
-=== Qu'en est-il de la sécurité ? Un wiki ne risque-t-il pas d'être complètement effacé ou d'être victime de la méchanceté d'un saboteur ? ===
+=== Qu'en est-il de la sécurité ? Un wiki ne risque-t-il pas d'être complètement effacé ou d'être victime de la malveillance d'un saboteur ? ===
 
 C'est un point important. Traditionnellement, les wiki n'offrent '''aucune''' sécurité (vous lisez bien !). 
 

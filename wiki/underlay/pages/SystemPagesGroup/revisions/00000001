@@ -1,15 +1,13 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-##master-page:Unknown-Page
-##master-date:Unknown-Date
+##master-page:None
+##master-date:None
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language en
 
 This is a list of all system pages that are not in a particular group:
-
+ * MoinI18n
  * BadContent
  * EditedSystemPages
 
@@ -31,6 +29,7 @@ This is a list of all group pages grouping system pages of one language each:
  * SystemPagesInSerbianGroup
  * SystemPagesInSpanishGroup
  * SystemPagesInSwedishGroup
+ * SystemPagesInFinnishGroup
 
 If you do a new translation, please add your group page here.
 

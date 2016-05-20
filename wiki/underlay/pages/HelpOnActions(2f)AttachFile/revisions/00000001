@@ -22,7 +22,7 @@ An upload will never overwrite an existing file. If there is a name
 conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.
 
-Existing attachments may be viewed, downloaded, or removed, depending on the configuration of the wiki and the access rights of the user, if ACLs are enabled.
+Existing attachments may be viewed, downloaded, or removed, depending on the configuration of the wiki and the access rights of the user, if ACLs are enabled. For example, an attachment cannot be deleted if the user doesn't have the `delete` permission on the particular page.
 
 Any upload or deletion of attachments is reflected on RecentChanges and thus subject to peer review. Unlike page changes, there is no history though, so ''keep a local copy of files'' so you can revert possible vandalism.
 

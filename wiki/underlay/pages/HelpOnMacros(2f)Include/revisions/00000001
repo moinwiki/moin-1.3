@@ -14,7 +14,7 @@ recursive includes if encountered. If the recursion generates any cycles, this i
 
 '''Usage:'''
  {{{
-[[Include(pagename, heading, level, from="regex", to="regex", sort=ascending|descending, items=n, skipitems=n, titlesonly)]]
+[[Include(pagename, heading, level, from="regex", to="regex", sort=ascending|descending, items=n, skipitems=n, titlesonly, editlink)]]
 }}}
 
  pagename:: Name of the page to include, if it starts with a caret "`^`", a regex of pages to include.
@@ -26,6 +26,7 @@ recursive includes if encountered. If the recursion generates any cycles, this i
  items::    Maximum number of pages to include.   
  skipitems:: Number of initial pages to skip over (optional).
  titlesonly:: Only include a link to the page, not page content (optional).
+ editlink:: add a footer with links to the included page, both normal and edit (optional, available since MoinMoin 1.3.4).
  
 All parameters except pagename are optional, but you have to follow the given order! If you want to omit "`heading`", you have to leave the second parameter empty.
 

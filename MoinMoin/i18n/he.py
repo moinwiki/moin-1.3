@@ -135,10 +135,10 @@ The following page has been changed by %(editor)s:
 ''':
 '''לא נמצאו הבדלים.
 ''',
-'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
-'''[%(sitename)s] עידכון של "%(pagename)s"%(trivial)s''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s" by %(username)s''':
+'''[%(sitename)s] עידכון%(trivial)s של "%(pagename)s" על ידי %(username)s''',
 '''Trivial ''':
-''' ''',
+''' פעוט''',
 '''Status of sending notification mails:''':
 '''הודעות על השינוי:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':

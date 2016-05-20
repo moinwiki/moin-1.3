@@ -210,9 +210,10 @@ space between words. Group page name is not allowed.""") % wikiutil.escape(theus
             # time zone
             theuser.tz_offset = util.web.getIntegerInput(self.request, 'tz_offset', theuser.tz_offset, -84600, 84600)
     
-            # date format
+            # datetime format
             try:
-                theuser.datetime_fmt = UserSettings._date_formats.get(form['datetime_fmt'][0], '')
+                dt_d_combined = UserSettings._date_formats.get(form['datetime_fmt'][0], '')
+                theuser.datetime_fmt, theuser.date_fmt = dt_d_combined.split(' & ')
             except (KeyError, ValueError):
                 pass
     
@@ -271,13 +272,12 @@ space between words. Group page name is not allowed.""") % wikiutil.escape(theus
 class UserSettings:
     """ User login and settings management. """
 
-    _date_formats = {
-        'iso':  '%Y-%m-%d %H:%M:%S',
-        'us':   '%m/%d/%Y %I:%M:%S %p',
-        'euro': '%d.%m.%Y %H:%M:%S',
-        'rfc':  '%a %b %d %H:%M:%S %Y',
+    _date_formats = { # datetime_fmt & date_fmt
+        'iso':  '%Y-%m-%d %H:%M:%S & %Y-%m-%d',
+        'us':   '%m/%d/%Y %I:%M:%S %p & %m/%d/%Y',
+        'euro': '%d.%m.%Y %H:%M:%S & %d.%m.%Y',
+        'rfc':  '%a %b %d %H:%M:%S %Y & %a %b %d %Y',
     }
-
 
     def __init__(self, request):
         """ Initialize user settings form.
@@ -315,9 +315,10 @@ class UserSettings:
         """ Create date format selection. """
         _ = self._
         try:
+            dt_d_combined = '%s & %s' % (self.request.user.datetime_fmt, self.request.user.date_fmt)
             selected = [
                 k for k, v in self._date_formats.items()
-                    if v == self.request.user.datetime_fmt][0]
+                    if v == dt_d_combined][0]
         except IndexError:
             selected = ''
         options = [('', _('Default'))] + self._date_formats.items()

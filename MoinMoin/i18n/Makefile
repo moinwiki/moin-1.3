@@ -29,12 +29,8 @@ POTFILES: POTFILES.in
 	  if cmp $$lang.po $$lang.new.po >/dev/null 2>&1; then \
 	    rm -f $$lang.new.po; \
 	  else \
-	    if mv -f $$lang.new.po $$lang.po; then \
-	      :; \
-	    else \
-	      echo "msgmerge for $$lang.po failed: cannot move $$lang.new.po to $$lang.po" 1>&2; \
-	      exit 1; \
-	    fi; \
+	    ./po2wiki.py $$lang <$$lang.new.po; \
+	    rm -f $$lang.new.po; \
 	  fi; \
 	else \
 	  echo "msgmerge for $$lang.po failed!" 1>&2; \
@@ -46,7 +42,7 @@ POTFILES: POTFILES.in
 $(DOMAIN).pot-update: $(POTFILES) POTFILES
 	xgettext --default-domain=$(DOMAIN) --directory=.. \
 	  --files-from=POTFILES.in \
-      --no-location \
+	  --no-location \
 	  --add-comments=TRANSLATORS:
 	@test ! -f $(DOMAIN).po || { \
 	  if test -f $(DOMAIN).pot; then \
@@ -66,10 +62,13 @@ $(DOMAIN).pot-update: $(POTFILES) POTFILES
 $(DOMAIN).pot:
 	$(MAKE) $(DOMAIN).pot-update
 
-$(POFILES): $(DOMAIN).pot
+$(POFILES):
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
-	echo msgmerge --update $${lang}.po $(DOMAIN).pot; \
-	msgmerge --update $${lang}.po $(DOMAIN).pot
+	echo msgmerge $${lang}.po $(DOMAIN).pot -o $${lang}.new.po; \
+	msgmerge $${lang}.po $(DOMAIN).pot -o $${lang}.new.po; \
+	./po2wiki.py $${lang} <$$lang.new.po; \
+	rm -f $$lang.new.po
+	
 
 $(NOPFILES):
 

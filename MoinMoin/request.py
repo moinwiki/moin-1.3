@@ -7,9 +7,9 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, time, sys, types
+import os, time, sys, types, cgi
 from MoinMoin import config, wikiutil, user, error
-from MoinMoin.util import MoinMoinNoFooter
+from MoinMoin.util import MoinMoinNoFooter, IsWin9x, FixScriptName
 
 # this needs sitecustomize.py in python path to work!
 # use our encoding as default encoding:
@@ -73,7 +73,14 @@ class RequestBase:
         self.user_headers = []
         self.page = None
 
-        # check for some asses trying to use us as a proxy:
+        # Fix dircaching problems on Windows 9x
+        if IsWin9x():
+            import dircache
+            dircache.reset()
+
+        # Check for dumb proxy requests
+        # TODO relying on request_uri will not work on all servers, especially
+        # not on external non-Apache servers
         self.forbidden = False
         if self.request_uri.startswith('http://'):
             self.makeForbidden()
@@ -213,34 +220,33 @@ class RequestBase:
         self.query_string = self.decodePagename(query_string)
         server_software = env.get('SERVER_SOFTWARE', '')
 
-        # Handle the strange charset semantics on Windows
+        # Handle the strange charset semantics on *Windows*
         # path_info is transformed into the system code page by the webserver
-        # (This affects IIS and Apache 2.)
+        # Additionally, paths containing dots let most webservers choke.
+
+        #  Fig. I - Broken environment variables in different environments:
+        #         path_info script_name
+        # Apache1     X          X      PI does not contain dots
+        # Apache2     X          X      PI is not encoded correctly
+        # IIS         X          X (is fixed somewhere else)
+        # Other       ?          -      ? := Possible and even RFC-compatible.
+        #                               - := Hopefully not.
         
-        # First check if we can use Apache's request_uri variable in order to
+        # Fix the script_name if run on Windows/Apache
+        if os.name == 'nt' and server_software.find('Apache/') != -1:
+            self.script_name = FixScriptName(self.script_name)
+
+        # Check if we can use Apache's request_uri variable in order to
         # gather the correct user input
-        if (os.name != 'posix' and server_software.find('Apache/1.3') == -1
-            and self.request_uri != ''):
+        if (os.name != 'posix' and self.request_uri != ''):
             import urllib
-            path_info = urllib.unquote(self.request_uri.replace(self.script_name, '', 1).replace('?' + query_string, '', 1))
-
-        # Else do a workaround for IIS and decode and recode the string again.
-        # Maybe there are other webservers that mess with path_info; they would
-        # have to be added here.
-
-        # This will not recover characters from path_info that are not
-        # in the system codepage.
-        elif server_software.find('Microsoft-IIS') != -1:
-            import locale
-            import codecs
-            cur_charset = locale.getdefaultlocale()[1]
-            if cur_charset != '':
-                try:
-                    codecs.lookup(cur_charset)
-                except LookupError:
-                    pass
-                else:
-                    path_info = path_info.decodeUnknownInput(path_info).encode("utf-8")
+            path_info = urllib.unquote(self.request_uri.replace(
+                self.script_name, '', 1).replace('?' + query_string, '', 1))
+        
+        # Decode according to filesystem semantics if we cannot gather the
+        # request_uri
+        elif os.name == 'nt':
+            path_info = wikiutil.decodeWindowsPath(path_info).encode("utf-8")
 
         self.path_info = self.decodePagename(path_info)
         self.request_method = env.get('REQUEST_METHOD', None)
@@ -250,7 +256,21 @@ class RequestBase:
         self.is_ssl = env.get('SSL_PROTOCOL', '') != '' \
             or env.get('SSL_PROTOCOL_VERSION', '') != '' \
             or env.get('HTTPS', 'off') == 'on'
-        self.url = self.server_name + self.request_uri
+
+        # We cannot rely on request_uri being set. In fact,
+        # it is just an addition of Apache to the CGI specs.
+        if self.request_uri == '':
+            import urllib
+            if self.server_port.strip() and self.server_port != '80':
+                port = ':' + str(self.server_port)
+            else:
+                port = ''
+            self.url = (self.server_name + port + self.script_name +
+                        urllib.quote(self.path_info.replace(
+                            self.script_name, '', 1).encode("utf-8"))
+                        + '?' + self.query_string)
+        else:
+            self.url = self.server_name + self.request_uri
         
         ac = env.get('HTTP_ACCEPT_CHARSET', '')
         self.accepted_charsets = self.parse_accept_charset(ac)
@@ -260,8 +280,18 @@ class RequestBase:
         # need config here, so check:
         self._load_multi_cfg()
 
-        if self.cfg.auth_http_enabled and env.get('AUTH_TYPE','') == 'Basic':
-            self.auth_username = env.get('REMOTE_USER','')
+        if self.cfg.auth_http_enabled:
+            auth_type = env.get('AUTH_TYPE','')
+            if auth_type in ['Basic', 'Digest', 'NTLM', ]:
+                username = env.get('REMOTE_USER','')
+                if auth_type == 'NTLM':
+                    # converting to standard case so that the user can even enter wrong case
+                    # (added since windows does not distinguish between e.g. "Mike" and "mike")
+                    username = username.split('\\')[-1] # split off domain e.g. from DOMAIN\user
+                    # this "normalizes" the login name from {meier, Meier, MEIER} to Meier
+                    # put a comment sign in front of next line if you don't want that:
+                    username = username.title()
+                self.auth_username = username
                                     
 ##        f=open('/tmp/env.log','a')
 ##        f.write('---ENV\n')
@@ -390,10 +420,10 @@ class RequestBase:
            
             # TODO: Use set when we require Python 2.3
             actions = dict(zip(actions, [''] * len(actions)))            
-            self.known_actions = actions
+            self._known_actions = actions
 
         # Return a copy, so clients will not change the dict.
-        return self.known_actions.copy()        
+        return self._known_actions.copy()        
 
     def getAvailableActions(self, page):
         """ Get list of avaiable actions for this request
@@ -629,7 +659,6 @@ class RequestBase:
         @rtype: dict
         @return dict with form keys, each contains a list of values
         """
-        import cgi
         decode = wikiutil.decodeUserInput
 
         # Use cgi.FieldStorage by default
@@ -767,8 +796,13 @@ space between words. Group page name is not allowed.""") % self.user.name
             elif not pagename and not action and self.user.remember_last_visit:
                 pagetrail = self.user.getTrail()
                 if pagetrail:
-                    self.http_redirect(Page(self, pagetrail[-1]).url(self))
-                    return self.finish()
+                    # Redirect to last page visited
+                    url = Page(self, pagetrail[-1]).url(self)
+                else:
+                    # Or to localized FrontPage
+                    url = wikiutil.getFrontPage(self).url(self)
+                self.http_redirect(url)
+                return self.finish()
             
             # 3. Or save drawing
             elif (self.form.has_key('filepath') and
@@ -1242,7 +1276,17 @@ class RequestTwisted(RequestBase):
             else:
                 self.query_string = ''
             self.outputlist = []
-            self.auth_username = self.twistd.getUser()                                                                               
+            self.auth_username = None
+
+            # need config here, so check:
+            self._load_multi_cfg()
+            
+            if self.cfg.auth_http_enabled and self.cfg.auth_http_insecure:
+                self.auth_username = self.twistd.getUser()
+            # TODO password check, twisted does NOT do that for us
+            # this maybe requires bigger or critical changes, so we delay that
+            # to 1.4's new auth stuff
+
             RequestBase.__init__(self, properties)
             #print "request.RequestTwisted.__init__: received_headers=\n" + str(self.twistd.received_headers)
 
@@ -1319,8 +1363,7 @@ class RequestTwisted(RequestBase):
         #print "request.RequestTwisted.setHttpHeader: %s" % header
 
     def http_headers(self, more_headers=[]):
-        if self.sent_headers:
-            #self.write("Headers already sent!!!\n")
+        if getattr(self, 'sent_headers', None):
             return
         self.sent_headers = 1
         have_ct = 0
@@ -1459,12 +1502,14 @@ class RequestStandAlone(RequestBase):
             self.headers = sa.headers
             self.is_ssl = 0
 
-            # Split and unquote path and query string
+            # Split path and query string and unquote path
+            # query is unquoted by setup_args
             import urllib
             if '?' in sa.path:
-                path, query = map(urllib.unquote, sa.path.split('?', 1))
+                path, query = sa.path.split('?', 1)
             else:
-                path, query = urllib.unquote(sa.path), ''        
+                path, query = sa.path, ''
+            path = urllib.unquote(path)
 
             #HTTP headers
             self.env = {} 
@@ -1541,7 +1586,6 @@ class RequestStandAlone(RequestBase):
         if cl:
             self.env['CONTENT_LENGTH'] = cl
         
-        import cgi
         #print "env = ", self.env
         #form = cgi.FieldStorage(self, headers=self.env, environ=self.env)
         if form is None:
@@ -1574,8 +1618,7 @@ class RequestStandAlone(RequestBase):
         self.user_headers.append(header)
 
     def http_headers(self, more_headers=[]):
-        if self.sent_headers:
-            #self.write("Headers already sent!!!\n")
+        if getattr(self, 'sent_headers', None):
             return
         self.sent_headers = 1
 
@@ -1817,8 +1860,6 @@ class RequestFastCGI(RequestBase):
         self.fcgreq.finish()
 
     # Accessors --------------------------------------------------------
-    
-
 
     def getPathinfo(self):
         """ Return the remaining part of the URL. """
@@ -1842,8 +1883,7 @@ class RequestFastCGI(RequestBase):
     def http_headers(self, more_headers=[]):
         """ Send out HTTP headers. Possibly set a default content-type.
         """
-        if self.sent_headers:
-            #self.write("Headers already sent!!!\n")
+        if getattr(self, 'sent_headers', None):
             return
         self.sent_headers = 1
         have_ct = 0

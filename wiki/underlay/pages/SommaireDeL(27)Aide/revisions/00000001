@@ -1,9 +1,6 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## Please edit system and help pages ONLY in the moinmaster wiki!
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit system and help pages ONLY in the moinmaster wiki! For more 
-## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Merci de n'éditer les pages systèmes et d'aide QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpContents
 ##master-date:2004-11-22 20:51:43
@@ -13,22 +10,22 @@
 
 Découvrez les pages d'aide les plus importantes :
 
- * AideAuxDébutants ~-(HelpForBeginners)-~ - si vous n'avez jamais utilisé de wikis
- * AideDeNavigation ~-(HelpOnNavigation)-~ - présente les éléments utilisés pour naviguer entre les pages
- * AideDeCréationDesPages ~-(HelpOnPageCreation)-~ - comment créer une page et utiliser les modèles
- * AideDesPréférencesUtilisateur ~-(HelpOnUserPreferences)-~ - comment s'enregistrer sur le wiki et adapter son comportement à votre goût
- * ["AideDeL'Édition"] ~-(HelpOnEditing)-~ - comment éditer une page
- * AideDesActions ~-(HelpOnActions)-~ - les outils utilisables sur les pages ou sur tout le site
- * AidesDiverses ~-(HelpMiscellaneous)-~ - les réponses aux questions usuelles et d'autres informations
+ * AideAuxDébutants - si vous n'avez jamais utilisé de wikis
+ * AideDeNavigation - présente les éléments utilisés pour naviguer entre les pages
+ * AideDeCréationDesPages - comment créer une page et utiliser les modèles
+ * AideDesPréférencesUtilisateur - comment s'enregistrer sur le wiki et adapter son comportement à votre goût
+ * ["AideDeL'Édition"] - comment éditer une page
+ * AideDesActions - les outils utilisables sur les pages ou sur tout le site
+ * AidesDiverses - les réponses aux questions usuelles et d'autres informations
 
 Les pages suivantes sont principalement destinées aux développeurs et aux administrateurs de wikis :
 
- * ["AideD'Administration"] ~-(HelpOnAdministration)-~ - comment gérer un wiki [wiki:MoinMoinVF MoinMoin]
- * ["AideD'Installation"] ~-(HelpOnInstalling)-~ - comment installer un wiki [wiki:MoinMoinVF MoinMoin]
- * AideAuxDéveloppeurs ~-(HelpForDevelopers)-~ - comment ajouter de nouvelles fonctions à [wiki:MoinMoinVF MoinMoin] en modifiant son code
+ * ["AideD'Administration"] - comment gérer un wiki [wiki:MoinMoinVF MoinMoin]
+ * ["AideD'Installation"] - comment installer un wiki [wiki:MoinMoinVF MoinMoin]
+ * AideAuxDéveloppeurs - comment ajouter de nouvelles fonctions à [wiki:MoinMoinVF MoinMoin] en modifiant son code
 
-Un index de toutes les pages d'aides, généré automatiquement, est disponible dans l'["IndexDeL'Aide"] ~-(HelpIndex)-~. Vous pouvez également consulter AidesDiverses/QuestionsUsuelles [FAQ] ~-(HelpMiscellaneous/FrequentlyAskedQuestions)-~, qui regroupe les réponses aux questions les plus fréquentes.
+Un index de toutes les pages d'aides, généré automatiquement, est disponible dans l'["IndexDeL'Aide"]. Vous pouvez également consulter AidesDiverses/QuestionsUsuelles [FAQ], qui regroupe les réponses aux questions les plus fréquentes.
 
 Si vous trouvez des erreurs dans les pages d'aides, décrivez-les sur [MoinMoin:ErrataDeL'Aide].
 
-''[S'il vous plait, ne modifiez pas et ne créez pas de nouvelles pages d'aide sur d'autres Wiki que [wiki:MoinMaster:PageD'Accueil MoinMaster], car, lors de chaque mise à jour du moteur de Wiki, les pages d'aide de [wiki:MoinMaster:PageD'Accueil MoinMaster] remplacent les pages d'aide locales, ce qui efface toutes les modifications locales. Si vous souhaitez modifiez les pages d'aide de [wiki:MoinMaster:PageD'Accueil MoinMaster], veillez à respecter la structure de l'aide. Avant tout changement à grande échelle, discutez-en sur la liste de discussion ou sur le Wiki [wiki:MoinMoin:PageD'Accueil MoinMoin].''
+''S'il vous plait, ne modifiez pas et ne créez pas de nouvelles pages d'aide sur d'autres Wiki que [wiki:MoinMaster:PageD'Accueil MoinMaster], car, lors de chaque mise à jour du moteur de Wiki, les pages d'aide de [wiki:MoinMaster:PageD'Accueil MoinMaster] remplacent les pages d'aide locales, ce qui efface toutes les modifications locales. Si vous souhaitez modifiez les pages d'aide de [wiki:MoinMaster:PageD'Accueil MoinMaster], veillez à respecter la structure de l'aide. Avant tout changement à grande échelle, discutez-en sur la liste de discussion ou sur le Wiki [wiki:MoinMoin:PageD'Accueil MoinMoin].''

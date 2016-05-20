@@ -1,9 +1,7 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-##master-page:Unknown-Page
-##master-date:Unknown-Date
+##master-page:None
+##master-date:None
 #acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format wiki
 #language en
@@ -107,13 +105,13 @@ Values using unicode strings (international users might want to change them):
  * acl_rights_before - New in 1.3.2
  * acl_rights_after - New in 1.3.2
 
-For ready made configuration in your language, see ConfigMarket. Read also the section about unicode options.
+For ready made configuration in your language, see MoinMoin:ConfigMarket. Read also the section about unicode options.
 
 = Configuration of multiple wikis =
 
 The moinmoin wiki engine is capable of handling multiple wikis using a single installation, a single set of configuration files and a single server process. Especially for persistent environments like twisted, this is necessary, because the twisted server will permanently run on a specific IP address and TCP port number. So for virtual hosting of multiple domains (wikis) on the same IP and port, we need the wiki engine to permanently load multiple configs at the same time and choose the right of them when handling a request for a specific URL.
 
-To be able to choose the right config, moin uses config variable `wikis` located in the file `farmconfig.py` - it simply contains a list of pairs `(wikiname, url-regex)`. When processing a request for some URL, moin searches through this list and tries to match the url-regex against the current URL. If it doesn't match, it simply proceeds to the next pair. If it does match, moin loads a configuration file named `<wikiname>.py` (usually from the same directory) that contains the configuration for that wiki. Internally, moin adds a ''catch all'' `('wikiconfig', '.*')` to the end of that list, so you do not need something like this in `farmconfig.wikis`.
+To be able to choose the right config, moin uses config variable `wikis` located in the file `farmconfig.py` - it simply contains a list of pairs `(wikiname, url-regex)`. Please only use valid python identifiers for `wikiname` (to be exact: `identifier ::= (letter|"_") (letter | digit | "_")*` - just try with a simple word if you didn't understand that grammar rule). When processing a request for some URL, moin searches through this list and tries to match the url-regex against the current URL. If it doesn't match, it simply proceeds to the next pair. If it does match, moin loads a configuration file named `<wikiname>.py` (usually from the same directory) that contains the configuration for that wiki. Internally, moin adds a ''catch all'' `('wikiconfig', '.*')` to the end of that list, so you do not need something like this in `farmconfig.wikis`.
 
 `farmconfig.py` in the distribution archive has some sample entries for a wiki farm running multiple wikis. You need to adapt it to match your needs if you want to run multiple wikis.
 
@@ -202,7 +200,7 @@ The following table contains default values and a short description for all conf
 || navi_bar || [u'%(page_front_page)s', u'!RecentChanges', u'!FindPage', u'!HelpContents',] || Most important page names. Users can add more names in their quick links in UserPreferences. To link to URL, use `u"[url link title]"`, to use a shortened name for long page name, use `u"[LongLongPageName title]"`. To use page names with spaces, use `u"[page_name_with_spaces any title]"` [list of Unicode strings] ||
 || nonexist_qm || 0 || Default for displaying WantedPages with a question mark, like in the original wiki (changeable by the user) ||
 || page_category_regex || u'^Category[A-Z]' || Pagenames containing a match for this regex are regarded as Wiki categories [Unicode] ||
-|| page_credits || html fragment || html fragment with logos or strings for crediting ||
+|| page_credits || [...] || list with html fragments with logos or strings for crediting.  ||
 || page_dict_regex || u'[a-z]Dict$' || Pagenames containing a match for this regex are regarded as containing variable dictionary definitions [Unicode] ||
 || page_footer1 || "" || Custom HTML markup sent ''before'' the system footer (see HelpOnSkins) ||
 || page_footer2 || "" || Custom HTML markup sent ''after'' the system footer (see HelpOnSkins) ||
@@ -219,7 +217,7 @@ The following table contains default values and a short description for all conf
 || page_template_regex || u'[a-z]Template$' || Pagenames containing a match for this regex are regarded as templates for new pages [Unicode] ||
 || refresh || None || refresh = (minimum_delay_s, targets_allowed) enables use of `#refresh 5 PageName` processing instruction, targets_allowed must be either `'internal'` or `'external'` ||
 || shared_intermap || None || Path to a file containing global InterWiki definitions (or a list of such filenames) ||
-|| show_hosts || 1 || True to show hostname in RecentChanges ||
+|| show_hosts || 1 || Disable this option to hide host names and IPs ||
 || show_section_numbers || 1 || True to show section numbers in headings by default ||
 || show_timings || 0 || Shows some timing values at bottom of page - used for development ||
 || show_version || 0 || Show MoinMoin's version at the bottom of each page ||
@@ -239,7 +237,7 @@ Some values can only be set from MoinMoin/config.py (part of the MoinMoin code a
 || smileys || {} || user-defined smileys (a dict with the markup as the key and a tuple of width, height, border, image name as the value) ||
 || umask || 0770 || umask used on all open(), mkdir() and similar calls ||
 || upperletters || ''ucs-2 uppercase letters'' || uppercase letters, used to define what is a WikiName ||
-|| url_schemas || [] || additional URL schemas you want to have recognized (list of strings) ||
+|| url_schemas || `[]` || additional URL schemas you want to have recognized (list of strings; e.g. `['ldap', 'imap']`) ||
 
 = Special options =
 

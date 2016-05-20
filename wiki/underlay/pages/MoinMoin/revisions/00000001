@@ -8,13 +8,13 @@
 #format wiki
 #language en
 
-MoinMoin is a Python Wiki:WikiClone, based on Wiki:PikiPiki. The name is a common German slang expression. If you run a Wiki using MoinMoin, please add it to the MoinMoin:MoinMoinWikis page. Contributed code is on the MoinMoin:MacroMarket, MoinMoin:ActionMarket and MoinMoin:ParserMarket pages.
+MoinMoin is a Python Wiki:WikiClone, based on Wiki:PikiPiki. The name is a common German slang expression (see MoinMoin:MoinMoinEtymology for more about that). If you run a Wiki using MoinMoin, please add it to the MoinMoin:MoinMoinWikis page. Contributed code is on the MoinMoin:MacroMarket, MoinMoin:ActionMarket and MoinMoin:ParserMarket pages.
 
 The following pages are about the development of MoinMoin:
  * MoinMoin:MoinMoinQuestions - Questions about MoinMoin (installing, etc.)
  * MoinMoin:MoinMoinTips - Tips & tricks for MoinMoin
  * MoinMoin:MoinMoinTranslation - discussion about translating MoinMoin
- * MoinMoin:MoinMoinBugs - bugs in the software (see also [http://sourceforge.net/tracker/?group_id=8482 The Sourceforge Bug Tracker])
+ * MoinMoin:MoinMoinBugs - bugs in the software
  * MoinMoin:MoinMoinDiscussion - discussion about new features
  * MoinMoin:MoinMoinIdeas - you are encouraged to ''add'' wishes and ideas to this page
  * MoinMoin:MoinMoinMailingLists - discussion about MoinMoin via email
@@ -40,7 +40,7 @@ Other pages about MoinMoin:
 
 External links:
  * [http://sourceforge.net/projects/moin/ SourceForge Project Info]
- * [http://moin.sourceforge.net/ Project Homepage]
+ * [http://moinmoin.wikiwikiweb.de/ Project Homepage]
  * [http://freshmeat.net/projects/moin FreshMeat Entry]
  * [http://www.oreillynet.com/pub/a/python/2000/11/29/pythonnews.html PythonNews article on wikis]
 

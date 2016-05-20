@@ -12,19 +12,17 @@ _transdict = {"AT": "@", "DOT": ".", "DASH": "-"}
 
 
 def sendmail(request, to, subject, text, **kw):
-    """
-    Send a mail to the address(es) in 'to', with the given subject and
-    mail body 'text'.
-    
+    """ Create and send a text/plain message
+        
     Return a tuple of success or error indicator and message.
-
-    Set a different "From" address with "mail_from=<email>".
+    
     @param request: the request object
-    @param to: target email address
-    @param subject: subject of email
-    @param text: email body text
+    @param to: recipients (list)
+    @param subject: subject of email (unicode)
+    @param text: email body text (unicode)
+    @keyword mail_from: override default mail_from (string)
     @rtype: tuple
-    @return: (is_ok, msg)
+    @return: (is_ok, Description of error or OK message)
     """
     import smtplib, socket
     from email.MIMEText import MIMEText
@@ -36,21 +34,32 @@ def sendmail(request, to, subject, text, **kw):
     cfg = request.cfg    
     mail_from = kw.get('mail_from', '') or cfg.mail_from
 
-    # Create a text/plain message
-    msg = MIMEText(text.encode(config.charset), 'plain', config.charset)
+    # Create a text/plain message body (see RFC2822)
+    # Replace LF with CRLF, encode using config.charset.
+    text = text.replace(u'\n', u'\r\n')
+    text = text.encode(config.charset)
+    msg = MIMEText(text, 'plain', config.charset)
+    
+    # Create message headers
     msg['From'] = mail_from
+    # Don't expose emails addreses of the other subscribers, instead we
+    # use the same mail_from, e.g. "My Wiki <noreply@mywiki.org>"
     msg['To'] = mail_from
     msg['Date'] = formatdate()
-      
-    try: # only python >= 2.2.2 has this:
+
+    try:
+        # Python 2.2.2 and later has a message id function and an Header
+        # class that allow us to use any charset in the email header.
         from email.Header import Header
         from email.Utils import make_msgid
-        msg['Message-ID'] = make_msgid() 
+        msg['Message-ID'] = make_msgid()
         msg['Subject'] = Header(subject, config.charset)
     except ImportError:
-        msg['Subject'] = subject # this is not standards compliant, but mostly works
-        # no message-id. if you still have py 2.2.1, you like it old and broken
-        
+        # In older version you will get no message id and broken non
+        # standard compliant headers, but it mostly works.
+        msg['Subject'] = subject
+
+    # Send the message
     try:
         server = smtplib.SMTP(cfg.mail_smarthost)
         try:
@@ -84,8 +93,10 @@ def sendmail(request, to, subject, text, **kw):
 
 
 def decodeSpamSafeEmail(address):
-    """
-    Decode a spam-safe email address in `address` by applying the following rules.
+    """ Decode obfuscated email address to stanard email address
+
+    Decode a spam-safe email address in `address` by applying the
+    following rules:
     
     Known all-uppercase words and their translation:
         "DOT"   -> "."
