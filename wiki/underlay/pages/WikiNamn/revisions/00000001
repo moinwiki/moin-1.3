@@ -1,7 +1,10 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language sv
 ##master-page:WikiName
 ##master-date:2002-03-05 10:00:35
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language sv
 Ett WikiNamn är ett sammansatt ord där varje delord börjar med en stor bokstav. WikiNamn blir automagiskt hyperlinkar till WikiNamn''''''ets sida. Se också HjälpFörNybörjare, "Godtyckliga sidnamn".

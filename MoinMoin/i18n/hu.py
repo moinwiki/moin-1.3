@@ -30,8 +30,6 @@ Ha más lapon is kívánja használni az űrlapot illessze be ezt a makrót:
 ''',
 '''You are not allowed to view this page.''':
 '''A lap megtekintése nem engedélyezett.''',
-'''RefreshCache''':
-'''GyorstárFrissítés''',
 '''(cached %s)''':
 '''(a gyorstárba került: %s)''',
 '''You are not allowed to edit this page.''':
@@ -531,8 +529,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''A föltöltés sohasem ír fölül egy létező mellékletet. Amennyiben egy meglévő melléklet nevét viselő állományt töltenénk föl az új mellékletet csak egy másik néven menthetjük el. Az új nevet a "Mentés más néven" mezőben adhatjuk meg.''',
 '''File to upload''':
 '''A föltöltendő állomány''',
-'''MIME Type (optional)''':
-'''MIME-típus (nem kötelező)''',
 '''Save as''':
 '''Mentés más néven''',
 '''Upload''':
@@ -693,6 +689,8 @@ Próbáljon más nevet adni a lapnak.''',
 '''Az XSLT-feldolgozás nem elérhető!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s - feldolgozási hiba''',
+'''RefreshCache''':
+'''GyorstárFrissítés''',
 '''for this page (cached %(date)s)''':
 '''ennél a lapnál (gyorstár dátuma: %(date)s)''',
 '''Charts are not available!''':
@@ -717,6 +715,8 @@ piros=szerkesztés''',
 '''Mások''',
 '''Distribution of User-Agent Types''':
 '''A WWW-kliensek eloszlása''',
+'''Unsubscribe''':
+'''Előfizetés felmondása''',
 '''Click to do a full-text search for this title''':
 '''Kattintson a cím teljes szöveges keresésért''',
 '''Clear message''':
@@ -731,8 +731,6 @@ piros=szerkesztés''',
 '''Szöveg''',
 '''Titles''':
 '''Címek''',
-'''Unsubscribe''':
-'''Előfizetés felmondása''',
 '''More Actions:''':
 '''További műveletek::''',
 '''Show Raw Text''':
@@ -753,8 +751,6 @@ piros=szerkesztés''',
 '''Szülő megjelenítése''',
 '''Immutable Page''':
 '''Nem szerkeszthető lap''',
-'''Refresh''':
-'''Frissítés''',
 '''Show Changes''':
 '''Változások megjelenítése''',
 '''Get Info''':

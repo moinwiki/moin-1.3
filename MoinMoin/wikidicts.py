@@ -26,10 +26,9 @@ except AttributeError:
 from MoinMoin import config, caching, wikiutil, Page
 from MoinMoin.logfile.editlog import EditLog
 
-# Its not clear if this was supposed to the pickle protocol, becuase
-# there is no protocol 3. Anyway, this value is not used in
-# pickle.dumps, so its has no effect on the pickle data format.
-DICTS_PICKLE_VERSION = 3
+# Version of the internal data structure which is pickled
+# Please increment if you have changed the structure
+DICTS_PICKLE_VERSION = 4
     
 
 class DictBase:
@@ -304,8 +303,12 @@ class GroupDict(DictDict):
 
         # Save now in our internal version format
         now = wikiutil.timestamp2version(int(time.time()))
-        lastchange = EditLog(self.request).date()
-        
+        try:
+            lastchange = EditLog(self.request).date()
+        except OSError: #editlog was not created yet
+            lastchange = 0
+            dump = 1
+
         arena = 'wikidicts'
         key = 'dicts_groups'
         try:
@@ -325,43 +328,47 @@ class GroupDict(DictDict):
                 dump = 1
 
         # everything is ok and nothing changed
-        if (lastchange < wikiutil.timestamp2version(self.namespace_timestamp)
-            and dump==0):
+        if lastchange < self.namespace_timestamp and dump==0:
             return
-        
-        # FIXME: Should be compiled only once, and cached in cfg
-        dict_re = re.compile(self.cfg.page_dict_regex)
-        group_re = re.compile(self.cfg.page_group_regex)
-        
-        # check for new groups / dicts from time to time...
-        if now - self.namespace_timestamp >= 60:
-            # Get all pages in the wiki - without user filtering
-            pagelist = self.request.rootpage.getPageList(user='')
 
-            # remove old entries
+        # TODO: Should be compiled only once, and cached in cfg
+        isdict = re.compile(self.cfg.page_dict_regex, re.UNICODE).search
+        isgroup = re.compile(self.cfg.page_group_regex, re.UNICODE).search
+
+        # check for new groups / dicts from time to time...
+        if now - self.namespace_timestamp >= wikiutil.timestamp2version(60): # 60s
+
+            # Get all pages in the wiki - without user filtering using
+            # filter function - this make the page list about 10 times
+            # faster.
+            dictpages = self.request.rootpage.getPageList(user='', filter=isdict)
+            grouppages = self.request.rootpage.getPageList(user='', filter=isgroup)
+
+            # remove old entries when dict or group page have been deleted,
+            # add entries when pages have been added
             olddictdict = self.dictdict
             oldgroupdict = self.groupdict
             self.dictdict = {}
             self.groupdict = {}
-            
-            for pagename in pagelist:
-                if dict_re.search(pagename):
-                    if olddictdict.has_key(pagename):
-                        # keep old
-                        self.dictdict[pagename] = olddictdict[pagename]
-                        del olddictdict[pagename]
-                    else:
-                        self.adddict(self.request, pagename)
-                        dump = 1
-                elif group_re.search(pagename):
-                    if olddictdict.has_key(pagename):
-                        # keep old
-                        self.dictdict[pagename] = olddictdict[pagename]
-                        self.groupdict[pagename] = oldgroupdict[pagename]
-                        del olddictdict[pagename]
-                    else:
-                        self.addgroup(self.request, pagename)
-                        dump = 1
+
+            for pagename in dictpages:
+                if olddictdict.has_key(pagename):
+                    # keep old
+                    self.dictdict[pagename] = olddictdict[pagename]
+                    del olddictdict[pagename]
+                else:
+                    self.adddict(self.request, pagename)
+                    dump = 1
+
+            for pagename in grouppages:
+                if olddictdict.has_key(pagename):
+                    # keep old
+                    self.dictdict[pagename] = olddictdict[pagename]
+                    self.groupdict[pagename] = oldgroupdict[pagename]
+                    del olddictdict[pagename]
+                else:
+                    self.addgroup(self.request, pagename)
+                    dump = 1
 
             if olddictdict: # dict page was deleted
                 dump = 1
@@ -370,10 +377,10 @@ class GroupDict(DictDict):
 
         # check if groups / dicts have been modified on disk
         for pagename in self.dictdict:
-            if Page.Page(self.request, pagename).mtime_usecs() >= wikiutil.timestamp2version(self.pageupdate_timestamp):
-                if dict_re.search(pagename):
+            if Page.Page(self.request, pagename).mtime_usecs() >= self.pageupdate_timestamp:
+                if isdict(pagename):
                     self.adddict(self.request, pagename)
-                elif group_re.search(pagename):
+                elif isgroup(pagename):
                     self.addgroup(self.request, pagename)
                 dump = 1
         self.pageupdate_timestamp = now

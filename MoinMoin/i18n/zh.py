@@ -30,8 +30,6 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''您无权阅读此页.''',
-'''RefreshCache''':
-'''刷新缓存''',
 '''(cached %s)''':
 '''(%s缓存)''',
 '''You are not allowed to edit this page.''':
@@ -539,8 +537,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 这样就会采用原文件名.''',
 '''File to upload''':
 '''待上载文件''',
-'''MIME Type (optional)''':
-'''MIME类型(可选)''',
 '''Save as''':
 '''另存为''',
 '''Upload''':
@@ -701,6 +697,8 @@ Try a different name.''':
 '''没有XSLT处理套件!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s处理错误''',
+'''RefreshCache''':
+'''刷新缓存''',
 '''for this page (cached %(date)s)''':
 '''(此页于%(date)s刷新到缓存)''',
 '''Charts are not available!''':
@@ -725,6 +723,8 @@ red=edit''':
 '''其它''',
 '''Distribution of User-Agent Types''':
 '''浏览器类型分布''',
+'''Unsubscribe''':
+'''取消订阅''',
 '''Click to do a full-text search for this title''':
 '''点击对这个标题进行全文检索''',
 '''Clear message''':
@@ -739,8 +739,6 @@ red=edit''':
 '''正文''',
 '''Titles''':
 '''标题''',
-'''Unsubscribe''':
-'''取消订阅''',
 '''More Actions:''':
 '''更多操作''',
 '''Show Raw Text''':
@@ -761,8 +759,6 @@ red=edit''':
 '''显示上层''',
 '''Immutable Page''':
 '''只读网页''',
-'''Refresh''':
-'''刷新缓存''',
 '''Show Changes''':
 '''显示改动''',
 '''Get Info''':

@@ -180,10 +180,11 @@ textarea {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: 4px;
-	/* border-top: 1px solid #9C9C9C; */
+	/* sync these values, line-height is needed for IE */
+		height: 4px;
+		line-height: 4px;
 	border-bottom: 1px solid #9C9C9C;
-	background: #81BBF2 /*url(../img/rule.png);*/
+	background: #81BBF2;
 }
 
 .editbar {

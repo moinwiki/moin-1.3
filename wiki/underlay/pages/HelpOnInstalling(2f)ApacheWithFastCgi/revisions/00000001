@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 
 == Using MoinMoin with apache + mod_fastcgi ==
@@ -26,5 +31,47 @@ with the user and group of the !VirtualHost if you are using the suexec
 wrapper. To enable this with FastCGI you need to use `FastCgiWrapper On`
 in your apache config (see FastCGI Documentation).
 
-Be sure to restart your apache, after you changed py files (i.e. the config)
+Be sure to restart your apache after you changed py files (i.e. the config)
 for a running FastCGI server, or you won't see any changes!
+
+
+=== Running as an external application and/or on Windows ===
+
+/!\ Experimental.
+
+MoinMoin can be run as an external application that answers FastCGI request via a local TCP/IP socket. This works on Windows as well. All you need to do (after having installed `mod_fastcgi` and a working MoinMoin instance) is this:
+
+ 1. Select a port number for the internal communication. It should be larger than 1023. For this example, we chose 8888 (just for fun).
+
+ 1. Add the following lines to your httpd.conf:{{{
+Alias /moin.fcg "/your/path/to/moin.fcg"
+FastCgiExternalServer "/your/path/to/moin.fcg" -host localhost:8888
+}}}
+
+ 1. Edit `moin.fcg`. Replace{{{
+fcg = thfcgi.THFCGI(handle_request)
+}}} with {{{
+fcg = thfcgi.THFCGI(handle_request, 0, 8888)
+}}}
+
+ 1. Start the file `moin.fcg` manually like a Python script:{{{
+python moin.fcg
+}}}
+
+ 1. Start Apache.
+
+ 1. Enjoy MoinMoin running with FastCGI support!
+
+=== Add a safe fallback ===
+
+Install and test MoinMoin according to HelpOnInstalling/ApacheOnLinux. Then make and test the changes to run mod_fastcgi. If you are satisfied, you can add the following block to your apache config:
+{{{
+<IfModule !mod_fastcgi.c>
+    ScriptAlias /mywiki "/your/path/to/moin.cgi"
+</IfModule>
+<IfModule mod_fastcgi.c>
+    AddHandler fastcgi-script .fcg
+    ScriptAlias /mywiki "/your/path/to/moin.fcg"
+</IfModule>
+}}}
+Now Apache will use mod_fastcgi if available and otherwise use the slow cgi script.

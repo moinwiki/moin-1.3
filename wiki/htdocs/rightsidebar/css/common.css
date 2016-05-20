@@ -126,6 +126,14 @@ hr {
 	list-style: none;
 }
 
+.info {
+    font-size: 0.85em;
+    color: gray;
+}
+
+#pageinfo {
+    margin-top: 2em;
+}
 
 /* eye catchers */
 .warning 

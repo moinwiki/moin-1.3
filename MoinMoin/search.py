@@ -5,7 +5,7 @@
     @license: GNU GPL, see COPYING for details
 """
 
-import re, time, sys, urllib, StringIO
+import re, time, sys, StringIO
 from MoinMoin import wikiutil, config
 from MoinMoin.Page import Page
 
@@ -118,6 +118,31 @@ class AndExpression(BaseExpression):
             result += self.operator + t
         return u'[' + result[len(self.operator):] + u']'
 
+    def pageFilter(self):
+        """ Return a page filtering function
+
+        This function is used to filter page list before we search
+        it.
+
+        Return a function that get a page name, and return bool.
+        """
+        # Sort terms by cost, then get all title searches
+        self.sortByCost()
+        terms = [term for term in self._subterms
+                 if isinstance(term, TitleSearch)]
+        if terms:
+            # Create and return a filter function
+            def filter(name):
+                """ A function that return True if all terms filter name """
+                for term in terms:
+                    filter = term.pageFilter()
+                    if not filter(name):
+                        return False
+                return True
+            return filter
+        
+        return None
+
     def sortByCost(self):
         tmp = [(term.costs(), term) for term in self._subterms]
         tmp.sort()
@@ -219,23 +244,29 @@ class TextSearch(BaseExpression):
     def highlight_re(self):
         return u"(%s)" % self._pattern
 
+    def pageFilter(self):
+        """ Page filter function for single text search """
+        return None
+
     def search(self, page):
+        matches = []
+
         # Search in page name
-        fragments = self.titlesearch.search(page)
-        if fragments is None:
-            fragments = []
+        results = self.titlesearch.search(page)
+        if results:
+            matches.extend(results)
 
         # Search in page body
         body = page.get_raw_body()
         for match in self.search_re.finditer(body):
-            fragments.append(TextMatch(match.start(),match.end()))
+            matches.append(TextMatch(match.start(),match.end()))
 
         # Decide what to do with the results.
-        if ((self.negated and fragments) or
-            (not self.negated and not fragments)):
+        if ((self.negated and matches) or
+            (not self.negated and not matches)):
             return None
-        elif fragments:
-            return fragments
+        elif matches:
+            return matches
         else:
             # XXX why not return None or empty list?
             return [Match()]
@@ -269,6 +300,16 @@ class TitleSearch(BaseExpression):
     def highlight_re(self):
         return u"(%s)" % self._pattern    
 
+    def pageFilter(self):
+        """ Page filter function for single title search """
+        def filter(name):
+            match = self.search_re.search(name)
+            if ((self.negated and match) or
+                (not self.negated and not match)):
+                return False
+            return True
+        return filter
+            
     def search(self, page):
         # Get matches in page name
         matches = []
@@ -479,10 +520,10 @@ class QueryParser:
         """ transform an string into a tree of Query objects"""
         self._query = query
         result = self._or_expression()
-        if result is None: result = BaseExpression()
+        if result is None:
+            result = BaseExpression()
         return result
-
-    
+  
     def _or_expression(self):
         result = self._and_expression()
         if self._query:
@@ -571,7 +612,7 @@ class SearchResults:
         self.query = query # the query
         self.hits = hits # hits list
         self.sort = None # hits are unsorted initially
-        self.pages = pages # number of pages searched
+        self.pages = pages # number of pages in the wiki
         self.elapsed = elapsed # search time
 
     def sortByWeight(self):
@@ -601,8 +642,9 @@ class SearchResults:
         f = formatter
         output = [
             f.paragraph(1),
-            f.text(_("%(hits)d results out of %(pages)d pages.") % {
-            'hits': len(self.hits), 'pages': self.pages}),
+            # TODO: update to "results of about" in 1.4
+            f.text(_("%(hits)d results out of %(pages)d pages.") %
+                   {'hits': len(self.hits), 'pages': self.pages}),
             u' (%s)' % f.text(_("%.2f seconds") % self.elapsed),
             f.paragraph(0),
             ]
@@ -628,22 +670,23 @@ class SearchResults:
         querystr = self.querystring()
             
         # Add pages formatted as list
-        write(list(1))
-        
-        for page in self.hits:
-            matchInfo = ''
-            if info:
-                matchInfo = self.formatInfo(page)
-            item = [
-                f.listitem(1),
-                f.pagelink(1, page.page_name, querystr=querystr),
-                self.formatTitle(page),
-                f.pagelink(0),
-                matchInfo,
-                f.listitem(0),
-                ]
-            write(''.join(item))           
-        write(list(0))
+        if self.hits:
+            write(list(1))
+
+            for page in self.hits:
+                matchInfo = ''
+                if info:
+                    matchInfo = self.formatInfo(page)
+                item = [
+                    f.listitem(1),
+                    f.pagelink(1, page.page_name, querystr=querystr),
+                    self.formatTitle(page),
+                    f.pagelink(0, page.page_name),
+                    matchInfo,
+                    f.listitem(0),
+                    ]
+                write(''.join(item))           
+            write(list(0))
 
         return self.getvalue()
 
@@ -670,25 +713,26 @@ class SearchResults:
         querystr = self.querystring()
         
         # Add pages formatted as definition list
-        write(f.definition_list(1))       
-        
-        for page in self.hits:
-            matchInfo = ''
-            if info:
-                matchInfo = self.formatInfo(page)
-            item = [
-                f.definition_term(1),
-                f.pagelink(1, page.page_name, querystr=querystr),
-                self.formatTitle(page),
-                f.pagelink(0),
-                matchInfo,
-                f.definition_term(0),
-                f.definition_desc(1),
-                self.formatContext(page, context, maxlines),
-                f.definition_desc(0),
-                ]
-            write(''.join(item))
-        write(f.definition_list(0))
+        if self.hits:
+            write(f.definition_list(1))       
+
+            for page in self.hits:
+                matchInfo = ''
+                if info:
+                    matchInfo = self.formatInfo(page)
+                item = [
+                    f.definition_term(1),
+                    f.pagelink(1, page.page_name, querystr=querystr),
+                    self.formatTitle(page),
+                    f.pagelink(0, page.page_name),
+                    matchInfo,
+                    f.definition_term(0),
+                    f.definition_desc(1),
+                    self.formatContext(page, context, maxlines),
+                    f.definition_desc(0),
+                    ]
+                write(''.join(item))
+            write(f.definition_list(0))
         
         return self.getvalue()
 
@@ -951,17 +995,31 @@ def searchPages(request, query, **kw):
     hits = []
 
     start = time.time()
-    # Get user readable page list
-    all_pages = request.rootpage.getPageList()
 
+    filter = query.pageFilter()
+    if filter:
+        # Get a list of readable pages, filtered by query page filter.
+        pages = request.rootpage.getPageList(filter=filter)
+    else:
+        # Get an unfiltered list, then filter the hits. This works much
+        # faster for common cases, and is even faster when you can't
+        # read any page!  This might change if we cache the page list,
+        # or storage will be faster.
+        pages = request.rootpage.getPageList(user='', exists=0)
+        
     # Search through pages
-    for page_name in all_pages:
-        page = Page(request, page_name)
+    for name in pages:
+        page = Page(request, name)
         result = query.search(page)
         if result:
-            hits.append(FoundPage(page_name, result))
-
-    elapsed = time.time() - start    
-    results = SearchResults(query, hits, len(all_pages), elapsed)
+            if not filter:
+                # Filter deleted pages or pages the user can't read.
+                if not page.exists() and request.user.may.read(name):
+                    continue
+            hits.append(FoundPage(name, result))
+            
+    elapsed = time.time() - start
+    count = request.rootpage.getPageCount()
+    results = SearchResults(query, hits, count, elapsed)
     return results
    

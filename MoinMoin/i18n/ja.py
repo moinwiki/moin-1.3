@@ -30,8 +30,8 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''このページを読む権限がありません。''',
-'''RefreshCache''':
-'''キャッシュの更新''',
+'''DeleteCache''':
+'''キャッシュの削除''',
 '''(cached %s)''':
 '''(キャッシュ作成日時 %s)''',
 '''You are not allowed to edit this page.''':
@@ -73,7 +73,7 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[current page size \'\'\'%(size)d\'\'\' bytes]''':
 '''[現在のページサイズ: \'\'\'%(size)d\'\'\'バイト]''',
 '''Describe %s here.''':
-'''%sについてここに記述してください。''',
+'''%sについて、ここに記述してください。''',
 '''Optional comment about this change''':
 '''この修正についてのコメント(省略可)''',
 '''<No addition>''':
@@ -184,7 +184,7 @@ delete the changes of the other person, which is excessively rude!\'\'
 '''Thank you for your changes. Your attention to detail is appreciated.''':
 '''ページが更新されました。Thank you!''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
-'''このページに対する%(owner)sのロックは%(mins_ago)dに期限切れになりました。現在、あなたがこのページをロックしています。''',
+'''このページに対する%(owner)sのロックは%(mins_ago)d分前に期限切れになりました。現在、あなたがこのページをロックしています。''',
 '''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
 '''他のユーザは%(bumptime)sまでこのページを編集することはできません。''',
 '''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
@@ -213,15 +213,15 @@ To leave the editor, press the Cancel button.''':
 '''Subscribe''':
 '''購読''',
 '''Raw''':
-'''生データ''',
+'''テキスト''',
 '''XML''':
 '''XML''',
 '''Print''':
 '''印刷''',
 '''View''':
-'''見る''',
+'''表示''',
 '''Up''':
-'''上へ''',
+'''親ページへ''',
 '''Invalid user name {{{\'%s\'}}}.
 Name may contain any Unicode alpha numeric character, with optional one
 space between words. Group page name is not allowed.''':
@@ -318,7 +318,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''Name''':
 '''名前''',
 '''(Use FirstnameLastname)''':
-'''("FirstnameLastname"形式)''',
+'''(FirstnameLastname 形式)''',
 '''Password''':
 '''パスワード''',
 '''Password repeat''':
@@ -390,9 +390,9 @@ Contact the owner of the wiki, who can enable email.''':
 '''Action''':
 '''アクション''',
 '''view''':
-'''見る''',
+'''表示''',
 '''raw''':
-'''生データ''',
+'''テキスト''',
 '''print''':
 '''印刷''',
 '''revert''':
@@ -452,7 +452,7 @@ Contact the owner of the wiki, who can enable email.''':
 '''Search Text''':
 '''テキスト検索''',
 '''Go To Page''':
-'''ページに行く''',
+'''ページへ移動''',
 '''Include system pages''':
 '''システムページを含める''',
 '''Exclude system pages''':
@@ -537,10 +537,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''アップロードでは既存のファイルを上書きしません。同じファイル名が存在する場合には、アップロードするファイルの名前を変更してください。"名前の変更"が空白の場合、オリジナルのファイル名が使われます。''',
 '''File to upload''':
 '''アップロードするファイル''',
-'''MIME Type (optional)''':
-'''MIMEタイプ (省略可)''',
 '''Save as''':
-'''ファイル名を指定して保存''',
+'''保存するファイル名を指定''',
 '''Upload''':
 '''アップロード''',
 '''File attachments are not allowed in this wiki!''':
@@ -599,6 +597,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''ページ名を変更する権限がありません。''',
 '''Please use the interactive user interface to rename pages!''':
 '''対話的なユーザインターフェースからページ名を変更してください。''',
+'''Could not rename page because of file system error: %s.''':
+'''ファイルシステムエラー(%s)により、ページ名を変更できませんでした。''',
 '''Rename Page''':
 '''ページ名の変更''',
 '''New name''':
@@ -623,9 +623,11 @@ Try a different name.''':
 '''Title Search: "%s"''':
 '''タイトル検索: "%s"''',
 '''Full Text Search: "%s"''':
-'''全文検索: "%s"''',
+'''テキスト検索: "%s"''',
 '''Full Link List for "%s"''':
 '''"%s"の全リンクリスト''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''名前の無いページを作成することはできません。ページ名を指定してください。''',
 '''Invalid include arguments "%s"!''':
 '''引数"%s"が不正です。''',
 '''Nothing found for "%s"!''':
@@ -642,6 +644,8 @@ Try a different name.''':
 '''開始''',
 '''Slide %(pos)d of %(size)d''':
 '''スライド番号 %(pos)d/%(size)d''',
+'''Create New Page''':
+'''新しいページを作成''',
 '''No orphaned pages in this wiki.''':
 '''このwikiに参照元がないページはありません。''',
 '''No quotes on %(pagename)s.''':
@@ -651,7 +655,7 @@ Try a different name.''':
 '''Drawing \'%(filename)s\' saved.''':
 '''drawing \'%(filename)s\'を保存しました。''',
 '''%(hours)dh %(mins)dm ago''':
-'''[%(hours)d時間%(mins)d分前]''',
+'''%(hours)d時間%(mins)d分前''',
 '''(no bookmark set)''':
 '''(ブックマーク未設定)''',
 '''(currently set to %s)''':
@@ -678,6 +682,10 @@ Try a different name.''':
 '''このwikiのXML exportをダウンロード''',
 '''No wanted pages in this wiki.''':
 '''このwikiに参照先がないページはありません。''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**インクルードの許容数を越えました**''',
+'''**Could not find the referenced page: %s**''':
+'''**参照されたページ(%s)が見つかりませんでした**''',
 '''Create new drawing "%(filename)s"''':
 '''drawing"%(filename)s"の新規作成''',
 '''Upload new attachment "%(filename)s"''':
@@ -698,6 +706,8 @@ Try a different name.''':
 '''XSLT processingは利用できません。''',
 '''%(errortype)s processing error''':
 '''processingエラー: %(errortype)s''',
+'''RefreshCache''':
+'''キャッシュの更新''',
 '''for this page (cached %(date)s)''':
 '''(キャッシュ作成日時 %(date)s)''',
 '''Charts are not available!''':
@@ -722,28 +732,46 @@ red=edit''':
 '''その他''',
 '''Distribution of User-Agent Types''':
 '''User-Agentタイプの分布''',
+'''Unsubscribe''':
+'''購読中止''',
+'''Home''':
+'''ホーム''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[DELETED]''',
+'''[UPDATED]''':
+'''[UPDATED]''',
+'''[NEW]''':
+'''[NEW]''',
+'''[DIFF]''':
+'''[DIFF]''',
+'''[BOTTOM]''':
+'''画面下へ''',
+'''[TOP]''':
+'''画面上へ''',
 '''Click to do a full-text search for this title''':
-'''このタイトルで全文検索するには、ここをクリックして下さい''',
+'''このタイトルでテキスト検索するには、ここをクリックしてください''',
 '''Clear message''':
 '''メッセージを消去''',
 '''last edited %(time)s by %(editor)s''':
-'''(最終更新日時 %(time)s 更新者 %(editor)s)''',
+'''最終更新日時 %(time)s 更新者 %(editor)s''',
 '''last modified %(time)s''':
-'''(最終更新日時 %(time)s)''',
+'''最終更新日時 %(time)s''',
 '''Search:''':
 '''検索:''',
 '''Text''':
 '''テキスト''',
 '''Titles''':
 '''タイトル''',
-'''Unsubscribe''':
-'''購読中止''',
 '''More Actions:''':
 '''その他のアクション:''',
 '''Show Raw Text''':
 '''テキストの表示''',
 '''Show Print View''':
 '''印刷ビューの表示''',
+'''Delete Cache''':
+'''キャッシュの削除''',
 '''Attach File''':
 '''ファイルの添付''',
 '''Delete Page''':
@@ -755,11 +783,9 @@ red=edit''':
 '''Do''':
 '''実行''',
 '''Show Parent''':
-'''親の表示''',
+'''親ページの表示''',
 '''Immutable Page''':
 '''編集不可のページ''',
-'''Refresh''':
-'''キャッシュの更新''',
 '''Show Changes''':
 '''変更内容の表示''',
 '''Get Info''':
@@ -778,6 +804,8 @@ red=edit''':
 '''訪れたページの履歴''',
 '''User''':
 '''ユーザ''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''このwikiでは"%(content)s"は許可されていません。ページを保存できませんでした。''',
 '''Line''':
 '''行''',
 '''Deletions are marked like this.''':
@@ -795,11 +823,11 @@ red=edit''':
 '''TitleIndex''':
 '''タイトルインデックス''',
 '''WordIndex''':
-'''ワードインデックス''',
+'''単語インデックス''',
 '''FindPage''':
 '''ページ検索''',
 '''SiteNavigation''':
-'''サイトナビ''',
+'''サイトナビゲーション''',
 '''HelpContents''':
 '''ヘルプの目次''',
 '''HelpOnFormatting''':
@@ -809,7 +837,7 @@ red=edit''':
 '''WikiLicense''':
 '''Wikiライセンス''',
 '''MissingPage''':
-'''見つからないページ''',
+'''存在しないページ''',
 '''Mon''':
 '''月''',
 '''Tue''':

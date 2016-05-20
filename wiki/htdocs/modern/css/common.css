@@ -144,7 +144,7 @@ hr {
     clear: both;
     height: 1pt;
     background-color: #9C9C9C;
-    border: none;
+    border: 0;
 }
 
 /* custom rules ----- to ---------- */

@@ -1,39 +1,31 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit system and help pages ONLY in the moinmaster wiki! For more 
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpForBeginners
+##master-date:2005-01-09 18:15:25
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language fr
-== WikiWikiWeb (définition) ==
-Un WikiWikiWeb est un environnement collaboratif hypertexte, qui met l'accent sur la facilité d'accès à l'information et la facilité de modification de l'information.
 
-N'importe quelle page peut être éditée en cliquant sur le lien en bas de page (Edit page ou équivalent).
-Des mots commençant par une majuscule, collés les uns aux autres, forment un NomWiki, qui constitue un hyperlien vers une autre page. Le titre surligné est une recherche de toutes les pages qui mènent à la page courante. Les pages qui n'existent pas encore sont un lien précédé d'un point d'interrogation (ou sont en rouge et gras) : il suffit de suivre le lien et d'ajouter sa propre définition. C'est aussi comme cela que l'on crée une nouvelle page : on ajoute un nouveau WikiName sur une page existante, on enregistre ses modifications, on clique sur le lien nouvellement créé, et on crée la page (plus de détails sur HelpOnPageCreation).
+Un WikiWikiWeb est un environnement hypertexte de travail en commun, qui met l'accent sur la facilité d'accès et de modification de l'information.
 
-Pour s'entraîner, il est recommandé d'aller modifier le WikiSandBox (bac à sable), librement. Merci de ne pas modifier d'autres pages avant de s'être familiarisé avec le fonctionnement d'un wiki! 
+N'importe quelle page peut être modifiée en cliquant sur le lien en bas de page (lien « Éditer »). Pour créer des liens vers d'autres pages, il suffit de mettre bout à bout des mots commençant par une majuscule. Le titre mis en relief de la page est un lien permettant de trouver toutes les pages faisant référence à la page en cours. Lorsqu'un lien est précédé d'un point d'interrogation ou affiché d'une manière distincte en gras et en rouge, cela indique que la page n'est pas encore définie. Il suffit de cliquer sur ce lien ou ce point d'interrogation pour proposer une définition. C'est aussi comme cela que vous pourrez créer une nouvelle page : ajouter un nouveau NomWiki à une page existante, enregistrer vos modifications, cliquez sur votre nouveau lien et créez la page (pour plus de détails consultez la page AideDeCréationDesPages).
 
-Pour en savoir plus sur ce qu'est un Wiki:WikiWikiWeb, lire Wiki:WhyWikiWorks et Wiki:WikiNature. ''traduction à venir?''
-Ègalement consultables : Wiki:WikiWikiWebFaq et Wiki:OneMinuteWiki. 
-Ce wiki fait parti de l'espace InterWiki, ce qui signifie qu'une grande quantité d'informations est disponible sur d'autres sites wiki publics.
+Pour vous entraîner, je vous conseille d'aller modifier le ["BacÀSable"] de la façon qui vous plaira. Merci de ne pas modifier d'autres pages avant de vous être familiarisé avec le fonctionnement d'un wiki !
 
-Quelques points de départ pour explorer un wiki
- * ModificationsRécentes : on peut voir à quoi travaillent les gens en ce moment
- * RechercherUnePage : recherche sur la base de données
- * IndexDesTitres : une liste de toutes les pages existant dans le wiki
- * IndexDesTermes : une liste de tous les mots composant les titres de pages (donc une liste des concepts du wiki)
- * ExplorerCeWiki : une page qui indique les différent types d'indexation du wiki
- * ["BacÀSable"] : page à éditer librement pour s'entraîner à la modification et à la mise en page wiki
+Pour en savoir plus sur ce qu'est un [wiki:WikiWikiWebVF WikiWikiWeb], consultez l'[http://fr.wikipedia.org/wiki/Wiki article wiki de l'encyclopédie libre Wikipédia]  et les articles en anglais Wiki:WikiWikiWeb, Wiki:WhyWikiWorks et Wiki:WikiNature. Vous pouvez également consulter 2 autres articles en anglais : Wiki:WikiWikiWebFaq et Wiki:OneMinuteWiki. Ce wiki fait parti de l'espace [wiki:InterWikiVF InterWiki], ce qui signifie que vous pouvez faire référence à un grand nombre d'informations disponibles sur d'autres wikis publics.
 
-Pour d'avantage d'aide, voir les pages ["SommaireDeL'Aide"] et HelpIndex.
+Quelques points de départ pour explorer ce wiki :
+ * ModificationsRécentes : regardez ce sur quoi les utilisateurs sont en train de travailler ;
+ * RechercherUnePage : parcourrez ou effectuez des recherches dans la base de données de différentes façons ;
+ * IndexDesTitres : une liste de toutes les pages existant dans ce wiki ;
+ * IndexDesTermes : une liste de tous les mots composant des titres de pages (donc une liste des concepts évoqués par ce wiki) ;
+ * ExplorerCeWiki : pour en savoir plus sur ce site et sur son contenu ;
+ * ["BacÀSable"] : n'hésitez pas à venir modifier cette page et à vous entraîner à la publication de pages ;
+ * ["AideDeL'Édition"] : le point de départ pour apprendre tout ce qui est à savoir  sur la syntaxe utilisée par ce wiki.
 
-== Noms Wiki ==
-
-Un NomWiki (nom wiki) est un mot qui utilise des mots à majuscule. Les [:NomWiki: NomsWiki] deviennent automagiquement des hyperliens vers la page dont le titre est le NomWiki. La détermination des lettres en majuscule ou minuscule est faite par la configuration. La configuration par défaut fonctionne pour les caractères Latin-1 (ISO-8859-1). Voir plus loin pour les caractères asiatiques, hébreux et autres encodages non-occidentaux.
-
-En cliquant sur le titre de la page (souligné, gras), exemple AideAuxDébutants pour cette page, on fait afficher la liste des pages qui pointent vers la page courante. Cela marche même pour les pages non encore créées.
-
-Un point d'interrogation devant un lien, ou des caractères rouges gras, indiquent que la page n'est pas encore définie. On peut cliquer sur le point d'interrogation pour proposer une définition (exemple, CettePageEstVraimentInexistante). En cliquant sur un de ces liens, on affiche une page par défaut qu'il est possible d'éditer. C'est seulement après enregistrement (save) que la page est créée pour de vrai.
-
-Une liste de toutes les pages non encore créées mais déjà appelées par certaines pages est affichée sur ["PagesÀCréer"].
-
-Pour ''éviter'' un NomWiki, c'est-à-dire si on veut écrire le mot Wiki''''''Nom sans créer de lien, il vous faut utiliser une séquence en gras, vide, c'est-à-dire une suite de six apostrophes, comme ceci:  {{{Wiki''''''Nom}}}. Autre solution, deux apostrophes inversées."{{{``}}}", donc {{{Wiki``Nom}}}.
-
-Pour en savoir plus sur les règles de formatage, voir ["AideDeL'Édition"].
+Pour plus d'informations, consultez les pages ["SommaireDeL'Aide"] et ["IndexDeL'Aide"].

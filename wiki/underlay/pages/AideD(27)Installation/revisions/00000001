@@ -1,4 +1,5 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more 
@@ -6,6 +7,8 @@
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpOnInstalling
 ##master-date:2004-11-17 16:08:00
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language fr
 ["SommaireDeL'Aide"] > ["AideD'Administration"] > [wiki:AideD'Installation AideD'Installation]
 

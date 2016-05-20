@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 
 = Using MoinMoin with Twisted =
@@ -16,7 +21,7 @@ First do ../BasicInstallation and ../WikiInstanceCreation.
 
 == Install Twisted ==
 
-First, install Twisted (see URL above). Many Linux distributions have Twisted packages. Please refer to the documentation of Twisted how to install it.
+First, install Twisted (see URL above). Many Linux distributions have Twisted packages. Please refer to the documentation of Twisted for installation information.
 
 == Configuring the Twisted server ==
 
@@ -24,7 +29,7 @@ Copy the file `wiki/server/mointwisted.py` to your wiki directory. Edit and adap
 
 === System path configuration ===
 
-If you did a standard install, and you are not a developer, you probably want to skip this section. If not, you might want to add the path to moin and config file, like that:
+If you did a standard install, and you are not a developer, you probably want to skip this section. Otherwise, you might want to add the path to moin and config file, like that:
 
 {{{
 sys.path.insert(0, '/path/to/moin')
@@ -37,11 +42,11 @@ If you did a standard install, the default options might be just what you need. 
 
 || '''Option''' || '''Default''' || '''Comment''' ||
 || docs || '/usr/share/moin/wiki/htdocs' || Path to moin shared files ||
-|| user || 'www-data' || If you run as root, the server will run with as this user ||
-|| group || 'www-data' || If you run as root, the server will run with as this group ||
-|| port || 8080 || Port to serve. To serve privileged port under 1024 you will have to run as root ||
-|| interfaces || `['']` || The interfaces the server will listen to. The default will listen to all. You can set to a list of interfaces you like to listen. If `''` is in the list, all other ignored.||
-|| logPath || 'mointwisted.log' || Log file. Default is commented. ||
+|| user || 'www-data' || If you run as root, the server will run as this user ||
+|| group || 'www-data' || If you run as root, the server will run as this group ||
+|| port || 8080 || Port to serve. To serve a privileged port below 1024 you will have to run as root ||
+|| interfaces || `['']` || A list of interfaces the server will listen to. If the list contains the entry `''` (like for the default configuration), all other entries are ignored and the server will listen to all interfaces. ||
+|| logPath || 'mointwisted.log' || Log file. ||
 || profiler || commented python code || Useful only if you are a moin developer. ||
 
 == Configuring wikiconfig.py ==
@@ -53,7 +58,7 @@ The sample config file should be just fine.
 
 == Starting the server on Unix ==
 
-On GNU/Linux, Mac OS X or other posix like OS, copy `wiki/server/mointwisted` to your wiki directory. You might want to adapt the python path and the path to twistd. 
+On GNU/Linux, Mac OS X or another POSIX-like OS, copy `wiki/server/mointwisted` to your wiki directory. You might want to adapt `PYTHONPATH` and the path to `twistd`. 
 
 Start the server with {{{./mointwisted start}}} and test your wiki at http://localhost:8080/. Stop the server with {{{./mointwisted stop}}}.
 

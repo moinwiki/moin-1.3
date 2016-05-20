@@ -1,16 +1,19 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more 
 ## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpMiscellaneous/FrequentlyAskedQuestions
-##master-date:2004-10-24 11:01:49
+##master-date:2004-12-05 12:56:16
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language fr
 '''Sommaire'''
 [[TableOfContents]]
 
-== Questions sur « Qu'est-ce qu'un wiki » ==
+== Questions sur ce qu'est un wiki ==
 === Qu'est-ce qu'un wiki ? Qu'est-ce qu'est MoinMoin ? ===
 
 Le terme ''Wiki'' est une version abrégée de Wiki''''''Wiki''''''Web. Un Wiki est une base de pages qui peuvent être modifiées par différentes personnes en collaboration en utilisant un navigateur web.
@@ -49,131 +52,144 @@ Des corruptions intentionnelles et explicites sont plus difficiles à traiter. I
 
 En d'autres mots, la philosophie des wikis est de s'occuper à la main (on parle de sécurité douce) du cas rare (exceptionnel) d'un saboteur, plutôt que de concevoir des fonctions et des alourdissements (tant en termes de mise en œuvre que d'utilisation) destinés à éviter les dégâts causés par un saboteur.
 
-== Questions sur l'utilisation de ce Wiki ==
+== Questions sur l'utilisation de ce wiki ==
 === Trouver et accéder à l'information dans le wiki ===
 ==== Comment faire une recherche dans le wiki ? ====
 
 Il y a d'ores et déjà énormément de façons de réaliser une recherche ou de parcourir le wiki :
- * Cliquer sur l'icône représentant une loupe. Elle vous emmènera à la page RechercherUnePage, où vous pourrez effectuer des recherches par mots clefs dans les titres et les textes, que ce soit avec des mots normaux ou avec des jokers (i. e. des expressions rationnelles).
- * Cliquer sur l'IndexDesTitres. Cette page vous présente une liste alphabétique de toutes les pages classées par titres.
- * Click on WordIndex.  This shows an alphabetized list of every word in every title (i.e. a page named Blue``Tooth is listed under B / Blue as well as T / Tooth).
- * Click on {{{LikePages}}} at the bottom of the page.  This shows pages that have words in their titles that are similar to the current page.
- * Click on the page title at the very top of the page.  This shows what pages link to the current page (which may help you find related pages).
+ * Cliquez sur l'icône représentant une loupe ([[Icon(find)]]). Elle vous emmènera à la page RechercherUnePage, où vous pourrez effectuer des recherches par mots clefs dans les titres et les textes, que ce soit avec des mots normaux ou avec des jokers (i. e. des expressions rationnelles).
+ * Cliquez sur l'IndexDesTitres. Cette page contient une liste alphabétique de toutes les pages classées par titres.
+ * Cliquez sur l'IndexDesTermes. Cette page contient une liste par ordre alphabétique de chacun des mots employés dans tous les titres des pages (i. e. une page appelée Blue''Tooth sera mentionnée à la fois dans l'entrée B - Blue et dans l'entrée T - Tooth).
+ * Cliquez sur {{{PagesSimilaires}}} en bas de la page. Cela vous permettra de rechercher les pages dont le titre contient des mots similaires à la page en cours.
+ * Cliquez sur le titre de la page tout en haut de celle-ci. Cela vous permettra de rechercher toutes les pages pointant vers la page en cours (ce qui peut vous aider à trouver des pages sur un même sujet).
 
-==== How do I see what's been going on recently in the wiki? ====
+==== Comment trouver ce qui c'est passé récemment sur ce wiki ? ====
 
-Click on the RecentChanges link at the top of any page.
+Cliquez sur le lien ModificationsRécentes se trouvant en haut de chaque page.
 
-==== How can I get RecentChanges to go farther back in time than it goes by default? ====
+==== Comment obtenir la liste des ModificationsRécentes antérieures à la période de temps par défaut ====
 
-Log in and select up to 90 days back. Is this enough?
+Identifiez-vous en cliquant sur « Connexion » et vous pourrez choisir de remonter jusquà 90 jours dans le passé. Est-ce suffisant ?
 
-==== What are these WeirdRedLinks I keep finding all over the place? ====
+==== Que sont ces BizarresLiensRouges que je trouve partout ? ====
 
-Any mixed case name that doesn't have a page will show up as a red link.
+Tout nom mélangeant majuscules et minuscules et ne pointant pas vers une page apparaîtra sous la forme d'un lien de couleur rouge.
 
-=== Adding information to the wiki ===
+=== Ajouter de nouvelles informations à ce wiki ===
 
-==== How do add something to the wiki, or change something that's wrong? ====
+==== Comment ajouter quelque-chose à ce wiki ou comment corriger quelque-chose de faux ? ====
+
+Si vous tombez sur quelque-chose que vous souhaitez commenter, compléter ou modifier, il vous suffit de cliquer sur le lien {{{Éditer}}} en bas de la page ou de cliquer sur l'icône [[Icon(moin-edit)]] en haut de la page. La page s'affichera alors dans un panneau d'édition dans votre navigateur et vous pourrez alors tout simplement la modifier. Le moteur de mise en forme du wiki fera en général « ce qu'il faut » avec le texte que vous indiquerez. Si vous voulez bien faire, vous pourrez obtenir le même type de mise en forme que le HTML permet. Consultez la page AideDeMiseEnForme qui vous indiquera quelques astuces et quelques exemples.
   
-If you see something you'd like to comment on, add to, or change, just click on the {{{EditText}}} link at the bottom of the page, or click on the [[Icon(moin-edit)]] icon at the top of the page.  The page is brought up in a text-edit pane in your browser, and you simply make the changes. The wiki formatter will generally "do the right thing" with any text you enter.  If you want to get fancy, you can do most of the same types of formatting that HTML allows you to do.  See the HelpOnFormatting page for some tips and examples.
-  
-==== Are there any conventions I should follow when adding information? ====
-  
-Not very many.  It helps to keep certain types of information formatted in a consistent way.  One important convention that will help with consistency is the use of "Template" pages.
+==== Y a-t-il des conventions à respecter lorsque j'ajoute des informations ? ====
 
-The wiki has a feature called "Templates" which show up when you create a new page.  If you click on one of these when creating a new page, then that page will have a structure similar to others of the same type.  For example, when creating your own Wiki homepage, you should use the HomepageTemplate page, which is available when you create a new page in the wiki.
+Pas beaucoup. Il est en général préférable de continuer à présenter certains types d'informations d'une manière cohérente. L'une des conventions importantes qui aide à la cohérence est l'utilisations des pages « Modèles » (ou « Templates » selon votre configuration).
+
+Ce wiki dispose d'une fonction appelée « Modèles » (ou « Templates » selon votre configuration) qui se manifeste lorsque vous créez une nouvelle page. Si vous cliquez sur l'un de ceux-ci lorsque vous créez une page, cette page sera créée avec une structure similaire aux autres pages du même type. Par exemple, lorsque vous créez votre propre PagePersonnelle, vous devriez utiliser la page ModèlePagePersonnelle (ou PagePersonnelleTemplate), qui est disponible lors de la création de nouvelles pages sur ce wiki.
   
-==== How can I add non-text information to the Wiki? ====
-  
-If the content already exists on a web site, then just add a link to a wiki page. Follow these steps:
- * Get the URL for the document,
- * Edit the Wiki page (go to the Wiki page and click the Edit''''''Text link)
- * Type in the URL where you want it in the document
- * Save the changes.
-The wiki will automatically make a hypertext link from the text you type in.
-  
-You can make the link "prettier" by putting "cover" wording for the link in brackets.  The cover wording will appear on the page, but the
-link will take the user to the URL when clicked on.  Here's an example:
+==== Comment ajouter des informations autres que du texte au wiki ? ====
+
+Si l'élément que vous souhaitez ajouter existe déjà sur la Toile, il vous suffit d'ajouter un lien à la page. Suivez la procédure suivante :
+ * récupérez l'URL du document ;
+ * éditez la page (ouvrez la page en question et cliquez simplement sur le lien « Éditer ») ;
+ * Indiquez l'URL à l'endroit où vous le souhaitez ;
+ * Enregistez les modifications.
+Ce wiki transformera automatiquement le texte que vous avez indiqué en hyperlien.
+
+Vous pouvez obtenir un lien plus joli en mettant entre crochet un intitulé pour celui-ci. Cet intitulé sera affiché sur la page, mais le lien dirigera l'utilisateur vers l'URL que vous auvez indiqué. Par exemple :
 {{{
-  [http://your.link.here/foo.html This will be the link text]
+  [http://votre.lien.indique.ici/truc.html Ceci sera le texte du lien]
 }}}
-produces:
+produira :
 
-[http://your.link.here/foo.html This will be the link text]
+[http://votre.lien.indique.ici/truc.html Ceci sera le texte du lien]
 
-==== How do I add an image to a page? ====
+==== Comment ajouter une image à une page ? ====
 
-You can include a url to the image in the page.  Example:
+Vous pouvez indiquer l'URL de l'image dans la page. Par exemple :
 {{{
 http://c2.com/sig/inter/wikibase.gif
 }}}
-produces
+produira :
 
 http://c2.com/sig/inter/wikibase.gif
 
-==== Adding documents in an intranet ====
-If you're using MoinMoin on an intranet, it may be useful to make links to documents on file shares available to everyone reading your wiki. For example:
+==== Ajouter des documents dans un réseau interne d'entreprise (intranet) ====
+
+Si vous utilisez [wiki:MoinMoinVF MoinMoin] dans un réseau interne d'entreprise, il peut être utile de créer des liens vers des documents disponibles dans des répertoires partagés accessibles à tous vos lecteurs. Par exemple :
 {{{
-[file://servername/full/path/to/file/filename.txt Click here to read filename.txt]}}}
+[file://nom_du_serveur/chemin/complet/nom_du_fichier.txt Lire nom_du_fichier.txt]}}}
 
-You can also link to files with spaces in the filenames by manually entering the URL encoding for spaces({{{%20}}}):
+Vous pouvez aussi créer des liens vers des fichiers dont les noms contiennent des espaces. Pour ceci, vous devrez indiquer à la main le code utilisé pour représenter les espaces dans les URL ({{{%20}}}) :
 {{{
-[file://servername/full/path/to/file/filename%20with%20spaces.txt Click here to read filename with spaces.txt]}}}
+[file://nom_du_serveur/chemin/complet/nom%20du%20fichier.txt Lire nom du fichier.txt]}}}
 
-Another obvious and maybe better option is to use the {{{AttachFile}}} action.
+Une autre solution simple et sans doute meilleure est d'utiliser l'action {{{Joindre un fichier}}}.
 
-==== Should I ''sign'' my changes? ====
+==== Dois-je « signer » mes modifications ? ====
 
-If they are significant, or you want people to know that you made them, then yes.  Just put your name or email address after your comment.  It is not uncommon to indent your comment under the statement you are commenting on.  Also, it helps to ''italicize'' your comment to make it stand off from the main body of the page you are commenting on.
- 
-However, in some cases it may be appropriate to just make your change anonymously.  Correcting spelling, formatting, or trivial word changes are some examples where it is not necessary (and even discouraged) for you to sign your modification.
-  
+Si elles sont importantes ou si vous voulez faire savoir que vous les avez faites, alors oui. Indiquez simplement votre nom ou votre adresse électronique à la fin de votre commentaire. Il n'est pas inhabituel de mettre en retrait votre commentaire, sous la déclaration que vous commentez. Il est aussi intéressant de mettre votre commentaire en italiques pour qu'il ressorte mieux de la page que vous commentez.
 
-=== Adding other document formats to the wiki ===
-==== Can I add HTML to the wiki? ====
+Cependant, dans certains cas, il peut être plus approprié de faire votre modification d'une manière anonyme. Corriger l'orthographe, la mise en page ou modifier un mot sans changer le sens sont des cas où il n'est pas nécessaire (et même déconseillé) que vous apposiez votre signature à la modification.
 
-If you want to add a single line of HTML, use the HTML macro. This is done by putting your HTML text as a parameter to the
-HTML macro, like so:
+=== Ajouter d'autres formats de documents au wiki ===
 
-{{{[[HTML(<font size=+12>This is large font</font>)]]}}}
+==== Est-il possible d'ajouter du HTML au wiki ? ====
 
-This would show up on the page as:
-[[HTML(<font size=+12>This is large font</font>)]]
+Si vous désirez ajouter une seule ligne de HTML, utilisez la macro du même nom. Pour ceci, indiquez votre texte HTML comme paramètre de la macro HTML, comme suit :
 
-It's also possible to place an HTML document into a page by adding {{{#format html}}} as the first line in the page.  If that line is there then the whole page will be interpreted as HTML (thus making links to other pages becomes a bit more difficult!)  Make sure that you only add the body portion of the page (not the HTML headers or anything else outside of the body, including the <BODY> tag itself).
+{{{[[HTML(<font size=+12>Utilisation d'une fonte plus grande</font>)]]}}}
 
- /!\ All of this only works if the HTML extensions (HTML macro and parser) are installed.
+Ce qui apparaîtra sur la page comme ceci : [[HTML(<font size=+12>Utilisation d'une fonte plus grande</font>)]]
 
-== Installation & Configuration ==
+Il est aussi possible de placer un document HTML dans la page en ajoutant {{{#format html}}} comme première ligne de celle-ci. Si cette ligne est présente, alors la page au complet sera interprétée comme du HTML (ce qui rendra la création de liens vers les autres pages un peu plus difficile !). Assurez-vous de n'ajouter que le corps de la page (i. e. la partie entre les balises <body>, mais ni les en-têtes HTML, ni quoi que ce soit à l'extérieur de ces balises, y compris ces balises elle-même).
 
- (!) See HelpOnAdministration for general help on this topic
+ /!\ Tout ceci ne fonctionnera que si les extensions HTML (macro et analyseur HTML) sont installées.
 
-=== How do I activate the "DeletePage" / "AttachFile" / "RenamePage" option? ===
+== Installation & configuration ==
 
-"Delete''''''Page" is not active by default, since it's most often used in intranets only and is somewhat dangerous in public wikis. To allow this and other dangerous actions, add them like this to {{{wikiconfig.py}}}: {{{
+ (!) Reportez-vous à l'["AideD'Administration"] pour l'aide générale à ce sujet.
+
+=== Comment puis-je activer les options « Supprimer le page », « Joindre un fichier » et « Renommer la page » ? ===
+
+« Supprimer le page » n'est pas activé par défaut, car cette fonction est principalement utile dans les réseaux internes d'entreprises et qu'elle est un peu dangereuse pour des wikis publics. Pour activer cette option ainsi que les autres options dangereuses, ajoutez-les comme suit à votre fichier {{{wikiconfig.py}}} :
+{{{
 allowed_actions=['DeletePage', 'RenamePage', 'AttachFile', ]
 }}}
 
-For being allowed to delete or rename pages, you will have to log in (through UserPreferences).
 
-== Administering the Wiki ==
-=== How do I administer the wiki? ===
+"Delete''''''Page" is not active by default, since it's most often used in intranets only and is somewhat dangerous in public wikis. To allow this and other dangerous actions, add them like this to {{{wikiconfig.py}}}:
+{{{
+allowed_actions=['DeletePage', 'RenamePage', 'AttachFile', ]
+}}}
 
-There is a lot of administration information on the RecentChanges page, including the number of pages, and the macros and actions that are installed.
+Pour être autorisé à détruire ou à renommer une page, vous devrez être identifié (via les PréférencesUtilisateur).
 
-I usually set up an "Admin''''''Page", where I put macros for these, as well as information about the real physical location of the
-pages, and macros for orphan pages or other things an adminstrator for the wiki might want to look at. 
+== Administrer le wiki ==
+=== Comment dois-je administrer le wiki ? ===
 
-=== Can I restore a page from an older version? ===
+La page ModificationsRécentes offre de nombreuses informations à l'administrateur, notamment le nombre de pages, ainsi que la liste des macros et des actions qui sont installées.
 
- 1. click on the little "i" in the top-right corner ({{{PageInfo}}}).
- 1. click on "revert" of the version you want to restore.
+Je définis d'habitude une « PageD'Administration » où je place des macros pour cela, ainsi que des informations sur l'emplacement physique réel des pages. J'y ajoute aussi des macros de détection des pages orphelines et d'autres choses qu'un administrateur du wiki pourra vouloir consulter.
 
-For being allowed to revert pages, you will have to log in (through UserPreferences).
+=== Est-il possible de restaurer une page d'une version antérieure ? ===
 
-=== How do I create a new Template page? ===
+ 1. cliquez sur l'icône [[Icon(info)]] en haut à droite de la page ({{{Informations}}}) ;
+ 1. cliquez sur l'action « restaurer » de la version que vous voulez rétablir.
 
-Templates are pages that show up automatically as options when you create a blank page.  Any page that ends in the word Template will automatically show up in the list.  Hence, if you want certain types of pages to have a similar format (similar headings, organization, etc.), you just define a page that ends in Template, and when creating pages of this type, select that template and edit it.  The wiki fills in the starting content for you.  Templates are editable wiki pages like any other.
+Pour être autorisé à restaurer une page, vous devrez être identifié (via les PréférencesUtilisateur).
 
-To create a Template page, just create a new page called <something>Template.
+=== Comment créer un nouveau modèle de page ? ===
+
+Les modèles (ou templates) sont des pages prosposées automatiquement lorsque vous créez une page vierge. Dans la configuration par défaut, toute page se terminant par le mot « Template » apparaîtra automatiquement dans la liste. Si votre wiki est francophone, nous vous recommandons de le paramétrer pour utiliser des modèles dont le nom commence par le mot « Modèle » (voir ci-dessous). En conséquence, si vous souhaitez que certains types de pages aient une présentation similaire (mêmes en-têtes, même structure, et cætera), il vous suffit de créer une page donc le nom se termine par Template (ou respectivement commence par Modèle). Il vous suffira par la suite de choisir ce modèle et de l'éditer lorsque vous créerez une nouvelle page de ce type. Le wiki remplira le contenu initial de la page pour vous. Les modèles sont des pages modifiables comme toutes les autres.
+
+Pour créer une page Modèle, créez simplement une page appelée <quelquechose>Template (ou Modèle<quelquechose> pour un wiki francophone). 
+
+==== Utilisation des modèles pour les wikis francophones ====
+
+Si votre wiki est francophone, nous vous recommandons de modifier l'expression rationnelle utilisée pour identifier les modèles en ajoutant le paramètre suivant à votre fichier {{{wikiconfig.py}}} :
+{{{
+page_template_regex=u'^Modèle'
+}}}
+
+Une fois cette modification faite, votre wiki utilisera les modèles nommés {{{ModèleQuelqueChose}}} au lieu des modèles appelés {{{QuelqueChoseTemplate}}}.

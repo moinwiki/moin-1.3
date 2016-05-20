@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
-"PO-Revision-Date: 2004-11-29 09:00+0200\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"PO-Revision-Date: 2005-01-21 00:00+0200\n"
 "Last-Translator: Nir Soffer <nirs@freeshell.org>\n"
 "Language-Team: Hebrew <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -47,8 +47,8 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "אין לכם הרשאות לצפות בדף"
 
-msgid "RefreshCache"
-msgstr "רענן מטמון"
+msgid "DeleteCache"
+msgstr "נקה מטמון"
 
 #, python-format
 msgid "(cached %s)"
@@ -384,7 +384,7 @@ msgstr "לא מסוגל לבצע שאילתה"
 
 #, python-format
 msgid "%(hits)d results out of %(pages)d pages."
-msgstr "%(hits)d תוצאות מתוך %(pages)d דפים."
+msgstr "%(hits)d תוצאות מתוך בערך %(pages)d דפים."
 
 #, python-format
 msgid "%.2f seconds"
@@ -886,9 +886,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "קובץ לשליחה"
 
-msgid "MIME Type (optional)"
-msgstr "סוג קובץ (רשות)"
-
 msgid "Save as"
 msgstr "שמור בשם"
 
@@ -1000,7 +997,7 @@ msgstr "השתמשו במנשק המשתמש לשינוי שמות דפים."
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr ""
+msgstr "שינוי שם הדף נכשל בגלל טעות במערכת הקבצים: %s."
 
 msgid "Rename Page"
 msgstr "שנה שם דף"
@@ -1051,6 +1048,10 @@ msgstr "חיפוש מלל: \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "רשימת קישורים מלאה של \"%s\""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr "אין אפשרות ליצור דף חדש ללא שם דף. אנא הכנס שם דף."
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "ארגומנטים לא חוקיים \"%s\"."
@@ -1078,6 +1079,9 @@ msgstr "התחל"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "שקף %(pos)d מתוך %(size)d"
+
+msgid "Create New Page"
+msgstr "צור דף חדש"
 
 msgid "No orphaned pages in this wiki."
 msgstr "אין דפים יתומים בוויקי הזה."
@@ -1139,6 +1143,13 @@ msgstr "יצא את תוכן הוויקי במבנה XML"
 msgid "No wanted pages in this wiki."
 msgstr "אין בוויקי הזה קישורים לדפים חסרים."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr "**מספר גדול מידי של קבצים מוכללים**"
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr "**אין אפשרות למצוא את הדף המוכלל: %s**"
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "צור איור חדש \"%(filename)s\""
@@ -1176,6 +1187,9 @@ msgstr "עיבוד XSLT לא זמין."
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s טעות בעיבוד"
+
+msgid "RefreshCache"
+msgstr "רענן מטמון"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1216,6 +1230,33 @@ msgstr "אחרים"
 msgid "Distribution of User-Agent Types"
 msgstr "פיזור סוגי דפדפנים"
 
+msgid "Unsubscribe"
+msgstr "בטל מנוי"
+
+msgid "Home"
+msgstr "דף בית"
+
+msgid "[RSS]"
+msgstr "[RSS]"
+
+msgid "[DELETED]"
+msgstr "נמחק"
+
+msgid "[UPDATED]"
+msgstr "עודכן"
+
+msgid "[NEW]"
+msgstr "חדש"
+
+msgid "[DIFF]"
+msgstr "הבדלים"
+
+msgid "[BOTTOM]"
+msgstr "למטה"
+
+msgid "[TOP]"
+msgstr "למעלה"
+
 msgid "Click to do a full-text search for this title"
 msgstr "חפשו דפים הקשורים לדף זה"
 
@@ -1239,9 +1280,6 @@ msgstr "מלל"
 msgid "Titles"
 msgstr "כותרות"
 
-msgid "Unsubscribe"
-msgstr "בטל מנוי"
-
 msgid "More Actions:"
 msgstr "פעולות נוספות:"
 
@@ -1250,6 +1288,9 @@ msgstr "הצג מלל"
 
 msgid "Show Print View"
 msgstr "תצוגת הדפסה"
+
+msgid "Delete Cache"
+msgstr "נקה מטמון"
 
 msgid "Attach File"
 msgstr "הצג קבצים מצורפים"
@@ -1271,9 +1312,6 @@ msgstr "הצג דף אב"
 
 msgid "Immutable Page"
 msgstr "דף נעול"
-
-msgid "Refresh"
-msgstr "רענן מטמון"
 
 msgid "Show Changes"
 msgstr "הצג שינויים"
@@ -1306,7 +1344,7 @@ msgstr "משתמש"
 #, python-format
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
-msgstr ""
+msgstr "סליחה, אין אפשרות לשמור את הדף כי \"%(content)s\" לא מורשה בוויקי הזה."
 
 msgid "Line"
 msgstr "שורה"
@@ -1323,12 +1361,6 @@ msgstr "החיבור לשרת הדואר \"%(server)s\" נכשל: %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "דואר נשלח בהצלחה."
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "פתיחה"
@@ -1401,6 +1433,12 @@ msgstr "שנה שם דף"
 
 msgid "SpellCheck"
 msgstr "בדוק איות"
+
+#~ msgid "MIME Type (optional)"
+#~ msgstr "סוג קובץ (רשות)"
+
+#~ msgid "Refresh"
+#~ msgstr "רענן מטמון"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"

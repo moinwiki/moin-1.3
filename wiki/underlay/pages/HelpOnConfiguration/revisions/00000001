@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 HelpContents > HelpOnAdministration > HelpOnConfiguration
 
@@ -9,44 +14,108 @@ HelpContents > HelpOnAdministration > HelpOnConfiguration
  * /EmailSupport
  * HelpOnAccessControlLists (permissions/users control)
  * /SecurityPolicy
+ * /FileAttachments
+ * /ApacheVoodoo
 
-'''Index'''
+'''Contents'''
 [[TableOfContents]]
 
-== Configuration of MoinMoin ==
+= Configuring a single wiki =
 
-=== Configuration of a single wiki ===
-If you run a single wiki only, you should not use the file `farmconfig.py`, remove it from your configuration directory. Moin will then use a built-in list `[("wikiconfig", r".*")]` that matches every request to the config file `wikiconfig.py`.
+If you run a single wiki, you should not copy the file `farmconfig.py` into your configuration directory (remove it, if it is there). Without farmconfig, moin uses the default `wikiconfig.py`
 
-A single MoinMoin wiki is configured by changing the `wikiconfig.py` file, which normally sits besides your `moin.cgi` driver script. `wikiconfig.py` is imported by the MoinMoin main code early in a request cycle and is found because the current directory (i.e. that of `moin.cgi`) is part of the Python system path. Consequently, `wikiconfig.py` can sit anywhere in your `PYTHONPATH`.
+`wikiconfig.py` normally is located besides your `moin.cgi` driver script. If you need to make a custom install, it can be located anywhere, but you must add the path to the directory where it is located to your Python system path in your server script. See the "System Path Configuration" section in your server script.
 
+== Wiki configuration file structure ==
+
+General notes on wiki/farmconfig.py structure:
 {{{
 # -*- coding: iso-8859-1 -*-
-# wikiconfig.py:
+
 from MoinMoin.multiconfig import DefaultConfig
+
 class Config(DefaultConfig):
+
     sitename = u'MyWiki'   # u means that it will be converted to Unicode
     interwikiname = 'MyWiki'
     data_dir = '/where/ever/mywiki/data/'
     underlay_dir = '/where/ever/mywiki/underlay/'
-    # ...
+    
+    # More settings follow...
 }}}
 
-Explanation:
- * first we import moin's internal default configuration - copy this line "as is" to your configuration file.
- * then we define a new configuration class called "Config" and inherit all settings from the default configuration we imported - also copy this line "as is". When handling requests, moin internally will create an object of this class "Config".
- * after that we have to indent every line belonging to our "Config" class. THIS IS IMPORTANT - wrong indentation can make your configuration fail or do things you do not want. Use 4 blanks per level of indentation, do not use TABs.
- * now we override the default config's sitename ("An unnamed moin wiki") - remember: we inherited everything from the default config class - by the sitename we want to use ("MyWiki").
- * As the sitename (and also some other settings) could contain non-ASCII characters (used in languages other than English) it '''must be Unicode'''. We prefix an encoded string with an "u" character to get that string automatically decoded to Unicode when the config is loaded. The correct encoding of the config file '''must be given at top of the file''' and must be a encoding recognized by Python (like iso-8859-1, iso-8859-15, utf-8 etc.) - and of course you must ''not'' mix different encodings in your config.
- * of course we also want to override the data_dir (every wiki needs its own!) and underlay_dir (can be shared).
- * anything we do not override simply stays at moin's internal defaults which we inherited from Default''''''Config.
+ * First, you must define the coding of the config file. The default setting is suited for Latin ("western") languages only, for international setup, read next section. If you don't define the coding, you can't use non-ascii characters.
 
-=== Configuration of multiple wikis ===
+ * Next we import moin's internal default configuration. The default configuration includes values for all options, so we don't have to define all values, just what we want to customize.
+
+ * Then we define a new configuration class called "Config" and inherit all settings from the default configuration we imported. Note that the class name must be "Config".
+
+ * Next lines are the configuration options for the Config class. Note that each line must be indented by 4 spaces, tabs are not allowed. Moin will not run if you use wrong indentation.
+
+ * A common configuration item is `sitename` - in most cases you don't want your wiki to have the default "Untitled Wiki" name. You can define any name you like in any language, but before you do that, read next section on unicode options.
+
+ * If you followed the install instructions, the wiki will run without any other change, but you might want to change some values, like `data_dir`, `data_underlay_dir` `acl_rights_before` and more. For most cases, setting all the values in the supplied `wikiconfig.py` file is enough.
+
+ * Anything we do not define simply stays at moin's internal defaults which we inherited from !DefaultConfig.
+
+= Unicode options =
+
+ <!> '''Important: to use unicode values, you must setup a correct coding line in the first line of your configuration file. Check that your editor is configured correctly.'''
+
+Certain options '''must''' use unicode values. For example, the site name could contain German umlauts or French accents or be in Chinese or Hebrew. Because of this, you must use unicode strings for those items. Unicode strings are defined by prefixing the letter `u` to the string. Here are some examples:
+
+{{{
+    # Site name, used by default for wiki name-logo [Unicode]
+    sitename = u"Jürgen's Wiki"
+    # another example:
+    sitename = u'הוויקי של יורגן'
+}}}
+
+Read the comments in the configuration file - they tell you which options must use Unicode values.
+
+Notes:
+
+ * You can't mix different encodings in the same file. If your coding line says `iso-8859-1`, all your characters, the whole file content, must be in that encoding.
+
+ * If you use utf-8 encoding (or plain ascii), you don't have to use unicode strings, moin will decode your string correctly for you. New in 1.3.2.
+
+= International Setup =
+
+The default configuration file shipped with moin uses `iso-8859-1` coding. This is fine for Latin languages like English or German, but not usable for non-latin languages. If you want to have non-latin characters in your configuration items, use utf-8 coding for the config file.
+
+Set the first line of all configuration files to this line:
+{{{
+# -*- coding: utf-8 -*-
+}}}
+
+ /!\ You need a text editor being capable of (and also really using) utf-8 encoding for editing the config files.
+
+Values using unicode strings (international users might want to change them):
+ * sitename
+ * logo_string
+ * page_front_page
+ * navi_bar
+ * default_lang
+ * page_category_regex
+ * page_dict_regex
+ * page_form_regex
+ * page_group_regex
+ * page_template_regex
+ * page_license_page - New in 1.3.2
+ * page_local_spelling_words - New in 1.3.2
+ * acl_rights_default - New in 1.3.2
+ * acl_rights_before - New in 1.3.2
+ * acl_rights_after - New in 1.3.2
+
+For ready made configuration in your language, see ConfigMarket. Read also the section about unicode options.
+
+= Configuration of multiple wikis =
+
 The moinmoin wiki engine is capable of handling multiple wikis using a single installation, a single set of configuration files and a single server process. Especially for persistent environments like twisted, this is necessary, because the twisted server will permanently run on a specific IP address and TCP port number. So for virtual hosting of multiple domains (wikis) on the same IP and port, we need the wiki engine to permanently load multiple configs at the same time and choose the right of them when handling a request for a specific URL.
 
 To be able to choose the right config, moin uses config variable `wikis` located in the file `farmconfig.py` - it simply contains a list of pairs `(wikiname, url-regex)`. When processing a request for some URL, moin searches through this list and tries to match the url-regex against the current URL. If it doesn't match, it simply proceeds to the next pair. If it does match, moin loads a configuration file named `<wikiname>.py` (usually from the same directory) that contains the configuration for that wiki. Internally, moin adds a ''catch all'' `('wikiconfig', '.*')` to the end of that list, so you do not need something like this in `farmconfig.wikis`.
 
-`farmconfig.py` in the distribution archive has some sample entries for a wiki farm running multiple wikis, you need to adapt it to match your needs, if you want to run multiple wikis.
+`farmconfig.py` in the distribution archive has some sample entries for a wiki farm running multiple wikis. You need to adapt it to match your needs if you want to run multiple wikis.
 
 /!\ For simpler writing of these help pages, we will call such a `<wikiname>.py` configuration file simply `wikiconfig.py`, of course you have to use the filename you chose.
 
@@ -90,32 +159,32 @@ Explanation:
  * now we override show_hosts to be 0 - we want it for most wikis in our farm, but not for this one
  * we also override sitename, interwikiname and data_dir (the usual stuff)
 
-=== Overview of configuration options ===
+= Overview of configuration options =
 
 The following table contains default values and a short description for all configuration variables. Most of these can be left at their defaults, those you need to change with every installation are listed in the sample `wikiconfig.py` that comes with the distribution.
 
-/!\ Starting with moin 1.3.1, some values '''MUST''' be Unicode. This is achieved like this: `u'encoded string'` (the u is the important thing and means to convert the encoded string to Unicode). Also, the encoding used for your config file must be given in the "coding" line at top of the file. For English (and some other western languages), use iso-8859-1, for others you may want to use utf-8.
+/!\ Starting with moin 1.3.1, some options must use unicode strings. Read the section about unicode options.
 
 ||<rowbgcolor="#FFFFE8"> '''Variable name''' || '''Default''' || '''Description''' ||
-|| Security''''''Policy || None || class object hook for implementing security restrictions ||
-|| acl_enabled (& acl_...) || 0 || ''true'' to enable Access Control Lists - fine grained page access rights settings (see HelpOnAccessControlLists) ||
-|| allow_extended_names || 1 || ''true'' to enable {{{["free link"]}}} markup ||
-|| allow_numeric_entities || 1 || if ''true'', numeric entities like `&#8364;` for &#8364; are not escaped, but &amp; and stuff still is ||
-|| allow_xslt || 0|| ''true'' to enable XSLT processing via 4Suite (note that this enables anyone with enough know-how to insert '''arbitrary HTML''' into your wiki, which is why it defaults to 0) ||
-|| allowed_actions || [] || allow unsafe actions (list of strings) ||
+|| Security''''''Policy || None || Class object hook for implementing security restrictions ||
+|| acl_enabled (& acl_...) || 0 || True to enable Access Control Lists - fine grained page access rights settings (see HelpOnAccessControlLists) ||
+|| allow_extended_names || 1 || True to enable {{{["free link"]}}} markup ||
+|| allow_numeric_entities || 1 || If true, numeric entities like `&#8364;` for &#8364; are not escaped, but &amp; and stuff still is ||
+|| allow_xslt || 0|| True to enable XSLT processing via 4Suite (note that this enables anyone with enough know-how to insert '''arbitrary HTML''' into your wiki, which is why it defaults to 0) ||
+|| allowed_actions || [] || Allow unsafe actions (list of strings) ||
 || attachments || None || If {{{None}}}, send attachments via CGI; else this has to be a dictionary with the path to attachment storage (key ''dir'') and the equivalent URL prefix to that same dir (key ''url'')||
-|| auth_http_enabled || 0 || ''true'' to enable moin using the username of a user already authenticated by http basic auth ||
-|| backtick_meta || 1 || ''true'' to enable {{{`inline literal`}}} markup ||
-|| bang_meta || 0 || ''true'' to enable {{{!NoWikiName}}} markup ||
+|| auth_http_enabled || 0 || True to enable moin using the username of a user already authenticated by http basic auth ||
+|| backtick_meta || 1 || True to enable {{{`inline literal`}}} markup ||
+|| bang_meta || 0 || True to enable {{{!NoWikiName}}} markup ||
 || caching_formats || ['text_html'] || output formats that are cached; set to [] to turn off caching (useful for development) ||
 || changed_time_fmt || '%H:%M' || Time format used on RecentChanges for page edits within the last 24 hours ||
-|| chart_options || None || if you have gdchart, use something like chart_options = {'width': 720, 'height': 540} ||
+|| chart_options || None || If you have gdchart, use something like chart_options = {'width': 720, 'height': 540} ||
 || cookie_lifetime || 12 || 12 hours from now until the MoinMoin cookie expires and you get logged out ||
-|| data_dir || './wiki/data/' || Path to the data directory containing your (locally made) wiki pages. ||
-|| data_underlay_dir || './wiki/underlay/' || Path to the underlay directory containing distribution system and help pages. ||
+|| data_dir || './data/' || Path to the data directory containing your (locally made) wiki pages. ||
+|| data_underlay_dir || './underlay/' || Path to the underlay directory containing distribution system and help pages. ||
 || date_fmt || '%Y-%m-%d' || System date format, used mostly in RecentChanges ||
 || datetime_fmt || '%Y-%m-%d %H:%M:%S' || Default format for dates and times (when the user has no preferences or chose the "default" date format) ||
-|| default_lang || 'en' || default language for user interface and page content, see HelpOnLanguages!||
+|| default_lang || 'en' || Default language for user interface and page content, see HelpOnLanguages!||
 || default_markup || 'wiki' || Default page parser / format (name of module in `MoinMoin.parser`)  ||
 || edit_locking || 'warn 10' || Editor locking policy: `None`, `'warn <timeout in minutes>'`, or `'lock <timeout in minutes>'` ||
 || edit_rows || 30 || Default height of the edit box ||
@@ -126,37 +195,37 @@ The following table contains default values and a short description for all conf
 || html_head_normal || robots: index,nofollow || Additional <HEAD> tags for most normal pages ||
 || html_pagetitle || None || Allows you to set a specific HTML page title (if not set, it defaults to the value of `sitename`) ||
 || interwikiname || None || InterWiki name (prefix, moniker) of the site, or None ||
-|| logo_string || sitename || Used to show the name of the site at the top of page, HTML is allowed (`<img>` is possible as well) ||
+|| logo_string || sitename || The wiki logo top of page, HTML is allowed (`<img>` is possible as well) [Unicode] ||
 || mail_from || None || `From:` header used in sent mails ||
 || mail_login || None || "user pwd" if you need to use SMTP AUTH ||
 || mail_smarthost || None || IP or domain name of an SMTP-enabled server; note that email features (notification, mailing of login data) works only if this variable is set ||
-|| navi_bar || list of default quick links (Unicode) || Most important links in text form (these links can be over-ridden by the user's quick links); to link to any URL, use a free-form link of the form u"`[url text]`" ||
+|| navi_bar || [u'%(page_front_page)s', u'!RecentChanges', u'!FindPage', u'!HelpContents',] || Most important page names. Users can add more names in their quick links in UserPreferences. To link to URL, use `u"[url link title]"`, to use a shortened name for long page name, use `u"[LongLongPageName title]"`. To use page names with spaces, use `u"[page_name_with_spaces any title]"` [list of Unicode strings] ||
 || nonexist_qm || 0 || Default for displaying WantedPages with a question mark, like in the original wiki (changeable by the user) ||
-|| page_category_regex || u'^Category[A-Z]' || Pagenames containing a match for this regex are regarded as Wiki categories ||
-|| page_credits || MoinMoin and PythonPowered || html fragment with logos or strings for crediting ||
-|| page_dict_regex || u'[a-z]Dict$' || Pagenames containing a match for this regex are regarded as containing variable dictionary definitions ||
+|| page_category_regex || u'^Category[A-Z]' || Pagenames containing a match for this regex are regarded as Wiki categories [Unicode] ||
+|| page_credits || html fragment || html fragment with logos or strings for crediting ||
+|| page_dict_regex || u'[a-z]Dict$' || Pagenames containing a match for this regex are regarded as containing variable dictionary definitions [Unicode] ||
 || page_footer1 || "" || Custom HTML markup sent ''before'' the system footer (see HelpOnSkins) ||
 || page_footer2 || "" || Custom HTML markup sent ''after'' the system footer (see HelpOnSkins) ||
-|| page_form_regex || u'[a-z]Form$' || Pagenames containing a match for this regex are regarded as containing form definitions ||
-|| page_front_page || u'FrontPage' || Name of the front page (see [#default-front-page Default front page]) ||
-|| page_group_regex || u'[a-z]Group$' || Pagenames containing a match for this regex are regarded as containing group definitions ||
+|| page_form_regex || u'[a-z]Form$' || Pagenames containing a match for this regex are regarded as containing form definitions [Unicode] ||
+|| page_front_page || u'FrontPage' || Name of the front page (see [#default-front-page Default front page]) [Unicode] ||
+|| page_group_regex || u'[a-z]Group$' || Pagenames containing a match for this regex are regarded as containing group definitions [Unicode] ||
 || page_header1 || "" || Custom HTML markup sent ''before'' the system header / title area (see HelpOnSkins) ||
 || page_header2 || "" || Custom HTML markup sent ''after'' the system header / title area (see HelpOnSkins) ||
-|| page_iconbar || ["view", ...] || list of icons to show in iconbar ||
-|| page_icons_table || dict || dict of {'iconname': (url, title, icon-img-key), ...} ||
+|| page_iconbar || ["view", ...] || list of icons to show in iconbar, valid values are only those in page_icons_table. Available only in classic theme. ||
+|| page_icons_table || dict || dict of {'iconname': (url, title, icon-img-key), ...}. Available only in classic theme. ||
 || page_license_enabled || 0 || Show a license hint in page editor. ||
-|| page_license_page || u'WikiLicense' || Page linked from the license hint. ||
-|| page_local_spelling_words || u'LocalSpellingWords' || Name of the page containing user-provided spellchecker words ||
-|| page_template_regex || u'[a-z]Template$' || Pagenames containing a match for this regex are regarded as templates for new pages ||
+|| page_license_page || u'WikiLicense' || Page linked from the license hint. [Unicode] ||
+|| page_local_spelling_words || u'LocalSpellingWords' || Name of the page containing user-provided spellchecker words [Unicode] ||
+|| page_template_regex || u'[a-z]Template$' || Pagenames containing a match for this regex are regarded as templates for new pages [Unicode] ||
 || refresh || None || refresh = (minimum_delay_s, targets_allowed) enables use of `#refresh 5 PageName` processing instruction, targets_allowed must be either `'internal'` or `'external'` ||
-|| shared_intermap || None || path to a file containing global InterWiki definitions (or a list of such filenames) ||
-|| show_hosts || 1 || ''true'' to show hostname in RecentChanges ||
-|| show_section_numbers || 1 || ''true'' to show section numbers in headings by default ||
-|| show_timings || 0 || shows some timing values at bottom of page - used for development ||
-|| show_version || 0 || show MoinMoin's version at the bottom of each page ||
-|| sitename || u'An Unnamed MoinMoin Wiki' || Short description of your wiki site, displayed below the logo on each page, and used in RSS documents as the channel title ||
+|| shared_intermap || None || Path to a file containing global InterWiki definitions (or a list of such filenames) ||
+|| show_hosts || 1 || True to show hostname in RecentChanges ||
+|| show_section_numbers || 1 || True to show section numbers in headings by default ||
+|| show_timings || 0 || Shows some timing values at bottom of page - used for development ||
+|| show_version || 0 || Show MoinMoin's version at the bottom of each page ||
+|| sitename || u'Untitled Wiki' || Short description of your wiki site, displayed below the logo on each page, and used in RSS documents as the channel title [Unicode] ||
 || theme_default || 'modern' || the name of the theme that is used by default (see HelpOnThemes) ||
-|| theme_force || False || if True, do not allow to change the theme ||
+|| theme_force || False || If True, do not allow to change the theme ||
 || trail_size || 5 || Number of pages in the trail of visited pages ||
 || tz_offset || 0.0 || default time zone offset in hours from UTC ||
 || ua_spiders || ...|google|wget|... || A regex of HTTP_USER_AGENTs that should be excluded from logging ||
@@ -172,80 +241,25 @@ Some values can only be set from MoinMoin/config.py (part of the MoinMoin code a
 || upperletters || ''ucs-2 uppercase letters'' || uppercase letters, used to define what is a WikiName ||
 || url_schemas || [] || additional URL schemas you want to have recognized (list of strings) ||
 
+= Special options =
+
 [[Anchor(default-front-page)]]
-=== Default front page ===
+== Default front page ==
+
 The default front page name, "FrontPage", is automatically translated into the user language. Thus, an English user will end up at FrontPage, while a French user will end up at ["PageD'Accueil"].
 
-/!\ If you have made your own front page which is suitable for all people regardless of their spoken languages, you should give it a different name (anything but "FrontPage" will do) and set the `page_front_page` setting to this name. For example:
-
-{{{
-page_front_page = 'MyFrontPage'
+So you have 2 choices for your site:
+ 1. You will have a single language site, with a single language front page. Then just make your own single front page (and don't name it Front''''''Page) which is suitable for all people regardless of their native language and set the `page_front_page` setting to this name. For example: {{{
+ page_front_page = u'MyGreatProject'
 }}}
-
-=== Changing character sets ===
-Do not. By default, moin uses unicode (depending on your python, it will use either ucs-2 16bit or ucs-4 32bit chars) internally and utf-8 as external character encoding.
-
-/!\ You should not have to change this, as any character can be encoded in utf-8. So we do not recommend changing the default. We also do not support non-utf-8 encodings, although it is technically possible:
-
-{{{
-# MoinMoin/config.py - this is GLOBAL for all wikis in your installation!
-charset = "iso8859-1"
-upperletters = "A-Z"
-lowerletters = "0-9a-z"
+ 1. You will have a multiple language site and you intend to speak the user's language (or at least some of those languages). In that case, just edit FrontPage to fit your needs. Also edit all the translations of FrontPage (like {de} StartSeite) you want to support (and keep them all in sync). If you don't want (or cannot) support a specific language, then replace that translation by a redirect to e.g. the english FrontPage: {{{
+ #redirect FrontPage
 }}}
+ (!) Don't simply delete the unwanted translations of FrontPage or they might show up again after a MoinMoin upgrade.
 
-With that setting, you need to set "`allow_extended_names=1`" and use the special markup for extended WikiName``s `["extended name"]` to get any names with characters outside the core latin alphabet.
+[[Anchor(character-set)]]
+== Character Set ==
 
-[[Anchor(file-attachments)]]
-=== File attachments ===
-
-The [wiki:Self:HelpOnActions/AttachFile AttachFile action] enables a page to have multiple attached files.
-Since file uploads could be abused for DoS (Denial of Service) attacks, `AttachFile` is an action that may be enabled by the wiki administrator. To do this, add "`allowed_actions = ['AttachFile']`" to your configuration file.
-
-If you wiki has (or is expected to have) many file attachments, there is an option which will eliminate the CGI overhead associated with each retrieval of an attachment file.
-
-||<#FF3333> /!\ If you make your attachments directly accessible via the web server, you should make sure that the web server does not '''execute''' stuff (like php or asp or other scripts) uploaded by some malicious user. /!\ ||
-If you do not know how to do that, do '''not''' configure your moin like described below or you risk making your server remotely exploitable.
-
-There are two storage/retrieval models for file attachments:
- 1. Attachments are stored "privately" and can only be retrieved via a CGI GET (via URLs like `http://myorg.org/mywiki/<SomePage>?action=AttachFile&do=get&target=filename.ext`).
- 1. Attachments are stored into a directory directly accessible by the web server, and can thus be served directly by the webserver, without any invocation of MoinMoin (leading to URLs like `http://myorg.org/mywikiattach/<Somepage>/attachments/filename.ext`).
-
-If the efficiency of serving file attachments is a concern, the second option is preferable, but it also requires additional configuration steps and possibly more rights on the host machine. Because of this, the first option is the default; attachments are stored in the "...mywiki/data/pages/" directory, with paths like "`...mywiki/data/pages/<pagename>/attachments/<filename>`".
-
-The MoinMoin ''attachments'' configuration option allows you to move the directory structure used to store attachments to another location.  Unless you have a reason for doing so, there is no need to use a different location. Using a different location may be more work and more risk, as all the existing attachments must be copied to the new location. The following instructions are for Apache servers and assume you intend to leave the attachment files in their existing location and your original installation used the name "mywiki".
-
-The first step is to tell Apache that it has another Alias directory from which it can serve files. Review the changes you made to the httpd.conf (or commonhttpd.conf) file during the Moin``Moin installation and find the Script``Alias statement similar to the following:
-{{{
-    ScriptAlias /mywiki           ".../mywiki/moin.cgi" 
-}}}
-Create an Alias statement similar to the Script``Alias statement above, replacing the ''/mywiki'' URI with ''/mywikiattach/'' and replacing ''moin.cgi'' with ''data/pages/''.
-{{{
-    Alias       /mywikiattach/    ".../mywiki/data/pages/"
-}}}
-Be sure to note the differences in the trailing slashes between the two statements, they must be entered exactly as shown above. If you are making this change to a running system, you must restart Apache to have the change take effect.
-
-The second step is to tell MoinMoin to let Apache do the work of fetching file attachments. To do this,
-you need to add an `attachments` option to .../mywiki/wikiconfig.py. The 'attachment' option is a dictionary of two values: {{{
-attachments = {
-    'dir': '.../mywiki/data/pages',
-    'url': '/mywikiattach',
-}
-}}}
-Moin``Moin must still do the work of uploading file attachments. The ''dir'' value above tells Moin``Moin where to store attachments; note this is the same as the path in the new Apache Alias statement but without the trailing "/". The ''url'' value tells Moin``Moin how to retrieve the attachments; this matches the URI in the Alias statement but again without the trailing "/".
-
-/!\ Your attached files are now directly servable by Apache. However if you also have PHP (or ASP or any other server parsed language) installed then an attacker can upload a PHP script an then run it to exploit other local weaknesses.
-
-For example, you can disable PHP for the appropriate directory (note that it's difficult to include instructions for disabling all server parsed languages).
-
-{{{
-<Directory .../mywiki/data/pages/>
-    RemoveType .php .php3 .php4 .phtml
-</Directory>
-}}}
-
-/!\ This only disables php stuff - you have to add everything else on your own!
-
-After you have completed the configuration changes, test by uploading an attachment for WikiSandBox. Then modify the WikiSandBox page to display the uploaded image or download the file. If there were existing attachments before this change, verify the old attachments are still available.  Finally, review the Apache ''access.log'' file to verify you have a log entry showing the expected file access:
-
-  * ''"...GET /mywikiattach/Wiki``Sand``Box/attachments/mypix.jpg HTTP/1.1..."''.
+Moin uses unicode internally, and `utf-8` for external output and input, like pages, html output and translation files. The external character set is defined in `config.charset` to `utf-8`. This setting is fine for all languages, as any character can be encoded in utf-8. You should not change this value, although technically it is possible.
+ 
+ <!> '''Do not change `config.charset`. It is not tested and we can't support this.'''

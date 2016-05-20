@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
 "PO-Revision-Date: 2004-11-21 22:09+0100\n"
 "Last-Translator: gian paolo ciceri <gp.ciceri@acm.org>\n"
 "Language-Team: Italian <moin-devel@lists.sourceforge.net>\n"
@@ -54,8 +54,9 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "Non sei autorizzato a leggere questa pagina."
 
-msgid "RefreshCache"
-msgstr "AggiornaCache"
+#, fuzzy
+msgid "DeleteCache"
+msgstr "CancellaPagina"
 
 #, python-format
 msgid "(cached %s)"
@@ -929,9 +930,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "File da caricare"
 
-msgid "MIME Type (optional)"
-msgstr "Tipo MIME (opzionale)"
-
 msgid "Save as"
 msgstr " Salva come"
 
@@ -1102,6 +1100,10 @@ msgstr "Ricerca nel contenuto per \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "Elenco completo dei collegamenti per \"%s\""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Argomento per \"Include\" non valido: \"%s\"!"
@@ -1129,6 +1131,10 @@ msgstr "Inizia"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slide %(pos)d di %(size)d "
+
+#, fuzzy
+msgid "Create New Page"
+msgstr "Crea questa pagina"
 
 msgid "No orphaned pages in this wiki."
 msgstr ""
@@ -1192,6 +1198,13 @@ msgstr "Scarica una versione XML di questo wiki"
 msgid "No wanted pages in this wiki."
 msgstr "Non ci sono pagine \"non scritte\" in questo wiki."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Crea un nuovo disegno \"%(filename)s\""
@@ -1229,6 +1242,9 @@ msgstr "Formattazione XSLT non disponibile"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Errore di elaborazione di tipo \"%(errortype)s\""
+
+msgid "RefreshCache"
+msgstr "AggiornaCache"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1269,6 +1285,33 @@ msgstr "Altre"
 msgid "Distribution of User-Agent Types"
 msgstr "Distribuzione delle tipologie di User-Agent"
 
+msgid "Unsubscribe"
+msgstr "Annulla sottoscrizione"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
 msgid "Click to do a full-text search for this title"
 msgstr "Clicca qui per effettuare una ricerca full-text per questo titolo"
 
@@ -1292,9 +1335,6 @@ msgstr "Testo"
 msgid "Titles"
 msgstr "Titoli"
 
-msgid "Unsubscribe"
-msgstr "Annulla sottoscrizione"
-
 msgid "More Actions:"
 msgstr "Altre Azioni:"
 
@@ -1303,6 +1343,10 @@ msgstr "Mostra il testo grezzo"
 
 msgid "Show Print View"
 msgstr "Versione stampabile"
+
+#, fuzzy
+msgid "Delete Cache"
+msgstr "Cancella Pagina"
 
 msgid "Attach File"
 msgstr "File allegati"
@@ -1324,9 +1368,6 @@ msgstr "Mostra la pagina padre"
 
 msgid "Immutable Page"
 msgstr "Pagina non alterabile"
-
-msgid "Refresh"
-msgstr "Aggiorna"
 
 msgid "Show Changes"
 msgstr "Mostra le modifiche"
@@ -1376,12 +1417,6 @@ msgstr "La connessione al mailserver '%(server)s' è fallita: %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "Mail spedita correttamente"
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "PaginaPrincipale"
@@ -1455,6 +1490,12 @@ msgstr "RinominaPagina"
 msgid "SpellCheck"
 msgstr "ControlloOrtografico"
 
+#~ msgid "MIME Type (optional)"
+#~ msgstr "Tipo MIME (opzionale)"
+
+#~ msgid "Refresh"
+#~ msgstr "Aggiorna"
+
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"
 
@@ -1484,9 +1525,6 @@ msgstr "ControlloOrtografico"
 
 #~ msgid "Nobody subscribed to this page, no mail sent."
 #~ msgstr "Nessuno risulta abbonato a questa pagina, non spedisco alcuna mail."
-
-#~ msgid "Home"
-#~ msgstr "Home"
 
 #~ msgid "Unknown action"
 #~ msgstr "Azione sconosciuta"
@@ -1564,9 +1602,6 @@ msgstr "ControlloOrtografico"
 
 #~ msgid "An error occurred while reverting the page."
 #~ msgstr "E' avvenuto un errore nel ripristinare la pagina!"
-
-#~ msgid "Create this page"
-#~ msgstr "Crea questa pagina"
 
 #~ msgid "Alternatively, use one of these templates:"
 #~ msgstr "In alternativa, puoi utilizzare uno di questi modelli:"

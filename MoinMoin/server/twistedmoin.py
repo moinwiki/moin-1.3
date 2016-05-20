@@ -21,10 +21,6 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-import cgi
-import os
-
 # Twisted imports
 from twisted.application import internet, service
 from twisted.web import script, static, server, vhost, resource, util
@@ -38,6 +34,12 @@ threadable.init(1)
 from MoinMoin.request import RequestTwisted
 from MoinMoin.server import Config
 
+# Set threads flag, so other code can use proper locking
+from MoinMoin import config
+config.use_threads = True
+del config
+
+# Server globals
 config = None
 
     
@@ -62,6 +64,10 @@ class WikiRoot(resource.Resource):
             return self.children['wiki'].getChild(name, request)
 
         # All other through moin
+
+        # TODO: fix profile code to include the request init and ignore
+        # first request. I'm not doing this now since its better done
+        # with the new twisted code waiting in fix branch. --Nir
         else:
             if config.memoryProfile:
                 config.memoryProfile.addRequest()
@@ -80,19 +86,35 @@ class MoinRequest(server.Request):
     """
 
     def requestReceived(self, command, path, version):
-        """Called by channel when all data has been received.
-           
+        """ Called by channel when all data has been received.
+
+        Override server.Request method for POST requests, to fix file
+        uploads issue.
+        """
+        if command == 'POST':
+            self.requestReceivedPOST(path, version)
+        else:
+            server.Request.requestReceived(self, command, path, version)
+
+    def requestReceivedPOST(self, path, version):
+        """ Handle POST requests
+
+        This is a modified copy of server.Request.requestRecived,
+        modified to use cgi.FieldStorage to handle file uploads
+        correctly.
+
         Creates an extra member extended_args which also has
         filenames of file uploads ( FIELDNAME__filename__ ).
-
-        This method is not intended for users.
         """
+        import cgi
+        
         self.content.seek(0,0)
         self.args = {}
         self.extended_args = {}
         self.stack = []
 
-        self.method, self.uri = command, path
+        self.method = 'POST'
+        self.uri = path
         self.clientproto = version
         x = self.uri.split('?')
 
@@ -101,6 +123,7 @@ class MoinRequest(server.Request):
             self.path = self.uri
         else:
             if len(x) != 2:
+                from twisted.python import log
                 log.msg("May ignore parts of this invalid URI: %s"
                         % repr(self.uri))
             self.path, argstring = x[0], x[1]
@@ -115,10 +138,6 @@ class MoinRequest(server.Request):
             'REQUEST_METHOD': self.method,
             'QUERY_STRING': argstring,
             }
-        if self.method in ('GET', 'HEAD') \
-           and not self.received_headers.has_key('content-type'):
-            self.received_headers['content-type']='application/x-www-form-urlencoded'
-
         form = cgi.FieldStorage(fp=self.content,
                                 environ=env,
                                 headers=self.received_headers)
@@ -229,9 +248,22 @@ def makeApp(ConfigClass):
     sc = service.IServiceCollection(application)
 
     # Listen to all interfaces in config.interfaces
-    for interface in config.interfaces:
-        # Add a TCPServer for each interface. Default [''] uses only one.
-        s = internet.TCPServer(config.port, site, interface=interface)
+    for entry in config.interfaces:
+        # Add a TCPServer for each interface.
+
+        # This is an hidden experimantal feature: each entry in
+        # interface may contain a port, using 'ip:port'.
+        # Note: the format is subject to change!
+        try:
+            interface, port = entry.split(':', 1)
+        except ValueError:
+            interface, port = entry, config.port
+            
+        # Might raise ValueError if not integer.
+        # TODO: check if we can use string port, like 'http'
+        port = int(port)                       
+        
+        s = internet.TCPServer(port, site, interface=interface)
         s.setServiceParent(sc)
 
     return application

@@ -48,9 +48,11 @@ class Formatter(FormatterBase):
     def rawHTML(self, markup):
         return '<![CDATA[' + markup.replace(']]>', ']]>]]&gt;<![CDATA[') + ']]>'
 
-    def pagelink(self, on, pagename='', **kw):
-        apply(FormatterBase.pagelink, (self, on, pagename), kw)
-        return Page(self.request, pagename, formatter=self).link_to(self.request, on=on, **kw)
+    def pagelink(self, on, pagename='', page=None, **kw):
+        apply(FormatterBase.pagelink, (self, on, pagename, page), kw)
+        if page is None:
+            page = Page(self.request, pagename, formatter=self)
+        return page.link_to(self.request, on=on, **kw)
 
     def interwikilink(self, on, interwiki='', pagename='', **kw):
         if on:

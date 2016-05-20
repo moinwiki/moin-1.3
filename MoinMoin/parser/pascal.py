@@ -9,10 +9,13 @@
 
 from MoinMoin.util.ParserBase import ParserBase
 
+Dependencies = []
+
 class Parser(ParserBase):
 
     parsername = 'ColorizedPascal'
     extensions = ['.pas']
+    Dependencies = []
 
     def __init__(self, raw, request, **kw):
         ParserBase.__init__(self,raw,request,**kw)

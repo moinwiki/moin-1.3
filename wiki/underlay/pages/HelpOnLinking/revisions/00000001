@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 == Arbitrary Page Names ==
 If you enclose a sequence of characters in square brackets and double quotes {{{["like this"]}}}, that makes it a page name. That can be used for specific uses of MoinMoin (like organizing a list of items, e.g. your CD collection, by their "natural" name).
@@ -32,16 +37,18 @@ To ''insert'' anchors into a page you need the [wiki:HelpOnMacros macro] ''Ancho
 
 It is often desirable to create a link to a Wiki page in the current Wiki, but have the link appear with a different text label. While you can use an InterWiki link with a Wiki name of Self, this results in an InterWiki icon prefix which might be misleading since you're not leaving the current Wiki at all. Use the syntax of `[:WikiPage:Label text]` to achieve a link to a current Wiki page without creating an InterWiki link. 
 
+/!\ On some Wikis, a link to the page RecentChanges might refer to the same page as this link: ["recentchanges"]. This is especially true for Windows and Mac OS X systems because they are not case-sensitive normally.
+
 [[FootNote]]
 
 === Example ===
 {{{
- * http://moin.sourceforge.net/
- * [http://moin.sourceforge.net/]
- * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
- * http://moin.sourceforge.net/moinmoin.gif
- * [http://moin.sourceforge.net/moinmoin.gif]
- * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ MoinMoin Homepage]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png  moinmoin.png]
  * InterWiki
   * Self:InterWiki
   * MeatBall:InterWiki
@@ -56,12 +63,12 @@ It is often desirable to create a link to a Wiki page in the current Wiki, but h
 }}} 
 
 === Display ===
- * http://moin.sourceforge.net/
- * [http://moin.sourceforge.net/]
- * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
- * http://moin.sourceforge.net/moinmoin.gif
- * [http://moin.sourceforge.net/moinmoin.gif]
- * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ MoinMoin Homepage]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png  moinmoin.png]
  * InterWiki
   * Self:InterWiki
   * MeatBall:InterWiki

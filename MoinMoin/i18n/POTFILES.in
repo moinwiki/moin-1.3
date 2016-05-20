@@ -26,6 +26,7 @@ action/RenamePage.py
 action/SpellCheck.py
 action/fullsearch.py
 action/links.py
+action/newpage.py
 action/rss_rc.py
 action/titleindex.py
 
@@ -43,6 +44,7 @@ macro/FullSearch.py
 macro/GetText.py
 macro/Include.py
 macro/Navigation.py
+macro/NewPage.py
 macro/OrphanedPages.py
 macro/PageSize.py
 macro/RandomPage.py

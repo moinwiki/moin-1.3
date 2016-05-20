@@ -1,8 +1,8 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:WikiSandBox
 ##master-date:2003-03-13 03:36:56
+#format wiki
 #language da
 Hold dig ikke tilbage med at eksperimentere her, under de fire streger nedenfor... men opret venligst '''IKKE''' nye sider uden meningsfyldt indhold blot for at prøve det.
 ----

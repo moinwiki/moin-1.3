@@ -6,7 +6,7 @@
     All rights reserved, see COPYING for details.
 """
 
-from MoinMoin import i18n, wikiutil, version
+from MoinMoin import i18n, wikiutil, config, version
 from MoinMoin.Page import Page
 from MoinMoin.util import pysupport
 
@@ -23,34 +23,38 @@ class ThemeBase:
     
     name = 'base'
     
+    # fake _ function to get gettext recognize those texts:
+    _ = lambda x: x
+
+    # TODO: remove icons that are not used any more.
     icons = {
         # key         alt                        icon filename      w   h
         # ------------------------------------------------------------------
         # navibar
         'help':       ("%(page_help_contents)s", "moin-help.png",   12, 11),
         'find':       ("%(page_find_page)s",     "moin-search.png", 12, 12),
-        'diff':       ("Diffs",                  "moin-diff.png",   15, 11),
-        'info':       ("Info",                   "moin-info.png",   12, 11),
-        'edit':       ("Edit",                   "moin-edit.png",   12, 12),
-        'unsubscribe':("Unsubscribe",            "moin-unsubscribe.png",  14, 10),
-        'subscribe':  ("Subscribe",              "moin-subscribe.png",14, 10),
-        'raw':        ("Raw",                    "moin-raw.png",    12, 13),
-        'xml':        ("XML",                    "moin-xml.png",    20, 13),
-        'print':      ("Print",                  "moin-print.png",  16, 14),
-        'view':       ("View",                   "moin-show.png",   12, 13),
-        'home':       ("Home",                   "moin-home.png",   13, 12),
-        'up':         ("Up",                     "moin-parent.png", 15, 13),
+        'diff':       (_("Diffs"),               "moin-diff.png",   15, 11),
+        'info':       (_("Info"),                "moin-info.png",   12, 11),
+        'edit':       (_("Edit"),                "moin-edit.png",   12, 12),
+        'unsubscribe':(_("Unsubscribe"),         "moin-unsubscribe.png",  14, 10),
+        'subscribe':  (_("Subscribe"),           "moin-subscribe.png",14, 10),
+        'raw':        (_("Raw"),                 "moin-raw.png",    12, 13),
+        'xml':        (_("XML"),                 "moin-xml.png",    20, 13),
+        'print':      (_("Print"),               "moin-print.png",  16, 14),
+        'view':       (_("View"),                "moin-show.png",   12, 13),
+        'home':       (_("Home"),                "moin-home.png",   13, 12),
+        'up':         (_("Up"),                  "moin-parent.png", 15, 13),
         # FileAttach
         'attach':     ("%(attach_count)s",       "moin-attach.png",  7, 15),
         # RecentChanges
-        'rss':        ("[RSS]",                  "moin-rss.png",    36, 14),
-        'deleted':    ("[DELETED]",              "moin-deleted.png",60, 12),
-        'updated':    ("[UPDATED]",              "moin-updated.png",60, 12),
-        'new':        ("[NEW]",                  "moin-new.png",    31, 12),
-        'diffrc':     ("[DIFF]",                 "moin-diff.png",   15, 11),
+        'rss':        (_("[RSS]"),               "moin-rss.png",    36, 14),
+        'deleted':    (_("[DELETED]"),           "moin-deleted.png",60, 12),
+        'updated':    (_("[UPDATED]"),           "moin-updated.png",60, 12),
+        'new':        (_("[NEW]"),               "moin-new.png",    31, 12),
+        'diffrc':     (_("[DIFF]"),              "moin-diff.png",   15, 11),
         # General
-        'bottom':     ("[BOTTOM]",               "moin-bottom.png", 14, 10),
-        'top':        ("[TOP]",                  "moin-top.png",    14, 10),
+        'bottom':     (_("[BOTTOM]"),            "moin-bottom.png", 14, 10),
+        'top':        (_("[TOP]"),               "moin-top.png",    14, 10),
         'www':        ("[WWW]",                  "moin-www.png",    11, 11),
         'mailto':     ("[MAILTO]",               "moin-email.png",  14, 10),
         'news':       ("[NEWS]",                 "moin-news.png",   10, 11),
@@ -61,26 +65,35 @@ class ThemeBase:
         'searchbutton': ("[?]",                  "moin-search.png", 12, 12),
         'interwiki':  ("[%(wikitag)s]",          "moin-inter.png",  16, 16),
     }
+    del _
 
-    stylesheets_print = (
-        # theme charset         media       basename
-        (name,  'utf-8',   'all',      'common'),
-        (name,  'utf-8',   'all',      'print'),
-        )
-    
-    stylesheets_projection = (
-        # theme charset         media       basename
-        (name,  'utf-8',   'all',      'common'),
-        (name,  'utf-8',   'all',      'projection'),
-        )
-    
+    # Style sheets - usually there is no need to override this in sub
+    # classes. Simply supply the css files in the css directory.
+
+    # Standard set of style sheets
     stylesheets = (
-        # theme charset         media       basename
-        (name,  'utf-8',        'all',      'common'),
-        (name,  'utf-8',        'screen',   'screen'),
-        (name,  'utf-8',        'print',    'print'),
-        (name,  'utf-8',        'projection', 'projection'),
+        # media         basename
+        ('all',         'common'),
+        ('screen',      'screen'),
+        ('print',       'print'),
+        ('projection',  'projection'),
         )
+
+    # Used in print mode
+    stylesheets_print = (
+        # media         basename
+        ('all',         'common'),
+        ('all',         'print'),
+        )
+
+    # Used in slide show mode
+    stylesheets_projection = (
+        # media         basename
+        ('all',         'common'),
+        ('all',         'projection'),
+       )   
+
+    stylesheetsCharset = 'utf-8'
 
     def __init__(self, request):
         """
@@ -90,31 +103,17 @@ class ThemeBase:
         """
         self.request = request
         self.cfg = request.cfg
-        self._cache = {} # Use to cache elements that may be used several times
-        
+        self._cache = {} # Used to cache elements that may be used several times
+
     def img_url(self, img):
-        """
-        generate an img url
+        """ Generate an image href
 
         @param img: the image filename
         @rtype: string
-        @return: the image url
+        @return: the image href
         """
         return "%s/%s/img/%s" % (self.cfg.url_prefix, self.name, img)
-
-    def css_url(self, basename, theme = None):
-        """
-        generate the css url
-
-        @param basename: the css media type (base filename w/o .css)
-        @param theme: theme name
-        @rtype: string
-        @return: the css url
-        """
-        if not theme:
-            theme = self.name
-        return "%s/%s/css/%s.css" % (self.cfg.url_prefix, theme, basename)
-
+        
     def emit_custom_html(self, html):
         """
         generate custom HTML code in `html`
@@ -145,7 +144,7 @@ class ThemeBase:
             logo = wikiutil.link_tag(self.request, pagename, self.cfg.logo_string)
             html = u'''<div id="logo">%s</div>''' % logo
             return html
-        return ''
+        return u''
         
     def title(self, d):
         """ Assemble the title
@@ -198,9 +197,12 @@ class ThemeBase:
             prefpage = wikiutil.getSysPage(request, 'UserPreferences')
             userlinks.append(prefpage.link_to(request, text=_("Login")))
             
-        userlinks = ['<li>%s</li>' % i for i in userlinks]
-        html = '<ul id="username">%s</ul>' % '\n'.join(userlinks)
+        html = '<ul id="username"><li>%s</li></ul>' % '</li>\n<li>'.join(userlinks)
         return html
+
+    # Schemas supported in toolbar links, using [url label] foramrt
+    linkSchemas = [r'http://', r'https://', r'ftp://', 'mailto:'] + \
+                  [x + ':' for x in config.url_schemas]
 
     def splitNavilink(self, text, localize=1):
         """ Split navibar links into pagename, link to page
@@ -226,7 +228,8 @@ class ThemeBase:
                 pagename = title = text
 
             # Handle [url title] format
-            for scheme in [r'http://', r'ftp://', 'mailto:']:
+            from MoinMoin import config
+            for scheme in self.linkSchemas:
                 if pagename.startswith(scheme):
                     title = wikiutil.escape(title)
                     link = '<a href="%s">%s</a>' % (pagename, title)
@@ -330,21 +333,37 @@ class ThemeBase:
 </ul>
 ''' % items
         return html
- 
+                
     def get_icon(self, icon):
-        try:
-            ret = self.icons[icon]
-        except KeyError: # if called from [[Icon(file)]] we have a filename, not a key
-            # using filenames is deprecated, but for now, we simulate old behaviour!
-            # please use only the icon *key* in future, not the filename any more.
-            icon = icon.replace('.gif','.png') # no gifs any more!
-            for i in self.icons.keys():
-                ret = self.icons[i]
-                if ret[1] == icon: # found the file name?
-                    break
+        """ Return icon data from self.icons
+
+        If called from [[Icon(file)]] we have a filename, not a
+        key. Using filenames is deprecated, but for now, we simulate old
+        behavior.
+
+        @param icon: icon name or file name (string)
+        @rtype: tuple
+        @return: alt (unicode), href (string), width, height (int)
+        """
+        if icon in self.icons:
+            alt, filename, w, h = self.icons[icon]
+        else:
+            # Create filenames to icon data mapping on first call, then
+            # cache in class for next calls.
+            if not getattr(self.__class__, 'iconsByFile', None):
+                d = {}
+                for data in self.icons.values():
+                    d[data[1]] = data
+                self.__class__.iconsByFile = d
+
+            # Try to get icon data by file name
+            filename = icon.replace('.gif','.png')
+            if filename in self.iconsByFile:
+                alt, filename, w, h = self.iconsByFile[filename]
             else:
-                ret = ("", icon, "", "")
-        return (ret[0], self.img_url(ret[1])) + ret[2:]
+                alt, filename, w, h = '', icon, '', ''
+                
+        return alt, self.img_url(filename), w, h
    
     def make_icon(self, icon, vars=None):
         """
@@ -402,7 +421,7 @@ class ThemeBase:
         _ = self.request.getText
         msg = d['msg']
         if not msg:
-            return ''
+            return u''
 
         if isinstance(msg, (str, unicode)):
             # Render simple strings with a close link
@@ -443,47 +462,40 @@ class ThemeBase:
             return html
         return ''
 
-    def html_stylesheet_link(self, charset, media, href):
-        return ('<link rel="stylesheet" type="text/css" charset="%s" '
-                'media="%s" href="%s">\n') % (charset, media, href)
-
     def html_stylesheets(self, d):
-        """
-        Assemble stylesheet links
+        """ Assemble html head stylesheet links
         
         @param d: parameter dictionary
         @rtype: string
-        @return: links
+        @return: stylesheets links
         """
-        html = []
-        if d.get('print_mode', False):
+        link = ('<link rel="stylesheet" type="text/css" charset="%s"'
+                ' media="%s" href="%s">')
+
+        # Check mode
+        if d.get('print_mode'):
             media = d.get('media', 'print')
-            if media == 'print':
-                stylesheets = self.stylesheets_print
-            elif media == 'projection':
-                stylesheets = self.stylesheets_projection
-            else:
-                raise "unsupported media %s" % media
+            stylesheets = getattr(self, 'stylesheets_' + media)
         else:
             stylesheets = self.stylesheets
-        user_css_url = self.request.user.valid and self.request.user.css_url
+        usercss = self.request.user.valid and self.request.user.css_url
 
         # Create stylesheets links
-        for theme, charset, media, name in stylesheets:
-            href = self.css_url(name, theme)
-            html.append(self.html_stylesheet_link(charset, media, href))
+        html = []
+        prefix = self.cfg.url_prefix
+        for media, basename in stylesheets:
+            href = '%s/%s/css/%s.css' % (prefix, self.name, basename)
+            html.append(link % (self.stylesheetsCharset, media, href))
 
-            # workaround for old user settings
             # Don't add user css url if it matches one of ours
-            if user_css_url and user_css_url == href:
-                user_css_url = None
+            if usercss and usercss == href:
+                usercss = None
 
-        # Add user css url (assuming that user css uses utf-8)
-        if user_css_url and user_css_url.lower() != "none":
-            html.append(
-                self.html_stylesheet_link('utf-8', 'all', user_css_url))
-
-        return ''.join(html)
+        # Add user css url (assuming that user css uses same charset)
+        if usercss and usercss.lower() != "none":
+            html.append(link % (self.stylesheetsCharset, 'all', usercss))
+            
+        return '\n'.join(html)
 
     def shouldShowPageinfo(self, page):
         """ Should we show page info?
@@ -690,8 +702,12 @@ function actionsMenuInit(title) {
         installing PyXML. Return true if PyXML is installed.
         """
         # Stolen from wikitest.py
-        import xml
-        return xml.__file__.find('_xmlplus') != -1
+        try:
+            import xml
+            return xml.__file__.find('_xmlplus') != -1
+        except ImportError:
+            # This error reported on Python 2.2
+            return False
         
     def rsshref(self):
         """ Create rss href, used for rss button and head link
@@ -814,6 +830,7 @@ function actionsMenuInit(title) {
         menu = [
             'raw',
             'print',
+            'refresh',
             '__separator__',
             'AttachFile',
             'SpellCheck',
@@ -830,6 +847,7 @@ function actionsMenuInit(title) {
             '__separator__': '--------', # spacer
             'raw': _('Show Raw Text', formatted=False),
             'print': _('Show Print View', formatted=False),
+            'refresh': _('Delete Cache', formatted=False),
             'AttachFile': _('Attach File', formatted=False),
             'SpellCheck': _('Check Spelling', formatted=False), # rename action!
             'RenamePage': _('Rename Page', formatted=False),
@@ -849,14 +867,23 @@ function actionsMenuInit(title) {
         available = request.getAvailableActions(page)
         for action in menu:
             data = {'action': action, 'disabled': '', 'title': titles[action]}
+
+            # Enable delete cache only if page can use caching
+            if action == 'refresh':
+                if not page.canUseCache():
+                    data['action'] = 'show'
+                    data['disabled'] = disabled
+
             # Special menu items. Without javascript, executing will
             # just return to the page.
-            if action.startswith('__'):
+            elif action.startswith('__'):
                 data['action'] = 'show'
+
             # Actions which are not available for this wiki, user or page
             if (action == '__separator__' or
                 (action[0].isupper() and not action in available)):
                 data['disabled'] = disabled               
+
             options.append(option % data)
 
         # Add custom actions not in the standard menu
@@ -945,15 +972,11 @@ actionsMenuInit('%(label)s');
             add(link(request, quotedname + '?action=edit', _('Edit')))
         else:
             add(_('Immutable Page', formatted=False))              
-        if page.canUseCache():
-            query = '%(quotedname)s?action=refresh&amp;arena=Page.py&amp;key=%(key)s'
-            query = query % {
-                'quotedname': quotedname,
-                'key': page.getFormatterName(),
-                }
-            add(link(request, query, _('Refresh', formatted=False)))
-        add(link(request, quotedname + '?action=diff', _('Show Changes', formatted=False)))
-        add(link(request, quotedname + '?action=info', _('Get Info', formatted=False)))
+        
+        add(link(request, quotedname + '?action=diff',
+                 _('Show Changes', formatted=False)))
+        add(link(request, quotedname + '?action=info',
+                 _('Get Info', formatted=False)))
         add(self.subscribeLink(page))
         add(self.actionsMenu(page))
         

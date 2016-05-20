@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 == Enabling the AttachFile action ==
 
@@ -50,5 +55,7 @@ A link looking like `drawing:picturename` will allow you to ''interactively'' ed
 To edit a drawing after the first save, click on `AttachFile` and use the `[edit]` link that is displayed instead of `[view]` for the `.draw` attachment. You can also click on the invisible 5 pixel border around the picture to reach the edit mode. Saving a drawing is reflected in RecentChanges.
 
   /!\ Note: the applet is not WikiName sensitive. You need to supply actual (either relative or absolute) URLs as links.
+
+  /!\ Note: drawings containing non-ascii characters in their name are not supported currently.
 
 For details on using the drawing applet, see TWiki:Plugins/TWikiDrawPlugin.

@@ -2,12 +2,13 @@
 """
     MoinMoin - Stand-alone HTTP Server
 
-    You can use this for private, single-user wikis (like when installing on
-    your private PC or notebook).
-    
-    Usage for public wikis with multiple users is not recommended, use cgi,
-    fastcgi or twisted in that case.
-    
+    This is a simple, fast and very easy to install server. Its
+    recommended for personal wikis or public wikis with little load.
+
+    It is not well tested in public wikis with heavy load. In these case
+    you might want to use twisted, fast cgi or mod python, or if you
+    can't use those, cgi.
+        
     Minimal usage:
 
         from MoinMoin.server.standalone import StandaloneConfig, run
@@ -41,8 +42,15 @@ from MoinMoin import version
 from MoinMoin.server import Config, switchUID
 from MoinMoin.request import RequestStandAlone
 
+# Set threads flag, so other code can use proper locking
+from MoinMoin import config
+config.use_threads = True
+del config
+
+# Server globals
 httpd = None
 config = None
+moin_requests_done = 0
 
 
 class MoinServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
@@ -87,7 +95,7 @@ class MoinServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
 class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
     server_version = "MoinMoin/" + version.revision
-
+    
     def __init__(self, request, client_address, server):
         self.expires = 0
         SimpleHTTPServer.SimpleHTTPRequestHandler.__init__(self, request, 
@@ -137,23 +145,31 @@ class MoinRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     
     def serveMoin(self):
         """ Serve a request using moin """
+        global moin_requests_done
+
         # don't make an Expires header for wiki pages
         # TODO: does this work with cookies? they define expires header.
         self.expires = 0
-
+        
         # Run request, use optional profiling
         if config.memoryProfile:
             config.memoryProfile.addRequest()
         try:
-            req = RequestStandAlone(self)
-            if config.hotshotProfile:
-                config.hotshotProfile.runcall(req.run)
+            if config.hotshotProfile and moin_requests_done > 0:
+                # Don't profile the first request, its not interesting
+                # for long running process, and its very expensive.
+                runcall = config.hotshotProfile.runcall
+                req = runcall(RequestStandAlone, self)
+                runcall(req.run)
             else:
+                req = RequestStandAlone(self)
                 req.run()
         except socket.error, err:
             # Ignore certain errors
             if err.args[0] not in [errno.EPIPE, errno.ECONNABORTED]:
                 raise
+        # Count moin requests
+        moin_requests_done += 1
         
     def translate_path(self, uri):
         """ Translate a /-separated PATH to the local filename syntax.

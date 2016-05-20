@@ -30,8 +30,6 @@ Per usare questa maschera su altre pagine, inserisci una chiamata alla macro
 ''',
 '''You are not allowed to view this page.''':
 '''Non sei autorizzato a leggere questa pagina.''',
-'''RefreshCache''':
-'''AggiornaCache''',
 '''(cached %s)''':
 '''(%s in cache)''',
 '''You are not allowed to edit this page.''':
@@ -536,8 +534,6 @@ Altrimenti, se "Rinomina come" viene lasciato in bianco, verrà
 usato il nome originale del file.''',
 '''File to upload''':
 '''File da caricare''',
-'''MIME Type (optional)''':
-'''Tipo MIME (opzionale)''',
 '''Save as''':
 ''' Salva come''',
 '''Upload''':
@@ -698,6 +694,8 @@ Prova un nome differente.''',
 '''Formattazione XSLT non disponibile''',
 '''%(errortype)s processing error''':
 '''Errore di elaborazione di tipo "%(errortype)s"''',
+'''RefreshCache''':
+'''AggiornaCache''',
 '''for this page (cached %(date)s)''':
 '''per questa pagina (memorizzata il %(date)s)''',
 '''Charts are not available!''':
@@ -722,6 +720,10 @@ rosso=Mod''',
 '''Altre''',
 '''Distribution of User-Agent Types''':
 '''Distribuzione delle tipologie di User-Agent''',
+'''Unsubscribe''':
+'''Annulla sottoscrizione''',
+'''Home''':
+'''Home''',
 '''Click to do a full-text search for this title''':
 '''Clicca qui per effettuare una ricerca full-text per questo titolo''',
 '''Clear message''':
@@ -736,8 +738,6 @@ rosso=Mod''',
 '''Testo''',
 '''Titles''':
 '''Titoli''',
-'''Unsubscribe''':
-'''Annulla sottoscrizione''',
 '''More Actions:''':
 '''Altre Azioni:''',
 '''Show Raw Text''':
@@ -758,8 +758,6 @@ rosso=Mod''',
 '''Mostra la pagina padre''',
 '''Immutable Page''':
 '''Pagina non alterabile''',
-'''Refresh''':
-'''Aggiorna''',
 '''Show Changes''':
 '''Mostra le modifiche''',
 '''Get Info''':

@@ -1,0 +1,21 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnSlideShows/000 Introduction
+##master-date:2005-01-10 22:19:10
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language fr
+#pragma section-numbers off
+= Introduction =
+
+Vous pouvez utiliser toutes les balises wiki dans vos transparents - gardez simplement les éléments suivant à l'esprit :
+ * En mode [[GetText(Slideshow)]], une plus grande fonte sera utilisée. Ne mettez pas trop de choses par transparents car sinon elle ne tiendra pas en entier dans un écran.
+ * Si vous utilisez des couleurs, pensez au contraste. Spécialement si vous souhaitez tirer des transparents sur papier.
+ * Une présentation aura un rendu différent sur un vidéoprojecteur ou sur papier que sur votre écran.
+ * Si vous utilisez des dessins, utilisez des traits épais, sinon ils seront difficilement visibles.
+
+[[Navigation(slides)]]

@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 == Other MoinMoin help topics ==
 
@@ -49,6 +54,15 @@ Note:
  * Make sure the ''file path'' to moin.cgi has ExecCGI privileges in your httpd.conf.
  * There is no need for a !ScriptAlias to moin.cgi, but you still need the alias to MoinMoin's htdocs folder: `Alias /wiki/ "/usr/share/moin/htdocs/"`
 
+==== Redirect /mywiki/MyWiki to the user's language FrontPage ====
+
+Perhaps you want to use My``Wiki in your wiki to refer to your wiki. If a user clicks this link s/he should be transfered to the FrontPage, that is to the FrontPage of her/his language.
+
+Add this to your {{{httpd.conf}}} ''before'' the {{{ScriptAlias}}}:
+{{{
+RedirectPermanent /mywiki/MyWiki    http://www.domain.org/mywiki?action=show
+}}}
+
 === Serving the wiki from wiki.domain.com and home page from www.domain.com ===
 
 Here is a configuration for virtual hosting with special permissions on Gentoo Linux.  The following configuration is for Apache2 config files.  Just put it all in httpd.conf for Apache 1.
@@ -91,7 +105,7 @@ The following shows how certain features can help you to optimize your configura
 
 ==== Centralized settings ====
 
- * farm_config.py
+ * farmconfig.py
  * shared intermap.txt
  * shared code base and icons
 
@@ -117,7 +131,7 @@ Needing more explanation:
  * email notification features
  * "RSS" icon displayed by RecentChanges macro
  * commentary field of editor, recent changes and page info
- * Page caching, for now limited to XSLT processing (where it's absolutely needed); new code & API to add the "Refresh``Cache" link
+ * Page caching, for now limited to XSLT processing (where it's absolutely needed); new code & API to add the "Delete``Cache" link
  * inline search fields (at the bottom of each page)
  * the interwiki name "Self" now always points to the own wiki
  * page info action

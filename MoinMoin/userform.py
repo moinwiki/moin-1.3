@@ -89,7 +89,7 @@ Contact the owner of the wiki, who can enable email.""")
                         text, theuser.id, theuser.name, theuser.enc_password, self.request.getBaseURL(), theuser.id)
    
             if not text:
-                return _("Found no account matching the given email address '%(email)s'!") % {'email': email}
+                return _("Found no account matching the given email address '%(email)s'!") % {'email': wikiutil.escape(email)}
     
             mailok, msg = util.mail.sendmail(self.request, [email], 
                 'Your wiki account data', text, mail_from=self.cfg.mail_from)
@@ -103,7 +103,7 @@ Contact the owner of the wiki, who can enable email.""")
             if not user.isValidName(self.request, name):
                 return _("""Invalid user name {{{'%s'}}}.
 Name may contain any Unicode alpha numeric character, with optional one
-space between words. Group page name is not allowed.""") % name
+space between words. Group page name is not allowed.""") % wikiutil.escape(name)
 
             # Check that user exists
             if not user.getUserId(self.request, name):
@@ -155,7 +155,7 @@ space between words. Group page name is not allowed.""") % name
             if not user.isValidName(self.request, theuser.name):
                 return _("""Invalid user name {{{'%s'}}}.
 Name may contain any Unicode alpha numeric character, with optional one
-space between words. Group page name is not allowed.""") % theuser.name
+space between words. Group page name is not allowed.""") % wikiutil.escape(theuser.name)
 
             # Is this an existing user trying to change information or a new user?
             # Name required to be unique. Check if name belong to another user.
@@ -227,6 +227,7 @@ space between words. Group page name is not allowed.""") % theuser.name
                 # nothing has been emitted yet)
                 theuser.theme_name = theme_name
                 if self.request.loadTheme(theuser.theme_name) > 0:
+                    theme_name = wikiutil.escape(theme_name)
                     return _("The theme '%(theme_name)s' could not be loaded!") % locals()
 
             # User CSS URL
@@ -343,7 +344,7 @@ class UserSettings:
         """ Create theme selection. """
         cur_theme = self.request.user.valid and self.request.user.theme_name or self.cfg.theme_default
         options = []
-        for theme in wikiutil.getPlugins('theme', self.request.cfg.data_dir):
+        for theme in wikiutil.getPlugins('theme', self.request.cfg):
             options.append((theme, theme))
                 
         return util.web.makeSelection('theme_name', options, cur_theme)
@@ -380,49 +381,52 @@ class UserSettings:
         _ = self._
         self.make_form()
 
-        # different form elements depending on login state
-        html_sendmail = ''
         if self.request.user.valid:
+            # User preferences interface
             buttons = [
                 ('save', _('Save')),
                 ('logout', _('Logout')),
-            ]
+            ]  
         else:
+            # Login / register interface
             buttons = [
+                # IMPORTANT: login should be first to be the default
+                # button when a user click enter.
                 ('login', _('Login')),
                 ("save", _('Create Profile')),
             ]
             if self.cfg.mail_smarthost:
-                html_sendmail = html.INPUT(type="submit", name="login_sendmail", value="%s" % _('Mail me my account data'))
-        
+                buttons.append(("login_sendmail", _('Mail me my account data')))
+                                        
         self.make_row(_('Name'), [
             html.INPUT(
-                type="text", size="32", name="username", value=self.request.user.name
+                type="text", size="36", name="username", value=self.request.user.name
             ),
-            ' ', _('(Use FirstnameLastname)'),
+            ' ', _('(Use FirstnameLastname)', formatted=False),
         ])
 
         self.make_row(_('Password'), [
             html.INPUT(
-                type="password", size="32", name="password",
-            )
+                type="password", size="36", name="password",
+            ),
+            ' ', 
         ])
 
         self.make_row(_('Password repeat'), [
             html.INPUT(
-                type="password", size="32", name="password2",
+                type="password", size="36", name="password2",
             ),
             ' ', _('(Only when changing passwords)'),
         ])
 
         self.make_row(_('Email'), [
             html.INPUT(
-                type="text", size="40", name="email", value=self.request.user.email
+                type="text", size="36", name="email", value=self.request.user.email
             ),
-            ' ', html_sendmail,
+            ' ',
         ])
 
-        # show options only if already logged in
+        # Show options only if already logged in
         if self.request.user.valid:
             
             if not self.cfg.theme_force:

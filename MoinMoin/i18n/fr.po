@@ -1,13 +1,14 @@
+# translation of moin.po to français
 # MoinMoin translation
-# Jean-Philippe Guérard <jean-philippe.guerard@tigreraye.org>, 2004.
+# Jean-Philippe Guérard <jean-philippe.guerard@tigreraye.org>, 2004, 2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: moin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
-"PO-Revision-Date: 2004-12-01 23:59+0100\n"
-"Last-Translator: jean-philippe.guerard@tigreraye.org\n"
-"Language-Team: french <traduc@traduc.org>\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"PO-Revision-Date: 2005-01-23 02:31+0100\n"
+"Last-Translator: J-P Guerard <jean-philippe.guerard@tigreraye.org>\n"
+"Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,8 +53,8 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "Vous n'êtes pas autorisé à voir cette page."
 
-msgid "RefreshCache"
-msgstr "Rafraîchir"
+msgid "DeleteCache"
+msgstr "EffacerLeCache"
 
 #, python-format
 msgid "(cached %s)"
@@ -131,7 +132,7 @@ msgstr "[taille de la page actuelle '''%(size)d''' octets]"
 
 #, python-format
 msgid "Describe %s here."
-msgstr "Décrire %s ici."
+msgstr "Décrire ici « %s »."
 
 msgid "Optional comment about this change"
 msgstr "Commentaire optionnel sur cette modification"
@@ -692,7 +693,7 @@ msgstr "restaurer"
 
 #, python-format
 msgid "Revert to revision %(rev)d."
-msgstr "Revenir à la version %(rev)d."
+msgstr "Retour à la version %(rev)d."
 
 msgid "edit"
 msgstr "éditer"
@@ -947,9 +948,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "Fichier à envoyer"
 
-msgid "MIME Type (optional)"
-msgstr "Type MIME (optionnel)"
-
 msgid "Save as"
 msgstr "Enregistrer sous"
 
@@ -1001,7 +999,7 @@ msgstr ""
 
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
-msgstr "Pièce jointe « %(filename)s » supprimée."
+msgstr "Suppression de la pièce jointe « %(filename)s »."
 
 #, python-format
 msgid "Attachment '%(filename)s'"
@@ -1124,6 +1122,11 @@ msgstr "Recherche de « %s » dans les textes"
 msgid "Full Link List for \"%s\""
 msgstr "Liste de tout les liens pour « %s »"
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+"Impossible de créer une page sans nom. Veuillez indiquer un nom de page."
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Les arguments du include ne sont pas valides : « %s » !"
@@ -1152,20 +1155,23 @@ msgstr "Démarrer"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Transparent %(pos)d sur %(size)d "
 
+msgid "Create New Page"
+msgstr "Créer une page"
+
 msgid "No orphaned pages in this wiki."
 msgstr "Pas de page orpheline dans ce wiki"
 
 #, python-format
 msgid "No quotes on %(pagename)s."
-msgstr "Pas de citation dans %(pagename)s."
+msgstr "Aucune citation sur %(pagename)s."
 
 #, python-format
 msgid "Upload of attachment '%(filename)s'."
-msgstr "Envoi de la pièce jointe '%(filename)s'."
+msgstr "Ajout de la pièce jointe « %(filename)s »."
 
 #, python-format
 msgid "Drawing '%(filename)s' saved."
-msgstr "Dessin '%(filename)s' enregistré."
+msgstr "Enregistrement du dessin « %(filename)s »."
 
 #, python-format
 msgid "%(hours)dh %(mins)dm ago"
@@ -1212,6 +1218,13 @@ msgstr "Télécharger un export XML de ce wiki"
 msgid "No wanted pages in this wiki."
 msgstr "Aucune page référencée ne reste à créer."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr "**Vous avez dépassé le nombre maximal d'inclusions autorisées**"
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr "**Impossible de trouver la page indiquée : %s**"
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Création nouveau dessin « %(filename)s »"
@@ -1252,6 +1265,9 @@ msgstr "Traitement XSLT non disponible"
 msgid "%(errortype)s processing error"
 msgstr "Erreur d'exécution : %(errortype)s"
 
+msgid "RefreshCache"
+msgstr "Rafraîchir"
+
 #, python-format
 msgid "for this page (cached %(date)s)"
 msgstr " pour cette page (dans le cache depuis %(date)s)"
@@ -1291,6 +1307,33 @@ msgstr "Autres"
 msgid "Distribution of User-Agent Types"
 msgstr "Répartition des types d'agents utilisateurs"
 
+msgid "Unsubscribe"
+msgstr "Se désabonner"
+
+msgid "Home"
+msgstr "Page d'accueil"
+
+msgid "[RSS]"
+msgstr "[RSS]"
+
+msgid "[DELETED]"
+msgstr "[SUPPRIMÉ]"
+
+msgid "[UPDATED]"
+msgstr "[MIS À JOUR]"
+
+msgid "[NEW]"
+msgstr "[NOUVEAU]"
+
+msgid "[DIFF]"
+msgstr "[DIFFÉRENCES]"
+
+msgid "[BOTTOM]"
+msgstr "[BAS]"
+
+msgid "[TOP]"
+msgstr "[HAUT]"
+
 msgid "Click to do a full-text search for this title"
 msgstr "Cliquez ici pour faire une recherche de ce titre dans les pages"
 
@@ -1314,9 +1357,6 @@ msgstr "Texte"
 msgid "Titles"
 msgstr "Titres"
 
-msgid "Unsubscribe"
-msgstr "Se désabonner"
-
 msgid "More Actions:"
 msgstr "Autres actions :"
 
@@ -1325,6 +1365,9 @@ msgstr "Voir le code source"
 
 msgid "Show Print View"
 msgstr "Version à imprimer"
+
+msgid "Delete Cache"
+msgstr "Effacer le cache"
 
 msgid "Attach File"
 msgstr "Joindre un fichier"
@@ -1342,13 +1385,10 @@ msgid "Do"
 msgstr "Exécuter"
 
 msgid "Show Parent"
-msgstr "Remonter"
+msgstr "Niveau supérieur"
 
 msgid "Immutable Page"
 msgstr "Page immuable"
-
-msgid "Refresh"
-msgstr "Rafraîchir"
 
 msgid "Show Changes"
 msgstr "Dernière modification"
@@ -1382,6 +1422,8 @@ msgstr "Utilisateur"
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
 msgstr ""
+"Désolé, impossible d'enregistrer la page car « %(content)s » n'est pas "
+"autorisé sur ce wiki."
 
 msgid "Line"
 msgstr "Ligne"
@@ -1399,12 +1441,6 @@ msgstr ""
 
 msgid "Mail sent OK"
 msgstr "Courrier envoyé avec succès"
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "PageD'Accueil"
@@ -1477,6 +1513,12 @@ msgstr "RenommerLaPage"
 
 msgid "SpellCheck"
 msgstr "Orthographe"
+
+#~ msgid "MIME Type (optional)"
+#~ msgstr "Type MIME (optionnel)"
+
+#~ msgid "Refresh"
+#~ msgstr "Rafraîchir"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[« <html> »]"

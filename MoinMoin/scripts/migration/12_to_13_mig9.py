@@ -26,6 +26,10 @@ Steps for a successful migration:
     data.pre-mig9   - backup of original data directory
     data            - converted data dir
 
+    NOTE: error.log might be missing if previous migrations scripts did
+    not copy it from your original directory. You can copy it manually
+    from the last data.pre-mig that did copy it.
+
  6. Verify conversion results (number of pages, size of logs,
     attachments, number of backup copies) - everything should be
     reasonable before you proceed.
@@ -102,7 +106,8 @@ def convertUserData(text):
             value = convert_subscribed_pages(value)
         lines[i] = u'%s=%s' % (key, value)
 
-    text = u'\n'.join(lines)
+    # Join back, append newline to last line
+    text = u'\n'.join(lines) + u'\n'
     return text
         
 
@@ -148,8 +153,11 @@ if __name__ == '__main__':
     origdir = 'data.pre-mig9'
     migutil.backup(datadir, origdir)
 
-    # Copy stuff from original dir into new data dir
-    names = ['edit-log', 'event-log', 'intermap.txt', 'pages', 'plugin'] # error.log
+    # Copy ALL stuff from original dir into new data dir. Don't change
+    # or drop anything from the original directory expect cache files.
+    # error.log might be missing becase of previous broken migrations
+    # scripts.
+    names = ['edit-log', 'event-log', 'error.log', 'intermap.txt', 'pages', 'plugin']
     migutil.copy(names, origdir, datadir)
 
     # Convert user directory

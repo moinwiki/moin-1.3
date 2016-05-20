@@ -1,12 +1,12 @@
 # -*- coding: iso-8859-1 -*-
 """
-    add description here
+    Outputs the text verbatimly.
 
     @copyright: ...
     @license: GNU GPL, see COPYING for details
 """
 
-Dependencies = ["language"]
+Dependencies = []
 
 def execute(macro, args):
     return macro.formatter.escapedText(args)

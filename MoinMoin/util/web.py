@@ -25,16 +25,11 @@ def isSpiderAgent(request):
 def parseQueryString(qstr):
     """ Parse a querystring "key=value&..." into a dict.
     """
+    import cgi
     values = {}
-    pairs = qstr.split('&') # XXX
-    for pair in pairs:
-        # urllib.unquote seems unhappy with unicode, so we use str:
-        key, val = str(pair).split('=')
-        key = unicode(urllib.unquote(key), config.charset)
-        val = unicode(urllib.unquote(val), config.charset)
-        #print repr(key), repr(val)
-        values[key] = val
-
+    for key, value in cgi.parse_qs(qstr).items():
+        if len(value) < 2:
+            values[key] = ''.join(value)
     return values
 
 

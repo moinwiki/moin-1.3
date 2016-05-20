@@ -110,7 +110,7 @@ class MoinDump(_util.Script):
         if self.options.page:
             pages = [self.options.page]
         else:
-            # Get all pages in the wiki
+            # Get all existing pages in the wiki
             pages = list(request.rootpage.getPageList(user=''))
         pages.sort()
 

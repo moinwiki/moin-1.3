@@ -25,15 +25,15 @@ class RepairTestCase(unittest.TestCase):
     
     def testKnownLanguage(self):
         """ repair_language: should replace known language """
-        before = '##language:en'
-        after = '#language en'
+        before = u'##language:en\r\n'
+        after = u'#language en\r\n'
         self.assertEqual((after, 1), repairText(before))
 
     def testLineEndings(self):
         """ repair_language: return crlf line endings """
-        before = ('##language:en\r\n'
-                  'page content')
-        after = ('#language en\r\n'
-                 'page content')
+        before = (u'##language:en\r\n'
+                  u'page content\r\n')
+        after = (u'#language en\r\n'
+                 u'page content\r\n')
         self.assertEqual((after, 1), repairText(before))
         

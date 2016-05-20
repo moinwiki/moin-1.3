@@ -11,7 +11,8 @@
 import re, sha
 from MoinMoin import config, wikiutil
 
-Dependencies = ["page"]
+#Dependencies = ["page"]
+Dependencies = ["time"] # works around MoinMoinBugs/TableOfContentsLacksLinks
 
 # from macro Include (keep in sync!)
 _arg_heading = r'(?P<heading>,)\s*(|(?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))'
@@ -62,7 +63,8 @@ class TableOfContents:
 
     def IncludeMacro(self, *args, **kwargs):
         if self.include_macro is None:
-            self.include_macro = wikiutil.importPlugin('macro', "Include")
+            self.include_macro = wikiutil.importPlugin(self.macro.request.cfg,
+                                                       'macro', "Include")
         return self.pre_re.sub('',apply(self.include_macro, args, kwargs)).split('\n')
 
     def run(self):

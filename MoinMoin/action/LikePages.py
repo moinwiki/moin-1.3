@@ -49,7 +49,7 @@ def execute(pagename, request):
     wikiutil.send_title(request, _('Pages like "%s"') % (pagename),
                         pagename=pagename)
         
-    # Start content - IMPORTANT - witout content div, there is no
+    # Start content - IMPORTANT - without content div, there is no
     # direction support!
     request.write(request.formatter.startContent("content"))
 
@@ -58,38 +58,95 @@ def execute(pagename, request):
     # End content and send footer
     request.write(request.formatter.endContent())
     wikiutil.send_footer(request, pagename)
+        
 
-
-def findMatches(pagename, request,
-        s_re=re.compile('([%s][%s]+)' % (config.chars_upper, config.chars_lower)),
-        e_re=re.compile('([%s][%s]+)$' % (config.chars_upper, config.chars_lower))):
+def findMatches(pagename, request, s_re=None, e_re=None,):
     """ Find like pages
     
+    @param pagename: name to match
+    @param request: current reqeust
+    @param s_re: start re for wiki matching
+    @param e_re: end re for wiki matching
     @rtype: tuple
     @return: start word, end word, matches dict
     """
-    import difflib
-    _ = request.getText
+    # Get full list of pages, with no filtering - very fast. We will
+    # first search for like pages, then filter the results.
+    pages = request.rootpage.getPageList(user='', exists='')
 
-    # Get list of user readable pages, excluding current page
-    pagelist = request.rootpage.getPageList()
+    # Remove current page
     try:
-        pagelist.remove(pagename)
+        pages.remove(pagename)
     except ValueError:
         pass
 
-    # Get pages that starts or ends with same word as this page
+    # Get matches using wiki way, start and end of word
+    start, end, matches = wikiMatches(pagename, pages, start_re=s_re,
+                                      end_re=e_re)
 
-    # If we don't get resuslts with wiki words matching, fallback to
+    # Get the best 10 close matches using difflib
+    close_matches = {}
+    found = 0
+    for name in closeMatches(pagename, pages):
+        # Skip names already in matches
+        if name in matches:
+            continue
+
+        # Filter deleted pages or pages the user can't read
+        page = Page(request, name)
+        if page.exists() and request.user.may.read(name):
+            close_matches[name] = 8
+            found += 1
+            # Stop after 10 matches
+            if found == 10:
+                break
+    
+    # Filter deleted pages or pages the user can't read from
+    # matches. Order is important!
+    for name in matches.keys():
+        page = Page(request, name)
+        if not page.exists() and request.user.may.read(name):
+            del matches[name]    
+
+    # Finally, merge both dicts
+    matches.update(close_matches)
+
+    return start, end, matches
+
+
+def wikiMatches(pagename, pages, start_re=None, end_re=None):
+    """ Get pages that starts or ends with same word as this page
+
+    Matches are ranked like this:
+        4 - page is subpage of pagename
+        3 - match both start and end
+        2 - match end
+        1 - match start
+
+    @param pagename: page name to match
+    @param pages: list of page names
+    @param start_re: start word re (compile regex)
+    @param end_re: end word re (compile regex)
+    @rtype: tuple
+    @return: start, end, matches dict
+    """
+    if start_re is None:
+        start_re=re.compile('([%s][%s]+)' % (config.chars_upper,
+                                             config.chars_lower))
+    if end_re is None:
+        end_re=re.compile('([%s][%s]+)$' % (config.chars_upper,
+                                            config.chars_lower))
+
+    # If we don't get results with wiki words matching, fall back to
     # simple first word and last word, using spaces.
     words = pagename.split()
-    match = s_re.match(pagename)
+    match = start_re.match(pagename)
     if match:
         start = match.group(1)
     else:
        start = words[0] 
         
-    match = e_re.search(pagename)
+    match = end_re.search(pagename)
     if match:
         end = match.group(1)
     else:
@@ -98,29 +155,53 @@ def findMatches(pagename, request,
     matches = {}
     subpage = pagename + '/'
 
-    # find any matching pages
-    for page in pagelist:
-        if page.startswith(subpage):
-            matches[page] = 4
+    # Find any matching pages and rank by type of match
+    for name in pages:
+        if name.startswith(subpage):
+            matches[name] = 4
         else:
-            if page.startswith(start):
-                matches[page] = 1
-            if page.endswith(end):
-                matches[page] = matches.get(page, 0) + 2
+            if name.startswith(start):
+                matches[name] = 1
+            if name.endswith(end):
+                matches[name] = matches.get(name, 0) + 2
 
-    # Get similar pages using difflib, using case insensitive matching
-
-    lowerpages = [p.lower() for p in pagelist]
-    similar = difflib.get_close_matches(pagename.lower(), lowerpages, 10)
-    if similar:
-        # Find the original name by looking up in pagelist
-        for lower in similar:
-            name = pagelist[lowerpages.index(lower)]
-            # Add to matches
-            if not matches.has_key(name):
-                matches[name] = 8
-            
     return start, end, matches
+
+
+def closeMatches(pagename, pages):
+    """ Get close matches using difflib
+
+    Return all matching pages with rank above cutoff value.
+
+    @param pagename: page name to match
+    @param pages: list of page names
+    @rtype: list
+    @return: list of matching pages, sorted by rank
+    """
+    import difflib
+    
+    # Match using case insensitive matching
+    # Make mapping from lowerpages to pages - pages might have same name
+    # with different case (although its stupid).
+    lower = {}
+    for name in pages:
+        key = name.lower()
+        if key in lower:
+            lower[key].append(name)
+        else:
+            lower[key] = [name]
+
+    # Get all close matches
+    all_matches = difflib.get_close_matches(pagename.lower(), lower.keys(),
+                                            len(lower), cutoff=0.6)
+
+    # Replace lower names with original names
+    matches = []
+    for name in all_matches:
+        matches.extend(lower[name])
+
+    return matches
+
 
 def showMatches(pagename, request, start, end, matches, show_count = True):
     keys = matches.keys()
@@ -138,6 +219,7 @@ def _showMatchGroup(request, matches, keys, match, title, show_count = True):
 
     if matchcount:
         if show_count:
+            # Render title line
             request.write(request.formatter.paragraph(1))
             request.write(request.formatter.strong(1))
             request.write(_('%(matchcount)d %(matches)s for "%(title)s"') % {
@@ -146,14 +228,15 @@ def _showMatchGroup(request, matches, keys, match, title, show_count = True):
                 'title': wikiutil.escape(title)})
             request.write(request.formatter.strong(0))
             request.write(request.formatter.paragraph(0))
+
+        # Render links
         request.write(request.formatter.bullet_list(1))
         for key in keys:
             if matches[key] == match:
-                page = Page(request, key)
                 request.write(request.formatter.listitem(1))
-                request.write(request.formatter.pagelink(1, page.page_name))
-                request.write(request.formatter.text(page.page_name))
-                request.write(request.formatter.pagelink(0))
+                request.write(request.formatter.pagelink(1, key))
+                request.write(request.formatter.text(key))
+                request.write(request.formatter.pagelink(0, key))
                 request.write(request.formatter.listitem(0))
         request.write(request.formatter.bullet_list(0))
 

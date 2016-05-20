@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
 "PO-Revision-Date: 2004-11-19 21:03+0800\n"
 "Last-Translator: Nam T. Nguyen <nnt@nntsoft.com>\n"
 "Language-Team: Vietnamese <moin-devel@lists.sourceforge.net>\n"
@@ -49,8 +49,9 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "Bạn không xem trang này được."
 
-msgid "RefreshCache"
-msgstr "Làm mới cache"
+#, fuzzy
+msgid "DeleteCache"
+msgstr "DeletePage"
 
 #, python-format
 msgid "(cached %s)"
@@ -920,9 +921,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "File để tải lên"
 
-msgid "MIME Type (optional)"
-msgstr "Loại file (MIME) (không bắt buộc)"
-
 msgid "Save as"
 msgstr "Lưu với tên khác"
 
@@ -1090,6 +1088,10 @@ msgstr "Tìm nội dung: \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "Danh sách liên kết đầy đủ trong \"%s\""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Không hiểu tham số \"%s\"!"
@@ -1117,6 +1119,10 @@ msgstr "Bắt đầu"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slide %(pos)d kích thước %(size)d"
+
+#, fuzzy
+msgid "Create New Page"
+msgstr "Tạo trang này"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Không có trang lẻ trong wiki này."
@@ -1178,6 +1184,13 @@ msgstr "Tải về theo dạng XML của trang này"
 msgid "No wanted pages in this wiki."
 msgstr "Không có trang cần tạo trong wiki này."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Tạo bản vẽ \"%(filename)s\" mới"
@@ -1216,6 +1229,9 @@ msgstr "XSLT không thể được thực hiện!"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "lỗi xử lý %(errortype)s"
+
+msgid "RefreshCache"
+msgstr "Làm mới cache"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1256,6 +1272,33 @@ msgstr "Các thứ khác"
 msgid "Distribution of User-Agent Types"
 msgstr "Thống kê theo User-Agent"
 
+msgid "Unsubscribe"
+msgstr "Huỷ đăng ký"
+
+msgid "Home"
+msgstr "Trang nhà"
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
 msgid "Click to do a full-text search for this title"
 msgstr "Nhấn vào đây để thực hiện tìm kiếm theo nội dung với tiêu đề này"
 
@@ -1279,9 +1322,6 @@ msgstr "Nội dung"
 msgid "Titles"
 msgstr "Tiêu đề"
 
-msgid "Unsubscribe"
-msgstr "Huỷ đăng ký"
-
 msgid "More Actions:"
 msgstr "Các hành động khác:"
 
@@ -1290,6 +1330,10 @@ msgstr "Hiện trang nguồn"
 
 msgid "Show Print View"
 msgstr "Hiện bản in"
+
+#, fuzzy
+msgid "Delete Cache"
+msgstr "Xóa trang"
 
 msgid "Attach File"
 msgstr "Gửi kèm tập tin"
@@ -1311,9 +1355,6 @@ msgstr "Hiện trang trên"
 
 msgid "Immutable Page"
 msgstr "Trang không thể được thay đổi"
-
-msgid "Refresh"
-msgstr "Làm mới"
 
 msgid "Show Changes"
 msgstr "Hiện các thay đổi"
@@ -1363,12 +1404,6 @@ msgstr "Kết nối tới mailserver '%(server)s' bị ngắt quảng vì lý do
 
 msgid "Mail sent OK"
 msgstr "Thư đã được gửi"
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "Trang đầu"
@@ -1442,6 +1477,12 @@ msgstr "RenamePage"
 msgid "SpellCheck"
 msgstr "SpellCheck"
 
+#~ msgid "MIME Type (optional)"
+#~ msgstr "Loại file (MIME) (không bắt buộc)"
+
+#~ msgid "Refresh"
+#~ msgstr "Làm mới"
+
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"
 
@@ -1459,9 +1500,6 @@ msgstr "SpellCheck"
 
 #~ msgid "Nobody subscribed to this page, no mail sent."
 #~ msgstr "Không ai đăng ký vào trang này, chưa có thư được gửi."
-
-#~ msgid "Home"
-#~ msgstr "Trang nhà"
 
 #~ msgid "Unknown action"
 #~ msgstr "Việc không rõ"
@@ -1542,9 +1580,6 @@ msgstr "SpellCheck"
 
 #~ msgid "An error occurred while reverting the page."
 #~ msgstr "Xảy ra lỗi trong khi hoàn lại trang."
-
-#~ msgid "Create this page"
-#~ msgstr "Tạo trang này"
 
 #~ msgid "Alternatively, use one of these templates:"
 #~ msgstr "Ngoài ra, có thể dùng một trong những mẫu này:"

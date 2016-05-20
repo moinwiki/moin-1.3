@@ -8,7 +8,7 @@ Usage:
 When you start the server, it creates the file 'mointwisted.pid', which
 is used later to stop the process. Do not delete this file.
 
-@copyright: 2004 Thomas Waldmann, Nir Soffer
+@copyright: 2004-2005 Thomas Waldmann, Nir Soffer
 @license: GNU GPL, see COPYING for details.
 """
 

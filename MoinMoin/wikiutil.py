@@ -5,10 +5,12 @@
     @copyright: 2000 - 2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
+    
+import os, re, difflib
 
-import os, re, urllib, difflib
 from MoinMoin import util, version, config
-from MoinMoin.util import filesys, pysupport
+from MoinMoin.util import pysupport
+
 
 # Exceptions
 class InvalidFileNameError(Exception):
@@ -367,8 +369,7 @@ def resolve_wiki(request, wikiurl):
 #############################################################################
 
 def isSystemPage(request, pagename):
-    """
-    Is this a system page? Uses AllSystemPagesGroup internally.
+    """ Is this a system page? Uses AllSystemPagesGroup internally.
     
     @param request: the request object
     @param pagename: the page name
@@ -381,58 +382,65 @@ def isSystemPage(request, pagename):
 
 
 def isTemplatePage(request, pagename):
-    """
-    Is this a template page?
+    """ Is this a template page?
     
     @param pagename: the page name
     @rtype: bool
     @return: true if page is a template page
     """
-    return re.search(request.cfg.page_template_regex, pagename, re.UNICODE) is not None
+    filter = re.compile(request.cfg.page_template_regex, re.UNICODE)
+    return filter.search(pagename) is not None
 
 
 def isFormPage(request, pagename):
-    """
-    Is this a form page?
+    """ Is this a form page?
     
     @param pagename: the page name
     @rtype: bool
     @return: true if page is a form page
     """
-    return re.search(request.cfg.page_form_regex, pagename, re.UNICODE) is not None
+    filter = re.compile(request.cfg.page_form_regex, re.UNICODE)
+    return filter.search(pagename) is not None
 
-def isGroupPage(request, name):
+def isGroupPage(request, pagename):
     """ Is this a name of group page?
 
     @param pagename: the page name
     @rtype: bool
     @return: true if page is a form page
     """
-    return re.search(request.cfg.page_group_regex, name, re.UNICODE) is not None
+    filter = re.compile(request.cfg.page_group_regex, re.UNICODE)
+    return filter.search(pagename) is not None
 
 
 def filterCategoryPages(request, pagelist):
-    """
-    Return a copy of `pagelist` that only contains category pages.
+    """ Return category pages in pagelist
 
+    WARNING: DO NOT USE THIS TO FILTER THE FULL PAGE LIST! Use
+    getPageList with a filter function.
+        
     If you pass a list with a single pagename, either that is returned
     or an empty list, thus you can use this function like a `isCategoryPage`
     one.
        
-    @param pagelist: a list of (one or some or all) pages
+    @param pagelist: a list of pages
     @rtype: list
     @return: only the category pages of pagelist
     """
-    _CATEGORY_RE = re.compile(request.cfg.page_category_regex, re.UNICODE)
-    return filter(_CATEGORY_RE.search, pagelist)
+    func = re.compile(request.cfg.page_category_regex, re.UNICODE).search
+    return filter(func, pagelist)
 
 
 # TODO: we may rename this to getLocalizedPage because it returns page
 # that have translations.
 def getSysPage(request, pagename):
-    """
-    Get a system page according to user settings and available translations.
+    """ Get a system page according to user settings and available translations.
     
+    We include some special treatment for the case that <pagename> is the
+    currently rendered page, as this is the case for some pages used very
+    often, like FrontPage, RecentChanges etc. - in that case we reuse the
+    already existing page object instead creating a new one.
+
     @param request: the request object
     @param pagename: the name of the page
     @rtype: Page object
@@ -441,11 +449,27 @@ def getSysPage(request, pagename):
     """
     from MoinMoin.Page import Page
     i18n_name = request.getText(pagename, formatted=False)
+    pageobj = None
     if i18n_name != pagename:
-        i18n_page = Page(request, i18n_name)
-        if i18n_page.exists():
-            return i18n_page
-    return Page(request, pagename)
+        if request.page and i18n_name == request.page.page_name:
+            # do not create new object for current page
+            i18n_page = request.page
+            if i18n_page.exists():
+                pageobj = i18n_page
+        else:
+            i18n_page = Page(request, i18n_name)
+            if i18n_page.exists():
+                pageobj = i18n_page
+
+    # if we failed getting a translated version of <pagename>,
+    # we fall back to english
+    if not pageobj:
+        if request.page and pagename == request.page.page_name:
+            # do not create new object for current page
+            pageobj = request.page
+        else:
+            pageobj = Page(request, pagename)
+    return pageobj
 
 
 def getFrontPage(request):
@@ -512,70 +536,114 @@ def pagelinkmarkup(pagename):
 ### Plugins
 #############################################################################
 
-def importPlugin(kind, name, function="execute", path=None):
-    """
-    Returns an object from a plugin module or None if module or 'function' is not found
-    kind may be one of 'action', 'formatter', 'macro', 'processor', 'parser'
-    or any other directory that exist in MoinMoin or data/plugin
+def importPlugin(cfg, kind, name, function="execute"):
+    """ Import wiki or builtin plugin
     
+    Returns an object from a plugin module or None if module or
+    'function' is not found.
+
+    kind may be one of 'action', 'formatter', 'macro', 'processor',
+    'parser' or any other directory that exist in MoinMoin or
+    data/plugin
+
+    Wiki plugins will always override builtin plugins. If you want
+    specific plugin, use either importWikiPlugin or importName directly.
+    
+    @param cfg: wiki config instance
     @param kind: what kind of module we want to import
     @param name: the name of the module
     @param function: the function name
     @rtype: callable
-    @return: "function" of module "name" of kind "kind"
+    @return: "function" of module "name" of kind "kind", or None
     """
-    # First try data/plugins
-    result = None
-    if path:
-        result = pysupport.importName("plugin." + kind + "." + name, function, path)
-    if result == None:
-        # then MoinMoin
-        result = pysupport.importName("MoinMoin." + kind + "." + name, function)
-    return result
+    # Try to import from the wiki
+    plugin = importWikiPlugin(cfg, kind, name, function)
+    if plugin is None:
+        # Try to get the plugin from MoinMoin
+        modulename = 'MoinMoin.%s.%s' % (kind, name)
+        plugin = pysupport.importName(modulename, function)
+        
+    return plugin
+
+
+# Here we cache our plugins until we have a wiki object.
+# WARNING: do not access directly in threaded enviromnent!
+_wiki_plugins = {}
+
+def importWikiPlugin(cfg, kind, name, function):
+    """ Import plugin from the wiki data directory
+    
+    We try to import only ONCE - then cache the plugin, even if we got
+    None. This way we prevent expensive import of existing plugins for
+    each call to a plugin.
+
+    @param cfg: wiki config instance
+    @param kind: what kind of module we want to import
+    @param name: the name of the module
+    @param function: the function name
+    @rtype: callable
+    @return: "function" of module "name" of kind "kind", or None
+    """
+    global _wiki_plugins
+
+    # Wiki plugins are located under 'wikiconfigname.plugin' module.
+    modulename = '%s.plugin.%s.%s' % (cfg.siteid, kind, name)
+    key = (modulename, function)
+    try:
+        # Try cache first - fast!
+        plugin = _wiki_plugins[key]
+    except KeyError:
+        # Try to import from disk and cache result - slow!
+        plugin = pysupport.importName(modulename, function)
+        _wiki_plugins[key] = plugin
+
+    return plugin
+
+# If we use threads, make this function thread safe
+if config.use_threads:
+    importWikiPlugin = pysupport.makeThreadSafe(importWikiPlugin)
 
 def builtinPlugins(kind):
-    """
-    Gets a list of modules in MoinMoin.'kind'
+    """ Gets a list of modules in MoinMoin.'kind'
     
     @param kind: what kind of modules we look for
     @rtype: list
     @return: module names
     """
-    plugins =  pysupport.importName("MoinMoin." + kind, "modules")
-    if plugins == None:
-        return []
-    else:
-        return plugins
+    modulename = "MoinMoin." + kind
+    plugins = pysupport.importName(modulename, "modules")
+    return plugins or []
 
-def extensionPlugins(kind, path):
-    """
-    Gets a list of modules in data/plugin/'kind'
+
+def wikiPlugins(kind, cfg):
+    """ Gets a list of modules in data/plugin/'kind'
     
     @param kind: what kind of modules we look for
     @rtype: list
     @return: module names
     """
-    plugins =  pysupport.importName("plugin." + kind, "modules", path=path)
-    if plugins == None:
-        return []
-    else:
-        return plugins
+    # Wiki plugins are located in wikiconfig.plugin module
+    modulename = '%s.plugin.%s' % (cfg.siteid, kind)
+    plugins = pysupport.importName(modulename, "modules")
+    return plugins or []
 
 
-def getPlugins(kind, path):
-    """
-    Gets a list of module names.
+def getPlugins(kind, cfg):
+    """ Gets a list of plugin names of kind
     
     @param kind: what kind of modules we look for
     @rtype: list
     @return: module names
     """
-    builtin_plugins = builtinPlugins(kind)
-    extension_plugins = extensionPlugins(kind, path)[:] # use a copy to not destroy the value
-    for module in builtin_plugins:
-        if module not in extension_plugins:
-            extension_plugins.append(module)
-    return extension_plugins
+    # Copy names from builtin plugins - so we dont destroy the value
+    all_plugins = builtinPlugins(kind)[:]
+    
+    # Add extension plugins without duplicates
+    for plugin in wikiPlugins(kind, cfg):
+        if plugin not in all_plugins:
+            all_plugins.append(plugin)
+
+    return all_plugins
 
 
 #############################################################################
@@ -590,9 +658,8 @@ def getParserForExtension(cfg, extension):
     Returns None if no parser willing to handle is found.
     The dict of extensions is cached in the config object.
 
-    @param cfg: the Config class for the wiki in question
+    @param cfg: the Config instance for the wiki in question
     @param extension: the filename extension including the dot
-
     @rtype: class, None
     @returns: the parser class or None
     """
@@ -602,20 +669,22 @@ def getParserForExtension(cfg, extension):
     if not hasattr(cfg, '_EXT_TO_PARSER'):
         import types
         etp, etd = {}, None
-        for pname in getPlugins('parser', cfg.data_dir):
-            Parser = importPlugin('parser', pname, 'Parser', cfg.data_dir)
+        for pname in getPlugins('parser', cfg):
+            Parser = importPlugin(cfg, 'parser', pname, 'Parser')
             if Parser is not None:
                 if hasattr(Parser, 'extensions'):
-                    exts=Parser.extensions
+                    exts = Parser.extensions
                     if type(exts) == types.ListType:
                         for ext in Parser.extensions:
-                            etp[ext]=Parser
+                            etp[ext] = Parser
                     elif str(exts) == '*':
-                        etd=Parser
-        # is this setitem thread save?
-        cfg._EXT_TO_PARSER=etp
-        cfg._EXT_TO_PARSER_DEFAULT=etd
-    return cfg._EXT_TO_PARSER.get(extension,cfg._EXT_TO_PARSER_DEFAULT)
+                        etd = Parser
+        # Cache in cfg for current request - this is not thread safe
+        # when cfg will be cached per wiki in long running process.
+        cfg._EXT_TO_PARSER = etp
+        cfg._EXT_TO_PARSER_DEFAULT = etd
+        
+    return cfg._EXT_TO_PARSER.get(extension, cfg._EXT_TO_PARSER_DEFAULT)
 
 
 #############################################################################
@@ -926,11 +995,18 @@ def send_title(request, text, **keywords):
     @keyword body_attr: additional <body> attributes
     @keyword body_onload: additional "onload" JavaScript code
     """
-    from MoinMoin import i18n
     from MoinMoin.Page import Page
     _ = request.getText
-    pagename = keywords.get('pagename', '')
-    page = keywords.get('page', Page(request, pagename))
+    
+    if keywords.has_key('page'):
+        page = keywords['page']
+        pagename = page.page_name
+    else:
+        pagename = keywords.get('pagename', '')
+        page = Page(request, pagename)
+    
+    scriptname = request.getScriptname()
+    pagename_quoted = quoteWikinameURL(pagename)
 
     # get name of system pages
     page_front_page = getFrontPage(request).page_name
@@ -944,41 +1020,43 @@ def send_title(request, text, **keywords):
     page_parent_page = getattr(page.getParentPage(), 'page_name', None)
     
     # Print the HTML <head> element
-    user_head = request.cfg.html_head
+    user_head = [request.cfg.html_head]
 
     # include charset information - needed for moin_dump or any other case
     # when reading the html without a web server
-    user_head += '''<meta http-equiv="Content-Type" content="text/html;charset=%s">\n''' % config.charset
+    user_head.append('''<meta http-equiv="Content-Type" content="text/html;charset=%s">\n''' % config.charset)
     
     # search engine precautions / optimization:
     # if it is an action or edit/search, send query headers (noindex,nofollow):
     if request.query_string:
-        user_head += request.cfg.html_head_queries
+        user_head.append(request.cfg.html_head_queries)
     elif request.request_method == 'POST':
-        user_head += request.cfg.html_head_posts
+        user_head.append(request.cfg.html_head_posts)
     # if it is a special page, index it and follow the links - we do it
     # for the original, English pages as well as for (the possibly
     # modified) frontpage:
     elif pagename in [page_front_page, request.cfg.page_front_page,
                       page_title_index, ]:
-        user_head += request.cfg.html_head_index
+        user_head.append(request.cfg.html_head_index)
     # if it is a normal page, index it, but do not follow the links, because
     # there are a lot of illegal links (like actions) or duplicates:
     else:
-        user_head += request.cfg.html_head_normal
+        user_head.append(request.cfg.html_head_normal)
 
     if keywords.has_key('pi_refresh') and keywords['pi_refresh']:
-        user_head += '<meta http-equiv="refresh" content="%(delay)d;URL=%(url)s">' % keywords['pi_refresh']
+        user_head.append('<meta http-equiv="refresh" content="%(delay)d;URL=%(url)s">' % keywords['pi_refresh'])
     
+    # output buffering increases latency but increases throughput as well
+    output = []
     # later: <html xmlns=\"http://www.w3.org/1999/xhtml\">
-    request.write("""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    output.append("""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 %s
 %s
 %s
 """ % (
-        user_head,
+        ''.join(user_head),
         keywords.get('html_head', ''),
         request.theme.html_head({
             'title': escape(text),
@@ -989,12 +1067,12 @@ def send_title(request, text, **keywords):
     ))
 
     # Links
-    request.write('<link rel="Start" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_front_page)))
+    output.append('<link rel="Start" href="%s/%s">\n' % (scriptname, quoteWikinameURL(page_front_page)))
     if pagename:
-        request.write('<link rel="Alternate" title="%s" href="%s/%s?action=raw">\n' % (
-            _('Wiki Markup'), request.getScriptname(), quoteWikinameURL(pagename),))
-        request.write('<link rel="Alternate" media="print" title="%s" href="%s/%s?action=print">\n' % (
-            _('Print View'), request.getScriptname(), quoteWikinameURL(pagename),))
+        output.append('<link rel="Alternate" title="%s" href="%s/%s?action=raw">\n' % (
+            _('Wiki Markup'), scriptname, pagename_quoted,))
+        output.append('<link rel="Alternate" media="print" title="%s" href="%s/%s?action=print">\n' % (
+            _('Print View'), scriptname, pagename_quoted,))
 
         # !!! currently disabled due to Mozilla link prefetching, see
         # http://www.mozilla.org/projects/netlib/Link_Prefetching_FAQ.html
@@ -1014,45 +1092,51 @@ def send_title(request, text, **keywords):
         #~         request.write('<link rel="Last" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(all_pages[-1])))
 
         if page_parent_page:
-            request.write('<link rel="Up" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_parent_page)))
+            output.append('<link rel="Up" href="%s/%s">\n' % (scriptname, quoteWikinameURL(page_parent_page)))
 
+    # write buffer because we call AttachFile
+    request.write(''.join(output))
+    output = []
+
+    if pagename:
         from MoinMoin.action import AttachFile
         AttachFile.send_link_rel(request, pagename)
 
-    request.write(
-        '<link rel="Search" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_find_page)) +
-        '<link rel="Index" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_title_index)) +
-        '<link rel="Glossary" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_word_index)) +
-        '<link rel="Help" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_help_formatting))
-    )
+    output.extend([
+        '<link rel="Search" href="%s/%s">\n' % (scriptname, quoteWikinameURL(page_find_page)),
+        '<link rel="Index" href="%s/%s">\n' % (scriptname, quoteWikinameURL(page_title_index)),
+        '<link rel="Glossary" href="%s/%s">\n' % (scriptname, quoteWikinameURL(page_word_index)),
+        '<link rel="Help" href="%s/%s">\n' % (scriptname, quoteWikinameURL(page_help_formatting)),
+                  ])
 
-    request.write("</head>\n")
+    output.append("</head>\n")
+    request.write(''.join(output))
+    output = []
     request.flush()
 
     # start the <body>
-    bodyattr = ''
+    bodyattr = []
     if keywords.has_key('body_attr'):
-        bodyattr += ' ' + keywords['body_attr']
+        bodyattr.append(' ')
+        bodyattr.append(keywords['body_attr'])
 
     # Add doubleclick edit action
-    if (keywords.get('allow_doubleclick', 0) and
+    if (pagename and keywords.get('allow_doubleclick', 0) and
         not keywords.get('print_mode', 0) and
-        pagename and request.user.may.write(pagename) and
         request.user.edit_on_doubleclick):
-        querystr = util.web.makeQueryString({'action': 'edit'})
-        querystr = escape(querystr)
-        # TODO: remove escape=0 in 1.4
-        url = Page(request, pagename).url(request, querystr, escape=0)
-        bodyattr += ''' ondblclick="location.href='%s'"''' % url
+        if request.user.may.write(pagename): # separating this gains speed
+            querystr = escape(util.web.makeQueryString({'action': 'edit'}))
+            # TODO: remove escape=0 in 1.4
+            url = page.url(request, querystr, escape=0)
+            bodyattr.append(''' ondblclick="location.href='%s'"''' % url)
 
     # Set body to the user interface language and direction
-    bodyattr += ' %s' % request.theme.ui_lang_attr()
+    bodyattr.append(' %s' % request.theme.ui_lang_attr())
     
     body_onload = keywords.get('body_onload', '')
     if body_onload:
-        bodyattr += ''' onload="%s"''' % body_onload
-    request.write('\n<body%s>\n' % bodyattr)
-
+        bodyattr.append(''' onload="%s"''' % body_onload)
+    output.append('\n<body%s>\n' % ''.join(bodyattr))
 
     # Output -----------------------------------------------------------
 
@@ -1062,17 +1146,15 @@ def send_title(request, text, **keywords):
     if keywords.get('print_mode', 0):
         d = {'title_text': text, 'title_link': None, 'page': page,}
         request.themedict = d
-        request.write(theme.startPage())
-        request.write(theme.title(d))      
+        output.append(theme.startPage())
+        output.append(theme.title(d))      
 
     # In standard mode, emit theme.header
     else:
-        form = keywords.get('form', None)
-            
         # prepare dict for theme code:
         d = {
             'theme': theme.name,
-            'script_name': request.getScriptname(),
+            'script_name': scriptname,
             'title_text': text,
             'title_link': keywords.get('link', ''),
             'logo_string': request.cfg.logo_string,
@@ -1114,9 +1196,11 @@ def send_title(request, text, **keywords):
         request.themedict = d
 
         # now call the theming code to do the rendering
-        request.write(theme.header(d))
+        output.append(theme.header(d))
     
     # emit it
+    request.write(''.join(output))
+    output = []
     request.flush()
 
 

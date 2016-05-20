@@ -12,7 +12,7 @@
        ../attachment/pagename/
     3. /pagename/fname?action=Attachment&do=get[&mimetype=type]:
        return contents of the attachment file with the name fname.
-    4. /pataname/fname, do=view[&mimetype=type]:create a page
+    4. /pathname/fname, do=view[&mimetype=type]:create a page
        to view the content of the file
 
     To insert an attachment into the page, use the "attachment:" pseudo
@@ -268,10 +268,17 @@ def error_msg(pagename, request, msg):
 
 def send_link_rel(request, pagename):
     files = _get_files(request, pagename)
-    for file in files:
-        get_url = getAttachUrl(pagename, file, request, escaped=1)
-        request.write(u'<link rel="Appendix" title="%s" href="%s">\n' % (
-            wikiutil.escape(file), get_url))
+    if len(files) > 0 and not htdocs_access(request):
+        scriptName = request.getScriptname()
+        pagename_quoted = wikiutil.quoteWikinameURL(pagename)
+
+        for file in files:
+            url = "%s/%s?action=%s&do=view&target=%s" % (
+                scriptName, pagename_quoted,
+                action_name, urllib.quote_plus(file.encode(config.charset)))
+    
+            request.write(u'<link rel="Appendix" title="%s" href="%s">\n' % (
+                wikiutil.escape(file), wikiutil.escape(url)))
 
 
 def send_hotdraw(pagename, request):
@@ -280,8 +287,8 @@ def send_hotdraw(pagename, request):
     now = time.time()
     pubpath = request.cfg.url_prefix + "/applets/TWikiDrawPlugin"
     basename = request.form['drawing'][0]
-    drawpath = getAttachUrl(pagename, request.form['drawing'][0] + '.draw', request, escaped=1)
-    pngpath = getAttachUrl(pagename, request.form['drawing'][0] + '.png', request, escaped=1)
+    drawpath = getAttachUrl(pagename, basename + '.draw', request, escaped=1)
+    pngpath = getAttachUrl(pagename, basename + '.png', request, escaped=1)
     querystr = {'action': 'AttachFile', 'ts': now}
     querystr = wikiutil.escape(web.makeQueryString(querystr))
     pagelink = '%s?%s' % (wikiutil.quoteWikinameURL(pagename), querystr)
@@ -346,8 +353,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.""")
 <dl>
 <dt>%(upload_label_file)s</dt>
 <dd><input type="file" name="file" size="50"></dd>
-<dt>%(upload_label_mime)s</dt>
-<dd><input type="text" name="mime" size="50"></dd>
 <dt>%(upload_label_rename)s</dt>
 <dd><input type="text" name="rename" size="50" value="%(rename)s"></dd>
 </dl>
@@ -362,11 +367,14 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.""")
     'pagename': wikiutil.quoteWikinameURL(pagename),
     'action_name': action_name,
     'upload_label_file': _('File to upload'),
-    'upload_label_mime': _('MIME Type (optional)'),
     'upload_label_rename': _('Save as'),
     'rename': request.form.get('rename', [''])[0],
     'upload_button': _('Upload'),
 })
+
+#<dt>%(upload_label_mime)s</dt>
+#<dd><input type="text" name="mime" size="50"></dd>
+#    'upload_label_mime': _('MIME Type (optional)'),
 
 
 #############################################################################
@@ -462,18 +470,18 @@ def do_upload(pagename, request):
     target = wikiutil.taintfilename(target)
 
     # set mimetype from extension, or from given mimetype
-    type, encoding = mimetypes.guess_type(target)
-    if not type:
-        ext = None
-        if request.form.has_key('mime'):
-            ext = mimetypes.guess_extension(request.form['mime'][0])
-        if not ext:
-            type, encoding = mimetypes.guess_type(filename)
-            if type:
-                ext = mimetypes.guess_extension(type)
-            else:
-                ext = ''
-        target = target + ext
+    #type, encoding = mimetypes.guess_type(target)
+    #if not type:
+    #    ext = None
+    #    if request.form.has_key('mime'):
+    #        ext = mimetypes.guess_extension(request.form['mime'][0])
+    #    if not ext:
+    #        type, encoding = mimetypes.guess_type(filename)
+    #        if type:
+    #            ext = mimetypes.guess_extension(type)
+    #        else:
+    #            ext = ''
+    #    target = target + ext
     
     # get directory, and possibly create it
     attach_dir = getAttachDir(request, pagename, create=1)
@@ -559,6 +567,8 @@ def get_file(pagename, request):
     request.http_headers([
         "Content-Type: %s" % type,
         "Content-Length: %d" % os.path.getsize(fpath),
+        # TODO: fix the encoding here, plain 8 bit is not allowed according to the RFCs
+        # There is no solution that is compatible to IE except stripping non-ascii chars
         "Content-Disposition: inline; filename=\"%s\"" % filename.encode(config.charset), 
     ])
     

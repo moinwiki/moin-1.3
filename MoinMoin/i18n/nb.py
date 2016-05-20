@@ -30,8 +30,6 @@ brukes.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Du har ikke lov til å se denne siden.''',
-'''RefreshCache''':
-'''OppdaterCache''',
 '''(cached %s)''':
 '''(cachet %s)''',
 '''You are not allowed to edit this page.''':
@@ -542,8 +540,6 @@ en navnekonflikt, vil du måtte gi filen du laster opp et nytt navn.
 Alternativt, hvis "Endre navn" er blank, anvendes det originale filnavnet.''',
 '''File to upload''':
 '''Fil å laste opp''',
-'''MIME Type (optional)''':
-'''MIME-type (valgfri)''',
 '''Save as''':
 '''Lagre som''',
 '''Upload''':
@@ -706,6 +702,8 @@ Prøv igjen med et annet navn.''',
 '''XSLT-håndtering er ikke tilgjengelig!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s programfeil''',
+'''RefreshCache''':
+'''OppdaterCache''',
 '''for this page (cached %(date)s)''':
 '''for denne siden (cachet %(date)s)''',
 '''Charts are not available!''':
@@ -730,6 +728,8 @@ rød=rediger''',
 '''Andre''',
 '''Distribution of User-Agent Types''':
 '''Fordeling av "User-Agent"-typer''',
+'''Unsubscribe''':
+'''Avbestill''',
 '''Click to do a full-text search for this title''':
 '''Klikk her for å kjøre et fritekstsøk etter denne tittelen''',
 '''Clear message''':
@@ -744,8 +744,6 @@ rød=rediger''',
 '''Tekst''',
 '''Titles''':
 '''Tittler''',
-'''Unsubscribe''':
-'''Avbestill''',
 '''More Actions:''':
 '''Flere operasjoner:''',
 '''Show Raw Text''':
@@ -766,8 +764,6 @@ rød=rediger''',
 '''Vis Foreldreside''',
 '''Immutable Page''':
 '''Siden kan ikke endres''',
-'''Refresh''':
-'''Oppdater''',
 '''Show Changes''':
 '''Vis Endringer''',
 '''Get Info''':

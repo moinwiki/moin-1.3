@@ -6,9 +6,8 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import sys, os, shutil
+import sys, os
 from MoinMoin import config
-
 
 #############################################################################
 ### Misc Helpers
@@ -67,6 +66,7 @@ def copystat(src, dst):
                 os.chmod(dst, mode)
         #else: pass # we are on Win9x,ME - no chmod here
     else:
+        import shutil
         shutil.copystat(src, dst)
 
 
@@ -99,12 +99,13 @@ def copytree(src, dst, symlinks=False):
             elif os.path.isdir(srcname):
                 copytree(srcname, dstname, symlinks)
             else:
+                import shutil
                 shutil.copy2(srcname, dstname)
             # XXX What about devices, sockets etc.?
         except (IOError, os.error), why:
             errors.append((srcname, dstname, why))
     if errors:
-        raise Error, errors
+        raise EnvironmentError, errors
 
 # Code could come from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65203
 

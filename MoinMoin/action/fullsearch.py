@@ -1,12 +1,20 @@
-import time, urllib
+# -*- coding: iso-8859-1 -*-
+"""
+    MoinMoin - fullsearch action
+
+    This is the backend of the search form. Search pages and print results.
+    
+    @copyright: (c) 2001 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
+"""
+
 from MoinMoin.Page import Page
-from MoinMoin import config, wikiutil, search
+from MoinMoin import wikiutil, search
 from MoinMoin.formatter.text_html import Formatter
 from MoinMoin.util import MoinMoinNoFooter
 
 def execute(pagename, request, fieldname='value', titlesearch=0):
     _ = request.getText
-    start = time.clock()
 
     # Get titlesearch. It either a hidden field in a search macro form
     # using '0' or '1', or a submit button in the search box, in which
@@ -32,7 +40,7 @@ def execute(pagename, request, fieldname='value', titlesearch=0):
 
     # check for sensible search term
     striped = needle.strip()
-    if len(striped) <= 1:
+    if len(striped) == 0:
         err = _('Please use a more selective search term instead '
                 'of {{{"%s"}}}') % needle
         # send http headers

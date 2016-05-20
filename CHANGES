@@ -1,15 +1,121 @@
 MoinMoin Version History
 ========================
 
-Copyright (c) 2000-2004 by Juergen Hermann <jh@web.de>
-All rights reserved, see COPYING for details.
+Version 1.3.2 (2005-01-23, Revision moin--main--1.3--patch-587)
 
------------------------------------------------------------------------------
+Fixes:
+
+    * ACL bugfix for deleted pages with ACL protection.
+    * ACL bugfix for "Default" acl.
+    * Fixed updating of groups and dicts
+    * Python 2.2.x related fixes (worked on 2.3+)
+      * Fixed traceback in RecentChanges.
+      * Fixed traceback with links browser.
+    * Fixed 0 revision display in 'Show changes'.
+    * Fixed traceback in Antispam which occurred when it could not connect
+      to MoinMaster. Log the errors to stderr or error.log.
+    * Fixed bug in Page init (no date, use rev). Fixes problem with
+      #deprecated PI.
+    * Fixed empty lists in empty search results.
+    * Cosmetic fix for modern theme (when viewed with Internet Explorer).
+    * Fixed migration 9 script, do not drop newline, do not drop error.log, 
+      note about missing error.log.
+    * Fixed repair_language.py script, keep ending newline on revisions.
+    * Show headings and macro content in correct direction when mixing content 
+      in several directions in the same page and using caching.
+    * Fixed bug in standalone re farmconfig.
+    * Fixed DOS condition in antispam code.
+    * Use smaller margin in print mode to get better results with 
+      Mozilla/Firefox.
+    * Fixed some user input escaping issues.
+    * Fixed a problem when one wiki plugin override other wikis plugins in 
+      same farm.
+    * Fixed some broken tests.
+    * Fixed recursive include in pstats.
+    * Fixed bug in standalone - HTTP result code was 200 even when the access
+      was forbidden.
+    * Fixed traceback when trying to login with non-ascii password.
+    * Fixed traceback when xml is not available, reported on Python 2.2.?
+    * Fixed slideshow to show slides in sorted order again.
+    * Fixed serving multiple wikis on same IP/different ports with twisted and
+      farmconfig.
+    * It is possible to run with data_underlay_dir = None for special
+      application, but be aware that the wiki won't be usable unless you have
+      at least some of the system pages from underlay/ available.
+    * Files with Unicode characters in their filename are possible now.
+    * Bugfix for broken [:page#anchor:text] links.
+    * Workaround an instability of the gdchart module leading to
+      stalled servers etc.
+    * Fixed some event-log decoding issues that affect charts rendering.
+
+Other changes:
+
+    * Major speed improvement over 1.3.1. Many times faster title search,
+      creating new page, opening page editor and any operation that list pages.
+      See http://moinmoin.wikiwikiweb.de/MoinBenchmarks
+    * Improved README.migration.
+    * Cleaner design for login/register interface, login is always the default
+      button when the user click Enter.
+    * If there are problems found in the configuration, log the error
+      and display helpful error messages in the browser.
+    * More forgiving unicode configuration policy, you must use the u'string' 
+      format only for unicode values.
+    * Added profiling to CGI.
+    * The content of farmconfig.py is similar to wikiconfig.py now.
+    * Unexpected errors while loading cache files are logged.
+    * i18n for icon ALT tags.
+    * Include request initialization code in the profile in standalone server.
+    * When creating new theme, style sheets are inherited correctly, no need
+      to override style sheets just to get them working.
+    * Many times faster plugin system. Typical pages are about 35% faster, 
+      pages with many plugins can be many times faster. 
+    * Spiders are allowed to fetch attachments.
+    * Old user files containing password hash encoded in pre 1.3 charset
+      are auto repaired on first login.
+    * data_dir defaults to './data', underlay_data_dir to './underlay' now.
+      It is a good idea to replace those by absolute pathes in wikiconfig.py.
+    * Renamed "Refresh" to "Delete Cache" - it was misused by users. The action 
+      was also moved into the action menu in the modern and rightsidebar themes.
+    * Added a workaround for TableOfContents missing some links by making it
+      uncacheable via a "time" dependency.
+    * Removed interwiki icon and title attribute for wiki:Self:... links.
+    * Unittests (normally shown at end of action=test output) are currently
+      disabled because they worked unreliably, giving wrong results sometimes.
+
+New features:
+
+    * Create new pages easily using configurable interface and page templates 
+      with the new NewPage macro.
+    * ReStructuredText (rst) support is built-in now. See HelpOnParsers.
+    * New experimental feature in mointwisted.py - each interface may 
+      specify a port: '12.34.56.78:80'. Without a port, the port option
+      is used.
+
+API changes:
+
+    * For a complete list of changes, see MoinMoin:ApiChanges.
+    * wikiutil.importPlugin's first argument is now a wiki config instance 
+      (request.cfg) and there is no path keyword.
+    * Wiki plugins always override MoinMoin plugins. wikiutil.importPlugin
+      implements this override.
+    * util.pysupport.importName does not accept path - you should call 
+      it with correct module name, e.g 'wikiconfig.plugin.parser.wiki' for 
+      wiki plugins, or 'MoinMoin.parser.wiki'. 
+    * wikiutil.extensionPlugin was renamed to wikiPlugins and it gets config 
+      instance instead of path.
+    * New function wikiutil.importWikiPlugin used to import wiki plugins 
+      using a cache in a thread safe way.
+    * New config option config.use_threads is used to activate thread 
+      safe code.
+    * New keyword arguments for getPageList, enable 10X faster operation
+      for common cases by controlling page filtering.
+    * New up to 100X times faster getPageCount
 
 
 Version 1.3.1 (2004-12-13, Revision moin--main--1.3--patch-434)
 
 Fixes:
+
     * Fixed "Error Cyclic usage" crash when user had Italian (it), Korean
       (ko), Serbian (sr) or Vietnamese (vi) as user interface language.
     * Fall back to en (instead of crashing) when user uses a language moin
@@ -29,7 +135,7 @@ Fixes:
       also have AttachFile action in menu.
     * Fixed wrong match count in search results, find all matches in page 
       titles, show all matches in contents in some rare cases.
-    * Run about 200% faster with long running processes (standalone, twisted), 
+    * Run about 200% faster with long running processes (standalone, Twisted), 
       about 20% faster with cgi, by better internal data handling in wikidicts.
     * On SF, the dict files use utf-8 encoding now. We included them also in
       distribution, see contrib/dict/.
@@ -43,13 +149,16 @@ Fixes:
       to get latest moin code when executing them.
 
 Other Changes:
+
     * Improved docs, system and help pages.
     * Updated translation files.
 
 Known Bugs:
+
     * Internet Explorer renders our HTML/CSS in a suboptimal way.
       (MoinMoin:MoinMoinBugs/InternetExplorer)
       Workaround: use a non-broken browser like FireFox / Mozilla.
+      Fixed in MoinMoin 1.3.2.
     * Passwords using non-ascii do not work.
       (MoinMoin:MoinMoinBugs/NonAsciiPasswordsBroken)
     * The TOC macro is broken partly.
@@ -115,7 +224,7 @@ Version 1.3.0 (2004-12-06, Revision moin--main--1.3--patch-400)
         Python 2.4*   -> PyXML 0.8.4 (cvs version)
         Python 2.3.x  -> PyXML 0.8.3
         Python 2.2.2+ -> ???
-        This will also make lifebookmarks of FireFox browser working.
+        This will also make "Live Bookmarks" of Mozilla Firefox working.
         New: if you don't have PyXML installed, the RSS icon on RecentChanges
         will not be displayed any more. Python with no PyXML installed
         generates invalid RSS XML.
@@ -204,7 +313,7 @@ Version 1.3.0 (2004-12-06, Revision moin--main--1.3--patch-400)
     Multiple configurations
 
       * You can run multiple wikis from the same wiki directory or server. 
-        For example, you can run one twisted server that serve multiple wikis, 
+        For example, you can run one Twisted server that serve multiple wikis, 
         instead of running multiple servers. Samples of the new configuration
         are supplied in wiki/config/*.
       * You can't just use your old moin_config.py file. It is now called
@@ -274,7 +383,7 @@ Version 1.3.0 (2004-12-06, Revision moin--main--1.3--patch-400)
       * You can not use your old moin.cgi file, as we removed cgimain.py 
         (was deprecated since 1.2). Copy the new file from the server dir.     
 
-    Moin servers - twisted and standalone
+    Moin servers - Twisted and standalone
 
       * Configuration self checking on startup. Will raise an error in case
         of bad configuration or non-accessible directories.
@@ -290,13 +399,13 @@ Version 1.3.0 (2004-12-06, Revision moin--main--1.3--patch-400)
       * All code moved into the new server package, the server script
         contains only configuration options.
       * Listen to more than one interface with "interfaces" list.
-      * Code updated to new twisted API.
+      * Code updated to new Twisted API.
       * Use mointwisted script to start and stop the server, using 
         "mointwisted start" and "mointwisted stop".
-      * The twisted server runs as daemon by default.
-      * All moin twisted files are called now mointwisted instead of 
+      * The Twisted server runs as daemon by default.
+      * All moin Twisted files are called now mointwisted instead of 
         moin_twisted.
-      * fixed getting username from twisted request (http auth)
+      * Fixed getting username from Twisted request (http auth)
 
     Standalone server
 
@@ -603,7 +712,7 @@ Fixes:
       * putting it into directory 'x' (whereever you like)
       * doing a sys.path[0:0] = ['x'] in moin.cgi [or other appropriate place]
       No guarantee, this is untested.
-    * twisted: the http headers missed the charset data, fixed
+    * Twisted: the http headers missed the charset data, fixed
     * mod_python: fixes for mod_python 2.7
     * wiki/data/plugin/__init__.py added - fixes not working plugin modules
     * plugin processors work now, too

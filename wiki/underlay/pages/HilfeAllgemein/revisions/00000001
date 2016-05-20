@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpMiscellaneous
 ##master-date:2004-07-23 11:19:16
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 
 = Andere MoinMoin-Hilfethemen =
 
@@ -24,7 +27,7 @@ Die folgende Anleitung zeigt, wie Sie Ihre Konfiguration optimieren, so dass Sie
 
 === Zentralisierte Einstellungen ===
 
- * farm_config.py
+ * farmconfig.py
  * gemeinsame intermap.txt
  * gemeinsame Codebasis und Icons
 

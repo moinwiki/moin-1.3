@@ -30,8 +30,6 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''이 글을 볼 수 있는 권한이 없습니다.''',
-'''RefreshCache''':
-'''캐시 갱신''',
 '''(cached %s)''':
 '''(%s에 캐시)''',
 '''You are not allowed to edit this page.''':
@@ -539,8 +537,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 "이름 바꿈"칸을 비워놓으면 원래의 파일 이름이 사용됩니다.''',
 '''File to upload''':
 '''업로드할 파일''',
-'''MIME Type (optional)''':
-'''MIME 타입 (선택사항)''',
 '''Save as''':
 '''저장 이름''',
 '''Upload''':
@@ -701,6 +697,8 @@ Try a different name.''':
 '''XSLT 처리가 지원되지 않습니다.''',
 '''%(errortype)s processing error''':
 '''처리중 에러: "%(errortype)s"''',
+'''RefreshCache''':
+'''캐시 갱신''',
 '''for this page (cached %(date)s)''':
 ''' (%(date)s에 캐쉬됨)''',
 '''Charts are not available!''':
@@ -725,6 +723,8 @@ red=edit''',
 '''Others''',
 '''Distribution of User-Agent Types''':
 '''Distribution of User-Agent Types''',
+'''Unsubscribe''':
+'''감시 해제''',
 '''Click to do a full-text search for this title''':
 '''이 제목을 내용 전체에서 찾아보려면 여기를 누르세요''',
 '''Clear message''':
@@ -739,8 +739,6 @@ red=edit''',
 '''내용''',
 '''Titles''':
 '''제목''',
-'''Unsubscribe''':
-'''감시 해제''',
 '''More Actions:''':
 '''다른 작업:''',
 '''Show Raw Text''':
@@ -761,8 +759,6 @@ red=edit''',
 '''상위 글 보기''',
 '''Immutable Page''':
 '''못 고치는 글''',
-'''Refresh''':
-'''새로 고침''',
 '''Show Changes''':
 '''변경내역 보기''',
 '''Get Info''':

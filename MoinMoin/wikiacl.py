@@ -161,7 +161,7 @@ class AccessControlList:
         acliter = ACLStringIterator(cfg.acl_rights_valid, aclstring)
         for modifier, entries, rights in acliter:
             if entries == ['Default']:
-                self.addDefault()
+                self.addDefault(cfg)
                 continue
             
             for entry in entries:

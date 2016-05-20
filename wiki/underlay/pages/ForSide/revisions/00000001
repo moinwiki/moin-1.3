@@ -1,5 +1,8 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:FrontPage
 ##master-date:2003-01-31 17:58:50
+#format wiki
 #language da
 #pragma section-numbers off
 

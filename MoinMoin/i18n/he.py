@@ -29,8 +29,8 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''אין לכם הרשאות לצפות בדף''',
-'''RefreshCache''':
-'''רענן מטמון''',
+'''DeleteCache''':
+'''נקה מטמון''',
 '''(cached %s)''':
 '''(מטמון %s)''',
 '''You are not allowed to edit this page.''':
@@ -221,7 +221,7 @@ space between words. Group page name is not allowed.''':
 '''Can\'t work out query''':
 '''לא מסוגל לבצע שאילתה''',
 '''%(hits)d results out of %(pages)d pages.''':
-'''%(hits)d תוצאות מתוך %(pages)d דפים.''',
+'''%(hits)d תוצאות מתוך בערך %(pages)d דפים.''',
 '''%.2f seconds''':
 '''%.2f שניות''',
 '''match''':
@@ -524,8 +524,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''קובץ שאתם מעלים לעולם לא ימחק קובץ קיים. אם כבר קיים קובץ באותו שם, אתם צריכים לשנות את שמו של הקובץ אותו אתם מעלים. אם שדה "שמור בשם" נשאר ריק, הקובץ המקורי לא יוחלף.''',
 '''File to upload''':
 '''קובץ לשליחה''',
-'''MIME Type (optional)''':
-'''סוג קובץ (רשות)''',
 '''Save as''':
 '''שמור בשם''',
 '''Upload''':
@@ -586,6 +584,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''אין לכם הרשאות לשנות שם דפים בוויק הזה.''',
 '''Please use the interactive user interface to rename pages!''':
 '''השתמשו במנשק המשתמש לשינוי שמות דפים.''',
+'''Could not rename page because of file system error: %s.''':
+'''שינוי שם הדף נכשל בגלל טעות במערכת הקבצים: %s.''',
 '''Rename Page''':
 '''שנה שם דף''',
 '''New name''':
@@ -612,6 +612,8 @@ Try a different name.''':
 '''חיפוש מלל: "%s"''',
 '''Full Link List for "%s"''':
 '''רשימת קישורים מלאה של "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''אין אפשרות ליצור דף חדש ללא שם דף. אנא הכנס שם דף.''',
 '''Invalid include arguments "%s"!''':
 '''ארגומנטים לא חוקיים "%s".''',
 '''Nothing found for "%s"!''':
@@ -628,6 +630,8 @@ Try a different name.''':
 '''התחל''',
 '''Slide %(pos)d of %(size)d''':
 '''שקף %(pos)d מתוך %(size)d''',
+'''Create New Page''':
+'''צור דף חדש''',
 '''No orphaned pages in this wiki.''':
 '''אין דפים יתומים בוויקי הזה.''',
 '''No quotes on %(pagename)s.''':
@@ -664,6 +668,10 @@ Try a different name.''':
 '''יצא את תוכן הוויקי במבנה XML''',
 '''No wanted pages in this wiki.''':
 '''אין בוויקי הזה קישורים לדפים חסרים.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**מספר גדול מידי של קבצים מוכללים**''',
+'''**Could not find the referenced page: %s**''':
+'''**אין אפשרות למצוא את הדף המוכלל: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''צור איור חדש "%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
@@ -684,6 +692,8 @@ Try a different name.''':
 '''עיבוד XSLT לא זמין.''',
 '''%(errortype)s processing error''':
 '''%(errortype)s טעות בעיבוד''',
+'''RefreshCache''':
+'''רענן מטמון''',
 '''for this page (cached %(date)s)''':
 '''(רוענן לאחרונה ב–%(date)s)''',
 '''Charts are not available!''':
@@ -708,6 +718,24 @@ red=edit''':
 '''אחרים''',
 '''Distribution of User-Agent Types''':
 '''פיזור סוגי דפדפנים''',
+'''Unsubscribe''':
+'''בטל מנוי''',
+'''Home''':
+'''דף בית''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''נמחק''',
+'''[UPDATED]''':
+'''עודכן''',
+'''[NEW]''':
+'''חדש''',
+'''[DIFF]''':
+'''הבדלים''',
+'''[BOTTOM]''':
+'''למטה''',
+'''[TOP]''':
+'''למעלה''',
 '''Click to do a full-text search for this title''':
 '''חפשו דפים הקשורים לדף זה''',
 '''Clear message''':
@@ -722,14 +750,14 @@ red=edit''':
 '''מלל''',
 '''Titles''':
 '''כותרות''',
-'''Unsubscribe''':
-'''בטל מנוי''',
 '''More Actions:''':
 '''פעולות נוספות:''',
 '''Show Raw Text''':
 '''הצג מלל''',
 '''Show Print View''':
 '''תצוגת הדפסה''',
+'''Delete Cache''':
+'''נקה מטמון''',
 '''Attach File''':
 '''הצג קבצים מצורפים''',
 '''Delete Page''':
@@ -744,8 +772,6 @@ red=edit''':
 '''הצג דף אב''',
 '''Immutable Page''':
 '''דף נעול''',
-'''Refresh''':
-'''רענן מטמון''',
 '''Show Changes''':
 '''הצג שינויים''',
 '''Get Info''':
@@ -764,6 +790,8 @@ red=edit''':
 '''דפים אחרונים''',
 '''User''':
 '''משתמש''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''סליחה, אין אפשרות לשמור את הדף כי "%(content)s" לא מורשה בוויקי הזה.''',
 '''Line''':
 '''שורה''',
 '''Deletions are marked like this.''':

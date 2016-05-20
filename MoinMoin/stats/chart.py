@@ -78,6 +78,9 @@ class Chart:
 
         # pass options to gdchart and render the chart
         gdchart.option(**self.options)
+
+        # limit label length in order to workaround bugs in gdchart
+        labels = [x[:32] for x in labels]
         gdchart.chart(*((style, size, output, labels) + tuple(args)))
 
 

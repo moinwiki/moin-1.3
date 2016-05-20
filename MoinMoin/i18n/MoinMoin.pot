@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr ""
 
-msgid "RefreshCache"
+msgid "DeleteCache"
 msgstr ""
 
 #, python-format
@@ -830,9 +830,6 @@ msgstr ""
 msgid "File to upload"
 msgstr ""
 
-msgid "MIME Type (optional)"
-msgstr ""
-
 msgid "Save as"
 msgstr ""
 
@@ -991,6 +988,10 @@ msgstr ""
 msgid "Full Link List for \"%s\""
 msgstr ""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr ""
@@ -1017,6 +1018,9 @@ msgstr ""
 
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
+msgstr ""
+
+msgid "Create New Page"
 msgstr ""
 
 msgid "No orphaned pages in this wiki."
@@ -1079,6 +1083,13 @@ msgstr ""
 msgid "No wanted pages in this wiki."
 msgstr ""
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr ""
@@ -1115,6 +1126,9 @@ msgstr ""
 
 #, python-format
 msgid "%(errortype)s processing error"
+msgstr ""
+
+msgid "RefreshCache"
 msgstr ""
 
 #, python-format
@@ -1154,6 +1168,33 @@ msgstr ""
 msgid "Distribution of User-Agent Types"
 msgstr ""
 
+msgid "Unsubscribe"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
 msgid "Click to do a full-text search for this title"
 msgstr ""
 
@@ -1177,9 +1218,6 @@ msgstr ""
 msgid "Titles"
 msgstr ""
 
-msgid "Unsubscribe"
-msgstr ""
-
 msgid "More Actions:"
 msgstr ""
 
@@ -1187,6 +1225,9 @@ msgid "Show Raw Text"
 msgstr ""
 
 msgid "Show Print View"
+msgstr ""
+
+msgid "Delete Cache"
 msgstr ""
 
 msgid "Attach File"
@@ -1208,9 +1249,6 @@ msgid "Show Parent"
 msgstr ""
 
 msgid "Immutable Page"
-msgstr ""
-
-msgid "Refresh"
 msgstr ""
 
 msgid "Show Changes"
@@ -1260,12 +1298,6 @@ msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
 msgstr ""
 
 msgid "Mail sent OK"
-msgstr ""
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
 msgstr ""
 
 msgid "FrontPage"

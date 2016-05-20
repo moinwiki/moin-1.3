@@ -73,7 +73,7 @@ def getblacklist(request, pagename, do_update):
     @return: list of blacklisted regular expressions
     """
     from MoinMoin.PageEditor import PageEditor
-    p = PageEditor(pagename, request, uid_override="Antispam subsystem")
+    p = PageEditor(request, pagename, uid_override="Antispam subsystem")
     if do_update:
         tooold = time.time() - 3600
         mymtime = wikiutil.version2timestamp(p.mtime_usecs())
@@ -123,8 +123,13 @@ def getblacklist(request, pagename, do_update):
                                            response)
                     p._write_file(response)
 
-            except timeoutsocket.Timeout:
-                failure.update("") # update cache to wait before the next try
+            except (timeoutsocket.Timeout, timeoutsocket.error), err:
+                # Log the error
+                # TODO: check if this does not fill the logs!
+                dprint('Timeout or socket error when accessing'
+                       ' moinmaster: %s' % str(err))
+                # update cache to wait before the next try
+                failure.update("")
 
             except Error, err:
                 # In case of Error, we log the error and use the local
@@ -155,7 +160,11 @@ class SecurityPolicy(Permissions):
                 blacklist += getblacklist(request, pn, do_update)
             if blacklist:
                 for blacklist_re in blacklist:
-                    match = re.search(blacklist_re, newtext, re.I)
+                    try:
+                        match = re.search(blacklist_re, newtext, re.I)
+                    except re.error, err:
+                        dprint("Error in regex '%s': %s. Please check the pages %s." % (blacklist_re, str(err), ', '.join(BLACKLISTPAGES)))
+                        continue
                     if match:
                         # Log error and raise SaveError, PageEditor
                         # should handle this.

@@ -1,3 +1,7 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:WikiSandBox
+#format wiki
 #language en
 Please feel free to experiment here, after the four dashes below... and please do '''NOT''' create new pages without any meaningful content just to try it out!
 
@@ -24,6 +28,15 @@ def syntax(highlight):
     return None
 }}}
 
+
+{{{#!java
+  public void main(String[] args]){
+     System.out.println("Hello world!");
+  } 
+
+}}}
+
+
 == Linking ==
 
 HelpOnEditing MoinMoin:InterWiki 
@@ -48,7 +61,6 @@ http://c2.com/sig/wiki.gif
    1. numbered lists are renumbered
  * second
  * third
-   mal sehen
  blockquote
    deeper
 
@@ -62,10 +74,6 @@ drawing:mytest
 == Heading 2 ==
 === Heading 3 ===
 ==== Heading 4 ====
-===== besonders gross =====
-
-ПростоТест
-
 
 = IRC Log test =
 
@@ -84,6 +92,3 @@ drawing:mytest
 (23:40) < ThomasWal> then this is no option awdsd asdasd sa asdasd sad asdadasds adasd asd asd asd asd asd a dadad ad adad ad asd asd adad asdasd asd adad as d
 (23:40) <     jroes> yeah :/
 }}}
-
-
-["新ページ"]

@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 #pragma section-numbers on
 
@@ -10,6 +15,10 @@ You can create headings by starting and ending a line with up to five equal sign
 Headings can be automatically numbered, you can enable or disable this for each page (see `#pragma section-numbers` on HelpOnProcessingInstructions) and for the whole site (see `show_section_numbers` on HelpOnConfiguration).
 
 For more information on the possible markup, see HelpOnEditing. 
+
+ /!\ Headings may not contain wiki markup.
+
+ /!\ You cannot indent headings.
 
 === Example ===
 {{{

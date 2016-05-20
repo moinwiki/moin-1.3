@@ -1,0 +1,31 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:FrontPage
+##master-date:2004-12-17 23:03:18
+#format wiki
+#language ja
+#pragma section-numbers off
+
+= Wiki名 Wiki =
+
+このWikiの目的は？
+
+まずは以下のページを参照してください。
+ * ["更新履歴"]: 現在更新されているページを知ることができます。
+ * ["Wikiサンドボックス"]: 自由に編集のテストなどを行えます。
+ * ["ページ検索"]: 様々な方法でデータベースを検索することができます。
+ * ["シンタックスリファレンス"]: 文法のリファレンスを素早く参照することができます。
+ * ["サイトナビゲーション"]: Wiki全体を見渡すことができます。
+
+
+== このサイトの使い方 ==
+
+Wikiは、誰でも参加/共有できるサイトです。
+ * ページの上または下にある「'''[[GetText(Edit)]]'''」をクリックすれば、どのページでも編集できます。
+ * 大文字で始まる単語をつなげた文字列(例:MoinMoin)や{{{["大括弧と二重引用符で囲まれた文字列"]}}}のような書式を利用することによって、他のページへのリンクを作成できます。
+ * 各ページのテキスト入力欄を利用して、ページタイトルやテキストの検索ができます。
+ *  初心者の方は、HelpForBeginnersを参照してください。また、["ヘルプの目次"]にヘルプページの一覧があります。
+
+WikiWikiWebについての詳細を知りたい方は、MoinMoin:WhyWikiWorks やMoinMoin:WikiNature を参照してください。また、MoinMoin:WikiWikiWebFaq にFAQ(よくある質問)がまとめてあります。
+
+This wiki is powered by MoinMoin.

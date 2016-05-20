@@ -1,3 +1,10 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language en
 Categories are an important wiki idea. The concept of them is quite easy: you just have to write a category name onto the page and you are done. !MoinMoin even simplifies this by letting you choose from a list of available categories while you are editing the page. By the way, this page is in the category CategoryCategory.
 
 On the page of the category, you can describe the category contents. If you want to get a list of all pages in that particular category, either click the title of the category or insert a suitable macro which lists the pages:

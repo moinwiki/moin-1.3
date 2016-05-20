@@ -11,10 +11,14 @@
 import StringIO
 from MoinMoin import caching, config, wikiutil, Page
 
+Dependencies = ["time"] # never cache
+
 class Parser:
     """
         Send XML file formatted via XSLT.
     """
+
+    Dependencies = Dependencies # copy dependencies
 
     def __init__(self, raw, request, **kw):
         self.raw = raw

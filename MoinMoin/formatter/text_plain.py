@@ -35,8 +35,8 @@ class Formatter(FormatterBase):
     def sysmsg(self, on, **kw):
         return (u'\n\n*** ', u' ***\n\n')[not on]
 
-    def pagelink(self, on, pagename='', **kw):
-        apply(FormatterBase.pagelink, (self, on, pagename), kw)
+    def pagelink(self, on, pagename='', page=None, **kw):
+        apply(FormatterBase.pagelink, (self, on, pagename, page), kw)
         return (u">>", u"<<") [not on]
 
     def interwikilink(self, on, interwiki='', pagename='', **kw):

@@ -27,13 +27,11 @@ def _getParent(pagename):
 def _getPages(request, filter_regex=None):
     """ Return a (filtered) list of pages names.
     """
-    # Get user readable page list
-    pages = request.rootpage.getPageList()
-
+    filter = None
     if filter_regex:
-        cond = re.compile(filter_regex).match
-        pages = filter(cond, pages)
-
+        filter = re.compile(filter_regex).match
+    pages = request.rootpage.getPageList(filter=filter)
+    pages.sort()
     return pages
 
 

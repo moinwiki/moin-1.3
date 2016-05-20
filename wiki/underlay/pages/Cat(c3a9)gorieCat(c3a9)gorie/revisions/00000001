@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:CategoryCategory
 ##master-date:2004-11-26 14:09:28
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language fr
 Une catégorie est un NomWiki qui exploite les liens inverses de [wiki:Wiki:WikiWiki WikiWiki]. Quand vous cliquez sur le titre d'une catégorie, vous obtenez une liste des pages appartenant à cette catégorie.
 

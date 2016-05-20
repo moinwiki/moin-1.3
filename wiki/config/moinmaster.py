@@ -25,7 +25,3 @@ class Config(FarmConfig):
     interwikiname = 'MoinMaster'
     data_dir = '/org/de.wikiwikiweb.moinmaster/data/'
 
-    # [Unicode]
-    navi_bar = [u'FrontPage', u'RecentChanges', u'FindPage', u'HelpContents', u'UserPage', ]
-
-

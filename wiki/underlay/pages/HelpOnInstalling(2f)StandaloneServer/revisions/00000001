@@ -1,8 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language en
 ## page was renamed from HelpOnInstalling/StandaloneOnLinux
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language en
 '''Installing and configuring standalone server for a personal wiki'''
 
 The standalone server is especially made for local wikis because it does not need a web server installed. Only Python and Moin are necessary!
@@ -30,7 +35,7 @@ If you did a standard install, the default options might be just what you need. 
 || user || 'www-data' || If you run as root, the server will run with as this user ||
 || group || 'www-data' || If you run as root, the server will run with as this group ||
 || port || 8000 || Port to serve. To serve privileged port under 1024 you will have to run as root ||
-|| interface || 'localhost' || The interface the server will listen to. The default will listen only to localhost. Set to '' to listen to all.||
+|| interface || 'localhost' || The interface the server will listen to. The default will listen only to localhost. Set to `''` to listen to all.||
 || logPath || 'moin.log' || Log file. Default is commented. ||
 || profiler || commented python code || Useful only if you are a moin developer. ||
 
@@ -53,7 +58,7 @@ Test your wiki at http://localhost:8000/
 
 To stop the server, interrupt it with `Control + C`.
 
-On Windows, you can double click `moin.py` to start the server. A new terminal window will be opened. Close the window to stop the server.
+On Windows, you can double click `moin.py` to start the server. A new terminal window will be opened. Close the window or press `CTRL` + `Pause` to stop the server.
 
 == Serving port 80 on Unix ==
 

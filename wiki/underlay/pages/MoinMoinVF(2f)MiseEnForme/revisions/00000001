@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
 ## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
 ##master-page:MoinMoin/TextFormatting
 ##master-date:2004-11-21 23:24:58
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language fr
 '''Table des matières'''
 [[TableOfContents(1)]]
@@ -15,11 +18,11 @@
 ==== Titre niveau 4 ====
 ===== Titre niveau 5 =====
 
-Cette page tente d'utiliser chaque élément de formattage supporté au moins une fois.
+Cette page tente d'utiliser chaque élément de formatage disponible au moins une fois.
 
-Texte normal, ''en italique'', '''en gras''', __souligné__, ,,en indice,,, ^en exposant^, `en chasse fixe` et en {{{chasse fixe}}}.
+Texte normal, ''en italique'', '''en gras''', __souligné__, ,,en indice,,, ^en exposant^, à `chasse fixe` et à {{{chasse fixe}}}.
 
-:) ;) :D {1} {de} {OK} (./)
+:) ;) :D {1} {fr} {OK} (./)
 
 = Liens =
 
@@ -55,12 +58,11 @@ wiki:MeatBall/InterWiki
 
 [wiki:MeatBall/InterWiki Page InterWiki sur MeatBall]
 
-anyone@inter.net (si vous voulez recevoir des pourriels)
+nimportequi@inter.net (si vous voulez être bombardé de courriers publicitaires)
 
-[[MailTo(prenom DOT nom NOSPAM AT domaine DOT fr)]] (à peu près protégée contre les pourriels)
+[[MailTo(prenom DOT nom NOSPAM AT domaine DOT fr)]] (un peu protégé contre les récolteurs d'adresses)
 
 http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
-
 
 = Blocs =
 
@@ -92,14 +94,14 @@ ligne 1
 }}}
 
 '''Tables'''
- Mise en forme d'une table, options similaires à celles du HTML
+ Mise en forme d'une table et options du style HTML
  ||||||<tablewidth="80%">'''Titre'''||
  ||Cellule 1||Cellule 2||Cellule 3||
  ||<rowspan=2> sur plusieurs lignes||||<bgcolor='#E0E0FF'> sur deux colonnes||
  ||<rowbgcolor="#FFFFE0">Cellule 2||Cellule 3||
 
  Largeur d'une cellule
- || étroit ||<:99%> large ||
+ ||<tablewidth="80%"> étroit ||<:99%> large ||
 
  Sur plusieurs lignes et plusieurs colonnes
  ||<|2> 2 lignes || ligne 1 ||
@@ -107,28 +109,25 @@ ligne 1
  ||<-2> ligne 3 sur 2 colonnes ||
 
  Alignement
- ||<(> à gauche ||<^|3> en haut ||<v|3> en bas ||
- ||<:> centré ||
+ ||<tablewidth="40%"(> à gauche ||<^|3> en haut ||<v|3> en bas ||
+ ||<:> centrée ||
  ||<)> à droite ||
 
  Couleurs
  ||<#FF8080> rouge ||<#80FF80> vert ||<#8080FF> bleu ||
 
 
-'''Filet horizontal'''
+'''Filets horizontaux'''
 
---- (pas un filet horizontal)
+--- (n'est pas un filet horizontal)
 ----
 -----
 ------
 -------
 --------
 ---------
----------- (épaisseur maximum)
+---------- (épaisseur maximale)
 -------------------------------------------- (pas plus épais que le précédent)
-
-
-
 
 = Macros =
 
@@ -141,7 +140,7 @@ ligne 1
 '''Mise en valeur syntaxique'''
  {{{
 #!python
-# python code
+# code python
 print code.colorize("abc", 1 + 1)
 }}}
 

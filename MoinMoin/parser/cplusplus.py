@@ -25,10 +25,13 @@ pre.cpparea span.Preprc   { color: #804000; }
 
 from MoinMoin.util.ParserBase import ParserBase
 
+Dependencies = []
+
 class Parser(ParserBase):
 
     parsername = "ColorizedCPlusPlus"
     extensions = ['.c', '.h', '.cpp', '.c++']
+    Dependencies = []
     
     def setupRules(self):
         ParserBase.setupRules(self)

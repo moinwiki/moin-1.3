@@ -1,0 +1,20 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## page was renamed from ModèlePagePersonnelle
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpHomepage
+##master-date:2005-01-10 22:19:10
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language fr
+== Votre Nom ==
+
+Adresse électronique : [[MailTo(vous AT PASDEPOURRIELS exemple DOT fr)]]
+
+...
+
+----
+CatégoriePagePersonnelle

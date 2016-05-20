@@ -16,7 +16,7 @@ def runTest(request):
     """
     # Note that importing here makes a difference, namely the request
     # object is already created
-    import os, sys, xml
+    import os, sys
     from MoinMoin import version
     from MoinMoin.logfile import editlog, eventlog
 
@@ -24,7 +24,14 @@ def runTest(request):
     request.write('Revision %s\n' % version.revision)
     request.write('Python version %s\n' % sys.version)
     request.write('Python installed to %s\n' % sys.exec_prefix)
-    request.write('PyXML is %sinstalled\n' % (xml.__file__.find('_xmlplus') == -1 and 'NOT ' or ''))
+
+    # Try xml
+    try:
+        import xml
+        request.write('PyXML is %sinstalled\n' %
+                      ('NOT ', '')[xml.__file__.find('_xmlplus') != -1])
+    except ImportError:
+        request.write('xml is missing\n')
 
     request.write('Python Path:\n')
     for dir in sys.path:
@@ -73,7 +80,11 @@ def runTest(request):
     # run unit tests
     request.write("\nUnit Tests:\n")
     try:    
-        from MoinMoin import _tests
+        #from MoinMoin import _tests
+        raise ImportError # somebody fscked up the tests and we don't want to
+                          # confuse users with wrong unittests that only work
+                          # on first request (seen with twisted on moinmoin
+                          # wiki). XXX TODO fix tests
     except ImportError:
         request.write("    *** NOT AVAILABLE ***")
     else:

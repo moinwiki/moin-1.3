@@ -1,4 +1,10 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##acl MoinPagesEditorGroup:read,write,delete,revert All:read
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language he
 
 '''דפי מערכת ועזרה עבריים במוין מוין'''

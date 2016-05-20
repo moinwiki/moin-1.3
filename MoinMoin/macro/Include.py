@@ -13,6 +13,9 @@
     @license: GNU GPL, see COPYING for details.
 """
 
+#Dependencies = ["pages"] # included page
+Dependencies = ["time"] # works around MoinMoinBugs/TableOfContentsLacksLinks
+
 import re, StringIO
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
@@ -45,8 +48,6 @@ def extract_titles(body, title_re):
         titles.append((title_text, level))
     return titles
 
-Dependencies = ["pages"] # included page
-
 def execute(macro, text, args_re=re.compile(_args_re_pattern), title_re=re.compile(_title_re, re.M), called_by_toc=0):
     request = macro.request
     _ = request.getText
@@ -76,9 +77,8 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern), title_re=re.compi
         except re.error:
             pass # treat as plain page name
         else:
-            # Get user readable page list
-            pagelist = request.rootpage.getPageList()
-            pagelist = filter(inc_match.match, pagelist)
+            # Get user filtered readable page list
+            pagelist = request.rootpage.getPageList(filter=inc_match.match)
 
     # sort and limit page list
     pagelist.sort()

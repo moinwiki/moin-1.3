@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
 "PO-Revision-Date: 2004-12-01 21:30+0200\n"
 "Last-Translator: Joerg Cassens <jmt@cassens.org>\n"
 "Language-Team: Norwegian <moinmoin-nb@cassens.org>\n"
@@ -52,8 +52,9 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "Du har ikke lov til å se denne siden."
 
-msgid "RefreshCache"
-msgstr "OppdaterCache"
+#, fuzzy
+msgid "DeleteCache"
+msgstr "SlettSide"
 
 #, python-format
 msgid "(cached %s)"
@@ -925,9 +926,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "Fil å laste opp"
 
-msgid "MIME Type (optional)"
-msgstr "MIME-type (valgfri)"
-
 msgid "Save as"
 msgstr "Lagre som"
 
@@ -1094,6 +1092,10 @@ msgstr "Fritekst-søk etter \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "Fullstendig liste over lenker for \"%s\""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Feil include-argumenter \"%s\"!"
@@ -1121,6 +1123,10 @@ msgstr "Start"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slide %(pos)d ut av %(size)d"
+
+#, fuzzy
+msgid "Create New Page"
+msgstr "Opprett brukerprofil"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Ingen foreldreløse sider i denne wikien."
@@ -1182,6 +1188,13 @@ msgstr "Last ned XML-eksporten av denne wikien"
 msgid "No wanted pages in this wiki."
 msgstr "Ingen ønskede sider i denne wikien."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Opprett ny tegning \"%(filename)s\""
@@ -1219,6 +1232,9 @@ msgstr "XSLT-håndtering er ikke tilgjengelig!"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s programfeil"
+
+msgid "RefreshCache"
+msgstr "OppdaterCache"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1259,6 +1275,33 @@ msgstr "Andre"
 msgid "Distribution of User-Agent Types"
 msgstr "Fordeling av \"User-Agent\"-typer"
 
+msgid "Unsubscribe"
+msgstr "Avbestill"
+
+msgid "Home"
+msgstr ""
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
 msgid "Click to do a full-text search for this title"
 msgstr "Klikk her for å kjøre et fritekstsøk etter denne tittelen"
 
@@ -1282,9 +1325,6 @@ msgstr "Tekst"
 msgid "Titles"
 msgstr "Tittler"
 
-msgid "Unsubscribe"
-msgstr "Avbestill"
-
 msgid "More Actions:"
 msgstr "Flere operasjoner:"
 
@@ -1293,6 +1333,10 @@ msgstr "Vis Kilde"
 
 msgid "Show Print View"
 msgstr "Vis Utskriftsversjon"
+
+#, fuzzy
+msgid "Delete Cache"
+msgstr "Slett Side"
 
 msgid "Attach File"
 msgstr "Vedlegg Fil"
@@ -1314,9 +1358,6 @@ msgstr "Vis Foreldreside"
 
 msgid "Immutable Page"
 msgstr "Siden kan ikke endres"
-
-msgid "Refresh"
-msgstr "Oppdater"
 
 msgid "Show Changes"
 msgstr "Vis Endringer"
@@ -1369,12 +1410,6 @@ msgstr "Forbindelse til e-posttjener '%(server)s' mislykket: %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "E-post sendt OK"
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "StartSide"
@@ -1448,6 +1483,12 @@ msgstr "EndreSidenavn"
 
 msgid "SpellCheck"
 msgstr "StaveKontroll"
+
+#~ msgid "MIME Type (optional)"
+#~ msgstr "MIME-type (valgfri)"
+
+#~ msgid "Refresh"
+#~ msgstr "Oppdater"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"

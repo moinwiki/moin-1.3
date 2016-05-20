@@ -9,11 +9,14 @@
 import re
 from MoinMoin import wikiutil
 
+Dependencies = []
+
 class Parser:
     """
         Send IRC logs in a table
     """
     extensions = ['.irc']
+    Dependencies = []
 
     def __init__(self, raw, request, **kw):
         self.raw = raw

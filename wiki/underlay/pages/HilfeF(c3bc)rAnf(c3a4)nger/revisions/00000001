@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpForBeginners
 ##master-date:2004-08-30 01:26:57
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 
 == WikiWikiWeb ==
 Ein WikiWikiWeb ist eine Hypertext-Umgebung für gemeinschaftliches Zusammenarbeiten, mit Betonung auf einfachen Zugriff auf und einfaches Ändern von Informationen.

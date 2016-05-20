@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 [[TableOfContents]]
 
@@ -124,23 +129,4 @@ Version;Date;HIDDEN!
 
 == reStructuredText ==
 
-The reStructuredText parser is experimental. It works well, but many elements are still unsupported. Before you can use it, you need to install the Python docutils package, which provides the additional reStructuredText support that MoinMoin needs.
-
-=== Supported elements ===
-
-Emphasis, strong emphasis, inline literal, headers, bullet lists, enumerated lists, definition lists, field lists, literal blocks, and block quotes. And perhaps others.
-
-=== Unsupported elements ===
-
-Line blocks, tables, directives, references of all kinds, footnotes, etc.
-
-=== Example ===
-
-{{{#!rst
-This is a *very* simple example. If you see two asterisks around the word "very", in the previous sentence, then docutils is improperly installed (or not installed at all). When docutils is there, the word is displayed in italics, and this whole block of text is not displayed in a special source-code-like format, but as a normal part of the page.
-}}}
-
-=== Links ===
-
- * [http://docutils.sourceforge.net/docs/user/rst/quickref.html Quick reStructuredText] - a.k.a. the reStructuredText cheat-sheet
- * [http://docutils.sourceforge.net/ The Docutils home page]
+See /ReStructuredText

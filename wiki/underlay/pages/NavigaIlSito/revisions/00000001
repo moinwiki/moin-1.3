@@ -1,8 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:SiteNavigation
 ##master-date:2004-10-03 8:49:44
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language it
 NavigaIlSito è il punto di ingresso all'esplorazione di questo wiki.
 MoinMoin supporta i seguenti sistemi di ricerca (vedi anche MeatBall:IndexingScheme):

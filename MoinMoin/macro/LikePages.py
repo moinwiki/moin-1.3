@@ -6,18 +6,23 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-Dependencies = []
+Dependencies = ['namespace']
 
 from MoinMoin.action import LikePages
 
 def execute(macro, args):
-    start, end, matches = LikePages.findMatches(macro.formatter.page.page_name, macro.request)
-    if matches and not isinstance(matches, type('')):
-        if not isinstance(matches, type(u'')):
-            import StringIO
-            out = StringIO.StringIO()
-            macro.request.redirect(out)
-            LikePages.showMatches(macro.formatter.page.page_name, macro.request, start, end, matches, False)
-            macro.request.redirect()
-            return out.getvalue()
+    request = macro.request
+    pagename = macro.formatter.page.page_name
+    
+    # Get matches
+    start, end, matches = LikePages.findMatches(pagename, request)
+
+    # Render matches
+    if matches and not isinstance(matches, (str, unicode)):
+        import StringIO
+        out = StringIO.StringIO()
+        request.redirect(out)
+        LikePages.showMatches(pagename, request, start, end, matches, False)
+        request.redirect()
+        return out.getvalue()
     return args

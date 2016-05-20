@@ -209,14 +209,18 @@ class Formatter(FormatterBase):
     
     # Links ##############################################################
     
-    def pagelink(self, on, pagename='', **kw):
+    def pagelink(self, on, pagename='', page=None, **kw):
         """ Link to a page.
+
+            formatter.text_python will use an optimized call with a page!=None
+            parameter. DO NOT USE THIS YOURSELF OR IT WILL BREAK.
 
             See wikiutil.link_tag() for possible keyword parameters.
         """
-        apply(FormatterBase.pagelink, (self, on, pagename), kw)
-        page = Page(self.request, pagename, formatter=self);
-        
+        apply(FormatterBase.pagelink, (self, on, pagename, page), kw)
+        if page is None:
+            page = Page(self.request, pagename, formatter=self);
+            
         if self.request.user.show_nonexist_qm and on and not page.exists():
             self.pagelink_preclosed = True
             return (page.link_to(self.request, on=1, **kw) +
@@ -235,18 +239,21 @@ class Formatter(FormatterBase):
         wikiurl = wikiutil.mapURL(self.request, wikiurl)
         href = wikiutil.join_wiki(wikiurl, wikitail)
 
-        # return InterWiki hyperlink
-        if wikitag_bad:
-            html_class = 'badinterwiki'
-        else:
-            html_class = 'interwiki'
+        if wikitag == 'Self': # for own wiki, do simple links
+            return (self.url(1, href, unescaped=0, pretty_url=kw.get('pretty_url', 0)))
+        else: # return InterWiki hyperlink
+            if wikitag_bad:
+                html_class = 'badinterwiki'
+            else:
+                html_class = 'interwiki'
 
-        icon = ''
-        if self.request.user.show_fancy_links:
-            icon = self.request.theme.make_icon('interwiki', {'wikitag': wikitag}) 
-        return (self.url(1, href, title=wikitag, unescaped=1,
-                        pretty_url=kw.get('pretty_url', 0), css = html_class) +
+            icon = ''
+            if self.request.user.show_fancy_links:
+                icon = self.request.theme.make_icon('interwiki', {'wikitag': wikitag}) 
+            return (self.url(1, href, title=wikitag, unescaped=0,
+                pretty_url=kw.get('pretty_url', 0), css = html_class) +
                 icon)
+            # unescaped=1 was changed to 0 to make interwiki links with pages with umlauts (or other non-ascii) work
 
     def url(self, on, url=None, css=None, **kw):
         """

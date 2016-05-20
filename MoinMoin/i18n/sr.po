@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
 "PO-Revision-Date: 2004-11-16 17:53+0200\n"
 "Last-Translator: Thomas W. Horna <sarman@t-online.de>\n"
 "Language-Team: Serbian <moin-devel@lists.sourceforge.net>\n"
@@ -51,8 +51,9 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "Nije Vam dozvoljeno da vidite ovu stranicu."
 
-msgid "RefreshCache"
-msgstr "OsvežiCache"
+#, fuzzy
+msgid "DeleteCache"
+msgstr "IzbrisatiStranicu"
 
 #, python-format
 msgid "(cached %s)"
@@ -912,9 +913,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "Fajl koji treba de se snimi"
 
-msgid "MIME Type (optional)"
-msgstr "MIME tip (opcionalno)"
-
 msgid "Save as"
 msgstr "Snimi kao"
 
@@ -1081,6 +1079,10 @@ msgstr "Puna pretraga teksta za \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "Lista svih linkova za \"%s\""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Nevažeći include-argumenti: \"%s\"!"
@@ -1108,6 +1110,10 @@ msgstr "Početak"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Slajd %(pos)d od %(size)d"
+
+#, fuzzy
+msgid "Create New Page"
+msgstr "stvoriti profil"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Nema napuštenih stranica u ovom vikiju."
@@ -1170,6 +1176,13 @@ msgstr "Skinuti XML eksport ovog vikija"
 msgid "No wanted pages in this wiki."
 msgstr "Nema željenih stranica u ovom vikiju."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Stvoriti novi crtež \"%(filename)s\""
@@ -1207,6 +1220,9 @@ msgstr "XSLT procesiranje trenutno ne postoji!"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s greška u obradi"
+
+msgid "RefreshCache"
+msgstr "OsvežiCache"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1248,6 +1264,34 @@ msgid "Distribution of User-Agent Types"
 msgstr "Statistika tipova brauzera"
 
 #, fuzzy
+msgid "Unsubscribe"
+msgstr "IsPisati se"
+
+msgid "Home"
+msgstr "PočetnaStranica"
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
+#, fuzzy
 msgid "Click to do a full-text search for this title"
 msgstr "Klikni ovde za kompletnu potragu za ovaj naslov"
 
@@ -1275,10 +1319,6 @@ msgid "Titles"
 msgstr "IndeksNaslova"
 
 #, fuzzy
-msgid "Unsubscribe"
-msgstr "IsPisati se"
-
-#, fuzzy
 msgid "More Actions:"
 msgstr "Akcije"
 
@@ -1289,6 +1329,10 @@ msgstr "PokažiTekst"
 #, fuzzy
 msgid "Show Print View"
 msgstr "Pregled za štampanje"
+
+#, fuzzy
+msgid "Delete Cache"
+msgstr "IzbrisatiStranicu"
 
 #, fuzzy
 msgid "Attach File"
@@ -1316,10 +1360,6 @@ msgstr "PokažiTekst"
 #, fuzzy
 msgid "Immutable Page"
 msgstr "Neizmenjljiva stranica"
-
-#, fuzzy
-msgid "Refresh"
-msgstr "OsvežiCache"
 
 #, fuzzy
 msgid "Show Changes"
@@ -1371,12 +1411,6 @@ msgstr "Veza sa mejlserverom '%(server)s' nije uspela: %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "Mejl je uspešno poslan"
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "NaslovnaStrana"
@@ -1450,6 +1484,13 @@ msgstr "PreimenitiStranicu"
 msgid "SpellCheck"
 msgstr "ProveraPravopisa"
 
+#~ msgid "MIME Type (optional)"
+#~ msgstr "MIME tip (opcionalno)"
+
+#, fuzzy
+#~ msgid "Refresh"
+#~ msgstr "OsvežiCache"
+
 #~ msgid "Rename"
 #~ msgstr "Preimeniti"
 
@@ -1461,9 +1502,6 @@ msgstr "ProveraPravopisa"
 
 #~ msgid "Nobody subscribed to this page, no mail sent."
 #~ msgstr "Niko se nije pretpisao na ovu stranicu, mejl nije poslat."
-
-#~ msgid "Home"
-#~ msgstr "PočetnaStranica"
 
 #~ msgid "Unknown action"
 #~ msgstr "Nepoznata akcija"

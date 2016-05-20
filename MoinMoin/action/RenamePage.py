@@ -22,7 +22,7 @@ class RenamePage:
     def __init__(self, pagename, request):
         self.request = request
         self.pagename = pagename
-        self.page = PageEditor(pagename, request)
+        self.page = PageEditor(request, pagename)
         self.newpage = None
         self.error = ''
 
@@ -96,7 +96,7 @@ class RenamePage:
             newpagename = "EmptyName"
 
         # Valid new name
-        newpage = PageEditor(newpagename, self.request)
+        newpage = PageEditor(self.request, newpagename)
 
         # Check whether a page with the new name already exists
         if newpage.exists(includeDeleted=1):

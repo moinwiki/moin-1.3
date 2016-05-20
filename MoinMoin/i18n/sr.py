@@ -28,8 +28,6 @@ na ostalim stranicama.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Nije Vam dozvoljeno da vidite ovu stranicu.''',
-'''RefreshCache''':
-'''OsvežiCache''',
 '''You are not allowed to edit this page.''':
 '''Nije Vam dozvoljeno da obrađujete ovu stranicu.''',
 '''Page is immutable!''':
@@ -479,8 +477,6 @@ konflikt, moraćete promeniti ime fajla koji hoćete da snimite.
 Inače, možete polje "Snimit kao" ostaviti praznim, i tako će originalno ime fajla biti korišćeno.''',
 '''File to upload''':
 '''Fajl koji treba de se snimi''',
-'''MIME Type (optional)''':
-'''MIME tip (opcionalno)''',
 '''Save as''':
 '''Snimi kao''',
 '''Upload''':
@@ -619,6 +615,8 @@ Inače, možete polje "Snimit kao" ostaviti praznim, i tako će originalno ime f
 '''XSLT procesiranje trenutno ne postoji!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s greška u obradi''',
+'''RefreshCache''':
+'''OsvežiCache''',
 '''for this page (cached %(date)s)''':
 '''za ovu stranicu (cached %(date)s)''',
 '''Charts are not available!''':
@@ -643,6 +641,8 @@ crveno=obrade''',
 '''Ostali''',
 '''Distribution of User-Agent Types''':
 '''Statistika tipova brauzera''',
+'''Home''':
+'''PočetnaStranica''',
 '''Clear message''':
 '''Izbriši ovu poruku''',
 '''EditText''':

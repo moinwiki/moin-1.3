@@ -9,10 +9,13 @@
 
 from MoinMoin.util.ParserBase import ParserBase
 
+Dependencies = []
+
 class Parser(ParserBase):
 
     parsername = "ColorizedJava"
     extensions = ['.java']
+    Dependencies = []
 
     def setupRules(self):
         ParserBase.setupRules(self)

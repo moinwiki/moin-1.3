@@ -24,11 +24,6 @@ textarea {
     font-family: monospace;
 }
 
-.info {
-    font-size: 0.82em;
-    color: gray;
-}
-
 span.sep {
     display: none;
 }

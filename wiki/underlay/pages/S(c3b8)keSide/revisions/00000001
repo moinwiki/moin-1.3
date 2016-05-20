@@ -1,8 +1,10 @@
 ## Please edit system and help pages ONLY in the moinmaster wiki! For more
 ## information, please see MoinMaster:MoinPagesEditorGroup.
-#language nb
 ##master-page:FindPage
 ##master-date:2001-12-08 22:02:06
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language nb
 
 Du kan bruke denne siden for å søke gjennom alle sider på denne wikien. Store eller små bokstaver spiller ingen rolle.
 

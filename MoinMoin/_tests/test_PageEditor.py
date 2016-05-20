@@ -24,7 +24,7 @@ class ExpandVarsTestCase(unittest.TestCase):
         )
 
     def setUp(self):
-        self.pg = PageEditor.PageEditor(self.pagename, request)
+        self.pg = PageEditor.PageEditor(request, self.pagename)
         
     def testExpandVariables(self):
         """PageEditor: expanding variables"""

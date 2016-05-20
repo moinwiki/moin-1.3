@@ -1,8 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language en
 ##||{{{[[ ]]}}} ||  ||  ||
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language en
 
 [[Navigation(children)]]
 [[TableOfContents]]
@@ -67,6 +72,7 @@ MoinMoin use now a new search engine, that lets your make sophisticated searches
 ||{{{[[GetText(text)]]}}} || loads I18N texts (mainly intended for use on Help pages) || "Edit``Text" is translated to "[[GetText(EditText)]]" ||
 ||{{{[[TeudView]]}}} || useful for intranet developer wikis, a means to view pydoc documentation, formatted via a XSLT stylesheet || See [http://twistedmatrix.com/wiki/python/TeudProject] ||
 ||{{{[[MailTo(email)]]}}} || protect your email address from spam bots || for details see /MailTo ||
+||{{{[[NewPage(PageNameTemplate, ButtonLabel, ParentPage)]]}}}|| Allow the user to create (sub-) pages easily || [[NewPage(CategoryTemplate, Create new category)]]||
 
 === Writing your own macro ===
 Create a python file called {{{MacroName.py}}} located in your {{{data/plugins/macro}}} directory. Ensure it has a single method called {{{execute(macro, arguments)}}}, which is the entry-point.

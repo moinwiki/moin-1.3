@@ -11,6 +11,8 @@ from MoinMoin import config, wikimacro, wikiutil
 from MoinMoin.Page import Page
 from MoinMoin.util import web
 
+Dependencies = []
+
 class Parser:
     """
         Object that turns Wiki markup into HTML.
@@ -24,6 +26,7 @@ class Parser:
 
     # allow caching
     caching = 1
+    Dependencies = []
 
     # some common strings
     PARENT_PREFIX = wikiutil.PARENT_PREFIX
@@ -225,11 +228,11 @@ class Parser:
             else:
                 linktext = _('Upload new attachment "%(filename)s"')
             return wikiutil.link_tag(self.request,
-                '%s?action=AttachFile&amp;rename=%s%s' % (
+                self.formatter.text('%s?action=AttachFile&rename=%s%s' % (
                     wikiutil.quoteWikinameURL(pagename),
                     urllib.quote_plus(fname.encode(config.charset)),
-                    drawing and ('&amp;drawing=%s' % urllib.quote(drawing.encode(config.charset))) or ''),
-                linktext % {'filename': fname})
+                    drawing and ('&drawing=%s' % urllib.quote(drawing.encode(config.charset))) or '')),
+                linktext % {'filename': self.formatter.text(fname)})
 
         # check for image URL, and possibly return IMG tag
         # (images are always inlined, just like for other URLs)
@@ -237,7 +240,7 @@ class Parser:
             if drawing:
                 # check for map file
                 mappath = AttachFile.getFilename(self.request, pagename, drawing + '.map')
-                edit_link = '%s?action=AttachFile&amp;rename=%s&amp;drawing=%s' % (wikiutil.quoteWikinameURL(pagename), urllib.quote_plus(fname.encode(config.charset)), urllib.quote(drawing.encode(config.charset)))
+                edit_link = self.formatter.text('%s?action=AttachFile&rename=%s&drawing=%s' % (wikiutil.quoteWikinameURL(pagename), urllib.quote_plus(fname.encode(config.charset)), urllib.quote(drawing.encode(config.charset))))
                 if os.path.exists(mappath):
                     # we have a image map. inline it and add a map ref
                     # to the img tag
@@ -254,7 +257,7 @@ class Parser:
                         # add alt and title tags to areas
                         map = re.sub('href\s*=\s*"((?!%TWIKIDRAW%).+?)"',r'href="\1" alt="\1" title="\1"',map)
                         # add in edit links plus alt and title attributes
-                        map = map.replace('%TWIKIDRAW%"', edit_link + '" alt="' + _('Edit drawing %(filename)s') % {'filename': fname} + '" title="' + _('Edit drawing %(filename)s') % {'filename': fname} + '"')
+                        map = map.replace('%TWIKIDRAW%"', edit_link + '" alt="' + _('Edit drawing %(filename)s') % {'filename': self.formatter.text(fname)} + '" title="' + _('Edit drawing %(filename)s') % {'filename': self.formatter.text(fname)} + '"')
                         # unxml, because 4.01 concrete will not validate />
                         map = map.replace('/>','>')
                         return map + self.formatter.image(alt=drawing,
@@ -264,7 +267,7 @@ class Parser:
                         edit_link,
                         self.formatter.image(alt=url,
                             src=AttachFile.getAttachUrl(pagename, url, self.request, addts=1), html_class="drawing"),
-                        attrs='title="%s"' % (_('Edit drawing %(filename)s') % {'filename': fname}))
+                        attrs='title="%s"' % (_('Edit drawing %(filename)s') % {'filename': self.formatter.text(fname)}))
             else:
                 return self.formatter.image(alt=url,
                     src=AttachFile.getAttachUrl(pagename, url, self.request, addts=1))
@@ -284,7 +287,7 @@ class Parser:
 
         url = AttachFile.getAttachUrl(pagename, url, self.request)
 
-        if kw.get('pretty_url', 0) and wikiutil.isPicture(url):
+        if not kw.get('pretty_url', 0) and wikiutil.isPicture(url):
             return self.formatter.image(src=url)
         else:
             return (self.formatter.url(1, url) +
@@ -394,7 +397,7 @@ class Parser:
             word = self.formatter.page.page_name + word
         return (self.formatter.pagelink(1, word) +
                 self.formatter.text(text) +
-                self.formatter.pagelink(0))
+                self.formatter.pagelink(0, word))
 
     def _notword_repl(self, word):
         """Handle !NotWikiNames."""
@@ -439,8 +442,11 @@ class Parser:
         # Local extended link?
         if word[1] == ':':
             words = word[2:-1].split(':', 1)
-            if len(words) == 1: words = words * 2
-            return self._word_repl(words[0], words[1])
+            if len(words) == 1:
+                words = words * 2
+            words[0] = 'wiki:Self:%s' % words[0]
+            return self.interwiki(words, pretty_url=1)
+            #return self._word_repl(words[0], words[1])
 
         # Traditional split on space
         words = word[1:-1].split(None, 1)
@@ -769,7 +775,6 @@ class Parser:
         import sha
 
         ##self.inhibit_p = 1
-        icons = ''
 
         h = word.strip()
         level = 1
@@ -811,16 +816,12 @@ class Parser:
         elif s_word[:2] == '#!':
             # first try to find a processor for this (will go away in 1.4)
             processor_name = s_word[2:].split()[0]
-            self.processor = wikiutil.importPlugin("processor", 
-                                                   processor_name, 
-                                                   "process", 
-                                                   self.request.cfg.data_dir)
+            self.processor = wikiutil.importPlugin(
+                self.request.cfg, "processor", processor_name, "process")
             # now look for a parser with that name
             if self.processor is None:
-                self.processor = wikiutil.importPlugin("parser",
-                                                       processor_name,
-                                                       "Parser",
-                                                       self.request.cfg.data_dir)
+                self.processor = wikiutil.importPlugin(
+                    self.request.cfg, "parser", processor_name, "Parser")
                 if self.processor:
                     self.processor_is_parser = 1
 
@@ -965,11 +966,13 @@ class Parser:
         if self.cfg.allow_numeric_entities:
             rules = ur'(?P<ent_numeric>&#\d{1,5};)|' + rules
 
+        self.request.clock.start('compile_huge_and_ugly')        
         scan_re = re.compile(rules, re.UNICODE)
         number_re = re.compile(self.ol_rule, re.UNICODE)
         term_re = re.compile(self.dl_rule, re.UNICODE)
         indent_re = re.compile("^\s*", re.UNICODE)
         eol_re = re.compile(r'\r?\n', re.UNICODE)
+        self.request.clock.stop('compile_huge_and_ugly')        
 
         # get text and replace TABs
         rawtext = self.raw.expandtabs()
@@ -998,16 +1001,13 @@ class Parser:
                     processor_name = ''
                     if (line.strip()[:2] == "#!"):
                         processor_name = line.strip()[2:].split()[0]
-                        self.processor = wikiutil.importPlugin("processor",
-                                                               processor_name,
-                                                               "process",
-                                                               self.request.cfg.data_dir)
+                        self.processor = wikiutil.importPlugin(
+                            self.request.cfg, "processor", processor_name, "process")
+                                                               
                         # now look for a parser with that name
                         if self.processor is None:
-                            self.processor = wikiutil.importPlugin("parser",
-                                                                   processor_name,
-                                                                   "Parser",
-                                                                   self.request.cfg.data_dir)
+                            self.processor = wikiutil.importPlugin(
+                                self.request.cfg, "parser", processor_name, "Parser") 
                             if self.processor:
                                 self.processor_is_parser = 1
                     if self.processor:

@@ -106,7 +106,7 @@ def _addLocalWords(request):
     newwords = u' '.join(newwords)
     
     # get the page contents
-    lsw_page = PageEditor(request.cfg.page_local_spelling_words, request)
+    lsw_page = PageEditor(request, request.cfg.page_local_spelling_words)
     words = lsw_page.get_raw_body()
 
     # add the words to the page and save it

@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpOnTables
 ##master-date:2003-10-29 15:15:03
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 == Tabellen-Formatierung ==
 Wenn Sie eine Tabelle anlegen wollen, beginnen und beenden Sie eine Zeile mit dem Tabellen-Markierer "{{{||}}}". Zwischen dieser Start- und Ende-Markierung können Sie eine beliebige Anzahl von Zellen erzeugen, indem Sie sie mit "{{{||}}}" voneinander trennen. Um eine zentrierte Zelle zu erhalten, die mehrere Spalten überspannt, fangen Sie diese Zelle mit mehr als einem Zellmarkierer an. Aufeinanderfolgende Zeilen mit der selben Einrückungstiefe, die eine Tabellenkennzeichnung enthalten, werden in eine gemeinsame Tabelle zusammengefasst.
 

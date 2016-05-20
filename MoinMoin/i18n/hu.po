@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
 "PO-Revision-Date: 2004-11-16 17:05+0100\n"
 "Last-Translator: VOROSBARANYI Zoltan <http://vbzo.li/>\n"
 "Language-Team: Hungarian <HU@li.org>\n"
@@ -54,8 +54,9 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "A lap megtekintése nem engedélyezett."
 
-msgid "RefreshCache"
-msgstr "GyorstárFrissítés"
+#, fuzzy
+msgid "DeleteCache"
+msgstr "LapTörlés"
 
 #, python-format
 msgid "(cached %s)"
@@ -923,9 +924,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "A föltöltendő állomány"
 
-msgid "MIME Type (optional)"
-msgstr "MIME-típus (nem kötelező)"
-
 msgid "Save as"
 msgstr "Mentés más néven"
 
@@ -1096,6 +1094,10 @@ msgstr "Keresés a teljes szövegben, minta: \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "Teljes kapocslista (link-lista), minta: \"%s\""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Érvénytelen include-paraméter: \"%s\""
@@ -1123,6 +1125,10 @@ msgstr "Kezdet"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "%(pos)d. dia, mérete: %(size)d"
+
+#, fuzzy
+msgid "Create New Page"
+msgstr "Profil létrehozása"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Nincs árva lap."
@@ -1184,6 +1190,13 @@ msgstr "A wiki XML-exportjának letöltése"
 msgid "No wanted pages in this wiki."
 msgstr "Ebben a wikiben nincsenek hiányzó lapok."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "\"%(filename)s\" nevű új rajz készítése"
@@ -1221,6 +1234,9 @@ msgstr "Az XSLT-feldolgozás nem elérhető!"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s - feldolgozási hiba"
+
+msgid "RefreshCache"
+msgstr "GyorstárFrissítés"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1261,6 +1277,33 @@ msgstr "Mások"
 msgid "Distribution of User-Agent Types"
 msgstr "A WWW-kliensek eloszlása"
 
+msgid "Unsubscribe"
+msgstr "Előfizetés felmondása"
+
+msgid "Home"
+msgstr ""
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
 msgid "Click to do a full-text search for this title"
 msgstr "Kattintson a cím teljes szöveges keresésért"
 
@@ -1284,9 +1327,6 @@ msgstr "Szöveg"
 msgid "Titles"
 msgstr "Címek"
 
-msgid "Unsubscribe"
-msgstr "Előfizetés felmondása"
-
 msgid "More Actions:"
 msgstr "További műveletek::"
 
@@ -1295,6 +1335,10 @@ msgstr "Nyers szöveg megjelenítése"
 
 msgid "Show Print View"
 msgstr "Nyomtatási kép megjelenítése"
+
+#, fuzzy
+msgid "Delete Cache"
+msgstr "Lap törlése"
 
 msgid "Attach File"
 msgstr "Állomány csatolása"
@@ -1316,9 +1360,6 @@ msgstr "Szülő megjelenítése"
 
 msgid "Immutable Page"
 msgstr "Nem szerkeszthető lap"
-
-msgid "Refresh"
-msgstr "Frissítés"
 
 msgid "Show Changes"
 msgstr "Változások megjelenítése"
@@ -1370,12 +1411,6 @@ msgstr ""
 
 msgid "Mail sent OK"
 msgstr "A levél rendben elküldve."
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "KezdőLap"
@@ -1448,6 +1483,12 @@ msgstr "LapÁtnevezés"
 
 msgid "SpellCheck"
 msgstr "HelyesírásEllenőrzés"
+
+#~ msgid "MIME Type (optional)"
+#~ msgstr "MIME-típus (nem kötelező)"
+
+#~ msgid "Refresh"
+#~ msgstr "Frissítés"
 
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"

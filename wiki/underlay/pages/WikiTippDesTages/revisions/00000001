@@ -1,10 +1,15 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language de
 ||<#FFFFA0>[[RandomQuote(WikiTippDesTages)]]||
 
- * Auf BenutzerEinstellungen die Sprache auf "Deutsch" stellen, dann sind auch Emails in Deutsch.
+ * Auf BenutzerEinstellungen die Sprache auf "Deutsch" stellen, dann sind auch E-Mails in Deutsch.
  * Rechts oben auf BenutzerEinstellungen klicken, um eine Benutzerkennung zu erstellen und weitere Funktionen zu aktivieren.
  * Als Benutzerkennung am besten einen WikiName``n wählen (!VornameNachname).
  * In den BenutzerEinstellungen kann man sich die Menüleiste individuell einrichten.
@@ -36,11 +41,11 @@
  * Wikis sind toll - vor allem wenn man die Hilfe gelesen hat (siehe HilfeInhalt). ;)
  * WikiWiki = hawaiianisch für "schnell".
 
- * Mit der Lupe ([[Icon(find)]] oben rechts) kann man Titel oder Volltext durchsuchen und auch reguläre Ausdrücke verwenden.
- * Mit dem Brief ([[Icon(subscribe)]] oben rechts) kann man Seiten abonnieren, so dass man bei Änderungen per Email benachrichtigt wird.
- * Die blaurote Brille  ([[Icon(diff)]] oben rechts) zeigt Änderungen hervorgehoben an, so dass man nicht alles durchlesen muss.
- * Mit dem Info-Icon ([[Icon(info)]] oben rechts) bekommt man die Lebensgeschichte der aktuellen Seite, also Zugriff auf alte Revisionen.
- * TitelIndex ist ein normaler Index aller Seiten, WortIndex führt jedes Teilwort eines Seitennamen auf.
+## * Mit der Lupe ([[Icon(find)]] oben rechts) kann man Titel oder Volltext durchsuchen und auch reguläre Ausdrücke verwenden.
+## * Mit dem Brief ([[Icon(subscribe)]] oben rechts) kann man Seiten abonnieren, so dass man bei Änderungen per Email benachrichtigt wird.
+## * Die blaurote Brille  ([[Icon(diff)]] oben rechts) zeigt Änderungen hervorgehoben an, so dass man nicht alles durchlesen muss.
+## * Mit dem Info-Icon ([[Icon(info)]] oben rechts) bekommt man die Lebensgeschichte der aktuellen Seite, also Zugriff auf alte Revisionen.
+## * TitelIndex ist ein normaler Index aller Seiten, WortIndex führt jedes Teilwort eines Seitennamen auf.
 
  * Man kann auch andere Seiten als die StartSeite als persönliche Einstiegsseite benutzen, z.B. AktuelleÄnderungen oder die eigene Homepage.
- * Eine Seite kann durch die "View"-Funktion des Wiki ([[Icon(view)]] oben rechts) schneller und effizienter neu geladen werden als durch die Reload-Funktion des Browsers.
+## * Eine Seite kann durch die "View"-Funktion des Wiki ([[Icon(view)]] oben rechts) schneller und effizienter neu geladen werden als durch die Reload-Funktion des Browsers.

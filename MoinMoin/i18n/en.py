@@ -11,7 +11,7 @@ meta = {
 }
 text = {
 '''The backupped content of this page is deprecated and will not be included in search results!''':
-'''The backupped content of this page is deprecated and will not be included in search results!''',
+'''The backed up content of this page is deprecated and will not be included in search results!''',
 '''Revision %(rev)d as of %(date)s''':
 '''Revision %(rev)d as of %(date)s''',
 '''Redirected from page "%(page)s"''':
@@ -30,8 +30,8 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''You are not allowed to view this page.''',
-'''RefreshCache''':
-'''RefreshCache''',
+'''DeleteCache''':
+'''DeleteCache''',
 '''(cached %s)''':
 '''(cached %s)''',
 '''You are not allowed to edit this page.''':
@@ -41,7 +41,7 @@ macro call.-~
 '''Cannot edit old revisions!''':
 '''Cannot edit old revisions!''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
-'''The lock you held timed out, be prepared for editing conflicts!''',
+'''The lock you held timed out. Be prepared for editing conflicts!''',
 '''Edit "%(pagename)s"''':
 '''Edit "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
@@ -71,7 +71,7 @@ Have a look at the diff of %(difflink)s to see what has been changed.''',
 '''Skip to preview''':
 '''Skip to preview''',
 '''[current page size \'\'\'%(size)d\'\'\' bytes]''':
-'''[current page size \'\'\'%(size)d\'\'\' bytes]''',
+'''[current page size is \'\'\'%(size)d\'\'\' bytes]''',
 '''Describe %s here.''':
 '''Describe %s here.''',
 '''Optional comment about this change''':
@@ -237,7 +237,7 @@ space between words. Group page name is not allowed.''',
 '''Can\'t work out query''':
 '''Can\'t work out query''',
 '''%(hits)d results out of %(pages)d pages.''':
-'''%(hits)d results out of %(pages)d pages.''',
+'''%(hits)d results of about %(pages)d pages.''',
 '''%.2f seconds''':
 '''%.2f seconds''',
 '''match''':
@@ -542,8 +542,6 @@ conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.''',
 '''File to upload''':
 '''File to upload''',
-'''MIME Type (optional)''':
-'''MIME Type (optional)''',
 '''Save as''':
 '''Save as''',
 '''Upload''':
@@ -634,6 +632,8 @@ Try a different name.''',
 '''Full Text Search: "%s"''',
 '''Full Link List for "%s"''':
 '''Full Link List for "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''Cannot create a new page without a page name.  Please specify a page name.''',
 '''Invalid include arguments "%s"!''':
 '''Invalid include arguments "%s"!''',
 '''Nothing found for "%s"!''':
@@ -650,6 +650,8 @@ Try a different name.''',
 '''Start''',
 '''Slide %(pos)d of %(size)d''':
 '''Slide %(pos)d of %(size)d''',
+'''Create New Page''':
+'''Create New Page''',
 '''No orphaned pages in this wiki.''':
 '''No orphaned pages in this wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -686,6 +688,10 @@ Try a different name.''',
 '''Download XML export of this wiki''',
 '''No wanted pages in this wiki.''':
 '''No wanted pages in this wiki.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**Maximum number of allowed includes exceeded**''',
+'''**Could not find the referenced page: %s**''':
+'''**Could not find the referenced page: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''Create new drawing "%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
@@ -706,6 +712,8 @@ Try a different name.''',
 '''XSLT processing is not available!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s processing error''',
+'''RefreshCache''':
+'''RefreshCache''',
 '''for this page (cached %(date)s)''':
 '''for this page (cached %(date)s)''',
 '''Charts are not available!''':
@@ -730,6 +738,24 @@ red=edit''',
 '''Others''',
 '''Distribution of User-Agent Types''':
 '''Distribution of User-Agent Types''',
+'''Unsubscribe''':
+'''Unsubscribe''',
+'''Home''':
+'''Home''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[DELETED]''',
+'''[UPDATED]''':
+'''[UPDATED]''',
+'''[NEW]''':
+'''[NEW]''',
+'''[DIFF]''':
+'''[DIFF]''',
+'''[BOTTOM]''':
+'''[BOTTOM]''',
+'''[TOP]''':
+'''[TOP]''',
 '''Click to do a full-text search for this title''':
 '''Click to do a full-text search for this title''',
 '''Clear message''':
@@ -744,14 +770,14 @@ red=edit''',
 '''Text''',
 '''Titles''':
 '''Titles''',
-'''Unsubscribe''':
-'''Unsubscribe''',
 '''More Actions:''':
 '''More Actions:''',
 '''Show Raw Text''':
 '''Show Raw Text''',
 '''Show Print View''':
 '''Show Print View''',
+'''Delete Cache''':
+'''Delete Cache''',
 '''Attach File''':
 '''Attachments''',
 '''Delete Page''':
@@ -766,8 +792,6 @@ red=edit''',
 '''Show Parent''',
 '''Immutable Page''':
 '''Immutable Page''',
-'''Refresh''':
-'''Refresh''',
 '''Show Changes''':
 '''Show Changes''',
 '''Get Info''':
@@ -798,10 +822,6 @@ red=edit''',
 '''Connection to mailserver \'%(server)s\' failed: %(reason)s''',
 '''Mail sent OK''':
 '''Mail sent OK''',
-'''<escape>''':
-'''<escape>''',
-'''["<escape>"]''':
-'''["<escape>"]''',
 '''FrontPage''':
 '''FrontPage''',
 '''RecentChanges''':

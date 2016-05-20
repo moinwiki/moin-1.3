@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpOnMacros/Include
 ##master-date:2003-10-11 18:35:26
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 [[Navigation(siblings)]]
 
 Dieses Makro fügt den formatierten Inhalt der angegebenen Seite(n) ein und macht dabei ggf. auch rekursive Include-Aufrufe. Wenn die Rekursion einen Zyklus generieren würde, wird dies bemerkt und verhindert!

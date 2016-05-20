@@ -30,8 +30,6 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''你不能閱讀本頁。''',
-'''RefreshCache''':
-'''刷新快取內容''',
 '''(cached %s)''':
 '''(%s 的快取)''',
 '''You are not allowed to edit this page.''':
@@ -539,8 +537,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 這樣就會採用原本的檔名.''',
 '''File to upload''':
 '''要上傳的檔案''',
-'''MIME Type (optional)''':
-'''MIME 類型 (可選)''',
 '''Save as''':
 '''另存新檔''',
 '''Upload''':
@@ -701,6 +697,8 @@ Try a different name.''':
 '''沒有 XSLT 處理套件!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s 處理錯誤''',
+'''RefreshCache''':
+'''刷新快取內容''',
 '''for this page (cached %(date)s)''':
 ''' (本頁快取時間: %(date)s)''',
 '''Charts are not available!''':
@@ -725,6 +723,10 @@ red=edit''':
 '''其他''',
 '''Distribution of User-Agent Types''':
 '''瀏覽器類型分佈''',
+'''Unsubscribe''':
+'''取消訂閱''',
+'''Home''':
+'''首頁''',
 '''Click to do a full-text search for this title''':
 '''點一下: 對本頁標題做全文檢索''',
 '''Clear message''':
@@ -739,8 +741,6 @@ red=edit''':
 '''內文''',
 '''Titles''':
 '''標題''',
-'''Unsubscribe''':
-'''取消訂閱''',
 '''More Actions:''':
 '''其他功能:''',
 '''Show Raw Text''':
@@ -761,8 +761,6 @@ red=edit''':
 '''顯示上一層''',
 '''Immutable Page''':
 '''本頁不可更改''',
-'''Refresh''':
-'''刷新快取內容''',
 '''Show Changes''':
 '''顯示更動''',
 '''Get Info''':

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
-"PO-Revision-Date: 2004-11-30 11:24+0900\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"PO-Revision-Date: 2005-01-23 02:19+0900\n"
 "Last-Translator: Fujio Nobori <toh@fuji-climb.org>\n"
 "Language-Team: Japanese <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -48,8 +48,8 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "このページを読む権限がありません。"
 
-msgid "RefreshCache"
-msgstr "キャッシュの更新"
+msgid "DeleteCache"
+msgstr "キャッシュの削除"
 
 #, python-format
 msgid "(cached %s)"
@@ -126,7 +126,7 @@ msgstr "[現在のページサイズ: '''%(size)d'''バイト]"
 
 #, python-format
 msgid "Describe %s here."
-msgstr "%sについてここに記述してください。"
+msgstr "%sについて、ここに記述してください。"
 
 msgid "Optional comment about this change"
 msgstr "この修正についてのコメント(省略可)"
@@ -306,8 +306,8 @@ msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
 "granted the lock for this page."
 msgstr ""
-"このページに対する%(owner)sのロックは%(mins_ago)dに期限切れになりました。現"
-"在、あなたがこのページをロックしています。"
+"このページに対する%(owner)sのロックは%(mins_ago)d分前に期限切れになりました。"
+"現在、あなたがこのページをロックしています。"
 
 #, python-format
 msgid ""
@@ -366,7 +366,7 @@ msgid "Subscribe"
 msgstr "購読"
 
 msgid "Raw"
-msgstr "生データ"
+msgstr "テキスト"
 
 msgid "XML"
 msgstr "XML"
@@ -375,10 +375,10 @@ msgid "Print"
 msgstr "印刷"
 
 msgid "View"
-msgstr "見る"
+msgstr "表示"
 
 msgid "Up"
-msgstr "上へ"
+msgstr "親ページへ"
 
 #, python-format
 msgid ""
@@ -539,7 +539,7 @@ msgid "Name"
 msgstr "名前"
 
 msgid "(Use FirstnameLastname)"
-msgstr "(\"FirstnameLastname\"形式)"
+msgstr "(FirstnameLastname 形式)"
 
 msgid "Password"
 msgstr "パスワード"
@@ -652,10 +652,10 @@ msgid "Action"
 msgstr "アクション"
 
 msgid "view"
-msgstr "見る"
+msgstr "表示"
 
 msgid "raw"
-msgstr "生データ"
+msgstr "テキスト"
 
 msgid "print"
 msgstr "印刷"
@@ -766,7 +766,7 @@ msgid "Search Text"
 msgstr "テキスト検索"
 
 msgid "Go To Page"
-msgstr "ページに行く"
+msgstr "ページへ移動"
 
 msgid "Include system pages"
 msgstr "システムページを含める"
@@ -915,11 +915,8 @@ msgstr ""
 msgid "File to upload"
 msgstr "アップロードするファイル"
 
-msgid "MIME Type (optional)"
-msgstr "MIMEタイプ (省略可)"
-
 msgid "Save as"
-msgstr "ファイル名を指定して保存"
+msgstr "保存するファイル名を指定"
 
 msgid "Upload"
 msgstr "アップロード"
@@ -1033,7 +1030,7 @@ msgstr "対話的なユーザインターフェースからページ名を変更
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr ""
+msgstr "ファイルシステムエラー(%s)により、ページ名を変更できませんでした。"
 
 msgid "Rename Page"
 msgstr "ページ名の変更"
@@ -1080,11 +1077,16 @@ msgstr "タイトル検索: \"%s\""
 
 #, python-format
 msgid "Full Text Search: \"%s\""
-msgstr "全文検索: \"%s\""
+msgstr "テキスト検索: \"%s\""
 
 #, python-format
 msgid "Full Link List for \"%s\""
 msgstr "\"%s\"の全リンクリスト"
+
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+"名前の無いページを作成することはできません。ページ名を指定してください。"
 
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
@@ -1114,6 +1116,9 @@ msgstr "開始"
 msgid "Slide %(pos)d of %(size)d"
 msgstr "スライド番号 %(pos)d/%(size)d"
 
+msgid "Create New Page"
+msgstr "新しいページを作成"
+
 msgid "No orphaned pages in this wiki."
 msgstr "このwikiに参照元がないページはありません。"
 
@@ -1131,7 +1136,7 @@ msgstr "drawing '%(filename)s'を保存しました。"
 
 #, python-format
 msgid "%(hours)dh %(mins)dm ago"
-msgstr "[%(hours)d時間%(mins)d分前]"
+msgstr "%(hours)d時間%(mins)d分前"
 
 msgid "(no bookmark set)"
 msgstr "(ブックマーク未設定)"
@@ -1174,6 +1179,13 @@ msgstr "このwikiのXML exportをダウンロード"
 msgid "No wanted pages in this wiki."
 msgstr "このwikiに参照先がないページはありません。"
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr "**インクルードの許容数を越えました**"
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr "**参照されたページ(%s)が見つかりませんでした**"
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "drawing\"%(filename)s\"の新規作成"
@@ -1212,6 +1224,9 @@ msgstr "XSLT processingは利用できません。"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "processingエラー: %(errortype)s"
+
+msgid "RefreshCache"
+msgstr "キャッシュの更新"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1252,19 +1267,46 @@ msgstr "その他"
 msgid "Distribution of User-Agent Types"
 msgstr "User-Agentタイプの分布"
 
+msgid "Unsubscribe"
+msgstr "購読中止"
+
+msgid "Home"
+msgstr "ホーム"
+
+msgid "[RSS]"
+msgstr "[RSS]"
+
+msgid "[DELETED]"
+msgstr "[DELETED]"
+
+msgid "[UPDATED]"
+msgstr "[UPDATED]"
+
+msgid "[NEW]"
+msgstr "[NEW]"
+
+msgid "[DIFF]"
+msgstr "[DIFF]"
+
+msgid "[BOTTOM]"
+msgstr "画面下へ"
+
+msgid "[TOP]"
+msgstr "画面上へ"
+
 msgid "Click to do a full-text search for this title"
-msgstr "このタイトルで全文検索するには、ここをクリックして下さい"
+msgstr "このタイトルでテキスト検索するには、ここをクリックしてください"
 
 msgid "Clear message"
 msgstr "メッセージを消去"
 
 #, python-format
 msgid "last edited %(time)s by %(editor)s"
-msgstr "(最終更新日時 %(time)s 更新者 %(editor)s)"
+msgstr "最終更新日時 %(time)s 更新者 %(editor)s"
 
 #, python-format
 msgid "last modified %(time)s"
-msgstr "(最終更新日時 %(time)s)"
+msgstr "最終更新日時 %(time)s"
 
 msgid "Search:"
 msgstr "検索:"
@@ -1275,9 +1317,6 @@ msgstr "テキスト"
 msgid "Titles"
 msgstr "タイトル"
 
-msgid "Unsubscribe"
-msgstr "購読中止"
-
 msgid "More Actions:"
 msgstr "その他のアクション:"
 
@@ -1286,6 +1325,9 @@ msgstr "テキストの表示"
 
 msgid "Show Print View"
 msgstr "印刷ビューの表示"
+
+msgid "Delete Cache"
+msgstr "キャッシュの削除"
 
 msgid "Attach File"
 msgstr "ファイルの添付"
@@ -1303,13 +1345,10 @@ msgid "Do"
 msgstr "実行"
 
 msgid "Show Parent"
-msgstr "親の表示"
+msgstr "親ページの表示"
 
 msgid "Immutable Page"
 msgstr "編集不可のページ"
-
-msgid "Refresh"
-msgstr "キャッシュの更新"
 
 msgid "Show Changes"
 msgstr "変更内容の表示"
@@ -1343,6 +1382,8 @@ msgstr "ユーザ"
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
 msgstr ""
+"このwikiでは\"%(content)s\"は許可されていません。ページを保存できませんでし"
+"た。"
 
 msgid "Line"
 msgstr "行"
@@ -1360,12 +1401,6 @@ msgstr "メールサーバ'%(server)s'への接続に失敗しました(理由: 
 msgid "Mail sent OK"
 msgstr "メール送信完了。"
 
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
-
 msgid "FrontPage"
 msgstr "フロントページ"
 
@@ -1376,13 +1411,13 @@ msgid "TitleIndex"
 msgstr "タイトルインデックス"
 
 msgid "WordIndex"
-msgstr "ワードインデックス"
+msgstr "単語インデックス"
 
 msgid "FindPage"
 msgstr "ページ検索"
 
 msgid "SiteNavigation"
-msgstr "サイトナビ"
+msgstr "サイトナビゲーション"
 
 msgid "HelpContents"
 msgstr "ヘルプの目次"
@@ -1397,7 +1432,7 @@ msgid "WikiLicense"
 msgstr "Wikiライセンス"
 
 msgid "MissingPage"
-msgstr "見つからないページ"
+msgstr "存在しないページ"
 
 msgid "Mon"
 msgstr "月"
@@ -1438,6 +1473,18 @@ msgstr "ページ名変更"
 msgid "SpellCheck"
 msgstr "スペルチェック"
 
+#~ msgid "MIME Type (optional)"
+#~ msgstr "MIMEタイプ (省略可)"
+
+#~ msgid "Refresh"
+#~ msgstr "キャッシュの更新"
+
+#~ msgid "<escape>"
+#~ msgstr "<エスケープ>"
+
+#~ msgid "[\"<escape>\"]"
+#~ msgstr "[\"<エスケープ>\"]"
+
 #~ msgid "(edit log entry is missing)"
 #~ msgstr "(編集ログがありません)"
 
@@ -1466,9 +1513,6 @@ msgstr "スペルチェック"
 #~ msgstr ""
 #~ "このページを購読しているユーザはいないので、メールでの通知は行われませんで"
 #~ "した。"
-
-#~ msgid "Home"
-#~ msgstr "ホーム"
 
 #~ msgid "Unknown action"
 #~ msgstr "未定義のアクション"
@@ -1533,9 +1577,6 @@ msgstr "スペルチェック"
 
 #~ msgid "An error occurred while reverting the page."
 #~ msgstr "前のバージョンに戻せませんでした。"
-
-#~ msgid "Create this page"
-#~ msgstr "このページを作成"
 
 #~ msgid "Alternatively, use one of these templates:"
 #~ msgstr "次のテンプレートを利用することもできます。"

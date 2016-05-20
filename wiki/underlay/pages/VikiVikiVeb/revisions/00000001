@@ -1,8 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:WikiWikiWeb
 ##master-date:2004-03-17 21:35:00
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language sr
 
 [wiki:Wiki:FrontPage Prva izvorna Viki stranica] je stvorena 1994. kao automatski dodatak za stranicu Wiki:PortlandPatternRepository. Stranica je odmah postala popularna u "pattern" društvu, uglavnom zbog

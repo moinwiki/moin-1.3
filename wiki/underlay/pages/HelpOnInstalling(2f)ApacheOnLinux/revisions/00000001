@@ -1,7 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ## page was renamed from HelpOnInstalling/ApacheOnUnix
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language en
 
 This page describes the particular steps that need to be taken when you use Moin``Moin on Linux with the Apache web server. You should have already performed the ../BasicInstallation.
@@ -100,6 +105,11 @@ Everything should work fine now. It is time to '''restart the Apache server''' (
  * If you see them, congratulations, your new wiki works! :)
 
 If something goes wrong, have a look at Troubleshooting, at the bottom of this page.
+
+=== Apache tricks ===
+
+For more advanced configuration and some tricks see HelpMiscellaneous.
+
 
 == Simple user (home directory installation) ==
 
@@ -226,7 +236,7 @@ In some (sane) Linux distributions (like SuSE 9.0) serving directories other tha
 <Directory />
   Options None
   AllowOverride None
-  Order deny, allow
+  Order deny,allow
   Deny from all
 </Directory>
 }}}

@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:FindPage
 ##master-date:2001-12-08 22:02:06
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 Sie können mit dieser Seite alle Einträge in diesem WikiWikiWeb durchsuchen. Die Suche beachtet keine Groß/Kleinschreibung.
 
 Gute Einstiegsstellen für die Erkundung eines Wikis sind:

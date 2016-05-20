@@ -1,7 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
 #format plain
+#language en
 # MoinMoin master InterWiki list
 
 # MoinMoin additions
@@ -19,8 +24,8 @@ SpackOrg http://www.spack.org/index.cgi/
 ESW http://esw.w3.org/topic/
 OSPedia http://ospedia.osdir.com/
 MsgID http://groups.google.com/groups?as_umsgid=
-MoinCVS http://archzoom.sourcecontrol.net/archzoom.cgi/arch@arch.thinkmo.de--2003-archives/moin--main--1.3--LATEST/
-MoinSrc http://archzoom.sourcecontrol.net/archzoom.cgi/arch@arch.thinkmo.de--2003-archives/moin--main--1.3--LATEST/
+MoinCVS http://arch.thinkmo.de/cgi-bin/archzoom.cgi/arch@arch.thinkmo.de--2003-archives/moin--main--1.3--LATEST/
+MoinSrc http://arch.thinkmo.de/cgi-bin/archzoom.cgi/arch@arch.thinkmo.de--2003-archives/moin--main--1.3--LATEST/
 
 # Updated 2004-11-19 from http://www.usemod.com/cgi-bin/mb.pl?InterMapTxt
 

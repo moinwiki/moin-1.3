@@ -16,6 +16,11 @@ from MoinMoin import config, multiconfig, user
 from MoinMoin.util import pysupport
 
 
+# Exceptions
+class TestSkiped(Exception):
+    """ Raised when a tests is skipped """
+
+
 class TestConfig:
     """ Custom configuration for unit tests
     
@@ -34,7 +39,7 @@ class TestConfig:
                 self.config = TestConfig(defaults=key_list, key=value,...)              
             def tearDown(self):
                 del self.config
-            def testSomthing(self):
+            def testSomething(self):
                 # test that needs those defaults and custom values
     """
     
@@ -132,7 +137,7 @@ def run(provided_request=None):
         request.form = request.args = request.setup_args()
         # {'query_string': 'action=print'}
 
-    request.user = user.User(request)
+        request.user = user.User(request)
 
     suite = makeSuite()
     unittest.TextTestRunner(stream=request, verbosity=2).run(suite)

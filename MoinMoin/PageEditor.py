@@ -6,8 +6,9 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, time, urllib, codecs
-from MoinMoin import caching, config, user, util, wikiutil
+import os, time, codecs, re
+
+from MoinMoin import caching, config, user, util, wikiutil, error
 from MoinMoin.Page import Page
 from MoinMoin.widget import html
 from MoinMoin.widget.dialog import Status
@@ -83,37 +84,8 @@ class PageEditor(Page):
 
     # exceptions for .saveText()
 
-    class SaveError(Exception):
-        """ Base class for error while saving a page
-
-        Hold a unicode message describing the error. This message is
-        usually displayed at the message box after a page editor action.
-
-        Usage:
-
-            if error_condition:
-                raise SaveError(_('The page could not be saved, I don't know why'))
-        
-        """
-        def __init__(self, msg):
-            """ Initialize an error
-
-            Require a message, so we don't print empty messages later.
-
-            Require unicode argument, because we can't decode non
-            unicode if we don't know what is the encoding.
-            """
-            if not isinstance(msg, unicode):
-                raise RuntimeError('Save error require unicode string')    
-            self.msg = msg
-            
-        def __unicode__(self):
-            """ Return unicode error message """
-            return self.msg
-        
-        def __str__(self):
-            raise RunTimeError('Save error contain unicode string')
-        
+    class SaveError(error.Error):
+        pass
     class AccessDenied(SaveError):
         pass
     class Immutable(AccessDenied):
@@ -127,7 +99,7 @@ class PageEditor(Page):
     class EditConflict(SaveError):
         pass
 
-    def __init__(self, page_name, request, **keywords):
+    def __init__(self, request, page_name, **keywords):
         """
         Create page editor object.
         
@@ -137,11 +109,13 @@ class PageEditor(Page):
         @keyword do_editor_backup: if 0, suppress making of HomePage/MoinEditorBackup per edit
         @keyword uid_override: override user id and name (default None)
         """
-        self.request = request
-        self._ = request.getText
-        self.cfg = request.cfg
-
         Page.__init__(self, request, page_name, **keywords)
+        
+        # already done:
+        #self.request = request
+        #self.cfg = request.cfg
+        
+        self._ = request.getText
 
         self.do_revision_backup = keywords.get('do_revision_backup', 1)
         self.do_editor_backup = keywords.get('do_editor_backup', 1)
@@ -295,6 +269,7 @@ Have a look at the diff of %(difflink)s to see what has been changed.""") % {
         
         wikiutil.send_title(self.request,
             title % {'pagename': self.split_title(self.request),},
+            page=self,
             pagename=self.page_name, msg=status,
             body_onload=self.lock.locktype and 'countdown()' or '', # broken / bug in Mozilla 1.5, when using #preview
             html_head=self.lock.locktype and (
@@ -391,9 +366,9 @@ Have a look at the diff of %(difflink)s to see what has been changed.""") % {
             '<br><input id="editor-comment" type="text" name="comment" value="%s" maxlength="80"></p>' % (
                 wikiutil.escape(kw.get('comment', ''), 1), ))
 
-        # category selection
-        cat_pages = wikiutil.filterCategoryPages(self.request,
-                                                 self.request.rootpage.getPageList())
+        # Category selection
+        filter = re.compile(self.cfg.page_category_regex, re.UNICODE).search
+        cat_pages = self.request.rootpage.getPageList(filter=filter)
         cat_pages.sort()
         cat_pages = [wikiutil.pagelinkmarkup(p) for p in cat_pages]
         cat_pages.insert(0, ('', _('<No addition>', formatted=False)))
@@ -508,6 +483,9 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         except OSError, er:
             import errno
             if er.errno != errno.ENOENT: raise er
+        
+        # reset page object
+        self.reset()
         
         # delete pagelinks
         arena = self
@@ -717,8 +695,9 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
             delimiter = "/"
         else:
             delimiter = ""
-        backuppage = PageEditor(homepage.page_name + delimiter + "MoinEditorBackup",
-                                self.request, do_revision_backup=0)
+        backuppage = PageEditor(self.request,
+                                homepage.page_name + delimiter + "MoinEditorBackup",
+                                do_revision_backup=0)
         if self.cfg.acl_enabled:
             # We need All: at the end to prevent that the original page ACLs
             # make it possible to see preview saves (that maybe were never
@@ -733,23 +712,6 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         backuppage._write_file(intro + newtext)
         
         return backuppage.url(self.request)
-
-    def copypage(self):
-        """
-        Copy a page from underlay directory to page directory
-        """
-        src = self.getPagePath(force_pagedir='underlay', check_create=0)
-        dst = self.getPagePath(force_pagedir='standard', check_create=0)
-        if src and dst and src != dst and os.path.exists(src):
-            try:
-                os.rmdir(dst) # simply remove empty dst dirs
-                # XXX in fact, we should better remove anything we regard as an
-                # empty page, maybe also if there is also an edit-lock or
-                # empty cache. revisions subdir...
-            except:
-                pass
-            if not os.path.exists(dst):
-                filesys.copytree(src, dst)
 
     def _get_pragmas(self, text):
         pragmas = {}
@@ -767,6 +729,24 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
             
         return pragmas
 
+    def copypage(self):
+        """
+        Copy a page from underlay directory to page directory
+        """
+        src = self.getPagePath(use_underlay=1, check_create=0)
+        dst = self.getPagePath(use_underlay=0, check_create=0)
+        if src and dst and src != dst and os.path.exists(src):
+            try:
+                os.rmdir(dst) # simply remove empty dst dirs
+                # XXX in fact, we should better remove anything we regard as an
+                # empty page, maybe also if there is also an edit-lock or
+                # empty cache. revisions subdir...
+            except:
+                pass
+            if not os.path.exists(dst):
+                filesys.copytree(src, dst)
+                self.reset() # reinit stuff
+
     def _write_file(self, text, action='SAVE', comment=u'', extra=u''):
         """ Write the text to the page file (and make a backup of old page).
         
@@ -779,14 +759,23 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
 
         self.copypage()
 
-        pagedir = self.getPagePath(check_create=0)
+        # Write always on the standard directory, never change the
+        # underlay directory copy!
+        pagedir = self.getPagePath(use_underlay=0, check_create=0)
+
         revdir = os.path.join(pagedir, 'revisions')
         cfn = os.path.join(pagedir,'current')
         clfn = os.path.join(pagedir,'current-locked')
-
+        
         # !!! these log objects MUST be created outside the locked area !!!
+
+        # The local log should be the standard edit log, not the
+        # underlay copy log!
+        pagelog = self.getPagePath('edit-log', use_underlay=0, isfile=1)
+        llog = editlog.EditLog(self.request, filename=pagelog,
+                               uid_override=self.uid_override)
+        # Open the global log
         glog = editlog.EditLog(self.request, uid_override=self.uid_override)
-        llog = editlog.EditLog(self.request, rootpagename=self.page_name, uid_override=self.uid_override)
         
         if not os.path.exists(pagedir): # new page, create and init pagedir
             os.mkdir(pagedir)
@@ -832,6 +821,9 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         mtime_usecs = wikiutil.timestamp2version(os.path.getmtime(pagefile))
         # set in-memory content
         self.set_raw_body(text)
+        
+        # reset page object
+        self.reset()
         
         # write the editlog entry
         # for now simply make 2 logs, better would be some multilog stuff maybe
@@ -907,10 +899,14 @@ delete the changes of the other person, which is excessively rude!''
             raise self.Unchanged, msg
         elif self.cfg.acl_enabled:
             from wikiacl import parseACL
+            # Get current ACL and compare to new ACL from newtext. If
+            # they are not the sames, the user must have admin
+            # rights. This is a good place to update acl cache - instead
+            # of wating for next request.
             acl = self.getACL(self.request)
-            if not acl.may(self.request, self.request.user.name, "admin") \
-               and parseACL(self.request, newtext) != acl \
-               and action != "SAVE/REVERT":
+            if (not acl.may(self.request, self.request.user.name, "admin") and
+                parseACL(self.request, newtext) != acl and
+                action != "SAVE/REVERT"):
                 msg = _("You can't change ACLs on this page since you have no admin rights on it!")
                 raise self.NoAdmin, msg
             

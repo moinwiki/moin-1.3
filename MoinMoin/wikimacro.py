@@ -35,7 +35,7 @@ def getNames(cfg):
         return cfg.macro_names
     else:
         lnames = names[:]
-        lnames.extend(wikiutil.getPlugins('macro', cfg.data_dir))
+        lnames.extend(wikiutil.getPlugins('macro', cfg))
         return lnames
 
 def _make_index_key(index_letters, additional_html=""):
@@ -96,7 +96,7 @@ class Macro:
         self.cfg = self.request.cfg
 
     def execute(self, macro_name, args):
-        macro = wikiutil.importPlugin('macro', macro_name, path=self.cfg.data_dir)
+        macro = wikiutil.importPlugin(self.request.cfg, 'macro', macro_name)
         if macro:
             return macro(self, args)
 
@@ -129,7 +129,8 @@ class Macro:
     def get_dependencies(self, macro_name):
         if self.Dependencies.has_key(macro_name):
             return self.Dependencies[macro_name]
-        result = wikiutil.importPlugin('macro', macro_name, 'Dependencies', self.cfg.data_dir)
+        result = wikiutil.importPlugin(self.request.cfg, 'macro', macro_name,
+                                       'Dependencies')
         if result != None:
             return result
         else:
@@ -257,11 +258,20 @@ class Macro:
         index_letters = []
         allpages = int(self.form.get('allpages', [0])[0]) != 0
         # Get page list readable by current user
-        pages = self.request.rootpage.getPageList()
-        if not allpages:
-            pages = [page for page in pages
-                     if not wikiutil.isSystemPage(self.request, page)]
-        pages.sort(lambda x, y: cmp(x.upper(), y.upper()))
+        # Filter by isSystemPage if needed
+        if allpages:
+            # TODO: make this fast by caching full page list
+            pages = self.request.rootpage.getPageList()
+        else:
+            def filter(name):
+                return not wikiutil.isSystemPage(self.request, name)
+            pages = self.request.rootpage.getPageList(filter=filter)
+
+        # Sort ignoring case
+        tmp = [(name.upper(), name) for name in pages]
+        tmp.sort()
+        pages = [item[1] for item in tmp]
+                
         current_letter = None
         for name in pages:
             letter = name[0].upper()
@@ -334,9 +344,10 @@ class Macro:
         except AttributeError:
             ftversion = 'N/A'
 
-        # Get page list readable by current user
-        pagelist = self.request.rootpage.getPageList()
-        totalsize = reduce(operator.add, [Page(self.request, name).size() for name in pagelist])
+        # Get the full pagelist in the wiki
+        pagelist = self.request.rootpage.getPageList(user='')
+        totalsize = reduce(operator.add, [Page(self.request, name).size()
+                                          for name in pagelist])
 
         buf = StringIO()
         row = lambda label, value, buf=buf: buf.write(
@@ -366,7 +377,7 @@ class Macro:
         row(_('Global extension macros'), 
             ', '.join(macro.extension_macros) or nonestr)
         row(_('Local extension macros'), 
-            ', '.join(wikiutil.extensionPlugins('macro', self.cfg.data_dir)) or nonestr)
+            ', '.join(wikiutil.wikiPlugins('macro', self.cfg)) or nonestr)
         ext_actions = []
         for a in action.extension_actions:
             if not a in self.request.cfg.excluded_actions:
@@ -383,11 +394,23 @@ class Macro:
 
         return self.formatter.rawHTML(buf.getvalue())
 
-
     def _macro_PageCount(self, args):
-        """ Return number of pages readable by current user """
-        return self.formatter.text("%d" % (len(self.request.rootpage.getPageList()),))
-
+        """ Return number of pages readable by current user
+        
+        Return either an exact count (slow!) or fast count including
+        deleted pages.
+        """
+        # Check input
+        options = {None: 0, '': 0, 'exists': 1}
+        try:
+            exists = options[args]
+        except KeyError:
+            # Wrong argument, return inline error message
+            arg = self.formatter.text(args)
+            return '<span class="error">Wrong argument: %s</span>' % arg
+        
+        count = self.request.rootpage.getPageCount(exists=exists)
+        return self.formatter.text("%d" % count)
 
     def _macro_Icon(self, args):
         icon = args.lower()
@@ -424,18 +447,17 @@ class Macro:
             return "<strong>%s: %s</strong>" % (
                 _("ERROR in regex '%s'") % (args,), e)
 
-        # Get page list readable by current user
-        pages = self.request.rootpage.getPageList()
-        hits = filter(needle_re.search, pages)
+        # Get page list readable by current user, filtered by needle
+        hits = self.request.rootpage.getPageList(filter=needle_re.search)
         hits.sort()
         
         result = []
         result.append(self.formatter.bullet_list(1))
-        for filename in hits:
+        for pagename in hits:
             result.append(self.formatter.listitem(1))
-            result.append(self.formatter.pagelink(1, filename, generated=1))
-            result.append(self.formatter.text(filename))
-            result.append(self.formatter.pagelink(0))
+            result.append(self.formatter.pagelink(1, pagename, generated=1))
+            result.append(self.formatter.text(pagename))
+            result.append(self.formatter.pagelink(0, pagename))
             result.append(self.formatter.listitem(0))
         result.append(self.formatter.bullet_list(0))
         return ''.join(result)

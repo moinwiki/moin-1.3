@@ -30,8 +30,8 @@ llamada macro.-~
 ''',
 '''You are not allowed to view this page.''':
 '''No tienes permisos para ver esta página.''',
-'''RefreshCache''':
-'''RefrescarCache''',
+'''DeleteCache''':
+'''EliminarCaché''',
 '''(cached %s)''':
 '''(cached %s)''',
 '''You are not allowed to edit this page.''':
@@ -91,7 +91,7 @@ If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your c
 '''Al pulsar \'\'\'%(save_button_text)s\'\'\' incorporas tus cambios bajo %(license_link)s.
 Si no quieres eso, pulsa \'\'\'%(cancel_button_text)s\'\'\' para cancelar tus cambios.''',
 '''Preview''':
-'''Previsualizar''',
+'''Vista Previa''',
 '''Trivial change''':
 '''Cambio trivial''',
 '''Remove trailing whitespace from each line''':
@@ -506,7 +506,7 @@ Contacta el propietario del wiki. El es quien puede habilitar e-mails''',
 '''Wiki Markup''':
 '''Formato Wiki''',
 '''Print View''':
-'''Imprimir Vista''',
+'''Vista de Impresión''',
 '''[%d attachments]''':
 '''[%d adjuntos]''',
 '''There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.''':
@@ -540,8 +540,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 De lo contrario; si el campo "Cambiar nombre a" queda vacío, se usará el nombre original del archivo.''',
 '''File to upload''':
 '''Archivo a subir''',
-'''MIME Type (optional)''':
-'''Tipo MIME (opcional)''',
 '''Save as''':
 '''Guardar como''',
 '''Upload''':
@@ -602,6 +600,8 @@ De lo contrario; si el campo "Cambiar nombre a" queda vacío, se usará el nombr
 '''¡No tienes permisos para renombrar páginas en este wiki!''',
 '''Please use the interactive user interface to rename pages!''':
 '''¡Por favor, usa la interfaz interactiva de usuario para renombrar páginas!''',
+'''Could not rename page because of file system error: %s.''':
+'''No se pudo renombrar la página debido a error del sitema de archivo: %s.''',
 '''Rename Page''':
 '''Renombrar Página''',
 '''New name''':
@@ -630,6 +630,8 @@ Intenta con un nombre distinto.''',
 '''Búsqueda en contenidos: "%s"''',
 '''Full Link List for "%s"''':
 '''Lista completa de enlaces para "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''No es posible crear una página sin nombre. Por favor, otorga un nombre a la página.''',
 '''Invalid include arguments "%s"!''':
 '''Argumentos include no válidos "%s"!''',
 '''Nothing found for "%s"!''':
@@ -637,7 +639,7 @@ Intenta con un nombre distinto.''',
 '''Unsupported navigation scheme \'%(scheme)s\'!''':
 '''¡Esquema de navegación  \'%(scheme)s\' no soportado!''',
 '''No parent page found!''':
-'''¡No se encontró página superior!''',
+'''¡No se encontró una página superior!''',
 '''Wiki''':
 '''Wiki''',
 '''Slideshow''':
@@ -646,6 +648,8 @@ Intenta con un nombre distinto.''',
 '''Empezar''',
 '''Slide %(pos)d of %(size)d''':
 '''Diapositiva %(pos)d de %(size)d''',
+'''Create New Page''':
+'''Crear Nueva Página''',
 '''No orphaned pages in this wiki.''':
 '''No hay páginas huérfanas en este wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -682,6 +686,10 @@ Intenta con un nombre distinto.''',
 '''Bajar XML exportado de este wiki''',
 '''No wanted pages in this wiki.''':
 '''No existen páginas-por-crear en este wiki.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**Excedido el número máximo de \'includes\' permitidos''',
+'''**Could not find the referenced page: %s**''':
+'''**No se encontró la página referenciada: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''Crear nuevo dibujo "%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
@@ -702,6 +710,8 @@ Intenta con un nombre distinto.''',
 '''¡El procesamiento de XSLT no está disponible!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s error de procesamiento''',
+'''RefreshCache''':
+'''RefrescarCache''',
 '''for this page (cached %(date)s)''':
 '''para esta página (en cache desde el %(date)s)''',
 '''Charts are not available!''':
@@ -726,6 +736,24 @@ rojo=editar''',
 '''Otros''',
 '''Distribution of User-Agent Types''':
 '''Distribución de Tipos de Agentes-de-Usuario (User-Agent)''',
+'''Unsubscribe''':
+'''Desuscribirse''',
+'''Home''':
+'''Home''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[ELIMINADA]''',
+'''[UPDATED]''':
+'''[ACTUALIZADA]''',
+'''[NEW]''':
+'''[NUEVA]''',
+'''[DIFF]''':
+'''[DIFF]''',
+'''[BOTTOM]''':
+'''[FINAL]''',
+'''[TOP]''':
+'''[INICIO]''',
 '''Click to do a full-text search for this title''':
 '''Haz click aquí para efectuar una búsqueda de contenidos para este título''',
 '''Clear message''':
@@ -740,14 +768,14 @@ rojo=editar''',
 '''Texto''',
 '''Titles''':
 '''Títulos''',
-'''Unsubscribe''':
-'''Desuscribirse''',
 '''More Actions:''':
 '''Más Acciones''',
 '''Show Raw Text''':
-'''Mostrar Texto sin formato''',
+'''Texto sin formato''',
 '''Show Print View''':
-'''Mostrar Vista de Impresión''',
+'''Vista de Impresión''',
+'''Delete Cache''':
+'''Eliminar Caché''',
 '''Attach File''':
 '''Adjuntar Archivo''',
 '''Delete Page''':
@@ -759,11 +787,9 @@ rojo=editar''',
 '''Do''':
 '''Hacer''',
 '''Show Parent''':
-'''Mostrar Página superior''',
+'''Ir a Página superior''',
 '''Immutable Page''':
 '''Página inmutable''',
-'''Refresh''':
-'''Refrescar''',
 '''Show Changes''':
 '''Mostrar cambios''',
 '''Get Info''':
@@ -775,13 +801,15 @@ rojo=editar''',
 '''Immutable page''':
 '''Página inmutable''',
 '''Or try one of these actions:''':
-'''O prueba una de estas acciones: ''',
+'''O intenta una de estas acciones: ''',
 '''Page''':
 '''Página''',
 '''Trail''':
 '''Páginas Visitadas''',
 '''User''':
 '''Usuario''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Lo lamento, pero no se guardó la página ya que  "%(content)s" no se permite en este wiki.''',
 '''Line''':
 '''Línea''',
 '''Deletions are marked like this.''':
@@ -797,9 +825,9 @@ rojo=editar''',
 '''RecentChanges''':
 '''CambiosRecientes''',
 '''TitleIndex''':
-'''IndiceDeTitulos''',
+'''IndiceDeTítulos''',
 '''WordIndex''':
-'''IndicePorPalabras''',
+'''IndiceDePalabras''',
 '''FindPage''':
 '''BuscaPágina''',
 '''SiteNavigation''':

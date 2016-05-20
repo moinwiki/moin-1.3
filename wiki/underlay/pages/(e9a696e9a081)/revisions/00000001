@@ -1,6 +1,9 @@
-#language zh-tw
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:FrontPage
 ##master-date:2003-12-01 18:59:39
+#format wiki
+#language zh-tw
 #pragma section-numbers off
 
 /!\ This is the FrontPage in UTF-8 Chinese (Traditional).

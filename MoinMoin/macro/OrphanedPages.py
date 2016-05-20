@@ -38,7 +38,7 @@ def execute(macro, args):
         result.append(macro.formatter.listitem(1))
         result.append(macro.formatter.pagelink(1, name, generated=1))
         result.append(macro.formatter.text(name))
-        result.append(macro.formatter.pagelink(0))        
+        result.append(macro.formatter.pagelink(0, name))
         result.append(macro.formatter.listitem(0))
     result.append(macro.formatter.number_list(0))
 

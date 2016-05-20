@@ -6,16 +6,19 @@
     @license: GNU GPL, see COPYING for details.
 """
 
+import re
+
 Dependencies = ["language"]
 from MoinMoin import wikiutil
 
 def execute(self, args):
-    # look for template pages
-    templates = filter(lambda page, u = wikiutil: u.isTemplatePage(self.request, page),
-        self.request.rootpage.getPageList())
+    # Get list of template pages readable by current user
+    filter = re.compile(self.request.cfg.page_template_regex, re.UNICODE).search
+    templates = self.request.rootpage.getPageList(filter=filter)
+
     if templates:
         templates.sort()
-                                                                                                                  
+
         # send list of template pages
         result = self.formatter.bullet_list(1)
         for page in templates:
@@ -29,5 +32,5 @@ def execute(self, args):
 
         result = result + self.formatter.bullet_list(0)
         return result
-    else:
-        return ''
+    
+    return ''

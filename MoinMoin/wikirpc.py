@@ -352,7 +352,7 @@ class XmlRpcBase:
         if not (self.request.user.trusted and self.request.user.may.write(pagename)):
             return xmlrpclib.Fault(1, "You are not allowed to edit this page")
 
-        page = PageEditor(pagename, self.request)
+        page = PageEditor(self.request, pagename)
         try:
             if self.version == 2:
                 newtext = self._instr(pagetext)
@@ -391,7 +391,8 @@ class XmlRpcBase:
                 fn = getattr(self, 'xmlrpc_' + method)
                 response = fn(*params)
             except AttributeError:
-                fn = wikiutil.importPlugin('xmlrpc', method, 'execute', self.request.cfg.data_dir)
+                fn = wikiutil.importPlugin(self.request.cfg, 'xmlrpc', method,
+                                           'execute')
                 response = fn(self, *params)
         except:
             # report exception back to server

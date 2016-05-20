@@ -25,11 +25,14 @@ _tokens = {
     _TEXT:              'Text',
 }
 
+Dependencies = []
+
 class Parser:
     """ Send colored python source.
     """
 
     extensions = ['.py']
+    Dependencies = []
 
     def __init__(self, raw, request, **kw):
         """ Store the source text.
@@ -67,8 +70,8 @@ class Parser:
         except tokenize.TokenError, ex:
             msg = ex[0]
             line = ex[1][0]
-            self.request.write("<h3>ERROR: %s</h3>%s\n" % (
-                msg, self.raw[self.lines[line]:]))
+            self.request.write("<b>ERROR: %s</b><br>%s\n" % (
+                msg, self.formatter.text(self.raw[self.lines[line]:])))
         self.request.write(self.formatter.code_line(0))
         self.request.write(formatter.code_area(0, self._code_id))
 

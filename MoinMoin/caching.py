@@ -6,7 +6,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, shutil
+import os
 from MoinMoin import config
 
 class CacheEntry:
@@ -65,6 +65,7 @@ class CacheEntry:
         return needsupdate
 
     def copyto(self, filename):
+        import shutil
         shutil.copyfile(filename, self._filename())
 
         try:

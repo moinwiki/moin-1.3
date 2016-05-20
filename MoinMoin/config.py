@@ -4,6 +4,10 @@
 
 import re
 
+# Threads flag - if you write a moin server that use threads, import
+# config in the server and set this flag to True.
+use_threads = False
+
 # Charset - we support only 'utf-8'. While older encodings might work,
 # we don't have the resources to test them, and there is no real
 # benefit for the user.

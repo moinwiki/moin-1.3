@@ -23,7 +23,7 @@ def switchUID(uid, gid):
     if uid == 0 or gid == 0:
         # We will not run as root. If you like to run a web
         # server as root, then hack this code.
-        raise RunTimeError('will not run as root!')
+        raise RuntimeError('will not run as root!')
 
     try:
         os.setgid(gid)
@@ -67,7 +67,7 @@ class Config:
         # If serving privileged port, we must run as root to bind the port.
         # we will give up root privileges later
         if self.port < 1024 and os.getuid() != 0:
-            raise RunTimeError('Must run as root to serve port number under 1024. '
+            raise RuntimeError('Must run as root to serve port number under 1024. '
                                'Run as root or change port setting.')
 
         # If we run as root to serve privileged port, we change user and group

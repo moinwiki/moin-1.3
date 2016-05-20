@@ -70,8 +70,15 @@ class FormatterBase:
 
     # Links ##############################################################
     
-    def pagelink(self, on, pagename='', **kw):
-        if kw.get('generated', 0) or not on: return
+    def pagelink(self, on, pagename='', page=None, **kw):
+        """ make a link to page <pagename>. Instead of supplying a pagename,
+            it is also possible to give a live Page object, then page.page_name
+            will be used.
+        """
+        if kw.get('generated', 0) or not on: 
+            return
+        if not pagename and page:
+            pagename = page.page_name
         if self._store_pagelinks and pagename not in self.pagelinks:
             self.pagelinks.append(pagename)
 
@@ -235,14 +242,12 @@ class FormatterBase:
             writes out the result instead of returning it!
         """
         if not is_parser:
-            processor = wikiutil.importPlugin("processor",
-                                              processor_name, "process",
-                                              self.request.cfg.data_dir)
+            processor = wikiutil.importPlugin(self.request.cfg, "processor",
+                                              processor_name, "process")
             processor(self.request, self, lines)
         else:
-            parser = wikiutil.importPlugin("parser",
-                                           processor_name, "Parser",
-                                           self.request.cfg.data_dir)
+            parser = wikiutil.importPlugin(self.request.cfg, "parser",
+                                           processor_name, "Parser")
             args = self._get_bang_args(lines[0])
             if args is not None:
                 lines=lines[1:]

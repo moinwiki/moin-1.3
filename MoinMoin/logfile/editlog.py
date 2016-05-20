@@ -146,7 +146,7 @@ class EditLog(LogFile):
                 expr = "%s and x.%s == %s" % (expr, field, `kw[field]`)
                 
         if kw.has_key('ed_time_usecs'):
-            expr = "%s and long(x.ed_time_usecs) == %s" % (expr, int(kw['ed_time_usecs'])) # must be long for py 2.2.x
+            expr = "%s and long(x.ed_time_usecs) == %s" % (expr, long(kw['ed_time_usecs'])) # must be long for py 2.2.x
 
         self.filter = eval("lambda x: " + expr)
     

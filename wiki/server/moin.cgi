@@ -3,26 +3,39 @@
 """
     MoinMoin - CGI Driver Script
 
-    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
+    @copyright: 2000-2005 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
 # System path configuration
 
-# The path to MoinMoin package and configuration files. Note that the
-# path is the path of the directory where the item lives, not the path
-# to the item itself!
-# If you did a standard install, and you are not a developer, you
-# probably want to skip these settings.
+import sys
 
-## import sys
-## sys.path.insert(0, '/path/to/MoinMoin/dir')
-## sys.path.insert(0, '/path/to/wikiconfig/dir')
-## sys.path.insert(0, '/path/to/farmconfig/dir')
+# Path of the directory where wikiconfig.py is located.
+# YOU NEED TO CHANGE THIS TO MATCH YOUR SETUP.
+sys.path.insert(0, '/path/to/wikiconfig')
 
+# Path to MoinMoin package, needed if you installed with --prefix=PREFIX
+# or if you did not use setup.py.
+## sys.path.insert(0, 'PREFIX/lib/python2.3/site-packages')
+
+# Path of the directory where farmconfig.py is located (if different).
+## sys.path.insert(0, '/path/to/farmconfig')
+
+
+# This is used to profile MoinMoin (default disabled)
+hotshotProfiler = 0
+
+# ---------------------------------------------------------------------
+
+if hotshotProfiler:
+    import hotshot
+    prof = hotshot.Profile("moin.prof")
+    prof.start()
 
 from MoinMoin.request import RequestCGI
-
 request = RequestCGI()
 request.run()
 
+if hotshotProfiler:
+    prof.close()

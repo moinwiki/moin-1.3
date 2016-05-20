@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
+##master-sha:1FDC09278570846A9BE72AE31CC3EF8B3245D7C9
 ##master-page:HelpOnEditLocks
 ##master-date:2003-03-11 16:01:18
-##master-sha:1FDC09278570846A9BE72AE31CC3EF8B3245D7C9
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 
 == Sperren gegen gleichzeitiges Editieren ==
 

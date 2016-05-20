@@ -21,13 +21,13 @@ class Dialog(base.Widget):
         """ Initialize a dialog 
         
         @param request: current request
-        @keyword html: complete html for dialog
+        @keyword content: dialong content
         """
         base.Widget.__init__(self, request, **kw)
-        self.content = kw.get('content')
+        self.content = kw.get('content', '')
 
     def render(self):
-        return u'<div class="dialog">\n%s\n</div>\n' % self.content
+        return u'<div class="dialog">\n%s\n</div>\n' % unicode(self.content)
 
 
 class Status(base.Widget):
@@ -46,11 +46,11 @@ class Status(base.Widget):
         """ Initialize a dialog 
         
         @param request: current request
-        @keyword html: complete html for dialog
+        @keyword content: status message content
         """
         base.Widget.__init__(self, request, **kw)
-        self.content = kw.get('content')
+        self.content = kw.get('content', '')
 
     def render(self):
-        return u'<p class="status">%s</p>\n' % self.content
+        return u'<p class="status">%s</p>\n' % unicode(self.content)
 

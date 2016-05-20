@@ -1,9 +1,9 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language sv
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:WikiSandBox
 ##master-date:2002-03-05 10:00:35
+#format wiki
+#language sv
 Här kan du experimentera med att göra ändringar. Börja efter de fyra strecken längre ner.  Snälla, skapa '''INTE''' nya sidor utan meningsfullt innehåll bara för att prova.
 
 '''Tips:''' Shift-clicka "HelpOnEditing" för att öppna ett extra fönster med en hjälpsida.

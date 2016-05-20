@@ -16,16 +16,16 @@
             c. if you used symlinks in data/text or elsewhere, remove them
         4. make sure that from_encoding and to_encoding matches your needs (see
            beginning of script below and config.charset in moin_config.py) and
-           run python2.3 12_to_13_mig1.py from your working dir
+           run python2.3 12_to_13_mig6.py from your working dir
         5. if there was no error, you will find:
-            data.pre-mig1 (the script renames your data directory copy to that name)
+            data.pre-mig6 (the script renames your data directory copy to that name)
             data (result, converted to utf-8)
         6. verify conversion results (number of pages, size of logs, attachments,
            number of backup copies) - everything should be reasonable before
            you proceed. Usually the file size gets larger when converting from
            iso8859-1 (or other non-unicode charset) to utf-8 except if your
            content is ASCII-only, then it will keep its size.
-        7. copy additional files from data.pre-mig1 to data (maybe intermaps, logs,
+        7. copy additional files from data.pre-mig6 to data (maybe intermaps, logs,
            etc.). Be aware that the file contents AND file names of wiki content
            may have changed, so DO NOT copy the cache/ directory, but let
            the wiki recreate it.

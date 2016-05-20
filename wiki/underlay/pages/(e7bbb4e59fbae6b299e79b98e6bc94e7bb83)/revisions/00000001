@@ -1,9 +1,9 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:WikiSandBox
 ##master-date:2004-10-06 09:33:07
+#format wiki
+#language zh
 
 == 请注意 ==
  

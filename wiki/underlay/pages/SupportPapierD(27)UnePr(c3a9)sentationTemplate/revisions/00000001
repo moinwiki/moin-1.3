@@ -1,0 +1,22 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##[[Navigation(slides)]]
+##master-page:SlideShowHandOutTemplate
+##master-date:2005-01-10 22:19:10
+#format wiki
+#language fr
+#pragma section-numbers on
+
+(!) Imprimez cette page en '''version d'impression''' pour obtenir la version papier de votre présentation.
+
+## these are just samples, use YOUR pages in the include statements.
+
+[[Include(AideDesPrésentations/000 Introduction)]]
+
+[[Include(AideDesPrésentations/100 Créer les transparents)]]
+
+[[Include(AideDesPrésentations/900 Enfin : présenter vos transparents)]]

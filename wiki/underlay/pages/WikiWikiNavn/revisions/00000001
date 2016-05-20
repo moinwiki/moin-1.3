@@ -1,7 +1,11 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:WikiName
 ##master-date:2004-08-19 19:02:26
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language nb
 
 WikiWikiNavn er ord sammensatt av flere ord som starter med store bokstaver. WikiWikiNavn blir automagisk lenker til wikiwikinavnets side. Dette kalles også for MeatBall:CamelCase lenking. Se også hjelpesidene om lenking (hjelpesidene finnes ikke på norsk endå): HelpOnLinking på engelsk eller HjælpTilHenvisninger på dansk.

@@ -2,83 +2,102 @@
 """
     MoinMoin - MoinMoin.util.pysupport Tests
 
-    Module names must start with 'test_' to be included in the tests.
-
     @copyright: 2004 by Jürgen Hermann <ograf@bitart.de>
     @license: GNU GPL, see COPYING for details.
 """
 
-import unittest, tempfile, os
+import unittest, os
 from MoinMoin.util import pysupport
 from MoinMoin._tests import request, TestConfig
 
 
-class ImportNameTestCase(unittest.TestCase):
-    """ Test if importName works correctly
+class ImportNameFromMoinTestCase(unittest.TestCase):
+    """ Test importName of MoinMoin modules
+
+    We don't make any testing for files, assuming that moin package is
+    not broken.
     """
 
-    def setUp(self):
-        """ Create a dummy plugin path with some module inside
-        """
-        self.plugin_dir = tempfile.mktemp()
-        self.parser_dir = os.path.join(self.plugin_dir, 'plugin', 'parser')
-        os.makedirs(self.parser_dir)
-        open(os.path.join(self.plugin_dir, 'plugin', '__init__.py'), 'w')
-        open(os.path.join(self.plugin_dir, 'plugin', 'parser', '__init__.py'), 'w')
-        f = open(os.path.join(self.parser_dir, 'test.py'), 'w')
-        f.write('import sys, os\ndef test():\n    pass\n')
-        f.close()
-    
-    def tearDown(self):
-        """ Remove the plugin dir
-        """
-        for file in (os.path.join(self.plugin_dir, 'plugin', '__init__.py'),
-                     os.path.join(self.plugin_dir, 'plugin', '__init__.pyc'),
-                     os.path.join(self.plugin_dir, 'plugin', 'parser', '__init__.py'),
-                     os.path.join(self.plugin_dir, 'plugin', 'parser', '__init__.pyc'),
-                     os.path.join(self.parser_dir, 'test.py'),
-                     os.path.join(self.parser_dir, 'test.pyc')):
-            try:
-                os.unlink(file)
-            except OSError:
-                pass
-        for dir in (os.path.join(self.plugin_dir, 'plugin', 'parser'),
-                    os.path.join(self.plugin_dir, 'plugin'),
-                    self.plugin_dir):
-            os.rmdir(dir)
- 
-    def testImportName1(self):
-        """ pysupport: import nonexistant parser from moin
-        
-        Must return None."""
+    def testNonExisting(self):
+        """ pysupport: import nonexistent moin parser return None """
         self.failIf(pysupport.importName('MoinMoin.parser.abcdefghijkl',
                                          'Parser'))
 
-    def testImportName2(self):
-        """ pysupport: import wiki parser from moin
+    def testExisting(self):
+        """ pysupport: import wiki parser from moin succeed
         
         This tests if a module can be imported from the package
-        MoinMoin. Should never fail, cause importName uses
-        __import__ to do it."""
+        MoinMoin. Should never fail!
+        """
         self.failUnless(pysupport.importName('MoinMoin.parser.wiki',
                                              'Parser'))
+   
 
-    def testImportName3(self):
-        """ pysupport: import nonexistant parser plugin
+class ImportNameFromPluginTestCase(unittest.TestCase):
+    """ Test if importName form wiki plugin package """
+    
+    def setUp(self):
+        """ Check for valid plugin and parser packages """
+        # Make sure we have valid plugin and parser dir
+        self.plugindir = os.path.join(request.cfg.data_dir, 'plugin')
+        assert os.path.exists(os.path.join(self.plugindir, '__init__.py')), \
+            "Can't run tests, no plugin package"
+        self.parserdir = os.path.join(self.plugindir, 'parser')
+        assert os.path.exists(os.path.join(self.parserdir, '__init__.py')), \
+            "Can't run tests, no plugin.parser package"
+    
+    def testNonEsisting(self):
+        """ pysupport: import nonexistent plugin return None """
+        name = 'abcdefghijkl'
+
+        # Make sure that the file does not exists
+        for suffix in ['.py', '.pyc']:
+            path = os.path.join(self.parserdir, name + suffix)
+            assert not os.path.exists(path), \
+               "Can't run test, path exists: %r" % path
         
-        Must return None."""
-        self.failIf(pysupport.importName('plugin.parser.abcdefghijkl',
+        self.failIf(pysupport.importName('plugin.parser.%s' % name,
                                          'Parser'))
 
-    def testImportName4(self):
-        """ pysupport: import test parser plugin
+    def testExisting(self):
+        """ pysupport: import existing plugin succeed
         
-        Tests if a module can be importet from an arbitary path
+        Tests if a module can be imported from an arbitrary path
         like it is done in moin for plugins. Some strange bug
         in the old implementation failed on an import of os,
-        cause os does a from os.path import that will stumple
-        over a poisoned sys.modules."""
-        self.failUnless(pysupport.importName('plugin.parser.test',
-                                             'test',
-                                             self.plugin_dir),
-                        'Failed to import the test plugin!')
+        cause os does a from os.path import that will stumble
+        over a poisoned sys.modules.
+        """
+        # Save a test plugin
+        pluginName = 'MoinMoinTestParser'
+        data = '''
+import sys, os
+
+class Parser:
+    pass
+'''
+        # Plugin path does not include the suffix!
+        pluginPath = os.path.join(self.parserdir, pluginName)
+
+        # File must not exists - or we might destroy user data!
+        for suffix in ['.py', '.pyc']:
+            assert not os.path.exists(pluginPath + suffix), \
+               "Can't run test, path exists: %r" % path
+        
+        try:
+            # Write test plugin
+            f = file(pluginPath + '.py', 'w')
+            f.write(data)
+            f.close()
+
+            modulename = request.cfg.siteid + '.plugin.parser.' + pluginName
+            plugin = pysupport.importName(modulename, 'Parser')
+            self.failUnless(plugin.__name__ == 'Parser',
+                            'Failed to import the test plugin')
+        finally:
+            # Remove the test plugin, including the pyc file.
+            for suffix in ['.py', '.pyc']:
+                try:
+                    os.unlink(pluginPath + suffix)
+                except OSError:
+                    pass

@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page: HelpOnMacros/MailTo
 ##master-date:
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 [[Navigation(siblings)]]
 
 Mit Hilfe des '''`MailTo`'''-Makros kann man E-Mail-Adressen recht sicher in ein Wiki einbringen, ohne befürchten zu müssen, dass sie leicht durch Spam-Bots (automatische E-Mail-Adressen-Sammelroboter) gefunden und missbraucht wird.

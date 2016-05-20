@@ -67,7 +67,7 @@ def execute(macro, args):
         # Add link to the wanted page
         result.append(macro.formatter.pagelink(1, name, generated=1))
         result.append(macro.formatter.text(name))
-        result.append(macro.formatter.pagelink(0))
+        result.append(macro.formatter.pagelink(0, name))
 
         # Add links to pages that want this page, highliting
         # the link in those pages.

@@ -15,7 +15,7 @@
     
     So we change like this:      
         * data/pages/PageName/backup/<UTC timestamp in usecs>
-          -> data/pages/revisions/<revno>
+          -> data/pages/PageName/revisions/<revno>
     A page save is now done like that:
         * mv 'current' 'notcurrent'
         * if success ('current' was there):

@@ -1,8 +1,8 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh-tw
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:WikiSandBox
+#format wiki
+#language zh-tw
 你可以在這裡盡情嘗試 wiki 的各項功能, 但是別把四個減號上面的說明改掉了...(就是本段!) 還有, 請 '''*不要*''' 只是因為想試試看, 就新增沒有內容/意義的頁面.
 
 '''提示:''' 按住 Shift 鍵再點選 "HelpOnEditing" 就可以在另一個視窗裡打開編輯說明. IE 用戶請在 "HelpOnEditing" 上點右鍵, 選「在新視窗開啟」. Firefox 或 Mozilla 用戶可以試試用滑鼠中鍵, 在新的分頁中開啟.
@@ -83,3 +83,4 @@ drawing:mytest
 (23:40) < ThomasWal> then this is no option awdsd asdasd sa asdasd sad asdadasds adasd asd asd asd asd asd a dadad ad adad ad asd asd adad asdasd asd adad as d
 (23:40) <     jroes> yeah :/
 }}}
+drawing:mytest2

@@ -28,9 +28,10 @@ def execute(macro, args):
     _ = macro.request.getText
 
     pagename = args or 'FortuneCookies'
-    page = Page(macro.request, pagename)
-    raw = page.get_raw_body()
-    if not macro.request.user.may.read(pagename):
+    if macro.request.user.may.read(pagename):
+        page = Page(macro.request, pagename)
+        raw = page.get_raw_body()
+    else:
         raw = ""
 
     # this selects lines looking like a list item

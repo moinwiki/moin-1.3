@@ -44,7 +44,7 @@ class Permissions:
 
     def __getattr__(self, attr):
         """ if attr is one of the rights in acl_rights_valid, then return a
-            checking function for it. Else use normal getattr().
+            checking function for it. Else raise an error.
         """
         request = self.request
         Page = self.Page

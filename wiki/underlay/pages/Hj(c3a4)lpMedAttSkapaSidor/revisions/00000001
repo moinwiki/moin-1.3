@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language sv
+##translated-by:Karolina Lindqvist, Shakti Wiki
 ##master-page:HelpOnPageCreation
 ##master-date:2002-05-10 10:00:43
-##translated-by:Karolina Lindqvist, Shakti Wiki
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language sv
 == Att skapa en ny sida ==
 
 För att skapa en ny sida, skriv sidans WikiNamn på en redan existerande sida och spara den. Sedan kan du klicka på referensen till den nya sidan, då den nu har blivit en hyperlänk.

@@ -52,7 +52,7 @@ class ParagraphsTestCase(unittest.TestCase):
         for item in markup:
             text = item + 'Paragraph'
             result = parse(text)
-            expected = re.compile(r'<p>\s*Paragraph\s*</p>')
+            expected = re.compile(r'<p.*?>\s*Paragraph\s*</p>')
             self.assert_(expected.search(result),
                          '"%s" not in "%s"' % (expected.pattern, result))
 
@@ -122,43 +122,44 @@ Text
         self.assertEqual(result, expected,
             'Expected "%(expected)s" but got "%(result)s"' % locals())      
         
-
-class DateTimeMacroTestCase(unittest.TestCase):
-    """ Test DateTime macro """
-    
-    text = 'XXX %s XXX'
-    needle = re.compile(text %  r'(.+)')
-    _tests = (
-        # test                                   expected
-        ('[[DateTime(1970-01-06T00:00:00)]]',   '1970-01-06 00:00:00'),
-        ('[[DateTime(259200)]]',                '1970-01-04 00:00:00'),
-        ('[[DateTime(2003-03-03T03:03:03)]]',   '2003-03-03 03:03:03'),
-        ('[[DateTime(2000-01-01T00:00:00Z)]]',  '2000-01-01 00:00:00'),
-        ('[[Date(2002-02-02T01:02:03Z)]]',      '2002-02-02'),
-        )
-
-    def setUp(self):
-        """ Require default date and time format config values """
-        self.config = TestConfig(defaults=('date_fmt', 'datetime_fmt'))
-    
-    def tearDown(self):
-        del self.config
-    
-    def testDateTimeMacro(self):
-        """ parser.wiki: DateTime macro """
-        note = """
-    
-    If this fails, it is likely a problem in your python / libc,
-    not in moin.  See also:
-    <http://sourceforge.net/tracker/index.php?func=detail&
-        aid=902172&group_id=5470&atid=105470>"""
-
-        for test, expected in self._tests:
-            html = parse(self.text % test)
-            result = self.needle.search(html).group(1)
-            self.assertEqual(result, expected,
-                'Expected "%(expected)s" but got "%(result)s"; %(note)s' % locals())
-                        
+# We want to test moin, not glibc time functions, so disable this:
+#
+#class DateTimeMacroTestCase(unittest.TestCase):
+#    """ Test DateTime macro """
+#    
+#    text = 'XXX %s XXX'
+#    needle = re.compile(text %  r'(.+)')
+#    _tests = (
+#        # test                                   expected
+#        ('[[DateTime(1970-01-06T00:00:00)]]',   '1970-01-06 00:00:00'),
+#        ('[[DateTime(259200)]]',                '1970-01-04 00:00:00'),
+#        ('[[DateTime(2003-03-03T03:03:03)]]',   '2003-03-03 03:03:03'),
+#        ('[[DateTime(2000-01-01T00:00:00Z)]]',  '2000-01-01 00:00:00'),
+#        ('[[Date(2002-02-02T01:02:03Z)]]',      '2002-02-02'),
+#        )
+#
+#    def setUp(self):
+#        """ Require default date and time format config values """
+#        self.config = TestConfig(defaults=('date_fmt', 'datetime_fmt'))
+#    
+#    def tearDown(self):
+#        del self.config
+#    
+#    def testDateTimeMacro(self):
+#        """ parser.wiki: DateTime macro """
+#        note = """
+#    
+#    If this fails, it is likely a problem in your python / libc,
+#    not in moin.  See also:
+#    <http://sourceforge.net/tracker/index.php?func=detail&
+#        aid=902172&group_id=5470&atid=105470>"""
+#
+#        for test, expected in self._tests:
+#            html = parse(self.text % test)
+#            result = self.needle.search(html).group(1)
+#            self.assertEqual(result, expected,
+#                'Expected "%(expected)s" but got "%(result)s"; %(note)s' % locals())
+#                        
 
 class TextFormatingTestCase(unittest.TestCase):
     """ Test wiki markup """
@@ -184,31 +185,6 @@ class TextFormatingTestCase(unittest.TestCase):
             result = self.needle.search(html).group(1)
             self.assertEqual(result, expected,
                              'Expected "%(expected)s" but got "%(result)s"' % locals())
-
-
-class LinksFormatingTestCase(unittest.TestCase):
-    ''' Test links generation 
-    
-    Since we can not know the wiki url, we ignore the first part of the href,
-    and test just the part after the wiki url:
-    
-    <----- ignore this part ----->
-    <a href="http://www.wikidomain/PageName">PageName</a>
-    '''
-    text = 'XXX %s XXX'
-    needle = re.compile(text %  r'(.+)')
-    _tests = (
-        # link, end of generated a tag
-        ('["../"]', '/">../</a>'),
-        )
-    
-    def testLinkFormating(self):
-        """ parser.wiki: link formating """
-        for test, expected in self._tests:
-            html = parse(self.text % test)
-            result = self.needle.search(html).group(1)
-            self.assert_(result.endswith(expected),
-                '"%(expected)s" not in "%(result)s"' % locals())
 
 
 class CloseInlineTestCase(unittest.TestCase):
@@ -249,21 +225,21 @@ class InlineCrossingTestCase_Disabled(unittest.TestCase):
        
 
 class EscapeHTMLTestCase(unittest.TestCase):
-
+    
     def testEscapeInTT(self):
         """ parser.wiki: escape html markup in `tt` """
-        test = 'text `<escape>` text\n'
+        test = 'text `<escape-me>` text\n'
         self._test(test)
 
     def testEscapeInTT2(self):
         """ parser.wiki: escape html markup in {{{tt}}} """
-        test = 'text {{{<escape>}}} text\n'
+        test = 'text {{{<escape-me>}}} text\n'
         self._test(test)
 
     def testEscapeInPre(self):
         """ parser.wiki: escape html markup in pre """
         test = '''{{{
-<escape>
+<escape-me>
 }}}
 '''
         self._test(test)
@@ -271,7 +247,7 @@ class EscapeHTMLTestCase(unittest.TestCase):
     def testEscapeInPreHashbang(self):
         """ parser.wiki: escape html markup in pre with hashbang """
         test = '''{{{#!
-<escape>
+<escape-me>
 }}}
 '''
         self._test(test)
@@ -279,36 +255,33 @@ class EscapeHTMLTestCase(unittest.TestCase):
     def testEscapeInPythonCodeArea(self):
         """ parser.wiki: escape html markup in python code area """
         test = '''{{{#!python
-#<escape>
+#<escape-me>
 }}}
 '''
         self._test(test)
 
     def testEscapeInGetTextMacro(self):
         """ parser.wiki: escape html markup in GetText macro """
-        test = "text [[GetText(<escape>)]] text"
+        test = "text [[GetText(<escape-me>)]] text"
         self._test(test)
 
     def testEscapeInGetTextFormatted(self):
         """ parser.wiki: escape html markup in getText formatted call """
-        _ = request.getText
-        test = _('<escape>', formatted=1)
+        test = request.getText('<escape-me>', formatted=1)
         self._test(test)
 
     def testEscapeInGetTextFormatedLink(self):
         """ parser.wiki: escape html markup in getText formatted call with link """
-        _ = request.getText
-        test = _('["<escape>"]', formatted=1)
+        test = request.getText('["<escape-me>"]', formatted=1)
         self._test(test)
 
     def testEscapeInGetTextUnFormatted(self):
         """ parser.wiki: escape html markup in getText non formatted call """
-        _ = request.getText
-        test = _('<escape>', formatted=0)
+        test = request.getText('<escape-me>', formatted=0)
         self._test(test)
 
     def _test(self, test):
-        expected = r'&lt;escape&gt;'
+        expected = r'&lt;escape-me&gt;'
         result = parse(test)
         self.assert_(re.search(expected, result),
                      'Expected "%(expected)s" but got "%(result)s"' % locals())         
@@ -475,4 +448,4 @@ def parse(body):
         request.write = saved_write
 
     return ''.join(output)
-    
+

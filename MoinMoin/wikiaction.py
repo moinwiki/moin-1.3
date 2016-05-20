@@ -154,7 +154,7 @@ def do_diff(pagename, request):
     # this should use the formatter, but there is none?
     request.write('<div id="content">\n') # start content div
     request.write('<p class="diff-header">')
-    request.write(_('Differences between revisions %d and %d') % (oldpage.rev, newpage.rev))
+    request.write(_('Differences between revisions %d and %d') % (oldpage.get_real_rev(), newpage.get_real_rev()))
     if edit_count > 1:
         request.write(' ' + _('(spanning %d versions)') % (edit_count,))
     request.write('</p>')
@@ -460,17 +460,18 @@ def do_show(pagename, request):
 
 
 def do_refresh(pagename, request):
-    if request.form.has_key('arena') and request.form.has_key('key'):
-        from MoinMoin import caching
-        if request.form["arena"][0] == "Page.py":
-            arena = Page(request, pagename)
-            key = 'text_html' # XXX we also need to handle other caches
-        else:
-            arena = request.form["arena"][0]
-            key = request.form["key"][0]
-                
-        cache = caching.CacheEntry(request, arena, key)
-        cache.remove()
+    """ Handle refresh action """
+    # Without arguments, refresh action will refresh the page text_html
+    # cache.
+    arena = request.form.get('arena', ['Page.py'])[0]
+    if arena == 'Page.py':
+        arena = Page(request, pagename)
+    key = request.form.get('key', ['text_html'])[0]
+
+    # Rmove cache entry (if exists), and send the page
+    from MoinMoin import caching
+    cache = caching.CacheEntry(request, arena, key)
+    cache.remove()
     do_show(pagename, request)
 
 
@@ -493,7 +494,7 @@ def do_edit(pagename, request):
             msg = _('You are not allowed to edit this page.'))
         return
     from MoinMoin.PageEditor import PageEditor
-    PageEditor(pagename, request).sendEditor()
+    PageEditor(request, pagename).sendEditor()
 
 
 def do_revert(pagename, request):
@@ -507,7 +508,7 @@ def do_revert(pagename, request):
     rev = int(request.form['rev'][0])
     revstr = '%08d' % rev
     oldpg = Page(request, pagename, rev=rev)
-    pg = PageEditor(pagename, request)
+    pg = PageEditor(request, pagename)
 
     try:
         savemsg = pg.saveText(oldpg.get_raw_body(), 0, extra=revstr,
@@ -529,7 +530,7 @@ def do_savepage(pagename, request):
             msg = _('You are not allowed to edit this page.'))
         return
 
-    pg = PageEditor(pagename, request)
+    pg = PageEditor(request, pagename)
     savetext = request.form.get('savetext', [u''])[0]
     rev = int(request.form.get('rev', ['0'])[0])
     comment = request.form.get('comment', [u''])[0]
@@ -542,18 +543,32 @@ def do_savepage(pagename, request):
     savetext = pg.normalizeText(savetext, stripspaces=rstrip)
 
     # Add category
+
+    # TODO: this code does not work with extended links, and is doing
+    # things behind your back, and in general not needed. Either we have
+    # a full interface for categories (add, delete) or just add them by
+    # markup.
+    
     if category:
         # strip trailing whitespace
         savetext = savetext.rstrip()
 
-        # add category separator if last non-empty line contains non-categories
+        # Add category separator if last non-empty line contains
+        # non-categories.
         lines = filter(None, savetext.splitlines())
         if lines:
+            
+            #TODO: this code is broken, will not work for extended links
+            #categories, e.g ["category hebrew"]
             categories = lines[-1].split()
-            if categories and len(wikiutil.filterCategoryPages(request, categories)) < len(categories):
-                savetext += u'\n----\n'
+            
+            if categories:
+                confirmed = wikiutil.filterCategoryPages(request, categories)
+                if len(confirmed) < len(categories):
+                    # This was not a categories line, add separator
+                    savetext += u'\n----\n'
 
-        # add new category
+        # Add new category
         if savetext and savetext[-1] != u'\n':
             savetext += ' '
         savetext += category + u'\n' # Should end with newline!
@@ -749,9 +764,8 @@ def do_format(pagename, request):
         mimetype = u"text/plain"
 
     # try to load the formatter
-    Formatter = wikiutil.importPlugin("formatter",
-        mimetype.translate({ord(u'/'): u'_', ord(u'.'): u'_'}), "Formatter",
-        path=request.cfg.data_dir)
+    Formatter = wikiutil.importPlugin(request.cfg, "formatter",
+        mimetype.translate({ord(u'/'): u'_', ord(u'.'): u'_'}), "Formatter")
     if Formatter is None:
         # default to plain text formatter
         del Formatter
@@ -767,7 +781,7 @@ def do_format(pagename, request):
 
 
 def do_chart(pagename, request):
-    if request.user.may.read(pagename):
+    if request.user.may.read(pagename) and request.cfg.chart_options:
         chart_type = request.form['type'][0]
         func = pysupport.importName("MoinMoin.stats." + chart_type, "draw")
         func(pagename, request)
@@ -824,7 +838,7 @@ def do_export(pagename, request):
 def do_test(pagename, request):
     from MoinMoin.wikitest import runTest
     request.http_headers(["Content-type: text/plain;charset=%s" % config.charset])
-    request.write('MoinMoin CGI Diagnosis\n======================\n\n')
+    request.write('MoinMoin Diagnosis\n======================\n\n')
     runTest(request)
     raise MoinMoinNoFooter
 
@@ -846,9 +860,12 @@ def getHandler(request, action, identifier="execute"):
     if action in request.cfg.excluded_actions:
         return None
 
-    handler = wikiutil.importPlugin("action", action, identifier, request.cfg.data_dir)
-    if handler: return handler
+    handler = wikiutil.importPlugin(request.cfg, "action", action, identifier)
+    if handler is None:
+        handler = globals().get('do_' + action)
+        
+    return handler
 
-    return globals().get('do_' + action, None)
+    
  
 

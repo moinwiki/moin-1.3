@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
-"PO-Revision-Date: 2004-11-30 22:18+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
+"PO-Revision-Date: 2004-12-25 19:56+0100\n"
 "Last-Translator: Thomas Waldmann <tw-public@gmx.de>\n"
 "Language-Team: German <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -50,8 +50,8 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "Sie dürfen diese Seite nicht ansehen."
 
-msgid "RefreshCache"
-msgstr "SeitenCache"
+msgid "DeleteCache"
+msgstr "CacheLöschen"
 
 #, python-format
 msgid "(cached %s)"
@@ -115,7 +115,7 @@ msgstr "[Inhalt der neuen Seite auf Basis der Vorlage %s]"
 
 #, python-format
 msgid "[Template %s not found]"
-msgstr "[Schablone %s nicht gefunden]"
+msgstr "[Vorlage %s nicht gefunden]"
 
 #, python-format
 msgid "[You may not read %s]"
@@ -853,7 +853,7 @@ msgstr ""
 #, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
 msgstr ""
-"Bitte verwenden Sie einen selektiveren Suchbegriff anstatt {{{\"'%s\"}}}"
+"Bitte verwenden Sie einen selektiveren Suchbegriff anstatt {{{\"%s\"}}}"
 
 #, python-format
 msgid "ERROR in regex '%s'"
@@ -940,9 +940,6 @@ msgstr ""
 
 msgid "File to upload"
 msgstr "Neuer Dateianhang"
-
-msgid "MIME Type (optional)"
-msgstr "MIME-Typ (optional)"
 
 msgid "Save as"
 msgstr "Speichern unter"
@@ -1119,6 +1116,12 @@ msgstr "Volltextsuche: \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "Liste aller Seitenverweise für \"%s\""
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+"Kann keine neue Seite ohne Seitennamen anlegen - bitte geben Sie einen "
+"Seitennamen an."
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Ungültige \"Include\"-Argumente: \"%s\"!"
@@ -1146,6 +1149,9 @@ msgstr "Start"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "Seite %(pos)d von %(size)d"
+
+msgid "Create New Page"
+msgstr "Neue Seite anlegen"
 
 msgid "No orphaned pages in this wiki."
 msgstr "Es existieren keine verwaisten Seiten in diesem Wiki."
@@ -1207,6 +1213,13 @@ msgstr "XML-Export des Wiki-Inhalts herunter laden"
 msgid "No wanted pages in this wiki."
 msgstr "Es existieren keine gewünschten Seiten in diesem Wiki."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr "**Maximale Anzahl erlaubter Includesi überschritten**"
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr "**Konnte die referenzierte Seite nicht finden: %s**"
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "Neue Zeichnung \"%(filename)s\" anlegen"
@@ -1244,6 +1257,9 @@ msgstr "Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar!"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Verarbeitungsfehler vom Typ \"%(errortype)s\""
+
+msgid "RefreshCache"
+msgstr "SeitenCache"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1284,6 +1300,33 @@ msgstr "Sonstige"
 msgid "Distribution of User-Agent Types"
 msgstr "Verteilung der Zugriffe auf Browsertypen"
 
+msgid "Unsubscribe"
+msgstr "Nicht abonnieren"
+
+msgid "Home"
+msgstr "Heim"
+
+msgid "[RSS]"
+msgstr "[RSS]"
+
+msgid "[DELETED]"
+msgstr "[GELÖSCHT]"
+
+msgid "[UPDATED]"
+msgstr "[AKTUALISIERT]"
+
+msgid "[NEW]"
+msgstr "[NEU]"
+
+msgid "[DIFF]"
+msgstr "[DIFF]"
+
+msgid "[BOTTOM]"
+msgstr "[FUSS]"
+
+msgid "[TOP]"
+msgstr "[KOPF]"
+
 msgid "Click to do a full-text search for this title"
 msgstr "Hier klicken für eine Liste der Seiten, die auf diese verweisen"
 
@@ -1307,9 +1350,6 @@ msgstr "Text"
 msgid "Titles"
 msgstr "Titel"
 
-msgid "Unsubscribe"
-msgstr "Nicht abonnieren"
-
 msgid "More Actions:"
 msgstr "Weitere Aktionen:"
 
@@ -1318,6 +1358,9 @@ msgstr "Rohform anzeigen"
 
 msgid "Show Print View"
 msgstr "Druckansicht"
+
+msgid "Delete Cache"
+msgstr "Cache löschen"
 
 msgid "Attach File"
 msgstr "Dateianhänge"
@@ -1339,9 +1382,6 @@ msgstr "Übergeordnete Seite anzeigen"
 
 msgid "Immutable Page"
 msgstr "Geschützte Seite"
-
-msgid "Refresh"
-msgstr "Auffrischen"
 
 msgid "Show Changes"
 msgstr "Änderungen anzeigen"
@@ -1374,7 +1414,9 @@ msgstr "Benutzer"
 #, python-format
 msgid ""
 "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
-msgstr "Kann die Seite nicht speichern, weil der Inhalt \"%(content)s\" in diesem Wiki nicht erlaubt ist."
+msgstr ""
+"Kann die Seite nicht speichern, weil der Inhalt \"%(content)s\" in diesem "
+"Wiki nicht erlaubt ist."
 
 msgid "Line"
 msgstr "Zeile"
@@ -1391,12 +1433,6 @@ msgstr "Verbindung zum Mailserver '%(server)s' gestört: %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "E-Mail wurde erfolgreich versandt"
-
-msgid "<escape>"
-msgstr "<escape>"
-
-msgid "[\"<escape>\"]"
-msgstr "[\"<escape>\"]"
 
 msgid "FrontPage"
 msgstr "StartSeite"
@@ -1469,3 +1505,15 @@ msgstr "SeiteUmbenennen"
 
 msgid "SpellCheck"
 msgstr "RechtSchreibung"
+
+#~ msgid "MIME Type (optional)"
+#~ msgstr "MIME-Typ (optional)"
+
+#~ msgid "Refresh"
+#~ msgstr "Auffrischen"
+
+#~ msgid "<escape>"
+#~ msgstr "<escape>"
+
+#~ msgid "[\"<escape>\"]"
+#~ msgstr "[\"<escape>\"]"

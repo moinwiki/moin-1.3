@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpOnActions
 ##master-date:2003-04-15 05:39:09
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 == Aktionen ==
 
 Aktionen sind Werkzeuge, die auf einer Seite oder auf dem ganzen Wiki arbeiten, aber, anders als Makros, nichts zum Seiteninhalt hinzufügen, wenn man die Seite anschaut, sondern den Seiteninhalt bearbeiten. Sie erzeugen eine Ausgabe, die vom Seiteninhalt abhängt (Navigations-Aktionen wie Suchen) oder implementieren Funktionen, die nicht mit dem Betrachten zusammenhängen (wie Löschen oder Umbenennen einer Seite).

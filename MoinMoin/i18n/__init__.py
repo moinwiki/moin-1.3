@@ -133,7 +133,7 @@ def loadLanguage(request, lang):
     if not needsupdate:
         try:
             (uc_texts, uc_unformatted) = pickle.loads(cache.content())
-        except (IOError,ValueError): #bad pickle data, no pickle
+        except (IOError,ValueError,pickle.UnpicklingError): #bad pickle data, no pickle
             needsupdate = 1
 
     if needsupdate:    

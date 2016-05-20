@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language sv
+##translated-by:Karolina Lindqvist, Shakti Wiki
 ##master-page:HelpOnEditing_2fSubPages
 ##master-date:2002-03-05 10:00:33
-##translated-by:Karolina Lindqvist, Shakti Wiki
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language sv
 == Att skapa undersidor ==
 
 Undersidor är grupper av sidor som har en gemensam huvudsida. Visserligen är detta också möjligt i klassis wiki, genom att använda namn som {{{NågotÄmneUnderÄmne}}}, men används istället {{{NågotÄmne/UnderÄmne}}} gör det lättare att navigera samt att man dessuom inte behöver skriva huvudsidans namn när man länkar från en undersida.

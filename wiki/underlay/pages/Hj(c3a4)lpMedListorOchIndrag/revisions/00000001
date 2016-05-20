@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language sv
+##translated-by:Karolina Lindqvist, Shakti Wiki
 ##master-page:HelpOnLists
 ##master-date:2002-03-05 10:00:33
-##translated-by:Karolina Lindqvist, Shakti Wiki
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language sv
 == Listor och indrag ==
 Du kan skapa punktlistor och numrerade listor på ett ganska enkelt sätt. Allt du behöver göra är att skriva listraden nästan som den är med ett indrag. För att raden ska börja med en stor punkt, börja raden med en stjärna "{{{*}}}". För att få numrerade listrader, börja raden med en nummermall på en av formerna "{{{1.}}}", "{{{a.}}}", "{{{A.}}}", "{{{i.}}}" eller "{{{I.}}}". Beroende på vilken du väljer, får du olika numreringssystem. Allt annat ger enbart indrag. Om du vill börja din numrerade lista med ett speciellt nummer, lägg bara till "{{{#}}}''värde''" till nummermallen.
 

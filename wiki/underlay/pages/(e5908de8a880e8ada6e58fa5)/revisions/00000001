@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh
 ##master-page:FortuneCookies
 ##master-date:2004-11-23 01:51:18
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
 
 `RandomQuote`宏随机地从FortuneCookies网页中的列表中选取一项。在中文版本中我们使用`RandomQuote(名言警句)`从本页的列表中随机地选取一项。参见["帮助-宏"].
 

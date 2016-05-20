@@ -1,8 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh-tw
 ##master-page:InterWiki
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh-tw
 ["網際Wiki"] (或 InterWiki) 可以讓你快速參考到其他 wiki 的內容, 不用記下密密麻麻的 URL, 只要在你要連往的 wiki 別名後面加上頁面的名字, 就可以連過去了.
 當然, 不管別站的頁面存不存在, ["網際Wiki"]連結看起來都一樣, ["中文的MoinMoin"]也沒辦法幫你檢查你指定的名稱, 合不合乎對方 WikiName 的規格, 因此, 輸入完後請多檢查一遍.
 詳見 wiki:MeatBall:MeatballWiki 站上的 wiki:MeatBall/InterWiki.

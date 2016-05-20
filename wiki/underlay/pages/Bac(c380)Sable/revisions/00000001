@@ -1,12 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:WikiSandBox
-##master-date:2004-10-07 10:03:07
+##master-date:2005-01-07 16:26:44
+#format wiki
 #language fr
-Sentez-vous libre d'expérimenter ici, après les quatre tirets ci-dessous... et merci de ne '''PAS''' créer de nouvelles pages sans contenu utile juste pour voir comment ça fait !
+Sentez-vous libre d'expérimenter ici, après les quatre tirets ci-dessous... Merci de ne '''PAS''' créer de nouvelles pages sans contenu utile juste pour essayer !
 
-'''Astuce :''' Ouvrez l'["AideDeL'Édition"] dans une deuxième fenêtre en cliquant avec le bouton droit sur le lien au début de cette ligne.
+'''Astuce :''' ouvrez l'["AideDeL'Édition"] dans une seconde fenêtre en cliquant avec le bouton droit sur le lien au début de cette ligne.
 ----
 
 == Mise en forme ==
@@ -18,13 +18,21 @@ Sentez-vous libre d'expérimenter ici, après les quatre tirets ci-dessous... et
 ~+ plus gros +~ ~- plus petit -~
 
 {{{
-préformatté
+préformatté    plus de texte
+encore plus de texte
 }}}
 
-{{{#!Colorisation python
-def syntax(highlight):
-    print "on"
+{{{#!python
+def syntaxe(mise_en_relief):
+    print "activée"
     return None
+}}}
+
+{{{#!java
+  public void main(String[] args]){
+     System.out.println("Bonjour, Monde !");
+  } 
+
 }}}
 
 == Liens ==
@@ -33,11 +41,14 @@ def syntax(highlight):
 
 http://moinmoin.wikiwikiweb.de/ [http://www.python.org/ Python]
 
-someone@the.inter.net
-
+quelqu.un@sur.inter.net
 
 === Lien vers une image ===
 http://c2.com/sig/wiki.gif
+
+== Frimousses ==
+
+/!\ Attention
 
 == Listes ==
 
@@ -54,16 +65,16 @@ http://c2.com/sig/wiki.gif
  Terme:: Définition
 
 === Dessins ===
-drawing:mytest
+drawing:un_essai
 
 = Titre de niveau 1 =
 == Titre de niveau 2 ==
 === Titre de niveau 3 ===
 ==== Titre de niveau 4 ====
 
-= Test de log IRC =
+= Essai de journal IRC =
 
-{{{#!Colorize irc
+{{{#!irc
 (23:18) <     jroes> ah
 (23:19) <     jroes> hm, i like the way {{{ works, but i was hoping the lines would wrap
 (23:21) -!- gpciceri [~gpciceri@host181-130.pool8248.interbusiness.it] has quit [Read error: 110 (Connection timed out)]

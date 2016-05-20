@@ -6,7 +6,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, string, time, Cookie, sha, locale, codecs
+import os, string, time, Cookie, sha, codecs
 
 try:
     import cPickle as pickle
@@ -25,17 +25,19 @@ except AttributeError:
 from MoinMoin import config, caching, wikiutil
 from MoinMoin.util import datetime
 
+
 def getUserList(request):
-    """
-    Get a list of all (numerical) user IDs.
-    
+    """ Get a list of all (numerical) user IDs.
+
+    @param request: current request
     @rtype: list
     @return: all user IDs
     """
     import re, dircache
-
     user_re = re.compile(r'^\d+\.\d+(\.\d+)?$')
-    return filter(user_re.match, dircache.listdir(request.cfg.user_dir))
+    files = dircache.listdir(request.cfg.user_dir)
+    userlist = filter(user_re.match, files)
+    return userlist
 
 def getUserId(request, searchName):
     """
@@ -105,11 +107,11 @@ def encodePassword(pwd, charset='utf-8'):
         or None
     """
     import base64
-    
-    # TODO: enabled after testing with old user files
-    if 0:
-        pwd = pwd.encode(charset) # Might raise UnicodeError
-        
+
+    # Might raise UnicodeError, but we can't do anything about it here,
+    # so let the caller handle it.
+    pwd = pwd.encode(charset)
+
     pwd = sha.new(pwd).digest()
     pwd = '{SHA}' + base64.encodestring(pwd).rstrip()
     return pwd
@@ -117,14 +119,14 @@ def encodePassword(pwd, charset='utf-8'):
 def normalizeName(name):
     """ Make normalized user name
 
-    Prevent impersonating another user with names containg leading,
+    Prevent impersonating another user with names containing leading,
     trailing or multiple whitespace, or using invisible unicode
     characters.
 
     Prevent creating user page as sub page, because '/' is not allowed
     in user names.
 
-    Prevent using ':' and ',' which are resevred by acl.
+    Prevent using ':' and ',' which are reserved by acl.
     
     @param name: user name, unicode
     @rtype: unicode
@@ -172,9 +174,9 @@ def encodeList(items):
 def decodeList(line):
     """ Decode list of items from user data file
     
-    @param line: line containig list of items, encoded with encodeList
+    @param line: line containing list of items, encoded with encodeList
     @rtype: list of unicode strings
-    @return: list of itmes in encoded in line
+    @return: list of items in encoded in line
     """
     items = []
     for item in line.split('\t'):
@@ -250,7 +252,7 @@ class User:
         
         # if an account is disabled, it may be used for looking up
         # id -> username for page info and recent changes, but it
-        # is not usabled for the user any more:
+        # is not usable for the user any more:
         # self.disabled   = 0
         # is handled by checkbox now.
         
@@ -274,7 +276,7 @@ class User:
             try:
                 cookie = Cookie.SimpleCookie(request.saved_cookie)
             except Cookie.CookieError:
-                # ignore invalid cookies, else user can't relogin
+                # ignore invalid cookies, else user can't re login
                 cookie = None
             if cookie and cookie.has_key('MOIN_ID'):
                 self.id = cookie['MOIN_ID'].value
@@ -454,17 +456,14 @@ class User:
         if self.enc_password and self.enc_password == data['enc_password']:
             return True, False
 
-        # TODO: enable rest of method after testing with old user files
-        return False, False
-        
-        # Try to use all pre 1.3 8 bit charsets
+        # Try to match using one of pre 1.3 8 bit charsets
 
         # Get the clear text password from the form (require non empty
         # password)
         password = self._request.form.get('password',[None])[0]
         if not password:
             return False, False 
-
+                
         # First get all available pre13 charsets on this system
         import codecs
         pre13 = ['iso-8859-1', 'iso-8859-2', 'euc-jp', 'gb2312', 'big5',]
@@ -475,7 +474,7 @@ class User:
                 available.append(charset)
             except LookupError:
                 pass # missing on this system
-
+                
         # Now try to match the password
         for charset in available:
             # Try to encode, failure is expected

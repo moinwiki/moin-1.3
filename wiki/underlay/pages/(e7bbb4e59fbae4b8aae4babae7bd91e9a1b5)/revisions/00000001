@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh
 ##master-page:WikiHomePage
 ##master-date:2004-11-17 20:15:38
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
 
 
 ["维基个人网页"]是您在一个["维基网"]上的个人网页。您可以向大家介绍您的联系方式，兴趣爱好和专业特长等。一般来说个人网页归创建人所有，所以如需修改别人的个人网页，请谨慎为之。

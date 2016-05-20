@@ -4,22 +4,24 @@
     Use this for small, private and local wikis *ONLY*,
     like when using on your local PC or notebook.
 
-    @copyright: 2004 Thomas Waldmann, Nir Soffer
+    @copyright: 2004-2005 Thomas Waldmann, Nir Soffer
     @license: GNU GPL, see COPYING for details.
 """
 
 # System path configuration
 
-# The path to MoinMoin package and configuration files. Note that the
-# path is the path of the directory where the item lives, not the path
-# to the item itself!
-# If you did a standard install, and you are not a developer, you
-# probably want to skip these settings.
+import sys
 
-## import sys
-## sys.path.insert(0, '/path/to/MoinMoin/dir')
-## sys.path.insert(0, '/path/to/wikiconfig/dir')
-## sys.path.insert(0, '/path/to/farmconfig/dir')
+# Path of the directory where wikiconfig.py is located.
+# YOU NEED TO CHANGE THIS TO MATCH YOUR SETUP.
+sys.path.insert(0, '/path/to/wikiconfig')
+
+# Path to MoinMoin package, needed if you installed with --prefix=PREFIX
+# or if you did not use setup.py.
+## sys.path.insert(0, 'PREFIX/lib/python2.3/site-packages')
+
+# Path of the directory where farmconfig is located (if different).
+## sys.path.insert(0, '/path/to/farmconfig')
 
 
 from MoinMoin.server.standalone import StandaloneConfig, run
@@ -35,7 +37,7 @@ class Config(StandaloneConfig):
     group = 'www-data'
 
     # Port (default 8000)
-    # To serve privileged port under 1024 you will have to run as root
+    # To serve privileged port under 1024 you will have to run as root.
     port = 8000
 
     # Interface (default 'localhost')

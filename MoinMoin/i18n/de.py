@@ -30,8 +30,8 @@ auf diesen Seiten platziert werden.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Sie dürfen diese Seite nicht ansehen.''',
-'''RefreshCache''':
-'''SeitenCache''',
+'''DeleteCache''':
+'''CacheLöschen''',
 '''(cached %s)''':
 '''(gecached %s)''',
 '''You are not allowed to edit this page.''':
@@ -65,7 +65,7 @@ Schauen Sie sich auch die Differenz von %(difflink)s an, um zu sehen, was geände
 '''[Content of new page loaded from %s]''':
 '''[Inhalt der neuen Seite auf Basis der Vorlage %s]''',
 '''[Template %s not found]''':
-'''[Schablone %s nicht gefunden]''',
+'''[Vorlage %s nicht gefunden]''',
 '''[You may not read %s]''':
 '''[Sie dürfen %s nicht lesen]''',
 '''Skip to preview''':
@@ -494,7 +494,7 @@ Bitte kontaktieren Sie den Eigentümer des Wiki, der die Mailfunktionen einschalt
 '''Installed processors (DEPRECATED -- use Parsers instead)''':
 '''Installierte Prozessoren (veraltet) -- benutzen Sie stattdessen Parser)''',
 '''Please use a more selective search term instead of {{{"%s"}}}''':
-'''Bitte verwenden Sie einen selektiveren Suchbegriff anstatt {{{"\'%s"}}}''',
+'''Bitte verwenden Sie einen selektiveren Suchbegriff anstatt {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
 '''FEHLER in regulärem Ausdruck \'%s\'''',
 '''Bad timestamp \'%s\'''':
@@ -542,8 +542,6 @@ Besteht ein Namenskonflikt, muss dem neuen Anhang ein alternativer Name zugewies
 Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der originale Dateiname benutzt.''',
 '''File to upload''':
 '''Neuer Dateianhang''',
-'''MIME Type (optional)''':
-'''MIME-Typ (optional)''',
 '''Save as''':
 '''Speichern unter''',
 '''Upload''':
@@ -633,6 +631,8 @@ Versuchen Sie es mit einem anderen Namen.''',
 '''Volltextsuche: "%s"''',
 '''Full Link List for "%s"''':
 '''Liste aller Seitenverweise für "%s"''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''Kann keine neue Seite ohne Seitennamen anlegen - bitte geben Sie einen Seitennamen an.''',
 '''Invalid include arguments "%s"!''':
 '''Ungültige "Include"-Argumente: "%s"!''',
 '''Nothing found for "%s"!''':
@@ -649,6 +649,8 @@ Versuchen Sie es mit einem anderen Namen.''',
 '''Start''',
 '''Slide %(pos)d of %(size)d''':
 '''Seite %(pos)d von %(size)d''',
+'''Create New Page''':
+'''Neue Seite anlegen''',
 '''No orphaned pages in this wiki.''':
 '''Es existieren keine verwaisten Seiten in diesem Wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -685,6 +687,10 @@ Versuchen Sie es mit einem anderen Namen.''',
 '''XML-Export des Wiki-Inhalts herunter laden''',
 '''No wanted pages in this wiki.''':
 '''Es existieren keine gewünschten Seiten in diesem Wiki.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**Maximale Anzahl erlaubter Includesi überschritten**''',
+'''**Could not find the referenced page: %s**''':
+'''**Konnte die referenzierte Seite nicht finden: %s**''',
 '''Create new drawing "%(filename)s"''':
 '''Neue Zeichnung "%(filename)s" anlegen''',
 '''Upload new attachment "%(filename)s"''':
@@ -705,6 +711,8 @@ Versuchen Sie es mit einem anderen Namen.''',
 '''Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar!''',
 '''%(errortype)s processing error''':
 '''Verarbeitungsfehler vom Typ "%(errortype)s"''',
+'''RefreshCache''':
+'''SeitenCache''',
 '''for this page (cached %(date)s)''':
 '''auffrischen (erstellt am %(date)s)''',
 '''Charts are not available!''':
@@ -729,6 +737,24 @@ rot=Änderungen''',
 '''Sonstige''',
 '''Distribution of User-Agent Types''':
 '''Verteilung der Zugriffe auf Browsertypen''',
+'''Unsubscribe''':
+'''Nicht abonnieren''',
+'''Home''':
+'''Heim''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[GELÖSCHT]''',
+'''[UPDATED]''':
+'''[AKTUALISIERT]''',
+'''[NEW]''':
+'''[NEU]''',
+'''[DIFF]''':
+'''[DIFF]''',
+'''[BOTTOM]''':
+'''[FUSS]''',
+'''[TOP]''':
+'''[KOPF]''',
 '''Click to do a full-text search for this title''':
 '''Hier klicken für eine Liste der Seiten, die auf diese verweisen''',
 '''Clear message''':
@@ -743,14 +769,14 @@ rot=Änderungen''',
 '''Text''',
 '''Titles''':
 '''Titel''',
-'''Unsubscribe''':
-'''Nicht abonnieren''',
 '''More Actions:''':
 '''Weitere Aktionen:''',
 '''Show Raw Text''':
 '''Rohform anzeigen''',
 '''Show Print View''':
 '''Druckansicht''',
+'''Delete Cache''':
+'''Cache löschen''',
 '''Attach File''':
 '''Dateianhänge''',
 '''Delete Page''':
@@ -765,8 +791,6 @@ rot=Änderungen''',
 '''Übergeordnete Seite anzeigen''',
 '''Immutable Page''':
 '''Geschützte Seite''',
-'''Refresh''':
-'''Auffrischen''',
 '''Show Changes''':
 '''Änderungen anzeigen''',
 '''Get Info''':
@@ -797,10 +821,6 @@ rot=Änderungen''',
 '''Verbindung zum Mailserver \'%(server)s\' gestört: %(reason)s''',
 '''Mail sent OK''':
 '''E-Mail wurde erfolgreich versandt''',
-'''<escape>''':
-'''<escape>''',
-'''["<escape>"]''':
-'''["<escape>"]''',
 '''FrontPage''':
 '''StartSeite''',
 '''RecentChanges''':

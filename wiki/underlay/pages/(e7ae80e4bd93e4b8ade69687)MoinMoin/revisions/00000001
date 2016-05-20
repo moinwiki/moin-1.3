@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh
 ##master-page:MoinMoin
 ##master-date:2004-11-25 16:20:12
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
 
 ["简体中文MoinMoin"]是MoinMoin的简体中文版本。
 

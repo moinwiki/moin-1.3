@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh
 ##master-page:RecentChanges
 ##master-date:2004-05-11 19:27:40
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
 
 ||<tablewidth="100%" #FFFFA0> [[RandomQuote(名言警句)]]||
 

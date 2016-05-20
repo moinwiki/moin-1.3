@@ -13,26 +13,6 @@ class Theme(ThemeBase):
 
     name = "modern"
 
-    stylesheets_print = (
-        # theme charset         media       basename
-        (name,  'utf-8',   'all',      'common'),
-        (name,  'utf-8',   'all',      'print'),
-        )
-    
-    stylesheets_projection = (
-        # theme charset         media       basename
-        (name,  'utf-8',   'all',      'common'),
-        (name,  'utf-8',   'all',      'projection'),
-        )
-    
-    stylesheets = (
-        # theme charset         media       basename
-        (name,  'utf-8',        'all',      'common'),
-        (name,  'utf-8',        'screen',   'screen'),
-        (name,  'utf-8',        'print',    'print'),
-        (name,  'utf-8',        'projection', 'projection'),
-        )
-
 # Public functions #####################################################
 
     def header(self, d, **kw):
@@ -53,7 +33,8 @@ class Theme(ThemeBase):
             self.username(d),
             self.trail(d),
             self.navibar(d),
-            u'<hr id="pageline">',
+            #u'<hr id="pageline">',
+            u'<div id="pageline"><hr style="display:none;"></div>',
             self.msg(d),
             self.editbar(d),
             u'</div>',

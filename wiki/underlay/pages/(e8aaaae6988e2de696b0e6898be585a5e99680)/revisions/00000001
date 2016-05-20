@@ -1,9 +1,10 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
-## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
-## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh-tw
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ##master-page:HelpForBeginners
 ##master-date:2004-01-30 23:15:44
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh-tw
 == WikiWikiWeb ==
 ["中文的WikiWikiWeb"] 是多人合作的超文本操作環境，特別強調資訊要容易取得、方便修改。
 

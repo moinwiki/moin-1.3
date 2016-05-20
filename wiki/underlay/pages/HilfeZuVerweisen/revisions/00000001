@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpOnLinking
 ##master-date:2004-06-25 10:05:30
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 
 == Beliebige Seiten-Namen ==
 Wenn Sie eine Folge von Zeichen in eckigen Klammern und doppelten Anführungszeichen {{{["wie hier"]}}} einschließen, dann wird daraus ein Seitenname. Dies kann für spezielle Anwendungen benutzt werden (z.B. für's Organisieren einer Liste von Dingen, z.B. Ihrer CD-Sammlung über deren "natürlichen" Namen) oder auch wenn Sie ein Wiki mit nicht-westlichen Zeichensätzen erzeugen wollen.

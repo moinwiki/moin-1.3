@@ -29,8 +29,6 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Bạn không xem trang này được.''',
-'''RefreshCache''':
-'''Làm mới cache''',
 '''(cached %s)''':
 '''(lưu %s)''',
 '''You are not allowed to edit this page.''':
@@ -537,8 +535,6 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 để trống thì tên file gốc sẽ được dùng.''',
 '''File to upload''':
 '''File để tải lên''',
-'''MIME Type (optional)''':
-'''Loại file (MIME) (không bắt buộc)''',
 '''Save as''':
 '''Lưu với tên khác''',
 '''Upload''':
@@ -699,6 +695,8 @@ Vui lòng dùng tên khác.''',
 '''XSLT không thể được thực hiện!''',
 '''%(errortype)s processing error''':
 '''lỗi xử lý %(errortype)s''',
+'''RefreshCache''':
+'''Làm mới cache''',
 '''for this page (cached %(date)s)''':
 '''cho trang này (cached vào ngày %(date)s)''',
 '''Charts are not available!''':
@@ -723,6 +721,10 @@ red=edit''':
 '''Các thứ khác''',
 '''Distribution of User-Agent Types''':
 '''Thống kê theo User-Agent''',
+'''Unsubscribe''':
+'''Huỷ đăng ký''',
+'''Home''':
+'''Trang nhà''',
 '''Click to do a full-text search for this title''':
 '''Nhấn vào đây để thực hiện tìm kiếm theo nội dung với tiêu đề này''',
 '''Clear message''':
@@ -737,8 +739,6 @@ red=edit''':
 '''Nội dung''',
 '''Titles''':
 '''Tiêu đề''',
-'''Unsubscribe''':
-'''Huỷ đăng ký''',
 '''More Actions:''':
 '''Các hành động khác:''',
 '''Show Raw Text''':
@@ -759,8 +759,6 @@ red=edit''':
 '''Hiện trang trên''',
 '''Immutable Page''':
 '''Trang không thể được thay đổi''',
-'''Refresh''':
-'''Làm mới''',
 '''Show Changes''':
 '''Hiện các thay đổi''',
 '''Get Info''':

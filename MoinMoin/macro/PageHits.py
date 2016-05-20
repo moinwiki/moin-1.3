@@ -16,6 +16,9 @@ def execute(macro, args):
     if cache.exists():
         try:
             cache_date, pagehits = eval(cache.content())
+            # refresh because of a bugfix in a decoder
+            if cache_date < 1106440000000000L:
+                raise Exception
         except:
             cache_date, pagehits = 0, {}
     else:
@@ -55,7 +58,7 @@ def execute(macro, args):
             macro.formatter.code(0),
             macro.formatter.pagelink(1, pagename, generated=1),
             macro.formatter.text(pagename),
-            macro.formatter.pagelink(0),
+            macro.formatter.pagelink(0, pagename),
             macro.formatter.listitem(0),
         ])
     result.append(macro.formatter.number_list(0))

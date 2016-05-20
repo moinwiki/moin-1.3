@@ -18,8 +18,6 @@ text = {
 '''Deze pagina leidt om naar pagina "%(page)s"''',
 '''You are not allowed to view this page.''':
 '''Je hebt geen toestemming deze pagina te bekijken.''',
-'''RefreshCache''':
-'''VerversCache''',
 '''(cached %s)''':
 '''(cache %s)''',
 '''You are not allowed to edit this page.''':
@@ -426,8 +424,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 is dan zul je het bestand dat je wilt inzenden een andere naam moeten geven.Anders, als "Opslaan als" leeg is zal de oorspronkelijke naam van het bestand gebruikt worden.''',
 '''File to upload''':
 '''Bestand om op te sturen''',
-'''MIME Type (optional)''':
-'''MIME-type (optioneel)''',
 '''Save as''':
 '''Opslaan als''',
 '''Upload''':
@@ -570,6 +566,8 @@ is dan zul je het bestand dat je wilt inzenden een andere naam moeten geven.Ande
 '''Verwerking van XSLT is niet beschikbaar!''',
 '''%(errortype)s processing error''':
 '''Verwerkingsfout %(errortype)s''',
+'''RefreshCache''':
+'''VerversCache''',
 '''for this page (cached %(date)s)''':
 '''voor deze pagina (gecachet %(date)s)''',
 '''Charts are not available!''':
@@ -594,6 +592,8 @@ rood=bewerken''',
 '''Andere''',
 '''Distribution of User-Agent Types''':
 '''Verdeling van type User-Agent''',
+'''Home''':
+'''Thuisblad''',
 '''Clear message''':
 '''Bericht wissen''',
 '''Do''':

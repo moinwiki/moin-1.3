@@ -29,8 +29,6 @@ for at bruge denne formular på andre sider.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Du har ikke lov til at se denne side!''',
-'''RefreshCache''':
-'''OpdatérCache''',
 '''(cached %s)''':
 '''(husket %s)''',
 '''You are not allowed to edit this page.''':
@@ -533,8 +531,6 @@ navnekonflikt, skal du omdøbe den fil du vil lægge op.
 Alternativt, hvis "Omdøb" er blank, anvendes det originale filnavn.''',
 '''File to upload''':
 '''Fil at lægge op''',
-'''MIME Type (optional)''':
-'''MIME-type (valgfri)''',
 '''Save as''':
 '''Gem som''',
 '''Upload''':
@@ -693,6 +689,8 @@ Prøv et andet navn.''',
 '''XSLT-håndtering er ikke tilgængelig!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s programfejl''',
+'''RefreshCache''':
+'''OpdatérCache''',
 '''for this page (cached %(date)s)''':
 '''for denne side (husket siden %(date)s)''',
 '''Charts are not available!''':
@@ -717,6 +715,10 @@ rød=redigér''',
 '''Andre''',
 '''Distribution of User-Agent Types''':
 '''Fordeling af "User-Agent"-typer''',
+'''Unsubscribe''':
+'''Afmeld abonnement''',
+'''Home''':
+'''Hjem''',
 '''Click to do a full-text search for this title''':
 '''Klik her for at lave en fritekstsøgning efter denne titel''',
 '''Clear message''':
@@ -731,8 +733,6 @@ rød=redigér''',
 '''Tekst''',
 '''Titles''':
 '''Titler''',
-'''Unsubscribe''':
-'''Afmeld abonnement''',
 '''More Actions:''':
 '''Flere Rutiner:''',
 '''Show Raw Text''':
@@ -753,8 +753,6 @@ rød=redigér''',
 '''Vis "forælder" (siden denne stammer fra)''',
 '''Immutable Page''':
 '''Ikke-redigérbar side''',
-'''Refresh''':
-'''Opdatér''',
 '''Show Changes''':
 '''Vis ændringer''',
 '''Get Info''':

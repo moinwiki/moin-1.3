@@ -18,7 +18,7 @@ def execute(pagename, request):
     actname = __name__.split('.')[-1]
     # Create a page editor that does not do edior backups, becuase
     # delete generate "deleted" version, of the page.
-    page = PageEditor(pagename, request, do_editor_backup=0)
+    page = PageEditor(request, pagename, do_editor_backup=0)
 
     # be extra paranoid in dangerous actions
     if actname in request.cfg.excluded_actions \

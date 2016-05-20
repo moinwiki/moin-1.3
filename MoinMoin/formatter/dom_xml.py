@@ -202,8 +202,10 @@ class Formatter(FormatterBase):
         self.text(markup)
         return ''
 
-    def pagelink(self, on, pagename='', **kw):
-        apply(FormatterBase.pagelink, (self, pagename), kw)
+    def pagelink(self, on, pagename='', page=None, **kw):
+        apply(FormatterBase.pagelink, (self, pagename, page), kw)
+        if not pagename and page is not None:
+            pagename = page.page_name
         kw['pagename'] = pagename
         return self._set_tag('pagelink', on,  **kw)
 

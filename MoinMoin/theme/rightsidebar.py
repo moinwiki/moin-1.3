@@ -14,27 +14,6 @@ class Theme(ThemeBase):
 
     name = "rightsidebar"
 
-    stylesheets_print = (
-        # theme charset         media       basename
-        (name,  'utf-8',   'all',      'common'),
-        (name,  'utf-8',   'all',      'print'),
-        )
-
-    stylesheets_projection = (
-        # theme charset         media       basename
-        (name,  'utf-8',   'all',      'common'),
-        (name,  'utf-8',   'all',      'projection'),
-        )
-    
-    stylesheets = (
-        # theme charset         media       basename
-        (name,  'utf-8',        'all',      'common'),
-        (name,  'utf-8',        'screen',   'screen'),
-        (name,  'utf-8',        'print',    'print'),
-        (name,  'utf-8',        'projection',    'projection'),
-        )
-
-
     def wikipanel(self, d):
         """ Create wiki panel """
         _ = self.request.getText

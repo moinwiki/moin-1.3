@@ -8,7 +8,7 @@
 """
 
 import os, time, sys, types
-from MoinMoin import config, wikiutil, user
+from MoinMoin import config, wikiutil, user, error
 from MoinMoin.util import MoinMoinNoFooter
 
 # this needs sitecustomize.py in python path to work!
@@ -42,6 +42,7 @@ class Clock:
         outlist = []
         for timing in self.timings.items():
             outlist.append("%s = %.3fs" % timing)
+        outlist.sort()
         return outlist
 
 
@@ -61,15 +62,23 @@ class RequestBase:
     ]
 
     def __init__(self, properties={}):
+        self.failed = 0
         self._available_actions = None
         self._known_actions = None
+
+        # Pages meta data that we collect in one request
+        self.pages = {}
+                    
         self.sent_headers = 0
         self.user_headers = []
+        self.page = None
 
         # check for some asses trying to use us as a proxy:
         self.forbidden = False
         if self.request_uri.startswith('http://'):
             self.makeForbidden()
+
+        # Init
         else:
             self.writestack = []
             self.clock = Clock()
@@ -83,19 +92,21 @@ class RequestBase:
             
             # hierarchical wiki - set rootpage
             from MoinMoin.Page import Page
-            path = self.getPathinfo()
-            if path.startswith('/'):
-                pages = path[1:].split('/')
-                if 0: # len(path) > 1:
-                    ## breaks MainPage/SubPage on flat storage
-                    rootname = u'/'.join(pages[:-1])
-                else:
-                    # this is the usual case, as it ever was...
-                    rootname = u""
-            else:
-                # no extra path after script name
-                rootname = u""
-            self.rootpage = Page(self, rootname)
+            #path = self.getPathinfo()
+            #if path.startswith('/'):
+            #    pages = path[1:].split('/')
+            #    if 0: # len(path) > 1:
+            #        ## breaks MainPage/SubPage on flat storage
+            #        rootname = u'/'.join(pages[:-1])
+            #    else:
+            #        # this is the usual case, as it ever was...
+            #        rootname = u""
+            #else:
+            #    # no extra path after script name
+            #    rootname = u""
+
+            rootname = u''
+            self.rootpage = Page(self, rootname, is_rootpage=1)
 
             self.user = user.User(self)
             ## self.dicts = self.initdicts()
@@ -129,7 +140,7 @@ class RequestBase:
             self.opened_logs = 0
 
             self.reset()
-
+        
     def __getattr__(self, name):
         "load things on demand"
         if name == "dicts":
@@ -142,7 +153,7 @@ class RequestBase:
         if not hasattr(self, 'cfg'):
             from MoinMoin import multiconfig
             self.cfg = multiconfig.getConfig(self.url)
-
+            
     def parse_accept_charset(self, accept_charset):
         """ Parse http accept charset header
 
@@ -160,7 +171,7 @@ class RequestBase:
             accept_charset = accept_charset.lower()
             # Add iso-8859-1 if needed
             if (not '*' in accept_charset and
-                not 'iso-8859-1' in accept_charset):
+                accept_charset.find('iso-8859-1') < 0):
                 accept_charset += ',iso-8859-1'
 
             # Make a list, sorted by quality value, using Schwartzian Transform
@@ -194,12 +205,46 @@ class RequestBase:
                                     'replace').encode('ascii', 'replace')
         self.saved_cookie = env.get('HTTP_COOKIE', '')
         self.script_name = env.get('SCRIPT_NAME', '')
+
+        self.request_uri = env.get('REQUEST_URI', '')
         path_info = env.get('PATH_INFO', '')
-        self.path_info = self.decodePagename(path_info)
+
         query_string = env.get('QUERY_STRING', '')
         self.query_string = self.decodePagename(query_string)
+        server_software = env.get('SERVER_SOFTWARE', '')
+
+        # Handle the strange charset semantics on Windows
+        # path_info is transformed into the system code page by the webserver
+        # (This affects IIS and Apache 2.)
+        
+        # First check if we can use Apache's request_uri variable in order to
+        # gather the correct user input
+        if (os.name != 'posix' and server_software.find('Apache/1.3') == -1
+            and self.request_uri != ''):
+            import urllib
+            path_info = urllib.unquote(self.request_uri.replace(self.script_name, '', 1).replace('?' + query_string, '', 1))
+
+        # Else do a workaround for IIS and decode and recode the string again.
+        # Maybe there are other webservers that mess with path_info; they would
+        # have to be added here.
+
+        # This will not recover characters from path_info that are not
+        # in the system codepage.
+        elif server_software.find('Microsoft-IIS') != -1:
+            import locale
+            import codecs
+            cur_charset = locale.getdefaultlocale()[1]
+            if cur_charset != '':
+                try:
+                    codecs.lookup(cur_charset)
+                except LookupError:
+                    pass
+                else:
+                    path_info = path_info.decode(cur_charset).encode("utf-8")
+
+        self.path_info = self.decodePagename(path_info)
         self.request_method = env.get('REQUEST_METHOD', None)
-        self.request_uri = env.get('REQUEST_URI', '')
+
         self.remote_addr = env.get('REMOTE_ADDR', '')
         self.http_user_agent = env.get('HTTP_USER_AGENT', '')
         self.is_ssl = env.get('SSL_PROTOCOL', '') != '' \
@@ -257,7 +302,7 @@ class RequestBase:
             del self._fmt_hd_counters
 
     def loadTheme(self, theme_name):
-        """ Load the a Theme to use for this request.
+        """ Load the Theme to use for this request.
 
         @param theme_name: the name of the theme
         @type theme_name: str
@@ -267,21 +312,14 @@ class RequestBase:
         @return: success code
         """
         fallback = 0
-        try:
-            Theme = wikiutil.importPlugin('theme', theme_name,
-                                          'Theme',
-                                          path=self.cfg.data_dir)
+        Theme = wikiutil.importPlugin(self.cfg, 'theme', theme_name, 'Theme')
+        if Theme is None:
+            fallback = 1
+            Theme = wikiutil.importPlugin(self.cfg, 'theme',
+                                          self.cfg.theme_default, 'Theme')
             if Theme is None:
-                fallback = 1
-                Theme = wikiutil.importPlugin('theme', self.cfg.theme_default,
-                                              'Theme',
-                                              path=self.cfg.data_dir)
-                if Theme is None:
-                    raise ImportError
-        except ImportError:
-            fallback = 2
-            from MoinMoin.theme.modern import Theme
-
+                fallback = 2
+                from MoinMoin.theme.modern import Theme
         self.theme = Theme(self)
 
         return fallback
@@ -403,7 +441,7 @@ class RequestBase:
 
         # Return a copy, so clients will not change the dict.
         return self._available_actions.copy()
-
+    
     def redirect(self, file=None):
         if file: # redirect output to "file"
             self.writestack.append(self.write)
@@ -420,10 +458,20 @@ class RequestBase:
             self.write = self.writestack[0]
             self.writestack = []
 
+    def log(self, msg):
+        """ Log to stderr, which may be error.log """
+        msg = msg.strip()
+        # Encode unicode msg
+        if isinstance(msg, unicode):
+            msg = msg.encode(config.charset)
+        # Add time stamp
+        msg = '[%s] %s\n' % (time.asctime(), msg)
+        sys.stderr.write(msg)
+    
     def write(self, *data):
         """ Write to output stream.
         """
-        raise "NotImplementedError"
+        raise NotImplementedError
 
     def encode(self, data):
         """ encode data (can be both unicode strings and strings),
@@ -530,12 +578,12 @@ class RequestBase:
     def read(self, n):
         """ Read n bytes from input stream.
         """
-        raise "NotImplementedError"
+        raise NotImplementedError
 
     def flush(self):
         """ Flush output stream.
         """
-        raise "NotImplementedError"
+        raise NotImplementedError
 
     def initdicts(self):
         from MoinMoin import wikidicts
@@ -546,8 +594,14 @@ class RequestBase:
     def isForbidden(self):
         """ check for web spiders and refuse anything except viewing """
         forbidden = 0
-        if ((self.query_string != '' or self.request_method != 'GET')
-            and self.query_string != 'action=rss_rc'):
+        # we do not have a parsed query string here
+        # so we can just do simple matching
+        if ((self.query_string != '' or self.request_method != 'GET') and
+            self.query_string != 'action=rss_rc' and not
+            # allow spiders to get attachments and do 'show'
+            (self.query_string.find('action=AttachFile') >= 0 and self.query_string.find('do=get') >= 0) and not
+            (self.query_string.find('action=show') >= 0)
+            ):
             from MoinMoin.util import web
             forbidden = web.isSpiderAgent(self)
 
@@ -596,9 +650,8 @@ class RequestBase:
                 elif isinstance(i, cgi.FieldStorage):
                     data = i.value
                     if i.filename:
-                        # TODO: why we don't decode this value?
                         # multiple uploads to same form field are stupid!
-                        args[key+'__filename__'] = i.filename
+                        args[key+'__filename__'] = decode(i.filename, self.decode_charsets)
                     else:
                         # we do not have a file upload, so we decode:
                         data = decode(data, self.decode_charsets)
@@ -652,14 +705,16 @@ class RequestBase:
         return self.finish()
         
     def run(self):
-        self.open_logs()
-        if self.forbidden:
-            return
-        if self.isForbidden():
-            self.makeForbidden()
-        if self.forbidden:
+        # __init__ may have failed
+        if self.failed or self.forbidden:
             return
         
+        if self.isForbidden():
+            self.makeForbidden()
+            if self.forbidden:
+                return
+
+        self.open_logs()
         _ = self.getText
         self.clock.start('run')
 
@@ -728,32 +783,32 @@ space between words. Group page name is not allowed.""") % self.user.name
             elif action:
                 # Use localized FrontPage if pagename is empty
                 if not pagename:
-                    page = wikiutil.getFrontPage(self)
+                    self.page = wikiutil.getFrontPage(self)
                 else:
-                    page = Page(self, pagename)
+                    self.page = Page(self, pagename)
 
                 # Complain about unknown actions
                 if not action in self.getKnownActions():
                     self.http_headers()
-                    self.write(u'<html><body><h1>Unknown action %s</h1></body>' % action)
+                    self.write(u'<html><body><h1>Unknown action %s</h1></body>' % wikiutil.escape(action))
 
                 # Disallow non available actions
                 elif (action[0].isupper() and
-                      not action in self.getAvailableActions(page)):
+                      not action in self.getAvailableActions(self.page)):
                     # Send page with error
-                    msg = _("You are not allowed to do %s on this page.") % action
+                    msg = _("You are not allowed to do %s on this page.") % wikiutil.escape(action)
                     if not self.user.valid:
                         # Suggest non valid user to login
                         login = wikiutil.getSysPage(self, 'UserPreferences')
                         login = login.link_to(self, _('Login'))
                         msg += _(" %s and try again.", formatted=0) % login
-                    page.send_page(self, msg=msg)
+                    self.page.send_page(self, msg=msg)
 
                 # Try action
                 else:
                     from MoinMoin.wikiaction import getHandler
                     handler = getHandler(self, action)
-                    handler(page.page_name, self)
+                    handler(self.page.page_name, self)
 
             # 5. Or redirect to another page
             elif self.form.has_key('goto'):
@@ -772,7 +827,8 @@ space between words. Group page name is not allowed.""") % self.user.name
 
                 # Visit pagename
                 if self.cfg.allow_extended_names:
-                    Page(self, pagename).send_page(self, count_hit=1)
+                    self.page = Page(self, pagename)
+                    self.page.send_page(self, count_hit=1)
                 else:
                     # TODO: kill this. Why disable allow extended names?
                     from MoinMoin.parser.wiki import Parser
@@ -780,7 +836,8 @@ space between words. Group page name is not allowed.""") % self.user.name
                     word_match = re.match(Parser.word_rule, pagename)
                     if word_match:
                         word = word_match.group(0)
-                        Page(self, word).send_page(self, count_hit=1)
+                        self.page = Page(self, word)
+                        self.page.send_page(self, count_hit=1)
                     else:
                         self.http_headers()
                         err = u'<p>%s "<pre>%s</pre>"' % (
@@ -809,6 +866,9 @@ space between words. Group page name is not allowed.""") % self.user.name
         except MoinMoinNoFooter:
             pass
 
+        except error.FatalError, err:
+            self.fail(err)
+            
         except: # catch and print any exception
             saved_exc = sys.exc_info()
             self.reset_output()
@@ -842,6 +902,19 @@ space between words. Group page name is not allowed.""") % self.user.name
     def setResponseCode(self, code, message=None):
         pass
 
+    def fail(self, err):
+        """ Fail with nice error message when we can't continue
+
+        Log the error, then try to print nice error message.
+
+        @param err: MoinMoin.error.FatalError instance or subclass.
+        """
+        self.failed = 1 # save state for self.run()
+        self.log(err.asLog())
+        self.http_headers()
+        self.write(err.asHTML())    
+        return self.finish()
+            
     def print_exception(self, type=None, value=None, tb=None, limit=None):
         if type is None:
             type, value, tb = sys.exc_info()
@@ -1032,23 +1105,25 @@ class RequestCGI(RequestBase):
     """ specialized on CGI requests """
 
     def __init__(self, properties={}):
-        self._setup_vars_from_std_env(os.environ)
-        #sys.stderr.write("----\n")
-        #for key in os.environ.keys():    
-        #    sys.stderr.write("    %s = '%s'\n" % (key, os.environ[key]))
-        RequestBase.__init__(self, properties)
+        try:
+            self._setup_vars_from_std_env(os.environ)
+            #sys.stderr.write("----\n")
+            #for key in os.environ.keys():    
+            #    sys.stderr.write("    %s = '%s'\n" % (key, os.environ[key]))
+            RequestBase.__init__(self, properties)
 
-        # force input/output to binary
-        if sys.platform == "win32":
-            import msvcrt
-            msvcrt.setmode(sys.stdin.fileno(), os.O_BINARY)
-            msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
+            # force input/output to binary
+            if sys.platform == "win32":
+                import msvcrt
+                msvcrt.setmode(sys.stdin.fileno(), os.O_BINARY)
+                msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
 
+        except error.FatalError, err:
+            self.fail(err)
+            
     def open_logs(self):
-        # create CGI log file, and one for catching stderr output
-        import cgi 
+        # create log file for catching stderr output
         if not self.opened_logs:
-            cgi.logfile = os.path.join(self.cfg.data_dir, 'cgi.log')
             sys.stderr = open(os.path.join(self.cfg.data_dir, 'error.log'), 'at')
             self.opened_logs = 1
 
@@ -1101,14 +1176,15 @@ class RequestCGI(RequestBase):
 
 
     def http_headers(self, more_headers=[]):
-        if self.sent_headers:
-            #self.write("Headers already sent!!!\n")
+        # Send only once
+        if getattr(self, 'sent_headers', None):
             return
+        
         self.sent_headers = 1
         have_ct = 0
 
         # send http headers
-        for header in more_headers + self.user_headers:
+        for header in more_headers + getattr(self, 'user_headers', []):
             if header.lower().startswith("content-type:"):
                 # don't send content-type multiple times!
                 if have_ct: continue
@@ -1133,47 +1209,51 @@ class RequestTwisted(RequestBase):
     """ specialized on Twisted requests """
 
     def __init__(self, twistedRequest, pagename, reactor, properties={}):
-        self.twistd = twistedRequest
-        self.http_accept_language = self.twistd.getHeader('Accept-Language')
-        self.reactor = reactor
-        self.saved_cookie = self.twistd.getHeader('Cookie')
-        self.server_protocol = self.twistd.clientproto
-        self.server_name = self.twistd.getRequestHostname().split(':')[0]
-        self.server_port = str(self.twistd.getHost()[2])
-        self.is_ssl = self.twistd.isSecure()
-        if self.server_port != ('80', '443')[self.is_ssl]:
-            self.http_host = self.server_name + ':' + self.server_port
-        else:
-            self.http_host = self.server_name
-        self.script_name = "/" + '/'.join(self.twistd.prepath[:-1])
-        path_info = '/' + '/'.join([pagename] + self.twistd.postpath)
-        self.path_info = self.decodePagename(path_info)
-        self.request_method = self.twistd.method
-        self.remote_host = self.twistd.getClient()
-        self.remote_addr = self.twistd.getClientIP()
-        self.http_user_agent = self.twistd.getHeader('User-Agent')
-        self.request_uri = self.twistd.uri
-        self.url = self.server_name + self.request_uri
+        try:
+            self.twistd = twistedRequest
+            self.http_accept_language = self.twistd.getHeader('Accept-Language')
+            self.reactor = reactor
+            self.saved_cookie = self.twistd.getHeader('Cookie')
+            self.server_protocol = self.twistd.clientproto
+            self.server_name = self.twistd.getRequestHostname().split(':')[0]
+            self.server_port = str(self.twistd.getHost()[2])
+            self.is_ssl = self.twistd.isSecure()
+            if self.server_port != ('80', '443')[self.is_ssl]:
+                self.http_host = self.server_name + ':' + self.server_port
+            else:
+                self.http_host = self.server_name
+            self.script_name = "/" + '/'.join(self.twistd.prepath[:-1])
+            path_info = '/' + '/'.join([pagename] + self.twistd.postpath)
+            self.path_info = self.decodePagename(path_info)
+            self.request_method = self.twistd.method
+            self.remote_host = self.twistd.getClient()
+            self.remote_addr = self.twistd.getClientIP()
+            self.http_user_agent = self.twistd.getHeader('User-Agent')
+            self.request_uri = self.twistd.uri
+            self.url = self.http_host + self.request_uri # was: self.server_name + self.request_uri
 
-        ac = self.twistd.getHeader('Accept-Charset') or ''
-        self.accepted_charsets = self.parse_accept_charset(ac)
-       
-        qindex = self.request_uri.find('?')
-        if qindex != -1:
-            query_string = self.request_uri[qindex+1:]
-            self.query_string = self.decodePagename(query_string)
-        else:
-            self.query_string = ''
-        self.outputlist = []
-        self.auth_username = self.twistd.getUser()                                                                               
-        RequestBase.__init__(self, properties)
-        #print "request.RequestTwisted.__init__: received_headers=\n" + str(self.twistd.received_headers)
+            ac = self.twistd.getHeader('Accept-Charset') or ''
+            self.accepted_charsets = self.parse_accept_charset(ac)
 
+            qindex = self.request_uri.find('?')
+            if qindex != -1:
+                query_string = self.request_uri[qindex+1:]
+                self.query_string = self.decodePagename(query_string)
+            else:
+                self.query_string = ''
+            self.outputlist = []
+            self.auth_username = self.twistd.getUser()                                                                               
+            RequestBase.__init__(self, properties)
+            #print "request.RequestTwisted.__init__: received_headers=\n" + str(self.twistd.received_headers)
+
+        except error.FatalError, err:
+            self.fail(err)
+            
     def setup_args(self, form=None):
         args = {}
         for key,values in self.twistd.args.items():
             if key[-12:] == "__filename__":
-                args[key] = values # keep as is
+                args[key] = wikiutil.decodeUserInput(values, self.decode_charsets)
                 continue
             if not isinstance(values, types.ListType):
                 values = [values]
@@ -1372,72 +1452,80 @@ class RequestStandAlone(RequestBase):
         @param sa: stand alone server object
         @param properties: ...
         """
-        self.sareq = sa
-        self.wfile = sa.wfile
-        self.rfile = sa.rfile
-        self.headers = sa.headers
-        self.is_ssl = 0
-        
-        # Split and unquote path and query string
-        import urllib
-        if '?' in sa.path:
-            path, query = map(urllib.unquote, sa.path.split('?', 1))
-        else:
-            path, query = urllib.unquote(sa.path), ''        
-        
-        #HTTP headers
-        self.env = {} 
-        for hline in sa.headers.headers:
-            key = sa.headers.isheader(hline)
-            if key:
-                hdr = sa.headers.getheader(key)
-                self.env[key] = hdr
-                
-        #accept = []
-        #for line in sa.headers.getallmatchingheaders('accept'):
-        #    if line[:1] in string.whitespace:
-        #        accept.append(line.strip())
-        #    else:
-        #        accept = accept + line[7:].split(',')
-        #
-        #env['HTTP_ACCEPT'] = ','.join(accept)
+        try:
+            self.sareq = sa
+            self.wfile = sa.wfile
+            self.rfile = sa.rfile
+            self.headers = sa.headers
+            self.is_ssl = 0
 
-        co = filter(None, sa.headers.getheaders('cookie'))
+            # Split and unquote path and query string
+            import urllib
+            if '?' in sa.path:
+                path, query = map(urllib.unquote, sa.path.split('?', 1))
+            else:
+                path, query = urllib.unquote(sa.path), ''        
 
-        self.http_accept_language = sa.headers.getheader('Accept-Language')
-        self.server_name = sa.server.server_name
-        self.server_port = str(sa.server.server_port)
-        self.http_host = sa.headers.getheader('host')
-        # Make sure http referer use only ascii
-        referer = sa.headers.getheader('referer') or ''
-        self.http_referer = unicode(referer, 'ascii',
-                                    'replace').encode('ascii', 'replace')
-        self.saved_cookie = ', '.join(co) or ''
-        self.script_name = ''
-        self.request_method = sa.command
-        self.request_uri = sa.path
-        self.remote_addr = sa.client_address[0]
-        self.http_user_agent = sa.headers.getheader('user-agent') or ''
-        self.url = self.server_name + self.request_uri
-        
-        ac = sa.headers.getheader('Accept-Charset') or ''
-        self.accepted_charsets = self.parse_accept_charset(ac)
-                
-        # Decode path_info and query string, they may contain non-ascii
-        self.path_info = self.decodePagename(path) 
-        self.query_string = self.decodePagename(query)        
+            #HTTP headers
+            self.env = {} 
+            for hline in sa.headers.headers:
+                key = sa.headers.isheader(hline)
+                if key:
+                    hdr = sa.headers.getheader(key)
+                    self.env[key] = hdr
 
-        # from standalone script:
-        # XXX AUTH_TYPE
-        # XXX REMOTE_USER
-        # XXX REMOTE_IDENT
-        self.auth_username = None
-        #env['PATH_TRANSLATED'] = uqrest #self.translate_path(uqrest)
-        #host = self.address_string()
-        #if host != self.client_address[0]:
-        #    env['REMOTE_HOST'] = host
-        # env['SERVER_PROTOCOL'] = self.protocol_version
-        RequestBase.__init__(self, properties)
+            #accept = []
+            #for line in sa.headers.getallmatchingheaders('accept'):
+            #    if line[:1] in string.whitespace:
+            #        accept.append(line.strip())
+            #    else:
+            #        accept = accept + line[7:].split(',')
+            #
+            #env['HTTP_ACCEPT'] = ','.join(accept)
+
+            co = filter(None, sa.headers.getheaders('cookie'))
+
+            self.http_accept_language = sa.headers.getheader('Accept-Language')
+            self.server_name = sa.server.server_name
+            self.server_port = str(sa.server.server_port)
+            self.http_host = sa.headers.getheader('host')
+            # Make sure http referer use only ascii
+            referer = sa.headers.getheader('referer') or ''
+            self.http_referer = unicode(referer, 'ascii',
+                                        'replace').encode('ascii', 'replace')
+            self.saved_cookie = ', '.join(co) or ''
+            self.script_name = ''
+            self.request_method = sa.command
+            self.request_uri = sa.path
+            self.remote_addr = sa.client_address[0]
+            self.http_user_agent = sa.headers.getheader('user-agent') or ''
+            # next must be http_host as server_name == reverse_lookup(IP)
+            if self.http_host:
+                self.url = self.http_host + self.request_uri
+            else:
+                self.url = "localhost" + self.request_uri
+
+            ac = sa.headers.getheader('Accept-Charset') or ''
+            self.accepted_charsets = self.parse_accept_charset(ac)
+
+            # Decode path_info and query string, they may contain non-ascii
+            self.path_info = self.decodePagename(path) 
+            self.query_string = self.decodePagename(query)        
+
+            # from standalone script:
+            # XXX AUTH_TYPE
+            # XXX REMOTE_USER
+            # XXX REMOTE_IDENT
+            self.auth_username = None
+            #env['PATH_TRANSLATED'] = uqrest #self.translate_path(uqrest)
+            #host = self.address_string()
+            #if host != self.client_address[0]:
+            #    env['REMOTE_HOST'] = host
+            # env['SERVER_PROTOCOL'] = self.protocol_version
+            RequestBase.__init__(self, properties)
+
+        except error.FatalError, err:
+            self.fail(err)
 
     def setup_args(self, form=None):
         self.env['REQUEST_METHOD'] = self.request_method
@@ -1496,7 +1584,7 @@ class RequestStandAlone(RequestBase):
         for header in more_headers + self.user_headers:
             if header.lower().startswith("status:"):
                 try:
-                    our_status = int(header.split(':',1)[1])
+                    our_status = int(header.split(':',1)[1].strip().split(" ", 1)[0]) 
                 except:
                     pass
                 # there should be only one!
@@ -1538,20 +1626,25 @@ class RequestModPy(RequestBase):
 
             @param req: the mod_python request instance
         """
-        req.add_common_vars()
-        self.mpyreq = req
-        # some mod_python 2.7.X has no get method for table objects,
-        # so we make a real dict out of it first.
-        if not hasattr(req.subprocess_env,'get'):
-            env=dict(req.subprocess_env)
-        else:
-            env=req.subprocess_env
-        self._setup_vars_from_std_env(env)
-        # flags if headers sent out contained content-type or status
-        self._have_ct = 0
-        self._have_status = 0
-        RequestBase.__init__(self)
-        
+        try:
+            # flags if headers sent out contained content-type or status
+            self._have_ct = 0
+            self._have_status = 0
+
+            req.add_common_vars()
+            self.mpyreq = req
+            # some mod_python 2.7.X has no get method for table objects,
+            # so we make a real dict out of it first.
+            if not hasattr(req.subprocess_env,'get'):
+                env=dict(req.subprocess_env)
+            else:
+                env=req.subprocess_env
+            self._setup_vars_from_std_env(env)
+            RequestBase.__init__(self)
+
+        except error.FatalError, err:
+            self.fail(err)
+            
     def setup_args(self, form=None):
         """ Sets up args by using mod_python.util.FieldStorage, which
             is different to cgi.FieldStorage. So we need a separate
@@ -1682,11 +1775,15 @@ class RequestFastCGI(RequestBase):
             @param env: environment passed by FastCGI.
             @param form: FieldStorage passed by FastCGI.
         """
-        self.fcgreq = fcgRequest
-        self.fcgenv = env
-        self.fcgform = form
-        self._setup_vars_from_std_env(env)
-        RequestBase.__init__(self, properties)
+        try:
+            self.fcgreq = fcgRequest
+            self.fcgenv = env
+            self.fcgform = form
+            self._setup_vars_from_std_env(env)
+            RequestBase.__init__(self, properties)
+
+        except error.FatalError, err:
+            self.fail(err)
 
     def setup_args(self, form=None):
         """ Use the FastCGI form to setup arguments. """

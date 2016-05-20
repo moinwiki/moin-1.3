@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"POT-Creation-Date: 2005-01-21 20:26+0100\n"
 "PO-Revision-Date: 2004-11-29 05:38+0800\n"
 "Last-Translator: Lin Zhemin <ljm@ljm.idv.tw>\n"
 "Language-Team: Chinese/Taiwan <moin-devel@lists.sourceforge.net>\n"
@@ -50,8 +50,9 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr "你不能閱讀本頁。"
 
-msgid "RefreshCache"
-msgstr "刷新快取內容"
+#, fuzzy
+msgid "DeleteCache"
+msgstr "刪除頁面"
 
 #, python-format
 msgid "(cached %s)"
@@ -896,9 +897,6 @@ msgstr ""
 msgid "File to upload"
 msgstr "要上傳的檔案"
 
-msgid "MIME Type (optional)"
-msgstr "MIME 類型 (可選)"
-
 msgid "Save as"
 msgstr "另存新檔"
 
@@ -1063,6 +1061,10 @@ msgstr "全文檢索: \"%s\""
 msgid "Full Link List for \"%s\""
 msgstr "連向 \"%s\" 的頁面列表"
 
+msgid ""
+"Cannot create a new page without a page name.  Please specify a page name."
+msgstr ""
+
 #, python-format
 msgid "Invalid include arguments \"%s\"!"
 msgstr "錯誤的插入參數 \"%s\"!"
@@ -1090,6 +1092,10 @@ msgstr "開始"
 #, python-format
 msgid "Slide %(pos)d of %(size)d"
 msgstr "幻燈片 %(pos)d/%(size)d"
+
+#, fuzzy
+msgid "Create New Page"
+msgstr "建立本頁"
 
 msgid "No orphaned pages in this wiki."
 msgstr "本 wiki 沒有孤立頁."
@@ -1151,6 +1157,13 @@ msgstr "匯出並下載本 wiki (XML 格式)"
 msgid "No wanted pages in this wiki."
 msgstr "本 wiki 沒有未定義的頁面."
 
+msgid "**Maximum number of allowed includes exceeded**"
+msgstr ""
+
+#, python-format
+msgid "**Could not find the referenced page: %s**"
+msgstr ""
+
 #, python-format
 msgid "Create new drawing \"%(filename)s\""
 msgstr "建立新圖 \"%(filename)s\""
@@ -1188,6 +1201,9 @@ msgstr "沒有 XSLT 處理套件!"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "%(errortype)s 處理錯誤"
+
+msgid "RefreshCache"
+msgstr "刷新快取內容"
 
 #, python-format
 msgid "for this page (cached %(date)s)"
@@ -1228,6 +1244,33 @@ msgstr "其他"
 msgid "Distribution of User-Agent Types"
 msgstr "瀏覽器類型分佈"
 
+msgid "Unsubscribe"
+msgstr "取消訂閱"
+
+msgid "Home"
+msgstr "首頁"
+
+msgid "[RSS]"
+msgstr ""
+
+msgid "[DELETED]"
+msgstr ""
+
+msgid "[UPDATED]"
+msgstr ""
+
+msgid "[NEW]"
+msgstr ""
+
+msgid "[DIFF]"
+msgstr ""
+
+msgid "[BOTTOM]"
+msgstr ""
+
+msgid "[TOP]"
+msgstr ""
+
 msgid "Click to do a full-text search for this title"
 msgstr "點一下: 對本頁標題做全文檢索"
 
@@ -1251,9 +1294,6 @@ msgstr "內文"
 msgid "Titles"
 msgstr "標題"
 
-msgid "Unsubscribe"
-msgstr "取消訂閱"
-
 msgid "More Actions:"
 msgstr "其他功能:"
 
@@ -1262,6 +1302,10 @@ msgstr "顯示原始碼"
 
 msgid "Show Print View"
 msgstr "檢視列印"
+
+#, fuzzy
+msgid "Delete Cache"
+msgstr "刪除本頁"
 
 msgid "Attach File"
 msgstr "附件"
@@ -1283,9 +1327,6 @@ msgstr "顯示上一層"
 
 msgid "Immutable Page"
 msgstr "本頁不可更改"
-
-msgid "Refresh"
-msgstr "刷新快取內容"
 
 msgid "Show Changes"
 msgstr "顯示更動"
@@ -1335,12 +1376,6 @@ msgstr "無法連接郵件伺服器 '%(server)s': %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "郵件已送出"
-
-msgid "<escape>"
-msgstr ""
-
-msgid "[\"<escape>\"]"
-msgstr ""
 
 msgid "FrontPage"
 msgstr "首頁"
@@ -1414,6 +1449,12 @@ msgstr "重新命名"
 msgid "SpellCheck"
 msgstr "拼字檢查"
 
+#~ msgid "MIME Type (optional)"
+#~ msgstr "MIME 類型 (可選)"
+
+#~ msgid "Refresh"
+#~ msgstr "刷新快取內容"
+
 #~ msgid "[\"<html>\"]"
 #~ msgstr "[\"<html>\"]"
 
@@ -1437,9 +1478,6 @@ msgstr "拼字檢查"
 
 #~ msgid "Nobody subscribed to this page, no mail sent."
 #~ msgstr "沒人訂閱本頁, 沒有送出通知."
-
-#~ msgid "Home"
-#~ msgstr "首頁"
 
 #~ msgid "Unknown action"
 #~ msgstr "不明動作"
@@ -1500,9 +1538,6 @@ msgstr "拼字檢查"
 
 #~ msgid "An error occurred while reverting the page."
 #~ msgstr "恢復舊版時發生錯誤."
-
-#~ msgid "Create this page"
-#~ msgstr "建立本頁"
 
 #~ msgid "Alternatively, use one of these templates:"
 #~ msgstr "或是用下面其中一個範本:"

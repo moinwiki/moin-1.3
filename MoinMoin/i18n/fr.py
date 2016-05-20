@@ -4,7 +4,7 @@
 meta = {
   'language': 'Français',
   'elanguage': 'French',
-  'maintainer': 'jean-philippe.guerard@tigreraye.org',
+  'maintainer': 'J-P Guerard <jean-philippe.guerard@tigreraye.org>',
   'encoding': 'iso-8859-15',
   'direction': 'ltr',
   'wikimarkup': True,
@@ -30,8 +30,8 @@ Pour utiliser ce formulaire sur d\'autres pages, insérez un appel à la macro :
 ''',
 '''You are not allowed to view this page.''':
 '''Vous n\'êtes pas autorisé à voir cette page.''',
-'''RefreshCache''':
-'''Rafraîchir''',
+'''DeleteCache''':
+'''EffacerLeCache''',
 '''(cached %s)''':
 '''(%s enregistré dans le cache)''',
 '''You are not allowed to edit this page.''':
@@ -73,7 +73,7 @@ Jetez un ½il aux modifications de %(difflink)s pour voir ce qui a changé.''',
 '''[current page size \'\'\'%(size)d\'\'\' bytes]''':
 '''[taille de la page actuelle \'\'\'%(size)d\'\'\' octets]''',
 '''Describe %s here.''':
-'''Décrire %s ici.''',
+'''Décrire ici « %s ».''',
 '''Optional comment about this change''':
 '''Commentaire optionnel sur cette modification''',
 '''<No addition>''':
@@ -396,7 +396,7 @@ Contactez le propriétaire de ce wiki, qui pourra l\'activer.''',
 '''revert''':
 '''restaurer''',
 '''Revert to revision %(rev)d.''':
-'''Revenir à la version %(rev)d.''',
+'''Retour à la version %(rev)d.''',
 '''edit''':
 '''éditer''',
 '''get''':
@@ -540,8 +540,6 @@ envoyer. Si ce n\'est pas le cas, lorsque « Renommer en » est laissé
 en blanc, le nom original sera conservé.''',
 '''File to upload''':
 '''Fichier à envoyer''',
-'''MIME Type (optional)''':
-'''Type MIME (optionnel)''',
 '''Save as''':
 '''Enregistrer sous''',
 '''Upload''':
@@ -567,7 +565,7 @@ en blanc, le nom original sera conservé.''',
 '''Attachment \'%(target)s\' (remote name \'%(filename)s\') with %(bytes)d bytes saved.''':
 '''Pièce jointe « %(target)s » (nom distant « %(filename)s ») de %(bytes)d octets enregistrée.''',
 '''Attachment \'%(filename)s\' deleted.''':
-'''Pièce jointe « %(filename)s » supprimée.''',
+'''Suppression de la pièce jointe « %(filename)s ».''',
 '''Attachment \'%(filename)s\'''':
 '''Pièce jointe « %(filename)s »''',
 '''Unknown file type, cannot display this attachment inline.''':
@@ -632,6 +630,8 @@ Essayez un autre nom.''',
 '''Recherche de « %s » dans les textes''',
 '''Full Link List for "%s"''':
 '''Liste de tout les liens pour « %s »''',
+'''Cannot create a new page without a page name.  Please specify a page name.''':
+'''Impossible de créer une page sans nom. Veuillez indiquer un nom de page.''',
 '''Invalid include arguments "%s"!''':
 '''Les arguments du include ne sont pas valides : « %s » !''',
 '''Nothing found for "%s"!''':
@@ -648,14 +648,16 @@ Essayez un autre nom.''',
 '''Démarrer''',
 '''Slide %(pos)d of %(size)d''':
 '''Transparent %(pos)d sur %(size)d ''',
+'''Create New Page''':
+'''Créer une page''',
 '''No orphaned pages in this wiki.''':
 '''Pas de page orpheline dans ce wiki''',
 '''No quotes on %(pagename)s.''':
-'''Pas de citation dans %(pagename)s.''',
+'''Aucune citation sur %(pagename)s.''',
 '''Upload of attachment \'%(filename)s\'.''':
-'''Envoi de la pièce jointe \'%(filename)s\'.''',
+'''Ajout de la pièce jointe « %(filename)s ».''',
 '''Drawing \'%(filename)s\' saved.''':
-'''Dessin \'%(filename)s\' enregistré.''',
+'''Enregistrement du dessin « %(filename)s ».''',
 '''%(hours)dh %(mins)dm ago''':
 '''Il y a %(hours)dh %(mins)dm ''',
 '''(no bookmark set)''':
@@ -684,6 +686,10 @@ Essayez un autre nom.''',
 '''Télécharger un export XML de ce wiki''',
 '''No wanted pages in this wiki.''':
 '''Aucune page référencée ne reste à créer.''',
+'''**Maximum number of allowed includes exceeded**''':
+'''**Vous avez dépassé le nombre maximal d\'inclusions autorisées**''',
+'''**Could not find the referenced page: %s**''':
+'''**Impossible de trouver la page indiquée : %s**''',
 '''Create new drawing "%(filename)s"''':
 '''Création nouveau dessin « %(filename)s »''',
 '''Upload new attachment "%(filename)s"''':
@@ -704,6 +710,8 @@ Essayez un autre nom.''',
 '''Traitement XSLT non disponible''',
 '''%(errortype)s processing error''':
 '''Erreur d\'exécution : %(errortype)s''',
+'''RefreshCache''':
+'''Rafraîchir''',
 '''for this page (cached %(date)s)''':
 ''' pour cette page (dans le cache depuis %(date)s)''',
 '''Charts are not available!''':
@@ -728,6 +736,24 @@ rouge=modifications''',
 '''Autres''',
 '''Distribution of User-Agent Types''':
 '''Répartition des types d\'agents utilisateurs''',
+'''Unsubscribe''':
+'''Se désabonner''',
+'''Home''':
+'''Page d\'accueil''',
+'''[RSS]''':
+'''[RSS]''',
+'''[DELETED]''':
+'''[SUPPRIMÉ]''',
+'''[UPDATED]''':
+'''[MIS À JOUR]''',
+'''[NEW]''':
+'''[NOUVEAU]''',
+'''[DIFF]''':
+'''[DIFFÉRENCES]''',
+'''[BOTTOM]''':
+'''[BAS]''',
+'''[TOP]''':
+'''[HAUT]''',
 '''Click to do a full-text search for this title''':
 '''Cliquez ici pour faire une recherche de ce titre dans les pages''',
 '''Clear message''':
@@ -742,14 +768,14 @@ rouge=modifications''',
 '''Texte''',
 '''Titles''':
 '''Titres''',
-'''Unsubscribe''':
-'''Se désabonner''',
 '''More Actions:''':
 '''Autres actions :''',
 '''Show Raw Text''':
 '''Voir le code source''',
 '''Show Print View''':
 '''Version à imprimer''',
+'''Delete Cache''':
+'''Effacer le cache''',
 '''Attach File''':
 '''Joindre un fichier''',
 '''Delete Page''':
@@ -761,11 +787,9 @@ rouge=modifications''',
 '''Do''':
 '''Exécuter''',
 '''Show Parent''':
-'''Remonter''',
+'''Niveau supérieur''',
 '''Immutable Page''':
 '''Page immuable''',
-'''Refresh''':
-'''Rafraîchir''',
 '''Show Changes''':
 '''Dernière modification''',
 '''Get Info''':
@@ -784,6 +808,8 @@ rouge=modifications''',
 '''Chemin suivi''',
 '''User''':
 '''Utilisateur''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Désolé, impossible d\'enregistrer la page car « %(content)s » n\'est pas autorisé sur ce wiki.''',
 '''Line''':
 '''Ligne''',
 '''Deletions are marked like this.''':

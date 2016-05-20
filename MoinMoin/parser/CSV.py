@@ -13,11 +13,14 @@
     @license: GNU GPL, see COPYING for details.
 """
 
+Dependencies = []
+
 class Parser:
     """ Format CSV data as table
     """
 
     extensions = ['.csv']
+    Dependencies = []
 
     def __init__(self, raw, request, **kw):
         """ Store the source text.

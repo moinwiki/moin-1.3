@@ -4,10 +4,10 @@
     @license: GNU GPL, see COPYING for details.
 """
 
+import os.path, time
 from logfile import LogFile
 from MoinMoin import util, config, wikiutil
 from MoinMoin.util import web
-import os.path, urllib, time
 
 class EventLog(LogFile):
     def __init__(self, request, filename=None, buffer_size=65536, **kw):
@@ -50,7 +50,7 @@ class EventLog(LogFile):
         except ValueError:
             # badly formatted line in file, skip it
             return None
-        return (int(time_usecs), eventtype, web.parseQueryString(kvpairs))
+        return long(time_usecs), eventtype, web.parseQueryString(kvpairs)
                                                                         
     def set_filter(self, event_types = None):
         if event_types == None:

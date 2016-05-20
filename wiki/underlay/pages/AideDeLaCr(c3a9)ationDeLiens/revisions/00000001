@@ -1,6 +1,11 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
 #language fr
 == Noms de pages arbitraires ==
 Si vous mettez une séquence de caractères entre crochets et entre guillemets {{{["comme ceci"]}}}, cela devient le nom d'une page. C'est utilisé pour certains besoins spécifiques de MoinMoin (comme pour organiser une liste d'objets par leurs noms naturels, par exemple une collection de CD) ou si vous voulez créer un wiki utilisant un encodage des caractères non européen.
@@ -33,12 +38,12 @@ Pour plus d'informations sur les marqueurs possibles, voyez ["AideDeL'Édition"]
 
 === Exemple ===
 {{{
- * http://moin.sourceforge.net/
- * [http://moin.sourceforge.net/]
- * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
- * http://moin.sourceforge.net/moinmoin.gif
- * [http://moin.sourceforge.net/moinmoin.gif]
- * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ Site de MoinMoin]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png moinmoin.png]
  * InterWiki
   * Self:InterWiki
   * MeatBall:InterWiki
@@ -51,12 +56,12 @@ Pour plus d'informations sur les marqueurs possibles, voyez ["AideDeL'Édition"]
 }}} 
 
 === Affichage ===
- * http://moin.sourceforge.net/
- * [http://moin.sourceforge.net/]
- * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
- * http://moin.sourceforge.net/moinmoin.gif
- * [http://moin.sourceforge.net/moinmoin.gif]
- * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * http://moinmoin.wikiwikiweb.de/
+ * [http://moinmoin.wikiwikiweb.de/]
+ * [http://moinmoin.wikiwikiweb.de/ Site de MoinMoin]
+ * http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png]
+ * [http://moinmoin.wikiwikiweb.de/wiki/classic/img/moinmoin.png moinmoin.png]
  * InterWiki
   * Self:InterWiki
   * MeatBall:InterWiki
@@ -65,4 +70,4 @@ Pour plus d'informations sur les marqueurs possibles, voyez ["AideDeL'Édition"]
   * [wiki:MeatBall/InterWiki InterWiki page sur MeatBall]
  * jh@web.de
  * [#anchorname Lien vers une ancre de cette page]
- * [wiki:Self:OtherPage#anchorname Lien vers une ancre d'une autre page wiki] * http://moin.sourceforge.net/
+ * [wiki:Self:OtherPage#anchorname Lien vers une ancre d'une autre page wiki]

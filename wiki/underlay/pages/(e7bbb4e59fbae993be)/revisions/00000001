@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language zh
 ##master-page:InterWiki
 ##master-date:2004-11-18 22:14:38
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language zh
 
 ["维基链"]链接是引用别的维基网页信息的快捷方式，以免记忆这些复杂难记的URL。如要使用["维基链"]链接，只需使用其它维基的别名，并加上一个这个维基上的网页链接名就可以了。当然，如果引用的网页不存在，["维基链"]链接不会多管闲事，MoinMoin 也不会检查你是否遵循其它维基的链接名规范。所以，使用时请仔细检查。详见 wiki:MeatBall:MeatballWiki 上的 wiki:MeatBall/InterWiki 。
 

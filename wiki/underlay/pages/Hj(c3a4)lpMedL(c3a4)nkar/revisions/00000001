@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language sv
+##translated-by:Karolina Lindqvist, Shakti Wiki
 ##master-page:HelpOnLinking
 ##master-date:2002-03-05 10:00:33
-##translated-by:Karolina Lindqvist, Shakti Wiki
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language sv
 == URL:er och inbäddade bilder ==
 Det finns flera olika sätt att infoga externa referenser [[FootNote(Motsatsen till externa referenser är interna automatiska WikiNamn-länkar.)]] i texten:
  * direkt insättning av `URL:er`. Om `URL:en` har filtyp som betecknar en bild ("{{{.gif}}}", "{{{.jpg}}}" eller "{{{.png}}}"), så visas den som en inbäddad bild istället för länk.

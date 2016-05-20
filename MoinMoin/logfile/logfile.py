@@ -75,6 +75,9 @@ class LogFile:
         self.__filename = filename
         self.filter = None
         self.__lineno = 0
+        self.__buffer = None
+        self.__buffer1 = None
+        self.__buffer2 = None
 
     def __iter__(self):
         return self
@@ -92,7 +95,7 @@ class LogFile:
             
     def sanityCheck(self):
         """ Check for log file write access.
-        @rtype: boolean
+        @rtype: string (error message) or None
         """
         if not os.access(self.__filename, os.W_OK):
             return "The log '%s' is not writable!" % (self.__filename,)
@@ -128,6 +131,8 @@ class LogFile:
             except OSError:
                 pass
             return self._output
+        else:
+            raise AttributeError(name)
 
     def size(self):
         """

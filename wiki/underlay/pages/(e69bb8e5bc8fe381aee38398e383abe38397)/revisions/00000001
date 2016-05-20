@@ -1,0 +1,68 @@
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnFormatting
+##master-date:2004-12-19 23:03:18
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language ja
+== 書式のルール ==
+
+段落と段落の間には、空の行を挿入してください。段落内に改行を挿入する場合には、{{{[BR]}}}を利用してください。
+
+''イタリック''や'''ボールド'''の文字列を記述することができます。イタリックには引用符({{{'}}})2個で文字列を括ってください。ボールドには引用符({{{'}}})3個で文字列を括ってください。文字列に__アンダーライン__を引くには、文字列をアンダースコア({{{_}}})2個で括ってください。ハット({{{^}}})で括ると^上付文字^、カンマ({{{,}}})2個で括ると,,下付文字,,になります。
+
+{{{monospaceフォント}}}を利用してプログラムのソースコードをそのまま表示したい場合は、中括弧({})で3重に括ってください。
+{{{
+10 PRINT "Hello, world!"
+20 GOTO 10
+}}}
+
+ソースコードを表示する際、すべてのWikiマークアップは無視されます。また、`インラインコード`の記述にはバッククォート({{{`}}})を利用することもできます(ただし、Wikiサイトの設定によっては無効になっている場合もあります。デフォルトでは有効になっています)。
+
+その他、利用できるマークアップについては、HelpOnEditingを参照してください。
+
+=== 例 ===
+{{{
+__Mixing__ ''italics'' and '''bold''':
+ * '''''Mix''' at the beginning''
+ * '''''Mix'' at the beginning'''
+ * '''Mix at the ''end'''''
+ * ''Mix at the '''end'''''
+
+You might recall ''a''^2^ `+` ''b''^2^ `=` ''c''^2^ from your math lessons, unless your head is filled with H,,2,,O.
+
+An { { {inline code sequence} } } has the start and end markers on the same line. Or you use `backticks`.
+
+A code display has them on different lines: { { {
+'''No''' markup here!
+} } }
+}}} 
+/!\ 上の例では、ソースコード表示に関する箇所を「エスケープ」するために、中括弧の間にスペースを入れています。実際に利用する際には、中括弧は(スペースを除いて)続けて書いてください。
+
+=== 表示 ===
+__Mixing__ ''italics'' and '''bold''':
+ * '''''Mix''' at the beginning''
+ * '''''Mix'' at the beginning'''
+ * '''Mix at the ''end'''''
+ * ''Mix at the '''end'''''
+
+You might recall ''a''^2^ `+` ''b''^2^ `=` ''c''^2^ from your math lessons, unless your head is filled with H,,2,,O.
+
+An {{{inline code sequence}}} has the start and end markers on the same line. Or you use `backticks`.
+
+A code display has them on different lines: {{{
+'''No''' markup here!
+}}}
+
+=== コードのカラー表示 ===
+コードをカラー表示[[FootNote(現時点では、カラー表示できる言語の数は限られています。HelpOnParsersを参照してください。)]]するための方法は、複数存在します。
+ 1. コードの表示を"#!PARSERNAME"だけの行で始める。
+ 1. {{{"inline:"}}}を利用して、拡張子が".py"のファイルを添付する。
+ 1. 書式処理命令("#format PARSERNAME")をページの先頭に記述する。
+
+例: {{{#!python
+from colors import palette
+palette.colorize('python')
+}}}

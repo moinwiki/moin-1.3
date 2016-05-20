@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpOnLists
 ##master-date:2001-11-30 21:30:20
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 == Listen und Einrückungen ==
 Sie können Punktelisten und Nummerierungen auf eine sehr naheliegende Weise eingeben. Alles, was Sie tun müssen, ist die Zeile einzurücken, die das Listenelement enthält. Um eine Punkteliste zu erhalten, fangen Sie den Punkt mit einem Stern "{{{*}}}" an; um nummerierte Punkte zu bekommen, fangen Sie ihn mit einem Zahlenmuster an "{{{1.}}}", "{{{a.}}}", "{{{A.}}}", "{{{i.}}}" oder "{{{I.}}}". Alles andere wird die Zeile lediglich einrücken. Um eine nummerierte Liste mit einem bestimmten Startwert anzufangen, hängen Sie "{{{#}}}''startwert''" an das Zahlenmuster an.
 

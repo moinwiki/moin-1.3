@@ -21,7 +21,7 @@ Step by step instructions:
  3. Run this script from your wiki data directory, where your pages
     directory lives.
 
- 4. Fix permissions on the data directory, as explined in HelpOnInstalling.
+ 4. Fix permissions on the data directory, as explained in HelpOnInstalling.
 
  5. Verify that pages are fine after repair, if you find a problem,
     restore your data directory from backup.
@@ -42,7 +42,7 @@ Why run this script?
 
     You can run the script multiple times if needed.
 
-@copyright: 2004 NirSoffer <nirs@freeshell.org>
+@copyright: 2004 Nir Soffer <nirs AT freeshell DOT org>
 @license: GPL, see COPYING for details
 """
 
@@ -70,15 +70,17 @@ def repairText(text):
     """ Repair page text
 
     We change only this type of lines that currently are in moinmaster
-    ##language:xx
-    with optional more text on that line
+    ##language:\s*xx
+
+    Warning: will not repair the language if there is more text on the
+    same line, e.g. ##language:fr make it french!
 
     @param text: the page text, unicode
     @rtype: 2 tuple, (unicode, int)
     @return: text after replacement, lines changed
     """
-    lineend = '\r\n'
-    needle = '##language:'
+    lineend = u'\r\n'
+    needle = u'##language:'
     changed = 0
 
     # Get text lines
@@ -87,20 +89,26 @@ def repairText(text):
     # Look in page header
     for i in range(len(lines)):
         line = lines[i]
-        if not line.startswith('#'):
+        if not line.startswith(u'#'):
             break # end of header
         
         if line.startswith(needle):
-            lang = line[len(needle):].strip().replace("_","-")
+            # Get language from rest of line
+            lang = line[len(needle):].strip()
+            # Normalize language names. Language files are named xx_yy,
+            # but iso names use xx-yy. This can confuse people.
+            lang = lang.replace(u"_", u"-")
                 
-            # Validate lang
+            # Validate lang, make new style language processing
+            # instruction.
             if lang in valid_languages:
                 line = u'#language %s' % lang
                 lines[i] = line
                 changed += 1
 
     if changed:
-        text = lineend.join(lines)
+        # Join lines back, make sure there is trailing line end
+        text = lineend.join(lines) + lineend
     return text, changed
 
 

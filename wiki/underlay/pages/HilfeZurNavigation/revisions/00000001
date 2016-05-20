@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language de
 ##master-page:HelpOnNavigation
 ##master-date:2004-08-30 01:35:51
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language de
 == Navigation ==
 
 Der Kopfbereich auf jeder Seite ermöglicht es Ihnen, folgende Seiten aufzurufen: StartSeite, AktuelleÄnderungen, TitelIndex (Index aller Seitentitel), WortIndex (Index aller Teilworte in den Seitentiteln), WegWeiser (Liste von Navigationshilfen) und HilfeInhalt (Haupt-Hilfeseite).

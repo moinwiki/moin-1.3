@@ -1,9 +1,12 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language da
 ##master-page:HelpContents
 ##master-date:2004-11-10 23:54:39
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language da
 
 Her er en gennemgang af de vigtigste hjælpesider:
  * HjælpForBegyndere - hvis du er ny udi wiki

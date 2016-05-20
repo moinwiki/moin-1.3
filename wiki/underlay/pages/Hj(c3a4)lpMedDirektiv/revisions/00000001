@@ -1,10 +1,13 @@
-#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit system and help pages ONLY in the moinmaster wiki! For more
+## information, please see MoinMaster:MoinPagesEditorGroup.
 ## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
 ## For more information, please see MoinMaster:MoinPagesEditorGroup.
-#language sv
+##translated-by:Karolina Lindqvist, Shakti Wiki
 ##master-page:HelpOnProcessingInstructions
 ##master-date:2002-03-05 10:00:33
-##translated-by:Karolina Lindqvist, Shakti Wiki
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+#format wiki
+#language sv
 == Speciella direktiv ==
 MoinMoin har speciella direktiv som har liknande format som i XML:. De bestämmer hur innehållet i en sida ska tolkas. Dessa direktiv är rader som börjar med ett "{{{#}}}"-tecken åtföljt av ett nyckelord och eventuellt av parameterar. Små och stora bokstäver spelar ingen roll i nyckelordet. Två konsekutiva "{{{#}}}"-tecken markerar att raden är en kommentar som inte visas med sidan.
 

@@ -6,6 +6,8 @@
     @license: GNU GPL, see COPYING for details.
 """
 
+Dependencies = []
+
 class Parser:
     """
         Send plain text in a HTML <pre> element.
@@ -14,11 +16,12 @@ class Parser:
     ## specify extensions willing to handle (for inline:)
     ## should be a list of extensions including the leading dot
     ## TODO: remove the leading dot from the extension. This is stupid.
-    extensions = ['.txt']
+    #extensions = ['.txt']
     ## use '*' instead of the list(!) to specify a default parser
     ## which is used as fallback
-    # extensions = '*'
-
+    extensions = '*'
+    Dependencies = []
+    
     def __init__(self, raw, request, **kw):
         self.raw = raw
         self.request = request

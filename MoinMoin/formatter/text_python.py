@@ -31,6 +31,7 @@ class Formatter:
         self.__formatter = "formatter"
         self.__parser = "parser"
         self.request = request
+        self.__lang = request.current_lang
         self.__in_p = 0
         self.__in_pre = 0
         self.text_cmd_begin = '\nrequest.write('
@@ -85,15 +86,23 @@ if moincode_timestamp > %d: raise "CacheNeedsUpdate"
             if dep not in  self.static: return False
         return True
 
+    def __adjust_languge_state(self):
+        """ Add current language state changing code to the cache """
+        if self.__lang != self.request.current_lang:
+            self.__lang = self.request.current_lang
+            return 'request.current_lang = %r\n' % self.__lang
+        return ''
+        
     def __adjust_formatter_state(self):
-        result = ''
+        result = self.__adjust_languge_state()
         if self.__in_p != self.formatter.in_p:
-            result = "%s.in_p = %r\n" % (self.__formatter, self.formatter.in_p)
+            result = "%s%s.in_p = %r\n" % (result, self.__formatter,
+                                           self.formatter.in_p)
             self.__in_p = self.formatter.in_p
         if self.__in_pre != self.formatter.in_pre:
             result = "%s%s.in_pre = %r\n" % (result, self.__formatter,
                                            self.formatter.in_pre)
-            self.__in_pre = self.formatter.in_pre
+            self.__in_pre = self.formatter.in_pre        
         return result
     
     def dynamic_content(self, parser, callback, arg_list = [], arg_dict = {},
@@ -106,9 +115,17 @@ if moincode_timestamp > %d: raise "CacheNeedsUpdate"
             return self.__insert_code('%s%s.%s(*%r,**%r)' %
                         (adjust, self.__parser, callback, arg_list, arg_dict))
 
-    def pagelink(self, on, pagename='', **kw):
-        return self.__insert_code('request.write(%s.pagelink(%r, %r, **%r))' %
-                                  (self.__formatter, on, pagename, kw))
+    # Public methods ---------------------------------------------------
+        
+    def pagelink(self, on, pagename='', page=None, **kw):
+        if on:
+            return self.__insert_code('page=Page(request, %r, formatter=%s);'
+                                      'request.write(%s.pagelink(%r, page=page, **%r))' %
+                                      (pagename, self.__formatter,
+                                       self.__formatter, on, kw))
+        else:
+            return self.__insert_code('request.write(%s.pagelink(%r, page=page, **%r))' %
+                                      (self.__formatter, on, kw))
 
     def attachment_link(self, on, url='', **kw):
         return self.__insert_code(
@@ -131,8 +148,12 @@ if moincode_timestamp > %d: raise "CacheNeedsUpdate"
 
     def heading(self, on, depth, **kw):        
         if on:
-            return self.__insert_code('request.write(%s.heading(%r, %r, **%r))' %
-                        (self.__formatter, on, depth, kw))
+            code = [
+                self.__adjust_languge_state(),
+                'request.write(%s.heading(%r, %r, **%r))' % (self.__formatter,
+                                                             on, depth, kw),
+                ]     
+            return self.__insert_code(''.join(code))
         else:
             return self.formatter.heading(on, depth, **kw)
 
@@ -157,13 +178,11 @@ if moincode_timestamp > %d: raise "CacheNeedsUpdate"
         prints out the result insted of returning it!
         """
         if not is_parser:
-            Dependencies = wikiutil.importPlugin("processor",
-                                                 processor_name, "Dependencies",
-                                                 self.request.cfg.data_dir)
+            Dependencies = wikiutil.importPlugin(self.request.cfg, "processor",
+                                                 processor_name, "Dependencies")
         else:
-            Dependencies = wikiutil.importPlugin("parser",
-                                                 processor_name, "Dependencies",
-                                                 self.request.cfg.data_dir)
+            Dependencies = wikiutil.importPlugin(self.request.cfg, "parser",
+                                                 processor_name, "Dependencies")
             
         if Dependencies == None:
             Dependencies = ["time"]

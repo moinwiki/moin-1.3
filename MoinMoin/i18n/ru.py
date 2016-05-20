@@ -29,8 +29,6 @@ macro call.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Вам не разрешено просматривать эту страницу.''',
-'''RefreshCache''':
-'''ОбновитьКэш''',
 '''(cached %s)''':
 '''(запомнен %s)''',
 '''You are not allowed to edit this page.''':
@@ -539,8 +537,6 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 Или же, если поле "Записать в" оставить пустым, будет использовано имя вашего файла.''',
 '''File to upload''':
 '''Приложить файл''',
-'''MIME Type (optional)''':
-'''MIME тип (можно не указывать)''',
 '''Save as''':
 '''Записать в''',
 '''Upload''':
@@ -701,6 +697,8 @@ Try a different name.''':
 '''XSLT недоступен!''',
 '''%(errortype)s processing error''':
 '''ошибка обработки %(errortype)s''',
+'''RefreshCache''':
+'''ОбновитьКэш''',
 '''for this page (cached %(date)s)''':
 '''этой страницы (кеширована %(date)s)''',
 '''Charts are not available!''':
@@ -725,6 +723,8 @@ red=edit''':
 '''Другие''',
 '''Distribution of User-Agent Types''':
 '''Распределение броузеров по типам''',
+'''Unsubscribe''':
+'''Отписка''',
 '''Click to do a full-text search for this title''':
 '''Нажмите сюда для поиска этого названия везде''',
 '''Clear message''':
@@ -739,8 +739,6 @@ red=edit''':
 '''По тексту''',
 '''Titles''':
 '''По заголовкам''',
-'''Unsubscribe''':
-'''Отписка''',
 '''More Actions:''':
 '''Другие действия:''',
 '''Show Raw Text''':
@@ -761,8 +759,6 @@ red=edit''':
 '''Показать обложку''',
 '''Immutable Page''':
 '''Неизменяемая страница''',
-'''Refresh''':
-'''Обновить кэш''',
 '''Show Changes''':
 '''Показать изменения''',
 '''Get Info''':

@@ -21,7 +21,7 @@
     Also, the URL http://moinmoin.wikiwikiweb.de/HelpOnConfiguration has
     a list of config options.
 
-    @copyright: 2000-2004 by Juergen Hermann <jh@web.de>
+    @copyright: 2000-2005 by Juergen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
@@ -79,7 +79,8 @@ class Config(DefaultConfig):
 
     # IMPORTANT: grant yourself admin rights! replace YourName with
     # your user name. See HelpOnAccessControlLists for more help.
-    #acl_rights_before = "YourName:read,write,delete,revert,admin"
+    # All acl_right_xxx must use unicode [Unicode]
+    #acl_rights_before = u"YourName:read,write,delete,revert,admin"
     
     # Link spam protection for public wikis (Uncomment to enable)
     # Needs a reliable internet connection.
@@ -89,6 +90,7 @@ class Config(DefaultConfig):
     # Mail --------------------------------------------------------------
     
     # Configure to enable subscribing to pages (disabled by default)
+    # or sending forgotten passwords.
 
     # SMTP server, e.g. "mail.provider.com" (empty or None to disable mail)
     mail_smarthost = ""

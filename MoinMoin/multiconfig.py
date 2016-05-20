@@ -9,6 +9,8 @@
 """
 
 import re, os, sys
+from MoinMoin import error
+
 
 _url_re = None
 def url_re():
@@ -44,18 +46,12 @@ def url_re():
 
 
 def getConfig(url):
-    """ Make and return config object
+    """ Make and return config object, or raise an error
 
     If the config file is not found or broken, either because of a typo
-    in farmconfig or deleted file or some other error, we return a
-    default config, and a warning.
-
-    The default config works with a default installed wiki. If the wiki
-    is installed using different url_prefix and other settings, it might
-    not work, because other code does not do proper error checking.
+    in farmconfig or deleted file or some other error, we raise a
+    ConfigurationError which is handled by our client.
     
-    This is the behavior of moin up to version 1.2
-
     @param url: the url from request, possibly matching specific wiki
     @rtype: DefaultConfig subclass instance
     @return: config object for specific wiki
@@ -74,28 +70,74 @@ def getConfig(url):
             module =  __import__(name, globals(), {})
             Config = getattr(module, 'Config', None)
             if Config:
-                # Config found, return config instance
-                cfg = Config()
-                cfg.siteid = name
+                # Config found, return config instance using name as
+                # site identifier (name must be unique of our url_re).
+                cfg = Config(name)
                 return cfg
             else:
                 # Broken config file, probably old config from 1.2
-                err = 'could not find a "Config" class in "%s.py"; ' \
-                      'default configuration used instead.' % (name)
+                msg = '''
+Could not find required "Config" class in "%(name)s.py". This might
+happen if you are trying to use a pre 1.3 configuration file, or made a
+syntax or spelling error.
 
-        except ImportError, why:
-            # Broken config file, probably indent problem
-            err = 'import of config "%s" failed due to "%s"; ' \
-                  'default configuration used instead.' % (name, why)
+Please check your configuration file. As an example for correct syntax,
+use the wikiconfig.py file from the distribution.
+''' % {'name': name}
+
+        # We don't handle fatal errors here
+        except error.FatalError, err:
+            raise err
+
+        # These errors will not be big surprise:       
+        except ImportError, err:
+            msg = '''
+Import of configuration file "%(name)s.py" failed because of
+ImportError: %(err)s.
+
+Check that the file is in the same directory as the server script. If
+it is not, you must add the path of the directory where the file is located
+to the python path in the server script. See the comments at the top of
+the server script.
+
+Check that the configuration file name is either "wikiconfig.py" or the
+module name specified in the wikis list in farmconfig.py. Note that the module
+name does not include the ".py" suffix.
+''' % {'name': name, 'err': str(err)}
+
+        except IndentationError, err:
+            msg = '''
+Import of configuration file "%(name)s.py" failed because of
+IndentationError: %(err)s.
+
+The configuration files are python modules. Therefore, whitespace is
+important. Make sure that you use only spaces, no tabs are allowed here!
+You have to use four spaces at the beginning of the line mostly.
+''' % {'name': name, 'err': str(err)}
+
+        # But people can have many other errors. We hope that the python
+        # error message will help them.
+        except:
+            err = sys.exc_info()[1]
+            msg = '''
+Import of configuration file "%(name)s.py" failed because of %(class)s:
+%(err)s.
+
+We hope this error message make sense. If not, you are welcome to ask on
+the page http://moinmoin.wikiwikiweb.de/MoinMoinQuestions/ConfigFiles
+or the #moin channel on irc.freenode.net or on the mailing list.
+''' % {'name': name, 'class': err.__class__.__name__, 'err': str(err)}
+
     else:
-        # Missing config file, or error in farmconfig.py 
-        err = 'could not find a config file for url: %s; ' \
-              'default configuration used instead.' % (url)
+        # URL did not match anything, probably error in farmconfig.wikis 
+        msg = '''
+Could not find a match for url: "%(url)s".
 
-    # Warn and return a default config
-    import warnings
-    warnings.warn(err)
-    return DefaultConfig()
+Check your URL regular expressions in the "wikis" list in
+"farmconfig.py". 
+''' % {'url': url}
+
+    raise error.ConfigurationError(msg)
 
 
 # This is a way to mark some text for the gettext tools so that they don't
@@ -109,10 +151,12 @@ class DefaultConfig:
     FIXME: update according to MoinMoin:UpdateConfiguration
     """    
     acl_enabled = 0
-    acl_rights_default = "Trusted:read,write,delete,revert Known:read,write,delete,revert All:read,write"
-    acl_rights_before = ""
-    acl_rights_after = ""
+    # All acl_right lines must use unicode!
+    acl_rights_default = u"Trusted:read,write,delete,revert Known:read,write,delete,revert All:read,write"
+    acl_rights_before = u""
+    acl_rights_after = u""
     acl_rights_valid = ['read', 'write', 'delete', 'revert', 'admin']
+    
     allow_extended_names = 1
     allow_numeric_entities = 1
     allowed_actions = []
@@ -129,8 +173,8 @@ class DefaultConfig:
     chart_options = None
     config_check_enabled = 0
     cookie_lifetime = 12 # 12 hours from now
-    data_dir = './wiki/data/'
-    data_underlay_dir = './wiki/underlay/'
+    data_dir = './data/'
+    data_underlay_dir = './underlay/'
     date_fmt = '%Y-%m-%d'
     datetime_fmt = '%Y-%m-%d %H:%M:%S'
     default_lang = 'en'
@@ -145,7 +189,6 @@ class DefaultConfig:
     html_head_normal  = '''<meta name="robots" content="index,nofollow">\n'''
     html_pagetitle = None
 
-    interwikiname = None
     mail_login = None # or "user pwd" if you need to use SMTP AUTH
     mail_smarthost = None
     mail_from = None
@@ -219,19 +262,26 @@ class DefaultConfig:
     sitename = u'Untitled Wiki'
     url_prefix = '/wiki'
     logo_string = None
+    interwikiname = None
     
     url_mappings = {}
     SecurityPolicy = None
 
-    def __init__(self):
+    def __init__(self, siteid):
         """ Init Config instance """
+        self.siteid = siteid
         if self.config_check_enabled:
             self._config_check()
-
-        # Decode certain names that allow unicode values
-        # wikiconfig is utf-8, internal config are Unicode
+            
+        # Try to decode certain names which allow unicode
         self._decode()
 
+        # Make sure directories are accessible
+        self._check_directories()
+
+        # Load plugin module
+        self._loadPluginModule()
+        
         # Normalize values
         self.default_lang = self.default_lang.lower()
 
@@ -256,7 +306,7 @@ class DefaultConfig:
         excluded_actions = ['DeletePage', 'AttachFile', 'RenamePage']
         self.excluded_actions = [action for action in excluded_actions
                                  if not action in self.allowed_actions]
-
+        
         # define directories
         self.moinmoin_dir = os.path.abspath(os.path.dirname(__file__))
         data_dir = os.path.normpath(self.data_dir)
@@ -265,7 +315,7 @@ class DefaultConfig:
             name = dirname + '_dir'
             if not getattr(self, name, None):
                 setattr(self, name, os.path.join(data_dir, dirname))
-
+        
         # post process navibar
         # we replace any string placeholders with config values
         # e.g u'%(page_front_page)s' % self
@@ -276,43 +326,156 @@ class DefaultConfig:
         
         Warn about names which are not used by DefaultConfig, except
         modules, classes, _private or __magic__ names.
+
+        This check is disabled by default, when enabled, it will show an
+        error message with unknown names.
         """       
         unknown = ['"%s"' % name for name in dir(self)
                   if not name.startswith('_') and 
                   not DefaultConfig.__dict__.has_key(name) and
                   not isinstance(getattr(self, name), (type(sys), type(DefaultConfig)))]
         if unknown:
-            msg = ("Warning: unknown config options: %s. Please check your "
-                   "configuration for typos before requesting support or "
-                   "reporting a bug.\n") % ', '.join(unknown)
-            import warnings
-            warnings.warn(msg)
+            msg = """
+Unknown configuration options: %s.
+
+For more information, visit HelpOnConfiguration. Please check your
+configuration for typos before requesting support or reporting a bug.
+""" % ', '.join(unknown)
+            from MoinMoin import error
+            raise error.ConfigurationError(msg)
 
     def _decode(self):
-        """ Decode certain values from utf-8, preserve unicode values """
-        import warnings
-        strnotunicodemsg = (
-            "Warning: %s should be unicode, not string. "
-            "Using ascii/replace which can give wrong results. "
-            "Better use var = u'whatever' syntax.\n")
-                
-        decode_names = ('sitename', 'logo_string', 'page_category_regex',
-                        'page_dict_regex', 'page_form_regex', 'page_group_regex',
-                        'page_template_regex', 'navi_bar', 'page_front_page',
-                        'page_license_page',)
+        """ Try to decode certain names, ignore unicode values
+        
+        Try to decode str using utf-8. If the decode fail, raise FatalError. 
+
+        Certain config variables should contain unicode values, and
+        should be defined with u'text' syntax. Python decode these if
+        the file have a 'coding' line.
+        
+        This will allow utf-8 users to use simple strings using, without
+        using u'string'. Other users will have to use u'string' for
+        these names, because we don't know what is the charset of the
+        config files.
+        """
+        charset = 'utf-8'
+
+        # TODO: add to translation in 1.4?
+        message = u'''
+"%(name)s" configuration variable is a string, but should be
+unicode. Use %(name)s = u"value" syntax for unicode variables.
+
+Also check your "-*- coding -*-" line at the top of your configuration
+file. It should match the actual charset of the configuration file.
+'''
+        
+        decode_names = (
+            'sitename', 'logo_string', 'navi_bar', 'page_front_page',
+            'page_category_regex', 'page_dict_regex', 'page_form_regex',
+            'page_group_regex', 'page_template_regex', 'page_license_page',
+            'page_local_spelling_words', 'acl_rights_default',
+            'acl_rights_before', 'acl_rights_after',
+            )
+        
         for name in decode_names:
             attr = getattr(self, name, None)
             if attr:
+                # Try to decode strings
                 if isinstance(attr, str):
-                    setattr(self, name, unicode(attr, 'ascii', 'replace'))
-                    warnings.warn(strnotunicodemsg % name)
+                    try:
+                        setattr(self, name, unicode(attr, charset)) 
+                    except UnicodeError:
+                        raise error.ConfigurationError(message %
+                                                       {'name': name})
+                # Look into lists and try to decode string inside them
                 elif isinstance(attr, list):
                     for i in xrange(len(attr)):
-                        name = attr[i]
-                        if isinstance(name, str):
-                            attr[i] = unicode(name, 'ascii', 'replace')
-                            warnings.warn(strnotunicodemsg % name)
-                        
+                        item = attr[i]
+                        if isinstance(item, str):
+                            try:
+                                attr[i] = unicode(item, charset)
+                            except UnicodeError:
+                                raise error.ConfigurationError(message %
+                                                               {'name': name})
+
+    def _check_directories(self):
+        """ Make sure directories are accessible
+
+        Both data and underlay should exists and allow read, write and
+        execute.
+        """
+        mode = os.F_OK | os.R_OK | os.W_OK | os.X_OK
+        for attr in ('data_dir', 'data_underlay_dir'):
+            path = getattr(self, attr)
+            
+            # allow an empty underlay path or None
+            if attr == 'data_underlay_dir' and not path:
+                continue
+
+            path_pages = os.path.join(path, "pages")
+            if not (os.path.isdir(path_pages) and os.access(path_pages, mode)):
+                msg = '''
+"%(attr)s" does not exists at "%(path)s", or has incorrect ownership and
+permissions.
+
+Make sure the directory and the subdirectory pages are owned by the web server and are readable,
+writable and executable by the web server user and group.
+
+It is recommended to use absolute paths and not relative paths. Check
+also the spelling of the directory name.
+''' % {'attr': attr, 'path': path,}
+                raise error.ConfigurationError(msg)
+
+    def _loadPluginModule(self):
+        """ import plugin module under configname.plugin
+
+        To be able to import plugin from arbitrary path, we have to load
+        the base package once using imp.load_module. Later, we can use
+        standard __import__ call to load plugins in this package.
+
+        Since each wiki has unique plugins, we load the plugin package
+        under the wiki configuration module, named self.siteid.
+        """
+        import sys, imp
+
+        name = self.siteid + '.plugin'
+        
+        # Get lock functions - require Python 2.3
+        try:
+            acquire_lock = imp.acquire_lock
+            release_lock = imp.release_lock
+        except AttributeError:
+            def acquire_lock(): pass
+            def release_lock(): pass
+
+        try:
+            # Lock other threads while we check and import
+            acquire_lock()
+            try:
+                # If the module is not loaded, try to load it
+                if not name in sys.modules:
+                    # Find module on disk and try to load - slow!
+                    fp, path, info = imp.find_module('plugin', [self.data_dir])
+                    try:
+                        # Load the module and set in sys.modules             
+                        module = imp.load_module(name, fp, path, info)
+                        sys.modules[self.siteid].plugin = module
+                    finally:
+                        # Make sure fp is closed properly
+                        if fp:
+                            fp.close()
+            finally:
+                release_lock()
+        except ImportError, err:
+            msg = '''
+Could not import plugin package from "%(path)s" because of ImportError:
+%(err)s.
+
+Make sure your data directory path is correct, check permissions, and
+that the data/plugin directory has an __init__.py file.
+''' % {'path': self.data_dir, 'err': str(err)}
+            raise error.ConfigurationError(msg)
+            
     def __getitem__(self, item):
         """ Make it possible to access a config object like a dict """
         return getattr(self, item)
