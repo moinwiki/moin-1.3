@@ -29,7 +29,10 @@ dsttrans = BasicAuthTransport(user,password)
 dstwiki = xmlrpclib.ServerProxy("http://devel.linuxwiki.org/moin--cvs/__xmlrpc/?action=xmlrpc2", transport=dsttrans)
 #dstwiki = xmlrpclib.ServerProxy("http://devel.linuxwiki.org/moin--cvs/?action=xmlrpc2")
 
-import pickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 
 backupfile = open("wikibackup.pickle","r")
 backup = pickle.load(backupfile)

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-11-17 12:37+0100\n"
 "Last-Translator: Jonas Smedegaard <dr@jones.dk>\n"
 "Language-Team: Danish <moin-devel@lists.sourceforge.net>\n"
@@ -132,7 +132,7 @@ msgid "Optional comment about this change"
 msgstr "Kommentar til denne ændring (valgfri)"
 
 msgid "<No addition>"
-msgstr ""
+msgstr "<Ingen tilføjelser>"
 
 #, python-format
 msgid "Make this page belong to category %(category)s"
@@ -1288,7 +1288,7 @@ msgid "More Actions:"
 msgstr "Flere Rutiner:"
 
 msgid "Show Raw Text"
-msgstr ""
+msgstr "Vis rå tekst"
 
 msgid "Show Print View"
 msgstr "Vis udskriftsvenlig udgave"
@@ -1306,11 +1306,10 @@ msgid "Show Local Site Map"
 msgstr "Vis lokal oversigt"
 
 msgid "Do"
-msgstr "Brug"
+msgstr "Anvend"
 
-#, fuzzy
 msgid "Show Parent"
-msgstr "Vis udskriftsvenlig udgave"
+msgstr "Vis \"forælder\" (siden denne stammer fra)"
 
 msgid "Immutable Page"
 msgstr "Ikke-redigérbar side"
@@ -1346,6 +1345,11 @@ msgstr "Sti"
 msgid "User"
 msgstr "Bruger"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "Linje"
 
@@ -1362,8 +1366,11 @@ msgstr "Forbindelse til email-server '%(server)s' mislykkedes: %(reason)s"
 msgid "Mail sent OK"
 msgstr "Email sendt OK"
 
-msgid "[\"<html>\"]"
-msgstr "[\"html\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "ForSide"
@@ -1437,11 +1444,14 @@ msgstr "OmdøbSide"
 msgid "SpellCheck"
 msgstr "StaveKontrol"
 
+#~ msgid "(edit log entry is missing)"
+#~ msgstr "(besked i redigeringslog mangler)"
+
 #~ msgid "Rename"
 #~ msgstr "Omdøb"
 
-#~ msgid "(edit log entry is missing)"
-#~ msgstr "(besked i redigeringslog mangler)"
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"html\"]"
 
 #~ msgid "Send mail notification"
 #~ msgstr "Send email-orientering"

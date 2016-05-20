@@ -48,9 +48,9 @@ An alternative distribution called '''Active``Python''' is available from http:/
 Moin``Moin will work with either distribution, but requires Python release 2.2.2 or later.  Download and install the distribution of your choice.  Questions and problems dealing with the Python installation process should be resolved through the use of resources provided by Python.org or Active``State.  Be sure your Python installation is correct before proceeding.
 
 == Installing MoinMoin ==
-Download the current version of Moin``Moin from http://moinmoin.wikiwikiweb.de/ into `C:\TEMP` or an alternative location. For the ''.tar.gz'' format try Win``Zip.
+Download the current version of Moin``Moin from http://moinmoin.wikiwikiweb.de/ into `C:\TEMP` or an alternative location. To extract the ''.tar.gz''-format archive, you may use Win``Zip.
 
-You should then have a folder `C:\TEMP\moin-x.x` where "x.x" is the current release number. This folder will contain a `setup.py` file in addition to several other files and subfolders.
+You should then have a folder such as `C:\TEMP\moin-x.x` where "x.x" is the current release number. This folder will contain a `setup.py` file in addition to several other files and subfolders.
 
 Open an MS-DOS or console window and enter the commands:
 {{{
@@ -59,7 +59,7 @@ cd \TEMP\moin-x.x
 C:\Python\python setup.py install --record=install.log
 }}}
 
-The above commands will add Moin``Moin to your `C:\Python` installation and create an `install.log` file in {{{C:\temp\moin-x.x}}} listing all the copied files. You may use Windows Explorer to examine the newly created folders within `C:\Python`. You should find a `C:\Python\share\moin` folder. With Python 2.2 and later it will be `C:\Python\Lib\site-packages\MoinMoin`. The `MoinMoin` folder contains many Python scripts and several subfolders.
+The above commands will add Moin``Moin to your `C:\Python` installation and create an `install.log` file in {{{C:\temp\moin-x.x}}} listing all the copied files. You may use Windows Explorer to examine the newly created folders within `C:\Python`. You should find a `C:\Python\share\moin` folder. With Python 2.2 and later you will also find a `C:\Python\Lib\site-packages\MoinMoin` folder. The `MoinMoin` folder contains many Python scripts and several subfolders.
 
 You are now ready to create a wiki instance.
 
@@ -89,14 +89,21 @@ If your server is going to run multiple wikis, you need to create additional clo
 
 Edit `C:\Moin\mywiki\wikiconfig.py` and at least change `sitename` to the name of your wiki:
 {{{
-sitename = 'My Wiki'
+    sitename = 'My Wiki'
 }}}
 
+Additionally, set `data_dir` and `data_underlay_dir` to the absolute paths of the particular directories. Like here:
+{{{
+    data_dir = r'C:\Moin\mywiki\data'
+    data_underlay_dir = r'C:\Moin\mywiki\underlay'
+}}}
 
 For a personal or intranet installation, you'll normally also add this line to `wikiconfig.py`:
 {{{
-allowed_actions = ['DeletePage', 'AttachFile', 'RenamePage', ]
+    allowed_actions = ['DeletePage', 'AttachFile', 'RenamePage', ]
 }}}
+
+If you will '''''not''''' be running a Wiki farm (if you're not sure what this means, then you probably won't be), make sure to delete the `farmconfig.py` file from the `C:\Moin\mywiki` directory, or else `moin.cgi` will most likely give off various errors (including one about not being able to find a configuration file) and will ultimately fail to start up properly.
 
 Additional configuration details can be found in HelpOnConfiguration.
 
@@ -109,7 +116,7 @@ Use your editor to edit the file `C:\Moin\mywiki\moin.cgi`.  Change the first li
 After that, you may need to activate the lines which add a folder to the sys.path and enter your path to MoinMoin there if you have '''not''' installed MoinMoin to the site-packages dir:
 {{{#! python
 import sys
-sys.path.append(r'C:\Moin\...')
+sys.path.insert(0, r'C:\Moin\...')
 }}}
 
 The next step is to tell Apache that is has more work to do.

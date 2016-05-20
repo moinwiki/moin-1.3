@@ -28,7 +28,18 @@ from MoinMoin.support.BasicAuthTransport import BasicAuthTransport
 #srcwiki = xmlrpclib.ServerProxy("http://devel.linuxwiki.org/moin--cvs/__xmlrpc/?action=xmlrpc2", transport=srctrans)
 srcwiki = xmlrpclib.ServerProxy("http://devel.linuxwiki.org/moin--cvs/?action=xmlrpc2")
 
-import pickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
+# Set pickle protocol, see http://docs.python.org/lib/node64.html
+try:
+    # Requires 2.3
+    PICKLE_PROTOCOL = pickle.HIGHEST_PROTOCOL
+except AttributeError:
+    # Use protocol 1, binary format compatible with all python versions
+    PICKLE_PROTOCOL = 1
 
 backup={}
 allpages = srcwiki.getAllPages()
@@ -38,6 +49,6 @@ for pagename in allpages:
     backup[pagename]=pagedata
 
 backupfile = open("wikibackup.pickle","w")
-pickle.dump(backup, backupfile)
+pickle.dump(backup, backupfile, PICKLE_PROTOCOL)
 backupfile.close()
 

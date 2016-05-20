@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-11-29 09:00+0200\n"
 "Last-Translator: Nir Soffer <nirs@freeshell.org>\n"
 "Language-Team: Hebrew <moin-devel@lists.sourceforge.net>\n"
@@ -1252,7 +1252,7 @@ msgid "Show Print View"
 msgstr "תצוגת הדפסה"
 
 msgid "Attach File"
-msgstr "צרף קובץ"
+msgstr "הצג קבצים מצורפים"
 
 msgid "Delete Page"
 msgstr "מחק דף"
@@ -1303,6 +1303,11 @@ msgstr "דפים אחרונים"
 msgid "User"
 msgstr "משתמש"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "שורה"
 
@@ -1319,8 +1324,11 @@ msgstr "החיבור לשרת הדואר \"%(server)s\" נכשל: %(reason)s"
 msgid "Mail sent OK"
 msgstr "דואר נשלח בהצלחה."
 
-msgid "[\"<html>\"]"
-msgstr "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "פתיחה"
@@ -1377,7 +1385,7 @@ msgid "Sun"
 msgstr "ראשון"
 
 msgid "AttachFile"
-msgstr "צרף קובץ"
+msgstr "הצג קבצים מצורפים"
 
 msgid "DeletePage"
 msgstr "מחק דף"
@@ -1393,6 +1401,9 @@ msgstr "שנה שם דף"
 
 msgid "SpellCheck"
 msgstr "בדוק איות"
+
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"<html>\"]"
 
 #~ msgid "Rename"
 #~ msgstr "שנה שם"

@@ -230,7 +230,7 @@ def _build_filelist(request, pagename, showheader, readonly):
             if ext == '.draw':
                 viewlink = '<a href="%(baseurl)s/%(urlpagename)s?action=%(action)s&amp;drawing=%(base)s">%(label_edit)s</a>' % parmdict
             else:
-                viewlink = '<a href="%(baseurl)s/%(urlpagename)s?action=%(action)s&amp;do=view&target=%(urlfile)s">%(label_view)s</a>' % parmdict
+                viewlink = '<a href="%(baseurl)s/%(urlpagename)s?action=%(action)s&amp;do=view&amp;target=%(urlfile)s">%(label_view)s</a>' % parmdict
 
             parmdict['viewlink'] = viewlink
             parmdict['del_link'] = del_link
@@ -640,11 +640,11 @@ def do_admin_browser(request):
         Column('page', label=('Page')),
         Column('file', label=('Filename')),
         Column('size',  label=_('Size'), align='right'),
-        Column('action', label=_('Action')),
+        #Column('action', label=_('Action')),
     ]
 
     # iterate over pages that might have attachments
-    pages = os.listdir(getBasePath(request))
+    pages = request.rootpage.getPageList()
     for pagename in pages:
         # check for attachments directory
         page_dir = getAttachDir(request, pagename)
@@ -657,7 +657,7 @@ def do_admin_browser(request):
                     Page(request, pagename).link_to(request, querystr="action=AttachFile"),
                     wikiutil.escape(filename),
                     os.path.getsize(filepath),
-                    '',
+                    # '',
                 ))
 
     if data:

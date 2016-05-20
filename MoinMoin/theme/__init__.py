@@ -588,8 +588,8 @@ searchBlur(e);
         """
         html = ''
         if self.cfg.show_version and not keywords.get('print_mode', 0):
-            html = (u'<div>MoinMoin %s, Copyright \xa9 2000-2004 by '
-                    'Jurgen Hermann</div>') % (version.revision,)
+            html = (u'<div id="version">MoinMoin %s, Copyright 2000-2004 by '
+                    'Juergen Hermann</div>') % (version.revision,)
         return html
 
     def headscript(self, d):

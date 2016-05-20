@@ -7,18 +7,30 @@
     @license: GNU GPL, see COPYING for details.
 """
 import re, time, os, copy
-#first make sure that this isnt having problems with unicode or other
-#stuff like cStringIO has!
-#try:
-#    import cPickle as pickle
-#except ImportError:
-#    import pickle
-import pickle
 
+# cPickle can encode normal and Unicode strings
+# see http://docs.python.org/lib/node66.html
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
+# Set pickle protocol, see http://docs.python.org/lib/node64.html
+try:
+    # Requires 2.3
+    PICKLE_PROTOCOL = pickle.HIGHEST_PROTOCOL
+except AttributeError:
+    # Use protocol 1, binary format compatible with all python versions
+    PICKLE_PROTOCOL = 1
+ 
 from MoinMoin import config, caching, wikiutil, Page
 from MoinMoin.logfile.editlog import EditLog
 
+# Its not clear if this was supposed to the pickle protocol, becuase
+# there is no protocol 3. Anyway, this value is not used in
+# pickle.dumps, so its has no effect on the pickle data format.
 DICTS_PICKLE_VERSION = 3
+    
 
 class DictBase:
     """ Base class for wiki dicts
@@ -289,8 +301,9 @@ class GroupDict(DictDict):
     def scandicts(self):
         """scan all pages matching the dict / group regex and init the dictdict"""
         dump = 0
-        
-        now = int(time.time()) # we don't want float!
+
+        # Save now in our internal version format
+        now = wikiutil.timestamp2version(int(time.time()))
         lastchange = EditLog(self.request).date()
         
         arena = 'wikidicts'
@@ -312,7 +325,7 @@ class GroupDict(DictDict):
                 dump = 1
 
         # everything is ok and nothing changed
-        if (lastchange<wikiutil.timestamp2version(self.namespace_timestamp)
+        if (lastchange < wikiutil.timestamp2version(self.namespace_timestamp)
             and dump==0):
             return
         
@@ -385,7 +398,7 @@ class GroupDict(DictDict):
                 self.dictdict[name].expandgroups(self)
 
         cache = caching.CacheEntry(self.request, arena, key)
-        cache.update(pickle.dumps(data))
+        cache.update(pickle.dumps(data, PICKLE_PROTOCOL))
         
         # remember it (persistent environments)
         self.cfg.DICTS_DATA = data

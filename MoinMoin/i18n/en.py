@@ -753,7 +753,7 @@ red=edit''',
 '''Show Print View''':
 '''Show Print View''',
 '''Attach File''':
-'''Attach File''',
+'''Attachments''',
 '''Delete Page''':
 '''Delete Page''',
 '''Show Like Pages''':
@@ -786,6 +786,8 @@ red=edit''',
 '''Trail''',
 '''User''':
 '''User''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''',
 '''Line''':
 '''Line''',
 '''Deletions are marked like this.''':
@@ -796,8 +798,10 @@ red=edit''',
 '''Connection to mailserver \'%(server)s\' failed: %(reason)s''',
 '''Mail sent OK''':
 '''Mail sent OK''',
-'''["<html>"]''':
-'''["<html>"]''',
+'''<escape>''':
+'''<escape>''',
+'''["<escape>"]''':
+'''["<escape>"]''',
 '''FrontPage''':
 '''FrontPage''',
 '''RecentChanges''':
@@ -835,7 +839,7 @@ red=edit''',
 '''Sun''':
 '''Sun''',
 '''AttachFile''':
-'''AttachFile''',
+'''Attachments''',
 '''DeletePage''':
 '''DeletePage''',
 '''LikePages''':

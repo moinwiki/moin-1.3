@@ -18,7 +18,6 @@ Processing instructions this wiki knows of:
    * '''Plain''': normal plain text
    * '''Python''': colorized Python source
    * '''HTML''' ( <!> not implemented)
-   * '''StructuredText''' ( <!> not implemented)
  * {{{#REDIRECT}}} ''pagename'': redirect to a different page (see MeatBall:PageRedirect'''''')
  * `#PRAGMA` ''mode'' ''args'': sets processing modes for this page; mode names are not case-sensitive, currently known modes are:
     * `#pragma section-numbers off` (or "0") switches off automatic numbering of section headers,
@@ -27,4 +26,4 @@ Processing instructions this wiki knows of:
 
 All PIs must appear at the very start of a page. An exception are comment PIs, those may appear anywhere within a  page using "wiki" format (but not in pages using other formats).
 
-For more information on the possible markup, see HelpOnEditing. 
+For more information on the possible markup, see HelpOnEditing.

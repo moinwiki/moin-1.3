@@ -149,7 +149,7 @@ if __name__ == '__main__':
     migutil.backup(datadir, origdir)
 
     # Copy stuff from original dir into new data dir
-    names = ['edit-log', 'error.log', 'event-log', 'intermap.txt', 'pages', 'plugin']
+    names = ['edit-log', 'event-log', 'intermap.txt', 'pages', 'plugin'] # error.log
     migutil.copy(names, origdir, datadir)
 
     # Convert user directory

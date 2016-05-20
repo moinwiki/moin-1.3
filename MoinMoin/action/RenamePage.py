@@ -121,7 +121,7 @@ class RenamePage:
             self.error = None
             # Save page text with a comment about the old name
             savetext = u"## page was renamed from %s\n%s" % (self.pagename, savetext)
-            newpage.saveText(savetext, 0, notify=1, comment=comment)
+            newpage.saveText(savetext, 0, comment=comment)
         except OSError, err:
             # Try to understand what happened. Maybe its better to check
             # the error code, but I just reused the available code above...

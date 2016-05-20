@@ -572,7 +572,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Unknown file type, cannot display this attachment inline.''':
 '''알 수 없는 파일 타입입니다, 이 첨부를 내용 안에 같이 보여줄 수 없습니다.''',
 '''attachment:%(filename)s of %(pagename)s''':
-'''%(pagename)s의 attachment:%(filename)s''',
+'''%(pagename)s의 [[Verbatim(attachment:)]]%(filename)s''',
 '''You are not allowed to delete this page.''':
 '''이 글을 지울 권한이 없습니다.''',
 '''This page is already deleted or was never created!''':
@@ -791,8 +791,6 @@ red=edit''',
 '''메일 서버 \'%(server)s\'에 접속 실패: %(reason)s''',
 '''Mail sent OK''':
 '''메일이 보내졌습니다''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''대문''',
 '''RecentChanges''':

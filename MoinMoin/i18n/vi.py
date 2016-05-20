@@ -570,7 +570,7 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 '''Unknown file type, cannot display this attachment inline.''':
 '''Không hiểu kiểu file, không thể hiện file gửi kèm này trong văn bản.''',
 '''attachment:%(filename)s of %(pagename)s''':
-'''attachment:%(filename)s trong trang %(pagename)s''',
+'''[[Verbatim(attachment:)]]%(filename)s trong trang %(pagename)s''',
 '''You are not allowed to delete this page.''':
 '''Bạn không thể xoá trang này.''',
 '''This page is already deleted or was never created!''':
@@ -789,8 +789,6 @@ red=edit''':
 '''Kết nối tới mailserver \'%(server)s\' bị ngắt quảng vì lý do: %(reason)s''',
 '''Mail sent OK''':
 '''Thư đã được gửi''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''Trang đầu''',
 '''RecentChanges''':

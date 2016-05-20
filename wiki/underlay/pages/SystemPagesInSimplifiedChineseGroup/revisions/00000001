@@ -6,7 +6,7 @@
 
 = 注意事项 =
 
-/!\ 本页第一层列表仅用于中文系统页的链接名. 请不要在这层列表中使用任何语言旗标, 原英文名和注释 - 最好把这些东西放到第二层列表上. 只有在第一层列表只包含中文系统页链接名时, 这个中文翻译组页才能被Moin很好地派上用场. 这一页上也不能把第一层列表用于别的用途. -- 英文原文自ThomasWaldmann [[DateTime(2004-11-27T12:16:52Z)]]  
+/!\ 本页第一层列表仅用于中文系统页的链接名. 请不要在这层列表中使用任何语言旗标, 原英文名和注释 - 最好把这些东西放到第二层列表上. 只有在第一层列表只包含中文系统页链接名时, 这个中文翻译组页才能被Moin很好地派上用场. 这一页上也不能把第一层列表用于别的用途. -- 英文原文自ThomasWaldmann [[DateTime(2004-11-27T12:16:52Z)]]
 
 请注意在翻译的文本前加上（以["最新改动"]为例):
 {{{
@@ -48,7 +48,7 @@ info, information; 信息
 
 This is a list of all english System``Pages (including Help``Pages) in this wiki, 大家一起来把它们翻成简体中文:
 
-下面的列表中 
+下面的列表中
 || {en} ||只是刚从英文拷贝过来，没有翻译||simply copied from the english version, without any translation ||
 || {en} {zh} || 翻译了一部分 || partially translated ||
 || {zh} || 翻译完成 || completely translated ||
@@ -58,251 +58,249 @@ This is a list of all english System``Pages (including Help``Pages) in this wiki
 || 其它 Others ||还没开始||nothing has been done||
 
 == 系统网页 ==
- * ["最新改动"] 
-  * {zh} RecentChanges 
+ * ["最新改动"]
+  * {zh} RecentChanges
  * ["标题索引"]
   * {zh} TitleIndex
  * ["标题索引"]
   * {zh} TitleIndex
- * ["词汇索引"] 
-  * {zh} WordIndex 
- * ["站点导航"] 
+ * ["词汇索引"]
+  * {zh} WordIndex
+ * ["站点导航"]
   * {zh} SiteNavigation
- * ["查找网页"]  
+ * ["查找网页"]
   * {zh} FindPage
- * ["用户设置"]  
+ * ["用户设置"]
   * {zh} UserPreferences
- * ["需要网页"] 
+ * ["需要网页"]
   * {zh} MissingPage
- * ["废弃网页"] 
+ * ["废弃网页"]
   * {zh} AbandonedPages
- * ["孤立网页"] 
+ * ["孤立网页"]
   * {zh} OrphanedPages
- * ["待建网页"] 
+ * ["待建网页"]
   * {zh} WantedPages
- * ["事件统计"] 
+ * ["事件统计"]
   * {zh} EventStats
- * ["事件统计/访问量"] 
+ * ["事件统计/访问量"]
   * {zh} EventStats/HitCounts
- * ["事件统计/用户代理"] 
+ * ["事件统计/用户代理"]
   * {zh} EventStats/UserAgents
- * ["网页大小"] 
+ * ["网页大小"]
   * {zh} PageSize
- * ["网页流量"] 
+ * ["网页流量"]
   * {zh} PageHits
- * ["维基链"] 
+ * ["维基链"]
   * {zh} InterWiki
- * ["随机网页"] 
+ * ["随机网页"]
   * {zh} RandomPage
- * ["结构化文本"] 
-  * {en} {zh} StructuredText
- * ["系统信息"] 
+ * ["系统信息"]
   * {zh} SystemInfo
  * ["系统网页组"]
-  * {1} SystemPagesGroup 
- * ["维基个人网页"] 
+  * {1} SystemPagesGroup
+ * ["维基个人网页"]
   * {zh} WikiHomePage
- * ["维基链接名"] 
+ * ["维基链接名"]
   * {zh} WikiName
- * ["维基沙盘演练"] 
+ * ["维基沙盘演练"]
   * {zh} WikiSandBox
- * ["维基网"] 
+ * ["维基网"]
   * {zh} WikiWikiWeb
- * ["维基好坏说"] 
+ * ["维基好坏说"]
   * {1} {zh} WhyWikiWorks
- * ["Xslt版本信息"] 
+ * ["Xslt版本信息"]
   * {zh} XsltVersion
- * ["简体中文MoinMoin"] 
+ * ["简体中文MoinMoin"]
   * {zh} MoinMoin
- * ["简体中文MoinMoin/文本排版"] 
+ * ["简体中文MoinMoin/文本排版"]
   * {zh} MoinMoin/TextFormatting
-  * ["首页"] 
-   * {zh} FrontPage : - do not move this to 1st level as we do not want to update this page! 
- * ["名言警句"] 
+  * ["首页"]
+   * {zh} FrontPage : - do not move this to 1st level as we do not want to update this page!
+ * ["名言警句"]
   * {zh} FortuneCookies
 
 == 帮助网页 ==
- * ["帮助目录"] 
+ * ["帮助目录"]
   * {1} {zh} HelpContents
- * ["帮助-新手入门"] 
+ * ["帮助-新手入门"]
   * {1} HelpForBeginners
- * ["帮助-开发指南"] 
+ * ["帮助-开发指南"]
   * HelpForDevelopers
- * ["帮助索引"] 
+ * ["帮助索引"]
   * {zh} HelpIndex
- * ["帮助-其他"] 
+ * ["帮助-其他"]
   * HelpMiscellaneous
- * ["帮助-其他/试验性的功能"] 
+ * ["帮助-其他/试验性的功能"]
   * HelpMiscellaneous/ExperimentalFeatures
- * ["帮助-其他/常见问题解答"] 
+ * ["帮助-其他/常见问题解答"]
   * {1} HelpMiscellaneous/FrequentlyAskedQuestions
- * ["帮助-访问权限控制表"] 
+ * ["帮助-访问权限控制表"]
   * HelpOnAccessControlLists
- * ["帮助-操作"] 
+ * ["帮助-操作"]
   * HelpOnActions
- * ["帮助-附件"] 
+ * ["帮助-附件"]
   * HelpOnActions/AttachFile
- * ["帮助-系统管理"] 
+ * ["帮助-系统管理"]
   * HelpOnAdministration
- * ["帮助-系统设置"] 
+ * ["帮助-系统设置"]
   * {1} {zh} HelpOnConfiguration
- * ["帮助-系统设置/层叠样式表"] 
+ * ["帮助-系统设置/层叠样式表"]
   * HelpOnConfiguration/CascadingStyleSheets
- * ["帮助-系统设置/邮件支持"] 
+ * ["帮助-系统设置/邮件支持"]
   * HelpOnConfiguration/EmailSupport
- * ["帮助-系统设置/安全策略"] 
+ * ["帮助-系统设置/安全策略"]
   * HelpOnConfiguration/SecurityPolicy
- * ["帮助-编辑锁定"] 
+ * ["帮助-编辑锁定"]
   * HelpOnEditLocks
- * ["帮助-编辑"] 
+ * ["帮助-编辑"]
   * {en} {zh} HelpOnEditing
- * ["帮助-编辑/子网页"] 
+ * ["帮助-编辑/子网页"]
   * {en} {zh} HelpOnEditing/SubPages
- * ["帮助-排版"] 
+ * ["帮助-排版"]
   * {zh} HelpOnFormatting
- * ["帮助-标题"] 
+ * ["帮助-标题"]
   * HelpOnHeadlines
- * ["简体中文MoinMoin/安装手册"] 
+ * ["简体中文MoinMoin/安装手册"]
   * {1} MoinMoin/InstallDocs
- * ["帮助-安装"] 
+ * ["帮助-安装"]
   * HelpOnInstalling
- * ["帮助-安装/Apache和MacOsx "] 
+ * ["帮助-安装/Apache和MacOsx "]
   * HelpOnInstalling/ApacheOnMacOsx
- * ["帮助-安装/Apache和Linux"] 
+ * ["帮助-安装/Apache和Linux"]
   * HelpOnInstalling/ApacheOnLinux
- * ["帮助-安装/Apache和Win32"] 
+ * ["帮助-安装/Apache和Win32"]
   * HelpOnInstalling/ApacheOnWin32
- * ["帮助-安装/Apache和FastCgi"] 
+ * ["帮助-安装/Apache和FastCgi"]
   * HelpOnInstalling/ApacheWithFastCgi
- * ["帮助-安装/Apache和ModPython"] 
+ * ["帮助-安装/Apache和ModPython"]
   * HelpOnInstalling/ApacheWithModPython
- * ["帮助-安装/基本安装"] 
+ * ["帮助-安装/基本安装"]
   * HelpOnInstalling/BasicInstallation
- * ["帮助-安装/InternetInformationServer"] 
+ * ["帮助-安装/InternetInformationServer"]
   * HelpOnInstalling/InternetInformationServer
- * ["帮助-安装/独立服务"] 
+ * ["帮助-安装/独立服务"]
   * HelpOnInstalling/StandaloneServer
- * ["帮助-安装/问题解答"] 
+ * ["帮助-安装/问题解答"]
   * HelpOnInstalling/TroubleShooting
- * ["帮助-安装/TwistedWeb"] 
+ * ["帮助-安装/TwistedWeb"]
   * HelpOnInstalling/TwistedWeb
- * ["帮助-安装/WebLogic"] 
+ * ["帮助-安装/WebLogic"]
   * HelpOnInstalling/WebLogic
- * ["帮助-安装/维基Farm"] 
+ * ["帮助-安装/维基Farm"]
   * HelpOnInstalling/WikiFarm
- * ["帮助-安装/创建维基例程"] 
+ * ["帮助-安装/创建维基例程"]
   * HelpOnInstalling/WikiInstanceCreation
- * ["帮助-语言"] 
+ * ["帮助-语言"]
   * {1} HelpOnLanguages
- * ["帮助-链接"] 
+ * ["帮助-链接"]
   * {1} HelpOnLinking
- * ["帮助-列表"] 
+ * ["帮助-列表"]
   * HelpOnLists
- * ["帮助-宏"] 
+ * ["帮助-宏"]
   * {1} HelpOnMacros
- * ["帮助-宏/Include"] 
+ * ["帮助-宏/Include"]
   * ["HelpOnMacros/Include"]
- * ["帮助-宏/MailTo"] 
+ * ["帮助-宏/MailTo"]
   * HelpOnMacros/MailTo
- * ["帮助-导航"] 
+ * ["帮助-导航"]
   * HelpOnNavigation
- * ["帮助-新建网页"] 
+ * ["帮助-新建网页"]
   * HelpOnPageCreation
- * ["帮助-删除网页"] 
+ * ["帮助-删除网页"]
   * HelpOnPageDeletion
- * ["帮助-分析插件"] 
+ * ["帮助-分析插件"]
   * {en} HelpOnParsers
- * ["帮助-处理指令"] 
+ * ["帮助-处理指令"]
   * HelpOnProcessingInstructions
- * ["帮助-处理插件"] 
+ * ["帮助-处理插件"]
   * HelpOnProcessors
- * ["帮助-横线"] 
+ * ["帮助-横线"]
   * HelpOnRules
- * ["帮助-搜索"] 
+ * ["帮助-搜索"]
   * HelpOnSearching
- * ["帮助-换肤"] 
+ * ["帮助-换肤"]
   * HelpOnSkins
- * ["帮助-放映幻灯片"] 
+ * ["帮助-放映幻灯片"]
   * {en} {zh} HelpOnSlideShows
- * ["帮助-放映幻灯片/000 前言"] 
+ * ["帮助-放映幻灯片/000 前言"]
   * {en}  ["HelpOnSlideShows/000 Introduction"]
- * ["帮助-放映幻灯片/100 创建幻灯片"] 
+ * ["帮助-放映幻灯片/100 创建幻灯片"]
   * {en} {zh} ["HelpOnSlideShows/100 Creating the slides"]
- * ["帮助-放映幻灯片/900 最后: 放映开始"] 
+ * ["帮助-放映幻灯片/900 最后: 放映开始"]
   * {en} {zh} ["HelpOnSlideShows/900 Last but not least: Running your presentation."]
- * ["帮助-笑脸"] 
+ * ["帮助-笑脸"]
   * HelpOnSmileys
- * ["帮助-拼写检查"] 
+ * ["帮助-拼写检查"]
   * HelpOnSpellCheck
- * ["帮助-表格"] 
+ * ["帮助-表格"]
   * HelpOnTables
- * ["帮助-主题"] 
+ * ["帮助-主题"]
   * HelpOnThemes
- * ["帮助-升级"] 
+ * ["帮助-升级"]
   * HelpOnUpdating
- * ["帮助-升级Python"] 
+ * ["帮助-升级Python"]
   * HelpOnUpdatingPython
- * ["帮助-用户设置"] 
+ * ["帮助-用户设置"]
   * HelpOnUserPreferences
- * ["帮助-XML网页"] 
+ * ["帮助-XML网页"]
   * HelpOnXmlPages
- * ["帮助-模板"] 
+ * ["帮助-模板"]
   * HelpTemplate
- * ["语法参考"] 
+ * ["语法参考"]
   * {1} SyntaxReference
 
 == 维基教程 ==
- * ["维基教程"] 
+ * ["维基教程"]
   * WikiCourse
- * ["维基教程/简介"] 
+ * ["维基教程/简介"]
   * WikiCourse/BasicIntroduction
- * ["维基教程/简介/000 维基是什么?"] 
+ * ["维基教程/简介/000 维基是什么?"]
   * ["WikiCourse/BasicIntroduction/000 What is a Wiki?"]
- * ["维基教程/简介/050 迈出第一步"] 
+ * ["维基教程/简介/050 迈出第一步"]
   * ["WikiCourse/BasicIntroduction/050 First Steps"]
- * ["维基教程/简介/060 如何浏览"] 
+ * ["维基教程/简介/060 如何浏览"]
   * ["WikiCourse/BasicIntroduction/060 How do I navigate?"]
- * ["维基教程/简介/090 编辑器"] 
+ * ["维基教程/简介/090 编辑器"]
   * ["WikiCourse/BasicIntroduction/090 The Editor"]
- * ["维基教程/简介/091 使用编辑器的技巧"] 
+ * ["维基教程/简介/091 使用编辑器的技巧"]
   * ["WikiCourse/BasicIntroduction/091 Tips on the Editor"]
- * ["维基教程/简介/100 文本标记"] 
+ * ["维基教程/简介/100 文本标记"]
   * ["WikiCourse/BasicIntroduction/100 Text markup"]
- * ["维基教程/简介/110 标题和段落"] 
+ * ["维基教程/简介/110 标题和段落"]
   * ["WikiCourse/BasicIntroduction/110 Headlines and Paragraphs"]
- * ["维基教程/简介/130 列表"] 
+ * ["维基教程/简介/130 列表"]
   * ["WikiCourse/BasicIntroduction/130 Lists"]
- * ["维基教程/简介/150 表格"] 
+ * ["维基教程/简介/150 表格"]
   * ["WikiCourse/BasicIntroduction/150 Tables"]
- * ["维基教程/简介/151 宏"] 
+ * ["维基教程/简介/151 宏"]
   * ["WikiCourse/BasicIntroduction/180 Macros"]
- * ["维基教程/简介/191 创建新网页"] 
+ * ["维基教程/简介/191 创建新网页"]
   * ["WikiCourse/BasicIntroduction/191 Creating new Pages"]
- * ["维基教程/简介/195 操作"] 
+ * ["维基教程/简介/195 操作"]
   * ["WikiCourse/BasicIntroduction/195 Actions"]
- * ["维基教程/简介/200 维基风度"] 
+ * ["维基教程/简介/200 维基风度"]
   * ["WikiCourse/BasicIntroduction/200 Wikiquette"]
- * ["维基教程/简介/210  组织和结构"] 
+ * ["维基教程/简介/210  组织和结构"]
   * ["WikiCourse/BasicIntroduction/210 Organisation and Structure"]
- * ["维基教程/简介/900 练习"] 
+ * ["维基教程/简介/900 练习"]
   * ["WikiCourse/BasicIntroduction/900 Exercises"]
- * ["维基教程/简介讲义"] 
+ * ["维基教程/简介讲义"]
   * ["WikiCourse/BasicIntroductionHandOut"]
 
 == 分类 ==
- * ["网页分类"] 
+ * ["网页分类"]
   * {zh} CategoryCategory
- * ["个人网页类"] 
+ * ["个人网页类"]
   * {zh} CategoryHomepage
 
 == 模板 ==
- * ["帮助模板"] 
+ * ["帮助模板"]
   * {zh} HelpTemplate
- * ["个人网页模板"] 
+ * ["个人网页模板"]
   * {zh} HomepageTemplate
- * ["幻灯讲义模板"] 
+ * ["幻灯讲义模板"]
   * {zh} SlideShowHandOutTemplate
- * ["幻灯放映模板"] 
+ * ["幻灯放映模板"]
   * {zh} SlideShowTemplate
- * ["幻灯片模板"] 
+ * ["幻灯片模板"]
   * {zh} SlideTemplate

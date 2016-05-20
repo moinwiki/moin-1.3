@@ -510,7 +510,7 @@ Inače, možete polje "Snimit kao" ostaviti praznim, i tako će originalno ime f
 '''Unknown file type, cannot display this attachment inline.''':
 '''Nepoznat tip fajla, nemoguć prikaz''',
 '''attachment:%(filename)s of %(pagename)s''':
-'''attachment:%(filename)s za %(pagename)s''',
+'''[[Verbatim(attachment:)]]%(filename)s za %(pagename)s''',
 '''You are not allowed to delete this page.''':
 '''Vama nije dozvoljeno da izbrišete ovu stranicu''',
 '''This page is already deleted or was never created!''':

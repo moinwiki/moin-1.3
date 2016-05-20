@@ -786,6 +786,8 @@ rød=rediger''',
 '''Siste''',
 '''User''':
 '''Bruker''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Siden kan desverre ikke lagres siden "%(content)s" er forbudt i denne wikien.''',
 '''Line''':
 '''Linje''',
 '''Deletions are marked like this.''':
@@ -796,8 +798,6 @@ rød=rediger''',
 '''Forbindelse til e-posttjener \'%(server)s\' mislykket: %(reason)s''',
 '''Mail sent OK''':
 '''E-post sendt OK''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''StartSide''',
 '''RecentChanges''':
@@ -846,6 +846,4 @@ rød=rediger''',
 '''EndreSidenavn''',
 '''SpellCheck''':
 '''StaveKontroll''',
-'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
-'''Siden kan desverre ikke lagres siden "%(content)s" er forbudt i denne wikien.''',
 }

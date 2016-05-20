@@ -791,8 +791,6 @@ red=edit''':
 '''無法連接郵件伺服器 \'%(server)s\': %(reason)s''',
 '''Mail sent OK''':
 '''郵件已送出''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''首頁''',
 '''RecentChanges''':

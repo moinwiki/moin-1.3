@@ -81,7 +81,7 @@ You can change the first two lines of code in moin.cgi to something like this:
 {{{#!python
 #!python
 import sys
-sys.path.append(r'C:\Moin\Lib\site-packages')
+sys.path.insert(0, r'C:\Moin\Lib\site-packages')
 }}}
 Notice that we're pointing to the directory which contains the Moin``Moin directory, not the directory itself.
 

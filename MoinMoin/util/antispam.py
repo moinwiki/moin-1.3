@@ -16,7 +16,7 @@ debug = 1
 import re, sys, time
 
 if __name__ == '__main__':
-    sys.path.append("/home/twaldmann/moincvs/moin--main--1.2")
+    sys.path.insert(0, "../..")
 
 from MoinMoin.security import Permissions
 from MoinMoin import caching, wikiutil
@@ -145,6 +145,10 @@ class SecurityPolicy(Permissions):
         BLACKLISTPAGES = ["BadContent", "LocalBadContent"]
         if not editor.page_name in BLACKLISTPAGES:
             request = editor.request
+
+            # Start timing of antispam operation
+            request.clock.start('antispam')
+            
             blacklist = []
             for pn in BLACKLISTPAGES:
                 do_update = (pn != "LocalBadContent")
@@ -162,7 +166,8 @@ class SecurityPolicy(Permissions):
                             }
                         dprint(msg)
                         raise editor.SaveError(msg)
-
+            request.clock.stop('antispam')
+            
         # No problem to save if my base class agree
         return Permissions.save(self, editor, newtext, rev, **kw)
 

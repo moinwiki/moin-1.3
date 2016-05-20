@@ -623,13 +623,10 @@ document.write('<a href="#" onClick="return togglenumber(\'%s\', %d, %d);" \
     
     # Tables #############################################################
 
-    # TODO: find better solution for bgcolor, align, valign (deprecated in html4)
-    # do not remove current code before making working compliant code
-
     _allowed_table_attrs = {
-        'table': ['class', 'width', 'bgcolor'],
-        'row': ['class', 'width', 'align', 'valign', 'bgcolor'],
-        '': ['colspan', 'rowspan', 'class', 'width', 'align', 'valign', 'bgcolor'],
+        'table': ['class', 'id', 'style'],
+        'row': ['class', 'id', 'style'],
+        '': ['colspan', 'rowspan', 'class', 'id', 'style'],
     }
 
     def _checkTableAttr(self, attrs, prefix):
@@ -646,16 +643,33 @@ document.write('<a href="#" onClick="return togglenumber(\'%s\', %d, %d);" \
             return {}
 
         result = {}
+        s = "" # we collect synthesized style in s
         for key, val in attrs.items():
             # Ignore keys that don't start with prefix
             if prefix and key[:len(prefix)] != prefix:
                 continue
             key = key[len(prefix):]
+            val = val.strip('"')
+            # remove invalid attrs from dict and synthesize style
+            if key == 'width':
+                s += "width: %s;" % val
+            elif key == 'bgcolor':
+                s += "background-color: %s;" % val
+            elif key == 'align':
+                s += "text-align: %s;" % val
+            elif key == 'valign':
+                s += "vertical-align: %s;" % val
             # Ignore unknown keys
             if key not in self._allowed_table_attrs[prefix]:
                 continue
-            result[key] = val.strip('"')
+            result[key] = val
+        if s:
+            if result.has_key('style'):
+                result['style'] += s
+            else:
+                result['style'] = s
         return result
+
 
     def table(self, on, attrs=None):
         """ Create table

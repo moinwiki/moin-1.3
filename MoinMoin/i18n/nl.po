@@ -1,12 +1,12 @@
 # MoinMoin translation
-# "Last-Translator: Peter Kleiweg <kleiweg@let.rug.nl>\n"
+# former translator: Peter Kleiweg <kleiweg@let.rug.nl>\n"
 msgid ""
 msgstr ""
-"Project-Id-Version: MoinMoin 1.2\n"
+"Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
-"PO-Revision-Date: 2004-08-27 23:43+0200\n"
-"Last-Translator: ***vacant***\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
+"PO-Revision-Date: 2004-11-05 23:43+0200\n"
+"Last-Translator: Ruben Lubbes\n"
 "Language-Team: Dutch <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -14,6 +14,7 @@ msgstr ""
 "X-Direction: ltr\n"
 "X-Language: Nederlands\n"
 "X-Language-in-English: Dutch\n"
+"X-HasWikiMarkup: True\n"
 
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
@@ -56,7 +57,7 @@ msgstr "VerversCache"
 
 #, python-format
 msgid "(cached %s)"
-msgstr ""
+msgstr "(cache %s)"
 
 msgid "You are not allowed to edit this page."
 msgstr "Je hebt geen toestemming deze pagina te bewerken."
@@ -171,7 +172,7 @@ msgid "Preview"
 msgstr "Proeflezing"
 
 msgid "Trivial change"
-msgstr ""
+msgstr "Minder belangrijke wijziging"
 
 msgid "Remove trailing whitespace from each line"
 msgstr "Verwijder witruimte aan het einde van elke regel"
@@ -247,7 +248,7 @@ msgstr ""
 
 #, fuzzy
 msgid "New page:\n"
-msgstr "Nieuwe naam"
+msgstr "Nieuwe naam:\n"
 
 msgid "No differences found!\n"
 msgstr "Geen verschillen gevonden!\n"
@@ -257,7 +258,7 @@ msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
 msgstr "[%(sitename)s] Bijwerking van \"%(pagename)s\""
 
 msgid "Trivial "
-msgstr ""
+msgstr "Minder belangrijk"
 
 msgid "Status of sending notification mails:"
 msgstr "Status van het verzenden van kennisgevingen:"
@@ -407,6 +408,10 @@ msgid ""
 "Name may contain any Unicode alpha numeric character, with optional one\n"
 "space between words. Group page name is not allowed."
 msgstr ""
+"Foutieve gebruikersnaam {{{'%s'}}}.\n"
+"Gebruikersnaam mag ieder Unicode alpha-numeriek karakter bevatten, met "
+"optioneel een\n"
+"spatie tussen woorden. Groeps paginanaam is niet toegestaan."
 
 #, fuzzy, python-format
 msgid "You are not allowed to do %s on this page."
@@ -417,7 +422,7 @@ msgstr "Inloggen"
 
 #, python-format
 msgid " %s and try again."
-msgstr ""
+msgstr " %s en probeer opnieuw"
 
 msgid "Can't work out query"
 msgstr "Deze vraag kan niet uitgevogeld worden"
@@ -428,7 +433,7 @@ msgstr "%(hits)d resultaten in %(pages)d doorzochte pagina's ."
 
 #, python-format
 msgid "%.2f seconds"
-msgstr ""
+msgstr "%.2f seconden"
 
 msgid "match"
 msgstr " overeenkomst"
@@ -468,7 +473,7 @@ msgid "Remember login information"
 msgstr "Onthoud login-informatie voor altijd"
 
 msgid "Subscribe to trivial changes"
-msgstr ""
+msgstr "Abboneer op minder belangrijke veranderingen"
 
 msgid "Disable this account forever"
 msgstr "Schakel dit account permanent uit."
@@ -496,16 +501,18 @@ msgstr ""
 
 #, fuzzy, python-format
 msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
-msgstr "Geef een gebruikersnaam!"
+msgstr ""
+"Onbekende gebruikersnaam: {{{\"%s\"}}}. Geef een gebruikersnaam en "
+"wachtwoord op."
 
 msgid "Missing password. Please enter user name and password."
-msgstr ""
+msgstr "Geen wachtwoord. Geef een gebruikersnaam en wachtwoord op."
 
 msgid "Sorry, wrong password."
-msgstr ""
+msgstr "Sorry, foutief wachtwoord."
 
 msgid "Bad relogin URL."
-msgstr ""
+msgstr "Slechte herlogin URL."
 
 #, fuzzy
 msgid "Unknown user."
@@ -513,10 +520,10 @@ msgstr "Gebruikersnaam of wachtwoord onbekend."
 
 #, fuzzy
 msgid "Empty user name. Please enter a user name."
-msgstr "Geef een gebruikersnaam!"
+msgstr "Geen gebruikersnaam. Geef een gebruikersnaam!"
 
 msgid "This user name already belongs to somebody else."
-msgstr "Deze gebruikersnaam behoort al aan iemand anders."
+msgstr "Deze gebruikersnaam is al in gebruik."
 
 msgid "Passwords don't match!"
 msgstr "De wachtwoorden komen niet overeen!"
@@ -529,21 +536,21 @@ msgid ""
 "Please provide your email address. If you loose your login information, you "
 "can get it by email."
 msgstr ""
-"Geef je e-mailadres. Anders kun je, als je je login-gegevens verliest, deze "
-"niet per e-mail ontvangen."
+"Geef je e-mailadres op. Anders kun je, als je je login-gegevens verliest, "
+"deze niet per e-mail ontvangen."
 
 msgid "This email already belongs to somebody else."
-msgstr "Dit e-mailadres behoort al aan iemand anders."
+msgstr "Dit e-mailadres behoort is al in gebruik."
 
 #, python-format
 msgid "The theme '%(theme_name)s' could not be loaded!"
-msgstr ""
+msgstr "Het thema '%(theme_name)s' kan niet worden geladen!"
 
 msgid "User preferences saved!"
 msgstr "Voorkeuren van gebruiker bewaard!</b>"
 
 msgid "Default"
-msgstr "Verstek"
+msgstr "Standaard"
 
 msgid "<Browser setting>"
 msgstr "<Browserinstelling>"
@@ -798,7 +805,7 @@ msgid "Search Text"
 msgstr "Zoeken"
 
 msgid "Go To Page"
-msgstr ""
+msgstr "Ga naar Pagina"
 
 msgid "Include system pages"
 msgstr "Inclusief systeempagina's"
@@ -861,11 +868,11 @@ msgid "Installed parsers"
 msgstr "Geïnstalleerde verwerkers"
 
 msgid "Installed processors (DEPRECATED -- use Parsers instead)"
-msgstr ""
+msgstr "geinstalleerde processors (VERVANGEN -- gebruik Parsers)"
 
 #, fuzzy, python-format
 msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
-msgstr "Gebruik een selectievere term om mee te zoeken dan '%(needle)s'!"
+msgstr "Gebruik een selectievere term om mee te zoeken dan {{{\"%s\"}}}!"
 
 #, python-format
 msgid "ERROR in regex '%s'"
@@ -972,6 +979,8 @@ msgid ""
 "No file content. Delete non ASCII characters from the file name and try "
 "again."
 msgstr ""
+"Geen bestandsinhoud. Verwijder de non-ASCII tekens uit het bestand en "
+"probeer opnieuw."
 
 msgid "You are not allowed to delete attachments on this page."
 msgstr "Je hebt geen toestemming bijlages van deze pagina te verwijderen."
@@ -1046,7 +1055,7 @@ msgstr "Geen pagina's komen overeen met \"%s\"!"
 
 #, python-format
 msgid "Exactly one page like \"%s\" found, redirecting to page."
-msgstr ""
+msgstr "Zoeken op \"%s\" gaf precies een resultaat, u wordt er nu heengebracht"
 
 #, fuzzy, python-format
 msgid "Pages like \"%s\""
@@ -1068,7 +1077,7 @@ msgstr "Gebruik de interactieve gebruikersinterface om pagina's te hernoemen!"
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr ""
+msgstr "Kon paginanaam niet wijzigen vanwege systeemfout: %s."
 
 #, fuzzy
 msgid "Rename Page"
@@ -1305,7 +1314,7 @@ msgstr "(laatste wijziging op %s)"
 
 #, fuzzy
 msgid "Search:"
-msgstr "maart"
+msgstr "Zoek:"
 
 #, fuzzy
 msgid "Text"
@@ -1321,7 +1330,7 @@ msgstr "Opzeggen"
 
 #, fuzzy
 msgid "More Actions:"
-msgstr "Acties"
+msgstr "Andere Acties:"
 
 #, fuzzy
 msgid "Show Raw Text"
@@ -1348,7 +1357,7 @@ msgid "Show Local Site Map"
 msgstr "Lokale wegwijzer voor \"%s\""
 
 msgid "Do"
-msgstr ""
+msgstr "Uitvoeren"
 
 #, fuzzy
 msgid "Show Parent"
@@ -1372,7 +1381,7 @@ msgstr "Informatie"
 
 #, python-format
 msgid "Show %s days."
-msgstr ""
+msgstr "Laat %s dagen zien."
 
 msgid "EditText"
 msgstr "WijzigTekst"
@@ -1388,10 +1397,15 @@ msgstr "Pagina"
 
 #, fuzzy
 msgid "Trail"
-msgstr "april"
+msgstr "Spoor"
 
 msgid "User"
 msgstr "Gebruiker"
+
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
 
 msgid "Line"
 msgstr "Regel"
@@ -1409,7 +1423,10 @@ msgstr "Verbinding met de mailserver '%(server)s' mislukt: %(reason)s"
 msgid "Mail sent OK"
 msgstr "E-mail correct verzonden"
 
-msgid "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
 msgstr ""
 
 msgid "FrontPage"
@@ -1477,7 +1494,7 @@ msgstr " Verwijderen"
 
 #, fuzzy
 msgid "LikePages"
-msgstr "Pagina"
+msgstr "Gelijkende Paginas"
 
 #, fuzzy
 msgid "LocalSiteMap"
@@ -1488,7 +1505,10 @@ msgid "RenamePage"
 msgstr "Hernoemen"
 
 msgid "SpellCheck"
-msgstr ""
+msgstr "Spellingscontrole"
+
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"<html>\"]"
 
 #~ msgid "Rename"
 #~ msgstr "Hernoemen"

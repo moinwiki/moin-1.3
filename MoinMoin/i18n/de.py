@@ -785,6 +785,8 @@ rot=Änderungen''',
 '''Trail''',
 '''User''':
 '''Benutzer''',
+'''Sorry, can not save page because "%(content)s" is not allowed in this wiki.''':
+'''Kann die Seite nicht speichern, weil der Inhalt "%(content)s" in diesem Wiki nicht erlaubt ist.''',
 '''Line''':
 '''Zeile''',
 '''Deletions are marked like this.''':
@@ -795,8 +797,10 @@ rot=Änderungen''',
 '''Verbindung zum Mailserver \'%(server)s\' gestört: %(reason)s''',
 '''Mail sent OK''':
 '''E-Mail wurde erfolgreich versandt''',
-'''["<html>"]''':
-'''["<html>"]''',
+'''<escape>''':
+'''<escape>''',
+'''["<escape>"]''':
+'''["<escape>"]''',
 '''FrontPage''':
 '''StartSeite''',
 '''RecentChanges''':

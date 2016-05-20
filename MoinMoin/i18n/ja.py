@@ -389,8 +389,6 @@ Contact the owner of the wiki, who can enable email.''':
 '''コメント''',
 '''Action''':
 '''アクション''',
-'''(edit log entry is missing)''':
-'''(編集ログがありません)''',
 '''view''':
 '''見る''',
 '''raw''':
@@ -401,6 +399,12 @@ Contact the owner of the wiki, who can enable email.''':
 '''前のバージョンに戻す''',
 '''Revert to revision %(rev)d.''':
 '''%(rev)dのリビジョンに戻す''',
+'''edit''':
+'''編集''',
+'''get''':
+'''ダウンロード''',
+'''del''':
+'''削除''',
 '''N/A''':
 '''該当せず''',
 '''Revision History''':
@@ -517,12 +521,6 @@ Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link,
 since this is subject to change and can break easily.''':
 '''添付ファイルを参照するには、(下のファイル一覧にあるように)\'\'\'{{{attachment:filename}}}\'\'\'と記述します。
 {{{[get]}}}リンクのURLは変更される可能性が高いので、利用しないでください。''',
-'''del''':
-'''削除''',
-'''get''':
-'''ダウンロード''',
-'''edit''':
-'''編集''',
 '''No attachments stored for %(pagename)s''':
 '''%(pagename)sに添付ファイルはありません。''',
 '''Edit drawing''':
@@ -601,8 +599,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''ページ名を変更する権限がありません。''',
 '''Please use the interactive user interface to rename pages!''':
 '''対話的なユーザインターフェースからページ名を変更してください。''',
-'''Rename''':
-'''名前の変更''',
+'''Rename Page''':
+'''ページ名の変更''',
 '''New name''':
 '''新しい名前''',
 '''Optional reason for the renaming''':
@@ -748,8 +746,6 @@ red=edit''':
 '''印刷ビューの表示''',
 '''Attach File''':
 '''ファイルの添付''',
-'''Rename Page''':
-'''ページ名の変更''',
 '''Delete Page''':
 '''ページの削除''',
 '''Show Like Pages''':
@@ -792,8 +788,6 @@ red=edit''':
 '''メールサーバ\'%(server)s\'への接続に失敗しました(理由: %(reason)s)。''',
 '''Mail sent OK''':
 '''メール送信完了。''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''フロントページ''',
 '''RecentChanges''':

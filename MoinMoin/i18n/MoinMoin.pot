@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1241,6 +1241,11 @@ msgstr ""
 msgid "User"
 msgstr ""
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr ""
 
@@ -1257,7 +1262,10 @@ msgstr ""
 msgid "Mail sent OK"
 msgstr ""
 
-msgid "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
 msgstr ""
 
 msgid "FrontPage"

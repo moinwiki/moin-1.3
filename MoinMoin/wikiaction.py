@@ -290,17 +290,17 @@ def do_info(pagename, request):
                 else:
                     actions = '%s&nbsp;%s' % (actions, page.link_to(request,
                         text=_('view'),
-                        querystr='action=recall&amp;rev=%d' % rev))
+                        querystr='action=recall&rev=%d' % rev))
                     actions = '%s&nbsp;%s' % (actions, page.link_to(request,
                         text=_('raw'),
-                        querystr='action=raw&amp;rev=%d' % rev))
+                        querystr='action=raw&rev=%d' % rev))
                     actions = '%s&nbsp;%s' % (actions, page.link_to(request,
                         text=_('print'),
-                        querystr='action=print&amp;rev=%d' % rev))
+                        querystr='action=print&rev=%d' % rev))
                     if may_revert:
                         actions = '%s&nbsp;%s' % (actions, page.link_to(request,
                             text=_('revert'),
-                            querystr='action=revert&amp;rev=%d' % (rev,)))
+                            querystr='action=revert&rev=%d' % (rev,)))
                 if count == 0:
                     rchecked=' checked="checked"'
                     lchecked = ''
@@ -344,7 +344,7 @@ def do_info(pagename, request):
                         querystr='action=AttachFile&do=get&target=%s' % filename))
                     actions = '%s&nbsp;%s' % (actions, page.link_to(request,
                         text=_('del'),
-                        querystr='action=AttachFile&do=delete&target=%s' % filename))
+                        querystr='action=AttachFile&do=del&target=%s' % filename))
                     # XXX use?: wikiutil.escape(filename)
 
             history.addRow((
@@ -510,7 +510,7 @@ def do_revert(pagename, request):
     pg = PageEditor(pagename, request)
 
     try:
-        savemsg = pg.saveText(oldpg.get_raw_body(), 0, notify=1, extra=revstr,
+        savemsg = pg.saveText(oldpg.get_raw_body(), 0, extra=revstr,
                               action="SAVE/REVERT")
     except pg.SaveError, msg:
         # msg contain a unicode string

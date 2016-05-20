@@ -783,8 +783,6 @@ piros=szerkesztés''',
 '''A(z) \'%(server)s\' levelező-kiszolgálóhoz nem sikerült kapcsolódni, ok: %(reason)s''',
 '''Mail sent OK''':
 '''A levél rendben elküldve.''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''KezdőLap''',
 '''RecentChanges''':

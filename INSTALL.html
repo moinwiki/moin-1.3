@@ -127,7 +127,7 @@ python2.3 -V 2&gt;&amp;1
 python2.4 -V 2&gt;&amp;1
 echo "Finished."
 </pre>
-<p>If it doesn't display "CGI scripts work", well, then CGI scripts don't work. <img src="wiki/htdocs/modern/img/smile.png" alt=":)" height="15" width="15"> If it doesn't show one or more Python version numbers, you have to make sure that Python is correctly installed. </p>
+<p>If it doesn't display "CGI scripts work", well, then CGI scripts don't work. If it doesn't show one or more Python version numbers, then Python is not correctly installed. In both cases, before you can proceed, you will have to get in touch with the administrator of the server so that the problems get corrected. </p>
 
 <h4 id="head-119b1acf8110bb618e4f366c3d1f8a35ad625f75">Download MoinMoin</h4>
 
@@ -135,21 +135,21 @@ echo "Finished."
 
 <h4 id="head-3d4a1a77f9ea5f9d6b6c868e0a45caf78a388ed5">Unpack the archive</h4>
 
-<p>The next step is to unpack the distribution archive (which you have done already if you are reading this text from your hard drive). If you read this on the web, the distribution comes in a versioned <tt>.zip</tt> or <tt>.tar.gz</tt> archive, which you can unpack as shown below.  </p>
+<p>The next step is to unpack the distribution archive (which you have done already if you are reading this text from your hard drive). If you read this on the web, the distribution comes in a versioned <tt>.tar.gz</tt> archive, which you can unpack as shown below. </p>
 <ul>
 <li><p> On Windows </p>
 <ul>
-<li><p> You can use a program like WinZip, which handles both kinds of archives. </p>
+<li><p> You can use recent versions of programs like WinZip, WinRar, and WinAce, which handle .tar.gz kind of archives. </p>
 </li>
-<li><p> At the command prompt, you can use <em>gnuzip</em> and <em>gnutar</em> for Windows. </p>
+<li><p> At the command prompt, you can use <a class="external" href="http://gnuwin32.sourceforge.net/packages/gzip.htm"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> GNU gzip</a> and <a class="external" href="http://gnuwin32.sourceforge.net/packages/tar.htm"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> GNU tar</a> for Windows. </p>
 </li>
 </ul>
 </li>
 <li><p> On Linux </p>
 <ul>
-<li><p> Your favorite file manager should be able to unpack them. </p>
+<li><p> You can use your favorite file manager -- it should be able to unpack them. </p>
 </li>
-<li><p> At any shell prompt, the <tt>unzip</tt> and <tt>tar</tt> commands can be used to unpack them. </p>
+<li><p> At any shell prompt, you can use the <tt>tar</tt> command. </p>
 </li>
 </ul>
 </li>
@@ -173,7 +173,7 @@ echo "Finished."
 </ul>
 <p>The installation to a system location is easier, so choose that if possible. </p>
 <p><img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> If you have several versions of Python installed, please use the same version for setup and for running the wiki. Usually, the latest Python version will get the best results. </p>
-<p><strong>Note:</strong> On Linux, if you have problems with the <tt>setup.py</tt> install step, you may need to have the Python development files installed. Some Linux distribution put them in a separate package, not installed by default. For example, on Mandrake you need to "<tt>rpm&nbsp;-i&nbsp;python-devel-2.x.x-xmdk.i586.rpm</tt>". </p>
+<p><strong>Note:</strong> On Linux, if you have problems with the <tt>setup.py</tt> install step, you may need to have the Python development files installed. Some Linux distribution put them in a separate package, not installed by default. For example, on Mandrake you need to install the <tt>python-devel</tt> package. </p>
 
 <h5 id="head-640b21abea127e7ac4b48c938607c233b7119bd5">Installing in the default system location</h5>
 
@@ -198,9 +198,9 @@ echo "Finished."
 <p>All MoinMoin files will then be installed inside those directories, see <tt>install.log</tt> to know which files were installed, and where. </p>
 <p><strong>Note:</strong> You will likely see the following warning: </p>
 <ul>
-<li style="list-style-type:none"><p>warning: install: modules installed to 'C:\moin\', which<br>
- is not in Python's module search path (sys.path) -- you'll<br>
- have to change the search path yourself  </p>
+<li style="list-style-type:none"><p><tt>warning:&nbsp;install:&nbsp;modules&nbsp;installed&nbsp;to&nbsp;'C:\moin\',&nbsp;which</tt><br>
+ <tt>is&nbsp;not&nbsp;in&nbsp;Python's&nbsp;module&nbsp;search&nbsp;path&nbsp;(sys.path)&nbsp;--&nbsp;you'll</tt><br>
+ <tt>have&nbsp;to&nbsp;change&nbsp;the&nbsp;search&nbsp;path&nbsp;yourself</tt> </p>
 </li>
 </ul>
 <p>This means exactly what it says, you need to add your install directory to the search path of Python, or it won't find the MoinMoin code. </p>
@@ -208,7 +208,7 @@ echo "Finished."
 </p>
 <pre>
 import sys
-sys.path.append('C:/moin')
+sys.path.insert(0, 'C:/moin')
 </pre>
 
 <h4 id="head-fa6e362dee33c1522e04572170f85c9a6fe94af4">Check that everything is working correctly</h4>
@@ -238,10 +238,10 @@ ImportError: No module named MoinMoin
 
 <p>So, you have a ready-to-work MoinMoin installation now. Congratulations! Before you go on to configuring it, take a look at the various files and directories that have been installed. </p>
 <p><img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> It is important that you understand the different locations used in a MoinMoin setup, so read this carefully. </p>
-<p>In the following descriptions, <tt>PREFIX</tt> is what you used with the <tt>setup.py</tt> command, or a default location when you didn't use the <tt>--prefix</tt> option. Typical default values are <tt>/usr</tt> and <tt>/usr/local</tt>. <tt>X</tt> and <tt>Y</tt> are the main version and the subversion of Python. Typically, <tt>X</tt> is 2 and <tt>Y</tt> is 3 or 4. </p>
+<p>In the following descriptions, <tt>PREFIX</tt> is what you used with the <tt>setup.py</tt> command, or a default location if you didn't use the <tt>--prefix</tt> option. (Typical default values on Linux are <tt>/usr</tt> and <tt>/usr/local</tt>.) <tt>X.Y</tt> is the version of Python. Typically, this is <tt>2.3</tt> or <tt>2.4</tt>. </p>
 <p>Look into <tt>install.log</tt> to find out about following important locations: </p>
 <ul>
-<li><p> <strong><tt>MoinMoin</tt> directory</strong>, usually <tt>PREFIX/lib/pythonX.Y/site-packages/MoinMoin</tt> -- this is where the MoinMoin <strong>code</strong> is located </p>
+<li><p> <strong><tt>MoinMoin</tt> directory</strong>, usually <tt>PREFIX/lib/pythonX.Y/site-packages/MoinMoin</tt> -- this is where the MoinMoin <strong>source code</strong> is located </p>
 </li>
 <li><p> <strong><tt>share</tt> directory</strong>, usually <tt>PREFIX/share/moin</tt> - this is where the <em>templates</em> are located </p>
 <ul>
@@ -249,9 +249,9 @@ ImportError: No module named MoinMoin
 </li>
 <li><p> <strong><tt>underlay</tt></strong> directory (wiki pages, users, etc.) - only MoinMoin should access this </p>
 </li>
-<li><p> <strong><tt>htdocs</tt></strong> directory with themes (images and CSS) and a few other files - the web server will need to access this </p>
+<li><p> <strong><tt>htdocs</tt></strong> directory with html support files (images for the various themes, etc.) - the web server will need to access this </p>
 </li>
-<li><p> <strong><tt>server</tt></strong> - MoinMoin example startup files (like <tt>moin.cgi</tt> for CGI and other files for other startup methods) </p>
+<li><p> <strong><tt>server</tt></strong> - MoinMoin example startup files (like <tt>moin.cgi</tt> for CGI, and other files for other startup methods) </p>
 </li>
 <li><p> <strong><tt>config</tt></strong> - MoinMoin example configuration files (like <tt>wikiconfig.py</tt>) </p>
 </li>
@@ -276,34 +276,41 @@ ImportError: No module named MoinMoin
 <p>Every time you copy those files (and modify the configuration of your server accordingly), you create what is called a <em>wiki instance</em>. Each wiki instance is independant from the others, with a different configuration, different pages, different users, etc. </p>
 <p>Some of the steps you need to take depend on which web server and which operating system you use. They are described on dedicated pages, which you should read (at least the beginning) before reading this one. Some other steps are common to every webserver and operating system (copying files around, setting permissions), and this is what is described here. </p>
 
-<h4 id="head-524c2bff223118472b248c48524dcef1e82a36c8">Security warning</h4>
+<h4 id="head-8c227c275465dec3f8e3b326d53f9566727c5648">Read this first</h4>
 
-<p><img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> Make sure that your <tt>data</tt> directory and your configuration files are <strong>not accessible through your web server</strong>. Do <strong>not</strong> put your wiki files in <tt>public_html</tt>, <tt>Sites</tt> or any other directory your web server can access. The web server only needs to access the file in the <tt>htdocs</tt> directory and the <tt>moin.cgi</tt> script! (Or whatever script your server uses to start MoinMoin.) </p>
-<p><img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> Also make sure that the <tt>data</tt> directory and its subdirectories are <strong>not readable</strong> and <strong>not writeable</strong> by users <strong>other</strong> than the <em>web server</em> user (and of course, the administrator of the machine, like root). If you need to give worldwide read-write permissions to get it working, be aware that you are doing a <strong>very unsecure setup</strong>, that can be compromised by any other user of your computer. </p>
 
-<h4 id="head-942d29849126a576afcc19bdbfd59c661739eb55">Note to Windows users</h4>
+<h5 id="head-6e91ed0b234e903763a945b5249e7de8b726e5d7">Security warnings</h5>
 
-<p>All the commands below are Linux commands. The text descriptions that surround them should be enough to help you understand what you need to do. Use the Windows Explorer, or the equivalent text-mode commands. </p>
+<ul>
+<li><p> <img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> Make sure that your <tt>data</tt> directory and your configuration files are <strong>not accessible through your web server</strong>. Do <strong>not</strong> put your wiki files in <tt>public_html</tt>, <tt>Sites</tt> or any other directory your web server can access. The web server only needs to access the file in the <tt>htdocs</tt> directory and the <tt>moin.cgi</tt> script! (Or whatever script your server uses to start MoinMoin.) </p>
+</li>
+<li class="gap"><p> <img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> Also make sure that the <tt>data</tt> directory and its subdirectories are <strong>not readable</strong> and <strong>not writeable</strong> by users <strong>other</strong> than the <em>web server user</em> (and of course, the administrator). If you need to give worldwide read-write permissions to get it working, be aware that you are doing a <strong>very unsecure setup</strong>, that can be compromised by any other user or program on your computer. </p>
+</li>
+</ul>
+
+<h5 id="head-942d29849126a576afcc19bdbfd59c661739eb55">Note to Windows users</h5>
+
+<p>All the commands below are Linux commands. The text descriptions that introduce them should be enough to help you understand what you need to do. Use the Windows Explorer, or the appropriate text-mode commands. </p>
 
 <h4 id="head-54ba36856158b57bf05d34b9ac54371b27b137fc">Choose a name</h4>
 
 <p>Choose a unique name for the new wiki instance you want to create. It should be a short word, something that reflects what you intend to use the wiki for, like the name of your organization, of your team, of the project you are working on, etc. Unfortunately, you <strong>cannot</strong> use "wiki", because MoinMoin uses it internally for other purposes. </p>
 <ul>
-<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/attention.png" alt="&lt;!&gt;" height="15" width="15"> <strong>Do not use the name "wiki", it is reserved for internal use.</strong> </p>
+<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> <strong>Do not use the name "wiki", it is reserved for internal use.</strong> </p>
 </li>
 </ul>
 <p>The name "<tt>mywiki</tt>" is used as an example in the various commands below. </p>
 
 <h4 id="head-379ea73c819b2c729ba9c2432b8a4c4b4c524f71">Choose a location</h4>
 
-<p>Choose a directory on your server, it will contain all the files needed for your wiki instance. At the beginning, your wiki instance will use approximately 10 MB of disk space. Then of course, it will grow depending on the way your wiki is used. A personal wiki, even with many pages, might only use 30 MB or 40 MB of disk space. A popular wiki, or a wiki with many files attached to the pages, might use much more, of course. </p>
+<p>Choose a directory on your disk, it will contain all the files needed for your wiki instance. At the beginning, your wiki instance will use approximately 10 MB of disk space. Then of course, it will grow depending on the way your wiki is used. A personal wiki, even with many pages, might only use 30 MB or 40 MB of disk space. A popular wiki, or a wiki with many files attached to the pages, might use much more, of course. </p>
 <p>If you are the administrator (or root) of the server, you can use anything you like or that makes sense to you, for example <tt>/usr/local/var/moin</tt>, <tt>/mnt/wikis</tt>, etc. </p>
 <p>If you are a simple user, you will probably only be allowed to write in your personal, "home" directory. Choose a subdirectory that makes sense to you, for example the <tt>share/moin</tt> subdirectory. </p>
 
 <h4 id="head-951584cdd82db21218fc2ffd3945de602f8275c0">Collect some important information</h4>
 
 <p>This is where the instructions differ according to the web server and operating system you use, and whether you are the administrator or a simple user. See the appropriate pages for your web server and operating system combination. </p>
-<p>On Linux, the <tt>export</tt> command will be used to remember the collected information. Windows users should write them down carefully (maybe cutting-and-pasting in a Notepad window), or store them in environment variables if they use the command prompt. </p>
+<p>On Linux, the <tt>export</tt> command will be used to remember the collected information. Windows users should write it down carefully (maybe cutting-and-pasting in a Notepad window), or store it in environment variables if they use the command prompt. </p>
 <ul>
 <li><p> <tt>PREFIX</tt> is the prefix you used during the <a href="http://moinmaster.wikiwikiweb.de/HelpOnInstalling/BasicInstallation">../BasicInstallation</a> </p>
 </li>
@@ -314,7 +321,7 @@ ImportError: No module named MoinMoin
 </ul>
 <p>If you are an administrator, you also need to collect the following: </p>
 <ul>
-<li><p> <tt>USER</tt> is the user name used by the web server </p>
+<li><p> <tt>USER</tt> is the user name of the web server </p>
 </li>
 <li><p> <tt>GROUP</tt> is the name of the group to which the web server belongs </p>
 </li>
@@ -330,14 +337,14 @@ ImportError: No module named MoinMoin
 <p>Administrators also need the following two lines: </p>
 
 <pre>
-&gt; export USER=www-data              # the usual setting of the Apache server on Linux
-&gt; export GROUP=www-data             # the usual setting of the Apache server on Linux
+&gt; export USER=www-data              # this is just an example
+&gt; export GROUP=www-data             # this is just an example
 </pre>
 
 <h4 id="head-c3fc33e072973371ea739841440fb52175ddb9f6">Copy the files</h4>
 
 <p>To create your new instance, you first need to create a directory named like your instance, inside the <tt>WIKILOCATION</tt>. Then you need to copy the <tt>data</tt> and <tt>underlay</tt> directories from your <tt>SHARE</tt> directory into your instance directory. Finally, you need to copy the <tt>wikiconfig.py</tt> file from the <tt>config</tt> directory into the instance directory. </p>
-<p>Linux folks need just use these commands: 
+<p>Linux folks need just type these commands: 
 </p>
 <pre>
 &gt; cd $WIKILOCATION
@@ -365,17 +372,22 @@ ImportError: No module named MoinMoin
 
 <p>Normal users, on the contrary, need to broaden the permissions of the files, so that the web server can read and write them. On recent Windows versions, and on some versions of Unix, Linux and other systems, <em>access control lists</em> can be used to that effect. They are, however, powerful and complicated, much beyond the scope of this document. Ask a knowledgeable person about them. </p>
 <p>Without them, normal users have to allow <em>everybody</em> to access the instance directory. This is the only way the web server can enter it and do its work. This is, of course, <strong>VERY INSECURE</strong>, since any other user and program on the server can read the directory. You should <strong>not</strong> use such a setup for a wiki open to the public. </p>
-<p><strong>Note:</strong> it is also possible to put the web server and the normal user in the same <em>group</em>, and then only open the instance directory to the members of that group. This is a bit more secure (depending on who else is in the group), but you need the cooperation of the server administrator; he is the one setting up groups. </p>
 <p>On Linux, the following commands will open the instance directory to the whole world: 
 </p>
 <pre>
-&gt; chmod -R a+rwX $INSTANCE/data
-&gt; chmod -R a+rwX $INSTANCE/underlay
+&gt; chmod -R a+rwX $INSTANCE
 </pre>
+<p><strong>Note:</strong> </p>
+<ul>
+<li><p> it is also possible to put the web server and the normal user in the same <em>group</em>, and then only open the instance directory to the members of that group. This is a bit more secure (depending on who else is in the group), but you need the cooperation of the server administrator; he is the one setting up groups. </p>
+</li>
+<li><p> the best other possibility is that the server administrator sets up <tt>suexec</tt> to execute CGI scripts in user directories under the user id of that user. You don't need to give world permissions that way, so it is a quite secure setup, but you also need cooperation of the administrator. </p>
+</li>
+</ul>
 
 <h4 id="head-442871161f523855f2162b426248f0bb0523c289">Tune configuration</h4>
 
-<p>Now, you need to tune the configuration of your web server and of your wiki instance. Look at the appropriate help page for your web server, then come here to tune the settings of your wiki instance. </p>
+<p>Now, you need to tune the configuration of your web server and of your wiki instance. Look at the appropriate help page for your web server, then come back here to tune the settings of your wiki instance. </p>
 <p>Edit <tt>wikiconfig.py</tt>. The default settings should work fine in most cases, but there are some things that you will probably want to change, like the name and logo of your wiki! <img src="wiki/htdocs/modern/img/smile.png" alt=":)" height="15" width="15"> Read the comments inside <tt>wikiconfig.py</tt>, they will guide you through this process.  (Start with "Wiki identity", around line 25.) </p>
 <p><a href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration">HelpOnConfiguration</a> contains all the details about all the options, in case the comments in <tt>wikiconfig.py</tt> are not enough. </p>
 <a id="bottom_Include_HelpOnInstalling(2f)WikiInstanceCreation"></a>
@@ -390,7 +402,7 @@ ImportError: No module named MoinMoin
 <div lang="en" id="Include_HelpOnInstalling(2f)ApacheOnLinux" dir="ltr">
 <a id="top_Include_HelpOnInstalling(2f)ApacheOnLinux"></a>
 <p>This page describes the particular steps that need to be taken when you use MoinMoin on Linux with the Apache web server. You should have already performed the <a href="http://moinmaster.wikiwikiweb.de/HelpOnInstalling/BasicInstallation">../BasicInstallation</a>. </p>
-<p>Two scenarios are possible. You might be the administrator (root or webmaster) of the server, able to install and modify files almost anywhere on the machine, and notably able to modifiy the Apache configuration. You might also be a simple user, only able to write files into your home directory, and unable to alter the master Apache config file. The two scenarios are discussed below. </p>
+<p>Two scenarios are possible. You might be the administrator (root) of the server, able to install and modify files almost anywhere on the machine, and notably able to modifiy the Apache configuration. You might also be a simple user, only able to write files into your home directory, and unable to alter the master Apache config file. The two scenarios are discussed below. </p>
 <p><strong>Table of contents</strong> <ol>
 
 <li>
@@ -418,7 +430,7 @@ ImportError: No module named MoinMoin
 </li>
 
 <li>
-<a href="#head-f9389817bf9bd3e3992db3afd99bcf9708aeea6d">Final test</a>
+<a href="#head-0f7a0fb8dccf6a13b6042fa17e0d7cda751fe3f3">Test the wiki</a>
 </li>
 
 </ol>
@@ -452,7 +464,7 @@ ImportError: No module named MoinMoin
 </li>
 
 <li>
-<a href="#head-f9389817bf9bd3e3992db3afd99bcf9708aeea6d-2">Final test</a>
+<a href="#head-0f7a0fb8dccf6a13b6042fa17e0d7cda751fe3f3-2">Test the wiki</a>
 </li>
 
 </ol>
@@ -476,7 +488,7 @@ ImportError: No module named MoinMoin
 
 <p>Most GNU/Linux distributions come with Apache pre-installed. There is, however, some variation as to where exactly the various Apache files are located. You should consult your distribution manual, or ask on the appropriate discussion board. In the following paragraphs, we assume a (quite standard) file system layout with: </p>
 <ul>
-<li><p> <tt>/etc/httpd/httpd.conf</tt> - the main httpd configuration file </p>
+<li><p> <tt>/etc/httpd/httpd.conf</tt> - the main Apache configuration file </p>
 </li>
 <li><p> <tt>/var/log/httpd/error_log</tt> - the log file containing Apache error messages </p>
 </li>
@@ -485,14 +497,14 @@ ImportError: No module named MoinMoin
 
 <h4 id="head-c27688fbe7f65d67190a47ce8d32eba244ab0d01">Create a wiki instance</h4>
 
-<p>Creating a wiki instance involves copying files around and setting appropriate permissions. Before you can proceed, you need to know what user and group your Apache server runs on. The easiest way to know this is to issue this command: 
+<p>Creating a wiki instance involves copying files around and setting appropriate permissions. Before you can proceed, you need to know what user and group your Apache server runs as. The easiest way to know this is to issue this command: 
 </p>
 <pre>
 &gt; egrep "^User|^Group" /etc/httpd/httpd.conf
 User wwwrun
 Group nogroup
 </pre>
-<p>This shows a typical result: "<tt>wwwrun.nogroup</tt>". Other typical results are "<tt>nobody.nogroup</tt>" and "<tt>www-data.www-data</tt>". You can of course use your own. What matters is that you know which ones are in use, because you will need them to set file permissions. </p>
+<p>This shows a typical result: "<tt>wwwrun.nogroup</tt>". Other common results are "<tt>nobody.nogroup</tt>" and "<tt>www-data.www-data</tt>". You can of course use your own. What matters is that you know which ones are in use, because you will need them to set file permissions. </p>
 <p>Once you have gathered this information, read <a href="http://moinmaster.wikiwikiweb.de/HelpOnInstalling/WikiInstanceCreation">../WikiInstanceCreation</a> and follow the steps described there. </p>
 
 <h4 id="head-e3e9e08058bb0ae34c33f53367cd58d6c7411998">Install moin.cgi</h4>
@@ -511,7 +523,7 @@ Group nogroup
 
 <h4 id="head-408a7a283b2406c4e6b24646b25ec7996d5ff459">Configure moin.cgi</h4>
 
-<p>When <tt>moin.cgi</tt> is launched, it imports a MoinMoin module (that in turn imports other modules and the configuration file). While the MoinMoin modules should always be found in a properly configured system (as described in <a href="http://moinmaster.wikiwikiweb.de/HelpOnInstalling/BasicInstallation">../BasicInstallation</a>), it is likely that the configuration file will not be found. Edit the <tt>moin.cgi</tt> script to correct that. Add these lines near the top of the file: 
+<p>When <tt>moin.cgi</tt> is launched, it imports a MoinMoin module that in turn imports other modules and the configuration file. While the MoinMoin modules should always be found in a properly configured system (as described in <a href="http://moinmaster.wikiwikiweb.de/HelpOnInstalling/BasicInstallation">../BasicInstallation</a>), it is likely that the configuration file will not be found. Edit the <tt>moin.cgi</tt> script to correct that. Add these lines near the top of the file: 
 </p>
 <pre>
 import sys
@@ -531,14 +543,14 @@ sys.path.insert(0, '..')
 <li><p> A script alias is set up to redirect requests from whatever you want (we suggest you use your instance name, for example <tt>/mywiki</tt>) to the CGI script you just copied. </p>
 </li>
 </ul>
-<p>The following commands will add two lines at the bottom of your Apache config file. These lines only cover the last two items listed above. You have to check the first one by yourself (there is too much variation in Linux distributions). Note that you may have to move the two lines around in your config file -- maybe near other similar lines. 
+<p>The following commands will add two lines at the bottom of your Apache config file. These lines only cover the last two items listed above. You have to check the first one by yourself (there is too much variation in Linux distributions). Note that you may have to move the two lines to the appropriate place in your config file -- maybe near other similar lines. 
 </p>
 <pre>
 &gt; echo "" &gt;&gt;/etc/httpd/httpd.conf
 &gt; echo "Alias /wiki/ \"$SHARE/htdocs/\"" &gt;&gt;/etc/httpd/httpd.conf
 &gt; echo "ScriptAlias /mywiki \"$WIKILOCATION/$INSTANCE/cgi-bin/moin.cgi\"" &gt;&gt;/etc/httpd/httpd.conf
 </pre>
-<p>You only need to define the alias for <tt>htdocs</tt> once. You need of course to define a different script alias for each wiki instance you intend to run. </p>
+<p>You only need to define the alias for <tt>htdocs</tt> once. You need to define a different script alias for each wiki instance you intend to run. </p>
 
 <h4 id="head-ffa39b171f9d130bb07a8481a5fff1a5a9065e86">Configure MoinMoin</h4>
 
@@ -552,17 +564,19 @@ sys.path.insert(0, '..')
 </pre>
 <p>There are other settings you will likely want to alter, look at the bottom of <a href="http://moinmaster.wikiwikiweb.de/HelpOnInstalling/WikiInstanceCreation">../WikiInstanceCreation</a> for more details about them. </p>
 
-<h4 id="head-f9389817bf9bd3e3992db3afd99bcf9708aeea6d">Final test</h4>
+<h4 id="head-0f7a0fb8dccf6a13b6042fa17e0d7cda751fe3f3">Test the wiki</h4>
 
-<p>Everything should work fine, now. It is time to <strong>restart the Apache server</strong> (usually "<tt>/etc/init.d/apache&nbsp;restart</tt>", sometimes also "<tt>apachectl&nbsp;restart</tt>") and perform the following steps: </p>
+<p>Everything should work fine now. It is time to <strong>restart the Apache server</strong> (usually with "<tt>/etc/init.d/apache&nbsp;restart</tt>", sometimes with "<tt>apachectl&nbsp;restart</tt>") and perform the following steps: </p>
 <ul>
-<li><p> Try to access your new-born wiki with the URL "<tt>http://127.0.0.1/mywiki/</tt>" (or the name and port you have defined in the Apache configuration file, of course). You should see the FrontPage. </p>
+<li><p> Run the <em>MoinMoin CGI Diagnosis</em>: connect to "<tt>http://127.0.0.1/mywiki?action=test</tt>" (or the name and port you have defined in the Apache configuration file). Verify that the displayed information is correct. Check that the directories listed under <em>Checking directories...</em> are <em>OK</em>. </p>
+</li>
+<li><p> Access your new wiki with the URL "<tt>http://127.0.0.1/mywiki/</tt>" (or the name and port you have defined in the Apache configuration file). You should see the FrontPage. </p>
 </li>
 <li><p> If this is the case, try to edit it and save your changes. </p>
 </li>
 <li><p> If that works, see if your edit is reflected on the RecentChanges page. </p>
 </li>
-<li><p> If you see them, congratulations, you have a new wiki! <img src="wiki/htdocs/modern/img/smile.png" alt=":)" height="15" width="15"> </p>
+<li><p> If you see them, congratulations, your new wiki works! <img src="wiki/htdocs/modern/img/smile.png" alt=":)" height="15" width="15"> </p>
 </li>
 </ul>
 <p>If something goes wrong, have a look at Troubleshooting, at the bottom of this page. </p>
@@ -599,7 +613,7 @@ STATUS=HTTP/1.1 200 OK
 <ul>
 <li><p> Check the permissions for your home directory (<tt>~</tt>) and your <tt>public_html</tt> directory. The first one should at least end with "<tt>--x</tt>", and the second one, as we saw above, with "<tt>r-x</tt>". </p>
 </li>
-<li><p> It also possible that the administrator has set up another name for the personal web site directory. "<tt>public_html</tt>" is just the usual default, but anything can actually be used. There is no way to know, you have to ask the administrator (root or webmaster). </p>
+<li><p> It also possible that the administrator has set up another name for the personal web site directory. "<tt>public_html</tt>" is just the usual default, but anything can actually be used. There is no way to know, you have to ask the administrator (root). </p>
 </li>
 <li><p> Finally, if the personal web site feature is disabled, maybe you can ask the administrator to enable it? </p>
 </li>
@@ -618,7 +632,7 @@ echo "CGI scripts work"
 &gt; lynx -dump http://localhost/~jh/cgi-bin/test.cgi
 CGI scripts work
 </pre>
-<p>If you get anything else than "<tt>CGI&nbsp;scripts&nbsp;work</tt>", then something went wrong. Check the directory permissions as above, try other names (or ask about them). The sad truth might be that you are not allowed to execute CGI scripts. You would then have to ask the administrator (or webmaster) for that permission. </p>
+<p>If you get anything else than "<tt>CGI&nbsp;scripts&nbsp;work</tt>", then something went wrong. Check the directory permissions as above, try other names (or ask about them). The sad truth might be that you are not allowed to execute CGI scripts. You would then have to ask the administrator (root) for that permission. </p>
 <p>Once you get it, you can set up your wiki instance in the <tt>public_html</tt> directory. <img src="wiki/htdocs/modern/img/smile.png" alt=":)" height="15" width="15"> </p>
 
 <h4 id="head-c27688fbe7f65d67190a47ce8d32eba244ab0d01-2">Create a wiki instance</h4>
@@ -669,7 +683,7 @@ sys.path.insert(0, '/home/mm/share/moin/mywiki')
     url_prefix = '/~mm/wiki'
 </pre>
 
-<h4 id="head-f9389817bf9bd3e3992db3afd99bcf9708aeea6d-2">Final test</h4>
+<h4 id="head-0f7a0fb8dccf6a13b6042fa17e0d7cda751fe3f3-2">Test the wiki</h4>
 
 <p>Everything should work fine, now. It is time to perform the following steps: </p>
 <ul>
@@ -693,7 +707,7 @@ sys.path.insert(0, '/home/mm/share/moin/mywiki')
 
 <h4 id="head-b8c0d1c1aba9cd39d0d15f86ea33025f7f25d48d">Adding permission to serve the htdocs directory</h4>
 
-<p>In some (sane) Linux distributions (like SuSE 9.0) serving directories other than the document-root "<tt>/srv/www/htdocs</tt>" with Apache is switched off by default for security reasons in "<tt>/etc/httpd/httpd.conf</tt>" (or for Apache2 "<tt>/etc/apache2/httpd.conf</tt>"):  
+<p>In some (sane) Linux distributions (like SuSE 9.0) serving directories other than the document-root "<tt>/srv/www/htdocs</tt>" with Apache is switched off by default for security reasons in "<tt>/etc/httpd/httpd.conf</tt>" (or for Apache2 "<tt>/etc/apache2/httpd.conf</tt>"): 
 </p>
 <pre>
 # forbid access to the entire filesystem by default
@@ -908,8 +922,8 @@ data_dir = '/usr/share/moin/mywiki/data/'  #this needs to be a FULL path
 <p>If you did a standard install, and you are not a developer, you probably want to skip this section. If not, you might want to add the path to moin and config file, like that: </p>
 
 <pre>
-sys.path.append('/path/to/moin')
-sys.path.append('/path/to/wikiconfig')
+sys.path.insert(0, '/path/to/moin')
+sys.path.insert(0, '/path/to/wikiconfig')
 </pre>
 
 <h4 id="head-a51f43e6a56656fb4ff7b17d487afc09442427b5">Config class options</h4>
@@ -1071,8 +1085,8 @@ sys.path.append('/path/to/wikiconfig')
 
 <pre>
 import sys
-sys.path.append('/path/to/moin')
-sys.path.append('/path/to/wikiconfig')
+sys.path.insert(0, '/path/to/moin')
+sys.path.insert(0, '/path/to/wikiconfig')
 </pre>
 
 <h4 id="head-3cb7180f429490b9735cfc083869eaaa128ed64c">Config class options</h4>
@@ -1237,11 +1251,7 @@ Serving on localhost:80, documents in '/usr/share/moin/wiki/htdocs'
 
 <div lang="en" id="Include_HelpOnInstalling(2f)ApacheOnMacOsx" dir="ltr">
 <a id="top_Include_HelpOnInstalling(2f)ApacheOnMacOsx"></a>
-<p><img src="wiki/htdocs/modern/img/alert.png" alt="/!\" height="15" width="15"> This is pre-1.3 stuff that still has to be adapted to 1.3. </p>
-
-<h2 id="head-d13ca7ea6668232f93c35c895f1df537ccaee50a">Installing MoinMoin on OS X</h2>
-
-<p>You must not be afraid to use the terminal. It is possible but much harder to install without the using the terminal. </p>
+<p>You must not be afraid to use the terminal. It is possible but much harder to install without using the terminal. </p>
 <p>There are 2 step in the installation: </p>
 <ol type="1">
 <li><p>Install the <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> engine - once </p>
@@ -1252,14 +1262,14 @@ Serving on localhost:80, documents in '/usr/share/moin/wiki/htdocs'
 
 <h3 id="head-fab7fde843537e1c43e51293df06cf230070066f">Download</h3>
 
-<p>Download the source on the Desktop. You should see a <tt>moin-x.x.tar.gz</tt> file. Extract this file on the desktop with Stuffit Expander, or from the terminal (faster and safer): 
+<p>Download the source on the Desktop. You should see a <tt>moin-1.3.tar.gz</tt> file. Extract this file on the desktop with Stuffit Expander, or from the terminal (faster and safer): 
 </p>
 <pre>
 cd ~/Desktop
-tar -xzf moin-1.3.tar.gz
+tar -xzf moin-1.3.0.tar.gz
 </pre>
 
-<h3 id="head-30ca6174c5cfbac7d504da2e496ed081ebe2f48f">Install</h3>
+<h2 id="head-c94edbb5fa226613bc614ed4817a423e49bfab74">Installing MoinMoin</h2>
 
 <p>Use these commands in the terminal to install the MoinMoin wiki engine into the system. </p>
 <p>First, open a shell as root. You will need this to install <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> and configure the wiki. When asked, enter your password. 
@@ -1272,46 +1282,60 @@ sudo -s
 <p>Install: 
 </p>
 <pre>
-cd moin-1.3
-python setup.py install --install-data='/usr'  --record=install.log 
+cd moin-1.3.0
+python setup.py install --install-data='/usr/local'
 </pre>
 <ul>
-<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/idea.png" alt="(!)" height="15" width="15"> The --install-data='/usr' will put the shared data in the convinient <tt>'/usr/share/moin'</tt> directory. If you don't use it, your shared data will be at <tt>'/System/Library/Frameworks/Python.framework/Versions/2.3/share/moin'</tt>. </p>
+<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/idea.png" alt="(!)" height="15" width="15"> The --install-data='/usr/local' will put the shared data in the convenient <tt>'/usr/local/share/moin'</tt> folder. If you don't use it, your shared data will be at <tt>'/System/Library/Frameworks/Python.framework/Versions/2.3/share/moin'</tt>. On OX X '/usr' belong to Apple, and it is safer to install in '/usr/local'. </p>
 </li>
 </ul>
-<p>Now installation is finished. You will find a file <tt>install.log</tt> on the Desktop in the folder <tt>moin-1.3</tt>. </p>
+<p>Now installation is finished. You will not have to repeat this step unless you upgrade moin. </p>
 
-<h3 id="head-0cd30234950a8438af556cb7a93ef4dd346358a3">Creating a wiki</h3>
+<h2 id="head-0cd30234950a8438af556cb7a93ef4dd346358a3">Creating a wiki</h2>
 
 <p>After you installed the software, you create a wiki. You may create several wikis if you need. </p>
-<p>First check what is the user and group name of the web server. The wiki files will belong to the web server (not to you): 
+
+<h3 id="head-df71f35b5f6ca32f75dd1e1d9c71a7113906c308">Copying a template wiki</h3>
+
+<p>Copy a template wiki from the <tt>/usr/local/share/moin</tt>. Do not try to run the wiki from <tt>/usr/local/share/moin/data</tt> because your wiki will be overwritten when you install a new version of moin. </p>
+<ul>
+<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/attention.png" alt="&lt;!&gt;" height="15" width="15"> <strong>Security warning: do not put your wiki folder where the web server can access it! Your wiki should not be at the "Sites" folder in your home folder.</strong> </p>
+</li>
+</ul>
+<p>The following instructions will create a wiki called "mywiki". You can choose any name you like, except the reserved name "wiki". </p>
+<p>Do these commands: 
 </p>
 <pre>
-egrep "^User|^Group" /etc/httpd/httpd.conf
-User www
-Group www
-</pre>
-<p>You wil use these name soon... </p>
-<p>Now create a copy of the default wiki: 
-</p>
-<pre>
-cd /usr/share/moin
+cd /usr/local/share/moin
 mkdir mywiki
 cp -r data mywiki
-cp cgi-bin/* mywiki
-chown -R www:www mywiki
-chmod a+rx mywiki/*.cgi
+cp -r underlay mywiki
+cp server/moin.cgi mywiki
+cp config/wikiconfig.py mywiki
 </pre>
-<p>Configure Apache. We'll use the pico editor: 
+
+<h3 id="head-49456651956c5f3bbba97c6917e54be2420fbf14">Setting Permissions</h3>
+
+<p>You have to make the web server the owner of the files in your wiki. Unless you changed the default configuration, both are 'www'. 
+</p>
+<pre>
+chown -R www:www mywiki
+chmod -R ug+rwX mywiki
+chmod -R o-rwx mywiki
+</pre>
+
+<h3 id="head-31a82db9b85a63663e1b46abf203b3c0abdb5fad">Configure Apache</h3>
+
+<p>We'll use the pico editor: 
 </p>
 <pre>
 pico /etc/httpd/httpd.conf
 </pre>
-<p>Go the end of the Aliasess section and edit like the example below: 
+<p>Go the end of the Aliases section and edit like the example below: 
 </p>
 <pre>
-    Alias /wiki/ "/usr/share/moin/htdocs/"      
-    ScriptAlias /mywiki "/usr/share/moin/mywiki/moin.cgi"       
+    Alias /wiki/ "/usr/local/share/moin/htdocs/"      
+    ScriptAlias /mywiki "/usr/local/share/moin/mywiki/moin.cgi"       
 </pre>
 <p>Use Control+O to save the file and Control+X to exit pico. </p>
 <p>Restart Apache - open System Preferences, go to the Sharing page, select "Personal Web Sharing" and click "Stop" then "Start". Or just type this instead: 
@@ -1327,25 +1351,28 @@ exit
 </pre>
 <p>Now you are running again safely. </p>
 
-<h3 id="head-b5c6be08f60c70126af2d3d38d73c25a479cffe2">Testing</h3>
+<h2 id="head-eb585ff24f9cd4b445a74b848cd1c5ec2b10706a">Testing Your New Wiki</h2>
 
 <p>In a web-browser surf to the site: <a href="http://localhost/mywiki"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://localhost/mywiki</a> </p>
 <p>You should see the FrontPage of your new wiki. </p>
 <p>Now run the unit tests, to make sure everything is fine. Go to this address: <a href="http://localhost/mywiki?action=test"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://localhost/mywiki?action=test</a> </p>
 <p>You should see a report on the wiki and tests results for the <a href="http://moinmaster.wikiwikiweb.de/MoinMoin">MoinMoin</a> engine. If some of the tests fail, please report the problem on <a class="external" href="http://moinmoin.wikiwikiweb.de/MoinMoinBugs"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> MoinMoinBugs</a>. </p>
 
-<h2 id="head-63cbf802dfa5d5c2f1e7b297be88d3a5cd62ebac">Comments</h2>
+<h2 id="head-b877179c49870f25d6ca67d1cd1eb5b3d380968e">Configuration You wiki</h2>
 
-<p>Here are a couple of issues with my Mac OS X install I needed to fix: </p>
-<ol type="1">
-<li><p>The RSS feed for your <a href="http://moinmaster.wikiwikiweb.de/RecentChanges">RecentChanges</a> page may be broken.  You need to install the most recent version of <a class="external" href="http://sourceforge.net/projects/pyxml/"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> PyXML</a>.  Here's how I did so and the RSS feed was fixed.<br>
-<tt>curl&nbsp;-O&nbsp;http://aleron.dl.sourceforge.net/sourceforge/pyxml/PyXML-0.8.3.tar.gz</tt><br>
-<tt>tar&nbsp;xzvf&nbsp;PyXML-0.8.3.tar.gz</tt><br>
-<tt>cd&nbsp;PyXML-0.8.3</tt><br>
-<tt>sudo&nbsp;python&nbsp;setup.py&nbsp;--without-xpath&nbsp;build</tt><br>
-<tt>sudo&nbsp;python&nbsp;setup.py&nbsp;install</tt> </p>
+<p>The wiki you created is a new "Untitled Wiki", using the default configuration. You want to give a better name and setup some configuration values. Open <tt>wikiconfig.py</tt> and read the comments. You can edit the file with any text editor, like pico, emacs, or BBEdit.  </p>
+<ul>
+<li style="list-style-type:none"><p><img src="wiki/htdocs/modern/img/idea.png" alt="(!)" height="15" width="15"> Note that the file belong to user and group www:www. You can edit the file as root, or change the group of the file to yourself with <tt>chown&nbsp;www:username&nbsp;wikiconfig.py</tt>. </p>
 </li>
-</ol>
+</ul>
+<p>For more help on configuration, see <a href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration">HelpOnConfiguration</a>. </p>
+
+<h2 id="head-7cf05b3d73a21fa16eabfdced354c3e079182014">Optional Installs</h2>
+
+
+<h3 id="head-223faa3a0e587eb269f79e3faf05d3851d778e8d">RSS</h3>
+
+<p>If you want to that your wiki will support RSS and Mozilla Firefox Live Bookmarks features, you have to install PyXML. Get PyXML from <a href="http://sourceforge.net/projects/pyxml/"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://sourceforge.net/projects/pyxml/</a> and install according to the instructions. </p>
 <a id="bottom_Include_HelpOnInstalling(2f)ApacheOnMacOsx"></a>
 
 </div>
@@ -1427,7 +1454,7 @@ exit
 <p>Many users prefer to install software products in a folder other than the installation default. Python typically changes the default installation folder name with each point release, and Apache has changed the default installation folder name with the release of version 2.  Instead of enumerating all the possibilities at each step, this procedure will use the <strong>Reference</strong> name in the table below as the installed location for each product. Substitute your real installation location when editing configuration files and entering commands. </p>
 <div>
 <table>
-<tr bgcolor="#EEDDAA">
+<tr style="background-color: #EEDDAA;">
 <td>
 <p>Reference</p>
 </td>
@@ -1507,8 +1534,8 @@ exit
 
 <h3 id="head-c76f9a659995f587c02878baf3877ab5bd08a5bd">Installing MoinMoin</h3>
 
-<p>Download the current version of MoinMoin from <a href="http://moinmoin.wikiwikiweb.de/"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://moinmoin.wikiwikiweb.de/</a> into <tt>C:\TEMP</tt> or an alternative location. For the <em>.tar.gz</em> format try WinZip. </p>
-<p>You should then have a folder <tt>C:\TEMP\moin-x.x</tt> where "x.x" is the current release number. This folder will contain a <tt>setup.py</tt> file in addition to several other files and subfolders. </p>
+<p>Download the current version of MoinMoin from <a href="http://moinmoin.wikiwikiweb.de/"><img src="wiki/htdocs/modern/img/moin-www.png" alt="[WWW]" height="11" width="11"> http://moinmoin.wikiwikiweb.de/</a> into <tt>C:\TEMP</tt> or an alternative location. To extract the <em>.tar.gz</em>-format archive, you may use WinZip. </p>
+<p>You should then have a folder such as <tt>C:\TEMP\moin-x.x</tt> where "x.x" is the current release number. This folder will contain a <tt>setup.py</tt> file in addition to several other files and subfolders. </p>
 <p>Open an MS-DOS or console window and enter the commands: 
 </p>
 <pre>
@@ -1516,7 +1543,7 @@ C:
 cd \TEMP\moin-x.x
 C:\Python\python setup.py install --record=install.log
 </pre>
-<p>The above commands will add MoinMoin to your <tt>C:\Python</tt> installation and create an <tt>install.log</tt> file in <tt>C:\temp\moin-x.x</tt> listing all the copied files. You may use Windows Explorer to examine the newly created folders within <tt>C:\Python</tt>. You should find a <tt>C:\Python\share\moin</tt> folder. With Python 2.2 and later it will be <tt>C:\Python\Lib\site-packages\MoinMoin</tt>. The <tt>MoinMoin</tt> folder contains many Python scripts and several subfolders. </p>
+<p>The above commands will add MoinMoin to your <tt>C:\Python</tt> installation and create an <tt>install.log</tt> file in <tt>C:\temp\moin-x.x</tt> listing all the copied files. You may use Windows Explorer to examine the newly created folders within <tt>C:\Python</tt>. You should find a <tt>C:\Python\share\moin</tt> folder. With Python 2.2 and later you will also find a <tt>C:\Python\Lib\site-packages\MoinMoin</tt> folder. The <tt>MoinMoin</tt> folder contains many Python scripts and several subfolders. </p>
 <p>You are now ready to create a wiki instance. </p>
 
 <h3 id="head-ba9ed0d8dd27b7bc62472aa0d24e8102dd103deb">Creating a Wiki Instance</h3>
@@ -1542,13 +1569,20 @@ copy  server\*.* C:\Moin\mywiki\*.*
 <p>Edit <tt>C:\Moin\mywiki\wikiconfig.py</tt> and at least change <tt>sitename</tt> to the name of your wiki: 
 </p>
 <pre>
-sitename = 'My Wiki'
+    sitename = 'My Wiki'
+</pre>
+<p>Additionally, set <tt>data_dir</tt> and <tt>data_underlay_dir</tt> to the absolute paths of the particular directories. Like here: 
+</p>
+<pre>
+    data_dir = r'C:\Moin\mywiki\data'
+    data_underlay_dir = r'C:\Moin\mywiki\underlay'
 </pre>
 <p>For a personal or intranet installation, you'll normally also add this line to <tt>wikiconfig.py</tt>: 
 </p>
 <pre>
-allowed_actions = ['DeletePage', 'AttachFile', 'RenamePage', ]
+    allowed_actions = ['DeletePage', 'AttachFile', 'RenamePage', ]
 </pre>
+<p>If you will <em><strong>not</strong></em> be running a Wiki farm (if you're not sure what this means, then you probably won't be), make sure to delete the <tt>farmconfig.py</tt> file from the <tt>C:\Moin\mywiki</tt> directory, or else <tt>moin.cgi</tt> will most likely give off various errors (including one about not being able to find a configuration file) and will ultimately fail to start up properly. </p>
 <p>Additional configuration details can be found in <a href="http://moinmaster.wikiwikiweb.de/HelpOnConfiguration">HelpOnConfiguration</a>. </p>
 
 <h3 id="head-42c812a9d38d3af1de6c09ed952ac1858c5221b8">Integrating MoinMoin into Apache</h3>
@@ -1612,12 +1646,12 @@ function togglenumber(did, nstart, nstep) {
 </script>
 
 <script type="text/javascript">
-document.write('<a href="#" onClick="return togglenumber(\'CA-9cc7ff2684b68dfe1e50e31d5c38e3000610812f_000\', 1, 1);" \
+document.write('<a href="#" onClick="return togglenumber(\'CA-ae7207ce08c12f42f82f00c644b7aa0c244223a5_000\', 1, 1);" \
                 class="codenumbers">Toggle line numbers<\/a>');
 </script>
-<pre lang="en" id="CA-9cc7ff2684b68dfe1e50e31d5c38e3000610812f_000" dir="ltr">
+<pre lang="en" id="CA-ae7207ce08c12f42f82f00c644b7aa0c244223a5_000" dir="ltr">
 <span class="line"><span class="LineNumber">   1 </span><span class="ResWord">import</span> <span class="ID">sys</span></span>
-<span class="line"><span class="LineNumber">   2 </span><span class="ID">sys</span><span class="Operator">.</span><span class="ID">path</span><span class="Operator">.</span><span class="ID">append</span><span class="Operator">(</span><span class="String">r'C:\Moin\...'</span><span class="Operator">)</span><span class="Text"></span></span>
+<span class="line"><span class="LineNumber">   2 </span><span class="ID">sys</span><span class="Operator">.</span><span class="ID">path</span><span class="Operator">.</span><span class="ID">insert</span><span class="Operator">(</span><span class="Number">0</span><span class="Operator">,</span> <span class="String">r'C:\Moin\...'</span><span class="Operator">)</span><span class="Text"></span></span>
 </pre>
 </div>
 <p>The next step is to tell Apache that is has more work to do. Use your editor to append the following lines to <tt>C:\Apache\conf\httpd.conf</tt>. Note the presence and absence of trailing slashes, it is important to enter the lines exactly as shown below. 
@@ -1824,13 +1858,13 @@ function togglenumber(did, nstart, nstep) {
 </script>
 
 <script type="text/javascript">
-document.write('<a href="#" onClick="return togglenumber(\'CA-00ad08e92d2a8bc4215a348ef226945495046c04_000\', 1, 1);" \
+document.write('<a href="#" onClick="return togglenumber(\'CA-0237a59a12abcf7cd4ff50d4dab13951dbf11313_000\', 1, 1);" \
                 class="codenumbers">Toggle line numbers<\/a>');
 </script>
-<pre lang="en" id="CA-00ad08e92d2a8bc4215a348ef226945495046c04_000" dir="ltr">
+<pre lang="en" id="CA-0237a59a12abcf7cd4ff50d4dab13951dbf11313_000" dir="ltr">
 <span class="line"><span class="LineNumber">   1 </span><span class="Comment">#!python</span></span>
 <span class="line"><span class="LineNumber">   2 </span><span class="Comment"></span><span class="ResWord">import</span> <span class="ID">sys</span></span>
-<span class="line"><span class="LineNumber">   3 </span><span class="ID">sys</span><span class="Operator">.</span><span class="ID">path</span><span class="Operator">.</span><span class="ID">append</span><span class="Operator">(</span><span class="String">r'C:\Moin\Lib\site-packages'</span><span class="Operator">)</span><span class="Text"></span></span>
+<span class="line"><span class="LineNumber">   3 </span><span class="ID">sys</span><span class="Operator">.</span><span class="ID">path</span><span class="Operator">.</span><span class="ID">insert</span><span class="Operator">(</span><span class="Number">0</span><span class="Operator">,</span> <span class="String">r'C:\Moin\Lib\site-packages'</span><span class="Operator">)</span><span class="Text"></span></span>
 </pre>
 </div>
 <p>Notice that we're pointing to the directory which contains the MoinMoin directory, not the directory itself. </p>

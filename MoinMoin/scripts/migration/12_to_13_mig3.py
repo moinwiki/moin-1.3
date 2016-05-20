@@ -7,13 +7,13 @@
     * data/pages/PageName/edit-lock stays the same
     * data/pages/PageName/last-edited isn't used any more as we have the same in last line of page edit-log
     * data/pages/PageName/attachments/* stays the same
-    * data/cache/charts/hitcounts-PageName -> data/pages/PageName/cache/hitcounts
     * data/editlog -> stays there (as edit-log), but also gets splitted into data/pages/PageName/edit-log
     * data/event.log -> stays there (as event-log)
 
     We will use this, but don't need to convert, as it will be recreated automatically:
     * data/cache/Page.py/PageName.<formatter> -> data/pages/PageName/cache/<formatter>
     * data/cache/pagelinks/PageName -> data/pages/PageName/cache/pagelinks
+    * data/cache/charts/hitcounts-PageName -> data/pages/PageName/cache/hitcounts
 
     
     Steps for a successful migration:
@@ -50,10 +50,12 @@
 
 import os, sys, shutil, urllib
 
-sys.path.append('../../..')
+sys.path.insert(0, '../../..')
 from MoinMoin import wikiutil
 
 from migutil import opj, copy_file, copy_dir, listdir
+
+origdir = 'data.pre-mig3'
 
 def convert_textdir(dir_from, dir_to, is_backupdir=0):
     for fname_from in listdir(dir_from):
@@ -76,11 +78,13 @@ def convert_textdir(dir_from, dir_to, is_backupdir=0):
             fname_to = opj('pages', fname, 'text')
         copy_file(opj(dir_from, fname_from), opj(dir_to, fname_to))
 
-        try:
-            copy_file(
-                opj('data.pre-mig3','cache','charts','hitcounts-%s' % fname),
-                opj(dir_to, 'pages', fname, 'cache', 'hitcounts'))
-        except: pass
+        #we don't have cache, mig2 doesn't convert it
+        #try:
+        #    cache_from = opj(origdir,'cache','charts','hitcounts-%s' % fname)
+        #    cache_to = opj(dir_to, 'pages', fname, 'cache', 'hitcounts')
+        #    if os.path.exists(cache_from):
+        #        copy_file(cache_from, cache_to)
+        #except: pass
 
 
 def convert_pagedir(dir_from, dir_to):
@@ -112,8 +116,6 @@ def convert_editlog(file_from, file_to, dir_to):
             f.write(data)
             f.close()
         except: pass
-
-origdir = 'data.pre-mig3'
 
 # Backup original dir and create new empty dir
 try:

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-11-16 17:53+0200\n"
 "Last-Translator: Thomas W. Horna <sarman@t-online.de>\n"
 "Language-Team: Serbian <moin-devel@lists.sourceforge.net>\n"
@@ -974,7 +974,7 @@ msgstr "Nepoznat tip fajla, nemoguć prikaz"
 
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
-msgstr "attachment:%(filename)s za %(pagename)s"
+msgstr "[[Verbatim(attachment:)]]%(filename)s za %(pagename)s"
 
 msgid "You are not allowed to delete this page."
 msgstr "Vama nije dozvoljeno da izbrišete ovu stranicu"
@@ -1351,6 +1351,11 @@ msgstr "Trag"
 msgid "User"
 msgstr "Korisnik"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "Red"
 
@@ -1367,7 +1372,10 @@ msgstr "Veza sa mejlserverom '%(server)s' nije uspela: %(reason)s"
 msgid "Mail sent OK"
 msgstr "Mejl je uspešno poslan"
 
-msgid "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
 msgstr ""
 
 msgid "FrontPage"

@@ -602,8 +602,8 @@ De lo contrario; si el campo "Cambiar nombre a" queda vacío, se usará el nombr
 '''¡No tienes permisos para renombrar páginas en este wiki!''',
 '''Please use the interactive user interface to rename pages!''':
 '''¡Por favor, usa la interfaz interactiva de usuario para renombrar páginas!''',
-'''Rename''':
-'''Renombrar''',
+'''Rename Page''':
+'''Renombrar Página''',
 '''New name''':
 '''Nombre nuevo''',
 '''Optional reason for the renaming''':
@@ -750,8 +750,6 @@ rojo=editar''',
 '''Mostrar Vista de Impresión''',
 '''Attach File''':
 '''Adjuntar Archivo''',
-'''Rename Page''':
-'''Renombrar Página''',
 '''Delete Page''':
 '''Eliminar Página''',
 '''Show Like Pages''':
@@ -794,8 +792,6 @@ rojo=editar''',
 '''Falló la conexión al servidor de correo \'%(server)s\': %(reason)s''',
 '''Mail sent OK''':
 '''e-Mail enviado OK''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''PáginaInicial''',
 '''RecentChanges''':

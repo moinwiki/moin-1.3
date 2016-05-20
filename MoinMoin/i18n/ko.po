@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-11-27 16:28+0900\n"
 "Last-Translator: Hye-Shik Chang <perky@FreeBSD.org>\n"
 "Language-Team: Korean <moin-devel@lists.sourceforge.net>\n"
@@ -973,7 +973,7 @@ msgstr ""
 
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
-msgstr "%(pagename)s의 attachment:%(filename)s"
+msgstr "%(pagename)s의 [[Verbatim(attachment:)]]%(filename)s"
 
 msgid "You are not allowed to delete this page."
 msgstr "이 글을 지울 권한이 없습니다."
@@ -1338,6 +1338,11 @@ msgstr "흔적"
 msgid "User"
 msgstr "사용자"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "줄"
 
@@ -1354,8 +1359,11 @@ msgstr "메일 서버 '%(server)s'에 접속 실패: %(reason)s"
 msgid "Mail sent OK"
 msgstr "메일이 보내졌습니다"
 
-msgid "[\"<html>\"]"
-msgstr "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "대문"
@@ -1428,6 +1436,9 @@ msgstr "이름바꿈"
 
 msgid "SpellCheck"
 msgstr "철자검사"
+
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"<html>\"]"
 
 #~ msgid "Rename"
 #~ msgstr "이름 바꾸기"

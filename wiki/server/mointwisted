@@ -16,7 +16,7 @@ import sys, os
 
 commands = {
     'start': 'twistd --python mointwisted.py --pidfile mointwisted.pid',
-    'stop': 'kill `cat mointwisted.pid`'
+    'stop': 'kill `cat mointwisted.pid`',
     'kill': 'kill -9 `cat mointwisted.pid`',
 }
 

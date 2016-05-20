@@ -168,7 +168,7 @@ span.sep {
 	margin: 0;
 }
 
-#credits, #timings {
+#credits, #version, #timings{
 	float: right;
 	clear: right;
 	margin: 5px 0;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-11-16 17:05+0100\n"
 "Last-Translator: VOROSBARANYI Zoltan <http://vbzo.li/>\n"
 "Language-Team: Hungarian <HU@li.org>\n"
@@ -1348,6 +1348,11 @@ msgstr "Nyom"
 msgid "User"
 msgstr "Felhasználó"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "Sor"
 
@@ -1366,8 +1371,11 @@ msgstr ""
 msgid "Mail sent OK"
 msgstr "A levél rendben elküldve."
 
-msgid "[\"<html>\"]"
-msgstr "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "KezdőLap"
@@ -1440,6 +1448,9 @@ msgstr "LapÁtnevezés"
 
 msgid "SpellCheck"
 msgstr "HelyesírásEllenőrzés"
+
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"<html>\"]"
 
 #~ msgid "Rename"
 #~ msgstr "Átnevezés"

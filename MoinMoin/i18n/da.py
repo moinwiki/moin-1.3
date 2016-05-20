@@ -75,6 +75,8 @@ Kig på ændringerne pr. %(difflink)s for at se hvad der er blevet ændret.''',
 '''Beskriv %s her.''',
 '''Optional comment about this change''':
 '''Kommentar til denne ændring (valgfri)''',
+'''<No addition>''':
+'''<Ingen tilføjelser>''',
 '''Make this page belong to category %(category)s''':
 '''Lad denne side tilhøre kategorien %(category)s''',
 '''Check Spelling''':
@@ -733,6 +735,8 @@ rød=redigér''',
 '''Afmeld abonnement''',
 '''More Actions:''':
 '''Flere Rutiner:''',
+'''Show Raw Text''':
+'''Vis rå tekst''',
 '''Show Print View''':
 '''Vis udskriftsvenlig udgave''',
 '''Attach File''':
@@ -744,7 +748,9 @@ rød=redigér''',
 '''Show Local Site Map''':
 '''Vis lokal oversigt''',
 '''Do''':
-'''Brug''',
+'''Anvend''',
+'''Show Parent''':
+'''Vis "forælder" (siden denne stammer fra)''',
 '''Immutable Page''':
 '''Ikke-redigérbar side''',
 '''Refresh''':
@@ -777,8 +783,6 @@ rød=redigér''',
 '''Forbindelse til email-server \'%(server)s\' mislykkedes: %(reason)s''',
 '''Mail sent OK''':
 '''Email sendt OK''',
-'''["<html>"]''':
-'''["html"]''',
 '''FrontPage''':
 '''ForSide''',
 '''RecentChanges''':

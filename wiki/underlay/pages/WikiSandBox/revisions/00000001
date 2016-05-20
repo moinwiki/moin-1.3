@@ -13,10 +13,12 @@ Please feel free to experiment here, after the four dashes below... and please d
 ~+ bigger +~ ~- smaller -~
 
 {{{
-preformatted
+preformatted some more
+and some more lines too
+
 }}}
 
-{{{#!Colorize python
+{{{#!python
 def syntax(highlight):
     print "on"
     return None
@@ -33,6 +35,10 @@ someone@the.inter.net
 
 === Image Link ===
 http://c2.com/sig/wiki.gif
+
+== Smileys ==
+
+/!\ Alert
 
 == Lists ==
 
@@ -63,7 +69,7 @@ drawing:mytest
 
 = IRC Log test =
 
-{{{#!Colorize irc
+{{{#!irc
 (23:18) <     jroes> ah
 (23:19) <     jroes> hm, i like the way {{{ works, but i was hoping the lines would wrap
 (23:21) -!- gpciceri [~gpciceri@host181-130.pool8248.interbusiness.it] has quit [Read error: 110 (Connection timed out)]

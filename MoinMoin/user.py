@@ -6,7 +6,22 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os, string, time, Cookie, sha, locale, pickle, codecs
+import os, string, time, Cookie, sha, locale, codecs
+
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
+# Set pickle protocol, see http://docs.python.org/lib/node64.html
+try:
+    # Requires 2.3
+    PICKLE_PROTOCOL = pickle.HIGHEST_PROTOCOL
+except AttributeError:
+    # Use protocol 1, binary format compatible with all python versions
+    PICKLE_PROTOCOL = 1
+
+
 from MoinMoin import config, caching, wikiutil
 from MoinMoin.util import datetime
 
@@ -53,7 +68,7 @@ def getUserId(request, searchName):
         arena = 'user'
         key = 'name2id'
         cache = caching.CacheEntry(request, arena, key)
-        cache.update(pickle.dumps(_name2id))
+        cache.update(pickle.dumps(_name2id, PICKLE_PROTOCOL))
         id = _name2id.get(searchName, None)
     return id
 
@@ -74,18 +89,31 @@ def getUserIdentification(request, username=None):
     return username or request.remote_addr or _("<unknown>")
 
 
-def encodePassword(pwd):
-    """
-    Encode a cleartext password, compatible to Apache htpasswd SHA encoding.
+def encodePassword(pwd, charset='utf-8'):
+    """ Encode a cleartext password
 
-    @param pwd: the cleartext password
+    Compatible to Apache htpasswd SHA encoding.
+
+    When using different encoding then 'utf-8', the encoding might fail
+    and raise UnicodeError.
+
+    @param pwd: the cleartext password, (unicode)
+    @param charset: charset used to encode password, used only for
+        compatibility with old passwords generated on moin-1.2.
     @rtype: string
-    @return: the password in apache htpasswd compatible SHA-encoding
+    @return: the password in apache htpasswd compatible SHA-encoding,
+        or None
     """
     import base64
-    return '{SHA}' + base64.encodestring(sha.new(pwd).digest()).rstrip()
-
-
+    
+    # TODO: enabled after testing with old user files
+    if 0:
+        pwd = pwd.encode(charset) # Might raise UnicodeError
+        
+    pwd = sha.new(pwd).digest()
+    pwd = '{SHA}' + base64.encodestring(pwd).rstrip()
+    return pwd
+    
 def normalizeName(name):
     """ Make normalized user name
 
@@ -163,7 +191,6 @@ class User:
     _checkbox_fields = [
          ('edit_on_doubleclick', lambda _: _('Open editor on double click')),
          ('remember_last_visit', lambda _: _('Remember last page visited')),
-         #('show_emoticons', lambda _: _('Show emoticons')),
          ('show_fancy_links', lambda _: _('Show fancy links')),
          ('show_nonexist_qm', lambda _: _('Show question mark for non-existing pagelinks')),
          ('show_page_trail', lambda _: _('Show page trail')),
@@ -197,13 +224,17 @@ class User:
         else:
             self.auth_username = ""
         self.name = name
-        if not password:
-            self.enc_password = ""
-        else:
+
+        self.enc_password = ""
+        if password:
             if password.startswith('{SHA}'):
                 self.enc_password = password
             else:
-                self.enc_password = encodePassword(password)
+                try:
+                    self.enc_password = encodePassword(password)
+                except UnicodeError:
+                    pass # Should never happen
+
         self.trusted = 0
         self.email = ""
         self.edit_rows = self._cfg.edit_rows
@@ -271,6 +302,10 @@ class User:
         else:
             from security import Default
             self.may = Default(self)
+        
+        from MoinMoin.i18n.meta import languages
+        if self.language and not languages.has_key(self.language):
+            self.language = 'en'
 
 
     def __filename(self):
@@ -302,7 +337,7 @@ class User:
         if self.id:
             self.load_from_id(1)
         #print >>sys.stderr, "self.id: %s, self.name: %s" % (self.id, self.name)
-        
+
     def load_from_id(self, check_pass=0):
         """
         Load user account data from disk.
@@ -320,7 +355,8 @@ class User:
         data = codecs.open(self.__filename(), "r", config.charset).readlines()
         user_data = {'enc_password': ''}
         for line in data:
-            if line[0] == '#': continue
+            if line[0] == '#':
+                continue
 
             try:
                 key, val = line.strip().split('=', 1)
@@ -332,13 +368,17 @@ class User:
             except ValueError:
                 pass
 
+        # Validate data from user file. In case we need to change some
+        # values, we set 'changed' flag, and later save the user data.
+        changed = 0
+
         if check_pass:
             # If we have no password set, we don't accept login with username
             if not user_data['enc_password']:
                 return
-            # Check for a valid password
-            elif user_data['enc_password'] != self.enc_password:
-                # print >>sys.stderr, "File:%s Form:%s" % (user_data['enc_password'], self.enc_password)
+            # Check for a valid password, possibly changing encoding
+            valid, changed = self._validatePassword(user_data)
+            if not valid: 
                 return
             else:
                 self.trusted = 1
@@ -349,13 +389,13 @@ class User:
 
         self.tz_offset = int(self.tz_offset)
 
-        # old passwords are untrusted
-        if hasattr(self, 'password'): del self.password
-        if hasattr(self, 'passwd'): del self.passwd
+        # Remove old unsupported attributes from user data file.
+        remove_attributes = ['password', 'passwd', 'show_emoticons']
+        for attr in remove_attributes:
+            if hasattr(self, attr):
+                delattr(self, attr)
+                changed = 1
         
-        # get rid of that smiley setting
-        if hasattr(self, 'show_emoticons'): del self.show_emoticons
-
         # make sure checkboxes are boolean
         for key, label in self._checkbox_fields:
             try:
@@ -373,6 +413,86 @@ class User:
         if not self.disabled:
             self.valid = 1
 
+        # If user data has been changed, save fixed user data.
+        if changed:
+            self.save()
+
+    def _validatePassword(self, data):
+        """ Try to validate user password
+
+        This is a private method and should not be used by clients.
+
+        In pre 1.3, the wiki used some 8 bit charset. The user password
+        was entered in this 8 bit password and passed to
+        encodePassword. So old passwords can use any of the charset
+        used.
+
+        In 1.3, we use unicode internally, so we encode the password in
+        encodePassword using utf-8.
+
+        When we compare passwords we must compare with same encoding, or
+        the passwords will not match. We don't know what encoding the
+        password on the user file uses. We may ask the wiki admin to put
+        this into the config, but he may be wrong.
+
+        The way chosen is to try to encode and compare passwords using
+        all the encoding that were available on 1.2, until we get a
+        match, which means that the user is valid.
+
+        If we get a match, we replace the user password hash with the
+        utf-8 encoded version, and next time it will match on first try
+        as before. The user password did not change, this change is
+        completely transparent for the user. Only the sha digest will
+        change.
+
+        @param data: dict with user data
+        @rtype: 2 tuple (bool, bool)
+        @return: password is valid, password did change
+        """
+        # First try with default encoded password. Match only non empty
+        # passwords. (require non empty enc_password)
+        if self.enc_password and self.enc_password == data['enc_password']:
+            return True, False
+
+        # TODO: enable rest of method after testing with old user files
+        return False, False
+        
+        # Try to use all pre 1.3 8 bit charsets
+
+        # Get the clear text password from the form (require non empty
+        # password)
+        password = self._request.form.get('password',[None])[0]
+        if not password:
+            return False, False 
+
+        # First get all available pre13 charsets on this system
+        import codecs
+        pre13 = ['iso-8859-1', 'iso-8859-2', 'euc-jp', 'gb2312', 'big5',]
+        available = []
+        for charset in pre13:
+            try:
+                encoder = codecs.getencoder(charset)
+                available.append(charset)
+            except LookupError:
+                pass # missing on this system
+
+        # Now try to match the password
+        for charset in available:
+            # Try to encode, failure is expected
+            try:
+                enc_password = encodePassword(password, charset=charset)
+            except UnicodeError:
+                continue
+
+            # And match (require non empty enc_password)
+            if enc_password and enc_password == data['enc_password']:
+                # User password match - replace the user password in the
+                # file with self.password
+                data['enc_password'] = self.enc_password
+                return True, True
+
+        # No encoded password match, this must be wrong password
+        return False, False
 
     def save(self):
         """
@@ -381,7 +501,9 @@ class User:
         This saves all member variables, except "id" and "valid" and
         those starting with an underscore.
         """
-        if not self.id: return
+        if not self.id:
+            return
+
         user_dir = self._cfg.user_dir
         if not os.path.isdir(user_dir):
             os.mkdir(user_dir, 0777 & config.umask)
@@ -403,7 +525,7 @@ class User:
                 # Encode list values
                 if key in ['quicklinks', 'subscribed_pages']:
                     value = encodeList(value)
-                line = "%s=%s\n" % (key, unicode(value))
+                line = u"%s=%s\n" % (key, unicode(value))
                 data.write(line)
         data.close()
 

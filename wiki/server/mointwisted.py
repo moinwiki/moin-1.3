@@ -18,7 +18,7 @@
 
 import sys
 # This is needed if you run a daemon with config files in current directory.
-sys.path.append('.')
+sys.path.insert(0, '.')
 ## sys.path.insert(0, '/path/to/MoinMoin/dir')
 ## sys.path.insert(0, '/path/to/wikiconfig/dir')
 ## sys.path.insert(0, '/path/to/farmconfig/dir')
@@ -30,7 +30,7 @@ from MoinMoin.server.twistedmoin import TwistedConfig, makeApp
 class Config(TwistedConfig):
 
     # Path to moin shared files (default '/usr/share/moin/wiki/htdocs')
-    docs = '/usr/share/moin/wiki/htdocs'
+    docs = '/usr/share/moin/htdocs'
 
     # The server will run with as this user and group (default 'www-data')
     user = 'www-data'

@@ -1,13 +1,13 @@
-#FORMAT python
+# FORMAT python
 # MoinMoin translation
-#
+# 
 # Former translators:
 # Changzhe Han <hancz@brovic.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-12 22:18+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-12-05 22:41+0100\n"
 "Last-Translator: Jun Hu <j.hu@tue.nl>\n"
 "Language-Team: Chinese <moin-devel@lists.sourceforge.net>\n"
@@ -104,7 +104,8 @@ msgid ""
 msgstr ""
 "在您编辑此页时, 有人修改保存了此页!\n"
 "请勿直接保存您的改动!\n"
-"请先比较一下(%(difflink)s), 看看哪里被别人修改过了, 再决定是否进一步编辑、保存此页."
+"请先比较一下(%(difflink)s), 看看哪里被别人修改过了, 再决定是否进一步编辑、保"
+"存此页."
 
 #, python-format
 msgid "[Content of new page loaded from %s]"
@@ -155,8 +156,7 @@ msgid ""
 "If you don't want that, hit '''%(cancel_button_text)s''' to cancel your "
 "changes."
 msgstr ""
-"按下 '''%(save_button_text)s''' 表示您同意受 %"
-"(license_link)s规定之约束.\n"
+"按下 '''%(save_button_text)s''' 表示您同意受 %(license_link)s规定之约束.\n"
 "如果你不同意, 按 '''%(cancel_button_text)s''' 取消您的修改."
 
 msgid "Preview"
@@ -185,21 +185,20 @@ msgid ""
 " Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing "
 "white space allowed after tables or titles."
 msgstr ""
-" 强调:: [[Verbatim('')]]''斜体''[[Verbatim('')]]; [[Verbatim"
-"(''')]]'''粗体'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''粗斜体 "
-"'''''[[Verbatim(''''')]]; [[Verbatim('')]]''混合''[[Verbatim"
-"(''')]]'''''粗'''[[Verbatim(''')]]斜体''[[Verbatim('')]]; "
-"[[Verbatim(----)]] 横线.\n"
-" 标题:: [[Verbatim(=)]] 标题 1 [[Verbatim(=)]]; [[Verbatim(==)]] 标题 "
-"2 [[Verbatim(==)]]; [[Verbatim(===)]] 标题 3 [[Verbatim(===)]];   [[Verbatim"
+" 强调:: [[Verbatim('')]]''斜体''[[Verbatim('')]]; [[Verbatim(''')]]'''粗"
+"体'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''粗斜体 '''''[[Verbatim"
+"(''''')]]; [[Verbatim('')]]''混合''[[Verbatim(''')]]'''''粗'''[[Verbatim"
+"(''')]]斜体''[[Verbatim('')]]; [[Verbatim(----)]] 横线.\n"
+" 标题:: [[Verbatim(=)]] 标题 1 [[Verbatim(=)]]; [[Verbatim(==)]] 标题 2 "
+"[[Verbatim(==)]]; [[Verbatim(===)]] 标题 3 [[Verbatim(===)]];   [[Verbatim"
 "(====)]] 标题 4 [[Verbatim(====)]]; [[Verbatim(=====)]] 标题 5 [[Verbatim"
 "(=====)]].\n"
-" 列表:: 空格加下列符号之一: * 代表圆点; 1., a., A., i., I. 代表编号; 1."
-"#n 从n开始编号; 空格本身代表缩进.\n"
-" 链接:: [[Verbatim(JoinCapitalizedWords两个以上大写开头字)]]; [[Verbatim([\"方括号加双引号"
-"\"])]]; url; [url]; [url 说明].\n"
-" 表格:: || 单元格文字 |||| 单元格文字横跨两列 ||;    "
-"表格或标题后不可以有空格."
+" 列表:: 空格加下列符号之一: * 代表圆点; 1., a., A., i., I. 代表编号; 1.#n 从n"
+"开始编号; 空格本身代表缩进.\n"
+" 链接:: [[Verbatim(JoinCapitalizedWords两个以上大写开头字)]]; [[Verbatim"
+"([\"方括号加双引号\"])]]; url; [url]; [url 说明].\n"
+" 表格:: || 单元格文字 |||| 单元格文字横跨两列 ||;    表格或标题后不可以有空"
+"格."
 
 msgid "Edit was cancelled."
 msgstr "编辑取消了."
@@ -294,8 +293,7 @@ msgstr "此页未作改动, 所以没有保存!"
 
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
-msgstr ""
-"您不能修改此页的访问控制表(ACL), 因为您没有管理权限!"
+msgstr "您不能修改此页的访问控制表(ACL), 因为您没有管理权限!"
 
 msgid "Thank you for your changes. Your attention to detail is appreciated."
 msgstr "谢谢您的细心修改."
@@ -326,7 +324,8 @@ msgid ""
 "This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
 "s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"此页目前被%(owner)s''锁定''编辑, 直到%(timestamp)s, 也就是%(mins_valid)d分钟后."
+"此页目前被%(owner)s''锁定''编辑, 直到%(timestamp)s, 也就是%(mins_valid)d分钟"
+"后."
 
 #, python-format
 msgid ""
@@ -427,7 +426,6 @@ msgstr "不存在的网页链接显示问号"
 msgid "Show page trail"
 msgstr "显示网页访问历史"
 
-
 msgid "Show icon toolbar"
 msgstr "显示图标工具条"
 
@@ -455,8 +453,7 @@ msgstr "Cookie已经删除. 您已登出."
 msgid ""
 "This wiki is not enabled for mail processing.\n"
 "Contact the owner of the wiki, who can enable email."
-msgstr ""
-"本维基不支持邮件处理, 请联系管理员, 他可以决定是否要启动邮寄功能."
+msgstr "本维基不支持邮件处理, 请联系管理员, 他可以决定是否要启动邮寄功能."
 
 msgid "Please provide a valid email address!"
 msgstr "请提供一个有效的电子邮件地址!"
@@ -492,7 +489,6 @@ msgstr "两次输入的密码不符!"
 
 msgid "Please specify a password!"
 msgstr "请输入一个密码!"
-
 
 msgid ""
 "Please provide your email address. If you loose your login information, you "
@@ -585,9 +581,6 @@ msgstr "请输入一个有效的电子邮件地址, 否则本订阅列表不起�
 msgid "Subscribed wiki pages (one regex per line)"
 msgstr "订阅的维基网页(每行一个正规表达式)"
 
-msgid "Action"
-msgstr "操作"
-
 msgid "No older revisions available!"
 msgstr "没有旧版"
 
@@ -644,8 +637,8 @@ msgstr "编辑"
 msgid "Comment"
 msgstr "备注"
 
-msgid "(edit log entry is missing)"
-msgstr "(编辑日志空缺)"
+msgid "Action"
+msgstr "操作"
 
 msgid "view"
 msgstr "查看"
@@ -662,6 +655,15 @@ msgstr "恢复旧版"
 #, python-format
 msgid "Revert to revision %(rev)d."
 msgstr "恢复成版本%(rev)d."
+
+msgid "edit"
+msgstr "编辑"
+
+msgid "get"
+msgstr "下载"
+
+msgid "del"
+msgstr "删除"
 
 msgid "N/A"
 msgstr "无"
@@ -686,7 +688,6 @@ msgstr "一般信息"
 #, python-format
 msgid "Show chart \"%(title)s\""
 msgstr "显示\"%(title)s\"的图表"
-
 
 msgid "Page hits and edits"
 msgstr "网页点击次数和编辑次数"
@@ -713,8 +714,8 @@ msgid ""
 "You didn't enter an email address in your profile. Select your name "
 "(UserPreferences) in the upper right corner and enter a valid email address."
 msgstr ""
-"您注册的时候没有提供电子邮件地址.请在右上角点一下你的名字(或是\"用户设置\", UserPreferences) "
-"并提供合法的电子邮件地址."
+"您注册的时候没有提供电子邮件地址.请在右上角点一下你的名字(或是\"用户设置\", "
+"UserPreferences) 并提供合法的电子邮件地址."
 
 msgid "Your subscribtion to this page has been removed."
 msgstr "您终止了订阅此页."
@@ -867,15 +868,6 @@ msgstr ""
 "请'''不要'''用{{{[下载]}}}指向的 URL, \n"
 "因为那个位置可能会变, 很可能就不能用了.</p>"
 
-msgid "del"
-msgstr "删除"
-
-msgid "get"
-msgstr "下载"
-
-msgid "edit"
-msgstr "编辑"
-
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "%(pagename)s没有附件"
@@ -923,8 +915,7 @@ msgstr "此页不能储存图片!"
 msgid ""
 "No file content. Delete non ASCII characters from the file name and try "
 "again."
-msgstr ""
-"无文件内容. 从文件名中删除非ASCII字符后再试."
+msgstr "无文件内容. 从文件名中删除非ASCII字符后再试."
 
 msgid "You are not allowed to delete attachments on this page."
 msgstr "您无权删除此页的附件."
@@ -1016,7 +1007,11 @@ msgstr "本维基不开放网页改名!"
 msgid "Please use the interactive user interface to rename pages!"
 msgstr "请使用用户界面交互地为网页改名!"
 
-msgid "Rename"
+#, python-format
+msgid "Could not rename page because of file system error: %s."
+msgstr ""
+
+msgid "Rename Page"
 msgstr "改名"
 
 msgid "New name"
@@ -1030,7 +1025,8 @@ msgid ""
 "'''A page with the name {{{'%s'}}} already exists.'''\n"
 "\n"
 "Try a different name."
-msgstr "'''已经有一页叫做{{{'%s'}}} 了.'''\n"
+msgstr ""
+"'''已经有一页叫做{{{'%s'}}} 了.'''\n"
 "\n"
 "试用一个不同的网页名."
 
@@ -1270,9 +1266,6 @@ msgstr "打印视图"
 msgid "Attach File"
 msgstr "附件"
 
-msgid "Rename Page"
-msgstr "改名"
-
 msgid "Delete Page"
 msgstr "删除"
 
@@ -1322,6 +1315,11 @@ msgstr "访问历史"
 msgid "User"
 msgstr "用户"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "行号"
 
@@ -1338,8 +1336,11 @@ msgstr "无发连接到邮件服务器'%(server)s': %(reason)s"
 msgid "Mail sent OK"
 msgstr "邮件发送成功"
 
-msgid "[\"<html>\"]"
-msgstr "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "首页"
@@ -1412,3 +1413,12 @@ msgstr "改名"
 
 msgid "SpellCheck"
 msgstr "拼写检查"
+
+#~ msgid "(edit log entry is missing)"
+#~ msgstr "(编辑日志空缺)"
+
+#~ msgid "Rename"
+#~ msgstr "改名"
+
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"<html>\"]"

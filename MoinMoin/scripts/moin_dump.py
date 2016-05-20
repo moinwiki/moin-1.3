@@ -11,7 +11,7 @@ __version__ = "20040329"
 
 # use this if your moin installation is not in sys.path:
 import sys
-sys.path.append('/home/twaldmann/moincvs/moin--main/') # MoinMoin
+sys.path.insert(0, '../..') # path to MoinMoin
 
 logo_html = '<img src="moinmoin.png">'
 

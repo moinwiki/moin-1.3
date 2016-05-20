@@ -165,16 +165,16 @@ class DefaultConfig:
     page_header1 = ''
     page_header2 = ''
     
-    page_front_page = 'FrontPage'
-    page_local_spelling_words = 'LocalSpellingWords'
-    page_category_regex = '^Category[A-Z]'
-    page_dict_regex = '[a-z]Dict$'
-    page_form_regex = '[a-z]Form$'
-    page_group_regex = '[a-z]Group$'
-    page_template_regex = '[a-z]Template$'
+    page_front_page = u'FrontPage'
+    page_local_spelling_words = u'LocalSpellingWords'
+    page_category_regex = u'^Category[A-Z]'
+    page_dict_regex = u'[a-z]Dict$'
+    page_form_regex = u'[a-z]Form$'
+    page_group_regex = u'[a-z]Group$'
+    page_template_regex = u'[a-z]Template$'
 
     page_license_enabled = 0
-    page_license_page = 'WikiLicense'
+    page_license_page = u'WikiLicense'
 
     # These icons will show in this order in the iconbar, unless they
     # are not relevant, e.g email icon when the wiki is not configured
@@ -216,7 +216,7 @@ class DefaultConfig:
                   'search|sitecheck|spider|wget')
 
     # Wiki identity
-    sitename = 'Untitled Wiki'
+    sitename = u'Untitled Wiki'
     url_prefix = '/wiki'
     logo_string = None
     
@@ -290,19 +290,28 @@ class DefaultConfig:
 
     def _decode(self):
         """ Decode certain values from utf-8, preserve unicode values """
+        import warnings
+        strnotunicodemsg = (
+            "Warning: %s should be unicode, not string. "
+            "Using ascii/replace which can give wrong results. "
+            "Better use var = u'whatever' syntax.\n")
+                
         decode_names = ('sitename', 'logo_string', 'page_category_regex',
                         'page_dict_regex', 'page_form_regex', 'page_group_regex',
-                        'page_template_regex', 'navi_bar', 'page_front_page')
+                        'page_template_regex', 'navi_bar', 'page_front_page',
+                        'page_license_page',)
         for name in decode_names:
             attr = getattr(self, name, None)
             if attr:
                 if isinstance(attr, str):
-                    setattr(self, name, unicode(attr, 'utf-8'))
+                    setattr(self, name, unicode(attr, 'ascii', 'replace'))
+                    warnings.warn(strnotunicodemsg % name)
                 elif isinstance(attr, list):
                     for i in xrange(len(attr)):
                         name = attr[i]
                         if isinstance(name, str):
-                            attr[i] = unicode(name, 'utf-8')
+                            attr[i] = unicode(name, 'ascii', 'replace')
+                            warnings.warn(strnotunicodemsg % name)
                         
     def __getitem__(self, item):
         """ Make it possible to access a config object like a dict """

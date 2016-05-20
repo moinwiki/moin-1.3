@@ -6,7 +6,6 @@
 """
 
 import re, time, sys, urllib, StringIO
-#sys.path.append('..')
 from MoinMoin import wikiutil, config
 from MoinMoin.Page import Page
 
@@ -20,9 +19,8 @@ from MoinMoin.Page import Page
 #############################################################################
 
 class BaseExpression:
-    """
-    Base class for all search terms
-    """
+    """ Base class for all search terms """
+    
     def __init__(self):
         self.negated = 0
 
@@ -30,49 +28,53 @@ class BaseExpression:
         return unicode(self).encode(config.charset, 'replace')
 
     def negate(self):
-        "negate the result of this term"
+        """ Negate the result of this term """
         self.negated = 1 
 
     def search(self, page):
-        """
-        Searches a page. Returns a list of Match objects or
-        None if term didn't find anything (viceversa if negate() was called).
-        Terms containing other terms must call this method to aggregate the
-        results.
+        """ Search a page
+
+        Returns a list of Match objects or None if term didn't find
+        anything (viceversa if negate() was called).  Terms containing
+        other terms must call this method to aggregate the results.
         This Base class returns True (Match()) if not negated.
         """
         if self.negated:
+            # XXX why?
             return [Match()]
         else:
             return None
     
     def costs(self):
-        """
-        estimated time to calculate this term.
+        """ estimated time to calculate this term
+        
         Number is is relative to other terms and has no real unit.
         It allows to do the fast searches first.
         """ 
         return 0
 
     def highlight_re(self):
-        """
-        return a regular expression of what the term searches for
-        to highlight them in the found page
+        """ Return a regular expression of what the term searches for
+
+        Used to display the needle in the page.
         """
         return ''
 
     def indexed_query(self):
-        """
-        experimental/unused may become interface to the indexing search engine
+        """ Experimental/unused
+
+        May become interface to the indexing search engine
         """
         return self
 
     def _build_re(self, pattern, use_re=False, case=False):
-        "make a regular expression out of a text pattern"
-        if case: # case sensitive
+        """ Make a regular expression out of a text pattern """
+        if case:
+            # case sensitive
             flags = re.U
-        else: # ignore case
-            flags = re.U + re.I
+        else:
+            # ignore case
+            flags = re.U | re.I
             
         if use_re:
             try:
@@ -83,27 +85,24 @@ class BaseExpression:
                 self.search_re = re.compile(pattern, flags)
         else:
             pattern = re.escape(pattern)
-            #pattern = pattern.replace(u'\\*', u'\S*')
-            #pattern = pattern.replace(u'\\?', u'.')
             self.search_re = re.compile(pattern, flags)
             self.pattern = pattern
 
+
 class AndExpression(BaseExpression):
-    """
-    A term connecting several subterms with a logical AND
-    """
+    """ A term connecting several subterms with a logical AND """
 
     operator = ' '
 
     def __init__(self, *terms):
         self._subterms = list(terms)
         self._costs = 0
-        for t in  self._subterms:
+        for t in self._subterms:
             self._costs += t.costs()
         self.negated = 0
 
     def append(self, expression):
-        "append another term"
+        """ Append another term """
         self._subterms.append(expression)
         self._costs += expression.costs()
 
@@ -119,8 +118,14 @@ class AndExpression(BaseExpression):
             result += self.operator + t
         return u'[' + result[len(self.operator):] + u']'
 
+    def sortByCost(self):
+        tmp = [(term.costs(), term) for term in self._subterms]
+        tmp.sort()
+        self._subterms = [item[1] for item in tmp]       
+
     def search(self, page):
-        self._subterms.sort(lambda x, y: cmp(x.costs(), y.costs()))
+        """ Search for each term, cheap searches first """
+        self.sortByCost()
         matches = []
         for term in self._subterms:
             result = term.search(page)
@@ -164,14 +169,17 @@ class AndExpression(BaseExpression):
 
 
 class OrExpression(AndExpression):
-    """
-    A term connecting several subterms with a logical OR
-    """
+    """ A term connecting several subterms with a logical OR """
     
     operator = ' or '
 
     def search(self, page):
-        self._subterms.sort(lambda x, y: cmp(x.costs(), y.costs()))
+        """ Search page with terms, cheap terms first
+
+        XXX Do we have any reason to sort here? we are not breaking out
+        of the search in any case.
+        """
+        self.sortByCost()
         matches = []
         for term in self._subterms:
             result = term.search(page)
@@ -179,12 +187,14 @@ class OrExpression(AndExpression):
                 matches.extend(result)
         return matches
 
-class TextSearch(BaseExpression):
-    """
-    A term that does a normal text search in the page content
-    and the page title, too, using an additional TitleSearch term.
-    """
 
+class TextSearch(BaseExpression):
+    """ A term that does a normal text search
+
+    Both page content and the page title are searched, using an
+    additional TitleSearch term.
+    """
+    
     def __init__(self, pattern, use_re=False, case=False):
         """ Init a text search
 
@@ -210,32 +220,32 @@ class TextSearch(BaseExpression):
         return u"(%s)" % self._pattern
 
     def search(self, page):
-        body = page.get_raw_body()
-
-        pos = 0
+        # Search in page name
         fragments = self.titlesearch.search(page)
-        if fragments is None: fragments = []
-        while 1:
-            match = self.search_re.search(body, pos)
-            if not match: break
-            pos = match.end()
+        if fragments is None:
+            fragments = []
+
+        # Search in page body
+        body = page.get_raw_body()
+        for match in self.search_re.finditer(body):
             fragments.append(TextMatch(match.start(),match.end()))
 
+        # Decide what to do with the results.
         if ((self.negated and fragments) or
             (not self.negated and not fragments)):
             return None
         elif fragments:
             return fragments
         else:
+            # XXX why not return None or empty list?
             return [Match()]
 
     def indexed_query(self):
         return xapian.Query(self._pattern)
 
+
 class TitleSearch(BaseExpression):
-    """
-    term searches in pattern in page title only
-    """
+    """ Term searches in pattern in page title only """
 
     def __init__(self, pattern, use_re=False, case=False):
         """ Init a title search
@@ -260,17 +270,23 @@ class TitleSearch(BaseExpression):
         return u"(%s)" % self._pattern    
 
     def search(self, page):
-        match = self.search_re.search(page.page_name)
-        if ((self.negated and match) or
-            (not self.negated and not match)):
+        # Get matches in page name
+        matches = []
+        for match in self.search_re.finditer(page.page_name):
+            matches.append(TitleMatch(match.start(),match.end()))
+        
+        if ((self.negated and matches) or
+            (not self.negated and not matches)):
             return None
-        elif match:
-            return [TitleMatch(match.start(), match.end())]
+        elif matches:
+            return matches
         else:
+            # XXX why not return None or empty list?
             return [Match()]
 
     def indexed_query(self):
         return self
+
     
 class IndexedQuery:
     """unused and experimental"""
@@ -284,44 +300,15 @@ class IndexedQuery:
 ############################################################################
 ### Results
 ############################################################################
-        
-
-class FoundPage:
-    """
-    Represents a page in a search result
-    """
-
-    def __init__(self, page_name, matches=[], page=None):
-        self.page_name = page_name
-        self.page = page
-        self._matches = matches
-
-    def weight(self):
-        """returns how important this page is for the terms searched for"""
-        self._matches.sort(lambda x, y: cmp(x.start, y.start))
-        weight = 0
-        for match in self._matches:
-            weight += match.weight()
-            # more sophisticated things to be added
-            # increase weight of near matches
-        return weight
-
-    def add_matches(self, matches):
-        self._matches.extend(matches)
-
-    def get_matches(self):
-        return self._matches[:]
-
-
-
-class FoundAttachment(FoundPage):
-    pass
 
 class Match:
-    """
-    Base class for all Matches (found pieces of pages).
+    """ Base class for all Matches (found pieces of pages).
+    
     This class represents a empty True value as returned from negated searches.
     """
+    # Default match weight
+    _weight = 1.0
+    
     def __init__(self, start=0, end=0):
         self.start = start
         self.end = end
@@ -329,30 +316,143 @@ class Match:
     def __len__(self):
         return self.end - self.start
 
+    def __eq__(self, other):
+        equal = (self.__class__ == other.__class__ and
+                 self.start == other.start and
+                 self.end == other.end)
+        return equal
+        
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def view(self):
         return ''
 
     def weight(self):
-        return 1.0
+        return self._weight
+
 
 class TextMatch(Match):
-    """Represents a match in the page content"""
+    """ Represents a match in the page content """
     pass
 
+
 class MatchInAttachment(Match):
-    """
-    Represents a match in a attachment content
+    """ Represents a match in a attachment content
+
     Not used yet.
     """
     pass
 
+
 class TitleMatch(Match):
-    """
-    Represents a match in the page title
+    """ Represents a match in the page title
+    
     Has more weight as a match in the page content.
     """
-    def weight(self):
-        return 50.0
+    # Matches in titles are much more important in wikis. This setting
+    # seems to make all pages that have matches in the title to appear
+    # before pages that their title does not match.
+    _weight = 100.0
+
+
+class FoundPage:
+    """ Represents a page in a search result """
+
+    def __init__(self, page_name, matches=None, page=None):
+        self.page_name = page_name
+        self.page = page
+        if matches is None:
+            matches = []
+        self._matches = matches
+
+    def weight(self, unique=1):
+        """ returns how important this page is for the terms searched for
+
+        Summarize the weight of all page matches
+
+        @param unique: ignore identical matches
+        @rtype: int
+        @return: page weight
+        """
+        weight = 0
+        for match in self.get_matches(unique=unique):
+            weight += match.weight()
+            # More sophisticated things to be added, like increase
+            # weight of near matches.
+        return weight
+
+    def add_matches(self, matches):
+        """ Add found matches """
+        self._matches.extend(matches)
+
+    def get_matches(self, unique=1, sort='start', type=Match):
+        """ Return all matches of type sorted by sort
+
+        @param unique: return only unique matches (bool)
+        @param sort: match attribute to sort by (string)
+        @param type: type of match to return (Match or sub class) 
+        @rtype: list
+        @return: list of matches
+        """
+        if unique:
+            matches = self._unique_matches(type=type)
+            if sort == 'start':
+                # matches already sorted by match.start, finished.
+                return matches
+        else:
+            matches = self._matches
+
+        # Filter by type and sort by sort using fast schwartzian
+        # transform.
+        if sort == 'start':
+            tmp = [(match.start, match) for match in matches
+                   if instance(match, type)]
+        else:
+            tmp = [(match.weight(), match) for match in matches
+                   if instance(match, type)]
+        tmp.sort()
+        if sort == 'weight':
+            tmp.reverse()
+        matches = [item[1] for item in tmp]
+        
+        return matches
+
+    def _unique_matches(self, type=Match):
+        """ Get a list of unique matches of type
+
+        The result is sorted by match.start, because its easy to remove
+        duplicates like this.
+
+        @param type: type of match to return
+        @rtype: list
+        @return: list of matches of type, sorted by match.start
+        """
+        # Filter by type and sort by match.start using fast schwartzian
+        # transform.
+        tmp = [(match.start, match) for match in self._matches
+               if isinstance(match, type)]
+        tmp.sort()
+
+        if not len(tmp):
+            return []
+
+        # Get first match into matches list
+        matches = [tmp[0][1]]
+
+        # Add rest of matches ignoring identical matches
+        for item in tmp[1:]:
+            if item[1] == matches[-1]:
+                continue
+            matches.append(item[1])
+
+        return matches
+    
+
+class FoundAttachment(FoundPage):
+    """ Represent an attachment in search results """
+    pass
+
 
 ##############################################################################
 ### Parse Query
@@ -465,26 +565,30 @@ class SearchResults:
     and then ask for the same list sorted from Z to A. Or sort results
     by name and then by rank.
     """
+    # Public functions --------------------------------------------------
     
     def __init__(self, query, hits, pages, elapsed):
         self.query = query # the query
         self.hits = hits # hits list
+        self.sort = None # hits are unsorted initially
         self.pages = pages # number of pages searched
         self.elapsed = elapsed # search time
 
-    # Public functions --------------------------------------------------
-
     def sortByWeight(self):
         """ Sorts found pages by the weight of the matches """
-        self.hits.sort(lambda x, y: cmp((y.weight(), x.page_name),
-                                   (x.weight(), y.page_name)))
-        for page in self.hits:
-            page._matches.sort(lambda x, y: cmp(y.weight(), x.weight()))
-
+        tmp = [(hit.weight(), hit.page_name, hit) for hit in self.hits]
+        tmp.sort()
+        tmp.reverse()
+        self.hits = [item[2] for item in tmp]
+        self.sort = 'weight'
+        
     def sortByPagename(self):
         """ Sorts a list of found pages alphabetical by page name """
-        self.hits.sort(lambda x, y: cmp(x.page_name, y.page_name))    
-
+        tmp = [(hit.page_name, hit) for hit in self.hits]
+        tmp.sort()
+        self.hits = [item[1] for item in tmp]
+        self.sort = 'page_name'
+        
     def stats(self, request, formatter):
         """ Return search statistics, formatted with formatter
 
@@ -521,7 +625,8 @@ class SearchResults:
             list = f.number_list
         else:
             list = f.bullet_list
-
+        querystr = self.querystring()
+            
         # Add pages formatted as list
         write(list(1))
         
@@ -531,7 +636,7 @@ class SearchResults:
                 matchInfo = self.formatInfo(page)
             item = [
                 f.listitem(1),
-                f.pagelink(1, page.page_name, querystr=self.querystring()),
+                f.pagelink(1, page.page_name, querystr=querystr),
                 self.formatTitle(page),
                 f.pagelink(0),
                 matchInfo,
@@ -562,7 +667,8 @@ class SearchResults:
         self._reset(request, formatter)
         f = formatter
         write = self.buffer.write
-
+        querystr = self.querystring()
+        
         # Add pages formatted as definition list
         write(f.definition_list(1))       
         
@@ -572,13 +678,13 @@ class SearchResults:
                 matchInfo = self.formatInfo(page)
             item = [
                 f.definition_term(1),
-                f.pagelink(1, page.page_name, querystr=self.querystring()),
+                f.pagelink(1, page.page_name, querystr=querystr),
                 self.formatTitle(page),
                 f.pagelink(0),
                 matchInfo,
                 f.definition_term(0),
                 f.definition_desc(1),
-                self.matchContext(page, context, maxlines),
+                self.formatContext(page, context, maxlines),
                 f.definition_desc(0),
                 ]
             write(''.join(item))
@@ -587,8 +693,11 @@ class SearchResults:
         return self.getvalue()
 
     # Private -----------------------------------------------------------
+
+    # This methods are not meant to be used by clients and may change
+    # without notice.
     
-    def matchContext(self, page, context, maxlines):
+    def formatContext(self, page, context, maxlines):
         """ Format search context for each matched page
 
         Try to show first maxlines interesting matches context.
@@ -598,25 +707,21 @@ class SearchResults:
             page.page = Page(self.request, page.page_name)
         body = page.page.get_raw_body()
         last = len(body) -1
-        matches = page._matches
         lineCount = 0
         output = []
-        i = 0
-        start = 0
-
-        # Skip page header if there are more than one matches
-        if len(matches) > 1:
-            i, start = self.firstMatchInText(body, matches)
+        
+        # Get unique text matches sorted by match.start, try to ignore
+        # matches in page header, and show the first maxlines matches.
+        # TODO: when we implement weight algorithm for text matches, we
+        # should get the list of text matches sorted by weight and show
+        # the first maxlines matches.
+        matches = page.get_matches(unique=1, sort='start', type=TextMatch)
+        i, start = self.firstInterestingMatch(page, matches)            
 
         # Format context
         while i < len(matches) and lineCount < maxlines:
             match = matches[i]
             
-            # Skip non TextMatch
-            if not isinstance(match, TextMatch):
-                i += 1
-                continue
-
             # Get context range for this match
             start, end = self.contextRange(context, match, start, last)
 
@@ -636,12 +741,14 @@ class SearchResults:
             # Add all matches in context and the text between them                
             while 1:
                 match = matches[j]
-                # Append the text before match
-                if match.start > start:
-                    output.append(f.text(body[start:match.start]))
-                # And the match
-                output.append(self.formatMatch(body, match, start))
-                start = match.end
+                # Ignore matches behind the current position
+                if start < match.end:
+                    # Append the text before match
+                    if start < match.start:
+                        output.append(f.text(body[start:match.start]))
+                    # And the match
+                    output.append(self.formatMatch(body, match, start))
+                    start = match.end
                 # Get next match, but only if its completely within the context
                 if j < len(matches) - 1 and matches[j + 1].end <= end:
                     j += 1
@@ -668,34 +775,28 @@ class SearchResults:
                 # This is a page with no text, only header, for example,
                 # a redirect page.
                 output = f.text(page.page.getPageHeader(length=context))
-
+        
         return output
+        
+    def firstInterestingMatch(self, page, matches):
+        """ Return the first interesting match
 
-    def firstMatchInText(self, body, matches):
-        """ 
-
-        Skip matches from the top of the page: acl lines, processing
-        instructions or comments, These matches are usually not
-        interesting.
+        This function is needed only because we don't have yet a weight
+        algorithm for page text matches.
+        
+        Try to find the first match in the page text. If we can't find
+        one, we return the first match and start=0.
 
         @rtype: tuple
         @return: index of first match, start of text
         """
-        # Lazy compile of class attribute on first call to this method
-        if not getattr(self.__class__, 'skiplines_re', None):
-            # Skip lines that starts with # or empty/whitespace lines
-            self.__class__.skiplines_re = re.compile(r'(^#+.*(?:\n\s*)+)+',
-                                                     re.UNICODE | re.MULTILINE)       
-        start = 0
-        i = 0
-        match = self.skiplines_re.search(body)
-        if match:
-            start = match.end()
-            # Find first match after start
-            for i in xrange(0, len(matches)):
-                if matches[i].start >= start:
-                    break
-        return i, start       
+        header = page.page.getPageHeader()
+        start = len(header)
+        # Find first match after start
+        for i in xrange(len(matches)):
+            if matches[i].start >= start:
+                return i, start
+        return 0, 0
 
     def contextRange(self, context, match, start, last):
         """ Compute context range
@@ -734,54 +835,74 @@ class SearchResults:
     def formatTitle(self, page):
         """ Format page title
 
-        Invoke format match on match in title
-        """
-        # Get title matches and sort them by match.start
-        matches = [(m.start, m) for m in page._matches
-                   if isinstance(m, TitleMatch)]
-        matches.sort()
-        matches = [m for mstart, m in matches]
+        Invoke format match on all unique matches in page title.
 
+        @param page: found page
+        @rtype: unicode
+        @return: formated title
+        """
+        # Get unique title matches sorted by match.start
+        matches = page.get_matches(unique=1, sort='start', type=TitleMatch)
+        
+        # Format
         pagename = page.page_name
         f = self.formatter
         output = []
         start = 0
-        # Format
         for match in matches:
-            # Write text before match and match
-            if start < match.start:
-                output.append(f.text(pagename[start:match.start]))
-            output.append(self.formatMatch(pagename, match, start))
-            start = match.end
+            # Ignore matches behind the current position
+            if start < match.end:
+                # Append the text before the match
+                if start < match.start:
+                    output.append(f.text(pagename[start:match.start]))
+                # And the match
+                output.append(self.formatMatch(pagename, match, start))
+                start = match.end
         # Add text after match
         if start < len(pagename):
             output.append(f.text(pagename[start:]))
 
         return ''.join(output)
-        
-    def formatMatch(self, body, match, start=0):
-        """ Format single match in context """
-        f = self.formatter
-        if start>match.end: return ""
-        if start<match.start: start = match.start
-        output = [
-            f.strong(1),
-            f.text(body[start:match.end]),
-            f.strong(0),
-            ]
-        return ''.join(output)
-        
+
+    def formatMatch(self, body, match, location):
+        """ Format single match in text
+
+        Format the part of the match after the current location in the
+        text. Matches behind location are ignored and an empty string is
+        returned.
+
+        @param text: text containing match
+        @param match: search match in text
+        @param location: current location in text
+        @rtype: unicode
+        @return: formated match or empty string
+        """        
+        start = max(location, match.start)
+        if start < match.end:
+            f = self.formatter
+            output = [
+                f.strong(1),
+                f.text(body[start:match.end]),
+                f.strong(0),
+                ]
+            return ''.join(output)
+        return ''
+
     def querystring(self):
         """ Return query string, used in the page link """
-        needle = self.query.highlight_re()
-        querystr= "highlight=%s" % urllib.quote_plus(needle.encode(config.charset))
+        from MoinMoin.util import web
+                
+        querystr = {'highlight': self.query.highlight_re()}
+        querystr = web.makeQueryString(querystr)
+        querystr = wikiutil.escape(querystr)
         return querystr
 
     def formatInfo(self, page):
         """ Return formated match info """
         # TODO: this will not work with non-html formats
         template = u'<span class="info"> . . . %s %s</span>'
-        count = len(page._matches)
+        # Count number of unique matches in text of all types
+        count = len(page.get_matches(unique=1))
         info = template % (count, self.matchLabel[count != 1])
         return self.formatter.rawHTML(info)         
 
@@ -801,7 +922,11 @@ class SearchResults:
     def _reset(self, request, formatter):
         """ Update internal state before new output
 
-        Each request might need different translations or other user preferences.
+        Do not calls this, it should be called only by the instance
+        code.
+
+        Each request might need different translations or other user
+        preferences.
         """
         self.buffer = StringIO.StringIO()
         self.formatter = formatter

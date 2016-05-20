@@ -356,14 +356,13 @@ Have a look at the diff of %(difflink)s to see what has been changed.""") % {
         if backto:
             self.request.write(unicode(html.INPUT(type="hidden", name="backto", value=backto)))
 
-        # Generate default content
+        # Make backup on previews - but not for new empty pages
+        if preview and raw_body:
+            self._make_backup(raw_body)
+
+        # Generate default content for new pages
         if not raw_body:
             raw_body = _('Describe %s here.') % (self.page_name,)
-
-        # Make a preview backup?
-        if preview is not None:
-            # make backup on previews
-            self._make_backup(raw_body)
 
         # Send revision of the page our edit is based on
         self.request.write('<input type="hidden" name="rev" value="%d">' % (rev,))
@@ -396,6 +395,7 @@ Have a look at the diff of %(difflink)s to see what has been changed.""") % {
         cat_pages = wikiutil.filterCategoryPages(self.request,
                                                  self.request.rootpage.getPageList())
         cat_pages.sort()
+        cat_pages = [wikiutil.pagelinkmarkup(p) for p in cat_pages]
         cat_pages.insert(0, ('', _('<No addition>', formatted=False)))
         self.request.write("<p>", _('Make this page belong to category %(category)s') % {
             'category': unicode(util.web.makeSelection('category', cat_pages)),
@@ -498,7 +498,7 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
         # First save a final backup copy of the current page
         # (recreating the page allows access to the backups again)
         try:
-            self.saveText(u"deleted", 0, comment=comment or u'')
+            self.saveText(u"deleted\n", 0, comment=comment or u'')
         except self.SaveError, msg:
             # XXX Error handling
             pass
@@ -560,12 +560,14 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
                 _("New page:\n", formatted=False) + \
                 self.get_raw_body()
         else:
-            lines = wikiutil.pagediff(self.request, self.page_name, revisions[1], self.page_name, revisions[0])
-            if lines and len(lines) > 2:
-                mailBody = mailBody + "%s\n%s\n" % (("-" * 78), '\n'.join(lines[2:]))
+            lines = wikiutil.pagediff(self.request, self.page_name, revisions[1],
+                                      self.page_name, revisions[0])
+            
+            if lines:
+                mailBody = mailBody + "%s\n%s\n" % (("-" * 78), '\n'.join(lines))
             else:
                 mailBody = mailBody + _("No differences found!\n", formatted=False)
-
+        
         return util.mail.sendmail(self.request, emails,
             _('[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"', formatted=False) % {
                 'trivial' : (trivial and _("Trivial ")) or "",
@@ -694,40 +696,42 @@ If you don't want that, hit '''%(cancel_button_text)s''' to cancel your changes.
 
             text = u'\n'.join(lines)
         return text
-    
-    def _make_backup(self, newtext, **kw):
-        """
-        Make a backup of text before saving and on previews, if user
-        has a homepage. Return URL to backup if one is made.
-        
-        @param newtext: new text of the page
-        @keyword ...:...
-        @rtype: string
-        @return: url of page backup
-        """
-        _ = self._
-        # check for homepage
-        pg = wikiutil.getHomePage(self.request)
-        if not pg or not self.do_editor_backup:
-            return None
 
+    def _make_backup(self, newtext, **kw):
+        """ Make editor backup on user homepage
+
+        Replace text of the user UserName/MoinEditorBackup with newtext.
+
+        @param newtext: new text of the page
+        @keyword: none used currently
+        @rtype: unicode
+        @return: url of page backup or None
+        """
+        # Backup only if set to backup and user has a home page.
+        homepage = wikiutil.getHomePage(self.request)
+        if not homepage or not self.do_editor_backup:
+            return None
+        
+        _ = self._
         if config.allow_subpages:
             delimiter = "/"
         else:
             delimiter = ""
-        backuppage = PageEditor(pg.page_name + delimiter + "MoinEditorBackup", self.request, do_revision_backup=0)
+        backuppage = PageEditor(homepage.page_name + delimiter + "MoinEditorBackup",
+                                self.request, do_revision_backup=0)
         if self.cfg.acl_enabled:
-            # we need All: at the end to prevent that the original page ACLs
+            # We need All: at the end to prevent that the original page ACLs
             # make it possible to see preview saves (that maybe were never
             # really saved by the author).
-            intro = "#acl %s:read,write,delete All:\n" % self.request.user.name
+            intro = u"#acl %s:read,write,delete All:\n" % self.request.user.name
         else:
             intro = ""
         pagename = self.page_name
         date = self.request.user.getFormattedDateTime(time.time())
         intro += _('## backup of page "%(pagename)s" submitted %(date)s') % {
-            'pagename': pagename, 'date': date,} + '\n'
+            'pagename': pagename, 'date': date,} + u'\n'
         backuppage._write_file(intro + newtext)
+        
         return backuppage.url(self.request)
 
     def copypage(self):

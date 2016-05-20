@@ -17,8 +17,8 @@ If you did a standard install, and you are not a developer, you probably want to
 
 {{{
 import sys
-sys.path.append('/path/to/moin')
-sys.path.append('/path/to/wikiconfig')
+sys.path.insert(0, '/path/to/moin')
+sys.path.insert(0, '/path/to/wikiconfig')
 }}}
 
 === Config class options ===

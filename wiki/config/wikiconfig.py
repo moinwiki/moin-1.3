@@ -1,4 +1,11 @@
-# -*- coding: utf-8 -*-
+# -*- coding: iso-8859-1 -*-
+# IMPORTANT! This encoding (charset) setting MUST be correct! If you live in a
+# western country and you don't know that you use utf-8, you probably want to
+# use iso-8859-1 (or some other iso charset). If you use utf-8 (a Unicode
+# encoding) you MUST use: coding: utf-8
+# That setting must match the encoding your editor uses when you modify the
+# settings below. If it does not, special non-ASCII chars will be wrong.
+
 """
     MoinMoin - Configuration for a single wiki
 
@@ -26,10 +33,10 @@ class Config(DefaultConfig):
     # Wiki identity ----------------------------------------------------
 
     # Site name, used by default for wiki name-logo [Unicode]
-    sitename = 'Untitled Wiki'
+    sitename = u'Untitled Wiki'
 
     # Wiki logo. You can use an image, text or both. [Unicode]
-    # Example: '<img src="/wiki/mywiki.png" alt="My Wiki">My Wiki'
+    # Example: u'<img src="/wiki/mywiki.png" alt="My Wiki">My Wiki'
     # For no logo or text, use ''
     logo_string = sitename
 
@@ -41,6 +48,9 @@ class Config(DefaultConfig):
 
     # Misconfiguration here will render your wiki unusable. Check that
     # all directories are accessible by the web server or moin server.
+
+    # If you encounter problems, try to set data_dir and data_underlay_dir
+    # to absolute paths.
 
     # Where your mutable wiki pages are. You want to make regular
     # backups of this directory.
@@ -95,15 +105,15 @@ class Config(DefaultConfig):
     # Add your wikis important pages at the end. It is not recommended to
     # remove the default links.  Leave room for user links - don't use
     # more than 6 short items.
-    # [Unicode] You can use any Unicode string here, but you don't need
-    # to use localized page names for system and help pages, those will
-    # be used automatically according to the user selected language.
+    # You MUST use Unicode strings here, but you need not use localized
+    # page names for system and help pages, those will be used automatically
+    # according to the user selected language. [Unicode]
     navi_bar = [
         # Will use page_front_page, (default FrontPage)
-        '%(page_front_page)s',
-        'RecentChanges',
-        'FindPage',
-        'HelpContents',
+        u'%(page_front_page)s',
+        u'RecentChanges',
+        u'FindPage',
+        u'HelpContents',
     ]
 
     # The default theme anonymous or new users get
@@ -118,22 +128,17 @@ class Config(DefaultConfig):
     # The main wiki language, set the direction of the wiki pages
     default_lang = 'en'
 
-    # You can use any Unicode string here
-    page_category_regex = '^Category[A-Z]'  # [Unicode]
-    page_dict_regex = '[a-z]Dict$'          # [Unicode]
-    page_form_regex = '[a-z]Form$'          # [Unicode]
-    page_group_regex = '[a-z]Group$'        # [Unicode]
-    page_template_regex = '[a-z]Template$'  # [Unicode]
-    
-
+    # You must use Unicode strings here [Unicode]
+    page_category_regex = u'^Category[A-Z]'
+    page_dict_regex = u'[a-z]Dict$'
+    page_form_regex = u'[a-z]Form$'
+    page_group_regex = u'[a-z]Group$'
+    page_template_regex = u'[a-z]Template$'
 
     # Content options ---------------------------------------------------
 
     # Show users hostnames in RecentChanges
     show_hosts = 1                  
-
-    # Max size of RecentChanges in KB (0=unlimited)
-    max_macro_size = 50             
 
     # Enumerate headlines?
     show_section_numbers = 0

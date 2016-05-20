@@ -42,7 +42,7 @@
 
 import os.path, sys, urllib
 
-sys.path.append('../../..')
+sys.path.insert(0, '../../..')
 from MoinMoin import wikiutil
 
 from migutil import opj, listdir, copy_file, copy_dir
@@ -100,15 +100,15 @@ def convert_pagedir(dir_from, dir_to, is_backupdir=0):
         editlog_to = opj(dir_to, pagedir, 'edit-log')
         convert_editlog(editlog_from, editlog_to)
         
-        cachedir_from = opj(dir_from, pagedir, 'cache')
-        cachedir_to = opj(dir_to, pagedir, 'cache')
-        if os.path.exists(cachedir_from):
-            os.mkdir(cachedir_to)
-            try:
-                copy_file(
-                    opj(cachedir_from, 'hitcounts'),
-                    opj(cachedir_to, 'hitcounts'))
-            except: pass
+        #cachedir_from = opj(dir_from, pagedir, 'cache')
+        #cachedir_to = opj(dir_to, pagedir, 'cache')
+        #if os.path.exists(cachedir_from):
+        #    os.mkdir(cachedir_to)
+        #    try:
+        #        copy_file(
+        #            opj(cachedir_from, 'hitcounts'),
+        #            opj(cachedir_to, 'hitcounts'))
+        #    except: pass
 
         attachdir_from = opj(dir_from, pagedir, 'attachments')
         attachdir_to = opj(dir_to, pagedir, 'attachments')

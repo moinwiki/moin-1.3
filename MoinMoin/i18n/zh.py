@@ -352,8 +352,6 @@ Contact the owner of the wiki, who can enable email.''':
 '''请输入一个有效的电子邮件地址, 否则本订阅列表不起作用.''',
 '''Subscribed wiki pages (one regex per line)''':
 '''订阅的维基网页(每行一个正规表达式)''',
-'''Action''':
-'''操作''',
 '''No older revisions available!''':
 '''没有旧版''',
 '''Diff for "%s"''':
@@ -388,8 +386,8 @@ Contact the owner of the wiki, who can enable email.''':
 '''编辑''',
 '''Comment''':
 '''备注''',
-'''(edit log entry is missing)''':
-'''(编辑日志空缺)''',
+'''Action''':
+'''操作''',
 '''view''':
 '''查看''',
 '''raw''':
@@ -400,6 +398,12 @@ Contact the owner of the wiki, who can enable email.''':
 '''恢复旧版''',
 '''Revert to revision %(rev)d.''':
 '''恢复成版本%(rev)d.''',
+'''edit''':
+'''编辑''',
+'''get''':
+'''下载''',
+'''del''':
+'''删除''',
 '''N/A''':
 '''无''',
 '''Revision History''':
@@ -517,12 +521,6 @@ since this is subject to change and can break easily.''':
 '''如果要在正文中引用附件, 请参考下表, 使用\'\'\'{{{attachment:filename}}}\'\'\', 
 请\'\'\'不要\'\'\'用{{{[下载]}}}指向的 URL, 
 因为那个位置可能会变, 很可能就不能用了.</p>''',
-'''del''':
-'''删除''',
-'''get''':
-'''下载''',
-'''edit''':
-'''编辑''',
 '''No attachments stored for %(pagename)s''':
 '''%(pagename)s没有附件''',
 '''Edit drawing''':
@@ -603,7 +601,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''本维基不开放网页改名!''',
 '''Please use the interactive user interface to rename pages!''':
 '''请使用用户界面交互地为网页改名!''',
-'''Rename''':
+'''Rename Page''':
 '''改名''',
 '''New name''':
 '''新名称''',
@@ -751,8 +749,6 @@ red=edit''':
 '''打印视图''',
 '''Attach File''':
 '''附件''',
-'''Rename Page''':
-'''改名''',
 '''Delete Page''':
 '''删除''',
 '''Show Like Pages''':
@@ -795,8 +791,6 @@ red=edit''':
 '''无发连接到邮件服务器\'%(server)s\': %(reason)s''',
 '''Mail sent OK''':
 '''邮件发送成功''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''首页''',
 '''RecentChanges''':

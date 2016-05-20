@@ -391,7 +391,7 @@ class RequestBase:
                 not self.user.may.write(page.page_name)):
                 # Prevent modification of underlay only pages, or pages
                 # the user can't write to
-                excluded = [u'RenamePage', u'DeletePage', u'AttachFile']
+                excluded = [u'RenamePage', u'DeletePage',] # AttachFile must NOT be here!
             elif not self.user.valid:
                 # Prevent rename and delete for non registered users
                 excluded = [u'RenamePage', u'DeletePage']
@@ -1408,14 +1408,16 @@ class RequestStandAlone(RequestBase):
         self.server_name = sa.server.server_name
         self.server_port = str(sa.server.server_port)
         self.http_host = sa.headers.getheader('host')
-        self.http_referer = sa.headers.getheader('referer')
+        # Make sure http referer use only ascii
+        referer = sa.headers.getheader('referer') or ''
+        self.http_referer = unicode(referer, 'ascii',
+                                    'replace').encode('ascii', 'replace')
         self.saved_cookie = ', '.join(co) or ''
         self.script_name = ''
         self.request_method = sa.command
         self.request_uri = sa.path
         self.remote_addr = sa.client_address[0]
         self.http_user_agent = sa.headers.getheader('user-agent') or ''
-        self.http_referer = sa.headers.getheader('referer') or ''
         self.url = self.server_name + self.request_uri
         
         ac = sa.headers.getheader('Accept-Charset') or ''

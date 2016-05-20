@@ -4,7 +4,7 @@
 meta = {
   'language': 'Français',
   'elanguage': 'French',
-  'maintainer': 'Jean-Philippe Guerard <jean-philippe.guerard@tigreraye.org>',
+  'maintainer': 'jean-philippe.guerard@tigreraye.org',
   'encoding': 'iso-8859-15',
   'direction': 'ltr',
   'wikimarkup': True,
@@ -794,8 +794,6 @@ rouge=modifications''',
 '''La connexion au serveur de messagerie \'%(server)s\' a échouée : %(reason)s''',
 '''Mail sent OK''':
 '''Courrier envoyé avec succès''',
-'''["<html>"]''':
-'''[« <html> »]''',
 '''FrontPage''':
 '''PageD\'Accueil''',
 '''RecentChanges''':

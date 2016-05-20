@@ -6,6 +6,6 @@
 ##master-page:EventStats
 ##master-date:2004-05-16 22:32:12
 #language fr
-Les graphiques suivants sont basés sur les données contenues dans le journal des évènements :
+Les graphes suivants sont basés sur les données du journal des évènements :
  * ["/Visites"]
  * ["/Navigateurs"]

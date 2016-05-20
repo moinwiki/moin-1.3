@@ -28,7 +28,7 @@ from MoinMoin.server.standalone import StandaloneConfig, run
 class Config(StandaloneConfig):
 
     # Path to moin shared files (default '/usr/share/moin/wiki/htdocs')
-    docs = '/usr/share/moin/wiki/htdocs'
+    docs = '/usr/share/moin/htdocs'
 
     # The server will run with as this user and group (default 'www-data')
     user = 'www-data'

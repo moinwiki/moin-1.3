@@ -27,8 +27,8 @@ Copy the file `wiki/server/mointwisted.py` to your wiki directory. Edit and adap
 If you did a standard install, and you are not a developer, you probably want to skip this section. If not, you might want to add the path to moin and config file, like that:
 
 {{{
-sys.path.append('/path/to/moin')
-sys.path.append('/path/to/wikiconfig')
+sys.path.insert(0, '/path/to/moin')
+sys.path.insert(0, '/path/to/wikiconfig')
 }}}
 
 === Config class options ===

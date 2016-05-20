@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the MoinMoin package.
 # Jörg Cassens <jmt@cassens.org>, 2004.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-12-01 21:30+0200\n"
 "Last-Translator: Joerg Cassens <jmt@cassens.org>\n"
 "Language-Team: Norwegian <moinmoin-nb@cassens.org>\n"
@@ -22,7 +21,8 @@ msgstr ""
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
-msgstr "Det tidligere innholdet av denne siden er foreldet og vil ikke bli inkludert "
+msgstr ""
+"Det tidligere innholdet av denne siden er foreldet og vil ikke bli inkludert "
 "i søkeresultater!"
 
 #, python-format
@@ -44,8 +44,7 @@ msgid ""
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "macro call.-~\n"
 msgstr ""
-"~-Hvis du sender inn dette skjemaet, vil de angitte verdiene bli "
-"vist.\n"
+"~-Hvis du sender inn dette skjemaet, vil de angitte verdiene bli vist.\n"
 "For å bruke dette skjemaet på andre sider, kan følgende makro\n"
 "[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 "brukes.-~\n"
@@ -157,10 +156,10 @@ msgid ""
 "If you don't want that, hit '''%(cancel_button_text)s''' to cancel your "
 "changes."
 msgstr ""
-"Ved å trykke på '''%(save_button_text)s''' legger du dine endringer "
-"under %(license_link)s.\n"
-"Hvis du ikke ønsker dette, trykk på '''%(cancel_button_text)s''' "
-"for å tilbakestille dine endringer."
+"Ved å trykke på '''%(save_button_text)s''' legger du dine endringer under %"
+"(license_link)s.\n"
+"Hvis du ikke ønsker dette, trykk på '''%(cancel_button_text)s''' for å "
+"tilbakestille dine endringer."
 
 msgid "Preview"
 msgstr "Forhåndsvisning"
@@ -191,18 +190,18 @@ msgstr ""
 " Utheving:: [[Verbatim('')]]''kursiv''[[Verbatim('')]]; [[Verbatim"
 "(''')]]'''fet'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''kursiv "
 "fet'''''[[Verbatim(''''')]]; [[Verbatim('')]]''blandet ''[[Verbatim"
-"(''')]]'''''fet'''[[Verbatim(''')]] og kursiv''[[Verbatim('')]]; "
-"[[Verbatim(----)]] vannrett strek.\n"
-" Overskrifter:: [[Verbatim(=)]] Tittel 1 [[Verbatim(=)]]; [[Verbatim(==)]] Tittel "
-"2 [[Verbatim(==)]]; [[Verbatim(===)]] Tittel 3 [[Verbatim(===)]];   [[Verbatim"
-"(====)]] Tittel 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Tittel 5 [[Verbatim"
-"(=====)]].\n"
+"(''')]]'''''fet'''[[Verbatim(''')]] og kursiv''[[Verbatim('')]]; [[Verbatim"
+"(----)]] vannrett strek.\n"
+" Overskrifter:: [[Verbatim(=)]] Tittel 1 [[Verbatim(=)]]; [[Verbatim(==)]] "
+"Tittel 2 [[Verbatim(==)]]; [[Verbatim(===)]] Tittel 3 [[Verbatim(===)]];   "
+"[[Verbatim(====)]] Tittel 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Tittel 5 "
+"[[Verbatim(=====)]].\n"
 " Lister:: mellomrom og: * asterisk; 1., a., A., i., I. nummererte emner; 1."
 "#n begynn nummerering ved n; kun mellomrom gir innrykk.\n"
 " Lenker:: [[Verbatim(SammenSatteOrd)]]; [[Verbatim([\"firkantparentes og "
 "sitattegn\"])]]; url; [url]; [url beskrivende navn].\n"
-" Tabeller:: || celletekst |||| celletekst over to kolonner ||;    etterfølgende "
-"mellomrom er ikke tillatt etter tabeller eller titler."
+" Tabeller:: || celletekst |||| celletekst over to kolonner ||;    "
+"etterfølgende mellomrom er ikke tillatt etter tabeller eller titler."
 
 msgid "Edit was cancelled."
 msgstr "Redigeringen ble avbrutt."
@@ -278,10 +277,13 @@ msgid ""
 "the content editbox with your version of the page, because that would\n"
 "delete the changes of the other person, which is excessively rude!''\n"
 msgstr ""
-"Dessverre har en annen lagret oppdateringer på siden mens du har redigert den.\n"
+"Dessverre har en annen lagret oppdateringer på siden mens du har redigert "
+"den.\n"
 "\n"
-"Gjør vennligst følgende: Bruk tilbake-knappen på din nettleser, og kopier dine\n"
-"endringer derfra. Gå deretter frem hit, velg RedigerTekst igjen, og tilfør dine\n"
+"Gjør vennligst følgende: Bruk tilbake-knappen på din nettleser, og kopier "
+"dine\n"
+"endringer derfra. Gå deretter frem hit, velg RedigerTekst igjen, og tilfør "
+"dine\n"
 "oppdateringer til den nåværende teksten.\n"
 "\n"
 "''Ikke skriv den nåværende teksten over med din versjon. Dette vil slette\n"
@@ -315,16 +317,16 @@ msgstr ""
 msgid ""
 "Other users will be ''blocked'' from editing this page until %(bumptime)s."
 msgstr ""
-"Andre brukere vil være ''utelukket'' fra å redigere denne siden inntil "
-"%(bumptime)s."
+"Andre brukere vil være ''utelukket'' fra å redigere denne siden inntil %"
+"(bumptime)s."
 
 #, python-format
 msgid ""
 "Other users will be ''warned'' until %(bumptime)s that you are editing this "
 "page."
 msgstr ""
-"Andre brukere vil bli ''advart'' inntil %(bumptime)s om at du "
-"redigerer denne siden."
+"Andre brukere vil bli ''advart'' inntil %(bumptime)s om at du redigerer "
+"denne siden."
 
 msgid "Use the Preview button to extend the locking period."
 msgstr "Bruk knappen Forhåndsvisning for å utvide låseperioden."
@@ -334,8 +336,8 @@ msgid ""
 "This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
 "s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Denne siden er ''låst'' for redigering av %(owner)s frem til %"
-"(timestamp)s, dvs. i %(mins_valid)d minutt(er)."
+"Denne siden er ''låst'' for redigering av %(owner)s frem til %(timestamp)s, "
+"dvs. i %(mins_valid)d minutt(er)."
 
 #, python-format
 msgid ""
@@ -348,8 +350,8 @@ msgid ""
 msgstr ""
 "Denne siden ble åpnet for redigering eller forhåndsvisning %(timestamp)s av %"
 "(owner)s.[[BR]]\n"
-"'''Du bør ''unngå å redigere'' denne siden i"
-"ihvertfall %(mins_valid)d minutt(er) til\n"
+"'''Du bør ''unngå å redigere'' denne siden iihvertfall %(mins_valid)d minutt"
+"(er) til\n"
 "for å unngå konflikter mellom oppdateringene.'''[[BR]]\n"
 "Trykk på Avbryt hvis du ikke vil redigere."
 
@@ -393,7 +395,8 @@ msgid ""
 "space between words. Group page name is not allowed."
 msgstr ""
 "Ugyldig brukernavn  {{{'%s'}}}.\n"
-"Navn skal kun inneholde alfanumeriske Unicode-tegn, eventuelt med et mellomrom\n"
+"Navn skal kun inneholde alfanumeriske Unicode-tegn, eventuelt med et "
+"mellomrom\n"
 "mellom ordene. Gruppenavn er ikke tillatt."
 
 #, python-format
@@ -480,7 +483,8 @@ msgstr "Ingen brukerprofil med e-postadressen '%(email)s' ble funnet!"
 
 #, python-format
 msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
-msgstr "Ukjent brukernavn: {{{\"%s\"}}}. Vennligst oppgi brukernavn og passord."
+msgstr ""
+"Ukjent brukernavn: {{{\"%s\"}}}. Vennligst oppgi brukernavn og passord."
 
 msgid "Missing password. Please enter user name and password."
 msgstr "Passordet mangler. Vennligst oppgi et passord."
@@ -518,7 +522,7 @@ msgstr "Denne e-postadressen tilhører en annen bruker."
 
 #, python-format
 msgid "The theme '%(theme_name)s' could not be loaded!"
-msgstr "Utseendet '%(theme_name)s' kan ikke bli brukt!" 
+msgstr "Utseendet '%(theme_name)s' kan ikke bli brukt!"
 
 msgid "User preferences saved!"
 msgstr "Brukerprofil lagret!"
@@ -737,7 +741,6 @@ msgstr ""
 "Du har ikke oppgitt en e-postadresse i din brukerprofil. Velg ditt navn "
 "(BrukerProfil) i øverste høyre hjørne og angi en gyldig e-postadresse."
 
-
 msgid "Your subscribtion to this page has been removed."
 msgstr "Din avbestilling av denne siden er registrert."
 
@@ -893,7 +896,6 @@ msgstr ""
 "'''IKKE''' bruk URL-en under {{{[get]}}}, da den lenken kun er\n"
 "midlertidig og kan bli endret."
 
-
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "Ingen vedlegg for %(pagename)s"
@@ -963,16 +965,14 @@ msgstr "Vedlegg for \"%(pagename)s\""
 
 #, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
-msgstr ""
-"Vedlegg '%(target)s' (eksternt navn '%(filename)s') finnes allerede."
+msgstr "Vedlegg '%(target)s' (eksternt navn '%(filename)s') finnes allerede."
 
 #, python-format
 msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
 "saved."
 msgstr ""
-"Vedlegg '%(target)s' (eksternt navn '%(filename)s') på %(bytes)d byte "
-"lagret."
+"Vedlegg '%(target)s' (eksternt navn '%(filename)s') på %(bytes)d byte lagret."
 
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
@@ -996,9 +996,7 @@ msgid "This page is already deleted or was never created!"
 msgstr "Denne siden er allerede slettet eller har aldri eksistert!"
 
 msgid "Please use the interactive user interface to delete pages!"
-msgstr ""
-"Vennligst bruk det interaktive brukergrensesnittet for å slette sider!"
-
+msgstr "Vennligst bruk det interaktive brukergrensesnittet for å slette sider!"
 
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
@@ -1058,7 +1056,8 @@ msgid ""
 "'''A page with the name {{{'%s'}}} already exists.'''\n"
 "\n"
 "Try a different name."
-msgstr "'''En side med navnet \"%s\" finnes allerede!'''\n"
+msgstr ""
+"'''En side med navnet \"%s\" finnes allerede!'''\n"
 "\n"
 "Prøv igjen med et annet navn."
 
@@ -1073,7 +1072,6 @@ msgid ""
 msgstr ""
 "Følgende %(badwords)d ord ble ikke funnet i den %(totalwords)d ord store "
 "ordliste %(localwords)s og er merket herunder:"
-
 
 msgid "Add checked words to dictionary"
 msgstr "Tilfør de merkede ord til ordlisten"
@@ -1348,6 +1346,14 @@ msgstr "Siste"
 msgid "User"
 msgstr "Bruker"
 
+# jmt quickfixes
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+"Siden kan desverre ikke lagres siden \"%(content)s\" er forbudt i denne "
+"wikien."
+
 msgid "Line"
 msgstr "Linje"
 
@@ -1364,8 +1370,11 @@ msgstr "Forbindelse til e-posttjener '%(server)s' mislykket: %(reason)s"
 msgid "Mail sent OK"
 msgstr "E-post sendt OK"
 
-msgid "[\"<html>\"]"
-msgstr "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "StartSide"
@@ -1420,8 +1429,8 @@ msgstr "lør"
 
 msgid "Sun"
 msgstr "søn"
-# 
 
+# 
 msgid "AttachFile"
 msgstr "VedleggFil"
 
@@ -1440,6 +1449,5 @@ msgstr "EndreSidenavn"
 msgid "SpellCheck"
 msgstr "StaveKontroll"
 
-# jmt quickfixes
-msgid "Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
-msgstr "Siden kan desverre ikke lagres siden \"%(content)s\" er forbudt i denne wikien."
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"<html>\"]"

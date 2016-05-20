@@ -11,27 +11,29 @@ Every time you copy those files (and modify the configuration of your server acc
 
 Some of the steps you need to take depend on which web server and which operating system you use. They are described on dedicated pages, which you should read (at least the beginning) before reading this one. Some other steps are common to every webserver and operating system (copying files around, setting permissions), and this is what is described here.
 
-=== Security warning ===
+=== Read this first ===
 
-/!\ Make sure that your `data` directory and your configuration files are '''not accessible through your web server'''. Do '''not''' put your wiki files in `public_html`, `Sites` or any other directory your web server can access. The web server only needs to access the file in the `htdocs` directory and the `moin.cgi` script! (Or whatever script your server uses to start Moin``Moin.)
+==== Security warnings ====
 
-/!\ Also make sure that the `data` directory and its subdirectories are '''not readable''' and '''not writeable''' by users '''other''' than the ''web server'' user (and of course, the administrator of the machine, like root). If you need to give worldwide read-write permissions to get it working, be aware that you are doing a '''very unsecure setup''', that can be compromised by any other user of your computer.
+ * /!\ Make sure that your `data` directory and your configuration files are '''not accessible through your web server'''. Do '''not''' put your wiki files in `public_html`, `Sites` or any other directory your web server can access. The web server only needs to access the file in the `htdocs` directory and the `moin.cgi` script! (Or whatever script your server uses to start Moin``Moin.)
 
-=== Note to Windows users ===
+ * /!\ Also make sure that the `data` directory and its subdirectories are '''not readable''' and '''not writeable''' by users '''other''' than the ''web server user'' (and of course, the administrator). If you need to give worldwide read-write permissions to get it working, be aware that you are doing a '''very unsecure setup''', that can be compromised by any other user or program on your computer.
 
-All the commands below are Linux commands. The text descriptions that surround them should be enough to help you understand what you need to do. Use the Windows Explorer, or the equivalent text-mode commands.
+==== Note to Windows users ====
+
+All the commands below are Linux commands. The text descriptions that introduce them should be enough to help you understand what you need to do. Use the Windows Explorer, or the appropriate text-mode commands.
 
 === Choose a name  ===
 
 Choose a unique name for the new wiki instance you want to create. It should be a short word, something that reflects what you intend to use the wiki for, like the name of your organization, of your team, of the project you are working on, etc. Unfortunately, you '''cannot''' use "wiki", because Moin``Moin uses it internally for other purposes.
 
- <!> '''Do not use the name "wiki", it is reserved for internal use.'''
+ /!\ '''Do not use the name "wiki", it is reserved for internal use.'''
 
 The name "`mywiki`" is used as an example in the various commands below.
 
 === Choose a location ===
 
-Choose a directory on your server, it will contain all the files needed for your wiki instance. At the beginning, your wiki instance will use approximately 10 MB of disk space. Then of course, it will grow depending on the way your wiki is used. A personal wiki, even with many pages, might only use 30 MB or 40 MB of disk space. A popular wiki, or a wiki with many files attached to the pages, might use much more, of course.
+Choose a directory on your disk, it will contain all the files needed for your wiki instance. At the beginning, your wiki instance will use approximately 10 MB of disk space. Then of course, it will grow depending on the way your wiki is used. A personal wiki, even with many pages, might only use 30 MB or 40 MB of disk space. A popular wiki, or a wiki with many files attached to the pages, might use much more, of course.
 
 If you are the administrator (or root) of the server, you can use anything you like or that makes sense to you, for example `/usr/local/var/moin`, `/mnt/wikis`, etc.
 
@@ -41,7 +43,7 @@ If you are a simple user, you will probably only be allowed to write in your per
 
 This is where the instructions differ according to the web server and operating system you use, and whether you are the administrator or a simple user. See the appropriate pages for your web server and operating system combination.
 
-On Linux, the `export` command will be used to remember the collected information. Windows users should write them down carefully (maybe cutting-and-pasting in a Notepad window), or store them in environment variables if they use the command prompt.
+On Linux, the `export` command will be used to remember the collected information. Windows users should write it down carefully (maybe cutting-and-pasting in a Notepad window), or store it in environment variables if they use the command prompt.
 
  * `PREFIX` is the prefix you used during the ../BasicInstallation
  * `SHARE` is the name of the `share` directory, as discussed at the bottom of ../BasicInstallation
@@ -49,7 +51,7 @@ On Linux, the `export` command will be used to remember the collected informatio
 
 If you are an administrator, you also need to collect the following:
 
- * `USER` is the user name used by the web server
+ * `USER` is the user name of the web server
  * `GROUP` is the name of the group to which the web server belongs
 
 Now, Linux folks, let's store these settings in memory:
@@ -63,15 +65,15 @@ Now, Linux folks, let's store these settings in memory:
 Administrators also need the following two lines:
 
 {{{
-> export USER=www-data              # the usual setting of the Apache server on Linux
-> export GROUP=www-data             # the usual setting of the Apache server on Linux
+> export USER=www-data              # this is just an example
+> export GROUP=www-data             # this is just an example
 }}}
 
 === Copy the files ===
 
 To create your new instance, you first need to create a directory named like your instance, inside the `WIKILOCATION`. Then you need to copy the `data` and `underlay` directories from your `SHARE` directory into your instance directory. Finally, you need to copy the `wikiconfig.py` file from the `config` directory into the instance directory.
 
-Linux folks need just use these commands:
+Linux folks need just type these commands:
 {{{
 > cd $WIKILOCATION
 > mkdir $INSTANCE                   # make a directory for this instance
@@ -99,17 +101,19 @@ Normal users, on the contrary, need to broaden the permissions of the files, so 
 
 Without them, normal users have to allow ''everybody'' to access the instance directory. This is the only way the web server can enter it and do its work. This is, of course, '''VERY INSECURE''', since any other user and program on the server can read the directory. You should '''not''' use such a setup for a wiki open to the public.
 
-'''Note:''' it is also possible to put the web server and the normal user in the same ''group'', and then only open the instance directory to the members of that group. This is a bit more secure (depending on who else is in the group), but you need the cooperation of the server administrator; he is the one setting up groups.
-
 On Linux, the following commands will open the instance directory to the whole world:
 {{{
-> chmod -R a+rwX $INSTANCE/data
-> chmod -R a+rwX $INSTANCE/underlay
+> chmod -R a+rwX $INSTANCE
 }}}
+
+'''Note:'''
+ * it is also possible to put the web server and the normal user in the same ''group'', and then only open the instance directory to the members of that group. This is a bit more secure (depending on who else is in the group), but you need the cooperation of the server administrator; he is the one setting up groups.
+ * the best other possibility is that the server administrator sets up `suexec` to execute CGI scripts in user directories under the user id of that user. You don't need to give world permissions that way, so it is a quite secure setup, but you also need cooperation of the administrator.
+
 
 === Tune configuration ===
 
-Now, you need to tune the configuration of your web server and of your wiki instance. Look at the appropriate help page for your web server, then come here to tune the settings of your wiki instance.
+Now, you need to tune the configuration of your web server and of your wiki instance. Look at the appropriate help page for your web server, then come back here to tune the settings of your wiki instance.
 
 Edit `wikiconfig.py`. The default settings should work fine in most cases, but there are some things that you will probably want to change, like the name and logo of your wiki! :) Read the comments inside `wikiconfig.py`, they will guide you through this process.  (Start with "Wiki identity", around line 25.)
 

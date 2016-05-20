@@ -26,8 +26,22 @@
 """
 
 import os
+
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
 from MoinMoin import config
 from MoinMoin.Page import Page
+
+# Set pickle protocol, see http://docs.python.org/lib/node64.html
+try:
+    # Requires 2.3
+    PICKLE_PROTOCOL = pickle.HIGHEST_PROTOCOL
+except AttributeError:
+    # Use protocol 1, binary format compatible with all python versions
+    PICKLE_PROTOCOL = 1
 
 NAME, ENAME, ENCODING, DIRECTION, MAINTAINER = range(0,5)
 # we do not generate this on the fly due to performance reasons -
@@ -112,7 +126,6 @@ def loadLanguage(request, lang):
     that requires translated strings (eg. "attachment:").
 
     """
-    import pickle
     from MoinMoin import caching
     cache = caching.CacheEntry(request, arena='i18n', key=lang)
     langfilename = os.path.join(os.path.dirname(__file__), filename(lang) + '.py')
@@ -156,7 +169,7 @@ def loadLanguage(request, lang):
                     raise Exception("Cyclic usage detected; you cannot have translated texts include translated texts again! "
                                     "This error might also occur because of things that are interpreted wiki-like inside translated strings. "
                                     "This time the error occurred while formatting %s." % text)
-        cache.update(pickle.dumps((uc_texts, uc_unformatted)))
+        cache.update(pickle.dumps((uc_texts, uc_unformatted), PICKLE_PROTOCOL))
 
     return (uc_texts, uc_unformatted)
 

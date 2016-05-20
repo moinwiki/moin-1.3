@@ -76,9 +76,10 @@ support/thfcgi.py
 
 theme/__init__.py
 theme/classic.py
-theme/starshine.py
 theme/rightsidebar.py
 theme/modern.py
+
+util/antispam.py
 
 webapi/color.py
 

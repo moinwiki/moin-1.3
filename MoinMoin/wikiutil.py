@@ -501,6 +501,13 @@ def AbsPageName(request, context, pagename):
 
     return pagename
 
+def pagelinkmarkup(pagename):
+    """ return markup that can be used as link to page <pagename> """
+    if isStrictWikiname(pagename): # XXX TODO re.match(Parser.word_rule, pagename)
+        return pagename
+    else:
+        return u'["%s"]' % pagename
+
 #############################################################################
 ### Plugins
 #############################################################################

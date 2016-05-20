@@ -12,23 +12,57 @@ For more information on the possible markup, see HelpOnEditing.
 Apart from the option to repeat cell markers to get columns spanning several other columns, you can directly set many HTML table attributes. Any attributes have to be placed between angle brackets {{{<...>}}} directly after the cell marker.
 
 The wiki-like markup has the following options:
- * {{{<50%>}}}: cell width
  * {{{<-2>}}}: colspan
  * {{{<|2>}}}: rowspan
- * {{{<(>}}}: left aligned
- * {{{<:>}}}: centered
- * {{{<)>}}}: right aligned
- * {{{<^>}}}: aligned to top
- * {{{<v>}}}: aligned to bottom
- * {{{<#XXXXXX>}}}: background color
+
+ * {{{<style="...">}}} will put that style info into cell (td) html
+ * {{{<rowstyle="...">}}} will put that style info into row (tr) html
+ * {{{<tablestyle="...">}}} will put that style info into cell (table) html
+
+ * {{{<class="...">}}} will put that CSS class into cell (td) html
+ * {{{<id="...">}}} will put that CSS id into cell (td) html
+
+The style stuff is ''all you need'' for styling your tables. Just use CSS formatted style there and it will be inlined in the generated HTML tag. Alternatively, extend moin's CSS by your own definitions and refer to them using class or id.
+
+We still support the old table markup, but generate the effect by appending additional values to the `style` parameter:
+ * {{{<50%>}}}: cell width (will append `width: 50%;` to style)
+ * {{{<width="50%">}}}: does the same
+ * {{{<tablewidth="100%">}}}: set table width to 100% (only valid in first table row)
+
+ * {{{<(>}}}: left aligned (will append `text-align: left;` to style)
+ * {{{<:>}}}: centered (will append `text-align: center;` to style)
+ * {{{<)>}}}: right aligned (will append `text-align: right;` to style)
+ * {{{<^>}}}: aligned to top (will append `vertical-align: top;` to style)
+ * {{{<v>}}}: aligned to bottom (will append `vertical-align: bottom;` to style)
+
+ * {{{<#XXXXXX>}}}: background color (will append `background-color: #XXXXXX;` to style)
+ * {{{<bgcolor="#XXXXXX">}}} does the same
+ * {{{<rowbgcolor="#XXXXXX">}}} set row background color (only valid in first cell)
+ * {{{<tablebgcolor="#XXXXXX">}}} set table background color
 
 If you use several conflicting options like {{{<(:)>}}}, the last option wins. There is no explicit option for vertical centering (''middle''), since that is always the default.
 
-In addition to these, you can add some of the traditional, more long-winded HTML attributes (note that only certain HTML attributes are allowed). By specifying attributes this way, it is also possible to set properties of the table rows and of the table itself, especially you can set the table width using {{{||<tablewidth="100%">...||}}} in the very first row of your table, and the color of a full row by {{{||<rowbgcolor="#FFFFE0">...||}}} in the first cell of a row. As you can see, you have to prefix the name of the HTML attribute with {{{table}}} or {{{row}}}.
-
 === Example ===
 {{{
- General table layout and HTML like options::
+ NEW STYLE: General table layout and HTML like options::
+ ||||||<tablestyle="width: 80%">'''Heading'''||
+ ||cell 1||cell2||cell 3||
+ ||<rowspan=2> spanning rows||||<style="background-color: #E0E0FF;"> spanning 2 columns||
+ ||<rowstyle="background-color: #FFFFE0;">cell2||cell 3||
+ Cell width::
+ || narrow ||<style="width: 99%; text-align: center;"> wide ||
+ Spanning rows and columns::
+ ||<|2> 2 rows || row 1 ||
+ || row 2 ||
+ ||<-2> row 3 over 2 columns ||
+ Alignment::
+ ||<style="text-align: left"> left ||<|3 style="vertical-align: top;"> top ||<|3 style="vertical-align: bottom;"> bottom ||
+ ||<style="text-align: center;"> centered ||
+ ||<style="text-align: right;"> right ||
+ Colors::
+ ||<style="background-color: red;"> red ||<style="background-color: green;"> green ||<style="background-color: blue;"> blue ||
+
+ OLD STYLE: General table layout and HTML like options::
  ||||||<tablewidth="80%">'''Heading'''||
  ||cell 1||cell2||cell 3||
  ||<rowspan=2> spanning rows||||<bgcolor='#E0E0FF'> spanning 2 columns||
@@ -48,7 +82,25 @@ In addition to these, you can add some of the traditional, more long-winded HTML
 }}} 
 
 === Display ===
- General table layout and HTML like options::
+ NEW STYLE: General table layout and HTML like options::
+ ||||||<tablestyle="width: 80%">'''Heading'''||
+ ||cell 1||cell2||cell 3||
+ ||<rowspan=2> spanning rows||||<style="background-color: #E0E0FF;"> spanning 2 columns||
+ ||<rowstyle="background-color: #FFFFE0;">cell2||cell 3||
+ Cell width::
+ || narrow ||<style="width: 99%; text-align: center;"> wide ||
+ Spanning rows and columns::
+ ||<|2> 2 rows || row 1 ||
+ || row 2 ||
+ ||<-2> row 3 over 2 columns ||
+ Alignment::
+ ||<style="text-align: left"> left ||<|3 style="vertical-align: top;"> top ||<|3 style="vertical-align: bottom;"> bottom ||
+ ||<style="text-align: center;"> centered ||
+ ||<style="text-align: right;"> right ||
+ Colors::
+ ||<style="background-color: red;"> red ||<style="background-color: green;"> green ||<style="background-color: blue;"> blue ||
+
+ OLD STYLE: General table layout and HTML like options::
  ||||||<tablewidth="80%">'''Heading'''||
  ||cell 1||cell2||cell 3||
  ||<rowspan=2> spanning rows||||<bgcolor='#E0E0FF'> spanning 2 columns||

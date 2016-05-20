@@ -177,7 +177,11 @@ space between words. Group page name is not allowed.""") % theuser.name
                 return _("Please specify a password!")
             # Encode password
             if password and not password.startswith('{SHA}'):
-                theuser.enc_password = user.encodePassword(password)
+                try:
+                    theuser.enc_password = user.encodePassword(password)
+                except UnicodeError, err:
+                    # Should never happen
+                    return "Can't encode password: %s" % str(err)
 
             # try to get the (optional) email
             email = form.get('email', [''])[0]

@@ -3,10 +3,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: moin\n"
-"Report-Msgid-Bugs-To: Jean-Philippe Guerard <jean-philippe.guerard@tigreraye.org>\n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-12-01 23:59+0100\n"
-"Last-Translator: Jean-Philippe Guerard <jean-philippe.guerard@tigreraye.org>\n"
+"Last-Translator: jean-philippe.guerard@tigreraye.org\n"
 "Language-Team: french <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-15\n"
@@ -303,7 +303,8 @@ msgstr ""
 "Vous n'avez pas modifié le contenu de cette page, elle n'a pas été "
 "enregistrée !"
 
-msgid "You can't change ACLs on this page since you have no admin rights on it!"
+msgid ""
+"You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
 "Vous ne pouvez pas modifier la liste de contrôle d'accès (ACL) de cette "
 "page, car vous n'en avez pas les droits d'administration !"
@@ -322,7 +323,8 @@ msgstr ""
 "et il vous a été accordé."
 
 #, python-format
-msgid "Other users will be ''blocked'' from editing this page until %(bumptime)s."
+msgid ""
+"Other users will be ''blocked'' from editing this page until %(bumptime)s."
 msgstr ""
 "Les autres utilisateurs seront ''empêchés'' d'éditer cette page jusqu'au %"
 "(bumptime)s."
@@ -336,7 +338,8 @@ msgstr ""
 "êtes en train d'éditer cette page."
 
 msgid "Use the Preview button to extend the locking period."
-msgstr "Utilisez le bouton « Aperçu » pour prolonger la période de verrouillage."
+msgstr ""
+"Utilisez le bouton « Aperçu » pour prolonger la période de verrouillage."
 
 #, python-format
 msgid ""
@@ -443,7 +446,8 @@ msgid "Show fancy links"
 msgstr "Affichage amélioré des liens"
 
 msgid "Show question mark for non-existing pagelinks"
-msgstr "Afficher un point d'interrogation pour les liens vers des pages inexistantes"
+msgstr ""
+"Afficher un point d'interrogation pour les liens vers des pages inexistantes"
 
 msgid "Show page trail"
 msgstr "Voir le chemin suivi"
@@ -727,7 +731,8 @@ msgid "Page hits and edits"
 msgstr "Nombre de connexions et d'éditions"
 
 msgid "You are not allowed to revert this page!"
-msgstr "Vous n'êtes pas autorisé à restaurer une version antérieure de cette page !"
+msgstr ""
+"Vous n'êtes pas autorisé à restaurer une version antérieure de cette page !"
 
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr ""
@@ -983,7 +988,8 @@ msgstr "Pièces jointes de « %(pagename)s »"
 
 #, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
-msgstr "La pièce jointe « %(target)s » (nom distant '%(filename)s') existe déjà."
+msgstr ""
+"La pièce jointe « %(target)s » (nom distant '%(filename)s') existe déjà."
 
 #, python-format
 msgid ""
@@ -1002,7 +1008,8 @@ msgid "Attachment '%(filename)s'"
 msgstr "Pièce jointe « %(filename)s »"
 
 msgid "Unknown file type, cannot display this attachment inline."
-msgstr "Type de fichier inconnu, impossible d'afficher son contenu dans la page."
+msgstr ""
+"Type de fichier inconnu, impossible d'afficher son contenu dans la page."
 
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
@@ -1036,7 +1043,8 @@ msgstr "Aucune page n'est similaire à « %s » !"
 
 #, python-format
 msgid "Exactly one page like \"%s\" found, redirecting to page."
-msgstr "Une seule page similaire à « %s » trouvée, redirection vers cette page."
+msgstr ""
+"Une seule page similaire à « %s » trouvée, redirection vers cette page."
 
 #, python-format
 msgid "Pages like \"%s\""
@@ -1058,7 +1066,9 @@ msgstr "Utilisez l'interface interactive pour renommer des pages !"
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr "Impossible de renommer la page à cause d'une erreur du système de fichier : %s."
+msgstr ""
+"Impossible de renommer la page à cause d'une erreur du système de fichier : %"
+"s."
 
 msgid "Rename Page"
 msgstr "Renommer la page"
@@ -1368,6 +1378,11 @@ msgstr "Chemin suivi"
 msgid "User"
 msgstr "Utilisateur"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "Ligne"
 
@@ -1379,13 +1394,17 @@ msgstr "Texte ajouté."
 
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
-msgstr "La connexion au serveur de messagerie '%(server)s' a échouée : %(reason)s"
+msgstr ""
+"La connexion au serveur de messagerie '%(server)s' a échouée : %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "Courrier envoyé avec succès"
 
-msgid "[\"<html>\"]"
-msgstr "[« <html> »]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "PageD'Accueil"
@@ -1459,3 +1478,5 @@ msgstr "RenommerLaPage"
 msgid "SpellCheck"
 msgstr "Orthographe"
 
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[« <html> »]"

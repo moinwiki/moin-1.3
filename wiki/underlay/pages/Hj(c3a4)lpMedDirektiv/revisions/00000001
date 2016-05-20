@@ -15,7 +15,6 @@ Direktiv som kan användas är:
    * '''Plain''': normal text
    * '''Python''': syntaxfärglagd Python-källkod
    * '''HTML''' ( <!> inte implementerat ännu)
-   * StruktureradText ( <!> inte implementerat ännu)
  * {{{#REDIRECT}}} ''sidnamn'': omdirigerar till en annan sida (se MeatBall:PageRedirect'''''')
  * `#PRAGMA` ''mod'' ''parametrar'': sätter olika bearbetningsmod för den här sidan. Stora och stmå bokstäver spelar ingen roll i modnamn. Tillåtna modnamn är:
  * `#pragma section-numbers off` (eller "0" eller av) Stänger av numrering av sektionsrubriker och "on" (eller "1" eller på) slår på numrering (om inte angivet är det satt med anpassningsalternativet `show_section_numbers`)

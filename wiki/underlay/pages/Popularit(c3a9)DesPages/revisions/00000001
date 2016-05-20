@@ -6,6 +6,6 @@
 ##master-page:PageHits
 ##master-date:2004-10-24 15:33:38
 #language fr
-Cette page montre combien de fois chaque page a été visualisée depuis que le journal des évènements est tenu. Aucune analyse intelligente des données n'est faite, chaque affichage compte.
+Cette page affiche le nombre de demandes par page depuis le début du journal des évènements. Aucune analyse intelligente n'est effectuée, chaque consultation compte.
 
 [[PageHits]]

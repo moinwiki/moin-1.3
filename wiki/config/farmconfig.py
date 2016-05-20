@@ -1,4 +1,11 @@
-# -*- coding: utf-8 -*-
+# -*- coding: iso-8859-1 -*-
+# IMPORTANT! This encoding (charset) setting MUST be correct! If you live in a
+# western country and you don't know that you use utf-8, you probably want to
+# use iso-8859-1 (or some other iso charset). If you use utf-8 (a Unicode
+# encoding) you MUST use: coding: utf-8
+# That setting must match the encoding your editor uses when you modify the
+# settings below. If it does not, special non-ASCII chars will be wrong.
+
 """
     MoinMoin - Configuration for a wiki farm
 
@@ -27,7 +34,7 @@
 # Then it loads the <wikiname>.py config for handling that request.
 
 wikis = [
-    # wikiname,     url regular expression
+    # wikiname,     url regular expression (no protocol, no port!)
     ("moinmaster",  r"^moinmaster.wikiwikiweb.de/.*$"),
     ("moinmoin",    r"^moinmoin.wikiwikiweb.de/.*$"),
 ]

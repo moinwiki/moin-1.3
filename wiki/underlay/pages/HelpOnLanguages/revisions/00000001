@@ -49,6 +49,6 @@ The language name is the iso-639-1 name of the language. Languages that moin doe
 
 This is critical if the wiki contains content in different directions, like Hebrew pages which should display in right to left direction, and English pages, which should display in left to right direction.
 
-In the past, system pages had a language comment: {{{##language:en}}}. This comment has no effect, and should be change to the new {{{#langauge en}}} format. To repair old pages in your wiki, run {{{scripts.repair_language.py}}} in your wiki data directory. Have a backup of you wiki data directory before!
+In the past, system pages had a language comment: {{{##language:en}}}. This comment has no effect, and should be changed to the new {{{#language en}}} format. To repair old pages in your wiki, run {{{scripts.repair_language.py}}} in your wiki data directory. Have a backup of you wiki data directory before!
 
  (!) New in 1.3

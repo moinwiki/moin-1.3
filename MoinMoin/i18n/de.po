@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-11-30 22:18+0100\n"
 "Last-Translator: Thomas Waldmann <tw-public@gmx.de>\n"
 "Language-Team: German <moin-devel@lists.sourceforge.net>\n"
@@ -1062,7 +1062,8 @@ msgstr ""
 
 #, python-format
 msgid "Could not rename page because of file system error: %s."
-msgstr "Konnte die Seite nicht umbenennen wegen eines Dateisystem-Fehlercodes: %s."
+msgstr ""
+"Konnte die Seite nicht umbenennen wegen eines Dateisystem-Fehlercodes: %s."
 
 msgid "Rename Page"
 msgstr "Seite umbenennen"
@@ -1370,6 +1371,11 @@ msgstr "Trail"
 msgid "User"
 msgstr "Benutzer"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr "Kann die Seite nicht speichern, weil der Inhalt \"%(content)s\" in diesem Wiki nicht erlaubt ist."
+
 msgid "Line"
 msgstr "Zeile"
 
@@ -1386,8 +1392,11 @@ msgstr "Verbindung zum Mailserver '%(server)s' gestört: %(reason)s"
 msgid "Mail sent OK"
 msgstr "E-Mail wurde erfolgreich versandt"
 
-msgid "[\"<html>\"]"
-msgstr "[\"<html>\"]"
+msgid "<escape>"
+msgstr "<escape>"
+
+msgid "[\"<escape>\"]"
+msgstr "[\"<escape>\"]"
 
 msgid "FrontPage"
 msgstr "StartSeite"
@@ -1460,4 +1469,3 @@ msgstr "SeiteUmbenennen"
 
 msgid "SpellCheck"
 msgstr "RechtSchreibung"
-

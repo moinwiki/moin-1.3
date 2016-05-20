@@ -55,14 +55,14 @@ import sys, re
 
 # this is where your moinmoin code is (if you installed it using
 # setup.py into your python site-packages, then you don't need that setting):
-sys.path.append('/home/twaldmann/moincvs/moin--main')
+sys.path.insert(0, '/home/twaldmann/moincvs/moin--main')
 
 # this is where your wikiconfig.py is:
-sys.path.append('/org/org.linuxwiki/cgi-bin')
+sys.path.insert(0, '/org/org.linuxwiki/cgi-bin')
 
 # if you include other stuff in your wikiconfig, you might need additional
 # pathes in your search path. Put them here:
-sys.path.append('/org/wiki')
+sys.path.insert(0, '/org/wiki')
 
 # if a user subsribes to magicpage, it means that he wants to keep
 # exactly THIS account - this will avoid deleting it.

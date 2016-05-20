@@ -2,7 +2,7 @@
 
 import sys, os, xmlrpclib, codecs
 
-sys.path.append("..")
+sys.path.insert(0, "..")
 from MoinMoin import wikiutil
 
 s = xmlrpclib.ServerProxy("http://wainu.ii.uned.es/wainuki/?action=xmlrpc2")

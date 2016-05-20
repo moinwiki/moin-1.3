@@ -569,7 +569,7 @@ usato il nome originale del file.''',
 '''Unknown file type, cannot display this attachment inline.''':
 '''Tipo di file sconosciuto, non posso visualizzarlo direttamente nella pagina.''',
 '''attachment:%(filename)s of %(pagename)s''':
-'''attachment:%(filename)s di %(pagename)s''',
+'''[[Verbatim(attachment:)]]%(filename)s di %(pagename)s''',
 '''You are not allowed to delete this page.''':
 '''Non ti è consentito cancellare questa pagina.''',
 '''This page is already deleted or was never created!''':
@@ -788,8 +788,6 @@ rosso=Mod''',
 '''La connessione al mailserver \'%(server)s\' è fallita: %(reason)s''',
 '''Mail sent OK''':
 '''Mail spedita correttamente''',
-'''["<html>"]''':
-'''["<html>"]''',
 '''FrontPage''':
 '''PaginaPrincipale''',
 '''RecentChanges''':

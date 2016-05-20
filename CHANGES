@@ -7,6 +7,57 @@ All rights reserved, see COPYING for details.
 -----------------------------------------------------------------------------
 
 
+Version 1.3.1 (2004-12-13, Revision moin--main--1.3--patch-434)
+
+Fixes:
+    * Fixed "Error Cyclic usage" crash when user had Italian (it), Korean
+      (ko), Serbian (sr) or Vietnamese (vi) as user interface language.
+    * Fall back to en (instead of crashing) when user uses a language moin
+      does not support / does not support any more (like pt,sv,fi,sr).
+    * In 1.3.0, people accidentally put iso-8859-1 chars into wiki configs,
+      but those where expected to be pure utf-8 and thus it crashed.
+      Fixed by using unicode strings (varname = u'whatever'), a matching
+      encoding setting (see top of script comment) and, when decoding strings,
+      using decode to ASCII with replace mode (this replaces non-ASCII chars,
+      but at least it won't crash - and you get a warning to better use
+      Unicode strings).
+    * Fixed long time broken table formatting. ||<style="see css spec" a||b||
+      Now even generates valid HTML! The old markup for align, valign, width,
+      bgcolor still works, but synthesizes style attribute data.
+    * SystemAdmin macro shows attachments of ALL pages now.
+    * Users without write acl rights will be able to see attachments again and
+      also have AttachFile action in menu.
+    * Fixed wrong match count in search results, find all matches in page 
+      titles, show all matches in contents in some rare cases.
+    * Run about 200% faster with long running processes (standalone, twisted), 
+      about 20% faster with cgi, by better internal data handling in wikidicts.
+    * On SF, the dict files use utf-8 encoding now. We included them also in
+      distribution, see contrib/dict/.
+    * Fixed permissions to shared template stuff.
+    * Speeded up search, fixed wrong match counts.
+    * Speeded up internal data handling (wikidicts).
+    * Fixed rare unicode error after deleting a page (reported only on SuSE
+      Linux 9.0 / Python 2.3.0).
+    * Fixed file permissions of files in the data dir.  
+    * Fixed some cosmetic problems in migration scripts and use sys.path.insert
+      to get latest moin code when executing them.
+
+Other Changes:
+    * Improved docs, system and help pages.
+    * Updated translation files.
+
+Known Bugs:
+    * Internet Explorer renders our HTML/CSS in a suboptimal way.
+      (MoinMoin:MoinMoinBugs/InternetExplorer)
+      Workaround: use a non-broken browser like FireFox / Mozilla.
+    * Passwords using non-ascii do not work.
+      (MoinMoin:MoinMoinBugs/NonAsciiPasswordsBroken)
+    * The TOC macro is broken partly.
+      (MoinMoinBugs/TableOfContentsBrokenForIncludedPages,
+       MoinMoinBugs/TableOfContentsLacksLinks)
+    * See also: http://moinmoin.wikiwikiweb.de/MoinMoinBugs
+      
+
 Version 1.3.0 (2004-12-06, Revision moin--main--1.3--patch-400)
 
     As you see from the length of the 1.3 changes below, 1.3 is a major(!)
@@ -89,8 +140,9 @@ Version 1.3.0 (2004-12-06, Revision moin--main--1.3--patch-400)
         are allowed in page names (Changing it is not supported).
       * When you enter page name, it is normalized and you are redirected to
         the normalized page, or if nothing left (e.g '/////'), to FrontPage.
-      * When renaming a page to a names that normalized to empty string,
-        the string "EmptyName" is used instead of getting error message.
+      * When renaming a page to a name that can be normalized to an empty string,
+        the new page name will be "EmptyName" and the user will not get an
+        error message.
        
    Underlay directory
 

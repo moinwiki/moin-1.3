@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-21 14:50+0100\n"
+"POT-Creation-Date: 2004-12-12 08:30+0100\n"
 "PO-Revision-Date: 2004-11-21 00:00+0000\n"
 "Last-Translator: Mauricio Hernandez Z <mhz@esfera.cl>\n"
 "Language-Team: Spanish <moin-devel@lists.sourceforge.net>\n"
@@ -23,6 +23,7 @@ msgstr ""
 "¡El resplado del contenido de la página ha caducado y no se incluirá en los "
 "resultados de la búsqueda!"
 
+#, python-format
 msgid "Revision %(rev)d as of %(date)s"
 msgstr "Versión %(rev)d de fecha %(date)s"
 
@@ -292,7 +293,8 @@ msgstr ""
 
 #, python-format
 msgid "A backup of your changes is [%(backup_url)s here]."
-msgstr "Una copia de seguridad de tus cambios se encuentra en [%(backup_url)s ."
+msgstr ""
+"Una copia de seguridad de tus cambios se encuentra en [%(backup_url)s ."
 
 msgid "You did not change the page content, not saved!"
 msgstr "¡No has modificado el contenido de la página. Nada que  guardar!"
@@ -398,7 +400,8 @@ msgid ""
 msgstr ""
 "Nombre de usuario inválido {{{'%s'}}}.\n"
 "El nombre puede tener caracteres alfa-numéricos Unicode, con la opción\n"
-"de un espacio entre palabras. No se permite usar la palabra Grupo en el nombre de una página." 
+"de un espacio entre palabras. No se permite usar la palabra Grupo en el "
+"nombre de una página."
 
 #, python-format
 msgid "You are not allowed to do %s on this page."
@@ -484,11 +487,13 @@ msgstr ""
 
 #, python-format
 msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
-msgstr "Nombre de usuario desconocido: {{{\"%s\"}}}. Por favor, ingresa nombre "
-"de usuario y password"
+msgstr ""
+"Nombre de usuario desconocido: {{{\"%s\"}}}. Por favor, ingresa nombre de "
+"usuario y password"
 
 msgid "Missing password. Please enter user name and password."
-msgstr "Faltó ingresar password. Por favor, ingresa nombre de usuario y password"
+msgstr ""
+"Faltó ingresar password. Por favor, ingresa nombre de usuario y password"
 
 msgid "Sorry, wrong password."
 msgstr "Lo lamento, password errónea"
@@ -515,8 +520,8 @@ msgid ""
 "Please provide your email address. If you loose your login information, you "
 "can get it by email."
 msgstr ""
-"Por favor, provee una dirección e-mail. Si pierdes tu información de ingreso, "
-"puedes obtenerla vía e-mail."
+"Por favor, provee una dirección e-mail. Si pierdes tu información de "
+"ingreso, puedes obtenerla vía e-mail."
 
 msgid "This email already belongs to somebody else."
 msgstr "Esta dirección e-mail ya es usada por alguien más."
@@ -598,7 +603,9 @@ msgid "Quick links"
 msgstr "Enlaces rápidos"
 
 msgid "This list does not work, unless you have entered a valid email address!"
-msgstr "¡Esta lista no funciona, salvo que introduzcas una dirección válida de e-mail!"
+msgstr ""
+"¡Esta lista no funciona, salvo que introduzcas una dirección válida de e-"
+"mail!"
 
 msgid "Subscribed wiki pages (one regex per line)"
 msgstr "Páginas wiki suscritas (una expr. reg. por línea)"
@@ -923,7 +930,8 @@ msgid ""
 "used."
 msgstr ""
 "Subir un archivo nunca sobreescribirá un archivo ya existente. De haber "
-"conflicto con el nombre, tendrás que renombrar el archivo que quieres subir.\n"
+"conflicto con el nombre, tendrás que renombrar el archivo que quieres "
+"subir.\n"
 "De lo contrario; si el campo \"Cambiar nombre a\" queda vacío, se usará el "
 "nombre original del archivo."
 
@@ -949,8 +957,8 @@ msgid ""
 "No file content. Delete non ASCII characters from the file name and try "
 "again."
 msgstr ""
-"Archivo sin contenidos. Elimina los caracteres que no sean ASCII en el nombre de "
-"archivo e intenta nuevamente."
+"Archivo sin contenidos. Elimina los caracteres que no sean ASCII en el "
+"nombre de archivo e intenta nuevamente."
 
 msgid "You are not allowed to delete attachments on this page."
 msgstr "No tienes permisos para borrar adjuntos en esta página."
@@ -1003,7 +1011,8 @@ msgid "This page is already deleted or was never created!"
 msgstr "¡Esta página ya ha sido borrada o nunca se creó!"
 
 msgid "Please use the interactive user interface to delete pages!"
-msgstr "¡Por favor, usa la interfaz interactiva de usuario para eliminar páginas!"
+msgstr ""
+"¡Por favor, usa la interfaz interactiva de usuario para eliminar páginas!"
 
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
@@ -1024,7 +1033,9 @@ msgstr "Ninguna página similar a \"%s\"!"
 
 #, python-format
 msgid "Exactly one page like \"%s\" found, redirecting to page."
-msgstr "Exactamente una página similar a \"%s\" encontrada. Redireccionando a esa página."
+msgstr ""
+"Exactamente una página similar a \"%s\" encontrada. Redireccionando a esa "
+"página."
 
 #, python-format
 msgid "Pages like \"%s\""
@@ -1042,10 +1053,15 @@ msgid "You are not allowed to rename pages in this wiki!"
 msgstr "¡No tienes permisos para renombrar páginas en este wiki!"
 
 msgid "Please use the interactive user interface to rename pages!"
-msgstr "¡Por favor, usa la interfaz interactiva de usuario para renombrar páginas!"
+msgstr ""
+"¡Por favor, usa la interfaz interactiva de usuario para renombrar páginas!"
 
-msgid "Rename"
-msgstr "Renombrar"
+#, python-format
+msgid "Could not rename page because of file system error: %s."
+msgstr ""
+
+msgid "Rename Page"
+msgstr "Renombrar Página"
 
 msgid "New name"
 msgstr "Nombre nuevo"
@@ -1082,7 +1098,8 @@ msgid "No spelling errors found!"
 msgstr "¡No se encontraron errores !"
 
 msgid "You can't check spelling on a page you can't read."
-msgstr "No puedes realizar corección ortográfica en una página que no puedes leer."
+msgstr ""
+"No puedes realizar corección ortográfica en una página que no puedes leer."
 
 #, python-format
 msgid "Title Search: \"%s\""
@@ -1198,7 +1215,8 @@ msgstr "Editar dibujo %(filename)s"
 
 #, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
-msgstr "Esperaba \"%(wanted)s\" después de \"%(key)s\", he encontrado \"%(token)s\""
+msgstr ""
+"Esperaba \"%(wanted)s\" después de \"%(key)s\", he encontrado \"%(token)s\""
 
 #, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
@@ -1262,7 +1280,8 @@ msgid "Distribution of User-Agent Types"
 msgstr "Distribución de Tipos de Agentes-de-Usuario (User-Agent)"
 
 msgid "Click to do a full-text search for this title"
-msgstr "Haz click aquí para efectuar una búsqueda de contenidos para este título"
+msgstr ""
+"Haz click aquí para efectuar una búsqueda de contenidos para este título"
 
 msgid "Clear message"
 msgstr "Quitar mensaje"
@@ -1298,9 +1317,6 @@ msgstr "Mostrar Vista de Impresión"
 
 msgid "Attach File"
 msgstr "Adjuntar Archivo"
-
-msgid "Rename Page"
-msgstr "Renombrar Página"
 
 msgid "Delete Page"
 msgstr "Eliminar Página"
@@ -1351,6 +1367,11 @@ msgstr "Páginas Visitadas"
 msgid "User"
 msgstr "Usuario"
 
+#, python-format
+msgid ""
+"Sorry, can not save page because \"%(content)s\" is not allowed in this wiki."
+msgstr ""
+
 msgid "Line"
 msgstr "Línea"
 
@@ -1367,8 +1388,11 @@ msgstr "Falló la conexión al servidor de correo '%(server)s': %(reason)s"
 msgid "Mail sent OK"
 msgstr "e-Mail enviado OK"
 
-msgid "[\"<html>\"]"
-msgstr "[\"<html>\"]"
+msgid "<escape>"
+msgstr ""
+
+msgid "[\"<escape>\"]"
+msgstr ""
 
 msgid "FrontPage"
 msgstr "PáginaInicial"
@@ -1441,3 +1465,9 @@ msgstr "RenombrarPágina"
 
 msgid "SpellCheck"
 msgstr "CorrecciónOrtográfica"
+
+#~ msgid "Rename"
+#~ msgstr "Renombrar"
+
+#~ msgid "[\"<html>\"]"
+#~ msgstr "[\"<html>\"]"

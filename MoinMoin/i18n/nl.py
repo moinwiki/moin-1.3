@@ -4,10 +4,10 @@
 meta = {
   'language': 'Nederlands',
   'elanguage': 'Dutch',
-  'maintainer': '***vacant***',
+  'maintainer': 'Ruben Lubbes',
   'encoding': 'iso-8859-1',
   'direction': 'ltr',
-  'wikimarkup': False,
+  'wikimarkup': True,
 }
 text = {
 '''The backupped content of this page is deprecated and will not be included in search results!''':
@@ -20,6 +20,8 @@ text = {
 '''Je hebt geen toestemming deze pagina te bekijken.''',
 '''RefreshCache''':
 '''VerversCache''',
+'''(cached %s)''':
+'''(cache %s)''',
 '''You are not allowed to edit this page.''':
 '''Je hebt geen toestemming deze pagina te bewerken.''',
 '''Page is immutable!''':
@@ -72,6 +74,8 @@ Kijk eerst naar de verschillen van %(difflink)s om te zien wat er is veranderd.'
 '''Annuleer''',
 '''Preview''':
 '''Proeflezing''',
+'''Trivial change''':
+'''Minder belangrijke wijziging''',
 '''Remove trailing whitespace from each line''':
 '''Verwijder witruimte aan het einde van elke regel''',
 '''Edit was cancelled.''':
@@ -103,6 +107,8 @@ De volgende pagina is gewijzigd door %(editor)s:
 ''':
 '''Geen verschillen gevonden!
 ''',
+'''Trivial ''':
+'''Minder belangrijk''',
 '''Status of sending notification mails:''':
 '''Status van het verzenden van kennisgevingen:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
@@ -145,10 +151,20 @@ De volgende pagina is gewijzigd door %(editor)s:
 '''Bekijken''',
 '''Up''':
 '''Omhoog''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''Foutieve gebruikersnaam {{{\'%s\'}}}.
+Gebruikersnaam mag ieder Unicode alpha-numeriek karakter bevatten, met optioneel een
+spatie tussen woorden. Groeps paginanaam is niet toegestaan.''',
 '''Login''':
 '''Inloggen''',
+''' %s and try again.''':
+''' %s en probeer opnieuw''',
 '''Can\'t work out query''':
 '''Deze vraag kan niet uitgevogeld worden''',
+'''%.2f seconds''':
+'''%.2f seconden''',
 '''match''':
 ''' overeenkomst''',
 '''matches''':
@@ -171,6 +187,8 @@ De volgende pagina is gewijzigd door %(editor)s:
 '''Toon chique verschillen''',
 '''Add spaces to displayed wiki names''':
 '''Voeg spaties toe aan getoonde wikinamen''',
+'''Subscribe to trivial changes''':
+'''Abboneer op minder belangrijke veranderingen''',
 '''Disable this account forever''':
 '''Schakel dit account permanent uit.''',
 '''Cookie deleted. You are now logged out.''':
@@ -179,18 +197,26 @@ De volgende pagina is gewijzigd door %(editor)s:
 '''Geef een geldig e-mailadres op!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Geen account gevonden dat overeenkomt met het opgegeven e-mailadres \'%(email)s\'!''',
+'''Missing password. Please enter user name and password.''':
+'''Geen wachtwoord. Geef een gebruikersnaam en wachtwoord op.''',
+'''Sorry, wrong password.''':
+'''Sorry, foutief wachtwoord.''',
+'''Bad relogin URL.''':
+'''Slechte herlogin URL.''',
 '''This user name already belongs to somebody else.''':
-'''Deze gebruikersnaam behoort al aan iemand anders.''',
+'''Deze gebruikersnaam is al in gebruik.''',
 '''Passwords don\'t match!''':
 '''De wachtwoorden komen niet overeen!''',
 '''Please specify a password!''':
 '''Geef een wachtwoord!''',
 '''This email already belongs to somebody else.''':
-'''Dit e-mailadres behoort al aan iemand anders.''',
+'''Dit e-mailadres behoort is al in gebruik.''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''Het thema \'%(theme_name)s\' kan niet worden geladen!''',
 '''User preferences saved!''':
 '''Voorkeuren van gebruiker bewaard!</b>''',
 '''Default''':
-'''Verstek''',
+'''Standaard''',
 '''<Browser setting>''':
 '''<Browserinstelling>''',
 '''Save''':
@@ -323,6 +349,8 @@ De volgende pagina is gewijzigd door %(editor)s:
 '''Toon context van de zoekresultaten''',
 '''Case-sensitive searching''':
 '''Hoodletter-gevoelig zoeken''',
+'''Go To Page''':
+'''Ga naar Pagina''',
 '''Include system pages''':
 '''Inclusief systeempagina\'s''',
 '''Exclude system pages''':
@@ -359,6 +387,8 @@ De volgende pagina is gewijzigd door %(editor)s:
 '''Globale uitbreidingsacties''',
 '''Local extension actions''':
 '''Lokale uitbreidingsacties''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''geinstalleerde processors (VERVANGEN -- gebruik Parsers)''',
 '''ERROR in regex \'%s\'''':
 '''FOUT in reguliere expressie \'%s\'''',
 '''Bad timestamp \'%s\'''':
@@ -406,6 +436,8 @@ is dan zul je het bestand dat je wilt inzenden een andere naam moeten geven.Ande
 '''Bijlagen zijn in deze wiki niet toegestaan!''',
 '''You are not allowed to save a drawing on this page.''':
 '''Je hebt geen toestemming een afbeelding op deze pagina te bewaren.''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''Geen bestandsinhoud. Verwijder de non-ASCII tekens uit het bestand en probeer opnieuw.''',
 '''You are not allowed to delete attachments on this page.''':
 '''Je hebt geen toestemming bijlages van deze pagina te verwijderen.''',
 '''You are not allowed to get attachments from this page.''':
@@ -442,6 +474,8 @@ is dan zul je het bestand dat je wilt inzenden een andere naam moeten geven.Ande
 ''' Verwijderen''',
 '''Optional reason for the deletion''':
 '''Eventueel de reden voor deze verwijdering''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''Zoeken op "%s" gaf precies een resultaat, u wordt er nu heengebracht''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''%(matchcount)d %(matches)s op "%(title)s"''',
 '''Local Site Map for "%s"''':
@@ -450,6 +484,8 @@ is dan zul je het bestand dat je wilt inzenden een andere naam moeten geven.Ande
 '''Je hebt geen toestemming in deze wiki pagina\'s van naam te veranderen!''',
 '''Please use the interactive user interface to rename pages!''':
 '''Gebruik de interactieve gebruikersinterface om pagina\'s te hernoemen!''',
+'''Could not rename page because of file system error: %s.''':
+'''Kon paginanaam niet wijzigen vanwege systeemfout: %s.''',
 '''New name''':
 '''Nieuwe naam''',
 '''Optional reason for the renaming''':
@@ -560,6 +596,10 @@ rood=bewerken''',
 '''Verdeling van type User-Agent''',
 '''Clear message''':
 '''Bericht wissen''',
+'''Do''':
+'''Uitvoeren''',
+'''Show %s days.''':
+'''Laat %s dagen zien.''',
 '''EditText''':
 '''WijzigTekst''',
 '''Immutable page''':
@@ -614,4 +654,6 @@ rood=bewerken''',
 '''Zat''',
 '''Sun''':
 '''Zon''',
+'''SpellCheck''':
+'''Spellingscontrole''',
 }

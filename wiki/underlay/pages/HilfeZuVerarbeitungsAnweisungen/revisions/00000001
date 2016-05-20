@@ -14,7 +14,6 @@ Verarbeitungsanweisungen, die dieses Wiki kennt:
    * '''Plain''': normaler einfacher Text
    * '''Python''': eingefärbter Python-Quellcode
    * '''HTML''' ( <!> nicht implementiert)
-   * '''StructuredText''' ( <!> nicht implementiert)
  * {{{#REDIRECT}}} ''pagename'': Weiterleiten auf eine andere Seite (siehe MeatBall:PageRedirect)
  * `#PRAGMA` ''modus'' ''argumente'': setzt den Verarbeitungsmodus für diese Seite; Modusnamen sind nicht case-sensitive, derzeit bekannte Modi sind:
   * `#pragma section-numbers off` (oder "0") schaltet die automatische Numerierung der Abschnittsüberschriften aus und "on" oder "1" schaltet sie an (der Standard-Modus wird über die `show_section_numbers`-Konfigurationsoption bestimmt). `#pragma section-numbers 2` numeriert nur die Abschnittsüberschriften der Ebene 2 und höher (entsprechendes gilt für 3 bis 6).
@@ -22,5 +21,4 @@ Verarbeitungsanweisungen, die dieses Wiki kennt:
 
 Alle Verarbeitungsanweisungen müssen ganz am Anfang der Seite stehen. Eine Ausnahme sind Kommentare, die überall in einer Wiki-Seite auftauchen dürfen (aber offensichtlich nicht in Seiten, die andere Formate benutzen).
 
-Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEditieren. 
- 
+Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEditieren.

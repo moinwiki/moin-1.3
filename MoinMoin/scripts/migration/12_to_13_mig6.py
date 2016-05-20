@@ -48,7 +48,7 @@ to_encoding = 'utf-8'
 
 import os.path, sys, shutil, urllib
 
-sys.path.append('../../..')
+sys.path.insert(0, '../../..')
 from MoinMoin import wikiutil
 
 from migutil import opj, listdir, copy_file, copy_dir
