@@ -6,9 +6,7 @@
     @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
-__version__ = "$Revision: 1.32 $"[11:-2]
 
-# Imports
 import glob, os, string, sys
 
 import distutils
@@ -19,13 +17,76 @@ from MoinMoin.version import release, revision
 
 
 #############################################################################
-### Helper
+### Helpers
 #############################################################################
 
-def trash_filter(f):
-    file = os.path.basename(f)
-    return file != 'CVS' and file[0] != '.'
+def isbad(name):
+    """ Whether name should not be installed """
+    return (name.startswith('.') or
+            name.startswith('#') or
+            name.endswith('.pickle') or
+            name == 'CVS')
 
+def isgood(name):
+    """ Whether name should be installed """
+    return not isbad(name)
+
+def makeDataFiles(prefix, dir):
+    """ Create distutils data_files structure from dir
+
+    distutil will copy all file rooted under dir into prefix, excluding
+    dir itself, just like 'ditto src dst' works, and unlike 'cp -r src
+    dst, which copy src into dst'.
+
+    Typical usage:
+        # install the contents of 'wiki' under sys.prefix+'share/moin'
+        data_files = makeDataFiles('share/moin', 'wiki')
+
+    For this directory structure:
+        root
+            file1
+            file2
+            dir
+                file
+                subdir
+                    file
+
+    makeDataFiles('prefix', 'root')  will create this distutil data_files structure:
+        [('prefix', ['file1', 'file2']),
+         ('prefix/dir', ['file']),
+         ('prefix/dir/subdir', ['file'])]
+
+    """
+    # Strip 'dir/' from of path before joining with prefix
+    dir = dir.rstrip('/')
+    strip = len(dir) + 1
+    found = []
+    os.path.walk(dir, visit, (prefix, strip, found)) 
+    return found
+
+def visit((prefix, strip, found), dirname, names):
+    """ Visit directory, create distutil tuple
+
+    Add distutil tuple for each directory using this format:
+        (destination, [dirname/file1, dirname/file2, ...])
+
+    distutil will copy later file1, file2, ... info destination.
+    """
+    files = []
+    # Iterate over a copy of names, modify names
+    for name in names[:]:
+        path = os.path.join(dirname, name)
+        # Ignore directories -  we will visit later
+        if os.path.isdir(path):
+            # Remove directories we don't want to visit later
+            if isbad(name):
+                names.remove(name)
+            continue
+        elif isgood(name):
+            files.append(path)
+    destination = os.path.join(prefix, dirname[strip:])
+    found.append((destination, files))
+    
 
 #############################################################################
 ### Build script files
@@ -144,7 +205,11 @@ only requiring a Python installation.
         'MoinMoin.processor',
         'MoinMoin.scripts',
         'MoinMoin.scripts.accounts',
+        'MoinMoin.scripts.migration',
+        'MoinMoin.scripts.reducewiki',
+        'MoinMoin.scripts.unicode',
         'MoinMoin.scripts.xmlrpc-tools',
+        'MoinMoin.server',
         'MoinMoin.stats',
         'MoinMoin.support',
         'MoinMoin.support.optik',
@@ -166,30 +231,10 @@ only requiring a Python installation.
 
     'scripts': moin_scripts,
 
-    'data_files': [
-        ('share/moin/cgi-bin', filter(trash_filter, glob.glob('wiki/cgi-bin/*'))),
-        ('share/moin/data', ['wiki/data/intermap.txt']),
-        ('share/moin/data/text', filter(trash_filter, glob.glob('wiki/data/text/*'))),
-        ('share/moin/data/plugin', ['wiki/data/plugin/__init__.py']),
-        ('share/moin/data/plugin/action', ['wiki/data/plugin/action/__init__.py']),
-        ('share/moin/data/plugin/macro', ['wiki/data/plugin/macro/__init__.py']),
-        ('share/moin/data/plugin/formatter', ['wiki/data/plugin/formatter/__init__.py']),
-        ('share/moin/data/plugin/parser', ['wiki/data/plugin/parser/__init__.py']),
-        ('share/moin/data/plugin/processor', ['wiki/data/plugin/processor/__init__.py']),
-        ('share/moin/data/plugin/theme', ['wiki/data/plugin/theme/__init__.py']),
-        ('share/moin/data/plugin/xmlrpc', ['wiki/data/plugin/xmlrpc/__init__.py']),
-        ('share/moin/data/user', ['wiki/data/user/README']),
-        ('share/moin/htdocs', glob.glob('wiki/htdocs/*.html')),
-        ('share/moin/htdocs/applets/TWikiDrawPlugin', glob.glob('wiki/htdocs/applets/TWikiDrawPlugin/*.jar')),
-        ('share/moin/htdocs/classic/css', glob.glob('wiki/htdocs/classic/css/*.css')),
-        ('share/moin/htdocs/classic/img', glob.glob('wiki/htdocs/classic/img/*.png')),
-        ('share/moin/htdocs/starshine/css', glob.glob('wiki/htdocs/starshine/css/*.css')),
-        ('share/moin/htdocs/starshine/img', glob.glob('wiki/htdocs/starshine/img/*.png')),
-        ('share/moin/htdocs/viewonly/css',  glob.glob('wiki/htdocs/viewonly/css/*.css')),
-        ('share/moin/htdocs/rightsidebar/css', glob.glob('wiki/htdocs/rightsidebar/css/*.css')),
-        ('share/moin/htdocs/rightsidebar/img', glob.glob('wiki/htdocs/rightsidebar/img/*.png')),
-        # viewonly has no own img/ yet
-    ],
+    # This copy the contents of wiki dir under sys.prefix/share/moin
+    # Do not put files that should not be installed in the wiki dir, or
+    # clean the dir before you make the distribution tarball.
+    'data_files': makeDataFiles('share/moin', 'wiki'),
 }
 
 if hasattr(distutils.dist.DistributionMetadata, 'get_keywords'):

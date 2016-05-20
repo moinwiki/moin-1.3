@@ -1,0 +1,51 @@
+Scripts see MoinMoin/scripts/migration/12_to_13_migN.py (in your MoinMoin code
+directory, /usr[/local]/lib/python2.x/site-packages/MoinMoin).
+
+Those are some scripts that convert your wiki data to the current MoinMoin
+version. You must use them AFTER stopping your old wiki code and BEFORE
+starting your new wiki code.
+
+Make sure you have enough free space on your hard disk (every mig script makes
+a new copy, so you need N+1 times the space your data dir needs, if you do not
+remove the pre-migX dirs after running migX script).
+
+When upgrading, choose your entry point depending on your version:
+
+ version you use         start with mig script
+ ---------------------------------------------
+ before 1.2              first upgrade to 1.2.4 and test for a while
+ 1.2.x                   mig1 - check from_encoding in script!
+ 1.3 <patch-78           mig2
+ 1.3 <patch-101          mig3
+ 1.3 <patch-196, =beta2  mig4
+ 1.3 <patch-221, =beta3  mig5
+ 1.3 <patch-248          mig6 - check from_encoding in script!
+ 1.3 <patch-275, =beta5  mig7
+ 1.3 <patch-305, =beta6  mig8
+ 1.3 <patch-332, =beta7  mig9
+ 1.3rc1                  -
+
+ Modifying from_encoding setting in the scripts is necessary if your old moin
+ installation did not use iso-8859-1 encoding (as it was the default in moin
+ 1.2.x and before. If you had changed that, e.g. to utf-8 or other encoding
+ (see moin_config.py, charset = '...'), you need to change it in the mig
+ scripts, too.
+
+Of course, in the end you must have run ALL mig scripts once, in correct
+order, the table is only to help your memory in case you forgot what you
+have done already.
+
+To start, copy your data/ directory to this directory and then start with the
+script according to the table above and also run all scripts with a higher
+number - one after the other, in ascending order.
+
+After that, you should have a data directory suitable for new moin version.
+Maybe some stuff that didn't need conversion is missing, see the comments on
+top of the scripts for details.
+
+Read the comments in the scripts for details, especially in mig5.
+
+Note that the migration scripts only convert your data, they do NOT magically
+convert your plugin scripts to new APIs of moin 1.3. So if your plugins do not
+work any more, look out for updates compatible with 1.3.
+

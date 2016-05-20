@@ -1,38 +1,35 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - Python Source Parser
+    MoinMoin - highlighting Python Source Parser
 
     @copyright: 2001 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-import cStringIO
-import keyword, token, tokenize
-from MoinMoin import wikiutil
-
-#############################################################################
-### Python Source Parser (does Hilighting)
-#############################################################################
+import StringIO
+import keyword, token, tokenize, sha
+from MoinMoin import config
+from MoinMoin.util.ParserBase import parse_start_step
 
 _KEYWORD = token.NT_OFFSET + 1
 _TEXT    = token.NT_OFFSET + 2
 
-_colors = {
-    token.NUMBER:       '#0080C0',
-    token.OP:           '#0000C0',
-    token.STRING:       '#004080',
-    tokenize.COMMENT:   '#008000',
-    token.NAME:         '#000000',
-    token.ERRORTOKEN:   '#FF8080',
-    _KEYWORD:           '#C00000',
-    _TEXT:              '#000000',
+_tokens = {
+    token.NUMBER:       'Number',
+    token.OP:           'Operator',
+    token.STRING:       'String',
+    tokenize.COMMENT:   'Comment',
+    token.NAME:         'ID',
+    token.ERRORTOKEN:   'Error',
+    _KEYWORD:           'ResWord',
+    _TEXT:              'Text',
 }
-
 
 class Parser:
     """ Send colored python source.
     """
+
+    extensions = ['.py']
 
     def __init__(self, raw, request, **kw):
         """ Store the source text.
@@ -42,7 +39,7 @@ class Parser:
         self.form = request.form
         self._ = request.getText
 
-        self.out = kw.get('out', request)
+        self.show_num, self.num_start, self.num_step, attrs = parse_start_step(request, kw.get('format_args',''))
 
     def format(self, formatter):
         """ Parse and send the colored source.
@@ -56,28 +53,24 @@ class Parser:
             self.lines.append(pos)
         self.lines.append(len(self.raw))
 
-        # write line numbers
-        self.out.write('<table border="0"><tr><td align="right" valign="top">')
-        self.out.write('<td align="right" valign="top"><pre><font face="Lucida,Courier New" color="%s">' % _colors[_TEXT])
-        for idx in range(1, len(self.lines)-1):
-            self.out.write('%3d \n' % idx)
-        self.out.write('</font></pre></td><td valign="top">')
-
+        self._code_id = sha.new(self.raw.encode(config.charset)).hexdigest()
+        self.request.write(formatter.code_area(1, self._code_id, 'ColorizedPython', self.show_num, self.num_start, self.num_step))
+        self.formatter = formatter
+        self.request.write(formatter.code_line(1))
+        #len('%d' % (len(self.lines)-1, )))
+        
         # parse the source and write it
         self.pos = 0
-        text = cStringIO.StringIO(self.raw)
-        self.out.write('<pre><font face="Lucida,Courier New">')
+        text = StringIO.StringIO(self.raw)
         try:
             tokenize.tokenize(text.readline, self)
         except tokenize.TokenError, ex:
             msg = ex[0]
             line = ex[1][0]
-            self.out.write("<h3>ERROR: %s</h3>%s\n" % (
+            self.request.write("<h3>ERROR: %s</h3>%s\n" % (
                 msg, self.raw[self.lines[line]:]))
-        self.out.write('</font></pre>')
-
-        # close table
-        self.out.write('</td></tr></table>')
+        self.request.write(self.formatter.code_line(0))
+        self.request.write(formatter.code_area(0, self._code_id))
 
     def __call__(self, toktype, toktext, (srow,scol), (erow,ecol), line):
         """ Token handler.
@@ -92,12 +85,13 @@ class Parser:
 
         # handle newlines
         if toktype in [token.NEWLINE, tokenize.NL]:
-            self.out.write('\n')
+            self.request.write(self.formatter.code_line(0))
+            self.request.write(self.formatter.code_line(1))
             return
 
         # send the original whitespace, if needed
         if newpos > oldpos:
-            self.out.write(self.raw[oldpos:newpos])
+            self.request.write(self.raw[oldpos:newpos])
 
         # skip indenting tokens
         if toktype in [token.INDENT, token.DEDENT]:
@@ -109,31 +103,17 @@ class Parser:
             toktype = token.OP
         elif toktype == token.NAME and keyword.iskeyword(toktext):
             toktype = _KEYWORD
-        color = _colors.get(toktype, _colors[_TEXT])
-
-        style = ''
-        if toktype == token.ERRORTOKEN:
-            style = ' style="border: solid 1.5pt #FF0000;"'
+        tokid = _tokens.get(toktype, _tokens[_TEXT])
 
         # send text
-        self.out.write('<font color="%s"%s>' % (color, style))
-        self.out.write(wikiutil.escape(toktext))
-        self.out.write('</font>')
-
-
-if __name__ == "__main__":
-    import os
-    print "Formatting..."
-
-    # open own source
-    source = open('python.py').read()
-
-    # write colorized version to "python.html"
-    Parser(source, None, out = open('python.html', 'wt')).format(None)
-
-    # load HTML page into browser
-    if os.name == "nt":
-        os.system("explorer python.html")
-    else:
-        os.system("netscape python.html &")
+        first = 1
+        for part in toktext.split('\n'):
+            if not first:
+                self.request.write(self.formatter.code_line(0))
+                self.request.write(self.formatter.code_line(1))
+            else:
+                first = 0
+            self.request.write(self.formatter.code_token(1, tokid) +
+                               self.formatter.text(part) +
+                               self.formatter.code_token(0, tokid))
 

@@ -1,0 +1,48 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+
+= Queries =
+
+MoinMoin 1.3 comes with a new search engine. The same search patterns are allowed in the search and title search input fields as in the parameters for the `FullSearch` and the `PageList` macros.
+
+ * There may be several search term seperated by white space
+  * Terms are combined by default with an AND operation - only pages containing all search term are returned
+  * Double or single quotes may be used to include white space into search terms.
+ * - before a search term means NOT - pages containing this term are excluded from the result
+ * `regex:TERM` is treated as regular expression
+ * `title:TERM` searches in pages that their titles match TERM
+ * `case:TERM` searches case sensitive
+  * normal search terms do search the titles too. Matches in titles get more weight as matches in pages.
+ * `title:`, `regex:` and `case:` may be used in combination in one search term
+  * these modifiers may be abbreviated to any length: `re:`, `t:`, `reg:`, `cas:`
+  * - must be put before any other modifiers
+ * `or` operator has a lower precedence than the implicit AND
+ * Parentheses can be used for grouping
+
+=== Examples ===
+
+{{{
+title:Help macro
+}}}
+searches for help pages that contain the word "macro".
+
+{{{
+apple (computer or "operating system")
+}}}
+searches for pages containing the word "apple" and at least one of "computer" or "operating system".
+
+{{{
+windows winamp or linux xmms
+}}}
+searches for pages containing both "windows" and "winamp", and also for pages containing both "linux" and "xmms".
+
+{{{
+"is text"
+}}}
+Will match "th'''is text'''" or "'''is text'''s". Quotes are used only to include whitespace, and do not mean "exactly this phrase".
+
+== TitleSearch and PageList ==
+ * uses the same patterns
+ * `title:` is virtually added to every search term

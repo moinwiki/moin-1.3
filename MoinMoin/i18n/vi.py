@@ -1,49 +1,38 @@
 # -*- coding: utf-8 -*-
-# Text translations for Vietnamese (vi).
+# Text translations for Tiếng Việt (vi).
 # Automatically generated - DO NOT EDIT, edit vi.po instead!
 meta = {
-  'language': 'Vietnamese',
+  'language': 'Tiếng Việt',
+  'elanguage': 'Vietnamese',
   'maintainer': 'Nam T. Nguyen <nnt@nntsoft.com>',
   'encoding': 'utf-8',
   'direction': 'ltr',
+  'wikimarkup': True,
 }
 text = {
-'''(last edited %(time)s by %(editor)s)''':
-'''(chỉnh sửa lần cuối lúc %(time)s bởi %(editor)s)''',
-'''(last modified %s)''':
-'''(thay đổi cuối lúc %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
 '''Nội dung lưu của trang này đã lạc hậu và sẽ không được hiển thị trong kết quả tìm kiếm!''',
-'''Version as of %(date)s''':
-'''Phiên bản ngày %(date)s''',
+'''Revision %(rev)d as of %(date)s''':
+'''Phiên bản %(rev)d ngày %(date)s''',
 '''Redirected from page "%(page)s"''':
 '''Được chuyển từ trang "%(page)s"''',
 '''This page redirects to page "%(page)s"''':
 '''Trang này sẽ chuyển tới trang "%(page)s"''',
-'''<p><small>If you submit this form, the submitted values will be displayed.
+'''~-If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-macro call.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+macro call.-~
 ''':
-'''<p><small>Nếu bạn gửi form này, những gì bạn gửi sẽ được hiển thị.
-Để dùng form này ở trang khác, bạn cần chèn vào lệnh
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>.
-</small></p>
+'''~-Nếu bạn gửi đơn này, những gì bạn gửi sẽ được hiển thị.
+Để dùng đơn này ở trang khác, chèn vào một câu lênh gọi
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
 ''',
 '''You are not allowed to view this page.''':
 '''Bạn không xem trang này được.''',
 '''RefreshCache''':
 '''Làm mới cache''',
-'''for this page (cached %(date)s)''':
-'''cho trang này (cached vào ngày %(date)s)''',
-'''Create this page''':
-'''Tạo trang này''',
-'''Alternatively, use one of these templates:''':
-'''Ngoài ra, có thể dùng một trong những mẫu này:''',
-'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
-'''Để tự tạo mẫu riêng, thêm một trang có tên phù hợp với regex "%(page_template_regex)s".''',
-'''The following pages with similar names already exist...''':
-'''Các trang hiện tại có tên gần giống...''',
+'''(cached %s)''':
+'''(lưu %s)''',
 '''You are not allowed to edit this page.''':
 '''Bạn không thể sửa trang này.''',
 '''Page is immutable!''':
@@ -51,7 +40,7 @@ macro call.</small></p>
 '''Cannot edit old revisions!''':
 '''Không thể sửa phiên bản cũ!''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
-'''Thời gian chính thức đã hết, bạn có thể sẽ gặp sự cố trong việc chỉnh sửa trang!''',
+'''Thời gian dành riêng cho bạn đã hết, bạn có thể sẽ gặp sự cố trong việc chỉnh sửa trang!''',
 '''Edit "%(pagename)s"''':
 '''Sửa trang "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
@@ -76,10 +65,12 @@ Sau đó bạn có thể thêm vào những thay đổi của bạn.''',
 '''[Nội dung trang được đọc trong %s]''',
 '''[Template %s not found]''':
 '''[Không tìm thấy mẫu %s]''',
+'''[You may not read %s]''':
+'''[Bạn không thể xem %s]''',
 '''Skip to preview''':
 '''Xem qua''',
-'''[current page size <strong>%(size)d</strong> bytes]''':
-'''[kích thước trang hiện tại <strong>%(size)d</strong> bytes]''',
+'''[current page size \'\'\'%(size)d\'\'\' bytes]''':
+'''[kích thước trang hiện tại \'\'\'%(size)d\'\'\' bytes]''',
 '''Describe %s here.''':
 '''Diễn giải %s ở đây.''',
 '''Optional comment about this change''':
@@ -94,48 +85,26 @@ Sau đó bạn có thể thêm vào những thay đổi của bạn.''',
 '''Lưu các thay đổi''',
 '''Cancel''':
 '''Huỷ bỏ''',
-'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
-'''Thông qua việc nhấn nút <strong>%(save_button_text)s</strong>, bạn đồng ý phân phối các thay đổi của bạn theo giấy phép %(license_link)s.
-Nếu bạn không muốn vậy, nhấn <strong>%(cancel_button_text)s</strong> để huỷ bỏ các thay đổi.''',
+'''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
+If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
+'''Thông qua việc nhấn nút \'\'\'%(save_button_text)s\'\'\', bạn đồng ý phân phối các thay đổi của bạn theo giấy phép %(license_link)s.
+Nếu bạn không muốn vậy, nhấn \'\'\'%(cancel_button_text)s\'\'\' để huỷ bỏ các thay đổi.''',
 '''Preview''':
 '''Xem qua''',
-'''Send mail notification''':
-'''Gửi thư thông báo''',
+'''Trivial change''':
+'''Thay đổi nhỏ nhặt''',
 '''Remove trailing whitespace from each line''':
 '''Xoá khoảng trắng ở cuối dòng''',
-'''<dt>Emphasis:</dt>
-<dd>\'\'<em>italics</em>\'\'; \'\'\'<strong>bold</strong>\'\'\'; \'\'\'\'\'<strong><em>bold italics</em></strong>\'\'\'\'\';
-    \'\'<em>mixed \'\'\'<strong>bold</strong>\'\'\' and italics</em>\'\'; ---- horizontal rule.</dd>
-<dt>Headings:</dt>
-<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.</dd>
-<dt>Lists:</dt>
-<dd>space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.</dd>
-<dt>Links:</dt>
-<dd>JoinCapitalizedWords; ["brackets and double quotes"];
-    url; [url]; [url label].</dd>
-<dt>Tables:</dt>
-<dd>|| cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.</dd>
-''':
-'''<dt>Nhấn mạnh:</dt>
-<dd>\'\'<em>nghiêng</em>\'\'; \'\'\'<strong>đậm</strong>\'\'\'; \'\'\'\'\'<strong><em>đậm nghiêng</em></strong>\'\'\'\'\';
-    \'\'<em>pha trộn giữa \'\'\'<strong>đậm</strong>\'\'\' và nghiêng</em>\'\'; ---- thanh ngang.</dd>
-<dt>Tiêu đề:</dt>
-<dd>= Tiêu đề 1 =; == Tiêu đề 2 ==; === Tiêu đề 3 ===;
-    ==== Tiêu đề 4 ====; ===== Tiêu đề 5 =====.</dd>
-<dt>Danh sách:</dt>
-<dd>khoảng trắng và một trong những điểm (bullet) *; 1., a., A., i., I. đánh số thứ tự;
-    1.#n bắt đầu đánh số từ n; khoảng trắng không thôi thụt vào.</dd>
-<dt>Liên kết:</dt>
-<dd>JoinCapitalizedWords (chỉ dùng cho tiếng Anh); ["brackets and double quotes"] (dùng cho cả tiếng Việt);
-    url; [url]; [url nhãn].</dd>
-<dt>Bảng biểu</dt>
-<dd>|| nội dung của ô |||| nội dung trải qua 2 ô ||;
-    không được có khoảng trắng sau bảng biểu hoặc tiêu đề.</dd>
-''',
+''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
+ Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
+ Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
+ Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim(["brackets and double quotes"])]]; url; [url]; [url label].
+ Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
+''' Nhấn mạnh:: [[Verbatim(\'\')]]\'\'nghiêng\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'đậm\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'nghiêng đậm\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'lẫn \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'đậm\'\'\'[[Verbatim(\'\'\')]] và nghiêng\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] thước ngang.
+ Đầu đề:: [[Verbatim(=)]] Tiêu đề 1 [[Verbatim(=)]]; [[Verbatim(==)]] Tiêu đề 2 [[Verbatim(==]]; [[Verbatim(===)]] Tiêu đề 3 [[Verbatim(===)]]; [[Verbatim(====)]] Tiêu đề 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Tiêu đề 5 [[Verbatim(=====)]].
+ Danh sách:: khoảng trắng và: * cho điểm tròn; 1. hay a. hay A. hay i. hay I. cho các mục được đánh dấu; 1.#n để đánh số từ n; khoảng trắng để thụt vào.
+ Liên kết:: [[Verbatim(CácChữHoaLiềnNhau)]]; [[Verbatim(["ngoặc vuông và nháy kép"])]]; URL; [URL]; [URL nhãn].
+ Bảng:: || nội dung ô |||| nội dung ô trải qua 2 cột ||;    không được có khoảng trắng sau bảng hoặc tiêu đề.''',
 '''Edit was cancelled.''':
 '''Các chỉnh sửa đã bị huỷ.''',
 '''Dear Wiki user,
@@ -162,20 +131,22 @@ Trang sau đã được thay đổi bởi %(editor)s:
 %(comment)s
 
 ''',
+'''New page:
+''':
+'''Trang mới:
+''',
 '''No differences found!
 ''':
 '''Không có sự khác biệt!
 ''',
-'''The diff function returned with error code %(rc)s!''':
-'''Lệnh diff trả về mã lỗi %(rc)s!''',
-'''You will not be notified of your own changes!''':
-'''Bạn sẽ không được thông báo về những thay đổi của chính bạn!''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
+'''[%(sitename)s] Cập nhật %(trivial)scủa "%(pagename)s"''',
+'''Trivial ''':
+'''nhỏ nhặt ''',
 '''Status of sending notification mails:''':
 '''Tình trạng của các thư thông báo:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
-'''Nobody subscribed to this page, no mail sent.''':
-'''Không ai đăng ký vào trang này, chưa có thư được gửi.''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## bản lưu của trang "%(pagename)s" được cập nhật vào ngày %(date)s''',
 '''You are not allowed to edit this page!''':
@@ -183,23 +154,26 @@ Trang sau đã được thay đổi bởi %(editor)s:
 '''You cannot save empty pages.''':
 '''Bạn không thể lưu trang trắng.''',
 '''Sorry, someone else saved the page while you edited it.
-<p>Please do the following: Use the back button of your browser, and cut&paste
+
+Please do the following: Use the back button of your browser, and cut&paste
 your changes from there. Then go forward to here, and click EditText again.
-Now re-add your changes to the current page contents.</p>
-<p><em>Do not just replace
+Now re-add your changes to the current page contents.
+
+\'\'Do not just replace
 the content editbox with your version of the page, because that would
-delete the changes of the other person, which is excessively rude!</em></p>
+delete the changes of the other person, which is excessively rude!\'\'
 ''':
 '''Xin lỗi bạn, người khác đã lưu trang này trong khi bạn đang chỉnh sửa.
-<p>Xin vui lòng thực hiện các bước sau: Nhấn vào nút Back trên trình duyệt, và
+
+Xin vui lòng thực hiện các bước sau: Nhấn vào nút Back trên trình duyệt, và
 cắt đoạn văn bản ở đó. Sau đó bạn quay trở lại đây, rồi nhấn EditText lần nữa.
-Bây giờ bạn có thể thêm vào những chỉnh sửa bạn đã thực hiện.</p>
-<p><em>Mong bạn đừng thay đổi toàn bộ nội dung trang này với những gì
+Bây giờ bạn có thể thêm vào những chỉnh sửa bạn đã thực hiện.
+\'\'Mong bạn đừng thay đổi toàn bộ nội dung trang này với những gì
 bạn đã cắt ở trang cũ bởi vì việc đó sẽ xoá toàn bộ những thay đổi
-của người khác, và được coi là một việc làm cực kỳ khiếm nhã!</em></p>
+của người khác, và được coi là một việc làm cực kỳ khiếm nhã!\'\'
 ''',
-'''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
-'''Các thay đổi của bạn được lưu <a href="%(backup_url)s">ở đây</a>.''',
+'''A backup of your changes is [%(backup_url)s here].''':
+'''Các thay đổi của bạn được lưu [%(backup_url)s ở đây].''',
 '''You did not change the page content, not saved!''':
 '''Bạn chưa thay đổi nội dung trang nên không cần lưu lại!''',
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
@@ -208,20 +182,20 @@ của người khác, và được coi là một việc làm cực kỳ khiếm 
 '''Cám ơn bạn vì những sửa đổi. Sự quan tâm của bạn rất được cảm kích.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
 '''Thời gian dành riêng cho %(owner)s đã hết %(mins_ago)d phút trước đây và bạn được dành riêng một khoảng thời gian mới.''',
-'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
-'''Người dùng khác sẽ <em>không</em> sửa trang này được cho đến lúc %(bumptime)s.''',
-'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
-'''Cho đến lúc %(bumptime)s, người dùng khác sẽ được <em>thông báo</em> rằng bạn đang sửa trang này.''',
+'''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
+'''Người dùng khác sẽ \'\'không\'\' sửa trang này được cho đến %(bumptime)s.''',
+'''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
+'''Cho đến %(bumptime)s, người dùng khác sẽ được \'\'thông báo\'\' rằng bạn đang sửa trang này.''',
 '''Use the Preview button to extend the locking period.''':
 '''Dùng nút Xem qua để gia hạn thời gian dành cho bạn.''',
-'''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''Trang này đang được <em>dành riêng</em> cho %(owner)s cho đến lúc %(timestamp)s, hay trong vòng %(mins_valid)d phút.''',
-'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
-<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
-to avoid editing conflicts.</strong><br>
+'''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''Trang này đang được \'\'dành riêng\'\' cho %(owner)s cho đến %(timestamp)s, hay trong vòng %(mins_valid)d phút.''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
+\'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
-'''Trang này đang được thay đổi, lần cuối cùng lúc %(timestamp)s bởi %(owner)s.<br>
-<strong class="highlight">Để tránh sự cố, bạn nên <em>chờ</em> ít nhất %(mins_valid)d phút nữa.</strong><br>
+'''Trang này đang được thay đổi, hoặc xem qua trước lần cuối cùng lúc %(timestamp)s bởi %(owner)s.[[BR]]
+\'\'\'Để tránh sự cố, bạn nên \'\'chờ\'\' ít nhất %(mins_valid)d phút nữa.\'\'\'[[BR]]
 Để thoát khung soạn thảo, nhấn nút Huỷ bỏ.''',
 '''<unknown>''':
 '''<không rõ>''',
@@ -243,20 +217,33 @@ To leave the editor, press the Cancel button.''':
 '''In''',
 '''View''':
 '''Xem''',
-'''Home''':
-'''Trang nhà''',
 '''Up''':
 '''Trên''',
-'''Unknown action''':
-'''Việc không rõ''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''Tên người dùng không hợp lệ {{{\'%s\'}}}.
+Tên có thể dùng mọi chữ số Unicode, với một khoảng trắng không bắt buộc ở giữa. Bạn không thể dùng tên cho nhóm.''',
+'''You are not allowed to do %s on this page.''':
+'''Bạn không thể %s vào trang này.''',
+'''Login''':
+'''Đăng nhập''',
+''' %s and try again.''':
+''' %s và thử lại.''',
 '''Can\'t work out query''':
 '''Không thể thực hiện việc tìm kiếm''',
+'''%(hits)d results out of %(pages)d pages.''':
+'''Tìm thấy %(hits)d trang trong tổng số %(pages)d trang.''',
+'''%.2f seconds''':
+'''%.2f giây''',
+'''match''':
+'''phù hợp''',
+'''matches''':
+'''phù hợp''',
 '''Open editor on double click''':
 '''Mở khung soạn thảo khi nhấp chuột 2 lần''',
 '''Remember last page visited''':
 '''Nhớ trang cuối''',
-'''Show emoticons''':
-'''Hiện các emoticons''',
 '''Show fancy links''':
 '''Hiện liên kết đẹp''',
 '''Show question mark for non-existing pagelinks''':
@@ -271,34 +258,45 @@ To leave the editor, press the Cancel button.''':
 '''Hiện diff đẹp''',
 '''Add spaces to displayed wiki names''':
 '''Thêm khoảng trống để hiển thị các tên wiki (Wiki Names)''',
-'''Remember login information forever''':
+'''Remember login information''':
 '''Nhớ thông tin đăng nhập''',
+'''Subscribe to trivial changes''':
+'''Đăng ký vào các thay đổi nhỏ nhặt''',
 '''Disable this account forever''':
 '''Huỷ bỏ account này''',
 '''Cookie deleted. You are now logged out.''':
 '''Cookie đã được xoá. Bạn đã thoát ra khỏi hệ thống.''',
-'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''Wiki này không hỗ trợ việc soạn thư. Mong bạn thông báo cho chủ wiki, người mà có thể bật chức năng này lên, hay là bỏ đi biểu tượng "Đăng ký".''',
+'''This wiki is not enabled for mail processing.
+Contact the owner of the wiki, who can enable email.''':
+'''Wiki này không hỗ trợ việc xử lý thư. Mong bạn thông báo cho chủ wiki, người có thể kích hoạt chức năng này.''',
 '''Please provide a valid email address!''':
 '''Vui lòng cho biết địa chỉ thư điện tử hợp lệ!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Không tìm thấy account có địa chỉ thư điện tử \'%(email)s\'!''',
-'''Unknown user name or password.''':
-'''Không rõ tên người dùng hay mật khẩu.''',
-'''Please enter a user name!''':
-'''Vui lòng nhập vào tên người dùng!''',
-'''User name already exists!''':
-'''Tên người dùng đã có rồi!''',
-'''Passwords don\'t match!''':
-'''Mật khẩu không đúng!''',
-'''Please enter your name like that: FirstnameLastname''':
-'''Vui lòng nhập tên bạn theo FirstnameLastname (tên tiếng Anh), hoặc HoDemTen (tên tiếng Việt)''',
-'''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
-'''Vui lòng cho biết địa chỉ thư điện tử - không có nó, bạn không thể lấy thông tin đăng nhập nếu bạn lỡ quên.''',
+'''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
+'''Không biết người dùng: {{{"%s"}}}. Vui lòng nhập tên người dùng và mật khẩu.''',
+'''Missing password. Please enter user name and password.''':
+'''Thiếu mật khẩu. Vui lòng nhập tên người dùng và mật khẩu.''',
+'''Sorry, wrong password.''':
+'''Xin lỗi, sai mật khẩu.''',
+'''Bad relogin URL.''':
+'''URL đăng nhập lại không chính xác.''',
+'''Unknown user.''':
+'''Không rõ người dùng.''',
+'''Empty user name. Please enter a user name.''':
+'''Tên người dùng trống. Vui lòng nhập vào tên người dùng.''',
 '''This user name already belongs to somebody else.''':
 '''Tên người dùng này đã được đăng ký.''',
+'''Passwords don\'t match!''':
+'''Mật khẩu không đúng!''',
+'''Please specify a password!''':
+'''Vui lòng cho biết mật khẩu!''',
+'''Please provide your email address. If you loose your login information, you can get it by email.''':
+'''Vui lòng cho biết địa chỉ thư điện tử. Nếu bạn mất thông tin đăng nhập, bạn có thể lấy lại nó qua thư điện tử.''',
 '''This email already belongs to somebody else.''':
 '''Địa chỉ thư điện tử này đã được đăng ký.''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''Kiểu \'%(theme_name)s\' không thể đuợc nạp!''',
 '''User preferences saved!''':
 '''Sở thích của bạn đã được lưu!''',
 '''Default''':
@@ -309,8 +307,6 @@ To leave the editor, press the Cancel button.''':
 '''Lưu''',
 '''Logout''':
 '''Thoát''',
-'''Login''':
-'''Đăng nhập''',
 '''Create Profile''':
 '''Tạo Profile''',
 '''Mail me my account data''':
@@ -353,28 +349,12 @@ To leave the editor, press the Cancel button.''':
 '''Danh sách này không hoạt động cho đến khi bạn nhập vào địa chỉ thư hợp lệ!''',
 '''Subscribed wiki pages (one regex per line)''':
 '''Các trang đã đăng ký (một regex trong một dòng)''',
-'''Action''':
-'''Công việc''',
-'''Please use a more selective search term instead of \'%(needle)s\'!''':
-'''Vui lòng dùng từ khoá tìm kiếm khác thay cho \'%(needle)s\'!''',
-'''Full text search for "%s"''':
-'''Kết quả tìm kiếm cho chuỗi "%s"''',
-'''match''':
-'''phù hợp''',
-'''matches''':
-'''phù hợp''',
-'''Title search for "%s"''':
-'''Tìm theo đầu đề "%s"''',
-'''%(hits)d hits out of %(pages)d pages searched.''':
-'''Tìm thấy %(hits)d trang trong tổng số %(pages)d trang.''',
-'''Needed %(timer).1f seconds.''':
-'''Tốn %(timer).1f giây.''',
 '''No older revisions available!''':
 '''Không có phiên bản cũ hơn!''',
 '''Diff for "%s"''':
 '''diff của "%s"''',
-'''Differences between versions dated %s and %s''':
-'''Sự khác nhau giữa phiên bản ngày %s và ngày %s''',
+'''Differences between revisions %d and %d''':
+'''Sự khác nhau giữa phiên bản %d và %d''',
 '''(spanning %d versions)''':
 '''(trải qua %d phiên bản)''',
 '''No differences found!''':
@@ -393,8 +373,6 @@ To leave the editor, press the Cancel button.''':
 '''Những người dùng sau đã đăng ký vào trang này:''',
 '''This page links to the following pages:''':
 '''Trang này liên kết tới các trang sau:''',
-'''Revision History''':
-'''Danh sách các thay đổi''',
 '''Date''':
 '''Ngày''',
 '''Size''':
@@ -405,6 +383,8 @@ To leave the editor, press the Cancel button.''':
 '''Tác giả''',
 '''Comment''':
 '''Chú thích''',
+'''Action''':
+'''Công việc''',
 '''view''':
 '''xem''',
 '''raw''':
@@ -413,10 +393,20 @@ To leave the editor, press the Cancel button.''':
 '''in''',
 '''revert''':
 '''hoàn nguyên''',
-'''Revert to version dated %(datestamp)s.''':
-'''Hoàn nguyên phiên bản ngày %(datestamp)s.''',
+'''Revert to revision %(rev)d.''':
+'''Hoàn nguyên phiên bản %(rev)d.''',
+'''edit''':
+'''sửa''',
+'''get''':
+'''lấy''',
+'''del''':
+'''xoá''',
 '''N/A''':
-'''không''',
+'''không rõ''',
+'''Revision History''':
+'''Danh sách các thay đổi''',
+'''No log entries found.''':
+'''Không tìm thấy mục nào.''',
 '''Info for "%s"''':
 '''Thông tin về "%s"''',
 '''Show "%(title)s"''':
@@ -429,16 +419,18 @@ To leave the editor, press the Cancel button.''':
 '''Số lần xem và sửa''',
 '''You are not allowed to revert this page!''':
 '''Bạn không thể hoàn nguyên phiên bản cũ của trang này!''',
-'''An error occurred while reverting the page.''':
-'''Xảy ra lỗi trong khi hoàn lại trang.''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
 '''Bạn không thể đăng ký vào trang mà bạn không thể xem.''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''Wiki này không hỗ trợ việc soạn thư. Mong bạn thông báo cho chủ wiki, người mà có thể bật chức năng này lên, hay là bỏ đi biểu tượng "Đăng ký".''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
 '''Bạn chưa có profile. Nhấn vào Sở thích cá nhân ở góc phải trên để tạo một profile.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''Bạn chưa nhập địa chỉ thư điện tử. Nhấn vào tên bạn (Sở thích cá nhân) ở góc phải trên để nhập vào một địa chỉ thư điện tử hợp lệ.''',
-'''You are already subscribed to this page.''':
-'''Bạn đã đăng ký vào trang này rồi.''',
+'''Your subscribtion to this page has been removed.''':
+'''Sự đăng ký của bạn đã được huỷ bỏ.''',
+'''Can\'t remove regular expression subscription!''':
+'''Không thể huỷ bỏ đăng ký biểu thức chính quy!''',
 '''To unsubscribe, go to your profile and delete this page from the subscription list.''':
 '''Để huỷ đăng ký, bạn nhấn vào Sở thích cá nhân và xoá trang này khỏi danh sách đăng ký.''',
 '''You have been subscribed to this page.''':
@@ -447,12 +439,16 @@ To leave the editor, press the Cancel button.''':
 '''Không tìm thấy thuộc tính "%(attrname)s"''',
 '''Submitted form data:''':
 '''Dữ liệu đã được nhập:''',
+'''Search Titles''':
+'''Tìm tiêu đề''',
 '''Display context of search results''':
 '''Hiển thị kết quả tìm kiếm''',
 '''Case-sensitive searching''':
 '''Tìm kiếm phân biệt chữ hoa và chữ thường''',
-'''Go''':
-'''Chuyển''',
+'''Search Text''':
+'''Tìm nội dung''',
+'''Go To Page''':
+'''Tới trang''',
 '''Include system pages''':
 '''Bao gồm các trang hệ thống''',
 '''Exclude system pages''':
@@ -473,8 +469,6 @@ To leave the editor, press the Cancel button.''':
 '''Tổng số trang''',
 '''Number of system pages''':
 '''Số trang hệ thống''',
-'''Number of backup versions''':
-'''Số bản lưu''',
 '''Accumulated page sizes''':
 '''Tổng kích thước''',
 '''Entries in edit log''':
@@ -491,8 +485,12 @@ To leave the editor, press the Cancel button.''':
 '''Action bổ trợ toàn cục''',
 '''Local extension actions''':
 '''Action bổ trợ nội bộ''',
-'''Installed processors''':
-'''Processor đã cài''',
+'''Installed parsers''':
+'''Parser đã cài''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''Processor đã cài (KHÔNG CÒN DÙNG -- dùng parser)''',
+'''Please use a more selective search term instead of {{{"%s"}}}''':
+'''Vui lòng dùng từ khoá tìm kiếm khác thay cho {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
 '''Có lỗi trong regex \'%s\'''',
 '''Bad timestamp \'%s\'''':
@@ -513,20 +511,14 @@ To leave the editor, press the Cancel button.''':
 '''Tên file gửi kèm không được định rõ!''',
 '''Attachment \'%(filename)s\' does not exist!''':
 '''File gửi kèm \'%(filename)s\' không tồn tại!''',
-'''<p>To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, 
+'''To refer to attachments on a page, use \'\'\'{{{attachment:filename}}}\'\'\', 
 as shown below in the list of files. 
-Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, 
-since this is subject to change and can break easily.</p>''':
-'''<p>Để chỉ tới file gửi kèm trong một trang, dùng <strong><tt>attachment:tên</tt></strong>,
-như xuất hiện bên dưới trong phần danh sách các file.
-Vui lòng <strong>KHÔNG</strong> sử dụng URL của liên kết <tt>[get]</tt>,
-vì rất có thể URL đó sẽ bị thay đổi.</p>''',
-'''del''':
-'''xoá''',
-'''get''':
-'''lấy''',
-'''edit''':
-'''sửa''',
+Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
+since this is subject to change and can break easily.''':
+'''Để chỉ tới file gửi kèm trong một trang, dùng \'\'\'{{{attachment:tên}}}\'\'\', 
+như xuất hiện bên dưới trong phần danh sách các file. 
+Vui lòng \'\'\'KHÔNG\'\'\' sử dụng URL của liên kết {{{[get]}}}, 
+vì rất có thể URL đó sẽ bị thay đổi.''',
 '''No attachments stored for %(pagename)s''':
 '''Không có file gửi kèm trong trang %(pagename)s''',
 '''Edit drawing''':
@@ -555,6 +547,8 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 '''Wiki này không cho phép gửi kèm file!''',
 '''You are not allowed to save a drawing on this page.''':
 '''Bạn không thể tạo một bản vẽ ở trang này.''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''Không có nội dung. Xóa các ký tự không nằm trong bảng mã ASCII và thử lại.''',
 '''You are not allowed to delete attachments on this page.''':
 '''Bạn không thể xoá file gửi kèm.''',
 '''You are not allowed to get attachments from this page.''':
@@ -591,14 +585,12 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 '''Xóa''',
 '''Optional reason for the deletion''':
 '''Lý do xoá trang (nếu có)''',
-'''No pages match "%s"!''':
-'''Không tìm thấy "%s"!''',
-'''Exactly one matching page for "%s" found!''':
-'''Chỉ tìm thấy duy nhất một trang có chứa "%s"!''',
-'''Multiple matches for "%s...%s"''':
-'''Nhiều phù hợp cho "%s...%s"''',
-'''You cannot use LikePages on an extended pagename!''':
-'''Bạn không thể dùng LikePages với tên trang mở rộng!''',
+'''No pages like "%s"!''':
+'''Không có trang giống "%s"!''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''Tìm thấy chính xác một trang tương tự "%s", đang tự chuyển tới.''',
+'''Pages like "%s"''':
+'''Trang giống "%s"''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''%(matchcount)d %(matches)s ở trang "%(title)s"''',
 '''Local Site Map for "%s"''':
@@ -607,16 +599,18 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 '''Bạn không thể đổi tên trang trong wiki này!''',
 '''Please use the interactive user interface to rename pages!''':
 '''Vui lòng sử dụng giao diện người dùng để đổi tên trang!''',
-'''A page with the name "%s" already exists!''':
-'''Đã có trang "%s"!''',
-'''Page "%s" was successfully renamed to "%s"!''':
-'''Trang "%s" đã được đổi tên thành "%s"!''',
-'''Rename''':
-'''Đổi tên''',
+'''Rename Page''':
+'''Đổi tên trang''',
 '''New name''':
 '''Tên mới''',
 '''Optional reason for the renaming''':
 '''Lý do đổi tên (nếu có)''',
+'''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
+
+Try a different name.''':
+'''\'\'\'Đã có trang {{{\'%s\'}}}.\'\'\'
+
+Vui lòng dùng tên khác.''',
 '''(including %(localwords)d %(pagelink)s)''':
 '''(bao gồm cả %(localwords)d %(pagelink)s)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
@@ -627,6 +621,10 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 '''Không có lỗi chính tả!''',
 '''You can\'t check spelling on a page you can\'t read.''':
 '''Bạn không thể kiểm tra lỗi chính tả trong một trang mà bạn không thể xem.''',
+'''Title Search: "%s"''':
+'''Tìm theo tiêu đề "%s"''',
+'''Full Text Search: "%s"''':
+'''Tìm nội dung: "%s"''',
 '''Full Link List for "%s"''':
 '''Danh sách liên kết đầy đủ trong "%s"''',
 '''Invalid include arguments "%s"!''':
@@ -653,14 +651,16 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 '''Tải lên file \'%(filename)s\'.''',
 '''Drawing \'%(filename)s\' saved.''':
 '''Bản vẽ \'%(filename)s\' đã được lưu.''',
-'''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
-'''[cách nay %(hours)d giờ %(mins)d phút]''',
+'''%(hours)dh %(mins)dm ago''':
+'''cách nay %(hours)d giờ %(mins)d phút''',
 '''(no bookmark set)''':
 '''(không có bookmark)''',
 '''(currently set to %s)''':
 '''(hiện tại đang là %s)''',
-'''Update my bookmark timestamp''':
-'''Cập nhập lại bookmark timestamp''',
+'''Delete Bookmark''':
+'''Xoá Bookmark''',
+'''Set bookmark''':
+'''Đưa vào bookmark''',
 '''set bookmark''':
 '''đưa vào bookmark''',
 '''[Bookmark reached]''':
@@ -699,6 +699,8 @@ cần phải đổi tên file bạn sắp tải lên. Mặc khác, nếu ô "Đ�
 '''XSLT không thể được thực hiện!''',
 '''%(errortype)s processing error''':
 '''lỗi xử lý %(errortype)s''',
+'''for this page (cached %(date)s)''':
+'''cho trang này (cached vào ngày %(date)s)''',
 '''Charts are not available!''':
 '''Biểu đồ không thể được thực hiện!''',
 '''%(chart_title)s for %(filterpage)s''':
@@ -721,26 +723,62 @@ red=edit''':
 '''Các thứ khác''',
 '''Distribution of User-Agent Types''':
 '''Thống kê theo User-Agent''',
-'''Click here to do a full-text search for this title''':
-'''Nhấn vào đây để thực hiện tìm kiếm theo nội dung''',
+'''Click to do a full-text search for this title''':
+'''Nhấn vào đây để thực hiện tìm kiếm theo nội dung với tiêu đề này''',
 '''Clear message''':
 '''Xoá thông báo''',
-'''ShowText''':
-'''Hiện nội dung''',
-'''of this page''':
-'''của trang này''',
+'''last edited %(time)s by %(editor)s''':
+'''thay đổi lần cuối lúc %(time)s bởi %(editor)s''',
+'''last modified %(time)s''':
+'''thay đổi cuối lúc %(time)s''',
+'''Search:''':
+'''Tìm:''',
+'''Text''':
+'''Nội dung''',
+'''Titles''':
+'''Tiêu đề''',
+'''Unsubscribe''':
+'''Huỷ đăng ký''',
+'''More Actions:''':
+'''Các hành động khác:''',
+'''Show Raw Text''':
+'''Hiện trang nguồn''',
+'''Show Print View''':
+'''Hiện bản in''',
+'''Attach File''':
+'''Gửi kèm tập tin''',
+'''Delete Page''':
+'''Xóa trang''',
+'''Show Like Pages''':
+'''Hiện các trang tương tự''',
+'''Show Local Site Map''':
+'''Hiện bản đồ liên kết''',
+'''Do''':
+'''Làm''',
+'''Show Parent''':
+'''Hiện trang trên''',
+'''Immutable Page''':
+'''Trang không thể được thay đổi''',
+'''Refresh''':
+'''Làm mới''',
+'''Show Changes''':
+'''Hiện các thay đổi''',
+'''Get Info''':
+'''Lấy thông tin''',
+'''Show %s days.''':
+'''Hiện %s ngày.''',
 '''EditText''':
 '''Sửa nội dung''',
 '''Immutable page''':
-'''Trang này không thể được thay đổi''',
-'''FindPage''':
-'''Tìm trang''',
-'''or search titles %(titlesearch)s, full text %(textsearch)s or''':
-'''hoặc tìm theo đầu đề %(titlesearch)s, tìm nội dung %(textsearch)s hoặc''',
+'''Trang không thể được thay đổi''',
 '''Or try one of these actions:''':
-'''Hoặc sử dụng các công cụ:''',
-'''Show all changes in the last %s days.''':
-'''Hiển thị tất cả các thay đổi trong %s ngày gần đây.''',
+'''Hoặc chọn các hành động sau:''',
+'''Page''':
+'''Trang''',
+'''Trail''':
+'''Vệt''',
+'''User''':
+'''Người dùng''',
 '''Line''':
 '''Dòng''',
 '''Deletions are marked like this.''':
@@ -751,6 +789,8 @@ red=edit''':
 '''Kết nối tới mailserver \'%(server)s\' bị ngắt quảng vì lý do: %(reason)s''',
 '''Mail sent OK''':
 '''Thư đã được gửi''',
+'''["<html>"]''':
+'''["<html>"]''',
 '''FrontPage''':
 '''Trang đầu''',
 '''RecentChanges''':
@@ -759,6 +799,8 @@ red=edit''':
 '''Tựa chỉ mục''',
 '''WordIndex''':
 '''Từ chỉ mục''',
+'''FindPage''':
+'''Tìm trang''',
 '''SiteNavigation''':
 '''SiteNavigation''',
 '''HelpContents''':
@@ -769,6 +811,8 @@ red=edit''':
 '''Sở thích cá nhân''',
 '''WikiLicense''':
 '''Wiki License''',
+'''MissingPage''':
+'''MissingPage''',
 '''Mon''':
 '''Thứ Hai''',
 '''Tue''':
@@ -783,4 +827,16 @@ red=edit''':
 '''Thứ Bảy''',
 '''Sun''':
 '''Chủ Nhật''',
+'''AttachFile''':
+'''AttachFile''',
+'''DeletePage''':
+'''DeletePage''',
+'''LikePages''':
+'''LikePages''',
+'''LocalSiteMap''':
+'''LocalSiteMap''',
+'''RenamePage''':
+'''RenamePage''',
+'''SpellCheck''':
+'''SpellCheck''',
 }

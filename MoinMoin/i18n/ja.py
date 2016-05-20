@@ -3,47 +3,37 @@
 # Automatically generated - DO NOT EDIT, edit ja.po instead!
 meta = {
   'language': 'Japanese',
+  'elanguage': 'Japanese',
   'maintainer': 'Fujio Nobori <toh@fuji-climb.org>',
   'encoding': 'utf-8',
   'direction': 'ltr',
+  'wikimarkup': True,
 }
 text = {
-'''(last edited %(time)s by %(editor)s)''':
-'''(最終更新日時 %(time)s 更新者 %(editor)s)''',
-'''(last modified %s)''':
-'''(最終更新日時 %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
 '''このページは"deprecated"であるため、検索結果には含まれません。''',
-'''Version as of %(date)s''':
-'''%(date)s時点のバージョン''',
+'''Revision %(rev)d as of %(date)s''':
+'''%(date)s時点のリビジョン%(rev)d''',
 '''Redirected from page "%(page)s"''':
 '''"%(page)s"からリダイレクトされました。''',
 '''This page redirects to page "%(page)s"''':
 '''このページは"%(page)s"にリダイレクトします。''',
-'''<p><small>If you submit this form, the submitted values will be displayed.
+'''~-If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-macro call.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+macro call.-~
 ''':
-'''<p><small>このフォームを提出すると、提出された値が表示されます。
-このフォームを別のページで使うには、
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-マクロを埋め込んでください。</small></p>
+'''~-このフォームをサブミットすると、サブミットされた値が表示されます。
+このフォームを別のページで利用するには、マクロ:
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+を埋め込んでください。-~
 ''',
 '''You are not allowed to view this page.''':
 '''このページを読む権限がありません。''',
 '''RefreshCache''':
 '''キャッシュの更新''',
-'''for this page (cached %(date)s)''':
-'''(キャッシュ作成日時 %(date)s)''',
-'''Create this page''':
-'''このページを作成''',
-'''Alternatively, use one of these templates:''':
-'''次のひな型を利用することもできます。''',
-'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
-'''オリジナルのひな型を作るには"%(page_template_regex)s"にマッチする名前のページを追加してください。''',
-'''The following pages with similar names already exist...''':
-'''似た名前のページ一覧:''',
+'''(cached %s)''':
+'''(キャッシュ作成日時 %s)''',
 '''You are not allowed to edit this page.''':
 '''このページを編集する権限がありません。''',
 '''Page is immutable!''':
@@ -51,7 +41,7 @@ macro call.</small></p>
 '''Cannot edit old revisions!''':
 '''古いリビジョンを編集することはできません。''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
-'''ファイルのロックが期限切れになりました。他のユーザが行った編集と衝突する可能性があります。''',
+'''ファイルのロックが期限切れになりました。他のユーザが行う編集と衝突する可能性があります。''',
 '''Edit "%(pagename)s"''':
 '''"%(pagename)s"を編集''',
 '''Preview of "%(pagename)s"''':
@@ -69,17 +59,19 @@ macro call.</small></p>
 '''Someone else saved this page while you were editing!
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.''':
-'''編集中に他のユーザがこのページを変更しました。このページはこのままの状態では保存しないでください。%(difflink)sにて変更された内容を確認し、問題を解決してから保存してください。''',
+'''編集中に他のユーザがこのページを変更しました。
+このページはこのままの状態では保存しないでください。
+%(difflink)sにて変更された内容を確認し、問題を解決してから保存してください。''',
 '''[Content of new page loaded from %s]''':
 '''[新しいページの内容が%sからロードされました]''',
 '''[Template %s not found]''':
-'''[ひな型%sが見つかりません]''',
+'''[テンプレート%sが見つかりません]''',
 '''[You may not read %s]''':
 '''[%sを読む権限がありません]''',
 '''Skip to preview''':
 '''プレビューへ移動''',
-'''[current page size <strong>%(size)d</strong> bytes]''':
-'''[現在のページサイズ: <strong>%(size)d</strong>バイト]''',
+'''[current page size \'\'\'%(size)d\'\'\' bytes]''':
+'''[現在のページサイズ: \'\'\'%(size)d\'\'\'バイト]''',
 '''Describe %s here.''':
 '''%sについてここに記述してください。''',
 '''Optional comment about this change''':
@@ -87,54 +79,33 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''<No addition>''':
 '''<追加無し>''',
 '''Make this page belong to category %(category)s''':
-'''このページを%(category)sに分類''',
+'''このページをカテゴリー「%(category)s」に分類''',
 '''Check Spelling''':
 '''スペルチェック''',
 '''Save Changes''':
 '''編集内容の保存''',
 '''Cancel''':
 '''キャンセル''',
-'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
-'''<strong>%(save_button_text)s</strong>をクリックすると%(license_link)sに編集内容が保存されます。編集をキャンセルする場合には<strong>%(cancel_button_text)s</strong>をクリックしてください。''',
+'''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
+If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
+'''\'\'\'%(save_button_text)s\'\'\'をクリックすると%(license_link)sに編集内容が保存されます。
+編集をキャンセルする場合には\'\'\'%(cancel_button_text)s\'\'\'をクリックしてください。''',
 '''Preview''':
 '''プレビュー''',
-'''Send mail notification''':
-'''メールで通知''',
+'''Trivial change''':
+'''ささいな変更''',
 '''Remove trailing whitespace from each line''':
 '''行末の空白を削除''',
-'''<dt>Emphasis:</dt>
-<dd>\'\'<em>italics</em>\'\'; \'\'\'<strong>bold</strong>\'\'\'; \'\'\'\'\'<strong><em>bold italics</em></strong>\'\'\'\'\';
-    \'\'<em>mixed \'\'\'<strong>bold</strong>\'\'\' and italics</em>\'\'; ---- horizontal rule.</dd>
-<dt>Headings:</dt>
-<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.</dd>
-<dt>Lists:</dt>
-<dd>space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.</dd>
-<dt>Links:</dt>
-<dd>JoinCapitalizedWords; ["brackets and double quotes"];
-    url; [url]; [url label].</dd>
-<dt>Tables:</dt>
-<dd>|| cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.</dd>
-''':
-'''<dt>強調:</dt>
-<dd>\'\'<em>イタリック体</em>\'\'; \'\'\'<strong>ボールド体</strong>\'\'\'; \'\'\'\'\'<strong><em>ボールドイタリック体</em></strong>\'\'\'\'\';
-    \'\'<em>\'\'\'<strong>ボールド体</strong>\'\'\'とイタリック体</em>の混合\'\'; ---- 水平線</dd>
-<dt>表題:</dt>
-<dd>= 表題1 =; == 表題2 ==; === 表題3 ===;
-    ==== 表題4 ====; ===== 表題5 =====</dd>
-<dt>リスト:</dt>
-<dd>" "に続けて「"* "」でビュレット、「"1. ", "a. ", "A. ", "i. ", "I. "」のいずれかで番号付きアイテム;
-    「"1.#n "」でnから番号付け; " "のみでインデント</dd>
-<dt>リンク:</dt>
-<dd>JoinCapitalizedWords; ["大括弧とダブルクォート"];
-    url; [url]; [url ラベル]</dd>
-<dt>表:</dt>
-<dd>|| セルのテキスト |||| 2列にわたるセルのテキスト ||;
-    表や表題の後に空白を入力しないでください</dd>
-''',
+''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
+ Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
+ Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
+ Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim(["brackets and double quotes"])]]; url; [url]; [url label].
+ Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
+''' 強調:: [[Verbatim(\'\')]]\'\'イタリック\'\'[[Verbatim(\'\')]]、[[Verbatim(\'\'\')]]\'\'\'ボールド\'\'\'[[Verbatim(\'\'\')]]、[[Verbatim(\'\'\'\'\')]]\'\'\'\'\'ボールドイタリック\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]、[[Verbatim(\'\')]]\'\'混合 \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'ボールド\'\'\'[[Verbatim(\'\'\')]]とイタリック\'\'[[Verbatim(\'\')]]、[[Verbatim(----)]] 水平線。
+ 表題:: [[Verbatim(=)]] タイトル1 [[Verbatim(=)]]、[[Verbatim(==)]] タイトル2 [[Verbatim(==)]]、[[Verbatim(===)]] タイトル3 [[Verbatim(===)]]、[[Verbatim(====)]] タイトル4 [[Verbatim(====)]]、[[Verbatim(=====)]] タイトル5 [[Verbatim(=====)]]。
+ リスト:: 半角スペースに続けて: * ビュレット、1., a., A., i., I. 番号付アイテム、1.#n nから番号開始、半角スペースのみでインデント。
+ リンク:: [[Verbatim(JoinCapitalizedWords)]]、[[Verbatim(["大括弧と二重引用符"])]]; url; [url]; [url ラベル]。
+ 表:: || セルテキスト |||| 2列にわたるセルテキスト ||、表やタイトルのあとには空白を入力しないでください。''',
 '''Edit was cancelled.''':
 '''編集はキャンセルされました。''',
 '''Dear Wiki user,
@@ -162,20 +133,22 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
+'''New page:
+''':
+'''新しいページ:
+''',
 '''No differences found!
 ''':
 '''違いは見つかりませんでした。
 ''',
-'''The diff function returned with error code %(rc)s!''':
-'''diffが異常終了しました。エラーコード: %(rc)s''',
-'''You will not be notified of your own changes!''':
-'''自分で行った変更は通知されません。''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
+'''[%(sitename)s] "%(pagename)s"の%(trivial)s更新''',
+'''Trivial ''':
+'''ささいな''',
 '''Status of sending notification mails:''':
 '''メール通知のステータス:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
-'''Nobody subscribed to this page, no mail sent.''':
-'''このページを購読しているユーザはいないので、メールでの通知は行われませんでした。''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''"%(pagename)s"のバックアップが%(date)sに作成されました。''',
 '''You are not allowed to edit this page!''':
@@ -183,20 +156,27 @@ The following page has been changed by %(editor)s:
 '''You cannot save empty pages.''':
 '''空のページは保存できません。''',
 '''Sorry, someone else saved the page while you edited it.
-<p>Please do the following: Use the back button of your browser, and cut&paste
+
+Please do the following: Use the back button of your browser, and cut&paste
 your changes from there. Then go forward to here, and click EditText again.
-Now re-add your changes to the current page contents.</p>
-<p><em>Do not just replace
+Now re-add your changes to the current page contents.
+
+\'\'Do not just replace
 the content editbox with your version of the page, because that would
-delete the changes of the other person, which is excessively rude!</em></p>
+delete the changes of the other person, which is excessively rude!\'\'
 ''':
 '''編集中に他のユーザがページを変更しました。
-<p>次の手順で対所してください。
-<ul><li>ブラウザの「戻る」ボタンを使って編集ページに戻る</li><li>編集した箇所をカットする</li><li>ブラウザの「進む」ボタンでこのページにりEditTextをクリックする</li><li>現在のページにあらためて編集を行う</li></ul><p><em>絶対にこのままの状態で保存しないでください。
-他のユーザが行った変更が消えてしまいます。</em></b>
+
+次の手順で対所してください。
+ブラウザの「戻る」ボタンを使って編集ページに戻る
+そのページから、編集した箇所をカット&ペーストする
+ブラウザの「進む」ボタンでこのページに進み、編集をクリックする
+表示されたページにて、あらためて編集を行う
+
+他のユーザが行った変更が消えてしまいますので、絶対にこのままの状態で保存しないでください。
 ''',
-'''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
-'''この変更に対するバックアップは<a href="%(backup_url)s">こちら</a>です。''',
+'''A backup of your changes is [%(backup_url)s here].''':
+'''この変更に対するバックアップは[%(backup_url)s こちら]です。''',
 '''You did not change the page content, not saved!''':
 '''このページに対する変更は行われませんでした。''',
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
@@ -205,23 +185,23 @@ delete the changes of the other person, which is excessively rude!</em></p>
 '''ページが更新されました。Thank you!''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
 '''このページに対する%(owner)sのロックは%(mins_ago)dに期限切れになりました。現在、あなたがこのページをロックしています。''',
-'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
-'''他のユーザは%(bumptime)sまで<em>このページを編集することはできません</em>。''',
-'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
-'''他のユーザは%(bumptime)sまであなたがこのページを編集していると<em>警告されます</em>。''',
+'''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
+'''他のユーザは%(bumptime)sまでこのページを編集することはできません。''',
+'''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
+'''他のユーザは%(bumptime)sまであなたがこのページを編集していると警告されます。''',
 '''Use the Preview button to extend the locking period.''':
 '''ロックの期限を延長するには、プレビューボタンをクリックしてください。''',
-'''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''このページは%(timestamp)sまで(あと%(mins_valid)d分)%(owner)sによって<em>ロックされれている</em>ため、編集できません。''',
-'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
-<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
-to avoid editing conflicts.</strong><br>
+'''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''このページは%(timestamp)sまで(あと%(mins_valid)d分)%(owner)sによってロックされれているため、編集できません。''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
+\'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
-'''このページは%(timestamp)sに%(owner)sによって編集が開始されています。<br>
-<strong class="highlight">編集の衝突を避けるため、あと%(mins_valid)d分は<em>編集を行わないでください</em>。</strong><br>
+'''このページは%(timestamp)sに%(owner)sによって編集が開始された、またはプレビューされました。[[BR]]
+\'\'\'編集の衝突を避けるため、あと%(mins_valid)d分は\'\'編集を行わないでください。\'\'\'\'\'[[BR]]
 キャンセルボタンで編集を中断できます。''',
 '''<unknown>''':
-'''<unknown>''',
+'''<不明>''',
 '''Diffs''':
 '''差分''',
 '''Info''':
@@ -240,20 +220,33 @@ To leave the editor, press the Cancel button.''':
 '''印刷''',
 '''View''':
 '''見る''',
-'''Home''':
-'''ホーム''',
 '''Up''':
 '''上へ''',
-'''Unknown action''':
-'''未定義のアクション''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''{{{\'%s\'}}}は、不正なユーザ名です。
+ユーザ名には、すべてのUnicode英数文字(単語の間に1個のスペースを入れることも可)が使用できます。グループ名を利用することはできません。''',
+'''You are not allowed to do %s on this page.''':
+'''このページを%sする権限がありません。''',
+'''Login''':
+'''ログイン''',
+''' %s and try again.''':
+'''%sして、もう一度試してみてください。''',
 '''Can\'t work out query''':
-'''問い合わせの形式が間違っています。''',
+'''問い合わせを行うことができません。''',
+'''%(hits)d results out of %(pages)d pages.''':
+'''%(pages)dページ中%(hits)d箇所一致しました。''',
+'''%.2f seconds''':
+'''%.2f秒''',
+'''match''':
+'''箇所一致''',
+'''matches''':
+'''箇所一致''',
 '''Open editor on double click''':
 '''ダブルクリックでエディタを開く''',
 '''Remember last page visited''':
 '''最後に訪れたページを記憶する''',
-'''Show emoticons''':
-'''emoticonを表示する''',
 '''Show fancy links''':
 '''リンクを飾り付きで表示する''',
 '''Show question mark for non-existing pagelinks''':
@@ -268,38 +261,46 @@ To leave the editor, press the Cancel button.''':
 '''差分を飾り付きで表示する''',
 '''Add spaces to displayed wiki names''':
 '''wiki nameを空白付きで表示する''',
-'''Remember login information forever''':
+'''Remember login information''':
 '''ログインの情報を保持''',
+'''Subscribe to trivial changes''':
+'''ささいな変更の通知も受ける''',
 '''Disable this account forever''':
 '''このアカウントを無効にする''',
 '''Cookie deleted. You are now logged out.''':
 '''クッキーが削除されました。ログアウト完了。''',
-'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''このwikiではメールが利用できません。管理者に問い合わせてください。''',
+'''This wiki is not enabled for mail processing.
+Contact the owner of the wiki, who can enable email.''':
+'''このwikiではメールが利用できません。
+管理者に問い合わせてください。''',
 '''Please provide a valid email address!''':
 '''正しいメールアドレスを入力してください。''',
 '''Found no account matching the given email address \'%(email)s\'!''':
-'''メールアドレス"\'%(email)s\'"に該当するアカウントが見つかりません。''',
-'''Unknown user name or password.''':
-'''ユーザ名またはパスワードが違います。''',
-'''Please enter a user name!''':
-'''ユーザ名を入力してください。''',
-'''User name already exists!''':
-'''指定されたユーザ名はすでに存在します。''',
+'''メールアドレス\'%(email)s\'に該当するアカウントが見つかりません。''',
+'''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
+'''{{{"%s"}}}は不正なユーザ名です。正しいユーザ名を入力してください。''',
+'''Missing password. Please enter user name and password.''':
+'''パスワードが入力されていません。ユーザ名とパスワードを入力してください。''',
+'''Sorry, wrong password.''':
+'''不正なパスワードです。''',
+'''Bad relogin URL.''':
+'''再ログインのURLが不正です。''',
+'''Unknown user.''':
+'''不正なユーザ名です。''',
+'''Empty user name. Please enter a user name.''':
+'''ユーザ名が入力されていません。ユーザ名を入力してください。''',
+'''This user name already belongs to somebody else.''':
+'''このユーザ名はすでに利用されています。''',
 '''Passwords don\'t match!''':
 '''パスワードが一致していません。''',
 '''Please specify a password!''':
 '''パスワードを入力してください。''',
-'''Please enter your name like that: FirstnameLastname''':
-'''名前は"FirstnameLastname"のように入力してください。''',
-'''You must not use a group name as your user name.''':
-'''グループ名をユーザ名として指定することはできません。''',
-'''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
+'''Please provide your email address. If you loose your login information, you can get it by email.''':
 '''メールアドレスを入力してください。ログイン情報を忘れてしまった際、メールにてお知らせするために必要となります。''',
-'''This user name already belongs to somebody else.''':
-'''このユーザ名はすでに利用されています。''',
 '''This email already belongs to somebody else.''':
 '''このメールアドレスはすでに利用されています。''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''テーマ\'%(theme_name)s\'を読み込めませんでした。''',
 '''User preferences saved!''':
 '''User preferencesを保存しました。''',
 '''Default''':
@@ -310,8 +311,6 @@ To leave the editor, press the Cancel button.''':
 '''保存''',
 '''Logout''':
 '''ログアウト''',
-'''Login''':
-'''ログイン''',
 '''Create Profile''':
 '''プロファイル作成''',
 '''Mail me my account data''':
@@ -353,33 +352,17 @@ To leave the editor, press the Cancel button.''':
 '''This list does not work, unless you have entered a valid email address!''':
 '''このリストは、有効なメールアドレスを入力しなければ利用できません。''',
 '''Subscribed wiki pages (one regex per line)''':
-'''購読中のwikiページ<br>(1行あたりひとつの正規表現)''',
-'''Action''':
-'''アクション''',
-'''Please use a more selective search term instead of \'%(needle)s\'!''':
-'''検索キーワード"(%(needle)s"が適切ではありません。他のキーワードでやり直してください。''',
-'''Full text search for "%s"''':
-'''"%s" の全文検索結果''',
-'''match''':
-'''箇所一致''',
-'''matches''':
-'''箇所一致''',
-'''Title search for "%s"''':
-'''"%s"のタイトル検索結果''',
-'''%(hits)d hits out of %(pages)d pages searched.''':
-'''%(pages)dページ中%(hits)d箇所一致しました。''',
-'''Needed %(timer).1f seconds.''':
-'''検索所要時間: %(timer).1f秒''',
+'''購読中のwikiページ[[BR]](1行あたりひとつの正規表現)''',
 '''No older revisions available!''':
 '''古いリビジョンはありません。''',
 '''Diff for "%s"''':
 '''"%s"の差分''',
-'''Differences between versions dated %s and %s''':
-'''%sと%sのバージョン間の差分''',
+'''Differences between revisions %d and %d''':
+'''%dと%dのリビジョン間の差分''',
 '''(spanning %d versions)''':
 '''(その間の編集: %d回)''',
 '''No differences found!''':
-'''違いが見つかりませんでした。''',
+'''差分は見つかりませんでした。''',
 '''The page was saved %(count)d times, though!''':
 '''その間の保存: %(count)d回''',
 '''Ignore changes in the amount of whitespace''':
@@ -391,11 +374,9 @@ To leave the editor, press the Cancel button.''':
 '''SHA digest of this page\'s content is:''':
 '''このページのSHAダイジェスト:''',
 '''The following users subscribed to this page:''':
-'''このページを購読中のユーザ:''',
+'''次のユーザがこのページを購読しています:''',
 '''This page links to the following pages:''':
 '''このページは以下のページへリンクしています:''',
-'''Revision History''':
-'''更新履歴''',
 '''Date''':
 '''日付''',
 '''Size''':
@@ -406,6 +387,10 @@ To leave the editor, press the Cancel button.''':
 '''編集者''',
 '''Comment''':
 '''コメント''',
+'''Action''':
+'''アクション''',
+'''(edit log entry is missing)''':
+'''(編集ログがありません)''',
 '''view''':
 '''見る''',
 '''raw''':
@@ -414,10 +399,14 @@ To leave the editor, press the Cancel button.''':
 '''印刷''',
 '''revert''':
 '''前のバージョンに戻す''',
-'''Revert to version dated %(datestamp)s.''':
-'''%(datestamp)sのバージョンに戻す''',
+'''Revert to revision %(rev)d.''':
+'''%(rev)dのリビジョンに戻す''',
 '''N/A''':
 '''該当せず''',
+'''Revision History''':
+'''更新履歴''',
+'''No log entries found.''':
+'''ログ中に記録がありません。''',
 '''Info for "%s"''':
 '''"%s"の情報''',
 '''Show "%(title)s"''':
@@ -430,30 +419,36 @@ To leave the editor, press the Cancel button.''':
 '''ページの参照と更新''',
 '''You are not allowed to revert this page!''':
 '''このページを前のバージョンに戻す権限がありません。''',
-'''An error occurred while reverting the page.''':
-'''前のバージョンに戻せませんでした。''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
 '''読む権限がないページを購読することはできません。''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''このwikiではメールが利用できません。メールを利用できるようにするか、"購読"アイコンを無効にするよう、管理者に問い合わせてください。''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
 '''ユーザプロファイルをまだ作成していません。右上のUserPreferencesをクリックし、プロファイルを作成してください。''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''プロファイルにメールアドレスが存在しません。UserPreferencesのページにてメールアドレスを登録してください。''',
-'''You are already subscribed to this page.''':
-'''既にこのページを購読中です。''',
+'''Your subscribtion to this page has been removed.''':
+'''このページの購読を停止しました。''',
+'''Can\'t remove regular expression subscription!''':
+'''正規表現で記述した購読を停止することはできません。''',
 '''To unsubscribe, go to your profile and delete this page from the subscription list.''':
-'''購読を中止するには、UserPreferencesのページにて購読リストからこのページを削除してください。''',
+'''購読を停止するには、UserPreferencesのページにて、購読リストからこのページを削除してください。''',
 '''You have been subscribed to this page.''':
 '''このページの購読を開始しました。''',
 '''Required attribute "%(attrname)s" missing''':
 '''必須項目"%(attrname)s"を入力してください。''',
 '''Submitted form data:''':
-'''提出されたフォームデータ:''',
+'''サブミットされたフォームデータ:''',
+'''Search Titles''':
+'''タイトル検索''',
 '''Display context of search results''':
 '''検索結果のコンテキストを表示''',
 '''Case-sensitive searching''':
 '''大文字/小文字を区別して検索''',
-'''Go''':
-'''検索''',
+'''Search Text''':
+'''テキスト検索''',
+'''Go To Page''':
+'''ページに行く''',
 '''Include system pages''':
 '''システムページを含める''',
 '''Exclude system pages''':
@@ -474,8 +469,6 @@ To leave the editor, press the Cancel button.''':
 '''ページ数''',
 '''Number of system pages''':
 '''システムページ数''',
-'''Number of backup versions''':
-'''バックアップバージョン数''',
 '''Accumulated page sizes''':
 '''ページサイズの合計''',
 '''Entries in edit log''':
@@ -492,8 +485,12 @@ To leave the editor, press the Cancel button.''':
 '''グローバル拡張アクション''',
 '''Local extension actions''':
 '''ローカル拡張アクション''',
-'''Installed processors''':
-'''プロセッサ''',
+'''Installed parsers''':
+'''インストールされているパーサ''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''インストールされているプロセッサ(現在はパーサの利用を推奨)''',
+'''Please use a more selective search term instead of {{{"%s"}}}''':
+'''検索キーワード{{{"%s"}}}が適切ではありません。他のキーワードでやり直してください。''',
 '''ERROR in regex \'%s\'''':
 '''正規表現\'%s\'に誤りがあります。''',
 '''Bad timestamp \'%s\'''':
@@ -514,11 +511,12 @@ To leave the editor, press the Cancel button.''':
 ''' 添付ファイル名が指定されていません。''',
 '''Attachment \'%(filename)s\' does not exist!''':
 '''添付するファイル\'%(filename)s\'は存在しません。''',
-'''<p>To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, 
+'''To refer to attachments on a page, use \'\'\'{{{attachment:filename}}}\'\'\', 
 as shown below in the list of files. 
-Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, 
-since this is subject to change and can break easily.</p>''':
-'''添付ファイルを参照するには、(下のファイル一覧にあるように)"<strong><tt>attachment:filename</tt></strong>"と記述します。''',
+Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
+since this is subject to change and can break easily.''':
+'''添付ファイルを参照するには、(下のファイル一覧にあるように)\'\'\'{{{attachment:filename}}}\'\'\'と記述します。
+{{{[get]}}}リンクのURLは変更される可能性が高いので、利用しないでください。''',
 '''del''':
 '''削除''',
 '''get''':
@@ -538,11 +536,11 @@ since this is subject to change and can break easily.</p>''':
 '''An upload will never overwrite an existing file. If there is a name
 conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.''':
-'''アップロードでは既存のファイルを上書きしません。同じファイル名が存在する場合には、アップロードするファイルの名前を変更してください。"名前を変更"が空白の場合、オリジナルのファイル名が使われます。''',
+'''アップロードでは既存のファイルを上書きしません。同じファイル名が存在する場合には、アップロードするファイルの名前を変更してください。"名前の変更"が空白の場合、オリジナルのファイル名が使われます。''',
 '''File to upload''':
 '''アップロードするファイル''',
 '''MIME Type (optional)''':
-'''MIMEタイプ (任意)''',
+'''MIMEタイプ (省略可)''',
 '''Save as''':
 '''ファイル名を指定して保存''',
 '''Upload''':
@@ -551,6 +549,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''このwikiではファイルの添付はできません。''',
 '''You are not allowed to save a drawing on this page.''':
 '''drawingを保存する権限がありません。''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''ファイルの中身がありません。ファイル名からASCII以外の文字を削除して、もう一度試してください。''',
 '''You are not allowed to delete attachments on this page.''':
 '''添付ファイルを削除する権限がありません。''',
 '''You are not allowed to get attachments from this page.''':
@@ -566,11 +566,11 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Attachment \'%(target)s\' (remote name \'%(filename)s\') with %(bytes)d bytes saved.''':
 '''添付ファイル\'%(target)s\'(サーバでのファイル名\'%(filename)s\'、%(bytes)d)を保存しました。''',
 '''Attachment \'%(filename)s\' deleted.''':
-'''添付ファイル\'%(filename)s\'を削除。''',
+'''添付ファイル\'%(filename)s\'を削除しました。''',
 '''Attachment \'%(filename)s\'''':
 '''添付ファイル \'%(filename)s\'''',
 '''Unknown file type, cannot display this attachment inline.''':
-'''ファイルタイプが不明なため、添付ファイルを表示できません。''',
+'''ファイルタイプが不明なため、添付ファイルをインラインで表示できません。''',
 '''attachment:%(filename)s of %(pagename)s''':
 '''%(pagename)sの添付ファイル:%(filename)s''',
 '''You are not allowed to delete this page.''':
@@ -587,32 +587,31 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''削除''',
 '''Optional reason for the deletion''':
 '''削除についてのコメント(省略可)''',
-'''No pages match "%s"!''':
-'''"%s"に一致するページはありません。''',
-'''Exactly one matching page for "%s" found!''':
-'''"%s"に一致するページがひとつ見つかりました。''',
-'''Multiple matches for "%s...%s"''':
-'''"%s...%s"に一致する箇所が複数見つかりました。''',
-'''You cannot use LikePages on an extended pagename!''':
-'''拡張ページ名では、LikePagesを利用できません。''',
+'''No pages like "%s"!''':
+'''"%s"のようなページはありません。''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''"%s"のようなページがひとつ見つかりました。リダイレクトします。''',
+'''Pages like "%s"''':
+'''"%s"のようなページ''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
-'''%(matchcount)d %(matches)s for "%(title)s"''',
+'''"%(title)s"において%(matchcount)d %(matches)s''',
 '''Local Site Map for "%s"''':
 '''"%s"のローカルサイトマップ''',
 '''You are not allowed to rename pages in this wiki!''':
 '''ページ名を変更する権限がありません。''',
 '''Please use the interactive user interface to rename pages!''':
 '''対話的なユーザインターフェースからページ名を変更してください。''',
-'''A page with the name "%s" already exists!''':
-'''ページ名"%s"のページがすでに存在します。''',
-'''Page "%s" was successfully renamed to "%s"!''':
-'''ページ"%s"の名前を"%s"に変更しました。''',
 '''Rename''':
 '''名前の変更''',
 '''New name''':
 '''新しい名前''',
 '''Optional reason for the renaming''':
 '''名前の変更についてのコメント(省略可)''',
+'''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
+
+Try a different name.''':
+'''ページ名{{{\'%s\'}}}のページがすでに存在します。
+違う名前を利用してください。''',
 '''(including %(localwords)d %(pagelink)s)''':
 '''%(localwords)d語の%(pagelink)sを含む)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
@@ -623,6 +622,10 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''スペルの誤りは見つかりませんでした。''',
 '''You can\'t check spelling on a page you can\'t read.''':
 '''読む権限がないページのスペルチェックはできません。''',
+'''Title Search: "%s"''':
+'''タイトル検索: "%s"''',
+'''Full Text Search: "%s"''':
+'''全文検索: "%s"''',
 '''Full Link List for "%s"''':
 '''"%s"の全リンクリスト''',
 '''Invalid include arguments "%s"!''':
@@ -646,21 +649,19 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''No quotes on %(pagename)s.''':
 '''%(pagename)sにquoteはありません。''',
 '''Upload of attachment \'%(filename)s\'.''':
-'''添付ファイル\'%(filename)s\'をアップロード。''',
+'''添付ファイル\'%(filename)s\'をアップロードしました。''',
 '''Drawing \'%(filename)s\' saved.''':
-'''drawing \'%(filename)s\'を保存。''',
-'''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
-'''[%(hours)d時間&nbsp;%(mins)d分&nbsp;前]''',
+'''drawing \'%(filename)s\'を保存しました。''',
+'''%(hours)dh %(mins)dm ago''':
+'''[%(hours)d時間%(mins)d分前]''',
 '''(no bookmark set)''':
-'''(ブックマークなし)''',
+'''(ブックマーク未設定)''',
 '''(currently set to %s)''':
-'''(%sにセットされています)''',
+'''(現在%sにセットされています)''',
 '''Delete Bookmark''':
 '''ブックマークを削除''',
-'''Really delete bookmark?''':
-'''ブックマークを本当に削除しますか？''',
-'''Update my bookmark timestamp''':
-'''ブックマークのタイムスタンプを更新''',
+'''Set bookmark''':
+'''ブックマークをセット''',
 '''set bookmark''':
 '''ブックマークをセット''',
 '''[Bookmark reached]''':
@@ -699,6 +700,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''XSLT processingは利用できません。''',
 '''%(errortype)s processing error''':
 '''processingエラー: %(errortype)s''',
+'''for this page (cached %(date)s)''':
+'''(キャッシュ作成日時 %(date)s)''',
 '''Charts are not available!''':
 '''チャートは利用できません。''',
 '''%(chart_title)s for %(filterpage)s''':
@@ -721,38 +724,64 @@ red=edit''':
 '''その他''',
 '''Distribution of User-Agent Types''':
 '''User-Agentタイプの分布''',
-'''Click here to do a full-text search for this title''':
+'''Click to do a full-text search for this title''':
 '''このタイトルで全文検索するには、ここをクリックして下さい''',
 '''Clear message''':
 '''メッセージを消去''',
-'''ShowText''':
-'''テキストを表示''',
-'''of this page''':
-''' ''',
+'''last edited %(time)s by %(editor)s''':
+'''(最終更新日時 %(time)s 更新者 %(editor)s)''',
+'''last modified %(time)s''':
+'''(最終更新日時 %(time)s)''',
+'''Search:''':
+'''検索:''',
+'''Text''':
+'''テキスト''',
+'''Titles''':
+'''タイトル''',
+'''Unsubscribe''':
+'''購読中止''',
+'''More Actions:''':
+'''その他のアクション:''',
+'''Show Raw Text''':
+'''テキストの表示''',
+'''Show Print View''':
+'''印刷ビューの表示''',
+'''Attach File''':
+'''ファイルの添付''',
+'''Rename Page''':
+'''ページ名の変更''',
+'''Delete Page''':
+'''ページの削除''',
+'''Show Like Pages''':
+'''似たページの表示''',
+'''Show Local Site Map''':
+'''ローカルサイトマップの表示''',
+'''Do''':
+'''実行''',
+'''Show Parent''':
+'''親の表示''',
+'''Immutable Page''':
+'''編集不可のページ''',
+'''Refresh''':
+'''キャッシュの更新''',
+'''Show Changes''':
+'''変更内容の表示''',
+'''Get Info''':
+'''情報の取得''',
+'''Show %s days.''':
+'''%s日表示''',
 '''EditText''':
-'''テキストを編集''',
+'''テキストの編集''',
 '''Immutable page''':
 '''編集不可のページ''',
-'''FindPage''':
-'''ページを検索''',
-'''or search titles %(titlesearch)s, full text %(textsearch)s or''':
-'''タイトル検索%(titlesearch)s 全文検索%(textsearch)s''',
 '''Or try one of these actions:''':
 '''アクション一覧:''',
-'''Show all changes in the last %s days.''':
-'''%s日以内の変更をすべて表示''',
-'''User''':
-'''ユーザ''',
-'''Site''':
-'''サイト''',
 '''Page''':
 '''ページ''',
-'''Search''':
-'''検索''',
-'''Title: %(titlesearch)s<br/>Text: %(textsearch)s''':
-'''タイトル: %(titlesearch)s<br/>テキスト: %(textsearch)s''',
-'''Actions''':
-'''アクション''',
+'''Trail''':
+'''訪れたページの履歴''',
+'''User''':
+'''ユーザ''',
 '''Line''':
 '''行''',
 '''Deletions are marked like this.''':
@@ -763,6 +792,8 @@ red=edit''':
 '''メールサーバ\'%(server)s\'への接続に失敗しました(理由: %(reason)s)。''',
 '''Mail sent OK''':
 '''メール送信完了。''',
+'''["<html>"]''':
+'''["<html>"]''',
 '''FrontPage''':
 '''フロントページ''',
 '''RecentChanges''':
@@ -771,6 +802,8 @@ red=edit''':
 '''タイトルインデックス''',
 '''WordIndex''':
 '''ワードインデックス''',
+'''FindPage''':
+'''ページ検索''',
 '''SiteNavigation''':
 '''サイトナビ''',
 '''HelpContents''':
@@ -778,9 +811,11 @@ red=edit''':
 '''HelpOnFormatting''':
 '''書式のヘルプ''',
 '''UserPreferences''':
-'''プレファレンス''',
+'''ユーザプレファレンス''',
 '''WikiLicense''':
 '''Wikiライセンス''',
+'''MissingPage''':
+'''見つからないページ''',
 '''Mon''':
 '''月''',
 '''Tue''':
@@ -795,4 +830,16 @@ red=edit''':
 '''土''',
 '''Sun''':
 '''日''',
+'''AttachFile''':
+'''添付ファイル''',
+'''DeletePage''':
+'''ページ削除''',
+'''LikePages''':
+'''似たページ''',
+'''LocalSiteMap''':
+'''ローカルサイトマップ''',
+'''RenamePage''':
+'''ページ名変更''',
+'''SpellCheck''':
+'''スペルチェック''',
 }

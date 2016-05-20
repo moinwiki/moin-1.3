@@ -30,11 +30,11 @@ def parseParameters(parameters, arglist):
         lowercase form. `arglist` is expected to contain them in lowercase
         form also.
     """
-    import shlex, cStringIO
+    import shlex, StringIO
     # XXX FIXME we need _ here!
     QUOTES = "\"'"
     DIGITS = "0123456789"
-    parser = shlex.shlex(cStringIO.StringIO(parameters))
+    parser = shlex.shlex(StringIO.StringIO(parameters))
     parser.commenters = ''
     msg = None
     pos = 0 # if this gets -1, positional params are OFF

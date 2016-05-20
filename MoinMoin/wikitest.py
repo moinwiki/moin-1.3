@@ -17,7 +17,7 @@ def runTest(request):
     # Note that importing here makes a difference, namely the request
     # object is already created
     import os, sys, xml
-    from MoinMoin import config, version
+    from MoinMoin import version
     from MoinMoin.logfile import editlog, eventlog
 
     request.write('Release %s\n' % version.release)
@@ -36,10 +36,9 @@ def runTest(request):
 
     # check directories
     request.write("Checking directories...\n")
-    dirs = [('data', config.data_dir),
-            ('text', config.text_dir),
-            ('user', config.user_dir),
-            ('backup', config.backup_dir)]
+    dirs = [('data', request.cfg.data_dir),
+            ('user', request.cfg.user_dir),
+           ]
     for name, path in dirs:
         if not os.path.isdir(path):
             request.write("*** %s directory NOT FOUND (set to '%s')\n" % (name, path))
@@ -50,12 +49,12 @@ def runTest(request):
             request.write("    %s directory tests OK (set to '%s')\n" % (name, path))
 
     # check eventlog access
-    log = eventlog.EventLog()
+    log = eventlog.EventLog(request)
     msg = log.sanityCheck()
     if msg: request.write("*** %s\n" % msg)
 
     # check editlog access
-    log = editlog.EditLog()
+    log = editlog.EditLog(request)
     msg = log.sanityCheck()
     if msg: request.write("*** %s\n" % msg)
 

@@ -1,0 +1,38 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language fr
+== Créer une nouvelle page ==
+
+Pour créer une page, ajoutez son NomWiki à une page existante et sauvez-la. Après cette manipulation, vous pouvez suivre le lien créé.
+
+Vous arriverez alors sur votre nouvelle page que vous pouvez éditer comme n'importe quelle page. Après la première sauvegarde, la page sera automatiquement créée. Normalement[[FootNote(Mais cela peut être changé par l'administrateur)]], une page ne peut être effacée. Soyez sûr du NomWiki choisi.
+
+Pour des détails sur comment créer et utiliser des sous-pages, voyez ["AideDeL'Édition/SousPages"].
+
+== Créer et utiliser des modèles de page ==
+
+Pour créer un modèle, suivez la description ci-dessus et créez une page avec un nom terminant par "'''Template'''"[[FootNote(Si l'administrateur a changé les réglages par défaut, les règles peuvent être différentes.)]]]. Cette page sera alors ajoutée à la liste des modèles proposés lorsque l'on crée une page qui n'existe pas. Par exemple PageVraimentInexistante a un lien vers HelpTemplate qui charge le contenu de HelpTemplate dans une boîte d'édition quand vous cliquez sur ce lien.
+
+== Substitution de variables lors de la sauvegarde d'une page ==
+
+[[Anchor(variablesubstitution)]]
+Les variables suivantes seront substituées quand une page est sauvée. <!> Elles apparaîssent telles quelles dans la prévisualisation !
+
+|| @''''''PAGE@     || Nom de la page (utile pour les modèles) ||
+|| @''''''DATE@     || Date courante dans le format du système ||
+|| @''''''TIME@     || Date et heure courante dans le format de l'utilisateur ||
+|| @''''''USERNAME@ || Nom de l'utilisateur (ou son domaine, ou son IP) ||
+|| @''''''USER@     || Signature "-- loginname" ||
+|| @''''''SIG@      || Signature datée "-- loginname date heure" ||
+|| @''''''MAILTO@   || Un lien avec l'email de l'utilisateur ||
+
+La sauvegarde d'un modèle et la prévisualisation ne provoque pas la substituion des variables. Dans les autres cas, la substitution peut se dérouler n'importe où dans la page, y compris dans les listings, les commentaires, les instructions de traitement et tout autre endroit que vous ne pouvez pas imaginer.
+
+= Copie de sauvegarde =
+
+Si l'utilisateur a une page personnelle[[Footnote(Cela signifie que vous êtes enregsitré sous un nom qui est également le nom d'une page wiki existante.)]] indiquée par l'icône [[Icon(home)]], une copie du texte édité ou prévisualisé est effectuée comme une sous page `Nom``De``La``Page``Perso/Moin``Editor``Backup` (si les sous-pages sont autorisées) ou comme `Nom``De``La``Page``Perso``Moin``Editor``Backup (dans le cas inverse).
+
+If the user has a homepage[[FootNote(Having a homepage means you're logged in under a name that is also the name of an existing wiki page.)]] indicated by the [[Icon(home)]] icon, a backup of save/preview text is saved either as subpage `Home``Page``Name/Moin``Editor``Backup` (if subpages are allowed) or as page `Home``Page``Name``Moin``Editor``Backup` (if subpages are not allowed).
+
+Ainsi, pensez à prévisualiser souvent les changements pour les sauvegarder.

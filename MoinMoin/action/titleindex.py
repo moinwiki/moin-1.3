@@ -22,22 +22,21 @@ def execute(pagename, request):
     else:
         mimetype = "text/plain"
 
-    request.http_headers(["Content-Type: " + mimetype])
+    request.http_headers(["Content-Type: %s; charset=%s" % (mimetype, config.charset)])
 
-    pages = list(wikiutil.getPageList(config.text_dir))
+    # Get list of user readable pages
+    pages = request.rootpage.getPageList()
     pages.sort()
 
-    pages = filter(request.user.may.read, pages)
-
     if mimetype == "text/xml":
-        request.write('<?xml version="1.0" encoding="%s"?>' % (config.charset,))
-        request.write('<TitleIndex>')
+        request.write('<?xml version="1.0" encoding="%s"?>\r\n' % (config.charset,))
+        request.write('<TitleIndex>\r\n')
         for name in pages:
-            request.write('  <Title>%s</Title>' % (util.TranslateCDATA(name),))
-        request.write('</TitleIndex>')
+            request.write('  <Title>%s</Title>\r\n' % (util.TranslateCDATA(name),))
+        request.write('</TitleIndex>\r\n')
     else:
         for name in pages:
-            request.write(name+'\n')
+            request.write(name+'\r\n')
 
     raise util.MoinMoinNoFooter
 

@@ -1,0 +1,164 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language sv
+##master-page:HelpMiscellaneous_2fFrequentlyAskedQuestions
+##master-date:2002-03-15 10:00:52
+##translated-by:Karolina Lindqvist, Shakti Wiki
+'''Innehåll'''
+[[TableOfContents]]
+
+== "Vad är en Wiki?" frågor ==
+=== Vad är en ''Wiki''? ===
+
+Ordet ''Wiki'' är en förkortad form av ordet Wiki''''''Wiki''''''Webb.  En Wiki är en databas med sidor som en grupp människor kan redigera med en vanlig webbläsare.
+
+=== Vad är ''MoinMoin''? ===
+
+En Moin''''''Moin är en wiki som drivs av pythonwikiprogrammet vid namn Moin''''''Moin.
+
+=== Vad är den bra för? ===
+
+I ärlighetens namn är den bra för vad helst man använder den till. På
+[http://www.lineo.com/ Lineo] finns en wiki på en intern webbplats med
+väldigt många sidor som beskriver olika projekt, arkitekturer, idéer etc. 
+för människor att kommentera på. En del sidor finns där bara för att ge information. Andra sidor är öppna inviter för diskussioner och kommentarer. Det finns också en wiki för en mycket enkel databas.
+
+Generellt sett är en wiki väldigt mycket ett friform-verktyg som får värde från vad den används till. Till exempel, en wikisida kan utföra uppgiften av att hålla en tråd i en diskussion. Du kan också använda en wikisida för att koordinera ett projekt.
+
+Wikier används internt av de som skriver [http://www.zope.org/ Zope] för att samordna deras idéer och projekt.
+
+=== Vad är de viktigaste egenskaperna hos en Wiki? ===
+
+Här är några viktiga egenskaper hos en wiki:
+	* Alla med en webbläsare kan skapa och ändra wikisidor
+	* ändringar kan ses omedelbart
+	* lätt att söka bland sidor (på olika sätt)
+	* mycket enkelt att lägga till nya sidor
+	* lätt att se ändringshistorik för ett dokument
+	* lika lätt att skapa ny information som att ändra gammal
+
+=== Hur är wiki för grupparbete jämfört med andra system, som Lotus Notes? ===
+En Wiki kan åstadkomma saker mycket enkelt, men det är vissa saker som den inte kan göra. Den största skillnaden är brist på åtkomstkontroll, där bara vissa grupper kan se och ändra information.
+
+=== Hur är Wikiers säkerhet? Är inte en Wiki känslig för att förlora sin information genom sabotage eller ligism? ===
+
+Det här är en viktig fråga. Generellt sätt har en wiki '''INGET''' säkerhetsskydd. (Det är riktigt!) Beroende på detta finns alltid risken för medveten förstörelse eller att informationen i en wiki kan förloras eller korrumperas av misstag.
+
+Det finns två sätt att angripa en wiki. Det ena är genom att radera information, den andra är att korrumpera informationen. Att hantera raderad information är inte så svårt, då det finns en loggbok över vilka förändringar som är gjorda i wikin såväl som säkerhetskopior av gammalt innehåll sparade på en oåtkomlig plats. Således kan sidor enkelt återställas om de har raderats eller förändrats.
+
+Explicit och avsiktlig korruption är svårare att hantera. Möjligheten finns alltid att någon matar in inkorrekt information på en sida eller avsiktligt ändrar sidor så att information är felaktig eller missvisande. Ett exempel är att det går att göra så att det ser ut så att en viss person gav en viss information eller kommentar, eller att ändra meningen på något som har skrivits så att innehållet blir missvisande. I princip har alla grupp-system detta problem. En wiki är bara mer öppen för det, eftersom det saknas säkerhetsskydd. I praktiken är avsiktlig korrumption av information något extremt sällsynt och det kan alltid hanteras (om nödvändigt) med funktionen att allt nytt material kan automatiskt bifogas till en granskare.
+
+Med andra ord, filosofin hos en wiki är att man måste hantera manuellt med det sällsynta problemet av en sabotör, snarare än att bygga in funktioner och den extra nödvändiga omkostnaden (både i implementation och användning) för att undvika skadan som en sabotör kan åstadkomma.
+
+== Frågor om användandet av denna Wiki ==
+=== Att hitta och få åtkomst till information i wikin ===
+==== Hur kan jag söka i wikin? ====
+Det finn redan flera vägar att söka och/eller bläddra i wikin än man först kan tnka sig.:
+ * Klicka på förstoringsglassymbolen. Detta tar dig till SökSida sidan, där du kan söka för ett ord i en titel eller söka igenom hela texten, antingen efter ett ord, eller med jokertecken (reguljära uttryck).
+ * Klicka på TitelRegister. Detta ger en lisa på alla sidor alfabetiskt sorterade på sidtiteln.
+ * Klicka på [[GetText(WordIndex)]]. Detta ger en alfabetiskt sorterad lista på alla ord som finns i sidtitlar. (Exempel, en sida med namn Blå``Tand är listad både under B / Blå såväl som under T / Tand).
+ * Klicka på {{{LiknandeSidor}}} i sidfoten. Detta visar sidor som liknande ord i sina titlar som den aktuella sidan.
+ * Klicka på sidans title i sidhuvudet. Detta visar alla sidor som länkar till den här sidan (vilket kan hjälpa att hitta relaterade sidor).
+
+==== Hur kan jag se vad som är nyligen ändrat på wikin? ====
+Klicka på länken [[GetText(LatestChanges)]] högst upp på sidan.
+
+==== Vad är dessa UnderligaRödaLänkar som jag finner överallt? ====
+Ett sammansatt namn med blandade versaler och gemena som inte har någon sida, visas som en röd länk.
+
+=== Att lägga till ny information till wikin ===
+
+==== Hur lägger jag till ny information, eller ändrar något som är felaktigt? ====
+
+Om du ser någonting som du vill kommentera på, addera på eller ändra, klicka bara på {{{RedigeraText}}}-länken längst ner på sidan eller klicka på [[Icon(edit)]]-ikonen högst upp på sidan. Då kommer sideditorn upp med sidan och du kan enkelt göra ändringar. Wiki-formateraren vill oftast göra "den rätta saken" med texten du matar in. Om du vill göra något snofsigt tillåter wikimärkspråket att du kan göra den mesta formatering som HTML tillåter dig att göra. Se HjälpMedFormatering för några tips och för exempel.
+
+==== Finns det några konventionen jag ska följa när jag lägger till information? ====
+Nej, inte många. Det hjälper att hålla olika typer av information formaterad på ett liknande sätt. En viktig konvention som hjälper dig att vara följdriktig är användandet av "Mall"-sidor.
+Wikin har en funktion som kallas "Mallar" vilken dyker upp när du skapar en ny sida. Om du klickar på någon av dem, när du skapar sidan, kommer sidan att ha en struktur liknande till den sparad i mallen. Till exempel, när du skapar en egen Wiki-hemsida kan du använda HemsideMall''''''en, som finns tillgänglig när du skapar en ny sida på wikin.
+
+==== Hur kan jag inkludera icke-text information till Wikin? ====
+Om en det önskade innehållet redan finns på en webbsida kan du lägga till en länk till en wikisida genom att följa följande steg:
+ * Hämta URLen (webbadressen) för ett dokument
+ * Redigera Wiki-sidan (gå till Wiki-sidan och klicka Redigera''''''Text-länken)
+ * Skriv in URL-en där för dokumentet
+ * Spara ändringarna
+Detta skapar automatisk en hyperlänk till webbsidan i den text som du matar in.
+
+Du kan göra denna internetlänk snyggare genom sätta länken tillsammans med ett alternativt länknamn inom hakparenteser. Då kommer det alternativa namnet att visas och vara klickbar istället för internetadressen (URLen). Här är några exempel:
+{{{
+  [http://din.länk.här/foo.html Detta är länkens text]
+}}}
+visar sig som:
+[http://din.länk.här/foo.html Detta är länkens text]
+
+==== Hur lägger jag till bilder till en sida? ====
+Du kan inkludera en webbadress (URL) pekande på en bild, i sin sida. Exempel:
+{{{
+http://c2.com/sig/inter/wikibase.gif
+}}}
+visar sig som
+http://c2.com/sig/inter/wikibase.gif
+
+==== Att lägga till dokument i en IntraNet ====
+Om du använder MoinMoin på ett IntraNet kan det vara användbart att skapa länkar till dokument, som är tillgängliga överallt, på din wiki. Till exempel:
+{{{[file://servernamn/full/path/till/filen/filnamn.typ Klicka här för att läsa filnamn.typ]}}}
+Du kan också länka till filnamn med mellanrum i filnamnet genom att separat använda URL-koden för mellanrum ({{{%20}}}):
+{{{
+[file://servernamn/full/path/till/fil/filnamn%20med%20mellanslag.txt Klicka här för att läsa filnamn med mellanrum.txt]}}}
+
+Ett annat uppenbart och kanske bättre sätt är att använda {{{AttachFile}}}-åtgärden som kom med version 0.11.
+
+==== Ska jag ''signera'' mina ändringar? ====
+Om de är signifikanta eller om du vill att andra ska veta att du har gjort dem, så är svaret ja.
+Skriv bara en epost-adress efter din kommentar. Det är inte ovanligt att göra ett indrag på din kommentar relativt det du kommenterar. Ibland hjälper det också att göra kommentaren i ''kursiv'' stil för att göra den mer synlig relativt det du kommenterar.
+
+Emellertid är det i vissa fall lämpligt att göra ändringar anonymt. Att korrigera stavfel, formateringsfel eller triviala ordförändringar är sådant som det inte är nödvändigt, eller kanske inte ens önskvärt, att signera ändringen.
+
+=== Att lägga till dokument med annat format till wikin ===
+==== Kan jag lägga till HTML-dokument till wikin? ====
+Om du vill lägga in en enstaka rad med HTML-kod, använd HTML-makrot. Detta gör du genom att skriva din HTML-text som en parameter till HTML-makrot. Exempel:
+{{{[[HTML(<font size=+12>Detta är ett stort typsnitt</font>)]]}}}
+
+Detta visar sig som
+[[HTML(<font size=+12>Detta är ett stort typsnitt</font>)]]
+
+Det är också möjligt att ha en hel sida i HTML-format genom att sätta
+{{{#format html}}}
+som allra första rad i sidan. Om den raden är där så kommer hela sidan att tolkas som HTML (vilket samtidigt gör länkar till andra sidor lite svåra att tyda!)
+Om du gör det, försäkra dig om att du bara lägger in huvuddelen av HTML-sidan och inte HTML-huvuden eller något annat utanför detta, inkluderat <BODY>-taggen själv.
+ /!\ Detta fungerar endast om HTML-funktionen (HTML makro och parser) är installerad på wikin.
+
+== Installation och anpassning ==
+ (!) se HjälpMedAdministration för generell hjälp om detta
+
+=== Varför fungerar inte "diff"-funktionen? ===
+Diffar behöver två saker för att fungerar korrekt:
+ * Filkatalogen "''datadir''{{{/backup}}}" måste existera i installationen.
+ * Programmet GNU diff måste finnas på systemet och i web-serverns `PATH`-variabel. Observera att `PATH:en` som webb-servern använder kan vara kortare än den du får i "shell":en
+
+=== Hur aktiverar jag "RaderaSida"-tillägget? ===
+{{{"RaderaSida"}}} är inte påslagen som wiki levereras. Detta eftersom den mestadels använder i intranät och att den är något farlig i öppna wikier. För att tillåta detta och andra farliga åtgärder, lägg till dem i anpassningens {{{wikiconfig.py}}}: {{{
+allowed_actions=['DeletePage']
+}}}
+
+== Administrering av Wikin ==
+=== Hur administrerar jag wikin? ===
+Det finns en mängd administrationsinformation på [[GetText(LatestChanges)]]-sidan, inklusive antalet sidor och de olika makros och åtgärder som är installerade.
+
+Jag sätter vanligtvis upp en "Administratörs''''''Sida", där jag placerar olika makros för administration, jämte information om var sidorna är lokaliserade, samt annat som en administration bör känna till eller har användning för.
+
+=== Kan jag återställa en sida från en gammal version? ===
+Nej, inte direkt. Det är enkelt att göra det (om du har tillåtelse för att komma åt dessa filer på systemet som wikin finns på). Men normalt måste du be wiki-administratören att återställa sidan åt dig. Detta är en liten säkerhetsspärr emot de som vill sabotera på wikin.
+
+För de som läser dessa ofta ställda frågor (FAQ) (vilket förhoppningsvis inte är den normala sabotören), finns det ett sätt att återställa en sida.
+ 1. klicka på det lilla "i" i över högra hörnet ({{{PageInfo}}}).
+ 1. klicka på "view" för den version som du vill återställa
+ 1. byt ut "action=recall" mot "action=raw" i "Platsverktygsraden" på din webbläsare.
+ 1. Klipp&klistra in texten i editor-boxen för den sidan, efter att ha klickat '''[[GetText(EditText)]]'''.
+
+=== Har skapar jag en ny Mall-sida? ===
+Mallar är sidor som dyker upp automatiskt som tillval när du skapar en ny sida. Alla sidor som har namn som slutar på Mall kommer automatiskt up på denna lista. Därför, om du har speciella typer av sidor med ett speciellt format (liknande sidhuvuden, organisationer etc.) så definierar du bara en sida som har ett namn som slutar med Mall och när du skapar sidor av den här typen, välj den mallen och redigera från den.
+Wikin fyller i initialinnehållet på din nya sida för dig. Mallar är redigerbara som vilken wiki-sida som helst.
+
+För att skapa en Mall-sida, skapa bara en ny sida som heter <någonting>Mall (på engelskspråkiga system <någonting>Template).

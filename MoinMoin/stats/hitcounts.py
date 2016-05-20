@@ -10,38 +10,46 @@
 
 _debug = 0
 
-from MoinMoin import config, caching
+from MoinMoin import caching, config, wikiutil
 from MoinMoin.Page import Page
 from MoinMoin.util import MoinMoinNoFooter, datetime
 from MoinMoin.logfile import eventlog
 from MoinMoin.formatter.text_html import Formatter
 
+
 def linkto(pagename, request, params=''):
+    from MoinMoin.util import web
     _ = request.getText
 
-    if not config.chart_options:
+    if not request.cfg.chart_options:
         request.formatter = Formatter(request)
-        return request.formatter.sysmsg(_('Charts are not available!'))
+        return (request.formatter.sysmsg(1) +
+                request.formatter.text(_('Charts are not available!')) +
+                request.formatter.sysmsg(0))
 
     if _debug:
         return draw(pagename, request)
 
-    page = Page(pagename)
-    result = []
-    if params:
-        params = '&amp;' + params
-    data = {
-        'url': page.url(request, "action=chart&amp;type=hitcounts" + params),
-    }
-    data.update(config.chart_options)
-    result.append('<img src="%(url)s" border="0" width="%(width)d" height="%(height)d">' % data)
+    page = Page(request, pagename)
 
-    return ''.join(result)
+    # Create escaped query string from dict and params
+    querystr = {'action': 'chart', 'type': 'hitcounts'}
+    querystr = web.makeQueryString(querystr)
+    querystr = wikiutil.escape(querystr)
+    if params:
+        querystr += '&amp;' + params
+    
+    # TODO: remove escape=0 in 1.4
+    data = {'url': page.url(request, querystr, escape=0)}
+    data.update(request.cfg.chart_options)
+    result = ('<img src="%(url)s" width="%(width)d" height="%(height)d"'
+              ' alt="hitcounts chart">') % data
+
+    return result
 
 
 def draw(pagename, request):
     import shutil, cStringIO
-    from MoinMoin import config, wikiutil
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     _ = request.getText
@@ -54,11 +62,13 @@ def draw(pagename, request):
 
     # get results from cache
     if filterpage:
-        key = 'hitcounts-' + wikiutil.quoteFilename(filterpage)
+        arena = Page(request, pagename)
+        key = 'hitcounts'
     else:
+        arena = 'charts'
         key = 'hitcounts'
     
-    cache = caching.CacheEntry('charts', key)
+    cache = caching.CacheEntry(request, arena, key)
     if cache.exists():
         try:
             cache_date, cache_days, cache_views, cache_edits = eval(cache.content())
@@ -69,7 +79,7 @@ def draw(pagename, request):
         cache_days, cache_views, cache_edits = [], [], []
         cache_date = 0
 
-    logfile = eventlog.EventLog()
+    logfile = eventlog.EventLog(request)
     logfile.set_filter(['VIEWPAGE', 'SAVEPAGE'])
     new_date = logfile.date()
 
@@ -84,10 +94,11 @@ def draw(pagename, request):
 
         if event[0] <=  cache_date:
             break
-        
-        if filterpage and event[2].get('pagename','') != filterpage:
+        # XXX Bug: event[2].get('pagename') -> u'Aktuelle%C4nderungen' 8(
+        eventpage = event[2].get('pagename','')
+        if filterpage and eventpage != filterpage:
             continue
-        time_tuple = request.user.getTime(event[0])
+        time_tuple = request.user.getTime(wikiutil.version2timestamp(event[0]))
         day = tuple(time_tuple[0:3])
         if day != ratchet_day:
             # new day
@@ -98,11 +109,11 @@ def draw(pagename, request):
                 days.append(request.user.getFormattedDate(ratchet_time))
                 views.append(0)
                 edits.append(0)
-            days.append(request.user.getFormattedDate(event[0]))
+            days.append(request.user.getFormattedDate(wikiutil.version2timestamp(event[0])))
             views.append(0)
             edits.append(0)
             ratchet_day = day
-            ratchet_time = event[0]
+            ratchet_time = wikiutil.version2timestamp(event[0])
         if event[1] == 'VIEWPAGE':
             views[-1] = views[-1] + 1
         elif event[1] == 'SAVEPAGE':
@@ -136,7 +147,7 @@ def draw(pagename, request):
     
     try:
         scalefactor = float(max(views))/max(edits)
-    except ZeroDivisionError:
+    except (ZeroDivisionError, ValueError):
         scalefactor = 1.0
     else:
         scalefactor = int(10 ** math.floor(math.log10(scalefactor)))
@@ -150,15 +161,15 @@ def draw(pagename, request):
     c.addData(ChartData(views, color='green'))
     c.addData(ChartData(edits, color='red'))
     chart_title = ''
-    if config.sitename: chart_title = "%s: " % config.sitename
+    if request.cfg.sitename: chart_title = "%s: " % request.cfg.sitename
     chart_title = chart_title + _('Page hits and edits')
     if filterpage: chart_title = _("%(chart_title)s for %(filterpage)s") % {
         'chart_title': chart_title, 'filterpage': filterpage}
     chart_title = "%s\n%sx%d" % (chart_title, _("green=view\nred=edit"), scalefactor)
     c.option(
-        title = chart_title,
-        xtitle = _('date') + ' (Server)',
-        ytitle = _('# of hits'),
+        title = chart_title.encode('iso-8859-1', 'replace'), # gdchart can't do utf-8
+        xtitle = (_('date') + ' (Server)').encode('iso-8859-1', 'replace'),
+        ytitle = _('# of hits').encode('iso-8859-1', 'replace'),
         title_font = c.GDC_GIANT,
         #thumblabel = 'THUMB', thumbnail = 1, thumbval = 10,
         #ytitle_color = Color('green'),
@@ -172,7 +183,7 @@ def draw(pagename, request):
         stack_type = c.GDC_STACK_BESIDE
     )
     c.draw(c.GDC_LINE,
-        (config.chart_options['width'], config.chart_options['height']),
+        (request.cfg.chart_options['width'], request.cfg.chart_options['height']),
         image, days)
 
     # send HTTP headers

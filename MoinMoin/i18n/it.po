@@ -4,37 +4,30 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: MoinMoin 1.2\n"
+"Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-04 22:09+0200\n"
-"PO-Revision-Date: 2004-02-09 22:09+0100\n"
+"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"PO-Revision-Date: 2004-11-21 22:09+0100\n"
 "Last-Translator: gian paolo ciceri <gp.ciceri@acm.org>\n"
 "Language-Team: Italian <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
 "X-Language: Italiano\n"
 "X-Language-in-English: Italian\n"
-
-#, python-format
-msgid "(last edited %(time)s by %(editor)s)"
-msgstr "(l'ultima modifica Ë del %(time)s, fatta da %(editor)s)"
-
-#, python-format
-msgid "(last modified %s)"
-msgstr "(modificata l'ultima volta il %s)"
+"X-HasWikiMarkup: True\n"
 
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
 "search results!"
 msgstr ""
-"La copia di backup di questa pagina Ë deprecata e pertanto non verr‡ inclusa "
+"La copia di backup di questa pagina √® deprecata e pertanto non verr√† inclusa "
 "nella ricerca!"
 
 #, python-format
-msgid "Version as of %(date)s"
-msgstr "Versione del %(date)s"
+msgid "Revision %(rev)d as of %(date)s"
+msgstr "Versione %(rev)d del %(date)s"
 
 #, python-format
 msgid "Redirected from page \"%(page)s\""
@@ -42,15 +35,14 @@ msgstr "Redirezione dalla pagina \"%(page)s\""
 
 #, python-format
 msgid "This page redirects to page \"%(page)s\""
-msgstr "Questa pagina Ë rediretta alla pagina \"%(page)s\""
+msgstr "Questa pagina √® rediretta alla pagina \"%(page)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
-"<p><small>If you submit this form, the submitted values will be displayed.\n"
+"~-If you submit this form, the submitted values will be displayed.\n"
 "To use this form on other pages, insert a\n"
-"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
-"strong><br><br>\n"
-"macro call.</small></p>\n"
+"[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
+"macro call.-~\n"
 msgstr ""
 "<p><small>Se confermi questa maschera, ne verranno visualizzati i dati.\n"
 "Per usare questa maschera su altre pagine, inserisci una chiamata alla "
@@ -59,49 +51,27 @@ msgstr ""
 "b><br><br>\n"
 ".</b></small></p>\n"
 
-#, fuzzy
 msgid "You are not allowed to view this page."
-msgstr "<b>Non sei autorizzato a leggere questa pagina.</b>"
+msgstr "Non sei autorizzato a leggere questa pagina."
 
 msgid "RefreshCache"
 msgstr "AggiornaCache"
 
-#, fuzzy, python-format
-msgid "for this page (cached %(date)s)"
-msgstr " per questa pagina (memorizzata il %(date)s)"
-
-msgid "Create this page"
-msgstr "Crea questa pagina"
-
-msgid "Alternatively, use one of these templates:"
-msgstr "In alternativa, puoi utilizzare uno di questi modelli:"
-
 #, python-format
-msgid ""
-"To create your own templates, add a page with a name matching the regex \"%"
-"(page_template_regex)s\"."
-msgstr ""
-"Per creare i tuoi modelli, aggiungi una pagina con il nome che corrisponda "
-"alla regex \"%(page_template_regex)s\"."
+msgid "(cached %s)"
+msgstr "(%s in cache)"
 
-#, fuzzy
-msgid "The following pages with similar names already exist..."
-msgstr "<p>Esistono gi‡, con un nome simile, le seguenti pagine...</p>"
-
-#, fuzzy
 msgid "You are not allowed to edit this page."
-msgstr "<b>Non ti Ë consentito di modificare questa pagina.</b>"
+msgstr "Non ti √® consentito di modificare questa pagina."
 
-#, fuzzy
 msgid "Page is immutable!"
-msgstr "<b>La pagina non Ë modificabile!</b>"
+msgstr "La pagina non √® modificabile!"
 
-#, fuzzy
 msgid "Cannot edit old revisions!"
-msgstr "<b>Non Ë permesso modificare le versioni precedenti!</b>"
+msgstr "Non √® permesso modificare le versioni precedenti!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
-msgstr "Il lock che detenevi Ë spirato, preparati per conflitti di modifiche!"
+msgstr "Il lock che detenevi √® spirato, preparati per conflitti di modifiche!"
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -111,19 +81,19 @@ msgstr "Modifica \"%(pagename)s\""
 msgid "Preview of \"%(pagename)s\""
 msgstr "Anteprima di \"%(pagename)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Your edit lock on %(lock_page)s has expired!"
-msgstr "Il tuo veto alle modifiche su %(lock_page)s Ë scaduto!"
+msgstr "Il tuo veto alle modifiche su %(lock_page)s √® scaduto!"
 
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # minutes."
 msgstr ""
-"Il blocco alle modifiche sulla pagina %(lock_page)s verr‡ tolto in # minuti."
+"Il blocco alle modifiche sulla pagina %(lock_page)s verr√† tolto in # minuti."
 
 #, python-format
 msgid "Your edit lock on %(lock_page)s will expire in # seconds."
 msgstr ""
-"Il blocco alle modifiche sulla pagina %(lock_page)s verr‡ tolto in # secondi."
+"Il blocco alle modifiche sulla pagina %(lock_page)s verr√† tolto in # secondi."
 
 msgid "Someone else deleted this page while you were editing!"
 msgstr "Qualcun altro ha rimosso la pagina mentre la stavi modificando"
@@ -138,8 +108,8 @@ msgid ""
 "Have a look at the diff of %(difflink)s to see what has been changed."
 msgstr ""
 "Qualcun altro ha salvato la pagina mentre la stavi modificandoPer favore, "
-"rivedi la pagina e salvala. Non salvarla cosÏ come Ë!\n"
-"Dai un'occhiata alle diff in %(difflink)s per vedere cosa Ë cambiato."
+"rivedi la pagina e salvala. Non salvarla cos√¨ come √®\n"
+"Dai un'occhiata alle diff in %(difflink)s per vedere cosa √® cambiato."
 
 #, python-format
 msgid "[Content of new page loaded from %s]"
@@ -147,18 +117,18 @@ msgstr "[Contenuto della nuova pagina caricato da %s]"
 
 #, python-format
 msgid "[Template %s not found]"
-msgstr "[Il modello %s non Ë stato trovato]"
+msgstr "[Il modello %s non √® stato trovato]"
 
 #, python-format
 msgid "[You may not read %s]"
-msgstr ""
+msgstr "[Potresti non aver letto %s]"
 
 msgid "Skip to preview"
 msgstr "Salta all'anteprima"
 
-#, fuzzy, python-format
-msgid "[current page size <strong>%(size)d</strong> bytes]"
-msgstr "&nbsp;&nbsp; [dimensione attuale: <b>%(size)d</b> byte]"
+#, python-format
+msgid "[current page size '''%(size)d''' bytes]"
+msgstr "[dimensione attuale:'''%(size)d''' byte]"
 
 #, python-format
 msgid "Describe %s here."
@@ -185,68 +155,62 @@ msgstr "Annulla"
 
 #, python-format
 msgid ""
-"By hitting <strong>%(save_button_text)s</strong> you put your changes under "
-"the %(license_link)s.\n"
-"If you don't want that, hit <strong>%(cancel_button_text)s</strong> to "
-"cancel your changes."
+"By hitting '''%(save_button_text)s''' you put your changes under the %"
+"(license_link)s.\n"
+"If you don't want that, hit '''%(cancel_button_text)s''' to cancel your "
+"changes."
 msgstr ""
-"Dando il comando <strong>%(save_button_text)s</strong> tu rilasci le tue "
-"modifiche sotto la %(license_link)s.\n"
-"Se non vuoi questo, premi <strong>%(cancel_button_text)s</strong> per "
-"cancellare le tue modifiche."
+"Dando il comando '''%(save_button_text)s''' tu rilasci le tue modifiche "
+"sotto la %(license_link)s.\n"
+"Se non vuoi questo, premi '''%(cancel_button_text)s''' per cancellare le tue "
+"modifiche."
 
 msgid "Preview"
 msgstr "Anteprima"
 
-msgid "Send mail notification"
-msgstr "Invia una mail di notifica"
+msgid "Trivial change"
+msgstr "Cambiamento banale"
 
 msgid "Remove trailing whitespace from each line"
 msgstr "Rimuovi gli spazi in fondo a ogni riga di testo"
 
-#, fuzzy
 msgid ""
-"<dt>Emphasis:</dt>\n"
-"<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
-"italics</em></strong>''''';\n"
-"    ''<em>mixed '''<strong>bold</strong>''' and italics</em>''; ---- "
-"horizontal rule.</dd>\n"
-"<dt>Headings:</dt>\n"
-"<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;\n"
-"    ==== Title 4 ====; ===== Title 5 =====.</dd>\n"
-"<dt>Lists:</dt>\n"
-"<dd>space and one of * bullets; 1., a., A., i., I. numbered items;\n"
-"    1.#n start numbering at n; space alone indents.</dd>\n"
-"<dt>Links:</dt>\n"
-"<dd>JoinCapitalizedWords; [\"brackets and double quotes\"];\n"
-"    url; [url]; [url label].</dd>\n"
-"<dt>Tables:</dt>\n"
-"<dd>|| cell text |||| cell text spanning two columns ||;\n"
-"    no trailing white space allowed after tables or titles.</dd>\n"
+" Emphasis:: [[Verbatim('')]]''italics''[[Verbatim('')]]; [[Verbatim"
+"(''')]]'''bold'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''bold "
+"italics'''''[[Verbatim(''''')]]; [[Verbatim('')]]''mixed ''[[Verbatim"
+"(''')]]'''''bold'''[[Verbatim(''')]] and italics''[[Verbatim('')]]; "
+"[[Verbatim(----)]] horizontal rule.\n"
+" Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title "
+"2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim"
+"(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim"
+"(=====)]].\n"
+" Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1."
+"#n start numbering at n; space alone indents.\n"
+" Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim([\"brackets and "
+"double quotes\"])]]; url; [url]; [url label].\n"
+" Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing "
+"white space allowed after tables or titles."
 msgstr ""
-"<hr>\n"
-"<font face=\"Verdana\" size=\"-1\">\n"
-"<b>Enfasi:</b> ''<i>italico</i>''; '''<b>grassetto</b>'''; "
-"'''''<b><i>italico grassetto</i></b>''''';\n"
-"    ''<i>insieme '''<b>grassetto</b>''' e italico</i>''; ---- linea "
-"orizzontale.<br>\n"
-"<b>Intestazioni:</b> = Titolo 1 =; == Titolo 2 ==; === Titolo 3 ===;\n"
-"    ==== Titolo 4 ====; ===== Titolo 5 =====.<br>\n"
-"<b>Liste:</b> spazio e un carattere \"*\"; 1., a., A., i., I. per elementi "
-"numerati;\n"
-"    1.#n inizia la numerazione da \"n\"; spazio da solo indenta.<br>\n"
-"<b>Collegamenti:</b> ParoleConLettereMaiuscole; [\"parentesi quadre e doppie "
-"virgolette\"];\n"
-"    URL; [URL]; [Descrizione URL].<br>\n"
-"<b>Tabelle</b>: || cella di testo |||| cella su due colonne ||;\n"
-"    non sono consentiti spazi dopo la tabella o il titolo.<br>\n"
-"</font>\n"
-"<hr>\n"
+" Enfasi:: [[Verbatim('')]]''italico''[[Verbatim('')]]; [[Verbatim"
+"(''')]]'''grassetto'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''grassetto "
+"corsivo'''''[[Verbatim(''''')]]; [[Verbatim('')]]''misto ''[[Verbatim"
+"(''')]]'''''grassetto'''[[Verbatim(''')]] e corsivo''[[Verbatim('')]]; "
+"[[Verbatim(----)]] linea orizzontale.\n"
+" Intestazioni:: [[Verbatim(=)]] Titolo 1 [[Verbatim(=)]]; [[Verbatim(==)]] "
+"Titolo 2 [[Verbatim(==)]]; [[Verbatim(===)]] Titolo 3 [[Verbatim(===)]];   "
+"[[Verbatim(====)]] Titolo 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Titolo 5 "
+"[[Verbatim(=====)]].\n"
+" Liste:: spazio e uno di: * bullets; 1., a., A., i., I. per elementi "
+"numerati; 1.#n inizia la numerazione da n; lo spazio da solo indenta.\n"
+" Collegamenti:: [[Verbatim(ParoleConLettereMaiuscole)]]; [[Verbatim"
+"([\"parentesi quadre e doppie virgolette\"])]]; url; [url]; [url label].\n"
+" Tabelle:: || cela di testo |||| cella su due colonne ||;    non sono "
+"consentiti spazi dopo la tabella o il titolo."
 
 msgid "Edit was cancelled."
 msgstr "Le modifiche sono state annullate."
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Dear Wiki user,\n"
 "\n"
@@ -260,10 +224,10 @@ msgstr ""
 "Caro utente Wiki,\n"
 "ti sei abbonato alla notifica in caso di modifiche a una pagina o a una\n"
 "categoria sul sito Wiki \"%(sitename)s\".\n"
-"%(editor)s ha modificato la pagina\n"
+"Le pagine seguenti sono state moduiificate da %(editor)s:\n"
 "%(pagelink)s\n"
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The comment on the change is:\n"
 "%(comment)s\n"
@@ -272,29 +236,18 @@ msgstr ""
 "Descrizione delle modifiche:\n"
 "%(comment)s\n"
 
-#, fuzzy
 msgid "New page:\n"
-msgstr "Nome"
+msgstr "Nuova pagina:\n"
 
 msgid "No differences found!\n"
 msgstr "Non ho riscontrato nessuna differenza!\n"
 
-#, fuzzy, python-format
-msgid "The diff function returned with error code %(rc)s!"
-msgstr "Il programma `diff' ha ritornato un codice di errore: %(rc)s!"
-
-#, fuzzy, python-format
+#, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
-msgstr "[%(sitename)s] La pagina \"%(pagename)s\" Ë stata aggiornata"
+msgstr "[%(sitename)s] %(trivial)sCambiamenti della \"%(pagename)s\""
 
 msgid "Trivial "
-msgstr ""
-
-#, fuzzy
-msgid "You will not be notified of your own changes!"
-msgstr ""
-"<p><b>Visto che le modifiche le hai fatte tu, non ti &egrave; stata spedita "
-"la notifica via e-mail!</b></p>"
+msgstr "Banale "
 
 msgid "Status of sending notification mails:"
 msgstr "Risultato della spedizione delle email di notifica:"
@@ -303,120 +256,110 @@ msgstr "Risultato della spedizione delle email di notifica:"
 msgid "[%(lang)s] %(recipients)s: %(status)s"
 msgstr "[%(lang)s] %(recipients)s: %(status)s"
 
-msgid "Nobody subscribed to this page, no mail sent."
-msgstr "Nessuno risulta abbonato a questa pagina, non spedisco alcuna mail."
-
-#, fuzzy, python-format
+#, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
-msgstr "## backup della pagina \"%(pagename)s\" del %(date)s\n"
+msgstr "## backup della pagina \"%(pagename)s\" inviato %(date)s"
 
-#, fuzzy
 msgid "You are not allowed to edit this page!"
-msgstr "Non sei autorizzato a ripristinare questa pagina!"
+msgstr "Non sei autorizzato a modificare questa pagina!"
 
-#, fuzzy
 msgid "You cannot save empty pages."
-msgstr "<b>Non puoi salvare pagine vuote.</b>"
+msgstr "Non puoi salvare pagine vuote."
 
-#, fuzzy
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
-"<p>Please do the following: Use the back button of your browser, and "
-"cut&paste\n"
+"\n"
+"Please do the following: Use the back button of your browser, and cut&paste\n"
 "your changes from there. Then go forward to here, and click EditText again.\n"
-"Now re-add your changes to the current page contents.</p>\n"
-"<p><em>Do not just replace\n"
+"Now re-add your changes to the current page contents.\n"
+"\n"
+"''Do not just replace\n"
 "the content editbox with your version of the page, because that would\n"
-"delete the changes of the other person, which is excessively rude!</em></p>\n"
+"delete the changes of the other person, which is excessively rude!''\n"
 msgstr ""
-"Mi dispiace, ma qualcun altro ha salvato la pagina mentre la stavi\n"
-"modificando tu. Dovresti tornare alla pagina precedende e copiarti il\n"
+"Mi dispiace, ma qualcun altro ha salvato la pagina mentre la stavi "
+"modificando\n"
+"\n"
+"Dovresti tornare alla pagina precedende e copiarti il\n"
 "testo che hai inserito, dopodich&eacute; tornare qui, premere "
-"ModificaIlTesto\n"
-"di nuovo e integrare le tue modifiche nella pagina corrente.\n"
-"<p><em>Non limitarti a sostituire il contenuto della pagina con le tue\n"
-"modifiche, perch&eacute; in tal modo cancelleresti le modifiche dell'altra\n"
-"persona, che sarebbe eccessivamente sgarbato!</em></b>\n"
+"ModificaIlTesto di nuovo\n"
+"Ora re-integra le tue modifiche nella pagina corrente.\n"
+"\n"
+"''Non limitarti a sostituire il contenuto della pagina con le tue\n"
+"modifiche, perch√®; in tal modo cancelleresti le modifiche dell'altra\n"
+"persona, che sarebbe eccessivamente sgarbato!''\n"
 
-#, fuzzy, python-format
-msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
-msgstr ""
-"<p><b>Una copia delle tue modifiche &egrave; disponibile <a href=\"%"
-"(backup_url)s\">qui</a>.</b></p>"
+#, python-format
+msgid "A backup of your changes is [%(backup_url)s here]."
+msgstr "Una copia delle tue modifiche √® disponibile [%(backup_url)s qui]."
 
-#, fuzzy
 msgid "You did not change the page content, not saved!"
 msgstr ""
-"<b>Dal momento che non ne hai modificato il contenuto, la pagina non Ë stata "
-"salvata!</b>"
+"Dal momento che non ne hai modificato il contenuto, la pagina non √® stata "
+"salvata!"
 
-#, fuzzy
 msgid ""
 "You can't change ACLs on this page since you have no admin rights on it!"
 msgstr ""
-"<b>Non puoi modificare i diritti di accesso (ACL) di questa pagina dal "
-"momento che non hai i permessi di amministrazione su di essa!</b>"
+"Non puoi modificare i diritti di accesso (ACL) di questa pagina dal momento "
+"che non hai i permessi di amministrazione su di essa!"
 
-#, fuzzy
 msgid "Thank you for your changes. Your attention to detail is appreciated."
-msgstr "<b>Grazie per il tuo contributo.</b>"
+msgstr ""
+"Grazie per il tuo contributo. La tua attenzione ai dettagli √® apprezzata"
 
 #, python-format
 msgid ""
 "The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were "
 "granted the lock for this page."
 msgstr ""
-"Il lock di %(owner)s Ë spirato %(mins_ago)d minute(s) fa, e ti Ë stato "
+"Il lock di %(owner)s √® spirato %(mins_ago)d minute(s) fa, e ti √® stato "
 "concesso il lock per questa pagina."
 
 #, python-format
 msgid ""
-"Other users will be <em>blocked</em> from editing this page until %(bumptime)"
-"s."
+"Other users will be ''blocked'' from editing this page until %(bumptime)s."
 msgstr ""
-"Gli altri utenti saranno <em>bloccati</em> nelle modifiche a questa pagina "
-"fino a  %(bumptime)s."
+"Gli altri utenti saranno ''bloccati'' nelle modifiche a questa pagina fino "
+"a  %(bumptime)s."
 
 #, python-format
 msgid ""
-"Other users will be <em>warned</em> until %(bumptime)s that you are editing "
-"this page."
+"Other users will be ''warned'' until %(bumptime)s that you are editing this "
+"page."
 msgstr ""
-"Gli altri utenti saranno <em>avvisati</em> fino a %(bumptime)s che stai "
+"Gli altri utenti saranno ''avvisati'' fino a %(bumptime)s che stai "
 "modificando la paginas."
 
 msgid "Use the Preview button to extend the locking period."
 msgstr "Usa il bottone Anteprima per estendere il periodo di locking."
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
-"This page is currently <em>locked</em> for editing by %(owner)s until %"
-"(timestamp)s, i.e. for %(mins_valid)d minute(s)."
+"This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
+"s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Questa pagina rimarr&agrave; <b>bloccata</b> fino alle %(timestamp)s, vale a "
-"dire ancora per %(mins_valid)d minuti, perch&eacute; %(owner)s la sta "
-"modificando."
+"Questa pagina rimarr√†;''bloccata'' fino alle %(timestamp)s, vale a dire "
+"ancora per %(mins_valid)d minuti, perch√® %(owner)s la sta modificando."
 
 #, python-format
 msgid ""
 "This page was opened for editing or last previewed at %(timestamp)s by %"
-"(owner)s.<br>\n"
-"<strong class=\"highlight\">You should <em>refrain from editing</em> this "
-"page for at least another %(mins_valid)d minute(s),\n"
-"to avoid editing conflicts.</strong><br>\n"
+"(owner)s.[[BR]]\n"
+"'''You should ''refrain from editing'' this page for at least another %"
+"(mins_valid)d minute(s),\n"
+"to avoid editing conflicts.'''[[BR]]\n"
 "To leave the editor, press the Cancel button."
 msgstr ""
-"Questa pagina risulta in modifica dalle %(timestamp)s da parte di %(owner)s, "
-"o perlomeno ne ha richiesto un'anteprima a quell'ora.<br>\n"
-"<strong class=\"highlight\">Dovresti <em>evitare di modificare</em> questa "
-"pagina per almeno altri %(mins_valid)d minuti per non incorrere in probabili "
-"conflitti.</strong><br>\n"
-"Premi il pulsante \"Annulla\" per lasciare l'editor."
+"Questa pagina risulta in modifica dalle %(timestamp)s da parte di %(owner)s "
+"o perlomeno ne ha richiesto un'anteprima a quell'ora.[[BR]]\n"
+"'''Dovresti ''evitare di modificare'' questa pagina per almeno altri %"
+"(mins_valid)d minuti per non incorrere in probabili conflitti.'''[[BR]]\n"
+"Premi il pulsante Annulla per lasciare l'editor."
 
 msgid "<unknown>"
 msgstr "<informazione non disponibile>"
 
-#, fuzzy
 msgid "Diffs"
 msgstr "differenze"
 
@@ -438,34 +381,58 @@ msgstr "Non formattato"
 msgid "XML"
 msgstr "XML"
 
-#, fuzzy
 msgid "Print"
 msgstr "Versione stampabile"
 
-#, fuzzy
 msgid "View"
 msgstr "mostra"
-
-msgid "Home"
-msgstr "Home"
 
 msgid "Up"
 msgstr "Su"
 
-msgid "Unknown action"
-msgstr "Azione sconosciuta"
+#, python-format
+msgid ""
+"Invalid user name {{{'%s'}}}.\n"
+"Name may contain any Unicode alpha numeric character, with optional one\n"
+"space between words. Group page name is not allowed."
+msgstr ""
+"Nome utente non {{{'%s'}}}.\n"
+"Il nome pu√≤ contenere ogni carattere alfanumerico Unicode , con opzionale "
+"unospazio tra le parole. Non √® permesso raggruppare i nomi pagina."
+
+#, python-format
+msgid "You are not allowed to do %s on this page."
+msgstr "Non ti √® consentito di %s questa pagina."
+
+msgid "Login"
+msgstr "Login"
+
+#, python-format
+msgid " %s and try again."
+msgstr " %s and prova ancora."
 
 msgid "Can't work out query"
 msgstr "Non riesco a impostare la query di ricerca"
+
+#, python-format
+msgid "%(hits)d results out of %(pages)d pages."
+msgstr "Trovate %(hits)d corrispondenze nelle %(pages)d pagine consultate."
+
+#, python-format
+msgid "%.2f seconds"
+msgstr "%.2f secondi"
+
+msgid "match"
+msgstr " corrispondenza"
+
+msgid "matches"
+msgstr " corrispondenze"
 
 msgid "Open editor on double click"
 msgstr "Con un doppio click, apri l'editor"
 
 msgid "Remember last page visited"
 msgstr "Ricorda l'ultima pagina visitata"
-
-msgid "Show emoticons"
-msgstr "Mostra faccine"
 
 msgid "Show fancy links"
 msgstr "Enfatizza i collegamenti esterni"
@@ -474,14 +441,13 @@ msgid "Show question mark for non-existing pagelinks"
 msgstr "Mostra un punto di domanda al posto dei collegamenti non esistenti"
 
 msgid "Show page trail"
-msgstr "Mostra il piÈ di pagina"
+msgstr "Mostra il piÔøΩdi pagina"
 
 msgid "Show icon toolbar"
 msgstr "Mostra la barra con le icone"
 
 msgid "Show top/bottom links in headings"
-msgstr ""
-"Mostra i collegamenti all'inizio e alla fine della pagina nelle intestazioni"
+msgstr "Mostra i link top/bottom nelle intstazioni"
 
 msgid "Show fancy diffs"
 msgstr "Evidenzia le differenze"
@@ -489,78 +455,78 @@ msgstr "Evidenzia le differenze"
 msgid "Add spaces to displayed wiki names"
 msgstr "Aggiungi uno spazio tra le singole parole dei nomi wiki"
 
-msgid "Remember login information forever"
-msgstr "Ricorda le mie informazioni di login per sempre"
+msgid "Remember login information"
+msgstr "Ricorda le mie informazioni di login"
 
 msgid "Subscribe to trivial changes"
-msgstr ""
+msgstr "Sottoscrivi per i cambiamenti banali"
 
 msgid "Disable this account forever"
 msgstr "Disabilita questa utenza per sempre"
 
-#, fuzzy
 msgid "Cookie deleted. You are now logged out."
-msgstr "<b>Il \"Cookie\" Ë stato cancellato! Sei stato disconnesso.</b>"
+msgstr "Il Cookie √® stato cancellato! Sei stato disconnesso."
 
 msgid ""
-"This wiki is not enabled for mail processing. Contact the owner of the wiki, "
-"who can either enable email, or remove the \"Subscribe\" icon."
+"This wiki is not enabled for mail processing.\n"
+"Contact the owner of the wiki, who can enable email."
 msgstr ""
-"questo wiki non Ë abilitato ad usare la mail. Contatta il gestore del wiki, "
-"o chi puÚ abilitare la mail, oppure togli l'icona \"Subscribe\"."
+"Questo wiki non √® abilitato ad usare la mail. Contatta il gestore del wiki, "
+"o chi pu√≤ abilitare la mail."
 
-#, fuzzy
 msgid "Please provide a valid email address!"
-msgstr "<b>Per favore immetti un indirizzo email valido!</b>"
+msgstr "Per favore immetti un indirizzo email valido!"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr ""
-"<b>Non ho trovato nessuna corrispondenza per l'indirizzo email '%(email)s'!</"
-"b>"
+"Non ho trovato nessuna corrispondenza per l'indirizzo email '%(email)s'!"
 
-#, fuzzy
-msgid "Unknown user name or password."
-msgstr "<b>O il nome o la password inseriti non sono stati riconosciuti.</b>"
+#, python-format
+msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
+msgstr ""
+"Nome utente sconosciuto: {{{\"%s\"}}}. Inserisci nome utente e password"
 
-msgid "Please enter a user name!"
-msgstr "Inserisci un nome utente"
+msgid "Missing password. Please enter user name and password."
+msgstr "Password mancante. Inserisci nome utente e password"
 
-msgid "User name already exists!"
-msgstr "Il nome utente esiste gia!"
+msgid "Sorry, wrong password."
+msgstr "Spiacente, password errata."
+
+msgid "Bad relogin URL."
+msgstr "Relogin URL non corretta."
+
+msgid "Unknown user."
+msgstr "Nome utente non riconosciuto."
+
+msgid "Empty user name. Please enter a user name."
+msgstr "Nome utente vuoto. Inserisci un nome utente"
+
+msgid "This user name already belongs to somebody else."
+msgstr "Questo nome utente √® gia utilizzato da qualcun altro."
 
 msgid "Passwords don't match!"
 msgstr "Le password non coincidono!"
 
 msgid "Please specify a password!"
-msgstr ""
+msgstr "specifica una password!"
 
-#, fuzzy
-msgid "Please enter your name like that: FirstnameLastname"
-msgstr "<b>Inserisci il tuo nome in questo modo: NomeCognome</b>"
-
-msgid "You must not use a group name as your user name."
-msgstr ""
-
-#, fuzzy
 msgid ""
-"Please provide your email address - without that you could not get your "
-"login data via email just in case you lose it."
+"Please provide your email address. If you loose your login information, you "
+"can get it by email."
 msgstr ""
-"<b>Per favore, inserisci il tuo indirizzo email: senza di esso non potrai "
-"riottenere i tuoi dati personali nel caso smarrissi la password.</b>"
+"Per favore, inserisci il tuo indirizzo email: senza di esso non potrai "
+"riottenere i tuoi dati personali nel caso smarrissi la password."
 
-#, fuzzy
-msgid "This user name already belongs to somebody else."
-msgstr "<b>Questo nome utente Ë gi‡ utilizzato da qualcun altro.</b>"
-
-#, fuzzy
 msgid "This email already belongs to somebody else."
-msgstr "<b>Questo indirizzo email Ë gi‡ utilizzato da qualcun altro.</b>"
+msgstr "Questo indirizzo email √® gia utilizzato da qualcun altro."
 
-#, fuzzy
+#, python-format
+msgid "The theme '%(theme_name)s' could not be loaded!"
+msgstr "Il tema '%(theme_name)s' nno pu√≤ essere caricato"
+
 msgid "User preferences saved!"
-msgstr "<b>Le preferenze sono state memorizzate!</b>"
+msgstr "Le preferenze sono state memorizzate!"
 
 msgid "Default"
 msgstr "Prestabilito"
@@ -568,24 +534,17 @@ msgstr "Prestabilito"
 msgid "<Browser setting>"
 msgstr "<Impostazioni del browser>"
 
-#, fuzzy
 msgid "Save"
-msgstr " Salva "
+msgstr " Salva"
 
 msgid "Logout"
 msgstr "Logout"
 
-#, fuzzy
-msgid "Login"
-msgstr "Login"
-
-#, fuzzy
 msgid "Create Profile"
-msgstr " Crea il Profilo "
+msgstr "Crea il Profilo"
 
-#, fuzzy
 msgid "Mail me my account data"
-msgstr " Spediscimi via email i miei dati "
+msgstr "Spediscimi via email i miei dati"
 
 msgid "Name"
 msgstr "Nome"
@@ -593,9 +552,8 @@ msgstr "Nome"
 msgid "(Use FirstnameLastname)"
 msgstr "(Usa la forma NomeCognome)"
 
-#, fuzzy
 msgid "Password"
-msgstr "Ripeti la password"
+msgstr "Password"
 
 msgid "Password repeat"
 msgstr "Ripeti la password"
@@ -606,17 +564,14 @@ msgstr "(Solo quando si modifica la password)"
 msgid "Email"
 msgstr "Email"
 
-#, fuzzy
 msgid "Preferred theme"
 msgstr "Tema preferito"
 
-#, fuzzy
 msgid "User CSS URL"
 msgstr "URL del CSS"
 
-#, fuzzy
 msgid "(Leave it empty for disabling user CSS)"
-msgstr "(\"None\" per disabilitare il CSS)"
+msgstr "(Lascia vuoto per disabilitare il CSS)"
 
 msgid "Editor size"
 msgstr "Dimensione dell'editor"
@@ -625,10 +580,10 @@ msgid "Time zone"
 msgstr "Fuso orario"
 
 msgid "Your time is"
-msgstr "La tua ora locale Ë"
+msgstr "La tua ora locale √®"
 
 msgid "Server time is"
-msgstr "L'ora del server Ë"
+msgstr "L'ora del server √®"
 
 msgid "Date format"
 msgstr "Formato data"
@@ -647,66 +602,30 @@ msgstr ""
 "Per un corretto funzionamento della notifica, devi inserire un indirizzo "
 "email valido!"
 
-#, fuzzy
 msgid "Subscribed wiki pages (one regex per line)"
-msgstr "Abbonato alle pagine<br>(una espressione regolare per riga)"
+msgstr "Abbonato alle pagine (una espressione regolare per riga)"
 
-msgid "Action"
-msgstr "Azione"
-
-#, fuzzy, python-format
-msgid "Please use a more selective search term instead of '%(needle)s'!"
-msgstr ""
-"<b>Per favore usa un termine di ricerca pi&ugrave; selettivo di '%(needle)s'!"
-"</b>"
-
-#, python-format
-msgid "Full text search for \"%s\""
-msgstr "Ricerca nel contenuto per \"%s\""
-
-#, fuzzy
-msgid "match"
-msgstr " corrispondenza"
-
-#, fuzzy
-msgid "matches"
-msgstr " corrispondenze"
-
-#, python-format
-msgid "Title search for \"%s\""
-msgstr "Ricerca \"%s\" nei titoli"
-
-#, python-format
-msgid "%(hits)d hits out of %(pages)d pages searched."
-msgstr "Trovate %(hits)d corrispondenze nelle %(pages)d pagine consultate."
-
-#, python-format
-msgid "Needed %(timer).1f seconds."
-msgstr "in %(timer).1f secondi."
-
-#, fuzzy
 msgid "No older revisions available!"
-msgstr "<b>Non ci sono revisioni precedenti!</b>"
+msgstr "Non ci sono revisioni precedenti!"
 
 #, python-format
 msgid "Diff for \"%s\""
 msgstr "Differenze per \"%s\""
 
-#, fuzzy, python-format
-msgid "Differences between versions dated %s and %s"
-msgstr "<b>Differenze tra le versioni del %s e del %s"
+#, python-format
+msgid "Differences between revisions %d and %d"
+msgstr "Differenze tra le versioni del %d e del %d"
 
-#, fuzzy, python-format
+#, python-format
 msgid "(spanning %d versions)"
-msgstr " (in %d Versioni)"
+msgstr "(in %d Versioni)"
 
-#, fuzzy
 msgid "No differences found!"
-msgstr "Non ho riscontrato nessuna differenza!\n"
+msgstr "Non ho riscontrato nessuna differenza!"
 
-#, fuzzy, python-format
+#, python-format
 msgid "The page was saved %(count)d times, though!"
-msgstr "La pagina Ë stata comunque salvata %(count)d %(times)s!"
+msgstr "La pagina √® stata comunque salvata %(count)d volte!"
 
 msgid "Ignore changes in the amount of whitespace"
 msgstr "Ignora differenze nella spaziatura"
@@ -718,19 +637,14 @@ msgstr "Informazioni generali"
 msgid "Page size: %d"
 msgstr "Dimensione pagina: %d"
 
-#, fuzzy
 msgid "SHA digest of this page's content is:"
-msgstr "<p>Codice SHA del contenuto di questa pagina: <tt>%(digest)s</tt></p>"
+msgstr "Codice SHA del contenuto di questa pagina:"
 
 msgid "The following users subscribed to this page:"
 msgstr "Elenco degli abbonati a questa pagina:"
 
-#, fuzzy
 msgid "This page links to the following pages:"
-msgstr "Questa pagina contiene collegamenti alle seguenti pagine:<br>"
-
-msgid "Revision History"
-msgstr "Cronologia revisioni"
+msgstr "Questa pagina contiene collegamenti alle seguenti pagine:"
 
 msgid "Date"
 msgstr "Data"
@@ -738,15 +652,17 @@ msgstr "Data"
 msgid "Size"
 msgstr "Dimensione"
 
-#, fuzzy
 msgid "Diff"
-msgstr "differenze"
+msgstr "Differenze"
 
 msgid "Editor"
 msgstr "Autore"
 
 msgid "Comment"
 msgstr "Commento"
+
+msgid "Action"
+msgstr "Azione"
 
 msgid "view"
 msgstr "mostra"
@@ -761,11 +677,26 @@ msgid "revert"
 msgstr "ripristina"
 
 #, python-format
-msgid "Revert to version dated %(datestamp)s."
-msgstr "Ripristinata la versione del %(datestamp)s."
+msgid "Revert to revision %(rev)d."
+msgstr "Ripristinata la revisione %(rev)d."
+
+msgid "edit"
+msgstr "modifica"
+
+msgid "get"
+msgstr "scarica"
+
+msgid "del"
+msgstr "rimuovi"
 
 msgid "N/A"
 msgstr "N/D"
+
+msgid "Revision History"
+msgstr "Cronologia revisioni"
+
+msgid "No log entries found."
+msgstr "Non sono stati trovate informazioni nel log"
 
 #, python-format
 msgid "Info for \"%s\""
@@ -775,7 +706,6 @@ msgstr "Informazioni su \"%s\""
 msgid "Show \"%(title)s\""
 msgstr "Mostra \"%(title)s\""
 
-#, fuzzy
 msgid "General Page Infos"
 msgstr "Informazioni generali"
 
@@ -789,12 +719,15 @@ msgstr "Richieste e modifiche alla pagina"
 msgid "You are not allowed to revert this page!"
 msgstr "Non sei autorizzato a ripristinare questa pagina!"
 
-msgid "An error occurred while reverting the page."
-msgstr "E' avvenuto un errore nel ripristinare la pagina!"
-
-#, fuzzy
 msgid "You are not allowed to subscribe to a page you can't read."
-msgstr "<b>Non ti Ë consentito abbonarti a pagine che non puoi leggere.</b>"
+msgstr "Non ti √® consentito abbonarti a pagine che non puoi leggere."
+
+msgid ""
+"This wiki is not enabled for mail processing. Contact the owner of the wiki, "
+"who can either enable email, or remove the \"Subscribe\" icon."
+msgstr ""
+"Questo wiki non √® abilitato ad usare la mail. Contatta il gestore del wiki, "
+"o chi pu√≤ abilitare la mail, oppure togli l'icona \"Subscribe\"."
 
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
@@ -811,22 +744,21 @@ msgstr ""
 "(PreferenzeUtente) nell'angolo in alto a destra ed inserisci un indirizzo "
 "email valido."
 
-#, fuzzy
-msgid "You are already subscribed to this page."
-msgstr "<b>Risulti gi‡ abbonato a questa pagina.</b>"
+msgid "Your subscribtion to this page has been removed."
+msgstr "La tua sottoscrizione a questa pagine √® stata rimossa."
 
-#, fuzzy
+msgid "Can't remove regular expression subscription!"
+msgstr "Non posso rimuovere la sottoscrizione per espressione regolare"
+
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
 "subscription list."
 msgstr ""
-"<br>\n"
-"<b>Per rimuoverti, vai nel tuo profilo e cancella questa pagina\n"
-"dalla lista delle pagine a cui sei abbonato.</b>\n"
+"Per rimuoverti, vai nel tuo profilo e cancella questa pagina dalla "
+"listadelle pagine a cui sei abbonato."
 
-#, fuzzy
 msgid "You have been subscribed to this page."
-msgstr "<b>Da questo momento sei abbonato a questa pagina.</b>"
+msgstr "Da questo momento sei abbonato a questa pagina."
 
 #, python-format
 msgid "Required attribute \"%(attrname)s\" missing"
@@ -835,14 +767,20 @@ msgstr "Manca l'attributo obbligatorio \"%(attrname)s\" "
 msgid "Submitted form data:"
 msgstr "Dati inseriti:"
 
+msgid "Search Titles"
+msgstr "Cerca per titolo"
+
 msgid "Display context of search results"
 msgstr "Visualizza il contesto delle occorrenze trovate"
 
 msgid "Case-sensitive searching"
 msgstr "Ricerca differenziando Maiuscolo-minuscolo"
 
-msgid "Go"
-msgstr "Vai"
+msgid "Search Text"
+msgstr "Cerca per testo"
+
+msgid "Go To Page"
+msgstr "Vai alla pagina"
 
 msgid "Include system pages"
 msgstr "Includi pagine di sistema"
@@ -875,9 +813,6 @@ msgstr "Numero di pagine"
 msgid "Number of system pages"
 msgstr "Numero di pagine di sistema"
 
-msgid "Number of backup versions"
-msgstr "Numero di versioni precedenti"
-
 msgid "Accumulated page sizes"
 msgstr "Dimensione complessiva delle pagine"
 
@@ -903,8 +838,15 @@ msgstr "Azioni disponibili"
 msgid "Local extension actions"
 msgstr "Azioni disponibili (in questo wiki)"
 
-msgid "Installed processors"
-msgstr "Processori installati"
+msgid "Installed parsers"
+msgstr "Parser installati"
+
+msgid "Installed processors (DEPRECATED -- use Parsers instead)"
+msgstr "Processori installati (DEPRECATO -- usa i Parser)"
+
+#, python-format
+msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
+msgstr "Per favore usa un termine di ricerca pi√π; selettivo di {{{\"%s\"}}}"
 
 #, python-format
 msgid "ERROR in regex '%s'"
@@ -928,9 +870,9 @@ msgstr "Formattazione Wiki"
 msgid "Print View"
 msgstr "Versione stampabile"
 
-#, fuzzy, python-format
+#, python-format
 msgid "[%d attachments]"
-msgstr "Elenco degli Allegati"
+msgstr "[%d allegati]"
 
 #, python-format
 msgid ""
@@ -938,69 +880,51 @@ msgid ""
 "page."
 msgstr "Ci sono <a href=\"%(link)s\">%(count)s allegati</a> per questa pagina."
 
-#, fuzzy
 msgid "Filename of attachment not specified!"
-msgstr "<b>Non Ë stato specificato il nome del file dell'allegato!</b>"
+msgstr "Non √® stato specificato il nome del file dell'allegato!"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(filename)s' does not exist!"
-msgstr "<b>L'allegato '%(filename)s' non esiste!</b>"
+msgstr "L'allegato '%(filename)s' non esiste!"
 
-#, fuzzy
 msgid ""
-"<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
-"tt></strong>, \n"
+"To refer to attachments on a page, use '''{{{attachment:filename}}}''', \n"
 "as shown below in the list of files. \n"
-"Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
-"since this is subject to change and can break easily.</p>"
+"Do '''NOT''' use the URL of the {{{[get]}}} link, \n"
+"since this is subject to change and can break easily."
 msgstr ""
-"<p>Per riferirti agli allegati di una pagina, usa <b><tt>attachment:"
-"nomefile</tt></b>,\n"
+"Per riferirti agli allegati di una pagina, usa '''{{{attachment:"
+"filename}}}''',\n"
 "come mostrato qui sotto nella lista degli allegati.\n"
-"<b>NON</b> usare l'URL che trovi in corrispondenza del link <tt>[scarica]</"
-"tt>,\n"
-"dal momento che potrebbe cambiare in futuro.</p>"
-
-msgid "del"
-msgstr "rimuovi"
-
-msgid "get"
-msgstr "scarica"
-
-msgid "edit"
-msgstr "modifica"
+"'''NON''' usare l'URL che trovi in corrispondenza del link {{{[get]}}},\n"
+"dal momento che potrebbe cambiare in futuro."
 
 #, python-format
 msgid "No attachments stored for %(pagename)s"
 msgstr "Non ci sono allegati per la pagina %(pagename)s"
 
-#, fuzzy
 msgid "Edit drawing"
-msgstr "<h2>Modifica il disegno</h2>"
+msgstr ">Modifica il disegno"
 
-#, fuzzy
 msgid "Attached Files"
-msgstr "<h2>File allegati</h2>"
+msgstr "File allegati"
 
-#, fuzzy
 msgid "You are not allowed to attach a file to this page."
 msgstr "Non sei autorizzato a ripristinare questa pagina!"
 
 msgid "New Attachment"
 msgstr "Nuovo allegato"
 
-#, fuzzy
 msgid ""
 "An upload will never overwrite an existing file. If there is a name\n"
 "conflict, you have to rename the file that you want to upload.\n"
 "Otherwise, if \"Rename to\" is left blank, the original filename will be "
 "used."
 msgstr ""
-"<h2>Nuovo Allegato</h2>\n"
-"<p>Non sar&agrave; permessa la sovrascrittura di un file esistente. In\n"
+"Non sar√† permessa la sovrascrittura di un file esistente. In\n"
 "caso di conflitto, dovrai cambiare il nome del file che vuoi caricare.\n"
-"Altrimenti, se \"Rinomina come\" viene lasciato in bianco, verr&agrave;\n"
-"usato il nome originale del file.</p>\n"
+"Altrimenti, se \"Rinomina come\" viene lasciato in bianco, verr√†\n"
+"usato il nome originale del file."
 
 msgid "File to upload"
 msgstr "File da caricare"
@@ -1008,113 +932,103 @@ msgstr "File da caricare"
 msgid "MIME Type (optional)"
 msgstr "Tipo MIME (opzionale)"
 
-#, fuzzy
 msgid "Save as"
-msgstr " Salva "
+msgstr " Salva come"
 
-#, fuzzy
 msgid "Upload"
-msgstr " Carica "
+msgstr "Carica"
 
-#, fuzzy
 msgid "File attachments are not allowed in this wiki!"
-msgstr "Non sei autorizzato a cancellare pagine in questo wiki!"
+msgstr "File allegati non consentiti in questo wiki!"
 
-#, fuzzy
 msgid "You are not allowed to save a drawing on this page."
-msgstr "Non sei autorizzato a ripristinare questa pagina!"
+msgstr "Non sei autorizzato a salvare un disegno in questa pagina!"
 
-#, fuzzy
+msgid ""
+"No file content. Delete non ASCII characters from the file name and try "
+"again."
+msgstr ""
+"Nessun contenuto. Cancella i caratteri non ASCII dal nome file e prova "
+"ancora."
+
 msgid "You are not allowed to delete attachments on this page."
-msgstr "<b>Non sei autorizzato a cancellare i file allegati.</b>"
+msgstr "Non sei autorizzato a cancellare i file allegati."
 
-#, fuzzy
 msgid "You are not allowed to get attachments from this page."
-msgstr "<b>Non sei autorizzato ad accedere agli allegati.</b>"
+msgstr "Non sei autorizzato ad accedere agli allegati."
 
-#, fuzzy
 msgid "You are not allowed to view attachments of this page."
-msgstr "<b>Non sei autorizzato a vedere gli allegati.</b>"
+msgstr "Non sei autorizzato a vedere gli allegati."
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported upload action: %s"
-msgstr "<b>Azione di caricamento non supportata: %s</b>"
+msgstr "Azione di caricamento non supportata: %s"
 
 #, python-format
 msgid "Attachments for \"%(pagename)s\""
 msgstr "Allegati per \"%(pagename)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(target)s' (remote name '%(filename)s') already exists."
-msgstr ""
-"L'allegato '%(target)s' (nome originale '%(filename)s') di %(bytes)d byte Ë "
-"stato memorizzato."
+msgstr "L'allegato '%(target)s' (nome originale '%(filename)s') esiste gia."
 
 #, python-format
 msgid ""
 "Attachment '%(target)s' (remote name '%(filename)s') with %(bytes)d bytes "
 "saved."
 msgstr ""
-"L'allegato '%(target)s' (nome originale '%(filename)s') di %(bytes)d byte Ë "
-"stato memorizzato."
+"L'allegato '%(target)s' (nome originale '%(filename)s') di %(bytes)d byte "
+"√®stato memorizzato."
 
 #, python-format
 msgid "Attachment '%(filename)s' deleted."
-msgstr "L'allegato '%(filename)s' Ë stato cancellato."
+msgstr "L'allegato '%(filename)s' √® stato cancellato."
 
-#, fuzzy, python-format
+#, python-format
 msgid "Attachment '%(filename)s'"
-msgstr "L'allegato '%(filename)s' Ë stato cancellato."
+msgstr "L'allegato '%(filename)s'"
 
-#, fuzzy
 msgid "Unknown file type, cannot display this attachment inline."
 msgstr ""
-"<p>Tipo di file sconosciuto, non posso visualizzarlo direttamente nella "
-"pagina.</p>"
+"Tipo di file sconosciuto, non posso visualizzarlo direttamente nella pagina."
 
 #, python-format
 msgid "attachment:%(filename)s of %(pagename)s"
 msgstr "attachment:%(filename)s di %(pagename)s"
 
-#, fuzzy
 msgid "You are not allowed to delete this page."
-msgstr "<b>Non ti Ë consentito di cancellare questa pagina.</b>"
+msgstr "Non ti √® consentito cancellare questa pagina."
 
 msgid "This page is already deleted or was never created!"
-msgstr "Questa pagina Ë gi‡ stata cancellata, o non Ë mai stata creata!"
+msgstr "Questa pagina √® gia stata cancellata, o non √® mai stata creata!"
 
 msgid "Please use the interactive user interface to delete pages!"
 msgstr "Per favore usa l'interfaccia interattiva per cancellare le pagine!"
 
 #, python-format
 msgid "Page \"%s\" was successfully deleted!"
-msgstr "La pagina \"%s\" Ë stata cancellata correttamente!"
+msgstr "La pagina \"%s\" ÔøΩstata cancellata correttamente!"
 
 msgid "Really delete this page?"
 msgstr "Vuoi veramente cancellare questa pagina?"
 
-#, fuzzy
 msgid "Delete"
-msgstr " Cancella "
+msgstr "Cancella"
 
 msgid "Optional reason for the deletion"
 msgstr "Ragione facoltativa per la cancellazione"
 
 #, python-format
-msgid "No pages match \"%s\"!"
+msgid "No pages like \"%s\"!"
 msgstr "Nessuna pagina corrisponde a \"%s\"!"
 
 #, python-format
-msgid "Exactly one matching page for \"%s\" found!"
-msgstr "Trovata una sola pagina che corrisponde esattamente a \"%s\"!"
+msgid "Exactly one page like \"%s\" found, redirecting to page."
+msgstr "Trovata esattamente una pagina per \"%s\", redirect alla pagina."
 
 #, python-format
-msgid "Multiple matches for \"%s...%s\""
-msgstr "Corrispondenze multiple per \"%s...%s\""
-
-#, fuzzy
-msgid "You cannot use LikePages on an extended pagename!"
-msgstr "<b>Non puoi utilizzare \"LikePages\" sul nome di pagina esteso!</b>"
+msgid "Pages like \"%s\""
+msgstr "Pagine come \"%s\""
 
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
@@ -1124,37 +1038,38 @@ msgstr "%(matchcount)d %(matches)s per \"%(title)s\""
 msgid "Local Site Map for \"%s\""
 msgstr "Mappa del sito per \"%s\""
 
-#, fuzzy
 msgid "You are not allowed to rename pages in this wiki!"
-msgstr "Non sei autorizzato a cancellare pagine in questo wiki!"
+msgstr "Non sei autorizzato a rinominare pagine in questo wiki!"
 
-#, fuzzy
 msgid "Please use the interactive user interface to rename pages!"
-msgstr "Per favore usa l'interfaccia interattiva per cancellare le pagine!"
+msgstr "Per favore usa l'interfaccia interattiva per rinominare le pagine!"
 
-#, fuzzy, python-format
-msgid "A page with the name \"%s\" already exists!"
-msgstr "<p>Esistono gi‡, con un nome simile, le seguenti pagine...</p>"
+#, python-format
+msgid "Could not rename page because of file system error: %s."
+msgstr ""
 
-#, fuzzy, python-format
-msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-msgstr "La pagina \"%s\" Ë stata cancellata correttamente!"
+msgid "Rename Page"
+msgstr "Rinomina Pagina"
 
-#, fuzzy
-msgid "Rename"
-msgstr "Nome del file"
-
-#, fuzzy
 msgid "New name"
-msgstr "Nome"
+msgstr "Nuovo nome"
 
-#, fuzzy
 msgid "Optional reason for the renaming"
-msgstr "Ragione facoltativa per la cancellazione"
+msgstr "Ragione facoltativa per la rinuminazione"
 
-#, fuzzy, python-format
+#, python-format
+msgid ""
+"'''A page with the name {{{'%s'}}} already exists.'''\n"
+"\n"
+"Try a different name."
+msgstr ""
+"'''Una pagina con il nome {{{'%s'}}} esiste gia.'''\n"
+"\n"
+"Prova un nome differente."
+
+#, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
-msgstr " (includendo %(localwords)d %(pagelink)s)"
+msgstr "(includendo %(localwords)d %(pagelink)s)"
 
 #, python-format
 msgid ""
@@ -1167,15 +1082,21 @@ msgstr ""
 msgid "Add checked words to dictionary"
 msgstr "Aggiungi le parole verificate al dizionario"
 
-#, fuzzy
 msgid "No spelling errors found!"
-msgstr "<b>Non sono stati trovati errori di ortografia!</b>"
+msgstr "Non sono stati trovati errori di ortografia!"
 
-#, fuzzy
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
-"<b>Non puoi effettuare il controllo ortografica sulle pagine che non puoi "
-"leggere.</b>"
+"Non puoi effettuare il controllo ortografica sulle pagine che non puoi "
+"leggere."
+
+#, python-format
+msgid "Title Search: \"%s\""
+msgstr "Ricerca \"%s\" nei titoli"
+
+#, python-format
+msgid "Full Text Search: \"%s\""
+msgstr "Ricerca nel contenuto per \"%s\""
 
 #, python-format
 msgid "Full Link List for \"%s\""
@@ -1185,16 +1106,16 @@ msgstr "Elenco completo dei collegamenti per \"%s\""
 msgid "Invalid include arguments \"%s\"!"
 msgstr "Argomento per \"Include\" non valido: \"%s\"!"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Nothing found for \"%s\"!"
-msgstr "Informazioni su \"%s\""
+msgstr "Non risulta nulla per \"%s\""
 
 #, python-format
 msgid "Unsupported navigation scheme '%(scheme)s'!"
 msgstr "Schema di navigazione '%(scheme)s' non supportato1"
 
 msgid "No parent page found!"
-msgstr "La pagina sovrastante non Ë stata trovata!"
+msgstr "La pagina sovrastante non ÔøΩstata trovata!"
 
 msgid "Wiki"
 msgstr "wiki"
@@ -1205,9 +1126,9 @@ msgstr "Diapositive"
 msgid "Start"
 msgstr "Inizia"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Slide %(pos)d of %(size)d"
-msgstr " Slide %(pos)d di %(size)d "
+msgstr "Slide %(pos)d di %(size)d "
 
 msgid "No orphaned pages in this wiki."
 msgstr ""
@@ -1224,11 +1145,11 @@ msgstr "Allegato il file '%(filename)s'."
 
 #, python-format
 msgid "Drawing '%(filename)s' saved."
-msgstr "Il disegno '%(filename)s' Ë stato memorizzato."
+msgstr "Il disegno '%(filename)s' √® stato memorizzato."
 
-#, fuzzy, python-format
-msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
-msgstr "[%(hours)dore&nbsp;%(mins)dmin&nbsp;fa]"
+#, python-format
+msgid "%(hours)dh %(mins)dm ago"
+msgstr "%(hours)dore %(mins)dmin fa"
 
 msgid "(no bookmark set)"
 msgstr "(nessun segnalibro impostato)"
@@ -1237,16 +1158,11 @@ msgstr "(nessun segnalibro impostato)"
 msgid "(currently set to %s)"
 msgstr "(attualmente impostato a %s)"
 
-#, fuzzy
 msgid "Delete Bookmark"
-msgstr "imposta segnalibro"
+msgstr "Cancella segnalibro"
 
-#, fuzzy
-msgid "Really delete bookmark?"
-msgstr "Vuoi veramente cancellare questa pagina?"
-
-msgid "Update my bookmark timestamp"
-msgstr "Sincronizza l'ora del mio segnalibro"
+msgid "Set bookmark"
+msgstr "Imposta segnalibro"
 
 msgid "set bookmark"
 msgstr "imposta segnalibro"
@@ -1254,7 +1170,6 @@ msgstr "imposta segnalibro"
 msgid "[Bookmark reached]"
 msgstr "[Limite indicato dal segnalibro]"
 
-#, fuzzy
 msgid "Markup"
 msgstr "Formattazione Wiki"
 
@@ -1264,10 +1179,8 @@ msgstr "Mostra"
 msgid "Filename"
 msgstr "Nome del file"
 
-#, fuzzy
 msgid "You need to provide a chart type!"
-msgstr ""
-"<div class=\"message\"><b>Devi specificare un tipo di grafico!</b></div>"
+msgstr "Devi specificare un tipo di grafico!"
 
 #, python-format
 msgid "Bad chart type \"%s\"!"
@@ -1287,25 +1200,25 @@ msgstr "Crea un nuovo disegno \"%(filename)s\""
 msgid "Upload new attachment \"%(filename)s\""
 msgstr "Carica nuovo allegato \"%(filename)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Edit drawing %(filename)s"
 msgstr "Crea un nuovo disegno \"%(filename)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Expected \"%(wanted)s\" after \"%(key)s\", got \"%(token)s\""
-msgstr "Manca il valore per la chiave \"%(token)s\""
+msgstr "Atteso \"%(wanted)s\" per \"%(key)s\", trovato \"%(token)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Expected an integer \"%(key)s\" before \"%(token)s\""
-msgstr "Manca il valore per la chiave \"%(token)s\""
+msgstr "Atteso un intero \"%(key)s\" prima di \"%(token)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Expected an integer \"%(arg)s\" after \"%(key)s\""
-msgstr "Manca il valore per la chiave \"%(token)s\""
+msgstr "Atteso un intero \"%(arg)s\" prima di \"%(key)s\""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Expected a color value \"%(arg)s\" after \"%(key)s\""
-msgstr "Manca il valore per la chiave \"%(token)s\""
+msgstr "Atteso un colore \"%(arg)s\" prima di \"%(key)s\""
 
 msgid "XSLT option disabled!"
 msgstr "Opzione XSLT disabilitata!"
@@ -1316,6 +1229,10 @@ msgstr "Formattazione XSLT non disponibile"
 #, python-format
 msgid "%(errortype)s processing error"
 msgstr "Errore di elaborazione di tipo \"%(errortype)s\""
+
+#, python-format
+msgid "for this page (cached %(date)s)"
+msgstr "per questa pagina (memorizzata il %(date)s)"
 
 msgid "Charts are not available!"
 msgstr "Grafici non disponibili"
@@ -1352,17 +1269,74 @@ msgstr "Altre"
 msgid "Distribution of User-Agent Types"
 msgstr "Distribuzione delle tipologie di User-Agent"
 
-msgid "Click here to do a full-text search for this title"
-msgstr "Clicca qui per effettuare una ricerca per questo titolo"
+msgid "Click to do a full-text search for this title"
+msgstr "Clicca qui per effettuare una ricerca full-text per questo titolo"
 
 msgid "Clear message"
 msgstr "Nascondi questo messaggio"
 
-msgid "ShowText"
-msgstr "MostraTesto"
+#, python-format
+msgid "last edited %(time)s by %(editor)s"
+msgstr "l'ultima modifica √® del %(time)s, fatta da %(editor)s"
 
-msgid "of this page"
-msgstr "di questa pagina"
+#, python-format
+msgid "last modified %(time)s"
+msgstr "modificata l'ultima volta il %(time)s"
+
+msgid "Search:"
+msgstr "Cerca:"
+
+msgid "Text"
+msgstr "Testo"
+
+msgid "Titles"
+msgstr "Titoli"
+
+msgid "Unsubscribe"
+msgstr "Annulla sottoscrizione"
+
+msgid "More Actions:"
+msgstr "Altre Azioni:"
+
+msgid "Show Raw Text"
+msgstr "Mostra il testo grezzo"
+
+msgid "Show Print View"
+msgstr "Versione stampabile"
+
+msgid "Attach File"
+msgstr "File allegati"
+
+msgid "Delete Page"
+msgstr "Cancella Pagina"
+
+msgid "Show Like Pages"
+msgstr "Mostra pagine simili"
+
+msgid "Show Local Site Map"
+msgstr "Mappa locale del sito"
+
+msgid "Do"
+msgstr "Vai"
+
+msgid "Show Parent"
+msgstr "Mostra la pagina padre"
+
+msgid "Immutable Page"
+msgstr "Pagina non alterabile"
+
+msgid "Refresh"
+msgstr "Aggiorna"
+
+msgid "Show Changes"
+msgstr "Mostra le modifiche"
+
+msgid "Get Info"
+msgstr "Informazioni"
+
+#, python-format
+msgid "Show %s days."
+msgstr "Mostra %s giorni."
 
 msgid "EditText"
 msgstr "ModificaIlTesto"
@@ -1370,48 +1344,18 @@ msgstr "ModificaIlTesto"
 msgid "Immutable page"
 msgstr "Pagina non alterabile"
 
-msgid "FindPage"
-msgstr "CercaPagina"
-
-#, fuzzy, python-format
-msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
-msgstr ""
-" per Titolo %(titlesearch)s, o che contiene il testo %(textsearch)s o "
-"consultando un indice<br>"
-
-#, fuzzy
 msgid "Or try one of these actions:"
-msgstr "Oppure prova una di queste azioni: "
+msgstr "Oppure prova una di queste azioni:"
 
-#, fuzzy, python-format
-msgid "Show all changes in the last %s days."
-msgstr "Mostra tutte le modifiche effettuate negli ultimi %(days)s giorni<br>"
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Trail"
+msgstr "Coda"
 
 msgid "User"
-msgstr ""
+msgstr "Utente"
 
-#, fuzzy
-msgid "Site"
-msgstr "Dimensione"
-
-#, fuzzy
-msgid "Page"
-msgstr "CercaPagina"
-
-msgid "Search"
-msgstr ""
-
-#, fuzzy, python-format
-msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
-msgstr ""
-" per Titolo %(titlesearch)s, o che contiene il testo %(textsearch)s o "
-"consultando un indice<br>"
-
-#, fuzzy
-msgid "Actions"
-msgstr "Azione"
-
-#, fuzzy
 msgid "Line"
 msgstr "Linea"
 
@@ -1423,10 +1367,13 @@ msgstr "Le aggiunte sono marcate in questo modo."
 
 #, python-format
 msgid "Connection to mailserver '%(server)s' failed: %(reason)s"
-msgstr "La connessione al mailserver '%(server)s' Ë fallita: %(reason)s"
+msgstr "La connessione al mailserver '%(server)s' √® fallita: %(reason)s"
 
 msgid "Mail sent OK"
 msgstr "Mail spedita correttamente"
+
+msgid "[\"<html>\"]"
+msgstr "[\"<html>\"]"
 
 msgid "FrontPage"
 msgstr "PaginaPrincipale"
@@ -1439,6 +1386,9 @@ msgstr "IndiceDeiTitoli"
 
 msgid "WordIndex"
 msgstr "IndicePerParola"
+
+msgid "FindPage"
+msgstr "CercaPagina"
 
 msgid "SiteNavigation"
 msgstr "NavigaIlSito"
@@ -1454,6 +1404,9 @@ msgstr "PreferenzeUtente"
 
 msgid "WikiLicense"
 msgstr "LicenzaWiki"
+
+msgid "MissingPage"
+msgstr "PaginaMancante"
 
 msgid "Mon"
 msgstr "lun"
@@ -1476,13 +1429,147 @@ msgstr "sab"
 msgid "Sun"
 msgstr "dom"
 
-#~ msgid "Reduce editor size"
-#~ msgstr "Riduci la dimensione dell'editor"
+msgid "AttachFile"
+msgstr "File allegati"
+
+msgid "DeletePage"
+msgstr "CancellaPagina"
+
+msgid "LikePages"
+msgstr "PagineSimili"
+
+msgid "LocalSiteMap"
+msgstr "MappaLocaleSito"
+
+msgid "RenamePage"
+msgstr "RinominaPagina"
+
+msgid "SpellCheck"
+msgstr "ControlloOrtografico"
+
+#~ msgid "(edit log entry is missing)"
+#~ msgstr "(informazione mancante)"
+
+#~ msgid "Rename"
+#~ msgstr "Rinomina"
+
+#~ msgid "Needed %(timer).1f seconds."
+#~ msgstr "in %(timer).1f secondi."
+
+#~ msgid "User name already exists!"
+#~ msgstr "Il nome utente esiste gia!"
+
+#~ msgid "Go"
+#~ msgstr "Vai"
+
+#~ msgid "Send mail notification"
+#~ msgstr "Invia una mail di notifica"
+
+#, fuzzy
+#~ msgid "You will not be notified of your own changes!"
+#~ msgstr ""
+#~ "<p><b>Visto che le modifiche le hai fatte tu, non ti &egrave; stata "
+#~ "spedita la notifica via e-mail!</b></p>"
+
+#~ msgid "Nobody subscribed to this page, no mail sent."
+#~ msgstr "Nessuno risulta abbonato a questa pagina, non spedisco alcuna mail."
+
+#~ msgid "Home"
+#~ msgstr "Home"
+
+#~ msgid "Unknown action"
+#~ msgstr "Azione sconosciuta"
+
+#~ msgid "Exactly one matching page for \"%s\" found!"
+#~ msgstr "Trovata una sola pagina che corrisponde esattamente a \"%s\"!"
+
+#~ msgid "Multiple matches for \"%s...%s\""
+#~ msgstr "Corrispondenze multiple per \"%s...%s\""
+
+#, fuzzy
+#~ msgid "You cannot use LikePages on an extended pagename!"
+#~ msgstr "<b>Non puoi utilizzare \"LikePages\" sul nome di pagina esteso!</b>"
+
+#, fuzzy
+#~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
+#~ msgstr "La pagina \"%s\" ÔøΩstata cancellata correttamente!"
+
+#, fuzzy
+#~ msgid "Really delete bookmark?"
+#~ msgstr "Vuoi veramente cancellare questa pagina?"
+
+#~ msgid "Update my bookmark timestamp"
+#~ msgstr "Sincronizza l'ora del mio segnalibro"
+
+#~ msgid "of this page"
+#~ msgstr "di questa pagina"
+
+#, fuzzy
+#~ msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
+#~ msgstr ""
+#~ " per Titolo %(titlesearch)s, o che contiene il testo %(textsearch)s o "
+#~ "consultando un indice<br>"
+
+#, fuzzy
+#~ msgid "Show all changes in the last %s days."
+#~ msgstr ""
+#~ "Mostra tutte le modifiche effettuate negli ultimi %(days)s giorni<br>"
+
+#, fuzzy
+#~ msgid "Site"
+#~ msgstr "Dimensione"
+
+#, fuzzy
+#~ msgid "Title: %(titlesearch)s[[BR]]Text: %(textsearch)s"
+#~ msgstr ""
+#~ " per Titolo %(titlesearch)s, o che contiene il testo %(textsearch)s o "
+#~ "consultando un indice<br>"
 
 #~ msgid "No older revisions of the page stored, diff not available."
 #~ msgstr ""
-#~ "Non ci sono revisioni precedenti della pagina, non Ë possibile riassumere "
+#~ "Non ci sono revisioni precedenti della pagina, non ÔøΩpossibile riassumere "
 #~ "le differenze."
+
+#, fuzzy
+#~ msgid "The diff function returned with error code %(rc)s!"
+#~ msgstr "Il programma `diff' ha ritornato un codice di errore: %(rc)s!"
+
+#~ msgid "Show emoticons"
+#~ msgstr "Mostra faccine"
+
+#, fuzzy
+#~ msgid "Please enter your name like that: FirstnameLastname"
+#~ msgstr "<b>Inserisci il tuo nome in questo modo: NomeCognome</b>"
+
+#, fuzzy
+#~ msgid "You are already subscribed to this page."
+#~ msgstr "<b>Risulti giÔøΩabbonato a questa pagina.</b>"
+
+#~ msgid "Number of backup versions"
+#~ msgstr "Numero di versioni precedenti"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Riduci la dimensione dell'editor"
+
+#~ msgid "An error occurred while reverting the page."
+#~ msgstr "E' avvenuto un errore nel ripristinare la pagina!"
+
+#~ msgid "Create this page"
+#~ msgstr "Crea questa pagina"
+
+#~ msgid "Alternatively, use one of these templates:"
+#~ msgstr "In alternativa, puoi utilizzare uno di questi modelli:"
+
+#~ msgid ""
+#~ "To create your own templates, add a page with a name matching the regex "
+#~ "\"%(page_template_regex)s\"."
+#~ msgstr ""
+#~ "Per creare i tuoi modelli, aggiungi una pagina con il nome che "
+#~ "corrisponda alla regex \"%(page_template_regex)s\"."
+
+#, fuzzy
+#~ msgid "The following pages with similar names already exist..."
+#~ msgstr "<p>Esistono gia con un nome simile, le seguenti pagine...</p>"
 
 #, fuzzy
 #~ msgid "Account"
@@ -1519,7 +1606,7 @@ msgstr "dom"
 #~ msgstr "Tuo indirizzo email"
 
 #~ msgid "<b>You are not allowed to save drawings.</b>"
-#~ msgstr "<b>Non ti Ë consentito di salvare i disegni.</b>"
+#~ msgstr "<b>Non ti ÔøΩconsentito di salvare i disegni.</b>"
 
 #~ msgid "Here below the diff between the two latest revisions of the page"
 #~ msgstr "Segue una comparazione tra le ultime due revisioni della pagina"

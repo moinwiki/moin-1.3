@@ -1,0 +1,14 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:MissingPage
+##master-date:28.03.2004 20:09:00
+#language ru
+Страницы с таким названием не найдено.
+
+Вы можете:
+
+[[Action(edit,Создать эту страницу с нуля)]]
+----
+|| или же использовать одну из заготовок: || Кроме того есть страницы с похожими названиями: ||
+||<^> [[EditTemplates]]                   ||<^> [[LikePages((none))]]                        ||

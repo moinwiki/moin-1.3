@@ -1,20 +1,15 @@
 # -*- coding: iso-8859-1 -*-
 """
-    MoinMoin - Helper functions for email stuff
+    MoinMoin - email helper functions
 
     @copyright: 2003 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import os
 
 _transdict = {"AT": "@", "DOT": ".", "DASH": "-"}
 
-
-#############################################################################
-### Mail
-#############################################################################
 
 def sendmail(request, to, subject, text, **kw):
     """
@@ -38,18 +33,15 @@ def sendmail(request, to, subject, text, **kw):
     from MoinMoin import config
 
     _ = request.getText
-    # should not happen, but who knows ...
-    if not config.mail_smarthost:
-        return (0, _('''This wiki is not enabled for mail processing. '''
-                '''Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.'''))
-    mail_from = kw.get('mail_from', config.mail_from) or config.mail_from
+    cfg = request.cfg    
+    mail_from = kw.get('mail_from', '') or cfg.mail_from
 
     # Create a text/plain message
-    msg = MIMEText(text, 'plain', config.charset)
+    msg = MIMEText(text.encode(config.charset), 'plain', config.charset)
     msg['From'] = mail_from
-    msg['To'] = mail_from # do not disclose ANY users addr
+    msg['To'] = mail_from
     msg['Date'] = formatdate()
-    
+      
     try: # only python >= 2.2.2 has this:
         from email.Header import Header
         from email.Utils import make_msgid
@@ -60,11 +52,18 @@ def sendmail(request, to, subject, text, **kw):
         # no message-id. if you still have py 2.2.1, you like it old and broken
         
     try:
-        server = smtplib.SMTP(config.mail_smarthost)
+        server = smtplib.SMTP(cfg.mail_smarthost)
         try:
             #server.set_debuglevel(1)
-            if config.mail_login:
-                user, pwd = config.mail_login.split()
+            if cfg.mail_login:
+                user, pwd = cfg.mail_login.split()
+                try: # try to do tls
+                    server.ehlo()
+                    if server.has_extn('starttls'):
+                        server.starttls()
+                        server.ehlo()
+                except:
+                    pass
                 server.login(user, pwd)
             server.sendmail(mail_from, to, msg.as_string())
         finally:
@@ -77,7 +76,7 @@ def sendmail(request, to, subject, text, **kw):
         return (0, str(e))
     except (os.error, socket.error), e:
         return (0, _("Connection to mailserver '%(server)s' failed: %(reason)s") % {
-            'server': config.mail_smarthost, 
+            'server': cfg.mail_smarthost, 
             'reason': str(e)
         })
 

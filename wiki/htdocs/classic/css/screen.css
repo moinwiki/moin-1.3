@@ -1,234 +1,315 @@
 /*  screen.css - MoinMoin Default Styles
 
-    Copyright (c) 2001, 2002, 2003 by Jürgen Hermann
+Copyright (c) 2001, 2002, 2003 by Juergen Hermann
 */
 
 /* content styles */
 
-h2, h3, h4, h5, h6 {
-	background-color: #EDD097;
-	color: black;
-}	
+/* debug 
+div, ul {border: 1px dotted blue; }
+*/
 
-a:link {
-	background-color: inherit;
-	color: #7F2A00;
+a:link {color: #7F2A00;}
+a:visited {color: #7F5F47;}
+a.nonexistent, a.badinterwiki {color: #404040;}
+
+input {
+    font-size: 1em;
+    font-family: Arial, Lucida Grande, sans-serif;
 }
 
-a:visited {
-	background-color: inherit;
-	color: #7F5F47;
-}
-
-a.nonexistent, a.badinterwiki {
-	background-color: inherit;
-	color: #404040;
+textarea {
+    font-size: 1em;
+    font-family: monospace;
 }
 
 pre {
-	border: 1px solid #CBCBCB;
 	background-color: #FFF8ED;
-	color: black;
-}
-
-hr {
-	clear: both;
-	border-style: none;
-	background-color: #CBCBCB;
-	color: #CBCBCB;
-}
-
-td {
-	border: 1px solid #EEEEEE;
 }
 
 .footnotes div {
 	width: 5em;
-	border-top: 1px solid #CBCBCB;
+	border-top: 1px solid gray;
 }
 
 /* user interface styles */
 
-h1 {
-	padding: .2em 1em;
+#logo {
+	/* contains image and/or text link */
+	float: left;
+	font-size: 2em;
+	line-height: 1.2em;
+	font-weight: bold;
+	margin: 0 10px 0 0;
+	padding: 0;
 }
 
-#logo {
-	float: left;
-	margin: 0 .5em;
+#logo img {
+	/* logo image */
+	vertical-align: middle;
+}
+
+#logo a {
+	/* logo text link */
+	color: black;  
+	text-decoration: none;
+	white-space: nowrap;
 }
 
 *[dir="rtl"] #logo {
 	float: right;
+	margin: 0 0 0 10px;
+}
+
+#title h1 {
+	margin: 0;
+	padding: 0;    
+	font-size: 2em;
+	font-weight: bold;
+	line-height: 1.2;
+}
+
+#title h1 a {
+	text-decoration: none;
+}
+
+#searchform {
+	float: right;
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+
+*[dir="rtl"] #searchform {
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#searchform form div {
+    display: inline;
 }
 
 #username {
-	float: right;
-	margin: 1em .3em;
+	margin: 0;
+	padding: 0.25em;
 	text-align: right;
+	font-size: 0.82em;
+	white-space: nowrap;
 }
 
 *[dir="rtl"] #username {
-	float: left;
+	text-align: left;
 }
 
-#navibar {
-	clear: left;
+#username li {
+	display: inline;
+	padding: 0 2px;
 }
 
-*[dir="rtl"] #navibar {
-	clear: right;
+#username li:before {
+	content: "| ";
+	color: gray;
+}
+
+#username li:first-child:before {
+	content: "";
 }
 
 #pagetrail {
 	clear: left;
+	margin: 0;
+	padding: 0;
+	font-size: 0.88em;
+	height: 2em;
 }
 
 *[dir="rtl"] #pagetrail {
 	clear: right;
 }
 
-#navibar, #pagetrail, #iconbar {
-	margin: .5em 0;
-	padding: 0;
+#pagetrail li  {
+	float: left;
+	display: block;
+	margin: 5px 2px;
+	padding: 0 2px;
 }
 
-#navibar a, #pagetrail a {
+*[dir="rtl"] #pagetrail li {
+	float: right;
+}
+
+#pagetrail a {
 	text-decoration: none;
 }
 
-#navibar li, #pagetrail li, #iconbar li {
-	display: inline;
-	padding: 0 2px;
-	margin: 0;
-}
-
-#navibar li {
-	border: 3px solid #CBCBCB;
-	background-color: #E5E5E5;
-	color: black;
-	line-height: 2em;
-}
-
-#pagetrail li span {
-	border: 1px solid #EEEECC;
-	background-color: #FFFFDD;
-	color: black;
-}
-
-#pagetrail li:before {
-	content: "» ";
-}
-
-*[dir="rtl"] #pagetrail li:before {
-	content: " «";
-}
-
-#pagetrail li:first-child:before {
-	content: "";
+/* XXX Warning: non-ascii characters! */
+#pagetrail li:after {
+	content: " Â»";
 }
 
 #iconbar {
 	clear: both;
 	float: right;
-	text-align: right;
-	width: 30%;
+	margin: 5px 0 5px 10px;
+	padding: 0;
 	white-space: nowrap;
 }
 
 *[dir="rtl"] #iconbar {
 	float: left;
-	text-align: left;
+	margin: 5px 10px 5px 0;
 }
 
-#message, #footer {
-	clear: both;
-	border: 1px solid #CBCBCB;
+#iconbar li {
+	display: inline;
+	padding: 0;
+	margin: 0 2px;
+}
+
+#navibar {
+	clear: left;
+	margin: 0;
+	padding: 0;
+	font-size: 0.88em;
+	height: 2em;
+}
+
+*[dir="rtl"] #navibar {
+	clear: right;
+}
+
+#navibar a {
+	text-decoration: none;
+	display: block;
+}
+
+#navibar li {
+	float: left;
+	display: block;
+	margin: 2px;
+	padding: 2px 5px;
+	border: 2px solid #c0c0c0;
 	background-color: #E5E5E5;
-	color: black;
-	margin: .5em 0;
-	padding: .5em;
+}
+
+*[dir="rtl"] #navibar li {
+	float: right;
+}
+
+#navibar li.wikilink {
+	background-color: #e5e5e5;
+}
+
+#navibar li.userlink {
+	background-color: #E5DECF;
+}
+
+#navibar li.current {
+	background-color: #EDD097;
+}
+
+#navibar li.current a {
+	font-weight: bold;
+	color: black; 
+}
+
+#message {
+	clear: both;
+	border: 2px solid #c0c0c0;
+	background-color: #E5E5E5;
+	margin: 5px 0;
+	padding: 5px;
+}
+
+#message p{
+	margin: 5px 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+#message div.buttons {
+	font-weight: normal;
+}
+
+form.dialog {
+    margin: 0 15px;
+}
+
+.dialog td {
+    border: none;
+    padding: 5px;
+}
+
+.dialog td.label {
+    text-align: right;
+    font-weight: bold;
+    width: 25%;
+}
+
+*[dir="rtl"] .dialog td.label {
+    text-align: left;
+}
+
+.dialog td.content input {
+    width: 100%;
+}
+
+#page {
+	clear: both;
+	margin: 5px 0;
+	padding: 10px 20px;
+	border: 2px solid #c0c0c0;
+	background-color: white;
+}
+
+/* We use here dumb css1 ids becuase of IE suckiness */
+#editor-textarea, #editor-comment {
+    width: 100%;
+}
+
+#footer {
+	clear: both;
+	border: 2px solid #c0c0c0;
+	background-color: #E5E5E5;
+	margin: 5px 0;
+	padding: 5px;
+	font-size: 0.88em;
 }
 
 #footer p, #footer form {
-	margin: 0;
+	margin: 0.25em 0;
 }
 
-#credits {
-	float: right;
-	text-align: right;
-	max-width: 30%;
-}
-
-*[dir="rtl"] #credits {
-	float: left;
-	text-align: left;
-}
-
-#timings {
+#credits, #timings{
+	margin: 5px 0;
 	padding: 0;
-	font-size: 0.8em;
+	text-align: center;
+	font-size: 0.82em;
+	color: gray;
 }
 
-#timings li {
+#credits li, #timings li {
 	display: inline;
-	background-color: #E5E5E5;
-	color: black;
+	padding: 0 2px;
+}
+
+#credits img {
+	vertical-align: middle;
 }
 
 #preview {
-	border: 2px solid #CBCBCB;
+	border: 1px solid #gray;
 	padding: .5em;
 	background: url(../img/draft.png);
 }
 
-.recentchanges table {
-	width: 100%;
-}
-
-#pageinfo td, .recentchanges td {
-	padding: 0 .3em;
-}
-
-.rcdaybreak td {
-	background-color: #CCCCFF;
-	padding: .2em;
-}
-
-.rcicon1, .rcicon2 {
-	text-align: center;
-}
-
-.rcpagelink {
-	width: 33%;
-}
-
-.rctime {
-	font-size: .9em;
-	color: #4D4D4D;
-}
-
-.rceditor {
-	color: green;
-}
-
-.rccomment {
-	color: red;
-	width: 66%;
-}
-
-.rcrss {
-	float: right;
-}
-
-.recentchanges[dir="rtl"] .rcrss {
-	float: left;
-}
-
 .diff {
-        width:99%;
+	width:99%;
 }
-    
+
+.diff-header {
+	font-weight: bold;
+}
+
 .diff-title {
 	background-color: #C0C0C0;
 }

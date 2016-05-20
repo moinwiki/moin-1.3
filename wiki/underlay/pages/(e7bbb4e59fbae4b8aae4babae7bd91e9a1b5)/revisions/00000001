@@ -1,0 +1,22 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh
+##master-page:WikiHomePage
+##master-date:2004-11-17 20:15:38
+
+
+["维基个人网页"]是您在一个["维基网"]上的个人网页。您可以向大家介绍您的联系方式，兴趣爱好和专业特长等。一般来说个人网页归创建人所有，所以如需修改别人的个人网页，请谨慎为之。
+
+如果您建立您的个人网页，请在页尾加入{{{["个人网页类"]}}}。比如这个网页就这样做了。
+
+请注意个人网页归相应的创建人所有，一般不应该编辑修改他人的个人网页，除非您想给这个人留口信。如果要留口信的话，请将口信添加到网页的页尾，并用四个短横分隔，比如：
+
+{{{
+----
+你还好吗？ -- [:ZhangSan:张三]
+}}}
+
+此页的英文版本：WikiHomePage
+----
+["个人网页类"]

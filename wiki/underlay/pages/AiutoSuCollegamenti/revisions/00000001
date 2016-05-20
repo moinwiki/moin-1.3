@@ -1,0 +1,79 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language it
+== URL e Immagini in linea ==
+
+Ci sono diverse maniere per inserire riferimenti a materiale
+esterno[[FootNote(L'opposto dei riferimenti esterni sono quelli automaticamente generati per i NomiWiki.)]] nel testo:
+ * un URL esplicito; se l'URL termina con una estensione di immagine ("{{{.gif}}}", "{{{.jpg}}}" or "{{{.png}}}"), l'URL viene convertito in un tag image.
+ * URL tra parentesi quadre.
+ * Collegamenti InterWiki.
+ * InterWiki links.
+ * Indirizzi email.
+
+Se inserisci un URL in mezzo a del testo normale, ci potrebbero essere
+problemi nel stabilire cosa fa parte del URL e cosa no. Ci sono quattro
+modi per forzare il termine dell'URL:
+ * aggiungere uno spazio dopo l'URL.
+ * usare il trucco Wiki:SixSingleQuotes.
+ * delimitare l'URL con doppie virgolette.
+ * usare la sintassi con le parentesi quadre.
+
+Gli schemi supportati per un URL sono: `http`, `https`, `ftp`, `nntp`,
+`news`, `mailto`, `telnet`, and `file`. L'amministratore del wiki
+può aggiungere altri schemi impostando opportunamente la variabile
+{{{config.url_schemas}}} (vedi AiutoSuConfigurazione).
+
+Oltre agli schemi standard, ci sono quelli specifici per MoinMoin:
+`wiki`, `attachment`, `inline`, and `drawing`. "`wiki`" indica un link
+InterWiki, così che `MoinMoin:FrontPage` e `wiki:MoinMoin:FrontPage`
+sono equivamenti; generalmente preferirai la forma più breve, lo schema
+con "`wiki`" diventa utile quando usi la sintassi con le parentesi quadre,
+dal momento che allora è necessario specificare lo schema. Gli altri tre
+schemi si utilizzano con gli allegati e sono spiegati in AiutoSuAzioni/AllegaFile.
+
+Quando l'opzione di configurazione `bang_meta` è impostata a true, puoi
+prevenire il meccanismo di trasformazione di un NomeWiki anteponendo un punto
+esclamativo (chiamato ''bang'' appunto) prima del NomeWiki, cioè `!NomeWiki`.
+Questa funzionalità è disattivata di default.
+
+Per ulteriori informazioni sulle possibilità di formattazione, vedi AiutoSuModificaPagina.
+Per dettagli su come inserire dei link a delle sottopagine, vedi
+AiutoSuModificaPagina/SottoPagine.
+
+[[FootNote]]
+
+=== Esempi ===
+{{{
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
+ * jh@web.de
+ * [#anchorname Anchor Link]
+}}} 
+
+=== Risultato ===
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki page on MeatBall]
+ * jh@web.de
+ * [#anchorname Anchor Link]

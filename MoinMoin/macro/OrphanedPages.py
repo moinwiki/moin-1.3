@@ -6,29 +6,16 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-from MoinMoin import config, user, wikiutil
-
-_guard = 0
-
 Dependencies = ["pages"]
 
 def execute(macro, args):
     _ = macro.request.getText
 
-    # prevent recursive calls
-    global _guard
-    if _guard: return ''
-
+    if macro.request.mode_getpagelinks: # prevent recursion
+        return ''
+    
     # delete all linked pages from a dict of all pages
-    _guard = 1
-    pages = wikiutil.getPageDict(config.text_dir)
-    # we do not look at pages we have no read rights on - this avoids
-    # having MoinEditorBackup showing up (except your very own one)
-    for key in pages.keys():
-        if not macro.request.user.may.read(pages[key].page_name) or \
-           key.endswith('/MoinEditorBackup'):
-            del pages[key]
+    pages = macro.request.rootpage.getPageDict()
     orphaned = {}
     orphaned.update(pages)
     for page in pages.values():
@@ -36,7 +23,6 @@ def execute(macro, args):
         for link in links:
             if orphaned.has_key(link):
                 del orphaned[link]
-    _guard = 0
 
     # check for the extreme case
     if not orphaned:
@@ -50,7 +36,9 @@ def execute(macro, args):
     for name in orphanednames:
         if not name: continue
         result.append(macro.formatter.listitem(1))
-        result.append(macro.formatter.pagelink(name, generated=1))
+        result.append(macro.formatter.pagelink(1, name, generated=1))
+        result.append(macro.formatter.text(name))
+        result.append(macro.formatter.pagelink(0))        
         result.append(macro.formatter.listitem(0))
     result.append(macro.formatter.number_list(0))
 

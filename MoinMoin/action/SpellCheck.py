@@ -16,23 +16,21 @@
     the list of valid words, if that page exists.
 
     @copyright: 2001 by Richard Jones <richard@bizarsoftware.com.au>  
-    @copyright: 2001, 2002 by Jürgen Hermann <jh@web.de>  
+    @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>  
     @license: GNU GPL, see COPYING for details.  
 """
 
-# Imports
-import os, re
+import os, re, codecs
 from MoinMoin import config, wikiutil
 from MoinMoin.Page import Page
 
 
-# Functions
-def _getWordsFiles():
+def _getWordsFiles(request):
     """Check a list of possible word files"""
     candidates = []
 
     # load a list of possible word files
-    localdict = os.path.join(config.moinmoin_dir, 'dict')
+    localdict = os.path.join(request.cfg.moinmoin_dir, 'dict')
     if os.path.isdir(localdict):
         candidates.extend(map(
             lambda f, d=localdict: os.path.join(d, f), os.listdir(localdict)))
@@ -46,22 +44,25 @@ def _getWordsFiles():
     # return validated file list
     return wordsfiles
 
+def _loadWords(lines, dict):
+    for line in lines:
+        words = line.split()
+        for word in words:
+            dict[word.encode(config.charset)] = ''
 
 def _loadWordsFile(request, dict, filename):
     request.clock.start('spellread')
-    # XXX UNICODE fix needed. the dictionaries should be encoded in config.charset.
-    # if they are not, we can recode them before use.
-    file = open(filename, 'rt')
+    file = codecs.open(filename, 'rt', config.charset)
     try:
-        while 1:
-            lines = file.readlines(32768)
-            if not lines: break
-            for line in lines:
-                words = line.split()
-                for word in words: dict[word] = ''
+        lines = file.readlines()
+        _loadWords(lines, dict)
     finally:
         file.close()
     request.clock.stop('spellread')
+
+def _loadWordsPage(request, dict, page):
+    lines = page.getlines()
+    _loadWords(lines, dict)
 
 
 def _loadDict(request):
@@ -73,12 +74,11 @@ def _loadDict(request):
         dbhash = None
 
     # load the words
-    cachename = os.path.join(config.data_dir, 'dict.cache')
+    cachename = os.path.join(request.cfg.data_dir, 'cache', 'spellchecker.dict')
     if dbhash and os.path.exists(cachename):
         wordsdict = dbhash.open(cachename, "r")
     else:
-        request.clock.start('dict.cache')
-        wordsfiles = _getWordsFiles()
+        wordsfiles = _getWordsFiles(request)
         if dbhash:
             wordsdict = dbhash.open(cachename, 'n', 0666 & config.umask)
         else:
@@ -87,8 +87,8 @@ def _loadDict(request):
         for wordsfile in wordsfiles:
             _loadWordsFile(request, wordsdict, wordsfile)
 
-        if dbhash: wordsdict.sync()
-        request.clock.stop('dict.cache')
+        if dbhash:
+            wordsdict.sync()
 
     return wordsdict
 
@@ -103,16 +103,16 @@ def _addLocalWords(request):
     except KeyError:
         # no new words checked
         return
-    newwords = ' '.join(newwords)
-
+    newwords = u' '.join(newwords)
+    
     # get the page contents
-    lsw_page = PageEditor(config.page_local_spelling_words, request)
+    lsw_page = PageEditor(request.cfg.page_local_spelling_words, request)
     words = lsw_page.get_raw_body()
 
     # add the words to the page and save it
     if words and words[-1] != '\n':
         words = words + '\n'
-    lsw_page.saveText(words + '\n' + newwords, '0')
+    lsw_page.saveText(words + '\n' + newwords, 0)
 
 
 def checkSpelling(page, request, own_form=1):
@@ -121,14 +121,16 @@ def checkSpelling(page, request, own_form=1):
     _ = request.getText
 
     # first check to see if we we're called with a "newwords" parameter
-    if request.form.has_key('button_newwords'): _addLocalWords(request)
+    if request.form.has_key('button_newwords'):
+        _addLocalWords(request)
 
     # load words
     wordsdict = _loadDict(request)
 
     localwords = {}
-    lsw_page = Page(config.page_local_spelling_words)
-    if lsw_page.exists(): _loadWordsFile(request, localwords, lsw_page._text_filename())
+    lsw_page = Page(request, request.cfg.page_local_spelling_words)
+    if lsw_page.exists():
+        _loadWordsPage(request, localwords, lsw_page)
 
     # init status vars & load page
     request.clock.start('spellcheck')
@@ -137,17 +139,19 @@ def checkSpelling(page, request, own_form=1):
 
     # checker regex and matching substitute function
     word_re = re.compile(r'([%s]?[%s]+)' % (
-        config.upperletters, config.lowerletters))
+        config.chars_upper, config.chars_lower), re.UNICODE)
 
     def checkword(match, wordsdict=wordsdict, badwords=badwords,
-            localwords=localwords, num_re=re.compile(r'^\d+$')):
+            localwords=localwords, num_re=re.compile(r'^\d+$', re.UNICODE)):
         word = match.group(1)
         if len(word) == 1:
             return ""
-        if not (wordsdict.has_key(word) or
-                wordsdict.has_key(word.lower()) or
-                localwords.has_key(word) or
-                localwords.has_key(word.lower()) ):
+        w_enc = word.encode(config.charset)
+        wl_enc = word.lower().encode(config.charset)
+        if not (wordsdict.has_key(w_enc) or
+                wordsdict.has_key(wl_enc) or
+                localwords.has_key(w_enc) or
+                localwords.has_key(wl_enc) ):
             if not num_re.match(word):
                 badwords[word] = 1
         return ""
@@ -164,8 +168,7 @@ def checkSpelling(page, request, own_form=1):
         # build regex recognizing the bad words
         badwords_re = r'(^|(?<!\w))(%s)(?!\w)'
         badwords_re = badwords_re % ("|".join(map(re.escape, badwords)),)
-        # XXX UNICODE re.UNICODE !?
-        badwords_re = re.compile(badwords_re)
+        badwords_re = re.compile(badwords_re, re.UNICODE)
 
         lsw_msg = ''
         if localwords:
@@ -182,10 +185,9 @@ def checkSpelling(page, request, own_form=1):
 
         # add a form containing the bad words
         if own_form:
-            msg = msg + (
-                '<form method="POST" action="%s">'
-                '<input type="hidden" name="action" value="%s">'
-                % (page.url(request), action_name,))
+            msg = msg + ('<form method="post" action="">\n'
+                         '<input type="hidden" name="action" value="%s">\n') % action_name
+        
         checkbox = '<input type="checkbox" name="newwords" value="%(word)s">%(word)s&nbsp;&nbsp;'
         msg = msg + (
             " ".join(map(lambda w, cb=checkbox: cb % {'word': wikiutil.escape(w),}, badwords)) +
@@ -205,7 +207,7 @@ def checkSpelling(page, request, own_form=1):
 
 def execute(pagename, request):
     _ = request.getText
-    page = Page(pagename)
+    page = Page(request, pagename)
     if request.user.may.read(pagename):
         badwords, badwords_re, msg = checkSpelling(page, request)
     else:

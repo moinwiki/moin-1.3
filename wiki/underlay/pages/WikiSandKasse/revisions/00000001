@@ -1,0 +1,47 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:WikiSandBox
+##master-date:2003-03-13 03:36:56
+#language da
+Hold dig ikke tilbage med at eksperimentere her, under de fire streger nedenfor... men opret venligst '''IKKE''' nye sider uden meningsfyldt indhold blot for at prøve det.
+----
+
+== Formatering ==
+
+''kursiv'' '''fed''' {{{skrivemaskine}}}
+
+`accent grave skrivemaskine` (hvis det er aktiveret i opsætningen)
+
+{{{
+forudformateret
+}}}
+
+== Henvisninger ==
+
+HjælpTilRedigering MoinMoin:InterWiki
+
+http://purl.net/wiki/moin/ [http://www.python.org/ Python]
+
+nogen@det.store.internet
+
+
+=== Henvisning til billeder ===
+http://c2.com/sig/wiki.gif
+
+== Lister ==
+
+=== Punkter ===
+ * første
+   1. underliggende og nummereret
+   1. nummererede lister omnummereres
+ * anden
+
+ indrykket tekst
+   dybere indrykning
+
+=== Opslagsord ===
+ Term:: Definition
+
+=== Tegning ===
+drawing:min_test

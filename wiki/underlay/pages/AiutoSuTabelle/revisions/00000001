@@ -1,0 +1,93 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language it
+== Costruzione di Tabelle ==
+
+Per creare una tabella, devi iniziare e terminare una riga di testo
+usando il marcatore "{{{||}}}". Tra quei due marcatori iniziale e
+finale puoi inserire qualunque numero di altre celle separandole
+sempre con "{{{||}}}".
+
+Per ottenere una cella centrata che occupi diverse colonne,
+comincia quella cella con più di un marcatore. Righe di testo
+adiacenti allo stesso livello di indentazione che contengono i
+marcatori di tabella verranno combinate in una unica tabella.
+
+Per ulteriori informazioni sulle possibilità di formattazione, vedi
+AiutoSuFormattazione.
+
+=== Attributi Tabelle ===
+
+Oltre alla possibilità di specificare più di un marcatore per
+ottenere una cella che occupi più colonne, è possibile anche
+specificare svariati altri attributi HTML della tabella.
+
+Qualsiasi attributo deve essere specificato tra parentesi angolari
+{{{<...>}}} direttamente dopo il marcatore della cella.
+
+Il formato wiki-like offre delle seguenti opzioni:
+ * {{{<50%>}}}: larghezza della cella
+ * {{{<-2>}}}: colspan
+ * {{{<|2>}}}: rowspan
+ * {{{<(>}}}: allineata a sinistra
+ * {{{<:>}}}: centrata
+ * {{{<)>}}}: allineata a destra
+ * {{{<^>}}}: allineata alla parte superiore
+ * {{{<v>}}}: allineata alla parte inferiore
+ * {{{<#XXXXXX>}}}: colore di sfondo
+
+Se usi opzioni consecutive che possono causare conflitti, tipo
+{{{<(:)>}}}, prevale l'ultima che hai specificato. Non esiste alcuna
+opzione per centrare verticalmente, dal momento che questo è sempre
+il default.
+
+Oltre a queste, puoi usare alcune di quelle HTML tradizionali (nota
+che sono consentiti solo alcuni attributi HTML).  Specificando una
+opzione in questa maniera, è possibile impostare le proprietà di
+ciascuna riga e della tabella stessa, in particolare puoi specificarne
+l'ampiezza utilizzando {{{||<tablewidth="100%">...||}}} nella prima
+riga della tabella, e il colore di una intera riga con
+{{{||<rowbgcolor="#FFFFE0">...||}}} nella prima cella della riga. Come
+puoi vedere, devi aggiungere come prefisso {{{table}}} o {{{row}}} al
+nome dell'attributo HTML.
+
+=== Esempio ===
+{{{
+ Layout generico con opzioni in stile HTML::
+ ||||||<tablewidth="80%">'''Intestazione'''||
+ ||cella 1||cella 2||cella 3||
+ ||<rowspan=2> occupa più righe||||<bgcolor='#E0E0FF'> occupa 2 colonne||
+ ||<rowbgcolor="#FFFFE0">cella 2||cella 3||
+ Larghezza cella::
+ || stretta ||<:99%> larga ||
+ Occupa più di una riga e colonna::
+ ||<|2> 2 righe || riga 1 ||
+ || riga 2 ||
+ ||<-2> riga 3 su 2 colonne ||
+ Allineamento::
+ ||<(> sinistra ||<^|3> sopra ||<v|3> sotto ||
+ ||<:> centrato ||
+ ||<)> destra ||
+ Colori::
+ ||<#FF8080> rosso ||<#80FF80> verde ||<#8080FF> blu ||
+}}} 
+
+=== Risultato ===
+ Layout generico con opzioni in stile HTML::
+ ||||||<tablewidth="80%">'''Intestazione'''||
+ ||cella 1||cella 2||cella 3||
+ ||<rowspan=2> occupa più righe||||<bgcolor='#E0E0FF'> occupa 2 colonne||
+ ||<rowbgcolor="#FFFFE0">cella 2||cella 3||
+ Larghezza cella::
+ || stretta ||<:99%> larga ||
+ Occupa più di una riga e colonna::
+ ||<|2> 2 righe || riga 1 ||
+ || riga 2 ||
+ ||<-2> riga 3 su 2 colonne ||
+ Allineamento::
+ ||<(> sinistra ||<^|3> sopra ||<v|3> sotto ||
+ ||<:> centrato ||
+ ||<)> destra ||
+ Colori::
+ ||<#FF8080> rosso ||<#80FF80> verde ||<#8080FF> blu ||

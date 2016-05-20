@@ -1,7 +1,7 @@
 MoinMoin Readme
 ===============
 
-Copyright (c) 2000 - 2004 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000 - 2004 by Juergen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
 This program is free software; you can redistribute it and/or modify
@@ -21,12 +21,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 -----------------------------------------------------------------------------
 
 MoinMoin is a Python WikiClone. The project's homepage can be found at
-http://moin.sourceforge.net/.
+http://purl.net/wiki/moin/.
 
 See INSTALL.html            for installation instructions.
 See UPDATE.html             for updating instructions.
 See CHANGES                 for a version history.
-See contributions/README    for user-supplied extensions.
 
 Note that the code base contains some experimental or unfinished features.
 Use them at your own risk. Official features are described on the set of
@@ -86,7 +85,11 @@ contributions:
 
     Bernhard Rosenkraenzer and Andrew Bennetts for password login patches.
 
-    Florian Festi, Bastian Blank and Oliver Graf for many code contributions.
+    Florian Festi, Bastian Blank, Oliver Graf and Nir Soffer for many code
+    contributions.
+
+    Alexander Schremmer for much testing work, code contributions and
+    finally fixing the win32 stuff.
 
     And all the people I forgot or that are mentioned in the code.
 

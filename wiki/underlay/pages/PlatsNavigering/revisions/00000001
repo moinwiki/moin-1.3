@@ -1,0 +1,27 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language sv
+##master-page:SiteNavigation
+##master-date:2004-10-03 8:49:44
+##translated-by:Karolina Lindqvist, Shakti Wiki
+PlatsNavigering är den centrala platsen for att utforska denna Wiki. MoinMoin förstår dessa typer av indexingscheman utav MeatBall:IndexingScheme:
+ * SenasteÄndringar - ger en lista på de sidor som sist har ändrats
+ * TitelRegister - ger en lista på alla sidtitlar
+ * OrdRegister - ger en lista på alla ord som finns i sidtitlar
+ * SökSida - går till en sida där man kan söka efter sidor
+ * ÖnskadeSidor - en lista på sidor som inte är skrivna ännu
+ * FöräldrarlösaSidor - en lista på sidor som inte är refererade till
+ * ÖvergivnaSidor
+ * SlumpvisSida - ger en lista på ett antal slumpvist utvalda sidor
+ * SidStorlek - ger en lista på sidor sorterade efter storlek
+
+Längst ner på varje sida finns det knappar för att navigera till andra sidor med anknyting till sidan:
+
+ * Liknande''''''Sidor
+ * Lokal''''''Plats''''''Karta
+
+Dessutom finns
+{{{[[PageList]]}}}, {{{[[FullSearch('text')]]}}}
+och {{{[[TableOfContents]]}}},
+som ger dig möjlighet att automatiskt generera index för sammanhängande delar av en Wiki.

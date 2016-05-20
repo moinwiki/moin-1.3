@@ -72,7 +72,7 @@ class MoinUserCheck(_util.Script):
         # --config=DIR
         self.parser.add_option(
             "--config", metavar="DIR", dest="configdir",
-            help="Path to moin_config.py (or its directory)"
+            help="Path to wikiconfig.py (or its directory)"
         )
 
         # --disableuser=UID
@@ -154,7 +154,7 @@ class MoinUserCheck(_util.Script):
         global config
         from MoinMoin import config
         if config.default_config:
-            _util.fatal("You have to be in the directory containing moin_config.py, "
+            _util.fatal("You have to be in the directory containing wikiconfig.py, "
                 "or use the --config option!")
 
         # XXX: globals bad bad bad!

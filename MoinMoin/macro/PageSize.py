@@ -6,20 +6,16 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-from MoinMoin import config, wikiutil
-
 Dependencies = ["pages"]
 
 def execute(macro, args):
     # get list of pages and their objects
-    pages = wikiutil.getPageDict(config.text_dir)
+    pages = macro.request.rootpage.getPageDict()
 
     # get sizes and sort them
     sizes = []
     for name, page in pages.items():
-        if macro.request.user.may.read(name):
-            sizes.append((page.size(), page))
+        sizes.append((page.size(), page))
     sizes.sort()
     sizes.reverse()
 
@@ -31,7 +27,9 @@ def execute(macro, args):
         result.append(macro.formatter.code(1))
         result.append(("%6d" % size).replace(" ", "&nbsp;") + " ")
         result.append(macro.formatter.code(0))
-        result.append(macro.formatter.pagelink(page.page_name, generated=1))
+        result.append(macro.formatter.pagelink(1, page.page_name, generated=1))
+        result.append(macro.formatter.text(page.page_name))
+        result.append(macro.formatter.pagelink(0))
         result.append(macro.formatter.listitem(0))
     result.append(macro.formatter.number_list(0))
 

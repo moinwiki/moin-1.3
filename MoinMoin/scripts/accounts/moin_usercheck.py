@@ -57,10 +57,10 @@ import sys, re
 # setup.py into your python site-packages, then you don't need that setting):
 sys.path.append('/home/twaldmann/moincvs/moin--main')
 
-# this is where your moin_config.py is:
+# this is where your wikiconfig.py is:
 sys.path.append('/org/org.linuxwiki/cgi-bin')
 
-# if you include other stuff in your moin_config, you might need additional
+# if you include other stuff in your wikiconfig, you might need additional
 # pathes in your search path. Put them here:
 sys.path.append('/org/wiki')
 
@@ -75,7 +75,7 @@ from MoinMoin.user import *
 from MoinMoin import config, wikiutil
 
 def collect_data():
-    for uid in getUserList():
+    for uid in getUserList(request): # XXX FIXME make request object for getting config vars there
         u = User(None, uid)
         users[uid] = u
 

@@ -19,7 +19,7 @@
     Gustavo Niemeyer added wiki markup parsing of the quotes.
 """
 
-import random, cStringIO
+import random, StringIO
 from MoinMoin.Page import Page, wikiutil
 
 Dependencies = ["time"]
@@ -28,7 +28,7 @@ def execute(macro, args):
     _ = macro.request.getText
 
     pagename = args or 'FortuneCookies'
-    page = Page(pagename)
+    page = Page(macro.request, pagename)
     raw = page.get_raw_body()
     if not macro.request.user.may.read(pagename):
         raw = ""
@@ -46,9 +46,9 @@ def execute(macro, args):
                 
     quote = random.choice(quotes)
     page.set_raw_body(quote, 1)
-    out = cStringIO.StringIO()
+    out = StringIO.StringIO()
     macro.request.redirect(out)
-    page.send_page(macro.request, content_only=1, content_id="RandomQuote_%s" % wikiutil.quoteWikiname(page.page_name) )
+    page.send_page(macro.request, content_only=1, content_id="RandomQuote_%s" % wikiutil.quoteWikinameFS(page.page_name) )
     quote = out.getvalue()
     macro.request.redirect()
     

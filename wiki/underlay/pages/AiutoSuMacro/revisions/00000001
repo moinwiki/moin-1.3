@@ -1,0 +1,70 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language it
+##||{{{[[ ]]}}} ||  ||  ||
+
+[[TableOfContents]]
+
+== Macro ==
+
+Le macro consentono di inserire nuove funzionalità nelle normali pagine wiki;
+l'unica cosa che rende speciali quelle pagine è che contengono delle macro. Se
+modifichi pagine tipo ModificheRecenti o SystemInfo, potrai vedere che cosa
+questo significhi.
+
+Per ulteriori informazioni sulle possibili formattazioni, vedi AiutoSuFormattazione.
+
+=== Macro di ricerca ===
+||'''Macro'''||'''Descrizione'''||'''Esempio'''||
+||{{{[[TitleSearch]]}}}     || cerca tra i titoli delle pagine || Vedi CercaPagina ||
+||{{{[[FullSearch]]}}}      || cerca nel contenuto delle pagine || Vedi CercaPagina ||
+||{{{[[FullSearch()]]}}}    || cerca il titolo corrente in tutte le pagine (come cliccando sul titolo della pagina) || Vedi la pagina CategoryCategory ||
+||{{{[[FullSearch('testo')]]}}} || cerca "testo" in tutte le pagine || Cerca {{{FullSearch}}}:[[FullSearch('FullSearch')]] ||
+||{{{[[GoTo]]}}}            || vai direttamente alla pagina che indichi || Vedi CercaPagina ||
+||{{{[[PageList(regex)]]}}} || elenca le pagine il cui titolo corrisponde alla regex || Vedi AiutoIndice ||
+
+=== Navigazione ===
+||'''Macro'''||'''Descrizione'''||'''Esempio'''||
+||{{{[[RecentChanges]]}}}   || elenca le pagine modificate di recente || Vedi ModificheRecenti ||
+||{{{[[TitleIndex]]}}}      || genera un indice di tutti i titoli delle pagine || Vedi IndiceDeiTitoli ||
+||{{{[[WordIndex]]}}}       || genera un indice di tutte le parole nei titoli delle pagine || Vedi IndicePerParola ||
+||{{{[[WantedPages]]}}}     || elenca i riferimenti a pagine non esistenti || Vedi PagineAssenti ||
+||{{{[[OrphanedPages]]}}}   || elenca le pagine che non sono referenziate da altre pagine || Vedi PagineOrfane ||
+||{{{[[AbandonedPages]]}}}  || elenca le pagine che non sono state modificate da lungo tempo || Vedi PagineAbbandonate ||
+||{{{[[RandomPage]]}}}      || genera un link a una pagina a caso || [[RandomPage]] ||
+||{{{[[RandomPage(#)]]}}}   || genera un elenco di link a un certo numero di pagine casuali || Due pagine casuali:[[RandomPage(2)]] ||
+||{{{[[TableOfContents]]}}} || display a local table of contents || Vedi sopra ||
+||{{{[[Anchor(anchorname)]]}}} || macro per inserire una "ancora" HTML nella pagina || [[Anchor(qui)]][#qui] ||
+
+=== Informazioni di sistema ===
+||'''Macro'''||'''Descrizione'''||'''Esempio'''||
+||{{{[[InterWiki]]}}}       || elenco di tutti i nomi InterWiki conosciuti || InterWiki ||
+||{{{[[SystemInfo]]}}}      || informazioni sul wiki, sull'interprete Python e sul sistema ospite || SystemInfo ||
+||{{{[[PageCount]]}}}       || numero di pagine presenti || [[PageCount]] pagine ||
+||{{{[[PageSize]]}}}        || elenca le dimensioni di tutte le pagine || Vedi PageSize ||
+||{{{[[StatsChart(type)]]}}} || mostra un grafico statistico (attualmente disponibili: hitcounts, pagesize, useragents) || Vedi EventStats e relative sottopagine ||
+||{{{[[SystemAdmin]]}}} || interfaccia Web all'amministrazione del wiki (non ancora completo nella versione 1.0) || Vedi SystemInfo ||
+
+=== Altre ===
+||'''Macro'''||'''Descrizione'''||'''Esempio'''||
+||{{{[[Icon(image)]]}}}     || visualizza una icona di sistema || Vedi AiutoSuNavigazione ||
+||{{{[[UserPreferences]]}}} || mostra una maschera con le preferenze dell'utente || Vedi PreferenzeUtente ||
+||{{{[[BR]]}}}              || inserisci un "a-capo" || prima riga[[BR]]seconda riga ||
+||{{{[[RandomQuote(pagename)]]}}} || Seleziona una citazione a caso dalla pagina indicata, o da `FortuneCookies` se non è specificata || [[RandomQuote]] ||
+||{{{[[Include(NomePagina[,"intestazione"[,livello]])]]}}} || includi il contenuto di un'altra pagina || [[Include(HelloWorld)]] ||
+||{{{[[FootNote(testo)]]}}} || aggiungi una nota a pié di pagina (il testo non può contenere nessuna formattazione wiki), o forza la visualizzazione delle note se viene usata senza argomenti || Vedi AiutoSuCreazionePagina per un esempio ||
+||{{{[[Date(timestamp)]]}}} || visualizza una data secondo le impostazioni di sistema || [[Date()]] ||
+||{{{[[DateTime(timestamp)]]}}} || visualizza data e ora[[FootNote("timestamp" può essere vuoto per indicare l'ora corrente, un numero di secondi dal 1970 (timestamp unix), oppure un istante nel formato specificato dal W3C ("2002-01-23T12:34:56").)]] nel formato scelto dall'utente || [[DateTime()]] ||
+||{{{[[GetText(testo)]]}}}  || carica la traduzione nella lingua dell'utente di un certo "testo" (intesa principalmente per le pagine di Aiuto) || "Edit``Text" viene tradotto in "[[GetText(EditText)]]" ||
+||{{{[[TeudView]]}}}        || utile in un wiki intranet, un modo per vedere documentazione pydoc, formattata con uno stylesheet XSLT, per dettagli vedi EfnetPythonWiki:TeudProject || Vedi EfnetPythonWiki:TeudViewer?module=MoinMoin.macro.TeudView ||
+
+[[FootNote]]
+
+== Esempio ==
+
+Non vengono qui mostrate tutte le macro, dal momento che questo renderebbe la
+pagina oltremodo lunga. Qui sotto puoi vedere come viene sostituita la macro
+{{{[[SystemInfo]]}}}:
+
+  [[SystemInfo]]

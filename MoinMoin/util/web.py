@@ -6,62 +6,59 @@
     @license: GNU GPL, see COPYING for details.
 """
 
+import re, urllib
 from MoinMoin import config
 
-_ua_match = None
-
-def isSpiderAgent(**kw):
+def isSpiderAgent(request):
     """ Return True if user agent appears to be a spider.
     """
-    if not config.ua_spiders:
+    if not request.cfg.ua_spiders:
         return 0
 
-    request = kw.get('request', None)
-    if request:
-        ua = request.getUserAgent()
-    else:
-        ua = kw.get('ua', None)
-    
+    ua = request.getUserAgent()
     if not ua:
         return 0
 
-    global _ua_match
-    if _ua_match is None:
-        import re
-        _ua_match = re.compile(config.ua_spiders, re.I)
-
-    return _ua_match.search(ua) is not None
+    return re.search(request.cfg.ua_spiders, ua, re.I) is not None
 
 
 def parseQueryString(qstr):
     """ Parse a querystring "key=value&..." into a dict.
     """
-    import urllib
-
     values = {}
     pairs = qstr.split('&') # XXX
     for pair in pairs:
-        key, val = pair.split('=')
-        values[urllib.unquote(key)] = urllib.unquote(val)
+        # urllib.unquote seems unhappy with unicode, so we use str:
+        key, val = str(pair).split('=')
+        key = unicode(urllib.unquote(key), config.charset)
+        val = unicode(urllib.unquote(val), config.charset)
+        #print repr(key), repr(val)
+        values[key] = val
 
     return values
 
 
-def makeQueryString(qstr={}, **kw):
-    """ Make a querystring from a dict. Keyword parameters are
-        added as-is, too.
+def makeQueryString(qstr=None, **kw):
+    """ Make a querystring from arguments.
+        
+    kw arguments overide values in qstr.
 
-        If a string is passed in, it's returned verbatim and
-        keyword parameters are ignored.
+    If a string is passed in, it's returned verbatim and
+    keyword parameters are ignored.
+
+    @param qstr: dict to format as query string, using either ascii or unicode
+    @param kw: same as dict when using keywords, using assci or unicode
+    @rtype: string
+    @return: query string ready to use in a url
     """
+    if qstr is None:
+        qstr = {}
     if isinstance(qstr, type({})):
-        import urllib
-
-        qstr = '&amp;'.join([
-            urllib.quote_plus(name) + "=" + urllib.quote_plus(str(value))
-                for name, value in qstr.items() + kw.items()
-        ])
-
+        qstr.update(kw)        
+        q = lambda x: urllib.quote_plus(unicode(x).encode(config.charset))
+        items = ['%s=%s' % (q(key), q(value)) for key, value in qstr.items()]
+        qstr = '&'.join(items)
+    
     return qstr
 
 
@@ -104,7 +101,6 @@ def makeSelection(name, values, selectedval=None):
         `selectedval` is the value that should be pre-selected.
     """
     from MoinMoin.widget import html
-
     result = html.SELECT(name=name)
     for val in values:
         if not isinstance(val, type(())):

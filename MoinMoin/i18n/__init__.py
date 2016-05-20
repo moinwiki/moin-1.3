@@ -12,25 +12,24 @@
     NAME, ENCODING, DIRECTION, MAINTAINER -- named indexes
 
     Public functions:
-    charset() -- return the charset of this source
     filename(lang) -- return the filename of lang
-    loadLanguage(request, lang) -- load text dictionary for a specific language
+    loadLanguage(request, lang) -- load text dictionary for a specific language, returns (formatted, unformatted)
     requestLanguage(request, usecache=1) -- return the request language
     wikiLanguages() -- return the available wiki user languages
     browserLanguages() -- return the browser accepted languages
     getDirection(lang) -- return the lang direction either 'ltr' or 'rtl'
     getText(str, request) -- return str translation
     canRecode(input, output, strict) -- check recode ability
-    recode(text, input, output, errors) -- change text encoding
     
     @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
+import os
 from MoinMoin import config
+from MoinMoin.Page import Page
 
-NAME, ENCODING, DIRECTION, MAINTAINER = range(0,4)
+NAME, ENAME, ENCODING, DIRECTION, MAINTAINER = range(0,5)
 # we do not generate this on the fly due to performance reasons -
 # importing N languages would be slow for CGI...
 from meta import languages
@@ -40,14 +39,11 @@ from meta import languages
 # update language data in such environments.  
 _text_cache = {}
 
-def charset():
-    """
-    Return the charset of meta.py file
+# also cache the unformatted strings...
+_unformatted_text_cache = {}
 
-    Since the language data there is encoded, clients might want to recode the data.
-
-    """
-    return 'iso-8859-1'
+# remember what has been marked up correctly already
+_done_markups = {}
 
 def filename(lang):
     """
@@ -59,6 +55,46 @@ def filename(lang):
     filename = lang.replace('-', '_')
     filename = filename.lower()
     return filename
+
+def formatMarkup(request, text, currentStack = []):
+    """
+    Formats the text passed according to wiki markup.
+    This raises an exception if a text needs itself to be translated,
+    this could possibly happen with macros.
+    """
+    try:
+        currentStack.index(text)
+        raise Exception("Formatting a text that is being formatted?!")
+    except ValueError:
+        pass
+    currentStack.append(text)
+
+    from MoinMoin.Page import Page
+    from MoinMoin.parser.wiki import Parser
+    from MoinMoin.formatter.text_html import Formatter
+    import StringIO
+
+    origtext = text
+    out = StringIO.StringIO()
+    request.redirect(out)
+    parser = Parser(text, request)
+    formatter = Formatter(request, terse = True)
+    reqformatter = None
+    if hasattr(request, 'formatter'):
+        reqformatter = request.formatter
+    request.formatter = formatter
+    p = Page(request, "$$$$i18n$$$$")
+    formatter.setPage(p)
+    parser.format(formatter)
+    text = out.getvalue()
+    if reqformatter == None:
+        del request.formatter
+    else:
+        request.formatter = reqformatter
+    request.redirect()
+    del currentStack[-1]
+    text = text.strip()
+    return text
    
 def loadLanguage(request, lang):
     """
@@ -68,83 +104,61 @@ def loadLanguage(request, lang):
     languages files use '_' like 'en_us' because they are saved as
     Python source files.
 
+    Raises an exception if this method is called from within itself
+    (by the formatter). In that case, the translation file is buggy.
+    Possible causes are having a text that is interpreted to again
+    need a text in the same language. That means you cannot use
+    the GetText macro in translated strings, nor any wiki markup
+    that requires translated strings (eg. "attachment:").
+
     """
-    from MoinMoin.util import pysupport
-    lang_module = "MoinMoin.i18n." + filename(lang)
-    texts = pysupport.importName(lang_module, "text") 
-    meta = pysupport.importName(lang_module, "meta") 
+    import pickle
+    from MoinMoin import caching
+    cache = caching.CacheEntry(request, arena='i18n', key=lang)
+    langfilename = os.path.join(os.path.dirname(__file__), filename(lang) + '.py')
+    needsupdate = cache.needsUpdate(langfilename)
+    if not needsupdate:
+        try:
+            (uc_texts, uc_unformatted) = pickle.loads(cache.content())
+        except (IOError,ValueError): #bad pickle data, no pickle
+            needsupdate = 1
 
-    # FIXME this doesnt work, leads to &amp;amp;amp;...
-    # maybe parser.wiki._do_ent_repl is the problem?
-    
-    # please help finding this bug. I want to get rid of html in i18n texts
-    # and a nice way to do is to replace them by wiki markup. so we wont have
-    # to change them every time we go to a new html standard (like html 4.01
-    # now and soon maybe xhtml).
-    
-    # use the wiki parser now to replace some wiki markup with html
-    # maybe this is the better implementation, less overhead
-    if 0:
-        from MoinMoin.Page import Page
-        from MoinMoin.parser.wiki import Parser
-        from MoinMoin.formatter.text_html import Formatter
-        import cStringIO
-        for key in texts:
-            text = texts[key]
-            out = cStringIO.StringIO()
-            request.redirect(out)
-            print "making parser ..."
-            parser = Parser(text, request)
-            formatter = Formatter(request)
-            p = Page("$$$$i18n$$$$")
-            formatter.setPage(p)
-            print "formatting ..."
-            parser.format(formatter)
-            print "formatting finished ..."
-            text = out.getvalue()
-            request.redirect()
-            #if text.startswith("<p>\n"):
-            #    text = text[4:]
-            #if text.endswith("</p>\n"):
-            #    text = text[:-5]
-            #print text
-            
-            # XXX catch problem early:
-            if "&amp;amp;" in text:
-                raise str(key)+str(text)
-            
-            texts[key] = text
-        
-    #alternative implementation, also doesnt work:
-    if 0:
-        import cStringIO
-        from MoinMoin.Page import Page
-        page = Page("$$$i18n$$$")
-        #key = "xxx"
-        for key in texts:
-            text = texts[key]
-            page.set_raw_body(text, 1)
-            out = cStringIO.StringIO()
-            request.redirect(out)
-            page.send_page(request, content_only=1)
-            text = out.getvalue()
-            if text.startswith("<p>\n"):
-                text = text[4:]
-            if text.endswith("</p>\n"):
-                text = text[:-5]
-            #print text
-            request.redirect()
-            texts[key] = text
-        
-    # TODO caching for CGI or performance will suck
-    # pickle texts dict to caching area
+    if needsupdate:    
+        from MoinMoin.util import pysupport
+        lang_module = "MoinMoin.i18n." + filename(lang)
+        texts = pysupport.importName(lang_module, "text")
+        if not texts:
+            return (None, None)
+        meta = pysupport.importName(lang_module, "meta") 
+        encoding = meta['encoding']
 
-    # XXX UNICODE
-    # convert to unicode
-    #encoding = meta['encoding']
-    #for t in texts:
-    #    texts[t] = texts[t].decode(encoding)
-    return texts
+        # convert to unicode
+        uc_texts = {}
+        for idx in texts:
+            uidx = idx.decode(encoding)
+            utxt = texts[idx].decode(encoding)
+            uc_texts[uidx] = utxt
+        uc_unformatted = uc_texts.copy()
+
+        # is this already on wiki markup?
+        if meta.get('wikimarkup', False):
+            # use the wiki parser now to replace some wiki markup with html
+            text = ""
+            global _done_markups
+            if not _done_markups.has_key(lang):
+                _done_markups[lang] = 1
+                for key in uc_texts:
+                    text = uc_texts[key]
+                    uc_texts[key] = formatMarkup(request, text)
+                _done_markups[lang] = 2
+            else:
+                if _done_markups[lang] == 1:
+                    raise Exception("Cyclic usage detected; you cannot have translated texts include translated texts again! "
+                                    "This error might also occur because of things that are interpreted wiki-like inside translated strings. "
+                                    "This time the error occurred while formatting %s." % text)
+        cache.update(pickle.dumps((uc_texts, uc_unformatted)))
+
+    return (uc_texts, uc_unformatted)
 
 
 def requestLanguage(request):
@@ -180,10 +194,10 @@ def requestLanguage(request):
             return lang
     
     # Or return the wiki default language...
-    if available.has_key(config.default_lang):
-        lang = config.default_lang
+    if available.has_key(request.cfg.default_lang):
+        lang = request.cfg.default_lang
 
-    # If eveything else fails, read the manual... or return 'en'
+    # If everything else fails, read the manual... or return 'en'
     else:
         lang = 'en'
 
@@ -210,8 +224,7 @@ def wikiLanguages():
     available = {}
     for lang in languages.keys():
         encoding = languages[lang][ENCODING].lower()
-        if (lang == 'en' or
-            encoding == config.charset or
+        if (encoding == config.charset or
             canRecode(encoding, config.charset, strict=1)):
             available[lang] = languages[lang]
         
@@ -233,11 +246,13 @@ def browserLanguages(request):
     fallback = []
     
     accepted = request.http_accept_language
+
     if accepted:
         # Extract the languages names from the string
         accepted = accepted.split(',')
+
         accepted = map(lambda x: x.split(';')[0], accepted)
-    
+
         # Add base language for each sub language. If the user specified
         # a sub language like "en-us", we will try to to provide it or
         # a least the base language "en" in this case.
@@ -247,7 +262,7 @@ def browserLanguages(request):
             if '-' in lang:
                 baselang = lang.split('-')[0]
                 fallback.append(baselang)
-        
+
     return fallback
 
 
@@ -256,42 +271,41 @@ def getDirection(lang):
     return ('ltr', 'rtl')[languages[lang][DIRECTION]]
 
 
-def getText(str, request, lang):
+def getText(str, request, lang, formatted = True):
     """
     Return a translation of text in the user's language.
-
-    TODO: Should move this into a language instance. request.lang
-    should be a language instance.
-    
     """
-    # quick handling for english texts - no recoding needed!
-    if lang == "en": return str
-    
+    # TODO: Should move this into a language instance. request.lang should be a language instance.
+
     # load texts if needed
     global _text_cache
     if not _text_cache.has_key(lang):
-        texts = loadLanguage(request, lang)
-        if not texts:
-            # Return english text in case of problems
-            # ??? Do we really need to recode from ascii? we don't need
-            # this for utf-8 wikis, but what about chinese wiki? 
-            return recode(str, 'ascii', config.charset) or str
-            # XXX UNICODE fix needed, we want to use unicode internally, not
-            # config.charset or utf-8
-            
+        (texts, unformatted) = loadLanguage(request, lang)
+        # XXX add error handling
         _text_cache[lang] = texts
+        _unformatted_text_cache[lang] = unformatted
 
     # get the matching entry in the mapping table
-    translation = _text_cache[lang].get(str, None)
-    if translation is None:
-        return recode(str, 'ascii', config.charset) or str
-        # XXX UNICODE fix needed, we want to use unicode internally, not
-        # config.charset or utf-8
 
-    encoding = languages[lang][ENCODING]
-    return recode(translation, encoding, config.charset) or translation
-    # XXX UNICODE fix needed. We dont want utf-8 internally, we want unicode strings!
-    # Later (on output), we will encode it again to whatever needed (including utf-8).
+    trans = str
+    try:
+        if formatted:
+            trans = _text_cache[lang][str]
+        else:
+            trans = _unformatted_text_cache[lang][str]
+    except KeyError:
+        try:
+            language = languages[lang][ENAME]
+            dictpagename = "%sDict" % language
+            if Page(request, dictpagename).exists():
+                dicts = request.dicts
+                if dicts.has_dict(dictpagename):
+                    userdict = dicts.dict(dictpagename)
+                    trans = userdict[str]
+        except KeyError:
+            pass
+    return trans
+
 
 ########################################################################
 # Encoding
@@ -301,7 +315,7 @@ def canRecode(input, output, strict=1):
     """
     Check if we can recode text from input to output.
 
-    Return 1 if we can probablly recode from one charset to
+    Return 1 if we can probably recode from one charset to
     another, or 0 if the charset are not known or compatible.
 
     arguments:
@@ -344,28 +358,4 @@ def canRecode(input, output, strict=1):
         # Probably you can recode using 'replace' or 'ignore' or other
         # encodings error level and be happy with the results, so YES
         return 1
-    
-# XXX UNICODE this is maybe not needed if we use unicode strings internally.
-# TODO check that...
-def recode(text, input, output, errors='strict'):
-    """
-    Recode string from input to output encoding
-
-    Return the recoded text or None if it can not be recoded
-
-    """
-
-    # Don't try to encode already encoded. 
-    if input == output: return text
-
-    try:
-        # Decode text unless it is a unicode string, then encode
-        if not isinstance(text, type(u'')):
-            text = unicode(text, input, errors)
-        return text.encode(output, errors)
-        
-    except (ValueError, UnicodeError, LookupError):
-        # Unkown encodings or encoding failure 
-        return None
-            
 

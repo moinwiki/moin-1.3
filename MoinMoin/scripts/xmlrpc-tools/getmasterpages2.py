@@ -21,7 +21,7 @@ dsttrans = BasicAuthTransport(user,password)
 dstwiki = xmlrpclib.ServerProxy("http://devel.linuxwiki.org/moin--main/__xmlrpc/?action=xmlrpc2", transport=dsttrans)
 
 def rawGetPage(srcurl, pagename, encoding='iso8859-1'):
-    url = srcurl % wikiutil.quoteWikiname(pagename.encode(encoding))
+    url = srcurl % wikiutil.quoteWikinameFS(pagename.encode(encoding))
     pagedata = urllib.urlopen(url).read()
     return unicode(pagedata, encoding).encode('utf-8')
 

@@ -1,0 +1,13 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language da
+##master-page:MissingPage
+##master-date:2004-11-15 16:59:51
+
+'''Denne side eksisterer ikke endnu. Du kan oprette en ny tom side, eller bruge en af sideskabelonerne. Check venligst før du opretter siden, om en lignende side eksisterer allerede.'''
+
+[[Action(edit,Opret ny tom side)]]
+
+|| '''Sideskabeloner:''' || '''Eksisterende sider med lignende navne:''' ||
+||<^> [[EditTemplates]] ||<^> [[LikePages((none))]] ||

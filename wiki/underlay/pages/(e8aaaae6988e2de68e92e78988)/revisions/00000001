@@ -1,0 +1,7 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh-tw
+#redirect HelpOnFormatting
+##This page is not yet translated.
+##本頁還沒翻譯.

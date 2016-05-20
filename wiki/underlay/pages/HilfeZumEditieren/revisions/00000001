@@ -1,0 +1,26 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language de
+##master-page:HelpOnEditing
+##master-date:2002-01-24 15:33:42
+== Editieren einer Seite ==
+Seitenamen sollten aussehen wie DasHier - man nennt dies einen WikiName``n. Wenn Sie ein Wort wie DasHier schreiben, wird es automatisch in einen Verweis (Link) umgewandelt. Genaueres dazu finden Sie unter HilfeFürAnfänger.
+
+Die folgenden Seiten beschreiben die Elemente (Wiki-Notation), die Sie benutzen können, um spezielle Textformatierungen zu erhalten:
+ * HilfeZumFormatieren - allgemeine Textformatierungsregeln
+ * HilfeZuVerweisen - externe Hyperlinks und eingebettete Bilder
+ * HilfeZuÜberschriften - Abschnittsüberschriften
+ * HilfeZuTrennlinien - horizontale Trennlinien
+ * HilfeZuListen - Listen und eingerückte Abschnitte
+ * HilfeZuTabellen - Tabellen
+ * HilfeZuSmileys - wie man einen :) einfügt
+ * wiki:Self:HilfeZurSeitenErzeugung#variablenersetzung - welche Variablen es gibt (wie @''''''SIG@, @''''''MAILTO@ ...)
+ * HilfeZuMakros - System-Makros
+ * HilfeZuProzessoren - datenverarbeitende Skripte
+ * HilfeZuVerarbeitungsAnweisungen - wie man die Seitenformatierung beeinflusst
+ * HilfeZuXmlSeiten - wie man Seiten mit XML-Inhalt abspeichert und sie mit XSLT verarbeitet
+ * HilfeZuEditierSperren - wie man sich verhalten sollte, wenn Editier-Sperren aktiviert sind
+ * /UnterSeiten - wie man sachverwandte Informationen zusammen gruppiert
+
+Um mit der Wiki-Notation zu experimentieren, gehen Sie in die WikiSandBox und klicken Sie dann auf "[[GetText(EditText)]]" im Fußbereich der Seite. Benutzen Sie die Funktion "Öffne diesen Link in neuem Fenster" Ihres Browsers auf dem Wort "WikiSandBox", dann können Sie die Hilfeseiten und die WikiSandBox Seite an Seite gleichzeitig geöffnet haben.

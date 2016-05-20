@@ -1,6 +1,6 @@
 /*  print.css - MoinMoin Default Styles
 
-    Copyright (c) 2001, 2002, 2003 by Jürgen Hermann
+    Copyright (c) 2001, 2002, 2003 by Juergen Hermann
 */
 
 /* content styles */
@@ -18,14 +18,6 @@ pre {
 	border: 1pt solid black;
 	background-color: inherit
 	color: black;
-}
-
-hr {
-	clear: both;
-	border-style: none;
-	background-color: black;
-	color: black;
-	height: 1pt;
 }
 
 td {

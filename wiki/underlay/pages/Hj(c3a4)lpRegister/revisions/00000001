@@ -1,0 +1,8 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language sv
+##master-page:HelpIndex
+##master-date:2002-03-05 10:00:32
+Här följer en lista på alla hjälpsidor:
+[[PageList(regex:^Hjälp.*)]]

@@ -1,49 +1,39 @@
 # -*- coding: utf-8 -*-
-# Text translations for Chinese/Taiwan (zh_tw).
+# Text translations for 繁體中文 (zh_tw).
 # Automatically generated - DO NOT EDIT, edit zh_tw.po instead!
 meta = {
-  'language': 'Chinese/Taiwan',
+  'language': '繁體中文',
+  'elanguage': 'Chinese/Taiwan',
   'maintainer': 'Lin Zhemin <ljm@ljm.idv.tw>',
   'encoding': 'utf-8',
   'direction': 'ltr',
+  'wikimarkup': True,
 }
 text = {
-'''(last edited %(time)s by %(editor)s)''':
-'''(上次是由 %(editor)s 在 %(time)s 編輯的)''',
-'''(last modified %s)''':
-'''(上次修改時間 %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
 '''建議您不要使用本頁的備份內容，備份不會出現在搜尋結果中!''',
-'''Version as of %(date)s''':
-'''%(date)s 版''',
+'''Revision %(rev)d as of %(date)s''':
+'''%(date)s 修訂第 %(rev)d 版''',
 '''Redirected from page "%(page)s"''':
 '''從 "%(page)s" 頁轉向過來''',
 '''This page redirects to page "%(page)s"''':
 '''本頁轉向到 "%(page)s"''',
-'''<p><small>If you submit this form, the submitted values will be displayed.
+'''~-If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-macro call.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+macro call.-~
 ''':
-'''<p><small>如果您提交本表單，提交的值將被顯示出來.
-要在其他頁面使用本表單, 請插入一個
-<br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
-巨集呼叫.</b></small></p>
+'''~-如果您提交本表單，提交的值將會顯示出來.
+如果要在其他頁面使用本表單, 請插入
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+巨集呼叫.-~
 ''',
 '''You are not allowed to view this page.''':
 '''你不能閱讀本頁。''',
 '''RefreshCache''':
 '''刷新快取內容''',
-'''for this page (cached %(date)s)''':
-''' (本頁快取時間: %(date)s)''',
-'''Create this page''':
-'''建立本頁''',
-'''Alternatively, use one of these templates:''':
-'''或是用下面其中一個範本:''',
-'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
-'''如果要建立新的範本, 請新增一頁, 名字必須符合正規表達式 "%(page_template_regex)s", 如 MyNewTemplate.''',
-'''The following pages with similar names already exist...''':
-'''下面幾頁的名字很接近本頁, 提供你做個參考...''',
+'''(cached %s)''':
+'''(%s 的快取)''',
 '''You are not allowed to edit this page.''':
 '''你不能編輯本頁.''',
 '''Page is immutable!''':
@@ -70,16 +60,18 @@ macro call.</small></p>
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''有人在你編輯的時候按下「存檔」了!
-請勿直接儲存本頁! 請先點擊 %(difflink)s , 看看哪裡修改過了,
+請勿直接儲存本頁! 請先點進 %(difflink)s , 看看哪裡修改過了,
 再決定要不要進一步編輯、儲存本頁.''',
 '''[Content of new page loaded from %s]''':
 '''[從 %s 載入新頁面的內容]''',
 '''[Template %s not found]''':
 '''[找不到範本 %s ]''',
+'''[You may not read %s]''':
+'''[你不能閱讀 %s]''',
 '''Skip to preview''':
 '''跳至預覽''',
-'''[current page size <strong>%(size)d</strong> bytes]''':
-'''[本頁目前大小 <strong>%(size)d</strong> 位元組]''',
+'''[current page size \'\'\'%(size)d\'\'\' bytes]''':
+'''[本頁目前大小 \'\'\'%(size)d\'\'\' 位元組]''',
 '''Describe %s here.''':
 '''在這裡加入關於 %s 的內容.''',
 '''Optional comment about this change''':
@@ -94,48 +86,26 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''存檔''',
 '''Cancel''':
 '''取消''',
-'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
-'''按下 <strong>%(save_button_text)s</strong> 表示你同意依照%(license_link)s. 來宣告本次編輯的版權.
-如果你不同意的話, 請按 <strong>%(cancel_button_text)s</strong> 以放棄本次編輯.''',
+'''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
+If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
+'''按下 \'\'\'%(save_button_text)s\'\'\' 表示你同意依照 %(license_link)s. 宣告本次編輯的版權.
+如果你不同意的話, 請按 \'\'\'%(cancel_button_text)s\'\'\' 以放棄本次編輯.''',
 '''Preview''':
 '''預覽''',
-'''Send mail notification''':
-'''發送編輯通知''',
+'''Trivial change''':
+'''只改了極少部份''',
 '''Remove trailing whitespace from each line''':
 '''去掉行尾空白''',
-'''<dt>Emphasis:</dt>
-<dd>\'\'<em>italics</em>\'\'; \'\'\'<strong>bold</strong>\'\'\'; \'\'\'\'\'<strong><em>bold italics</em></strong>\'\'\'\'\';
-    \'\'<em>mixed \'\'\'<strong>bold</strong>\'\'\' and italics</em>\'\'; ---- horizontal rule.</dd>
-<dt>Headings:</dt>
-<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.</dd>
-<dt>Lists:</dt>
-<dd>space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.</dd>
-<dt>Links:</dt>
-<dd>JoinCapitalizedWords; ["brackets and double quotes"];
-    url; [url]; [url label].</dd>
-<dt>Tables:</dt>
-<dd>|| cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.</dd>
-''':
-'''<dt>強調:</dt>
-<dd>\'\'<i>斜體</i>\'\'; \'\'\'<b>粗體</b>\'\'\'; \'\'\'\'\'<b><i>粗斜體</i></b>\'\'\'\'\';
-    \'\'<i>混合\'\'\'<b>粗</b>\'\'\'斜體</i>\'\'; ---- 分隔線.</dd>
-<dt>標題:</dt>
-<dd>= 標題 1 =; == 標題 2 ==; === 標題 3 ===;
-    ==== 標題 4 ====; ===== 標題 5 =====.</dd>
-<dt>列表:</dt>
-<dd>空白加下列符號之一：* 表圓點; 1., a., A., i., I. 表序數項;
-    1.#n 表由n開始計數; 空白 表縮排.</dd>
-<dt>連結:</dt>
-<dd>JoinCapitalizedWords 兩個以上大寫開頭字; ["方括號加雙引號"];
-    url; [url]; [url 說明].</dd>
-<dt>表格</dt>:
-<dd>|| 儲存格內文 |||| 跨兩列的儲存格 ||;
-    表格或標題尾端不可以有空白.</dd>
-''',
+''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
+ Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
+ Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
+ Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim(["brackets and double quotes"])]]; url; [url]; [url label].
+ Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
+''' 強調:: [[Verbatim(\'\')]]\'\'斜體\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'粗體\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'粗斜體\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'混合\'\'[[Verbatim(\'\'\')]]\'\'\'\'\'粗\'\'\'[[Verbatim(\'\'\')]]斜體\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] 分隔線.
+ 標題:: [[Verbatim(=)]] 標題1 [[Verbatim(=)]]; [[Verbatim(==)]] 標題2 [[Verbatim(==)]]; [[Verbatim(===)]] 標題3 [[Verbatim(===)]];   [[Verbatim(====)]] 標題4 [[Verbatim(====)]]; [[Verbatim(=====)]] 標題5 [[Verbatim(=====)]].
+ 列表:: 空白加下列符號之一: * 圓點; 1., a., A., i., I. 編號; 1.#n 從n開始編號; 空白 表示縮排.
+ 連結:: [[Verbatim(JoinCapitalizedWords)]] 兩個以上大寫開頭字; [[Verbatim(["方括號加雙引號"])]]; url; [url]; [url 說明].
+ 表格:: || 儲存格內文 |||| 跨兩列的儲存格 ||;    表格或標題尾端不可有空白.''',
 '''Edit was cancelled.''':
 '''取消編輯.''',
 '''Dear Wiki user,
@@ -150,7 +120,7 @@ The following page has been changed by %(editor)s:
 
 你在 "%(sitename)s" 訂閱了 wiki 頁面或 wiki 類別的編輯通知服務.
 
-以下頁面由 %(editor)s 編輯過了:
+%(editor)s 編輯了以下頁面:
 %(pagelink)s
 
 ''',
@@ -162,20 +132,22 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
+'''New page:
+''':
+'''新的頁面:
+''',
 '''No differences found!
 ''':
 '''新舊版完全相同!
 ''',
-'''The diff function returned with error code %(rc)s!''':
-'''版本比較函式傳回錯誤代碼 %(rc)s!''',
-'''You will not be notified of your own changes!''':
-'''因為你編輯了本頁, 所以編輯通知不會再寄一份給你!''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
+'''[%(sitename)s] %(trivial)s更動通知: "%(pagename)s"''',
+'''Trivial ''':
+'''些微''',
 '''Status of sending notification mails:''':
 '''發送編輯通知的情況:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
-'''Nobody subscribed to this page, no mail sent.''':
-'''沒人訂閱本頁, 沒有送出通知.''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## 本頁 "%(pagename)s" 已經在 %(date)s 備份好了''',
 '''You are not allowed to edit this page!''':
@@ -183,45 +155,47 @@ The following page has been changed by %(editor)s:
 '''You cannot save empty pages.''':
 '''你不能儲存空白頁.''',
 '''Sorry, someone else saved the page while you edited it.
-<p>Please do the following: Use the back button of your browser, and cut&paste
+
+Please do the following: Use the back button of your browser, and cut&paste
 your changes from there. Then go forward to here, and click EditText again.
-Now re-add your changes to the current page contents.</p>
-<p><em>Do not just replace
+Now re-add your changes to the current page contents.
+
+\'\'Do not just replace
 the content editbox with your version of the page, because that would
-delete the changes of the other person, which is excessively rude!</em></p>
+delete the changes of the other person, which is excessively rude!\'\'
 ''':
 '''很抱歉, 有人在你編輯的時候儲存了本頁.
-<p>請按如下步驟: 1.按下瀏覽器的倒退鍵, 從編輯框裡把你修改的內容剪貼到別地方,
-2.再按下前進鍵, 重新點擊 編輯本頁.
-3.重新加入您改過的內容.</p>
-<p><em>注意! 不要把整個內容改成你剛剪貼的版本, 
-那樣的話會刪除別人修改的內容, 
-這樣很沒禮貌!</em></p>
+
+請按如下步驟處理: 先按下瀏覽器的上一頁, 從編輯框裡把你修改的內容剪貼到別地方, 再按下一頁, 重新點擊 編輯本頁, 
+重新加入您改過的內容.
+
+\'\'注意! 不要把整個內容改成你剛剪貼下來的版本, 
+那樣的話會刪除別人改過的內容, 這樣很沒禮貌!\'\'
 ''',
-'''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
-'''你修改的備份存在<a href="%(backup_url)s">這裡</a>.''',
+'''A backup of your changes is [%(backup_url)s here].''':
+'''你的修改備份在[%(backup_url)s 這裡].''',
 '''You did not change the page content, not saved!''':
-'''你沒有更動本頁內容, 所以沒有存檔!''',
+'''本頁內容沒變, 所以沒有存檔!''',
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
-'''你不能修改本頁的 ACL, 因為你沒有管理權限!''',
+'''你不能修改本頁的存取控制表(ACL), 因為你沒有管理權限!''',
 '''Thank you for your changes. Your attention to detail is appreciated.''':
 '''謝謝修改, 敬請注意細節.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
 '''%(owner)s 對本頁的編輯鎖定在 %(mins_ago)d 分鐘前已經失效了, 你取得了本頁的編輯鎖定.''',
-'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
-'''其他使用者在 %(bumptime)s 之前, <em>無權</em>修改本頁.''',
-'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
-'''其他使用者在 %(bumptime)s 之前, 系統會<em>提示他</em>你在修改本頁.''',
+'''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
+'''在 %(bumptime)s 之前, 別人\'\'無權\'\'修改本頁.''',
+'''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
+'''在 %(bumptime)s 之前, 系統會\'\'提示別人\'\'你在修改本頁.''',
 '''Use the Preview button to extend the locking period.''':
 '''如果要延長鎖定期間, 請按編輯框下面的「預覽」鍵.''',
-'''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''本頁目前<em>鎖定中</em>. %(owner)s 正在修改本頁, 他可以修改到%(timestamp)s, 也就是 %(mins_valid)d 分鐘後.''',
-'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
-<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
-to avoid editing conflicts.</strong><br>
+'''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''本頁目前\'\'鎖定中\'\'. %(owner)s 正在修改本頁, 他可以修改到 %(timestamp)s 為止, 也就是 %(mins_valid)d 分鐘後.''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
+\'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
-'''%(owner)s 從 %(timestamp)s 開始編輯本頁.
-<strong class="highlight">為了避免編輯衝突, <em>請避免</em>在 %(mins_valid)d 分鐘內編輯本頁</strong>.<br>
+'''%(owner)s 從 %(timestamp)s 開始編輯本頁或按下預覽編輯.[[BR]]
+\'\'為了避免編輯衝突, \'\'請避免\'\'在 %(mins_valid)d 分鐘內編輯本頁\'\'\'[[BR]]
 請按下「取消」鍵離開編輯器.''',
 '''<unknown>''':
 '''<不明>''',
@@ -242,25 +216,39 @@ To leave the editor, press the Cancel button.''':
 '''Print''':
 '''友善列印''',
 '''View''':
-'''瀏覽''',
-'''Home''':
-'''首頁''',
+'''觀看''',
 '''Up''':
 '''上層''',
-'''Unknown action''':
-'''不明動作''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''無效的使用者名稱 {{{\'%s\'}}}.
+名稱可以使用 Unicode 文數字，字跟字中間可以
+加進一個空白. 不能使用群組頁面的名字.''',
+'''You are not allowed to do %s on this page.''':
+'''你不能 %s 本頁.''',
+'''Login''':
+'''登入''',
+''' %s and try again.''':
+''' %s 後再試一次.''',
 '''Can\'t work out query''':
 '''無法查詢''',
+'''%(hits)d results out of %(pages)d pages.''':
+'''在 %(pages)d 頁中找到 %(hits)d 頁.''',
+'''%.2f seconds''':
+'''%.2f 秒''',
+'''match''':
+'''筆''',
+'''matches''':
+'''筆''',
 '''Open editor on double click''':
-'''雙擊打開編輯器''',
+'''點兩下就打開編輯器''',
 '''Remember last page visited''':
-'''記住最後看哪一頁''',
-'''Show emoticons''':
-'''顯示表情符號''',
+'''記住上次看的最後一頁''',
 '''Show fancy links''':
-'''顯示fancy的連結''',
+'''在連結前顯示小圖示''',
 '''Show question mark for non-existing pagelinks''':
-'''為不存在的頁面連結顯示問號''',
+'''不存在的頁面連結前打上問號''',
 '''Show page trail''':
 '''顯示頁面軌跡記錄''',
 '''Show icon toolbar''':
@@ -271,34 +259,46 @@ To leave the editor, press the Cancel button.''':
 '''顯示易懂的版本比較''',
 '''Add spaces to displayed wiki names''':
 '''在顯示wiki名稱時加上空格''',
-'''Remember login information forever''':
+'''Remember login information''':
 '''永遠記住登入資訊''',
+'''Subscribe to trivial changes''':
+'''訂閱的頁面即使只改了極少部份也要寄信通知''',
 '''Disable this account forever''':
 '''永遠停用本帳號''',
 '''Cookie deleted. You are now logged out.''':
 '''Cookie 已經刪除. 你登出了.''',
-'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''本 wiki 不支援郵寄工作, 請連絡管理員, 以便他決定要啟動郵寄功能, 或是乾脆去掉「訂閱」圖示.''',
+'''This wiki is not enabled for mail processing.
+Contact the owner of the wiki, who can enable email.''':
+'''本 wiki 不支援郵寄工作.
+請連絡管理員, 看他要不要啟動郵寄功能.''',
 '''Please provide a valid email address!''':
 '''請輸入合法的 email 地址!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''找不到登記為 \'%(email)s\' 的帳戶!''',
-'''Unknown user name or password.''':
-'''使用者名稱或密碼錯誤.''',
-'''Please enter a user name!''':
+'''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
+'''找不到使用者: {{{"%s"}}}. 請輸入名稱及密碼.''',
+'''Missing password. Please enter user name and password.''':
+'''沒輸入密碼. 請輸入名稱及密碼.''',
+'''Sorry, wrong password.''':
+'''密碼錯了!''',
+'''Bad relogin URL.''':
+'''錯誤的重新登入 URL.''',
+'''Unknown user.''':
+'''使用者名稱錯誤.''',
+'''Empty user name. Please enter a user name.''':
 '''請輸入使用者名稱!''',
-'''User name already exists!''':
-'''你已經註冊過了!''',
+'''This user name already belongs to somebody else.''':
+'''這個使用者名稱已經有人用了.''',
 '''Passwords don\'t match!''':
 '''兩次輸入的密碼不符!''',
-'''Please enter your name like that: FirstnameLastname''':
-'''請輸入像這樣的名稱: XingMing''',
-'''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
-'''請輸入你的 email 地址 - 不然你忘記名稱或密碼的時候, 就不能用 email 取回了.''',
-'''This user name already belongs to somebody else.''':
-'''這個使用者名稱別人已經用了.''',
+'''Please specify a password!''':
+'''請輸入密碼!''',
+'''Please provide your email address. If you loose your login information, you can get it by email.''':
+'''請輸入 email 地址 - 不然你忘記名稱或密碼的時候, 就不能用 email 取回了.''',
 '''This email already belongs to somebody else.''':
 '''這個 email 地址是別人的.''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''無法載入佈景主題 \'%(theme_name)s\'!''',
 '''User preferences saved!''':
 '''使用者設定儲存好了!''',
 '''Default''':
@@ -309,8 +309,6 @@ To leave the editor, press the Cancel button.''':
 '''存檔''',
 '''Logout''':
 '''登出''',
-'''Login''':
-'''登入''',
 '''Create Profile''':
 '''新使用者註冊''',
 '''Mail me my account data''':
@@ -350,31 +348,15 @@ To leave the editor, press the Cancel button.''':
 '''Quick links''':
 '''快速連結''',
 '''This list does not work, unless you have entered a valid email address!''':
-'''除非您提供合法的 email 地址, 不然本訂閱列表就沒有用!''',
+'''請提供正確的 email 地址，才收得到你訂閱的頁面!''',
 '''Subscribed wiki pages (one regex per line)''':
 '''訂閱的 wiki 頁面 (每行一個正規表達式)''',
-'''Action''':
-'''功能''',
-'''Please use a more selective search term instead of \'%(needle)s\'!''':
-'''\'%(needle)s\' 找到太多東西, 請輸入更精確的關鍵字!''',
-'''Full text search for "%s"''':
-'''全文檢索 "%s"''',
-'''match''':
-'''筆''',
-'''matches''':
-'''筆''',
-'''Title search for "%s"''':
-'''標題檢索 "%s"''',
-'''%(hits)d hits out of %(pages)d pages searched.''':
-'''在 %(pages)d 頁中找到 %(hits)d 頁.''',
-'''Needed %(timer).1f seconds.''':
-'''用了 %(timer).1f 秒.''',
 '''No older revisions available!''':
 '''沒有舊版!''',
 '''Diff for "%s"''':
 '''"%s" 的版本比較''',
-'''Differences between versions dated %s and %s''':
-'''從 %s 到 %s 之間, 各版差異如下:''',
+'''Differences between revisions %d and %d''':
+'''%d 版和 %d 版的差異如下:''',
 '''(spanning %d versions)''':
 '''(跨越 %d 版)''',
 '''No differences found!''':
@@ -392,9 +374,7 @@ To leave the editor, press the Cancel button.''':
 '''The following users subscribed to this page:''':
 '''訂閱本頁的使用者:''',
 '''This page links to the following pages:''':
-'''本頁連到以下頁面:''',
-'''Revision History''':
-'''修訂記錄''',
+'''本頁連往以下頁面:''',
 '''Date''':
 '''日期''',
 '''Size''':
@@ -405,6 +385,8 @@ To leave the editor, press the Cancel button.''':
 '''編輯者''',
 '''Comment''':
 '''註解''',
+'''Action''':
+'''功能''',
 '''view''':
 '''觀看''',
 '''raw''':
@@ -413,10 +395,20 @@ To leave the editor, press the Cancel button.''':
 '''友善列印''',
 '''revert''':
 '''恢復舊版''',
-'''Revert to version dated %(datestamp)s.''':
-'''恢復成 %(datestamp)s 的版本.''',
+'''Revert to revision %(rev)d.''':
+'''恢復成第 %(rev)d 版.''',
+'''edit''':
+'''修改''',
+'''get''':
+'''下載''',
+'''del''':
+'''刪除''',
 '''N/A''':
 '''無''',
+'''Revision History''':
+'''修訂記錄''',
+'''No log entries found.''':
+'''沒有編輯日誌.''',
 '''Info for "%s"''':
 '''關於 "%s"''',
 '''Show "%(title)s"''':
@@ -424,35 +416,41 @@ To leave the editor, press the Cancel button.''':
 '''General Page Infos''':
 '''一般資訊''',
 '''Show chart "%(title)s"''':
-'''"%(title)s" 的圖表''',
+'''顯示 "%(title)s" 的圖表''',
 '''Page hits and edits''':
 '''本頁人氣和編輯次數''',
 '''You are not allowed to revert this page!''':
 '''你不能把本頁恢復成舊版!''',
-'''An error occurred while reverting the page.''':
-'''恢復舊版時發生錯誤.''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
 '''你不能訂閱不能閱讀的頁面.''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''本 wiki 不支援郵寄工作, 請連絡管理員, 以便他決定要啟動郵寄功能, 或是乾脆去掉「訂閱」圖示.''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
-'''你還沒註冊. 請點右上角的 使用者設定並按下「新使用者註冊」.''',
+'''你還沒註冊. 請點右上角的 使用者設定 並按下「新使用者註冊」.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''你註冊的時候沒有提供 email 地址. 請在右上角點一下你的名字(或是「使用者設定」) 並提供合法的 email 地址.''',
-'''You are already subscribed to this page.''':
-'''您已經訂閱本頁了.''',
+'''Your subscribtion to this page has been removed.''':
+'''本頁已取消訂閱.''',
+'''Can\'t remove regular expression subscription!''':
+'''無法取消用 regex 設定的訂閱.''',
 '''To unsubscribe, go to your profile and delete this page from the subscription list.''':
 '''如果要取消訂閱, 請點右上角修改個人資料, 並從訂閱清單中刪除本頁.''',
 '''You have been subscribed to this page.''':
 '''訂閱好了.''',
 '''Required attribute "%(attrname)s" missing''':
-'''缺少需要的屬性 "%(attrname)s"''',
+'''缺少必要的屬性 "%(attrname)s"''',
 '''Submitted form data:''':
 '''提交表單資料:''',
+'''Search Titles''':
+'''尋找標題''',
 '''Display context of search results''':
 '''顯示找到頁面的內容''',
 '''Case-sensitive searching''':
 '''區分大小寫''',
-'''Go''':
-'''Go!''',
+'''Search Text''':
+'''全文檢索''',
+'''Go To Page''':
+'''跳至此頁''',
 '''Include system pages''':
 '''包含系統頁''',
 '''Exclude system pages''':
@@ -473,14 +471,12 @@ To leave the editor, press the Cancel button.''':
 '''總頁面數''',
 '''Number of system pages''':
 '''系統頁面數''',
-'''Number of backup versions''':
-'''備份版本數''',
 '''Accumulated page sizes''':
 '''累計頁面大小''',
 '''Entries in edit log''':
 '''編輯日誌項次''',
 '''%(logcount)s (%(logsize)s bytes)''':
-'''%(logcount)s 次 (%(logsize)s 位元組)''',
+'''%(logcount)s 條 (計 %(logsize)s 位元組)''',
 '''NONE''':
 '''無''',
 '''Global extension macros''':
@@ -491,16 +487,24 @@ To leave the editor, press the Cancel button.''':
 '''全域擴充功能''',
 '''Local extension actions''':
 '''區域擴充功能''',
-'''Installed processors''':
-'''擴充的處理器''',
+'''Installed parsers''':
+'''已安裝的解析器''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''已安裝的處理器 (*不建議使用* -- 請改用解析器)''',
+'''Please use a more selective search term instead of {{{"%s"}}}''':
+'''{{{"%s"}}} 找到太多東西, 請輸入更精確的關鍵字!''',
 '''ERROR in regex \'%s\'''':
-'''正規表達式 \'%s\' 錯誤''',
+'''regex \'%s\' 錯誤''',
 '''Bad timestamp \'%s\'''':
 '''錯誤的時間標記 \'%s\'''',
 '''Expected "=" to follow "%(token)s"''':
 '''"%(token)s" 後面應該有個 "="''',
 '''Expected a value for key "%(token)s"''':
 '''鍵 "%(token)s" 應該有對應的值''',
+'''Wiki Markup''':
+'''Wiki標記''',
+'''Print View''':
+'''檢視列印''',
 '''[%d attachments]''':
 '''[%d 個附件]''',
 '''There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.''':
@@ -509,19 +513,14 @@ To leave the editor, press the Cancel button.''':
 '''附件沒指定檔名!''',
 '''Attachment \'%(filename)s\' does not exist!''':
 '''附件 \'%(filename)s\' 不存在!''',
-'''<p>To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, 
+'''To refer to attachments on a page, use \'\'\'{{{attachment:filename}}}\'\'\', 
 as shown below in the list of files. 
-Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, 
-since this is subject to change and can break easily.</p>''':
-'''<p>如果要在內文中引用附件, 請參考下表, 輸入<strong><tt>attachment:filename</tt></strong> 這種格式, 
-<strong>請不要</strong>用 <tt>[取得]</tt> 指向的 URL, 
+Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
+since this is subject to change and can break easily.''':
+'''如果要在內文中引用附件, 請參考下表, 輸入\'\'\'{{{attachment:filename}}}\'\'\'
+這種格式, 
+\'\'\'請不要\'\'\'用 {{{[下載]}}} 指向的 URL, 
 因為那個位置可能會變, 到時候就不能用了.</p>''',
-'''del''':
-'''刪除''',
-'''get''':
-'''取得''',
-'''edit''':
-'''修改''',
 '''No attachments stored for %(pagename)s''':
 '''%(pagename)s 沒有附件''',
 '''Edit drawing''':
@@ -550,10 +549,12 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''本 wiki 不開放使用附件!''',
 '''You are not allowed to save a drawing on this page.''':
 '''本頁不能儲存圖片.''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''檔案沒有內容. 請刪除檔名中的非 ASCII 字元後, 再試試看.''',
 '''You are not allowed to delete attachments on this page.''':
 '''本頁附件不能刪除.''',
 '''You are not allowed to get attachments from this page.''':
-'''你不能取得本頁附件.''',
+'''你不能下載本頁附件.''',
 '''You are not allowed to view attachments of this page.''':
 '''你不能觀看本頁附件.''',
 '''Unsupported upload action: %s''':
@@ -571,7 +572,7 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Unknown file type, cannot display this attachment inline.''':
 '''不明的檔案類型, 不能內嵌在內文中.''',
 '''attachment:%(filename)s of %(pagename)s''':
-'''%(pagename)s 的附件:%(filename)s''',
+'''%(pagename)s 的附件 [[Verbatim(attachment:)]]%(filename)s''',
 '''You are not allowed to delete this page.''':
 '''你不能刪除本頁.''',
 '''This page is already deleted or was never created!''':
@@ -586,14 +587,12 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''刪除''',
 '''Optional reason for the deletion''':
 '''刪除本頁的理由:''',
-'''No pages match "%s"!''':
-'''沒有連結 "%s" 的頁面!''',
-'''Exactly one matching page for "%s" found!''':
-'''連結 "%s" 的剛好就這麼一頁!''',
-'''Multiple matches for "%s...%s"''':
-'''有很多連向 "%s...%s" 的頁面''',
-'''You cannot use LikePages on an extended pagename!''':
-'''擴充頁名不能使用 LikePages 功能!''',
+'''No pages like "%s"!''':
+'''沒有類似 "%s" 的頁面!''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''只有一頁類似 "%s", 轉向至該頁.''',
+'''Pages like "%s"''':
+'''類似 "%s" 的頁面:''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''共有 %(matchcount)d%(matches)s 連向 "%(title)s"''',
 '''Local Site Map for "%s"''':
@@ -602,18 +601,20 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''本 wiki 不開放頁面重新命名!''',
 '''Please use the interactive user interface to rename pages!''':
 '''請使用互動式介面為頁面重新命名!''',
-'''A page with the name "%s" already exists!''':
-'''已經有一頁叫做 "%s" 了!''',
-'''Page "%s" was successfully renamed to "%s"!''':
-'''"%s" 已經改名為 "%s" 了!''',
-'''Rename''':
-'''重新命名''',
+'''Rename Page''':
+'''重新命名本頁''',
 '''New name''':
 '''新的名稱''',
 '''Optional reason for the renaming''':
 '''重新命名的理由:''',
+'''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
+
+Try a different name.''':
+'''\'\'\'已經有一頁叫做 {{{\'%s\'}}} 了!\'\'\'
+
+請用別的名字.''',
 '''(including %(localwords)d %(pagelink)s)''':
-'''其中包括 %(localwords)d 個 %(pagelink)s''',
+'''(其中包括 %(localwords)d 個 %(pagelink)s)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
 '''下列 %(badwords)d 個詞, 沒有收錄在詞典中 (總詞數 %(totalwords)d 詞, %(localwords)s). 不明的詞在內文中會特別標出:''',
 '''Add checked words to dictionary''':
@@ -622,8 +623,12 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''沒有拼字錯誤!''',
 '''You can\'t check spelling on a page you can\'t read.''':
 '''不能檢查不能閱讀的頁面.''',
+'''Title Search: "%s"''':
+'''尋找標題: "%s"''',
+'''Full Text Search: "%s"''':
+'''全文檢索: "%s"''',
 '''Full Link List for "%s"''':
-'''連向 "%s" 的頁面''',
+'''連向 "%s" 的頁面列表''',
 '''Invalid include arguments "%s"!''':
 '''錯誤的插入參數 "%s"!''',
 '''Nothing found for "%s"!''':
@@ -643,19 +648,21 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''No orphaned pages in this wiki.''':
 '''本 wiki 沒有孤立頁.''',
 '''No quotes on %(pagename)s.''':
-'''%(pagename)s 中沒有可引用的格言''',
+'''%(pagename)s 中沒有可引用的格言.''',
 '''Upload of attachment \'%(filename)s\'.''':
 '''傳上 \'%(filename)s\' 附件.''',
 '''Drawing \'%(filename)s\' saved.''':
-'''儲存 \'%(filename)s\' 圖片.''',
-'''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
-'''[%(hours)d小時&nbsp;%(mins)d分&nbsp;前]''',
+'''圖片 \'%(filename)s\' 存好了.''',
+'''%(hours)dh %(mins)dm ago''':
+'''%(hours)d小時又 %(mins)d分 前]''',
 '''(no bookmark set)''':
 '''(未設定書籤)''',
 '''(currently set to %s)''':
 '''(目前設為 %s)''',
-'''Update my bookmark timestamp''':
-'''把書籤設成現在''',
+'''Delete Bookmark''':
+'''刪除書籤''',
+'''Set bookmark''':
+'''設定書籤''',
 '''set bookmark''':
 '''設定書籤''',
 '''[Bookmark reached]''':
@@ -694,6 +701,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''沒有 XSLT 處理套件!''',
 '''%(errortype)s processing error''':
 '''%(errortype)s 處理錯誤''',
+'''for this page (cached %(date)s)''':
+''' (本頁快取時間: %(date)s)''',
 '''Charts are not available!''':
 '''不能繪製圖表!''',
 '''%(chart_title)s for %(filterpage)s''':
@@ -709,33 +718,69 @@ red=edit''':
 '''Page Size Distribution''':
 '''頁面大小分佈''',
 '''page size upper bound [bytes]''':
-'''頁面大小上界 [位元組]''',
+'''頁面大小上限 [位元組]''',
 '''# of pages of this size''':
 '''相同大小的頁面數''',
 '''Others''':
 '''其他''',
 '''Distribution of User-Agent Types''':
 '''瀏覽器類型分佈''',
-'''Click here to do a full-text search for this title''':
+'''Click to do a full-text search for this title''':
 '''點一下: 對本頁標題做全文檢索''',
 '''Clear message''':
 '''關閉訊息視窗''',
-'''ShowText''':
-'''閱讀本頁內文''',
-'''of this page''':
-''' ''',
+'''last edited %(time)s by %(editor)s''':
+'''上次是 %(editor)s 在 %(time)s 編輯的''',
+'''last modified %(time)s''':
+'''上次修改時間 %(time)s''',
+'''Search:''':
+'''尋找:''',
+'''Text''':
+'''內文''',
+'''Titles''':
+'''標題''',
+'''Unsubscribe''':
+'''取消訂閱''',
+'''More Actions:''':
+'''其他功能:''',
+'''Show Raw Text''':
+'''顯示原始碼''',
+'''Show Print View''':
+'''檢視列印''',
+'''Attach File''':
+'''附件''',
+'''Delete Page''':
+'''刪除本頁''',
+'''Show Like Pages''':
+'''尋找相似頁面''',
+'''Show Local Site Map''':
+'''顯示連結地圖''',
+'''Do''':
+'''執行''',
+'''Show Parent''':
+'''顯示上一層''',
+'''Immutable Page''':
+'''本頁不可更改''',
+'''Refresh''':
+'''刷新快取內容''',
+'''Show Changes''':
+'''顯示更動''',
+'''Get Info''':
+'''關於本頁''',
+'''Show %s days.''':
+'''顯示 %s 天.''',
 '''EditText''':
 '''編輯本頁''',
 '''Immutable page''':
 '''本頁不可更改''',
-'''FindPage''':
-'''尋找頁面''',
-'''or search titles %(titlesearch)s, full text %(textsearch)s or''':
-''', 尋找標題 %(titlesearch)s , 全文檢索 %(textsearch)s 或''',
 '''Or try one of these actions:''':
 '''或使用下列功能: ''',
-'''Show all changes in the last %s days.''':
-'''顯示 %s 天以內的所有更動.''',
+'''Page''':
+'''頁面''',
+'''Trail''':
+'''些微更動''',
+'''User''':
+'''使用者''',
 '''Line''':
 '''行號''',
 '''Deletions are marked like this.''':
@@ -746,6 +791,8 @@ red=edit''':
 '''無法連接郵件伺服器 \'%(server)s\': %(reason)s''',
 '''Mail sent OK''':
 '''郵件已送出''',
+'''["<html>"]''':
+'''["<html>"]''',
 '''FrontPage''':
 '''首頁''',
 '''RecentChanges''':
@@ -754,16 +801,20 @@ red=edit''':
 '''標題索引''',
 '''WordIndex''':
 '''詞彙索引''',
+'''FindPage''':
+'''尋找頁面''',
 '''SiteNavigation''':
 '''本站導覽''',
 '''HelpContents''':
 '''說明''',
 '''HelpOnFormatting''':
-'''說明-排版''',
+'''排版說明''',
 '''UserPreferences''':
 '''使用者設定''',
 '''WikiLicense''':
 '''Wiki版權''',
+'''MissingPage''':
+'''不存在本頁''',
 '''Mon''':
 '''星期一''',
 '''Tue''':
@@ -778,4 +829,16 @@ red=edit''':
 '''星期六''',
 '''Sun''':
 '''星期日''',
+'''AttachFile''':
+'''附件''',
+'''DeletePage''':
+'''刪除頁面''',
+'''LikePages''':
+'''相似頁面''',
+'''LocalSiteMap''':
+'''連結地圖''',
+'''RenamePage''':
+'''重新命名''',
+'''SpellCheck''':
+'''拼字檢查''',
 }

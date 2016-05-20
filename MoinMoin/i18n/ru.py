@@ -1,48 +1,38 @@
 # -*- coding: utf-8 -*-
-# Text translations for Russian (ru).
+# Text translations for Русский (ru).
 # Automatically generated - DO NOT EDIT, edit ru.po instead!
 meta = {
-  'language': 'Russian',
+  'language': 'Русский',
+  'elanguage': 'Russian',
   'maintainer': 'Mike Rovner <mrovner@hotmail.com>',
   'encoding': 'utf-8',
   'direction': 'ltr',
+  'wikimarkup': True,
 }
 text = {
-'''(last edited %(time)s by %(editor)s)''':
-'''(последним исправлял(а) %(editor)s %(time)s)''',
-'''(last modified %s)''':
-'''(последнее изменение %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
 '''Сохраненная версия страницы устарела и не войдет в результаты поиска!''',
-'''Version as of %(date)s''':
-'''Версия от %(date)s''',
+'''Revision %(rev)d as of %(date)s''':
+'''Версия %(rev)d от %(date)s''',
 '''Redirected from page "%(page)s"''':
 '''Отправлен сюда со страницы "%(page)s"''',
 '''This page redirects to page "%(page)s"''':
 '''Эта страница отправляет на "%(page)s"''',
-'''<p><small>If you submit this form, the submitted values will be displayed.
+'''~-If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-macro call.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+macro call.-~
 ''':
-'''<p><small>При отправке этой формы вам будут показаны отправляемые значения.
+'''~-При отправке этой формы вам будут показаны отправляемые значения.
 Для использования этой формы на других страницах вставьте вызов макро:
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]-~
 ''',
 '''You are not allowed to view this page.''':
 '''Вам не разрешено просматривать эту страницу.''',
 '''RefreshCache''':
 '''ОбновитьКэш''',
-'''for this page (cached %(date)s)''':
-'''этой страницы (кеширована %(date)s)''',
-'''Create this page''':
-'''Создать страницу''',
-'''Alternatively, use one of these templates:''':
-'''или же использовать одну из заготовок:''',
-'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
-'''Для создания своей заготовки, создайте страницу и назовите ее по образцу "%(page_template_regex)s".''',
-'''The following pages with similar names already exist...''':
-'''Кроме того есть страницы с похожими названиями...''',
+'''(cached %s)''':
+'''(запомнен %s)''',
 '''You are not allowed to edit this page.''':
 '''Вам нельзя менять эту страницу.''',
 '''Page is immutable!''':
@@ -75,10 +65,12 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[Содержимое новой страницы загружено из %s]''',
 '''[Template %s not found]''':
 '''[Заготовка %s не найдена]''',
+'''[You may not read %s]''':
+'''[Вам нельзя читать %s]''',
 '''Skip to preview''':
 '''Пролистать до макета''',
-'''[current page size <strong>%(size)d</strong> bytes]''':
-'''[размер страницы <strong>%(size)d</strong> байт]''',
+'''[current page size \'\'\'%(size)d\'\'\' bytes]''':
+'''[размер страницы \'\'\'%(size)d\'\'\' байт]''',
 '''Describe %s here.''':
 '''Опишите %s.''',
 '''Optional comment about this change''':
@@ -93,48 +85,29 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''Сохранить изменения''',
 '''Cancel''':
 '''Отмена''',
-'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
-'''По нажатию <strong>%(save_button_text)s</strong> вы помечаете свои изменения под действие правил, описанных в  %(license_link)s.
-Если вы с этим не согласны, нажмите <strong>%(cancel_button_text)s</strong> для отмены своих изменений.''',
+'''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
+If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
+'''По нажатию \'\'\'%(save_button_text)s\'\'\' вы помещаете свои изменения под действие правил, описанных в  %(license_link)s.
+Если вы с этим не согласны, нажмите \'\'\'%(cancel_button_text)s\'\'\' для отмены своих изменений.''',
 '''Preview''':
 '''Показать макет''',
-'''Send mail notification''':
-'''Послать уведомление''',
+'''Trivial change''':
+'''Малое изменение''',
 '''Remove trailing whitespace from each line''':
 '''Стереть хвостовые пробелы из каждой строки''',
-'''<dt>Emphasis:</dt>
-<dd>\'\'<em>italics</em>\'\'; \'\'\'<strong>bold</strong>\'\'\'; \'\'\'\'\'<strong><em>bold italics</em></strong>\'\'\'\'\';
-    \'\'<em>mixed \'\'\'<strong>bold</strong>\'\'\' and italics</em>\'\'; ---- horizontal rule.</dd>
-<dt>Headings:</dt>
-<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.</dd>
-<dt>Lists:</dt>
-<dd>space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.</dd>
-<dt>Links:</dt>
-<dd>JoinCapitalizedWords; ["brackets and double quotes"];
-    url; [url]; [url label].</dd>
-<dt>Tables:</dt>
-<dd>|| cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.</dd>
-''':
-'''<dt>Выделить:</dt>
-<dd>\'\'<em>курсивом</em>\'\'; \'\'\'<strong>жирным</strong>\'\'\'; \'\'\'\'\'<strong><em>жирным курсивом</em></strong>\'\'\'\'\';
-    \'\'<em>смешаным \'\'\'<strong>жирным</strong>\'\'\' и курсивом</em>\'\'; ---- горизонтальной чертой.</dd>
-<dt>Заголовки:</dt>
-<dd>= Уровня 1 =; == Уровня 2 ==; === Уровня 3 ===;
-    ==== Уровня 4 ====; ===== Уровня 5 =====.</dd>
-<dt>Списки:</dt>
-<dd>пробел и один из * буллетов; 1., a., A., i., I. нумерованный список;
-    1.#n начать нумерацию с n; только пробел дает отступ.</dd>
-<dt>Ссылки:</dt>
-<dd>ЗаглавнеСловаСлитно; ["скобки и двойные кавычки"];
-    url; [url]; [url метка].</dd>
-<dt>Таблицы:</dt>
-<dd>|| текст клетки |||| текст клетки растянутый на 2 колонки ||;
-    после таблиц и заголовков нельзя оставлять пробелы.</dd>
-''',
+''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
+ Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
+ Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
+ Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim(["brackets and double quotes"])]]; url; [url]; [url label].
+ Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
+''' Выделить:: [[Verbatim(\'\')]]\'\'курсивом\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'жирным\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'жирным курсивом\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'смешаным \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'жирным\'\'\'[[Verbatim(\'\'\')]] и курсивом\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] горизонтальной чертой.
+ Заголовки:: [[Verbatim(=)]] Уровня 1 [[Verbatim(=)]]; [[Verbatim(==)]] Уровня 2 [[Verbatim(==)]]; [[Verbatim(===)]] Уровня 3 [[Verbatim(===)]]; [[Verbatim(====)]] Уровня 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Уровня 5 [[Verbatim(=====)]].
+ Списки:: пробел и один из * буллетов - ненумерованный список; 1., a., A., i., I. - нумерованный список;
+    1.#n начать нумерацию с n; только пробел дает отступ.
+ Ссылки:: `ЗаглавныеСловаСлитно`; [[Verbatim(["скобки и двойные кавычки"])]];
+url; [url]; [url метка].
+ Таблицы:: || текст клетки |||| текст клетки растянутый на 2 колонки ||;
+после таблиц и заголовков нельзя оставлять пробелы.''',
 '''Edit was cancelled.''':
 '''Изменение отменено.''',
 '''Dear Wiki user,
@@ -161,20 +134,22 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
+'''New page:
+''':
+'''Новое имя:
+''',
 '''No differences found!
 ''':
 '''Различий не найдено!
 ''',
-'''The diff function returned with error code %(rc)s!''':
-'''Программа сравнения вернула код ошибки %(rc)s!''',
-'''You will not be notified of your own changes!''':
-'''Вас не уведомляют о ваших изменениях!''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
+'''[%(sitename)s] %(trivial)sобновил(а) "%(pagename)s"''',
+'''Trivial ''':
+'''слегка''',
 '''Status of sending notification mails:''':
 '''Состояние отправки уведомлений:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
-'''Nobody subscribed to this page, no mail sent.''':
-'''Уведомление не послано, некому.''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## Страница "%(pagename)s" архивирована %(date)s''',
 '''You are not allowed to edit this page!''':
@@ -182,44 +157,47 @@ The following page has been changed by %(editor)s:
 '''You cannot save empty pages.''':
 '''Нельзя записать пустую страницу.''',
 '''Sorry, someone else saved the page while you edited it.
-<p>Please do the following: Use the back button of your browser, and cut&paste
+
+Please do the following: Use the back button of your browser, and cut&paste
 your changes from there. Then go forward to here, and click EditText again.
-Now re-add your changes to the current page contents.</p>
-<p><em>Do not just replace
+Now re-add your changes to the current page contents.
+
+\'\'Do not just replace
 the content editbox with your version of the page, because that would
-delete the changes of the other person, which is excessively rude!</em></p>
+delete the changes of the other person, which is excessively rude!\'\'
 ''':
 '''Извините, но кто-то переписал эту страницу пока вы ее исправляли.
-<p>Пожалуйста сделайте вот что: нажмите кнопку Back (Назад) в вашем броузере и возьмите исправления оттуда, затем вернитесь сюда (Вперед) и нажмите \'Исправить\'.
-Теперь заново вставьте свои изменения в новое содержимое страницы.</p>
-<p><em>Не заменяйте окно редактирования целиком на ваш текст,
-так как это уничтожит исправления другого человека, а это грубость!</em></p>
+
+Пожалуйста сделайте вот что: нажмите кнопку Back (Назад) в вашем броузере и возьмите исправления оттуда, затем вернитесь сюда (Вперед) и нажмите \'Исправить\'.
+Теперь заново вставьте свои изменения в новое содержимое страницы.
+Не заменяйте окно редактирования целиком на ваш текст,
+так как это уничтожит исправления другого человека, а это грубость!
 ''',
-'''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
-'''Копия ваших исправлений находится <a href="%(backup_url)s">здесь</a>.''',
+'''A backup of your changes is [%(backup_url)s here].''':
+'''Копия ваших исправлений находится [%(backup_url)s здесь].''',
 '''You did not change the page content, not saved!''':
 '''Вы не сделали никаких исправлений - страница не переписана!''',
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
-'''Вы не можете менять права доступа(ACL) к этой странице, так как вы ее не администрируете!''',
+'''Вы не можете менять права доступа(ACL) к этой странице, так у вас нет прав администратора на неё!''',
 '''Thank you for your changes. Your attention to detail is appreciated.''':
 '''Спасибо за ваши исправления. Мы приветствуем ваше внимание к деталям.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
 '''Привилегия %(owner)s на изменения истекла %(mins_ago)d минут(ы) назад и вы получили привилегию на изменение этой страницы.''',
-'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
-'''Эта страница будет <em>защищена</em> от изменений другими пользователями до %(bumptime)s.''',
-'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
-'''Все пользователи будут <em>предупреждены</em> что вы исправляете эту страницу до %(bumptime)s.''',
+'''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
+'''Эта страница будет \'\'защищена\'\' от изменений другими пользователями до %(bumptime)s.''',
+'''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
+'''Все пользователи будут \'\'предупреждены\'\' что вы исправляете эту страницу до %(bumptime)s.''',
 '''Use the Preview button to extend the locking period.''':
 '''Нажмите кнопку \'Показать Макет\' для продления времени блокировки.''',
-'''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''Эту страницу сейчас исправляет %(owner)s и она <em>заблокирована</em> до %(timestamp)s, т.е. еще на %(mins_valid)d минут(ы).''',
-'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
-<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
-to avoid editing conflicts.</strong><br>
+'''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''Эту страницу сейчас исправляет %(owner)s и она \'\'заблокирована\'\' до %(timestamp)s, т.е. ещё на %(mins_valid)d минут(ы).''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
+\'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
-'''Эту страницу взял(а) %(owner)s для исправления или макетирования в %(timestamp)s.<br>
-<strong class="highlight">Вам следует <em>воздержаться от исправления</em> этой страницы как минимум на %(mins_valid)d минут(ы)
-для избежания конфликтов.</strong><br>
+'''Эту страницу взял(а) %(owner)s для исправления или макетирования в %(timestamp)s.[[BR]]
+\'\'\'Вам следует \'\'воздержаться от исправления\'\' этой страницы как минимум на %(mins_valid)d минут(ы)
+для избежания конфликтов.\'\'\'[[BR]]
 Чтобы выйти из редактора нажмите кнопку \'Отмена\'.''',
 '''<unknown>''':
 '''<???>''',
@@ -241,20 +219,33 @@ To leave the editor, press the Cancel button.''':
 '''Печать''',
 '''View''':
 '''Показ''',
-'''Home''':
-'''Домой''',
 '''Up''':
 '''Наверх''',
-'''Unknown action''':
-'''Непонятное действие''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''Недопустимое имя пользователя {{{\'%s\'}}}.
+Имя может содержать буквы и цифры любого языка и по жеданию один пробел между словами. Нельзя использовать имя группы.''',
+'''You are not allowed to do %s on this page.''':
+'''Вам нельзя %s эту страницу.''',
+'''Login''':
+'''Войти''',
+''' %s and try again.''':
+'''%s и попробуйте еще раз.''',
 '''Can\'t work out query''':
 '''Не могу выполнить запрос''',
+'''%(hits)d results out of %(pages)d pages.''':
+'''Найдено %(hits)d из %(pages)d просмотренных страниц:''',
+'''%.2f seconds''':
+'''%.2f секунд''',
+'''match''':
+'''совпадение''',
+'''matches''':
+'''совпадений''',
 '''Open editor on double click''':
 '''Открывать редактор по двойному клику''',
 '''Remember last page visited''':
 '''Запомнить последнюю открытую страницу''',
-'''Show emoticons''':
-'''Показывать эмоции''',
 '''Show fancy links''':
 '''Показывать красивые ссылки''',
 '''Show question mark for non-existing pagelinks''':
@@ -269,38 +260,45 @@ To leave the editor, press the Cancel button.''':
 '''Показывать красивые различия''',
 '''Add spaces to displayed wiki names''':
 '''Разделять вик-имена пробелами''',
-'''Remember login information forever''':
-'''Запомнить меня навсегда''',
+'''Remember login information''':
+'''Запомнить меня''',
+'''Subscribe to trivial changes''':
+'''Подписаться на малые исправления''',
 '''Disable this account forever''':
 '''Забыть меня навсегда''',
 '''Cookie deleted. You are now logged out.''':
 '''Cookie стерты. Вы вышли.''',
-'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''В этом вики запрещена отправка почты. Свяжитесь с владельцем вики, который может разрешить отправку или убрать кнопку "Подписка".''',
+'''This wiki is not enabled for mail processing.
+Contact the owner of the wiki, who can enable email.''':
+'''В этом вики запрещена отправка почты. Свяжитесь с владельцем вики, который может разрешить отправку.''',
 '''Please provide a valid email address!''':
 '''Пожалуйста укажите правильный почтовый адрес!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Не найдено пользователя с таким адресом \'%(email)s\'!''',
-'''Unknown user name or password.''':
-'''Неправильное имя или пароль.''',
-'''Please enter a user name!''':
-'''Пожалуйста введите имя пользователя!''',
-'''User name already exists!''':
-'''Такой пользователь уже есть!''',
+'''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
+'''Неизвестное имя пользователя: {{{"%s"}}}. Пожалуйста введите имя пользователя и пароль.''',
+'''Missing password. Please enter user name and password.''':
+'''Пароль не указан. Пожалуйста введите имя пользователя и пароль.''',
+'''Sorry, wrong password.''':
+'''Увы, пароль не подходит.''',
+'''Bad relogin URL.''':
+'''Плохой URL''',
+'''Unknown user.''':
+'''Неизвестный пользователь.''',
+'''Empty user name. Please enter a user name.''':
+'''Имя не указано. Пожалуйста введите имя пользователя.''',
+'''This user name already belongs to somebody else.''':
+'''Это имя уже занято.''',
 '''Passwords don\'t match!''':
 '''Пароли не совпадают!''',
 '''Please specify a password!''':
 '''Пожалуйста укажите пароль!''',
-'''Please enter your name like that: FirstnameLastname''':
-'''Пожалуйста введите ваше имя в формате ИмяФамилия''',
-'''You must not use a group name as your user name.''':
-'''Вы не должны использовать имя группы вместо вашего имени.''',
-'''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
-'''Пожалуйста укажите ваш почтовый адрес - без него вы не сможете получить данные для регистрации (входа в вики) если вы их потеряете.''',
-'''This user name already belongs to somebody else.''':
-'''Это имя уже занято.''',
+'''Please provide your email address. If you loose your login information, you can get it by email.''':
+'''Пожалуйста укажите ваш почтовый адрес. Если вы потеряете данные для регистрации (входа в вики), вы сможете получить их по почте.''',
 '''This email already belongs to somebody else.''':
 '''Это чужой адрес.''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''Не могу загрузать макияж \'%(theme_name)s\'!''',
 '''User preferences saved!''':
 '''Настройки записаны!''',
 '''Default''':
@@ -311,8 +309,6 @@ To leave the editor, press the Cancel button.''':
 '''Записать''',
 '''Logout''':
 '''Выйти''',
-'''Login''':
-'''Войти''',
 '''Create Profile''':
 '''Создать настройки''',
 '''Mail me my account data''':
@@ -355,28 +351,12 @@ To leave the editor, press the Cancel button.''':
 '''Этот список работает только при правильном почтовом адресе!''',
 '''Subscribed wiki pages (one regex per line)''':
 '''Список подписки на страницы вики (один образец на строчку)''',
-'''Action''':
-'''Действие''',
-'''Please use a more selective search term instead of \'%(needle)s\'!''':
-'''Пожалуйста уточните что искать вместо \'%(needle)s\'!''',
-'''Full text search for "%s"''':
-'''Поиск по тексту "%s"''',
-'''match''':
-'''совпадение''',
-'''matches''':
-'''совпадений''',
-'''Title search for "%s"''':
-'''Поиск по заголовкам "%s"''',
-'''%(hits)d hits out of %(pages)d pages searched.''':
-'''%(hits)d найдено из %(pages)d просмотренных страниц.''',
-'''Needed %(timer).1f seconds.''':
-'''Заняло %(timer).1f секунд.''',
 '''No older revisions available!''':
 '''Нет более старых версий!''',
 '''Diff for "%s"''':
 '''Изменения в "%s"''',
-'''Differences between versions dated %s and %s''':
-'''Различия между версиями от %s и %s''',
+'''Differences between revisions %d and %d''':
+'''Различия между версиями %d и %d''',
 '''(spanning %d versions)''':
 '''(по %d версиям)''',
 '''No differences found!''':
@@ -395,8 +375,6 @@ To leave the editor, press the Cancel button.''':
 '''На уведомления об изменении этой страницы подписаны:''',
 '''This page links to the following pages:''':
 '''Эта страница ссылается на:''',
-'''Revision History''':
-'''История изменений''',
 '''Date''':
 '''Дата''',
 '''Size''':
@@ -407,6 +385,8 @@ To leave the editor, press the Cancel button.''':
 '''Редактор''',
 '''Comment''':
 '''Комментарий''',
+'''Action''':
+'''Действие''',
 '''view''':
 '''показать''',
 '''raw''':
@@ -415,10 +395,20 @@ To leave the editor, press the Cancel button.''':
 '''печатать''',
 '''revert''':
 '''восстановить''',
-'''Revert to version dated %(datestamp)s.''':
-'''Возвращена версия от %(datestamp)s.''',
+'''Revert to revision %(rev)d.''':
+'''Возвращена версия %(rev)d.''',
+'''edit''':
+'''исправить''',
+'''get''':
+'''взять''',
+'''del''':
+'''удалить''',
 '''N/A''':
 '''нет''',
+'''Revision History''':
+'''История изменений''',
+'''No log entries found.''':
+'''Записей об исправлениях не найдено!''',
 '''Info for "%s"''':
 '''Справка о "%s"''',
 '''Show "%(title)s"''':
@@ -428,19 +418,21 @@ To leave the editor, press the Cancel button.''':
 '''Show chart "%(title)s"''':
 '''Показать диаграмму "%(title)s"''',
 '''Page hits and edits''':
-'''Запрос и правка страницы''',
+'''Запросы и исправления страниц''',
 '''You are not allowed to revert this page!''':
 '''Вы не можете восстанавливать из архива эту страницу!''',
-'''An error occurred while reverting the page.''':
-'''Ошибка восстановления из архива.''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
 '''Вы не можете подписаться на страницу которую вам нельзя читать.''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''В этом вики запрещена отправка почты. Свяжитесь с владельцем вики, который может разрешить отправку или убрать кнопку "Подписка".''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
 '''Вы еще не создали свои настройки. Выберите ВашиНастройки в правом верхнем углу для их создания.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''В ВашихНастройках не указан почтовый адрес. Нажмите на свое имя в правом верхнем углу и введите правильный почтовый адрес.''',
-'''You are already subscribed to this page.''':
-'''Вы уже подписаны на эту страницу.''',
+'''Your subscribtion to this page has been removed.''':
+'''Вы больше не подписаны на эту страницу.''',
+'''Can\'t remove regular expression subscription!''':
+'''Не могу удалить подписку по образцу.''',
 '''To unsubscribe, go to your profile and delete this page from the subscription list.''':
 '''Для отмены подписки зайдите в ВашиНастройки и уберите эту страницу из списка подписки.''',
 '''You have been subscribed to this page.''':
@@ -449,12 +441,16 @@ To leave the editor, press the Cancel button.''':
 '''Отсутствует требуемый атрибут"%(attrname)s"''',
 '''Submitted form data:''':
 '''Отправляемые данные:''',
+'''Search Titles''':
+'''Искать по заголовкам''',
 '''Display context of search results''':
 '''Показывать расширенные результаты поиска''',
 '''Case-sensitive searching''':
 '''Поиск с учетом регистра''',
-'''Go''':
-'''Искать''',
+'''Search Text''':
+'''Искать по тексту''',
+'''Go To Page''':
+'''Открыть страницу''',
 '''Include system pages''':
 '''Показать служебные страницы''',
 '''Exclude system pages''':
@@ -475,8 +471,6 @@ To leave the editor, press the Cancel button.''':
 '''Всего страниц''',
 '''Number of system pages''':
 '''Число служебных страниц''',
-'''Number of backup versions''':
-'''Число архивных версий''',
 '''Accumulated page sizes''':
 '''Размер всех страниц''',
 '''Entries in edit log''':
@@ -493,8 +487,12 @@ To leave the editor, press the Cancel button.''':
 '''Общие дополнительные действия''',
 '''Local extension actions''':
 '''Местные дополнительные действия''',
-'''Installed processors''':
-'''Доступные процессоры''',
+'''Installed parsers''':
+'''Доступные парсеры''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''Доступные процессоры (УСТАРЕЛО - используйте парсеры)''',
+'''Please use a more selective search term instead of {{{"%s"}}}''':
+'''Пожалуйста уточните что искать вместо {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
 '''ОШИБКА в образце поиска \'%s\'''',
 '''Bad timestamp \'%s\'''':
@@ -515,20 +513,14 @@ To leave the editor, press the Cancel button.''':
 '''Не указано имя файла приложения!''',
 '''Attachment \'%(filename)s\' does not exist!''':
 '''Приложение \'%(filename)s\' не существует!''',
-'''<p>To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, 
+'''To refer to attachments on a page, use \'\'\'{{{attachment:filename}}}\'\'\', 
 as shown below in the list of files. 
-Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, 
-since this is subject to change and can break easily.</p>''':
-'''<p>Для ссылки на приложение в тексте страницы напишите <strong><tt>attachment:имяфайла</tt></strong>, 
+Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
+since this is subject to change and can break easily.''':
+'''Для ссылки на приложение в тексте страницы напишите \'\'\'{{{attachment:имяфайла}}}\'\'\', 
 как показано ниже в списке файлов.
-<strong>НЕ</strong> используйте URL из <tt>[взять]</tt>, 
-так как он чисто внутренний и часто меняется.</p>''',
-'''del''':
-'''удалить''',
-'''get''':
-'''взять''',
-'''edit''':
-'''исправить''',
+\'\'\'НЕ\'\'\' используйте URL из {{{[взять]}}}, 
+так как он чисто внутренний и часто меняется.''',
 '''No attachments stored for %(pagename)s''':
 '''Нет приложений к %(pagename)s''',
 '''Edit drawing''':
@@ -544,7 +536,7 @@ conflict, you have to rename the file that you want to upload.
 Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Ваше приложение никогда не сотрет уже имеющееся. Если такое имя уже есть, 
 вы должны переименовать свой файл для загрузки.
-Или же, если "Новое имя" оставить пустым, будет использовано имя вашего файла.''',
+Или же, если поле "Записать в" оставить пустым, будет использовано имя вашего файла.''',
 '''File to upload''':
 '''Приложить файл''',
 '''MIME Type (optional)''':
@@ -557,6 +549,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''В этом вики приложения запрещены!''',
 '''You are not allowed to save a drawing on this page.''':
 '''Вам нельзя делать рисунки на этой странице.''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''Плохой файл. Сотрите все не ASCII символы из файла и попробуйте снова.''',
 '''You are not allowed to delete attachments on this page.''':
 '''Вам нельзя стирать приложения к этой странице.''',
 '''You are not allowed to get attachments from this page.''':
@@ -593,14 +587,12 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Стереть''',
 '''Optional reason for the deletion''':
 '''Можете указать причину для удаления''',
-'''No pages match "%s"!''':
-'''Нет страниц названных как "%s"!''',
-'''Exactly one matching page for "%s" found!''':
-'''Найдена ровно одна страница названная как "%s"!''',
-'''Multiple matches for "%s...%s"''':
-'''Много найдено названий как "%s...%s"''',
-'''You cannot use LikePages on an extended pagename!''':
-'''Нельзя использовать ПохожиеСтраницы для расширенного имени страницы!''',
+'''No pages like "%s"!''':
+'''Нет страниц похожих на "%s"!''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''Найдена ровно одна страница похожая на "%s", открываю...''',
+'''Pages like "%s"''':
+'''Страницы похожие на "%s"''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''%(matchcount)d %(matches)s для "%(title)s"''',
 '''Local Site Map for "%s"''':
@@ -609,16 +601,18 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Вам нельзя переименовывать страницы в этом вики!''',
 '''Please use the interactive user interface to rename pages!''':
 '''Пожалуйста воспользуйтесь интерфейсом пользователя для переименования страниц!''',
-'''A page with the name "%s" already exists!''':
-'''Страница с именем "%s" уже есть!''',
-'''Page "%s" was successfully renamed to "%s"!''':
-'''Страница "%s" теперь называется "%s"!''',
-'''Rename''':
+'''Rename Page''':
 '''Переименовать''',
 '''New name''':
 '''Новое имя''',
 '''Optional reason for the renaming''':
 '''Можете указать причину для переименования''',
+'''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
+
+Try a different name.''':
+'''\'\'\'Страница с именем {{{\'%s\'}}} уже есть.\'\'\'
+
+Попробуйте другое имя.''',
 '''(including %(localwords)d %(pagelink)s)''':
 '''(включая %(localwords)d %(pagelink)s)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
@@ -629,6 +623,10 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Ошибок правописания не найдено!''',
 '''You can\'t check spelling on a page you can\'t read.''':
 '''Нельзя проверять страницу которую запрещено читать.''',
+'''Title Search: "%s"''':
+'''Поиск по заголовкам: "%s"''',
+'''Full Text Search: "%s"''':
+'''Поиск по тексту: "%s"''',
 '''Full Link List for "%s"''':
 '''Полный список ссылок для "%s"''',
 '''Invalid include arguments "%s"!''':
@@ -655,17 +653,15 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''Загружено приложение \'%(filename)s\'.''',
 '''Drawing \'%(filename)s\' saved.''':
 '''Рисунок \'%(filename)s\' записан.''',
-'''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
-'''%(hours)dч&nbsp;%(mins)dм&nbsp;назад''',
+'''%(hours)dh %(mins)dm ago''':
+'''%(hours)dч %(mins)dм назад''',
 '''(no bookmark set)''':
 '''(нет закладки)''',
 '''(currently set to %s)''':
 '''(положена на %s)''',
 '''Delete Bookmark''':
-'''Удалить закладку''',
-'''Really delete bookmark?''':
-'''Точно стереть эту закладку?''',
-'''Update my bookmark timestamp''':
+'''Убрать закладку''',
+'''Set bookmark''':
 '''Переложить закладку наверх''',
 '''set bookmark''':
 '''заложить здесь''',
@@ -705,6 +701,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''XSLT недоступен!''',
 '''%(errortype)s processing error''':
 '''ошибка обработки %(errortype)s''',
+'''for this page (cached %(date)s)''':
+'''этой страницы (кеширована %(date)s)''',
 '''Charts are not available!''':
 '''Диаграммы недоступены!''',
 '''%(chart_title)s for %(filterpage)s''':
@@ -727,38 +725,62 @@ red=edit''':
 '''Другие''',
 '''Distribution of User-Agent Types''':
 '''Распределение броузеров по типам''',
-'''Click here to do a full-text search for this title''':
+'''Click to do a full-text search for this title''':
 '''Нажмите сюда для поиска этого названия везде''',
 '''Clear message''':
 '''Убрать это сообщение''',
-'''ShowText''':
-'''ПоказатьТекст''',
-'''of this page''':
-'''этой страницы''',
+'''last edited %(time)s by %(editor)s''':
+'''последним исправлял(а) %(editor)s %(time)s''',
+'''last modified %(time)s''':
+'''последнее изменение %(time)s''',
+'''Search:''':
+'''Искать:''',
+'''Text''':
+'''По тексту''',
+'''Titles''':
+'''По заголовкам''',
+'''Unsubscribe''':
+'''Отписка''',
+'''More Actions:''':
+'''Другие действия:''',
+'''Show Raw Text''':
+'''Показать разметку''',
+'''Show Print View''':
+'''Версия для печати''',
+'''Attach File''':
+'''Приложить файл''',
+'''Delete Page''':
+'''Вырвать страницу''',
+'''Show Like Pages''':
+'''Найти похожие страницы''',
+'''Show Local Site Map''':
+'''Карта окресностей''',
+'''Do''':
+'''Выполняй!''',
+'''Show Parent''':
+'''Показать обложку''',
+'''Immutable Page''':
+'''Неизменяемая страница''',
+'''Refresh''':
+'''Обновить кэш''',
+'''Show Changes''':
+'''Показать изменения''',
+'''Get Info''':
+'''Справка''',
+'''Show %s days.''':
+'''Показать за %s дней.''',
 '''EditText''':
 '''ИсправитьТекст''',
 '''Immutable page''':
-'''Фиксированная страница''',
-'''FindPage''':
-'''НайтиСтраницу''',
-'''or search titles %(titlesearch)s, full text %(textsearch)s or''':
-''', Найти в названии %(titlesearch)s или в тексте %(textsearch)s, ''',
+'''Неизменяемая страница''',
 '''Or try one of these actions:''':
 '''Или попробуйте сделать''',
-'''Show all changes in the last %s days.''':
-'''Показать все изменения за последние %s дней.''',
-'''User''':
-'''Кто''',
-'''Site''':
-'''Откуда''',
 '''Page''':
 '''Страница''',
-'''Search''':
-'''Искать''',
-'''Title: %(titlesearch)s<br/>Text: %(textsearch)s''':
-'''Название: %(titlesearch)s<br/>Текст: %(textsearch)s''',
-'''Actions''':
-'''Действия''',
+'''Trail''':
+'''След''',
+'''User''':
+'''Кто''',
 '''Line''':
 '''Строка''',
 '''Deletions are marked like this.''':
@@ -769,6 +791,8 @@ red=edit''':
 '''Соединиться с почтовым сервером \'%(server)s\' не удалось: %(reason)s''',
 '''Mail sent OK''':
 '''Почта ушла.''',
+'''["<html>"]''':
+'''["<html>"]''',
 '''FrontPage''':
 '''Начало''',
 '''RecentChanges''':
@@ -777,6 +801,8 @@ red=edit''':
 '''АлфавитныйУказатель''',
 '''WordIndex''':
 '''ПредметныйУказатель''',
+'''FindPage''':
+'''НайтиСтраницу''',
 '''SiteNavigation''':
 '''ПойтиПоСайту''',
 '''HelpContents''':
@@ -787,6 +813,8 @@ red=edit''':
 '''ВашиНастройки''',
 '''WikiLicense''':
 '''ВикиЛицензия''',
+'''MissingPage''':
+'''НетСтраницы''',
 '''Mon''':
 '''Пон''',
 '''Tue''':
@@ -801,4 +829,16 @@ red=edit''':
 '''Суб''',
 '''Sun''':
 '''Вос''',
+'''AttachFile''':
+'''Приложить''',
+'''DeletePage''':
+'''Стереть''',
+'''LikePages''':
+'''ПохожиеСтраницы''',
+'''LocalSiteMap''':
+'''КартаОкресностей''',
+'''RenamePage''':
+'''Переименовать''',
+'''SpellCheck''':
+'''Правописание''',
 }

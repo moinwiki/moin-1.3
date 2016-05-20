@@ -1,0 +1,13 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+A category is a WikiName that exploits [wiki:Wiki:WikiWiki WikiWiki]'s reverse linking. If you click on the title of a category page, you'll get a list of pages belonging to that category. To get a list of all categories, click above on the Category''''''Category title.
+
+Here is a list of all categories known to this wiki:
+[[PageList(regex:^Category.*)]]
+
+Here is a list of all pages containing the CategoryCategory wiki tag:
+[[FullSearch()]]
+
+To be consistent with the C2 category scheme, all categories start with the word "Category". For more information, see Wiki:AboutCategoriesAndTopics''''''.

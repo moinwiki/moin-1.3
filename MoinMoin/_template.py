@@ -8,5 +8,4 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 

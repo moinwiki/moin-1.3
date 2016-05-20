@@ -10,44 +10,43 @@
          GarthKidd
               OrphanedPages
               WantedPages
-         JørnHansen
+         JoeDoe
               CategoryHomepage
                    CategoryCategory
                    WikiHomePage
-              JørnsTodo
+              JoeWishes
               WikiWiki
                    OriginalWiki
-
-    TODO:
-        - add missing docs (docstrings, inline comments)
 
     @copyright: 2001 by Steve Howell <showell@zipcon.com>
     @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
     
-
-# Imports
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
-
+from MoinMoin.formatter.text_html import Formatter
 
 def execute(pagename, request):
     _ = request.getText
     request.http_headers()
+
+    # This action generate data using the user language
+    request.setContentLanguage(request.lang)
+
     wikiutil.send_title(request, _('Local Site Map for "%s"') % (pagename),  
         pagename=pagename)
 
-    """
-    caller = request.http_referer
-    if caller:
-        parts = urlparse.urlparse(caller)
-        request.write("Back to" + Page(parts[2].split("/")[-1]).link_to(request) +
-                      "<br><br>")
-    """
-    request.write('<div id="content">\n') # start content div
+    # Start content - IMPORTANT - witout content div, there is no
+    # direction support!
+    formatter = Formatter(request)
+    request.write(formatter.startContent("content"))
+
     request.write(LocalSiteMap(pagename).output(request))
-    request.write('</div>\n') # end content div
+
+    # End content
+    request.write(formatter.endContent()) # end content div
+    # Footer
     wikiutil.send_footer(request, pagename)
 
 
@@ -61,7 +60,11 @@ class LocalSiteMap:
         #self.append("<small>")
         tree.depth_first_visit(request, self)
         #self.append("</small>")
-        return ''.join(self.result)
+        return """
+<p>
+%s
+</p>
+""" % ''.join(self.result)
 
     def visit(self, request, name, depth):
         """ Visit a page, i.e. create a link.
@@ -69,9 +72,9 @@ class LocalSiteMap:
         if not name: return
         self.append('&nbsp;' * (5*depth))
         self.append('&nbsp;' + wikiutil.link_tag(request, '%s?action=%s' %
-            (wikiutil.quoteWikiname(name), __name__.split('.')[-1]), name))
+            (wikiutil.quoteWikinameURL(name), __name__.split('.')[-1]), name))
         self.append("&nbsp;<small>[")
-        self.append(Page(name).link_to(request, 'view'))
+        self.append(Page(request, name).link_to(request, 'view'))
         self.append("</small>]<br>")
 
     def append(self, text):
@@ -95,7 +98,7 @@ class PageTreeBuilder:
         if not self.child_marked(child):
             if not self.request.user.may.read(child):
                 return 0
-            if Page(child).exists():
+            if Page(self.request, child).exists():
                 self.mark_child(child)
                 return 1
         return 0
@@ -103,7 +106,7 @@ class PageTreeBuilder:
     def new_kids(self, name):
         # does not recurse
         kids = []
-        for child in Page(name).getPageLinks(self.request):            
+        for child in Page(self.request, name).getPageLinks(self.request):            
             if self.is_ok(child):
                 kids.append(child)
         return kids        

@@ -6,23 +6,17 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 from xml.sax import saxutils
 from MoinMoin.formatter.base import FormatterBase
-from MoinMoin import wikiutil, config
+from MoinMoin import config
 from MoinMoin.Page import Page
-
-
-#############################################################################
-### XML Formatter
-#############################################################################
 
 class Formatter(FormatterBase):
     """
         Send XML data.
     """
 
-    hardspace = '&nbsp;' # was: '&#160;' but that breaks utf-8 XXX
+    hardspace = '&nbsp;'
 
     def __init__(self, request, **kw):
         apply(FormatterBase.__init__, (self, request), kw)
@@ -41,32 +35,36 @@ class Formatter(FormatterBase):
     def endDocument(self):
         result = ""
         while self._current_depth > 1:
-            result = result + "</s%d>" % self._current_depth
+            result += "</s%d>" % self._current_depth
             self._current_depth = self._current_depth - 1
         return result + '</s1>'
 
-    def sysmsg(self, text, **kw):
-        return '<!-- %s -->' % self._escape(text).replace('--', '==')
+    def lang(self, on, lang_name):
+        return ('<div lang="">' % lang_name, '</div>')[not on]
+
+    def sysmsg(self, on, **kw):
+        return ('<sysmsg>', '</sysmsg>')[not on]
 
     def rawHTML(self, markup):
         return '<![CDATA[' + markup.replace(']]>', ']]>]]&gt;<![CDATA[') + ']]>'
 
-    def pagelink(self, pagename, text=None, **kw):
-        apply(FormatterBase.pagelink, (self, pagename, text), kw)
-        return Page(pagename, formatter=self).link_to(self.request, text)
+    def pagelink(self, on, pagename='', **kw):
+        apply(FormatterBase.pagelink, (self, on, pagename), kw)
+        return Page(self.request, pagename, formatter=self).link_to(self.request, on=on, **kw)
 
-    def url(self, url, text=None, css=None, **kw):
-        if text is None: text = url
-
-        if wikiutil.isPicture(url):
-            return '<img src="%s"/>' % (url,)
+    def interwikilink(self, on, interwiki='', pagename='', **kw):
+        if on:
+            return '<interwiki wiki="%s" pagename="%s">' % (interwiki, pagename)
         else:
-            unescaped = kw.get('unescaped', 0)
-            str = '<jump'
-            ##if css: str = '%s class="%s"' % (str, css)
-            if not unescaped: text = self._escape(text)
-            str = '%s href="%s">%s</jump>' % (str, self._escape(url), text)
-            return str
+            return '</interwiki>'
+
+
+    def url(self, on, url='', css=None, **kw):
+        if css:
+            str = ' class="%s"' % css
+        else: str = ''
+        
+        return ('<jump href="%s"%s>' % (self._escape(url), str), '</jump>') [not on]
 
     def text(self, text):
         if self.in_pre:
@@ -80,6 +78,9 @@ class Formatter(FormatterBase):
         else:
             return '<hr/>\n'
 
+    def icon(self, type):
+        return '<icon type="%s" />' % type            
+
     def strong(self, on):
         return ['<strong>', '</strong>'][not on]
 
@@ -92,15 +93,15 @@ class Formatter(FormatterBase):
     def number_list(self, on, type=None, start=None):
         result = ''
         if self.in_p: result = self.paragraph(0)
-        return result + ['<ol>', '</ol>'][not on]
+        return result + ['<ol>', '</ol>\n'][not on]
 
     def bullet_list(self, on):
         result = ''
         if self.in_p: result = self.paragraph(0)
-        return result + ['<ul>', '</ul>'][not on]
+        return result + ['<ul>', '</ul>\n'][not on]
 
     def listitem(self, on, **kw):
-        return ['<li>', '</li>'][not on]
+        return ['<li>', '</li>\n'][not on]
 
     def code(self, on):
         return ['<code>', '</code>'][not on]
@@ -119,12 +120,14 @@ class Formatter(FormatterBase):
 
     def paragraph(self, on):
         FormatterBase.paragraph(self, on)
-        return ['<p>', '</p>'][not on]
+        return ['<p>', '</p>\n'][not on]
 
     def linebreak(self, preformatted=1):
-        return ['\n', '<br/>'][not preformatted]
+        return ['\n', '<br/>\n'][not preformatted]
 
-    def heading(self, depth, title, id = None, **kw):
+    def heading(self, on, depth, id = None, **kw):
+        if not on:
+            return '">\n'
         # remember depth of first heading, and adapt current depth accordingly
         if not self._base_depth:
             self._base_depth = depth
@@ -133,7 +136,7 @@ class Formatter(FormatterBase):
         # close open sections
         result = ""
         while self._current_depth >= depth:
-            result = result + "</s%d>" % self._current_depth
+            result = result + "</s%d>\n" % self._current_depth
             self._current_depth = self._current_depth - 1
         self._current_depth = depth
 
@@ -141,7 +144,7 @@ class Formatter(FormatterBase):
         if id:
           id_text = ' id="%s"' % id
 
-        return result + '<s%d title="%s"%s>\n' % (depth, self._escape(title), id_text)
+        return result + '<s%d%s title="' % (depth, id_text)
 
     def table(self, on, attrs={}):
         return ['<table>', '</table>'][not on]
@@ -155,11 +158,11 @@ class Formatter(FormatterBase):
     def anchordef(self, id):
         return '<anchor id="%s"/>' % id
 
-    def anchorlink(self, name, text, id=None):
+    def anchorlink(self, on, name='', id=None):
         extra = ''
         if id:
             extra = ' id="%s"' % id
-        return '<link anchor="%s"%s>%s</link>' % (name, extra, self._escape(text, {}))
+        return ('<link anchor="%s"%s>' % (name, extra) ,'</link>') [not on]
 
     def underline(self, on):
         return self.strong(on) # no underline in StyleBook
@@ -182,4 +185,22 @@ class Formatter(FormatterBase):
             if key in valid_attrs:
                 attrs[key] = value
         return apply(FormatterBase.image, (self,), attrs) + '</img>'
+
+    def code_area(self, on, code_id, **kwargs):
+        return ('<codearea id="%s">' % code_id, '</codearea')[not on]
+
+    def code_line(self, on):
+        return ('<codeline>', '</codeline')[not on]
+
+    def code_token(self, on, tok_type):
+        return ('<codetoken type="%s">' % tok_type, '</codetoken')[not on]
+
+    def code_area(self, on, code_id, **kwargs):
+        return ('<codearea id="%s">' % code_id, '</codearea')[not on]
+
+    def code_line(self, on):
+        return ('<codeline>', '</codeline')[not on]
+
+    def code_token(self, on, tok_type):
+        return ('<codetoken type="%s">' % tok_type, '</codetoken')[not on]
 

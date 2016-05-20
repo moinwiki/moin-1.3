@@ -1,0 +1,305 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language it
+#pragma section-numbers 2
+
+= Liste di Controllo dell'Accesso  =
+Qualora siano attivale le Access Control Lists, ACL in breve, è
+possibile controllare chi può può intervenire su una pagina wiki e con
+che modalità.
+
+== Contenuti ==
+[[TableOfContents]]
+
+== Fondamenti ==
+Per usare le ACL con MoinMoin è sufficiente includere una particolare
+linea di controllo in cima alla pagina che desideri, ad esempio:
+{{{
+#acl QualcheUtente:read,write All:read
+}}}
+
+Questo consentirà a `QualcheUtente` di leggere e scrivere quella
+pagina, mentre potrà essere solo letta da chiunque altro (a meno ché
+non si configurato in maniera particolare il sito).
+
+== Sintassi ==
+Ogni riga può avere questa sintassi:
+{{{
+#acl [+-]Utente[,QualcheGruppo,...]:[permesso[,permesso,...]] [[+-]AltroUtente:...] [[+-]Known:...] [[+-]All:...] [Default]
+}}}
+
+Where:
+
+ * '''Utente''' è il nome dell'utente e viene applicata solo se i nomi combaciano.
+ * '''Qualche``Gruppo''' indica una pagina che corrisponde all'espressione regolare {{{page_group_regex}}} (vedi [#Configurazione]) e che contiene delle righe nel formato " * Membro" (vedi [#Gruppi]).
+ * '''Known''' è un gruppo speciale che contiene tutti gli utenti registrati.
+ * '''All''' è un gruppo speciale che contiene tutti (sia gli utenti registrati che quelli anonimi).
+ * '''Default''' è una voce particolare che viene sostituita con le impostazioni prese da {{{acl_rights_default}}} (vedi [#Default]).
+ * '''permesso''' è una parola tipo read, write, delete, admin.
+ Solo le parole elencate in {{{acl_rights_valid}}} verranno accettate, le altre saranno ignorate. È consentito non specificare nessun permesso, a significare che non ne viene concesso alcuno.
+
+== Permessi disponibili ==
+Questi sono i permessi disponibili che puoi utilizzare nelle regole ACL:
+
+ read::
+ Gli utenti specificati possono leggere il testo della pagina.
+
+ write::
+ Gli utenti specificati potranno modificare il contenuto della pagina.
+
+ delete::
+ Gli utenti specificati potranno cancellare la pagina e gli allegati.
+
+ admin::
+ Gli utenti specificati sono gli amministratori della pagina. Questo
+ significa che potranno cambiare le impostazioni ACL, compreso dare o
+ togliere lo stato di amministratore agli altri utenti.
+
+== Logica di funzionamento ==
+Quando qualcuno accede a una risorsa protetta dalle ACL, i controlli
+del caso verranno eseguiti nell'ordine in cui sono specificati. La
+'''prima regola ACL che viene soddisfatta''' indica se l'utente ha o
+meno il permesso di accedervi.
+
+(!) A causa dell'algoritmo della ''prima regola'', devi mantenere un
+certo ordine nello specificare le ACL: prima i singoli utenti, poi i
+gruppi speciali, quindi i gruppo generici, `Known` e infine `All`.
+
+Ad esempio, la seguente ACL specifica che `QualcheUtente` può
+leggere e scrivere la pagina coperta da quelle regole, mentre i membri
+di `QualcheGruppo` (compreso `QualcheUtente`, se vi fa parte) può
+amministrarne i permessi; tutti gli altri possono leggerla.
+{{{
+#acl QualcheUtente:read,write QualcheGruppo:read,write,admin All:read
+}}}
+
+Per rendere il sistema più flessibile, si possono utilizzare dei
+modificatori: i prefissi '+' e '-'. Quando vengono usati, quella
+particolare regola verrà soddisfatta solo quando l'utente
+'''richiede''' quei '''particolari''' permessi. Ad esempio, la ACL
+precedente si potrebbe scrivere anche così:
+{{{
+#acl -QualcheUtente:admin QualcheGruppo:read,write,admin All:read
+}}}
+
+O anche:
+{{{
+#acl +All:read -QualcheUtente:admin QualcheGruppo:read,write,admin
+}}}
+
+La seconda e la terza forma vengono raramente usate per specificare i
+permessi di una pagina wiki, ma possono essere utili nella
+configurazione globale del sito.
+
+[[Anchor(Default)]]
+== Utilizzo dei permessi di default ==
+Qualche volta può essere utile dare a qualcuno un certo permesso senza
+per questo ignorare le impostazioni globali del sito. Ad esempio,
+supponiamo di avere le seguenti regole nella configurazione:
+{{{
+acl_rights_default = "GruppoFidato:read,write,delete All:read"
+acl_rights_before  = "GruppoAdmin:admin,read,write,delete +GruppoFidato:admin"
+}}}
+
+Ora diciamo di voler dare a `QualcheUtente` il permesso di scrittura,
+ma di voler anche mantenere il comportamento specificato per All e per
+`GruppoFidato`. Questo è facilmente ottenibile usando la speciale regola
+'''Default''':
+{{{
+#acl QualcheUtente:read,write Default
+}}}
+
+Questo inserirà le regole impostate in {{{acl_rights_default}}}
+esattamente dove appare la parola Default. In altri termini, la regola
+qui sopra con la configurazione indicata è equivalente a questa
+regola: 
+{{{
+#acl QualcheUtente:read,write GruppoFidato:read,write,delete All:read
+}}}
+
+Sebbene raggiungano lo stesso risultato, sfruttando i valori di
+default si ha il vantaggio che eventuali modifiche a quelle
+impostazioni verranno applicate automaticamente.
+
+[[Anchor(Configurazione)]]
+== Configurazione ==
+Queste sono le impostazioni relative alle ACL che possono essere
+modificate su un sito MoinMoin.
+
+||'''Voce'''||'''Default'''||'''Descrizione'''||
+||acl_enabled||{{{0}}}||true indica che il supporto per le ACL è abilitato.||
+||acl_rights_before||{{{""}}}||applicate '''prima''' delle regole della pagina o di quelle di default||
+||acl_rights_after||{{{""}}}||applicate '''dopo''' delle regole della pagina o di quelle di default||
+||acl_rights_default||{{{"Known:read,write,delete All:read,write"}}}||usate '''esclusivamente''' quando '''nessun'altra''' regola ACL è specificata dalla pagina in questione||
+||acl_rights_valid||{{{["read", "write", "delete", "admin"]}}}||Questi sono i permessi accettati (riconosciuti) e dove eventualmente estenderli, se necessario.||
+
+Cosa ''significa'' tutto questo?
+ * "before" rappresenta i permessi '''garantiti''' (per il meccanismo della prima regola)
+ * "after" indica i permessi da '''non tralasciare''' per sbaglio (come ad esempio dare il permesso di lettura a tutti)
+ * "default" indica i permessi applicati '''quando la pagina non contiene alcuna regola ACL'''. Equivale a scrivere esattamente queste regole nella pagina.
+
+[[Anchor(Gruppi)]]
+== Gruppi ==
+Raggruppare gli utenti rende più facile gestire i permessi quando il
+numero di utenti è elevato. 
+
+Solo gli amici di `QualcheUtente` possono leggere e modificare la
+pagina:
+{{{
+#acl QualcheUtente:read,write QualcheUtente/GruppoAmici:read,write
+}}}
+
+`QualcheUtente/GruppoAmici` a sua volta è una pagina della quale ogni
+elemento della lista al primo livello rappresenta il nome di un utente
+del sito wiki da considerare appartenente a quel gruppo:
+{{{
+#acl QualcheUtente:read,write,admin,delete
+ * PaoloVerdi
+ * MarioBianchi
+ * RodolfoRossi
+}}}
+
+La pagina `GruppoAdmin` (che soddisfi l'espressione regolare
+config.page_group_regex) può definire un gruppo con quel nome e a sua
+volta può essere protetta con le regole ACL:
+{{{
+#acl GruppoAdmin:admin,read,write All:read
+ * QualcheUtente
+ * AltroUtente
+   * Questa voce viene ignorata
+Qualsiasi testo esterno alla lista di primo livello viene ignorato.
+}}}
+
+Puoi configurare quali nomi di pagina debbano essere considerati delle
+definizioni di gruppo (ad esempio per wiki in lingue diverse
+dall'inglese):
+{{{
+page_group_regex =  '^Gruppo.*'    # questo è adatto all'italiano
+}}}
+
+== Esempi di utilizzo ==
+
+=== Un wiki pubblico su Internet ===
+Il concetto fondamentale in questo caso è utilizzare le ACL solo
+quando dove sia realmente necessario. Generalmente i siti wiki si
+basano sulla libera accessibilità e modificabilità dei contenuti. I
+vincoli di sicurezza sono perciò minimi, limitati alla rimozione di
+materiale improprio. Per questi motivi non è spesso necessario
+utilizzare le ACL: utilizzandole a sproposito rischieresti di
+compromettere la filosofia stessa di un sito wiki.
+
+Questo è il motivo per cui le ACL non dovrebbero essere utilizzare (di
+default è così) oppure, qualora si decida di farlo, il file
+wikiconfig.py dovrebbe contenere qualche cosa del tipo:
+{{{
+acl_rights_before = 'NomeResponsabileWiki:read,write,admin,delete +GruppoAdmin:admin ImbrattatatoreSiti:' 
+}}}
+
+L'impostazione di default per {{{acl_rights_default}}} dovrebbe essere
+adatta:
+{{{
+acl_default = 'Known:read,write,delete All:read,write' 
+}}}
+
+Un buon consiglio è di avere solo pochi e ben fidati amministratori
+del wiki raggruppati nel `GruppoAdmin` (che devono avere una buona
+conoscenza di come funziona un wiki perché altrimenti potrebbe senza
+volerlo comprometterne il senso stesso, che sta nell'essere
+''aperto'', non chiuso a chiave!).
+
+Se usi il `GruppoAdmin` devi perciò creare una pagina `GruppoAdmin`
+elencandovi le persone che avranno i permessi di amministrazione.
+
+Specificando l'`ImbrattatatoreSiti` come mostrato sopra in pratica lo
+si ''chiude fuori'': non potrà né leggere né tantomeno scrivere nulla
+da quel account. Questo ha senso solo quando si tratta di una misura
+temporanea, altrimenti tanto varrebbe eliminare il suo
+account. Naturalmente questo `ImbrattatatoreSiti` può accedere anche
+come anonimo, così questa non è una protezione molto efficace (e qui
+entra in ballo la ''sicurezza leggera'').
+
+=== Il wiki come un semplice CMS ===
+Se vuoi utilizzare il wiki come una maniera semplice per pubblicare
+contenuti sul web ma non desideri che sia pubblicamente modificabile
+(cioè vuoi permettere solo a alcuni webmaster di farlo), puoi inserire
+queste impostazioni nel tuo wikiconfig.py:
+{{{
+acl_rights_default = 'All:read' 
+acl_rights_before  = 'WebMaster,AltroWebMaster:read,write,admin,delete' 
+}}}
+
+In questo modo tutti potranno leggere, ma solo i due autori indicati
+potranno fare tutto. Mentre stanno lavorando a una pagina, potranno
+inserirvi
+{{{
+#acl All: 
+}}}
+cosicché nessun altro potrà vedere la pagina incompleta. Una volta
+terminato il lavoro, dovranno ricordarsi di rimuovere la regola ACL
+dimodoché vengano applicate quelle indicate da
+{{{acl_rights_default}}}.
+
+Per far sì che alcune pagine consentano ai visitatori anonimi di
+inserire un loro commento (ad esempio la pagina
+`CommentiDeiVisitatori`), inserisci questa regola:
+{{{
+#acl All:read,write 
+}}}
+
+=== Wiki in una Intranet ===
+Se vuoi utilizzare un wiki nella tua intranet e, fidandoti della buona
+fede dei tuoi collaboratori (nel senso che non compiano atti di
+sabotaggio tipo escludere qualcuno o ''rubare'' la proprietà delle
+pagine), vuoi dare loro il ruolo di amministratori, puoi usare:
+{{{
+acl_rights_default = 'Known:admin,read,write,delete All:read,write'
+acl_rights_before  = 'WikiAdmin,IlGrangeCapo:read,write,admin,delete' 
+}}}
+
+Così tutti possono leggere, modificare e cambiare i diritti di
+accesso, `WikiAdmin` e `IlGrandeCapo` hanno assicurato il permesso di
+fare qualunque cosa; gli utenti registrati ottengono questo diritto da
+{{{acl_rights_default}}} (così facendo ottengono questo beneficio solo
+nel caso in cui la pagina non specifichi sue particolari ACL).
+
+Conseguenze:
+ * su una pagina nuova, l'autore può impostare qualsiasi permesso desideri
+ * sulle pagine esistenti, che non hanno ancora regole ACL, qualsiasi utente può impostarne i permessi di accesso
+ * tutti quanti (eccetto `WikiAdmin` e `IlGrandeCapo`) possono venire esclusi da chiunque (registrato) sulle pagine che non hanno una loro regola.
+
+=== Il wiki come sito pubblico aziendale ===
+Se vuoi utilizzare il wiki come sito aziendale e non vuoi che chiunque
+sia in grado di modificarne i contenuti, usa una configurazione di
+questo tipo:
+{{{
+acl_rights_default = "GruppoFidati:admin,read,write,delete All:read"
+acl_rights_before  = "GruppoAdmin:admin,read,write,delete +GruppoFidati:admin"
+}}}
+
+Questo significa che:
+ * di default sia gli utenti riconosciuti che quelli anonimi possano solo leggere le pagine
+ * su una nuova pagina, i membri di `GruppoFidati` possono specificare qualunque regola
+ * sulle pagine esistenti che non abbiano una propria regola, i membri di `GruppoFidati` possono inserire qualunque controllo di accesso desiderino
+ * tutti quanti, eccetto i membri del `GruppoAdmin` possono venire esclusi da una certa pagina, o dagli amministratori o dai collaboratori fidati
+ * le persone nel `GruppoFidati` possono esercita i loro diritti di amministratore su qualsiasi pagina abbiano il permesso di scrittura, anche se questa specifica proprie regole di accesso
+
+=== Commenti su pagine a sola lettura ===
+Puoi facilmente ottenere una sezione commentabile in una pagina a sola
+lettura usando una sottopagina che sia scrivibile. Ad esempio, puoi
+definire `QualchePagina` in questo modo:
+{{{
+#acl QualcheUtente:read,write All:read
+'''Contenuto a sola lettura'''
+
+...
+
+''' Commenti dei visitatori '''
+[[Include(QualchePagina/Commenti)]]
+}}}
+
+E in `QualchePagina/Commenti` mettere qualche cosa del tipo:
+{{{
+#acl All:read,write
+Aggiungi qui sotto le tue considerazioni su QualchePagina.
+}}}

@@ -17,6 +17,14 @@ _('HelpContents')
 _('HelpOnFormatting')
 _('UserPreferences')
 _('WikiLicense')
+_('MissingPage')
 
 _('Mon'), _('Tue'), _('Wed'), _('Thu'), _('Fri'), _('Sat'), _('Sun')
+
+_('AttachFile')
+_('DeletePage')
+_('LikePages')
+_('LocalSiteMap')
+_('RenamePage')
+_('SpellCheck')
 

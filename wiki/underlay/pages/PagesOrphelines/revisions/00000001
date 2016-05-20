@@ -1,0 +1,10 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:OrphanedPages
+##master-date:2004-05-16 22:32:21
+#language fr
+Une liste des pages vers lesquelles aucune autre page ne fait lien :
+[[OrphanedPages]]

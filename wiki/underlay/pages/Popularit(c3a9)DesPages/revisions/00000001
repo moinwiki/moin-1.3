@@ -1,0 +1,11 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:PageHits
+##master-date:2004-10-24 15:33:38
+#language fr
+Cette page montre combien de fois chaque page a été visualisée depuis que le journal des évènements est tenu. Aucune analyse intelligente des données n'est faite, chaque affichage compte.
+
+[[PageHits]]

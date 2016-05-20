@@ -7,15 +7,15 @@ from MoinMoin.util import pysupport
 outfile = file("meta.py", "w")
 outwiki = file("meta.wiki", "w")
 
-# TODO: Save this file using utf-8 encdoing, then the language names
-# could be in the language itself - Hebrew will show in Hebrew in the
-# languages menu in the user preferences
-outfile.write("""# -*- coding: iso-8859-1 -*-
-# automatically generated, do not edit - edit *.po instead!
-# lang: (longname, encoding, direction, maintainer)
+outfile.write('''# -*- coding: utf-8 -*-
+""" This file contains meta information about available languages, so MoinMoin
+    does not need to load all language files to collect those informations.
+    
+    *** Automatically generated, do not edit - edit *.po instead! ***
+"""
+# lang: (longname, longname-in-english, encoding, direction, maintainer)
 languages = {
-'en': ('English', 'iso-8859-1', 0, '"Juergen Hermann" <jh@web.de>',),
-""")
+''')
 
 # Create python dictionary of known languages
 for lang in sys.argv[1:]:
@@ -37,12 +37,18 @@ for lang in sys.argv[1:]:
     # Translate file name to iso language name. iso names are xx[-xx],
     # but since each langauge is a python module, we use xx[_xx]
     lang = lang.replace('_', '-')
+
+    # decode the language (as it is in file encoding still)
+    language = meta['language'].decode(meta['encoding'])
+    elanguage = meta['elanguage'].decode(meta['encoding'])
     
     meta.update(locals())
 
-    # TODO maybe we should at least recode "language" ...
-    outfile.write("""'%(lang)s': ('%(language)s', '%(encoding)s', %(dir)d, '%(maintainer)s',),\n""" % meta)
-    outwiki.write("""|| %(lang)s || %(language)s || TODO || %(maintainer)s ||\n""" % meta)
+    outf = u"""'%(lang)s': (u'%(language)s', u'%(elanguage)s', '%(encoding)s', %(dir)d, '%(maintainer)s',),\n""" % meta
+    outw = u"""|| %(lang)s || %(language)s || TODO || %(maintainer)s ||\n""" % meta
+    
+    outfile.write(outf.encode('utf-8'))
+    outwiki.write(outw.encode('utf-8'))
     del meta
 
 outfile.write("""}

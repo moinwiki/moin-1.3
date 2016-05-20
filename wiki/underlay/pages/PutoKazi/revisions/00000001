@@ -1,0 +1,26 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:SiteNavigation
+##master-date:2004-10-03 8:49:44
+#language sr
+
+Putokazi su centralno mesto za istraživanje ovog Vikija. MoinMoin podržava sledeće šeme indeksiranja (MeatBall:IndexingScheme''''''s):
+ * PoslednjePromene
+ * IndeksStranica
+ * IndeksReči
+ * NaćiStranicu
+ * ŽeljeneStranice
+ * NapušteneStranice
+ * ZapušteneStranice
+ * SlučajnaStranica
+ * VeličinaStranica
+
+Na dnu svake stranice su takozvane akcije iliti linkovi, putem kojih možete da skoknete do ostalih stranica koje su sa njom povezane:
+ * Like''''''Pages
+ * Local''''''Site''''''Map
+
+I takođe sledeći makroi (mali programčići):
+{{{[[PageList]]}}}, {{{[[FullSearch('text')]]}}}
+i {{{[[TableOfContents]]}}}
+koji vam dozvoljavaju da automatski generišete indekse ili da tragate po ovom vikiju.

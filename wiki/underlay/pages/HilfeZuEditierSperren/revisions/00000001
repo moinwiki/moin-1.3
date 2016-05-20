@@ -1,0 +1,60 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language de
+##master-page:HelpOnEditLocks
+##master-date:2003-03-11 16:01:18
+##master-sha:1FDC09278570846A9BE72AE31CC3EF8B3245D7C9
+
+== Sperren gegen gleichzeitiges Editieren ==
+
+Wenn zwei Leute gleichzeitig dieselbe Wikiseite editieren, kann es zu lästigen Konflikten kommen. Ohne eine Art Warnsystem kann einer der Bearbeiter die Seite speichern und dem anderen wird ''erst im Nachhinein'' eine Meldung beschert, die ihn auf den Konflikt hinweist.
+
+Zur Vermeidung solcher Situationen verfolgt das Wiki mit, welche Seiten gerade editiert werden und von wem. Wenn ein Benutzer eine Seite zum Editieren öffnet, die bereits jemand anderes bearbeitet, kann das System einen Warnhinweis anzeigen.
+MoinMoin besitzt dafür Editiersperren. Es gibt zwei Stufen des Sperrens - warnen (''warn'') und verriegeln (''lock'') -, sowie die Möglichkeit, den Sperrmechanismus ganz abzuschalten (''None'').
+
+Wenn Sie MoinMoin auf '''warn''' konfigurieren, werden Leute gewarnt, wenn sie eine Seite zum Bearbeiten öffnen, die bereits editiert wird. Sie werden gebeten abzuwarten bis der aktuelle Bearbeiter fertig ist.
+
+MoinMoin kann auch so eingestellt werden, dass es eine Seite während des Editierens für andere sperrt ('''lock'''). Wenn ein Zweiter probiert, die Seite zu editieren, erhält er eine Nachricht, dass die Seite gesperrt und nicht editierbar ist, bis die Änderung abgeschlossen ist.
+
+=== Aufhebung der Sperre ===
+''Wenn Sie die Seite für längere Zeit verlassen, läuft der Zeitnehmer ab und die Sperren werden zurückgenommen, so dass andere die Seite wieder editieren dürfen:''
+
+Kompliziert werden die Sperren dadurch, dass eine Editiersitzung möglicherweise gestartet, aber nicht beendet wird. Das geschieht zum Beispiel in folgenden Fällen:
+ * Jemand klickt `Editieren` und klickt dann in der Vorschau auf einen Link, ohne den Editiervorgang abzubrechen.
+ * Das Browserfenster wird geschlossen, ohne den Editiervorgang abzubrechen.
+ * Der Zurück-Knopf wird gedrückt.
+ * Jemand fängt an, eine Seite zu ändern, vergisst es und lässt den Browser über Nacht so stehen. 
+In jedem dieser Fälle würde die Seite permanent Warnungen ausgeben oder dauerhaft gesperrt sein. Deshalb haben ''warn'' und ''lock'' eine Schlusszeit (''timeout''). Nach der angegebenen Anzahl Minuten läuft die Sperre bzw. Warnung ab und wird aufgehoben.
+
+=== Sperre verlängern ===
+''Wenn man auf `Vorschau` klickt, wird die Zeitnahme neu gestartet:''
+
+Wenn man eine Seite aktiv editiert und - zum Prüfen der Änderungen oder zur Zwischensicherung - auf `Vorschau` klickt, wird davon ausgegangen, dass man immer noch auf der Seite beschäftigt ist und die Zeitnahme startet von vorne.
+
+=== Abbrechen eines Editiervorgangs ===
+
+Aus den oben erklärten Gründen sollten Sie '''immer `Abbrechen` benutzen''', wenn Sie einen Editiervorgang abbrechen wollen und "edit locking" angeschaltet ist!
+
+== Konfiguration ==
+
+Die Konfigurationsvariable `edit_locking` kontrolliert das Verhalten des Sperrsystems und kann folgende Werte annehmen:
+
+ * "`None`" bedeutet, dass es keine Sperren gibt. Die Sperreigenschaft ist abgeschaltet und niemand wird gewarnt oder davon abgehalten, eine Seite zu editieren, die bereits ein anderer bearbeitet. Wer zuerst speichert, gewinnt.
+
+ * "`warn <timeout>`" bedeutet, dass !MoinMoin jeden warnt, der versucht, gleichzeitig mit jemand anderem eine Seite zu editieren - mit der angegebenen Ablaufzeit (timeout). Zum Beispiel warnt "`warn 10`" für 10 Minuten, nachdem ein Editiervorgang gestartet wurde.
+
+ * "`lock <timeout>`" bedeutet, dass !MoinMoin eine Seite für die angegebene Zeit sperrt. Z.B.: "`lock 5`" sperrt eine Seite für 5 Minuten, nachdem ein Editiervorgang gestartet wurde.
+
+== Beispiel ==
+
+Fallbeispiel mit Hans``Müller und Eva``Mayer:
+
+ Ohne locking (None):: Hans``Müller beginnt, eine Seite zu editieren und Eva``Mayer
+ kommt auf die Idee, die gleiche Seite zu bearbeiten. Beide haben keine Ahnung davon, dass jemand anderes die Seite editiert. Also machen beide Änderungen und speichern diese ab (oder versuchen es). Es macht keinen Unterschied wer zuerst speichert und das meiste geändert hat: Wer auch immer `Speichern` ''zuerst'' anklickt, hat seine (bzw. ihre) Änderungen durchbekommen und der oder die unglückliche Zweite bekommt eine Nachricht und darf die eigenen Änderungen nachpflegen - oder sie sind verloren.
+
+ Warnung (warn):: Hans``Müller beginnt, eine Seite zu editieren und Eva``Mayer
+ kommt auf die Idee, die gleiche Seite zu bearbeiten. Sobald sie auf `Editieren` klickt, bekommt sie die Warnung, dass schon jemand anderes am Werk ist. Wenn sie höflich ist, verläßt sie die Seite ohne etwas zu ändern. Sie kann aber immer noch die Seite ''vor'' Hans``Müller speichern und er verliert dadurch seine Änderungen (oder darf sie nachpflegen).
+
+ Sperre (lock):: Hans``Müller beginnt, eine Seite zu editieren und Eva``Mayer
+ kommt auf die Idee, die gleiche Seite zu bearbeiten. Sobald sie auf `Editieren` klickt, bekommt sie die Meldung, dass jemand anderes zuerst da war und die Seite gesperrt ist. Sie wird dann zähneknirschend warten müssen, bis die Seite wieder zum Bearbeiten verfügbar wird.

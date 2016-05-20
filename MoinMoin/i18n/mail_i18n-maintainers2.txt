@@ -1,21 +1,17 @@
 Dear MoinMoin i18n maintainer / translator,
 
-It looks like your are still unfinished with translation.
+It looks like your are still unfinished with translation - keep
+in mind that *.po deadline is 2004-12-01.
 
 Maybe try to finish it soon. If you have partially done the job, please
-submit what you have already (assuming that it is in a usable state).
+submit what you already have done (assuming that it is in a usable state).
 
-As planned release date has already passed, we will release MoinMoin as
-soon as possible. If your translation arrives before last release steps
-have begun, it might still get in.
+We plan to release MoinMoin soon. If your translation arrives before last
+release steps have begun, it might still get in.
 
 If not, we will include it in development tree of next version, so it will
 be there if we release next version (but it is quite probable that we will
 contact you again before that release).
-
-Due to the timings and coordination problems with this sort of translation
-effort, we are currently thinking about moving this stuff to the moinmaster
-wiki as soon as possible (== as soon as we switched it to utf-8).
 
 Please also don't forget to update status here:
 http://moinmoin.wikiwikiweb.de/MoinDev/Translation

@@ -1,0 +1,14 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh-tw
+##master-page:TitleIndex
+本頁列出本站的各頁的標題索引.
+
+另詳見:
+ * ["詞彙索引"] -- 各頁標題上的單字的分別索引
+ * ["本站導覽"] -- 其他檢索方案
+
+----
+
+[[TitleIndex]]

@@ -10,8 +10,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-from MoinMoin import config, wikiutil
+from MoinMoin import config
 from MoinMoin.util.dataset import TupleDataset, Column
 from MoinMoin.widget.browser import DataBrowserWidget
 
@@ -43,7 +42,7 @@ def execute(macro, args):
         for off in range(COLUMNS):
             if idx+off < len(smileys):
                 markup, smiley = smileys[idx+off]
-                img = wikiutil.getSmiley(markup, fmt)
+                img = fmt.smiley(markup)
                 row.extend([
                     fmt.code(1) + fmt.text(markup) + fmt.code(0),
                     fmt.rawHTML(img),

@@ -1,0 +1,15 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:RecentChanges
+##master-date:2002-05-23 22:51:10
+#language da
+Denne side indeholder en liste over nyeste rettelser i denne wiki på '''[[PageCount]] sider''' (mere information om systemet under SystemInfo). Rettelser til andre wikis kan ses under OpenWiki:WikiSites/Aggregation.
+----
+[[RandomQuote]]
+----
+[[RecentChanges]]
+
+|||| [[Icon(diff)]] || markerer ældre sider med mindst én backup arkiveret (klik for skribent diff)||
+|||| [[Icon(updated)]] || markerer sider redigeret siden du satte dit bogmærke (klik for bogmærke-diff)||
+|||| [[Icon(new)]] || markerer sider oprettet siden du satte dit bogmærke, og ikke er blevet redigeret efter oprettelesen||

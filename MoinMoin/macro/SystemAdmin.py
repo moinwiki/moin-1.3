@@ -19,11 +19,7 @@ def execute(macro, args):
     _ = macro.request.getText
 
     # do not show system admin to not admin users
-    # !!! add ACL stuff here - meanwhile do this ugly hack:
-    try: 
-        if not macro.request.user.may.admin(macro.formatter.page.page_name):
-            return ''
-    except AttributeError: # we do not have _admin in SecurityPolicy, so we give up
+    if not macro.request.user.may.admin(macro.formatter.page.page_name):
         return ''
 
     result = []
@@ -33,7 +29,7 @@ def execute(macro, args):
     }
     choice = macro.request.form.get('sysadm', [None])[0]
 
-    # XXX !! unfinished!
+    # TODO: unfinished!
     if 0:
         result = wikiutil.link_tag(macro.request,
             "?action=export", _("Download XML export of this wiki"))

@@ -23,7 +23,7 @@ class Text:
     def __init__(self, text):
         self.text = text
 
-    def __str__(self):
+    def __unicode__(self):
         return wikiutil.escape(self.text)
 
         
@@ -33,7 +33,7 @@ class Raw:
     def __init__(self, markup):
         self.markup = markup
 
-    def __str__(self):
+    def __unicode__(self):
         return self.markup
 
         
@@ -82,10 +82,10 @@ class Element:
             if self._BOOL_ATTRS.has_key(key):
                 if val: result.append(key)
             else:
-                result.append('%s="%s"' % (key, wikiutil.escape(str(val), 1)))
+                result.append(u'%s="%s"' % (key, wikiutil.escape(val, 1)))
         return ' '.join(result)
 
-    def __str__(self):
+    def __unicode__(self):
         raise NotImplementedError 
 
         
@@ -93,8 +93,8 @@ class EmptyElement(Element):
     """ HTML elements with an empty content model.
     """
 
-    def __str__(self):
-        return "<%s>" % self._openingtag()
+    def __unicode__(self):
+        return u"<%s>" % self._openingtag()
 
 
 class CompositeElement(Element):
@@ -106,8 +106,7 @@ class CompositeElement(Element):
         self.children = []
 
     def append(self, child):
-        if isinstance(child, type('')):
-            child = wikiutil.escape(child)
+        """ Append child """
         self.children.append(child)
         return self
 
@@ -116,10 +115,14 @@ class CompositeElement(Element):
             self.append(child)
         return self
 
-    def __str__(self):
+    def __unicode__(self):
+        childout = []
+        for c in self.children:
+            co = unicode(c)
+            childout.append(co)
         return "<%s>%s</%s>" % (
             self._openingtag(),
-            ''.join([str(c) for c in self.children]),
+            u''.join(childout),
             self.tagname(),
         )
 

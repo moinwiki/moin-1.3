@@ -1,0 +1,14 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:FortuneCookies
+##master-date:2004-11-24 02:21:18
+#language fr
+
+La macro `RandomQuote` prend au hasard un des éléments de liste présents dans cette page. Voir également l'["AideDesMacros"].
+
+ * Éditez la page ProverbesEtCitations pour afficher ici une dose de sagesse, prise au hasard.
+
+ * Astuce : indiquez dans quelle langue vos pages sont rédigées au moyen de l'instruction de traitement `#language fr`. Voir également l'["AideDesLangues"].

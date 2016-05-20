@@ -1,0 +1,7 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh-tw
+##master-page:OrphanedPages
+孤立頁面是指和別頁沒有連結的頁面. 清單如下:
+[[OrphanedPages]]

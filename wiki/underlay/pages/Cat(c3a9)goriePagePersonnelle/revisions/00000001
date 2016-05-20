@@ -1,0 +1,17 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:CategoryHomepage
+##master-date:2004-11-18 20:44:04
+#language fr
+Une catégorie pour les [:PagePersonnelle: PagesPersonnelles].
+
+Cette catégorie ne fonctionne que si l'administrateur du wiki n'utilise ''pas'' les réglages par défaut. Sinon, c'est la catégorie CategoryHomepage qu'il faut utiliser. Voir la page CatégorieCatégorie pour plus de détails.
+
+Voici la liste des pages qui sont dans cette catégorie :
+[[FullSearch(regex:(----(-*)(\r)?\n)(.*)CatégoriePagePersonnelle\b)]]
+
+----
+CatégorieCatégorie

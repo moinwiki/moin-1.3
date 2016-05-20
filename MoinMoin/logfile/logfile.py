@@ -5,8 +5,8 @@
 """
 
 from __future__ import generators
-import os
-from MoinMoin import config
+import os, codecs
+from MoinMoin import config, wikiutil
 
 class LineBuffer:
     """
@@ -27,16 +27,20 @@ class LineBuffer:
             self.lines = file.readlines(size)
             self.__calculate_offsets(offset)
         else:
-            if offset < 2* size: begin = 0
-            else: begin = offset - size
+            if offset < 2 * size:
+                begin = 0
+            else:
+                begin = offset - size
             file.seek(begin)
             self.lines = file.read(offset-begin).splitlines(True)
-            if begin !=0:
-                begin = begin + len(self.lines[0])
+            if begin != 0:
+                begin += len(self.lines[0])
                 self.lines = self.lines[1:]
                 # XXX check for min one line read
             self.__calculate_offsets(begin)
 
+        # Decode lines after offset in file is calculated
+        self.lines = [unicode(line, config.charset) for line in self.lines]
         self.len = len(self.lines)
 
     def __calculate_offsets(self, offset):
@@ -109,13 +113,16 @@ class LogFile:
             return 0
         elif name == "_input":
             try:
-                self._input = open(self.__filename, "r")
+                # Open the file without codecs.open, it break our offset
+                # calculation. We decode it later.
+                # Use binary mode in order to retain \r. Otherwise the offset
+                # calculation would fail
+                self._input = file(self.__filename, "rb",)
             except IOError:
-                # XXX this triggers on a fresh installed wiki!
                 raise StopIteration
             return self._input
         elif name == "_output":
-            self._output = open(self.__filename, 'a')
+            self._output = codecs.open(self.__filename, 'a', config.charset)
             try:
                 os.chmod(self.__filename, 0666 & config.umask)
             except OSError:
@@ -141,7 +148,7 @@ class LogFile:
         @rtype: Int
         """
         try:
-            f = open(self.__filename, 'r')
+            f = codecs.open(self.__filename, 'r')
             i = 0
             for line in f:
                 i += 1
@@ -151,15 +158,17 @@ class LogFile:
         return i
 
     def date(self):
+        """Return timestamp of logfile in usecs"""
         import os.path
-        return os.path.getmtime(self.__filename)
+        return wikiutil.timestamp2version(os.path.getmtime(self.__filename))
 
     def peek(self, lines):
-        """
+        """ What does this method do?
+
         @param lines: number of lines, may be negative to move backward 
-        moves file position by lines.
-        @return: True if moving more than to the begining and moving to the end
-        or beyond
+            moves file position by lines.
+        @return: True if moving more than (WHAT?) to the begining and moving
+            to the end or beyond
         @rtype: boolean
         peek adjusts .__lineno if set
         This function is not aware of filters!
@@ -172,7 +181,7 @@ class LogFile:
                 self.__rel_index = self.__rel_index + self.__buffer.len
             else:
                 if self.__buffer.offsets[0] == 0:
-                    # allready at the beginning of the file
+                    # already at the beginning of the file
                     # XXX
                     self.__rel_index = 0
                     self.__lineno = 0
@@ -215,7 +224,8 @@ class LogFile:
 
     def __next(self):
         """get next line already parsed"""
-        if self.peek(0): raise StopIteration
+        if self.peek(0):
+            raise StopIteration
         result = self.parser(self.__buffer.lines[self.__rel_index])
         self.peek(1)
         return result
@@ -224,6 +234,7 @@ class LogFile:
         """
         @return: next entry
         raises StopIteration at file end
+        XXX It does not raise anything!
         """
         result = None
         while result == None:
@@ -322,7 +333,9 @@ class LogFile:
         return self.__lineno
     
     def calculate_line_no(self):
-        """if line number is unknown it is calculated
+        """ Calculate the current line number from buffer offsets
+        
+        if line number is unknown it is calculated
         by parsing the whole file. This may be expensive.
         """
         self._input.seek(0, 0)
@@ -356,5 +369,6 @@ class LogFile:
         write on entry in the log file
         """
         if line != None:
-            if line[-1] != '\n': line = line + '\n'
+            if line[-1] != '\n':
+                line += '\n'
             self._output.write(line)

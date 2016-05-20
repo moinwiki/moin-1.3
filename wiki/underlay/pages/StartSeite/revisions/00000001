@@ -1,0 +1,25 @@
+#language de
+#pragma section-numbers off
+
+Um was geht es in diesem Wiki?
+
+Interessante Seiten:
+ * AktuelleÄnderungen: Sehen Sie, woran gerade gearbeitet wird
+ * WikiSandkasten: Experimentieren Sie beim Editieren des Sandkastens :-)
+ * SeiteFinden: Durchforsten Sie das Wiki
+ * SyntaxReference: Schnellübersicht der Darstellungs- und Textauszeichnungsmöglichkeiten
+ * WegWeiser: Finden Sie sich im Wiki zurecht
+
+'''Beachten Sie auch die englische Startseite: FrontPage.'''
+
+== Wie man diese Seiten benutzt ==
+
+Ein Wiki wird von einer gemeinschaftlichen Idee getragen, jeder kann seinen Beitrag leisten und daran teilhaben:
+ * Editieren Sie jede Seite, indem Sie auf [[GetText(EditText)]] in der oberen Leiste klicken
+ * Erstellen Sie einen Link zu einer anderen Seite durch das Aneinanderreihen von groß geschriebenen Worten (z. B. AktuelleÄnderungen)
+ * Suchen Sie nach Seiten mit dem Suchfeld oben auf der Seite
+ * Auf HilfeFürAnfänger stehen weitere Hinweise, HilfeInhalt verlinkt auf alle Hilfeseiten.
+
+Um mehr darüber zu erfahren, was ein WikiWikiWeb ist, können Sie DseWiki:WarumWikiFunktioniert lesen. Bei Fragen hilft Ihnen die Seite MoinMoin:WikiWikiWebFaq weiter.
+
+Dieses Wiki basiert auf MoinMoin.

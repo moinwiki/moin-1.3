@@ -1,0 +1,24 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language sv
+##master-page:HelpOnEditing
+##master-date:2002-03-18 10:00:51
+##translated-by:Karolina Lindqvist, Shakti Wiki
+== Sidredigering ==
+Namn på sidor måste SeUtSomDetHär. Det kallas ett WikiNamn. Om du skriver ett ord som SerUtSomDetHär, så blir det automatiskt en länk. Mer detaljer om detta kan du hitta i HjälpFörNybörjare.
+
+Följande sidor beskriver olika märkord som kan användas för att ge olika effekter i formatering av texten på wiki-sidor:
+ * HjälpMedFormatering - generella textformateringsregler
+ * HjälpMedLänkar - externa hyperlänkar och bilder på sidorna
+ * HjälpMedRubriker - rubriker för olika avsnitt
+ * HjälpMedLinjering - liggande linjering
+ * HjälpMedListorOchIndrag - listor och indragna avsnitt
+ * HjälpMedTabeller - tabeller
+ * HjälpMedSmilisar - hur man skapar en :)
+ * HjälpMedMakron - systemmakron
+ * HjälpMedDirektiv - hjälp med speciella direktiv som påverkar sidans tolkning
+ * HjälpMedXmlSidor - hur man kan spara sidor med XML innehåll och processa dem med XSLT
+ * ["/UnderSidor"] - hur man kan gruppera relaterad information tillsammans
+
+För att experimentera med wikimärkord, gå till WikiSandLåda och klicka sedan på "[[GetText(EditText)]]" längst ner på sidan. Du kan använda webbläsarens funktion "Duplicera Fönstret" (eller motsvarande), så att du kan ha hjälpsidan sida vid sida med redigeringsfönstret.

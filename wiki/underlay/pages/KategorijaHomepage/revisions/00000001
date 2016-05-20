@@ -1,0 +1,18 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:CategoryHomepage
+##master-date:2004-03-21 16:13:25
+#language sr
+Ovo je kategorija za lične, VikiHomePage stranice.
+
+Ne zaboravite da te stranice "pripadaju" osobama, i da ih drugi ne trebaju obrađivati, osim ako žele da ostave poruku toj osobi. Da bi ste to uradili, jednostavno dodajte četiri crtice na na kraju teksta, recimo ovako:
+
+{{{
+----
+Ej zdravo, đe si care! -- TomasHorna
+
+}}}
+
+----
+KategorijaKategorija

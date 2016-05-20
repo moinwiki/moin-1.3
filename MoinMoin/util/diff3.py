@@ -188,7 +188,7 @@ def find_match(list1, list2, nr1, nr2, mincount=3):
         if idx2 < len2: idx2 = idx2 + 1
 
     if hit1 and hit2:
-        #XXXX which one?
+        #XXX which one?
         return hit1
     elif hit1: return hit1
     elif hit2: return hit2

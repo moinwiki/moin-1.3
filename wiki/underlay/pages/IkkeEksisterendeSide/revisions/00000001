@@ -1,0 +1,11 @@
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language nb
+##master-page:MissingPage
+##master-date:2004-03-02 13:41:00
+
+[[Action(edit,Opprett denne siden)]]
+
+----
+|| Alternativt kan du bruke en av disse malene:  || Følgende sider med liknende navn eksisterer allerede: ||
+||<^> [[EditTemplates]]                          ||<^> [[LikePages((ingen))]]                             ||

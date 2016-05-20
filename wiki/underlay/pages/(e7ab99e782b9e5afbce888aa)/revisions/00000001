@@ -1,0 +1,27 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh
+##master-page:SiteNavigation
+##master-date:2004-10-02 09:19:44
+
+["站点导航"]是浏览维基的基本手段. ["简体中文MoinMoin"]支持下列这些MeatBall:IndexingScheme (MeatBall索引机制):
+ * RecentChanges - ["最新改动"]
+ * TitleIndex - ["标题索引"]
+ * WordIndex - ["词汇索引"]
+ * FindPage - ["查找网页"]
+ * WantedPages - ["待建网页"]
+ * OrphanedPages - ["孤立网页"]
+ * AbandonedPages - ["废弃网页"]
+ * RandomPage - ["随机网页"]
+ * PageSize - ["网页大小"]
+ * PageHits - ["网页流量"]
+
+您也可以使用下列操作浏览与当前页相关的网页：
+ * 相似网页
+ * 本站地图
+
+另外，您还可以在您的网页中使用{{{[[PageList]]}}}，{{{[[FullSearch('text')]]}}}
+和{{{[[TableOfContents]]}}}等宏自动生成维基网页的相关索引。
+
+此页的英文版本：SiteNavigation

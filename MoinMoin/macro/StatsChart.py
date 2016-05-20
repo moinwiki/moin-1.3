@@ -14,13 +14,18 @@ Dependencies = ["time24:00"]
 
 def execute(macro, args, **kw):
     _ = macro.request.getText
+    formatter = macro.request.formatter
 
     if not args:
-        return macro.request.formatter.sysmsg(_('You need to provide a chart type!'))
+        return (formatter.sysmsg(1) +
+                formatter.text(_('You need to provide a chart type!')) +
+                formatter.sysmsg(0))
 
     func = pysupport.importName("MoinMoin.stats." + args, "linkto")
     if not func:
-        return macro.request.formatter.sysmsg(_('Bad chart type "%s"!') % args)
+        return (formatter.sysmsg(1) +
+                formatter.text(_('Bad chart type "%s"!') % args) +
+                formatter.sysmsg(0))
 
     return func(macro.formatter.page.page_name, macro.request)
 

@@ -3,69 +3,61 @@
     MoinMoin - FullSearch Macro
 
     [[FullSearch]]
-        displays a search dialog, as it always did
+        displays a search dialog, as it always did.
 
     [[FullSearch()]]
         does the same as clicking on the page title, only that
-        the result is embedded into the page (note the "()" after
-        the macro name, which is an empty argument list)
+        the result is embedded into the page. note the '()' after
+        the macro name, which is an empty argument list.
 
-    [[FullSearch('HelpContents')]]
+    [[FullSearch(Help)]]
         embeds a search result into a page, as if you entered
-        "HelpContents" into the search dialog
+        'Help' into the search box.
+
+    The macro creates a page list without context or match info, just
+    like PageList macro. It does not make sense to have context in non
+    interactive search, and this kind of search is used usually for
+    Category pages, where we don't care about the context.
+
+    TODO: If we need to have context for some cases, either we add a
+    context argument, or make another macro that use context, which may
+    be easier to use.
 
     @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import re, urllib
-from MoinMoin import wikiutil
-
-_args_re_pattern = r'((?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))|'
+from MoinMoin import config, wikiutil, search
 
 Dependencies = ["pages"]
 
-def execute(macro, text, args_re=re.compile(_args_re_pattern)):
-    _ = macro.request.getText
+def execute(macro, needle):
+    request = macro.request
+    _ = request.getText
 
     # if no args given, invoke "classic" behavior
-    if text is None:
+    if needle is None:
         return macro._m_search("fullsearch")
 
-    # parse and check arguments
-    args = args_re.match(text)
-    if not args:
-        return '<p><strong class="error">Invalid FullSearch arguments "%s"!</strong></p>' % (text,)
+    # With empty arguments, simulate title click (backlinks to page)
+    elif needle == '':
+        needle = '"%s"' % macro.formatter.page.page_name
 
-    needle = args.group('htext')
-    literal = 0
-    if not needle:
-        # empty args means to duplicate the "title click" search (backlinks to page),
-        # especially useful on "Category" type pages
-        needle = macro.formatter.page.page_name
-        literal = 1
+    # With whitespace argument, show error message like the one used in the search box
+    # TODO: search should implement those errors message for clients
+    elif needle.isspace():
+        err = _('Please use a more selective search term instead of '
+                '{{{"%s"}}}') %  needle
+        return '<span class="error">%s</span>' % err
 
-    # do the search
-    pagecount, hits = wikiutil.searchPages(needle, literal=literal, context=0)
+    needle = needle.strip()
 
-    # generate the result
-    result = []
-    result.append(macro.formatter.number_list(1))
-    for (count, pagename, dummy) in hits:
-        if not macro.request.user.may.read(pagename):
-            continue
-        result.append(macro.formatter.listitem(1))
-        result.append(wikiutil.link_tag(macro.request,
-            '%s?action=highlight&value=%s' % (
-                wikiutil.quoteWikiname(pagename),
-                urllib.quote_plus(needle)),
-            pagename))
-        result.append(' . . . . ' + `count` + ' ' + [
-            _('match'),
-            _('matches')][count != 1])
-        result.append(macro.formatter.listitem(0))
-    result.append(macro.formatter.number_list(0))
+    # Search the pages and return the results
+    query = search.QueryParser().parse_query(needle)
+    results = search.searchPages(request, query)
+    results.sortByPagename()
 
-    return ''.join(result)
+    return results.pageList(request, macro.formatter)
+
 

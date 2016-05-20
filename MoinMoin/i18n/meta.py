@@ -1,26 +1,27 @@
-# -*- coding: iso-8859-1 -*-
-# automatically generated, do not edit - edit *.po instead!
-# lang: (longname, encoding, direction, maintainer)
+# -*- coding: utf-8 -*-
+""" This file contains meta information about available languages, so MoinMoin
+    does not need to load all language files to collect those informations.
+    
+    *** Automatically generated, do not edit - edit *.po instead! ***
+"""
+# lang: (longname, longname-in-english, encoding, direction, maintainer)
 languages = {
-'en': ('English', 'iso-8859-1', 0, '"Juergen Hermann" <jh@web.de>',),
-'da': ('Dansk', 'iso-8859-1', 0, 'Jonas Smedegaard <dr@jones.dk>',),
-'de': ('Deutsch', 'iso-8859-1', 0, 'Thomas Waldmann <tw-public@gmx.de>',),
-'es': ('Spanish', 'iso-8859-1', 0, 'Bernardo Arlandis Mano <berarma@ya.com>',),
-'fi': ('Suomi', 'iso-8859-1', 0, '***vacant***',),
-'fr': ('Fran�ais', 'iso-8859-1', 0, 'Vincent Bernat <bernat@free.fr>',),
-'he': ('Hebrew', 'utf-8', 1, 'Nir Soffer <nirs@freeshell.org>',),
-'hr': ('Hrvatski', 'iso-8859-2', 0, 'Davor Cengija <dcengija@yahoo.com>',),
-'it': ('Italiano', 'iso-8859-1', 0, 'gian paolo ciceri <gp.ciceri@acm.org>',),
-'ja': ('Japanese', 'utf-8', 0, 'Fujio Nobori <toh@fuji-climb.org>',),
-'ko': ('Korean', 'utf-8', 0, 'Hye-Shik Chang <perky@i18n.org>',),
-'nb': ('Norsk Bokm�l', 'iso-8859-1', 0, 'J�rg Cassens <jmt@cassens.org>',),
-'nl': ('Nederlands', 'iso-8859-1', 0, 'Peter Kleiweg <kleiweg@let.rug.nl>',),
-'pt': ('Portugu�s', 'iso-8859-1', 0, 'Jorge Godoy <godoy@ieee.org>',),
-'ru': ('Russian', 'utf-8', 0, 'Mike Rovner <mrovner@hotmail.com>',),
-'sr': ('Srpski', 'utf-8', 0, 'Thomas W. Horna <sarman@t-online.de>',),
-'sv': ('Svenska', 'iso-8859-1', 0, 'Christian Sunesson <noss@rm-f.net>',),
-'vi': ('Vietnamese', 'utf-8', 0, 'Nam T. Nguyen <nnt@nntsoft.com>',),
-'zh': ('Chinese', 'utf-8', 0, 'Jun Hu <j.hu@tue.nl>',),
-'zh-tw': ('Chinese/Taiwan', 'utf-8', 0, 'Lin Zhemin <ljm@ljm.idv.tw>',),
+'da': (u'Dansk', u'Danish', 'utf-8', 0, 'Jonas Smedegaard <dr@jones.dk>',),
+'de': (u'Deutsch', u'German', 'iso-8859-1', 0, 'Thomas Waldmann <tw-public@gmx.de>',),
+'en': (u'English', u'English', 'ascii', 0, 'Thomas Waldmann <tw-public@gmx.de>',),
+'es': (u'Spanish', u'Spanish', 'utf-8', 0, 'Mauricio Hernandez Z <mhz@esfera.cl>',),
+'fr': (u'Français', u'French', 'iso-8859-15', 0, 'Jean-Philippe Guerard <jean-philippe.guerard@tigreraye.org>',),
+'he': (u'עברית', u'Hebrew', 'utf-8', 1, 'Nir Soffer <nirs@freeshell.org>',),
+'hu': (u'Magyar', u'Hungarian', 'utf-8', 0, 'VOROSBARANYI Zoltan <http://vbzo.li/>',),
+'it': (u'Italiano', u'Italian', 'utf-8', 0, 'gian paolo ciceri <gp.ciceri@acm.org>',),
+'ja': (u'Japanese', u'Japanese', 'utf-8', 0, 'Fujio Nobori <toh@fuji-climb.org>',),
+'ko': (u'한국어', u'Korean', 'utf-8', 0, 'Hye-Shik Chang <perky@FreeBSD.org>',),
+'nb': (u'Norsk Bokmål', u'Norwegian Bokmal', 'utf-8', 0, 'Joerg Cassens <jmt@cassens.org>',),
+'nl': (u'Nederlands', u'Dutch', 'iso-8859-1', 0, '***vacant***',),
+'ru': (u'Русский', u'Russian', 'utf-8', 0, 'Mike Rovner <mrovner@hotmail.com>',),
+'sr': (u'Srpski', u'Serbian', 'utf-8', 0, 'Thomas W. Horna <sarman@t-online.de>',),
+'vi': (u'Tiếng Việt', u'Vietnamese', 'utf-8', 0, 'Nam T. Nguyen <nnt@nntsoft.com>',),
+'zh': (u'Chinese', u'Chinese', 'utf-8', 0, 'Jun Hu <j.hu@tue.nl>',),
+'zh-tw': (u'繁體中文', u'Chinese/Taiwan', 'utf-8', 0, 'Lin Zhemin <ljm@ljm.idv.tw>',),
 }
 # EOF

@@ -21,11 +21,14 @@
 
 import os, re, string, sys, warnings
 
-def print_translation(file, a, b):
-  a = re.sub("'", r"\'", a)
-  b = re.sub("'", r"\'", b)
-  file.write("'''%s''':\n" % a)
-  file.write("'''%s''',\n" % b)
+def print_translation(lang, file, a, b):
+  if lang == 'en' and not b:
+    b = a # no translation means use orig string
+  if a and b:
+    a = re.sub("'", r"\'", a)
+    b = re.sub("'", r"\'", b)
+    file.write("'''%s''':\n" % a)
+    file.write("'''%s''',\n" % b)
 
 def unescape_one_sequence(match):
   sequence = match.group(1)
@@ -79,9 +82,11 @@ def do(lang, infile, outfile):
   temp = {
     'lang': lang,
     'language': header['X-Language'],
+    'elanguage': header['X-Language-in-English'],
     'encoding': encoding,
     'maintainer': header['Last-Translator'],
     'direction': direction,
+    'wikimarkup': header.get('X-HasWikiMarkup', False),
   }
 
   outfile.write('''# -*- coding: %(encoding)s -*-
@@ -89,9 +94,11 @@ def do(lang, infile, outfile):
 # Automatically generated - DO NOT EDIT, edit %(lang)s.po instead!
 meta = {
   'language': '%(language)s',
+  'elanguage': '%(elanguage)s',
   'maintainer': '%(maintainer)s',
   'encoding': '%(encoding)s',
   'direction': '%(direction)s',
+  'wikimarkup': %(wikimarkup)s,
 }
 text = {
 ''' % temp)
@@ -104,8 +111,8 @@ text = {
 
     match = re.match(r'^msgid "((\\.|[^\\])*)"', i)
     if match:
-      if inmsgstr and msgid and msgstr:
-        print_translation(outfile, msgid, msgstr)
+      if inmsgstr:
+        print_translation(lang, outfile, msgid, msgstr)
       msgid = "";
       msgstr = "";
 
@@ -130,8 +137,8 @@ text = {
       if inmsgstr:
         msgstr += unescape_po_string(match.group(1))
 
-  if inmsgstr and msgid and msgstr:
-    print_translation(outfile, msgid, msgstr)
+  if inmsgstr:
+    print_translation(lang, outfile, msgid, msgstr)
 
   outfile.write('}\n')
 

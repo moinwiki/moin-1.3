@@ -1,0 +1,79 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## page was renamed from 结构化的文本
+#language zh
+##master-page:StructuredText
+##master-date:2004-05-15 22:02:23
+
+所谓结构化的文本就是使用缩进和简单的符号来表达一个文档的结构。有关下一代结构化的文本，请参阅 MoinMoin:ReStructuredText 和 [http://dev.zope.org/Members/jim/StructuredTextWiki/StructuredTextNG 这里].
+
+一段结构化的文字包括一系列的由一个或多个空行分开的段落。每一段都有其层次，并由最少量的缩进标出。如果一个段落处于另外一个段落更深的一个层次上，那这个段落属于另一段落的字段落。
+
+其它用来表示特殊结构的一些特殊符号：
+
+ * 如果紧跟的段落在深一个层次上，单行段落将被作为标题。
+
+ * 以 '-', '*', 或 'o' 打头的段落将被当作未排序的列表（项目）条目。
+
+ * 以一系列数字加一个空格打头的段落将被视作有序列表条目。
+
+ * A paragraph that begins with a sequence of sequences, where each sequence is a sequence of digits or a sequence of letters followed by a period, is treated as an ordered list element.
+
+ * A paragraph with a first line that contains some text, followed by some white-space and '--' is treated as a descriptive list element. The leading text is treated as the element title.
+
+ * Sub-paragraphs of a paragraph that ends in the word 'example' or the word 'examples', or '::' is treated as example code and is output as is.
+
+ * Text enclosed single quotes (with white-space to the left of the first quote and whitespace or puctuation to the right of the second quote) is treated as example code.
+
+ * Text surrounded by '*' characters (with white-space to the left of the first '*' and whitespace or puctuation to the right of the second '*') is emphasized.
+
+ * Text surrounded by '**' characters (with white-space to the left of the first '**' and whitespace or puctuation to the right of the second '**') is made strong.
+
+ * Text surrounded by '_' underscore characters (with whitespace to the left and whitespace or punctuation to the right) is made underlined.
+
+ * Text encloded by double quotes followed by a colon, a URL, and concluded by punctuation plus white space, *or* just white space, is treated as a hyper link. For example:
+
+    "Zope":http://www.zope.org/ is ...
+
+
+
+ Is interpreted as '<a href="http://www.zope.org/">Zope</a> is ....'
+
+ '''Note:''' This works for relative as well as absolute URLs.
+
+ * Text enclosed by double quotes followed by a comma, one or more spaces, an absolute URL and concluded by punctuation plus white space, or just white space, is treated as a hyper link. For example: 
+
+    "mail me", mailto:amos@digicool.com.
+
+ Is interpreted as '<a href="mailto:amos@digicool.com">mail me</a>.' 
+
+ * Text enclosed in brackets which consists only of letters, digits, underscores and dashes is treated as hyper links within the document. For example:
+    
+    As demonstrated by Smith [12] this technique is quite effective.
+
+ Is interpreted as '... by Smith <a href="#12">[12]</a> this ...'. Together with the next rule this allows easy coding of references or end notes.
+
+ * Text enclosed in brackets which is preceded by the start of a line, two periods and a space is treated as a named link. For example:
+
+    .. [12] "Effective Techniques" Smith, Joe ... 
+
+ Is interpreted as '<a name="12">[12]</a> "Effective Techniques" ...'. Together with the previous rule this allows easy coding of references or end notes. 
+
+
+ * A paragraph that has blocks of text enclosed in '||' is treated as a table. The text blocks correspond to table cells and table rows are denoted by newlines. By default the cells are center aligned. A cell can span more than one column by preceding a block of text with an equivalent number of cell separators '||'. Newlines and '|' cannot be a part of the cell text. For example:
+  {{{
+|||| **Ingredients** ||
+|| *Name* || *Amount* ||
+||Spam||10||
+||Eggs||3||
+}}}
+
+ renders like this:
+  |||| **Ingredients** ||
+  || *Name* || *Amount* ||
+  ||Spam||10||
+  ||Eggs||3||
+
+
+此页的英文版本：StructuredText

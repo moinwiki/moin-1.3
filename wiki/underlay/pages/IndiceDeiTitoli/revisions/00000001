@@ -1,0 +1,13 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language it
+Questo è l'indice di tutte le pagine in questo Wiki.  
+
+Vedi anche:
+  * IndicePerParola -- un indice permutato di tutte le parole nei titoli delle pagine
+  * ModificheRecenti
+
+----
+
+[[TitleIndex]]

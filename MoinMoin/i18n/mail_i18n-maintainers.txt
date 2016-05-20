@@ -14,12 +14,13 @@ most important stuff is on top of the list):
 
 [X] MoinMoin/i18n/%(lang)s.po file
 
-[X] "%(lang)s" system pages on the MoinMaster wiki
+[X] "%(lang)s" system pages on the MoinMaster wiki (as we use utf-8
+    now, ALL languages should have their master copies there).
 
 [X] "%(lang)s" help pages on the MoinMaster wiki (optional - would be
     nice, if you had the time)
 
-We need that until 15.2.2004 - because MoinMoin 1.2 will be released
+We need that until 1.12.2004 - because MoinMoin 1.3 will be released
 short after that, so we can include that stuff into the distribution
 archive to make people speaking your language happy. ;)
 

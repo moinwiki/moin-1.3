@@ -10,11 +10,6 @@ import sys
 from docutils import core, nodes, utils
 from docutils.parsers import rst
 
-
-#############################################################################
-### ReStructured Text Parser
-#############################################################################
-
 class Parser:
     """ Parse RST via "docutils".
     """
@@ -86,10 +81,10 @@ class MoinTranslator(nodes.GenericNodeVisitor):
         self.request.write(self.formatter.text(node.astext()))
 
     def visit_title(self, node):
-        self.request.write(self.formatter.heading(self.level, '', on=1))
+        self.request.write(self.formatter.heading(1, self.level))
 
     def depart_title(self, node):
-        self.request.write(self.formatter.heading(self.level, '', on=0))
+        self.request.write(self.formatter.heading(0, self.level))
 
 
     #

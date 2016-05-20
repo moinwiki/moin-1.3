@@ -41,10 +41,12 @@ POTFILES: POTFILES.in
 	  rm -f $$lang.new.po; \
 	fi
 
+# remove "--no-location" if you want to have file names and line numbers
+# that's bad for merging branches - this is why we don't use it
 $(DOMAIN).pot-update: $(POTFILES) POTFILES
 	xgettext --default-domain=$(DOMAIN) --directory=.. \
 	  --files-from=POTFILES.in \
-	  --no-location \
+      --no-location \
 	  --add-comments=TRANSLATORS:
 	@test ! -f $(DOMAIN).po || { \
 	  if test -f $(DOMAIN).pot; then \

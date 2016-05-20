@@ -1,7 +1,0 @@
-##language:sv
-##master-page:EventStats
-##master-date:2002-03-05 10:00:32
-Följande diagram är baserade på händelsestatistik i händelseloggen:
- * /TräffAntal
- * /AnvändarAgenter
- * /SidStorlek

@@ -71,7 +71,7 @@ def sendmail(mfrom, mto, subject, text):
     return (1, "Mail sent OK")
 
 def notify_maintainer(lang, mail_text):
-    mailaddr = languages[lang][3]
+    mailaddr = languages[lang][4]
     rc = None
     if mailaddr and mailaddr.find('***vacant***') < 0:
         text = mail_text % locals()
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     langs = languages.keys()
     langs.remove('en') # nothing to do for english, so remove it
 
-    #langs = ['da','es','fr','hr','it','ko', 'nl', 'zh',] # for testing
+    #langs = ['da', 'hr', 'ja', 'nb', 'pt', 'sr', 'sv', ] # for testing
 
     import sys
     mail_text = sys.stdin.read()

@@ -1,0 +1,23 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language sv
+##master-page:HelpContents
+##master-date:2002-05-11 10:00:32
+== Innehåll ==
+
+De viktigaste hjälpsidorna är följande:
+ * HjälpFörNybörjare - läs detta om Wiki är något helt nytt för dig
+ * HjälpMedNavigering - förklarar de navigeringsinstrument som finns på varje sida
+ * HjälpMedAttSkapaSidor - förklarar hur du skapar nya sidor och hur du använder mallar
+ * HjälpMedAnvändarInställningar - hur du introducerar dig själv till wikin och ges möjlighet att konfigurera dess utseende
+ * HjälpMedÄndringar - hur du ändrar sidor på wikin och beskrivning av sidmärkspråket
+ * HjälpMedÅtgärder - Åtgärder som opererar på hela sidor eller på hela hela platsen
+ * HjälpDiverse - mer detaljer och vanliga frågor (FAQ)
+
+Följande sidor innehåller information som är viktig för den som ska administrera eller utveckla MoinMoin wiki
+ * HjälpMedAdministration - hur en MoinMoin wiki underhålls
+ * HjälpMedInstallation - hur man installerar en MoinMoin wiki
+ * HjälpFörUtvecklare - hur man kan lägga till nya funktioner till MoinMoin wiki genom att ändra källkoden
+
+Ett automatgenererat register över alla hjälpsidor kan nås på HjälpRegister. Se också HjälpDiverse/VanligaFrågor för svar på vanliga frågor.

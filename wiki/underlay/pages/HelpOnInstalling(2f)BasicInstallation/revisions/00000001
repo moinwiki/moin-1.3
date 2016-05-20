@@ -1,0 +1,163 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+== Basic Installation ==
+
+Before you can integrate Moin``Moin into your web environment, you have to install the MoinMoin source code and data files using the standard Python ''distutils'' mechanism (`setup.py`). This page explains the steps you usually need to take to do this. For more details on the ''distutils'' installation process, consult the [http://www.python.org/doc/current/inst/inst.html Installing Python Modules] document in your Python documentation set.
+
+The installation is similar on Windows and Linux (and other POSIX-type systems; for simplicity, we just say "Linux" in the docs).
+
+ (!) We use text such as '''`> command arguments`''' to show what you have to type at the command prompt (also known as shell, terminal, etc.). In our examples "`> `" is the prompt, you don't have to type it in, you have to type what comes after it. Lines that do not begin with "`> `" are the answers to the commands you have typed. Read them carefully.
+
+=== Check if Python is working ===
+
+Moin``Moin needs Python to run, so the first step is to check if an usable version of Python is installed and correctly set-up. If this is not the case, you will have to fix that before you can proceed.
+
+The `CHANGES` file in the Moin``Moin archive mentions what versions are supported. Python 2.2.2 is the minimum requirement for Moin``Moin 1.3, but we suggest you use the latest Python 2.3.x version because Python 2.2.x has annoying known bugs. You can use Python 2.4.x if you want, it works well too.
+
+You can download Python at [http://www.python.org/download/].
+
+If you are pretty sure an acceptable version of Python is installed but the commands below do not work, this may be because your Python files are not in the ''search path''. Correctly setting the search path is outside the scope of this document; please ask for help on your favorite Python, Linux, or Windows discussion board.
+
+If you have shell access, checking if Python is working is very simple. Just type the following command, and look at the result:
+{{{
+> python -V
+Python 2.3.4
+}}}
+
+If you don't have shell access, you can try using this `pythontest.cgi` script (it assumes that you are using a Linux kind of webserver). Upload the script to your `cgi-bin` directory, use `chmod a+rx pythontest.cgi` (or a similar command in your FTP program) to make it executable, and invoke it using your web browser.
+{{{
+#!/bin/sh
+echo Content-Type: text/plain
+echo
+echo "Your web server is running as:"
+id
+echo "CGI scripts work"
+echo "Now we try to invoke Python interpreters and get their versions:"
+python -V 2>&1
+python2 -V 2>&1
+python2.0 -V 2>&1
+python2.1 -V 2>&1
+python2.2 -V 2>&1
+python2.3 -V 2>&1
+python2.4 -V 2>&1
+echo "Finished."
+}}}
+
+If it doesn't display "CGI scripts work", well, then CGI scripts don't work. :) If it doesn't show one or more Python version numbers, you have to make sure that Python is correctly installed.
+
+=== Download MoinMoin ===
+
+To download the distribution archive, go to the [http://sourceforge.net/project/showfiles.php?group_id=8482 download area] and fetch the lastest archive.
+
+=== Unpack the archive ===
+
+The next step is to unpack the distribution archive (which you have done already if you are reading this text from your hard drive). If you read this on the web, the distribution comes in a versioned `.zip` or `.tar.gz` archive, which you can unpack as shown below. 
+
+ * On Windows
+    * You can use a program like Win``Zip, which handles both kinds of archives.
+    * At the command prompt, you can use ''gnuzip'' and ''gnutar'' for Windows.
+ * On Linux
+    * Your favorite file manager should be able to unpack them.
+    * At any shell prompt, the `unzip` and `tar` commands can be used to unpack them.
+
+The distribution archive will always unpack into a directory named `moin-<version>`, for example `moin-1.3`.
+
+Here is how you would unpack the archive (using GNU tar) and enter the directory with the Moin``Moin files:
+{{{
+> tar xzf moin-1.3.tar.gz
+> cd moin-1.3
+}}}
+
+=== Install MoinMoin ===
+
+You can install Moin``Moin to either:
+ * a system location (if you have the necessary rights to do that -- on Linux you need to be root)
+ * some specific location, like your home directory (Linux) or `C:\moin` (Windows).
+
+The installation to a system location is easier, so choose that if possible.
+
+/!\ If you have several versions of Python installed, please use the same version for setup and for running the wiki. Usually, the latest Python version will get the best results.
+
+'''Note:''' On Linux, if you have problems with the `setup.py` install step, you may need to have the Python development files installed. Some Linux distribution put them in a separate package, not installed by default. For example, on Mandrake you need to "`rpm -i python-devel-2.x.x-xmdk.i586.rpm`".
+
+==== Installing in the default system location ====
+
+{{{
+> python setup.py --quiet install --record=install.log
+}}}
+
+This installs Moin``Moin to the default system location (typically the Python directory, for example on Linux, inside `/usr/lib` and `/usr/share`). Look at the `install.log` file to see what was installed, and where.
+
+==== Installing in the home directory or another specific location ====
+
+Linux example, installing in the home directory:
+{{{
+> python setup.py --quiet install --prefix=$HOME --record=install.log
+}}}
+
+Windows example, installing in the `C:\moin` directory:
+{{{
+> python setup.py --quiet install --prefix=C:\moin --record=install.log
+}}}
+
+All Moin``Moin files will then be installed inside those directories, see `install.log` to know which files were installed, and where.
+
+'''Note:''' You will likely see the following warning:
+
+    warning: install: modules installed to 'C:\moin\', which[[BR]]
+    is not in Python's module search path (sys.path) -- you'll[[BR]]
+    have to change the search path yourself 
+
+This means exactly what it says, you need to add your install directory to the search path of Python, or it won't find the Moin``Moin code.
+
+For example, if you are running using a webserver and standard CGI, edit `moin.cgi` and add your installation directory to the Python path, like this:
+{{{
+import sys
+sys.path.append('C:/moin')
+}}}
+
+=== Check that everything is working correctly ===
+
+As a final step, if you have access to the shell or the command prompt, you can check that everything is correctly installed and ready to run. Start Python and type `import MoinMoin`. Nothing should be displayed in response to this command. Example:
+{{{
+> python
+Python 2.3.4 (#1, May 29 2004, 17:05:23)
+[GCC 3.3.3] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import MoinMoin
+>>>
+}}}
+
+If you get this instead:
+{{{
+>>> import MoinMoin
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+ImportError: No module named MoinMoin
+>>>
+}}}
+
+then you have to tune your installation. Try modifying `sys.path`, as described above.
+
+=== What you have now ===
+
+So, you have a ready-to-work Moin``Moin installation now. Congratulations! Before you go on to configuring it, take a look at the various files and directories that have been installed.
+
+/!\ It is important that you understand the different locations used in a Moin``Moin setup, so read this carefully.
+
+In the following descriptions, `PREFIX` is what you used with the `setup.py` command, or a default location when you didn't use the `--prefix` option. Typical default values are `/usr` and `/usr/local`. `X` and `Y` are the main version and the subversion of Python. Typically, `X` is 2 and `Y` is 3 or 4.
+
+Look into `install.log` to find out about following important locations:
+
+ * '''`MoinMoin` directory''', usually `PREFIX/lib/pythonX.Y/site-packages/MoinMoin` -- this is where the Moin``Moin '''code''' is located
+ * '''`share` directory''', usually `PREFIX/share/moin` - this is where the ''templates'' are located
+  * '''`data`''' directory (wiki pages, users, etc.) - only Moin``Moin should access this
+  * '''`underlay`''' directory (wiki pages, users, etc.) - only Moin``Moin should access this
+  * '''`htdocs`''' directory with themes (images and CSS) and a few other files - the web server will need to access this
+  * '''`server`''' - Moin``Moin example startup files (like `moin.cgi` for CGI and other files for other startup methods)
+  * '''`config`''' - Moin``Moin example configuration files (like `wikiconfig.py`)
+ * '''`bin`''' directory with some scripts that help you use the Moin``Moin shell commands
+
+We talk of ''templates'' in the `share` directory because you usually will not use those files at that location, but copy them elsewhere when you need them. This way, you can set-up several wikis without problems, and easily upgrade to new Moin``Moin versions.

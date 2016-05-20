@@ -6,10 +6,8 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 from MoinMoin import wikiutil
 from MoinMoin.Page import Page
-
 
 #############################################################################
 ### Form definitions
@@ -94,5 +92,5 @@ def do_formtest(pagename, request):
         result.append('<li><em>%s</em> = %s</li>' % (key.upper(), repr(wikiutil.escape(val))))
     msg = '%s<ul>\n%s</ul>\n' % (_('Submitted form data:'), '\n'.join(result))
 
-    Page(pagename).send_page(request, msg=msg)
+    Page(request, pagename).send_page(request, msg=msg)
 

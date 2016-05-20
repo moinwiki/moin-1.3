@@ -3,10 +3,10 @@
 Page.py
 PageEditor.py
 caching.py
-cgimain.py
 config.py
-httpdmain.py
+multiconfig.py
 request.py
+search.py
 security.py
 user.py
 userform.py
@@ -24,6 +24,7 @@ action/LikePages.py
 action/LocalSiteMap.py
 action/RenamePage.py
 action/SpellCheck.py
+action/fullsearch.py
 action/links.py
 action/rss_rc.py
 action/titleindex.py
@@ -73,10 +74,11 @@ support/optik/option.py
 support/optik/option_parser.py
 support/thfcgi.py
 
+theme/__init__.py
 theme/classic.py
 theme/starshine.py
 theme/rightsidebar.py
-theme/viewonly.py
+theme/modern.py
 
 webapi/color.py
 
@@ -94,6 +96,8 @@ util/mail.py
 util/pysupport.py
 util/web.py
 util/wikiext.py
+
+_tests/test_parser_wiki.py
 
 i18n/dummy.py
 

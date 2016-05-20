@@ -1,0 +1,19 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language nl
+
+Een categorie is een WikiNaam die handig gebruik maakt van het teruglinken in [wiki:Wiki:WikiWiki WikiWiki].
+Als je op de titel van een categoriepagina klikt dan krijg je een lijst met pagina's die bij die categorie horen.
+Om een lijst van alle categorieën te krijgen klik je op de titel Categorie''''''Categorie bovenaan.
+
+Hier is een lijst van alle categorieën in deze wiki:
+[[PageList(regex:^[CK]ategor(ie|y).*)]]
+
+Hier is een lijst van alle pagina's die de wikitag CategorieCategorie bevatten:
+[[FullSearch()]]
+
+''To be consistent with the C2 category scheme, all categories start with the word "Category". For more information, see Wiki:AboutCategoriesAndTopics''''''.''
+
+----
+CategoryCategory

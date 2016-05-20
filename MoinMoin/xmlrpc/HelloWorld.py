@@ -3,5 +3,6 @@
 """
 
 def execute(xmlrpcobj, *args):
-    return xmlrpcobj._outstr("Hello World!")
+    str = args[0]
+    return xmlrpcobj._outstr("Hello World!\n" + str)
 

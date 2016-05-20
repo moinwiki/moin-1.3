@@ -10,91 +10,187 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-from MoinMoin import config, user, wikiutil
+import os
+from MoinMoin import wikiutil
 from MoinMoin.PageEditor import PageEditor
 
-def execute(pagename, request):
-    _ = request.getText
-    actname = __name__.split('.')[-1]
-    page = PageEditor(pagename, request)
-    msg = ''
+class RenamePage:
+    """ Rename page action
 
-    # be extra paranoid in dangerous actions
-    if actname in config.excluded_actions or \
-        not request.user.may.edit(pagename) or not request.user.may.delete(pagename):
-            msg = _('You are not allowed to rename pages in this wiki!')
+    Note: the action name is the class name
+    """
+    def __init__(self, pagename, request):
+        self.request = request
+        self.pagename = pagename
+        self.page = PageEditor(pagename, request)
+        self.newpage = None
+        self.error = ''
 
-    # check whether page exists at all
-    elif not page.exists():
-        msg = _('This page is already deleted or was never created!')
+    def allowed(self):
+        """ Check if user is allowed to do this
 
-    # check whether the user clicked the delete button
-    elif request.form.has_key('button') and \
-        request.form.has_key('newpagename') and request.form.has_key('ticket'):
-        # check whether this is a valid renaming request (make outside
-        # attacks harder by requiring two full HTTP transactions)
-        if not _checkTicket(request.form['ticket'][0]):
-            msg = _('Please use the interactive user interface to rename pages!')
-        else:
-            comment = request.form.get('comment', [''])[0]
-            newpagename = request.form.get('newpagename')[0]
-            newpage = PageEditor(newpagename, request)
+        This could be a standard method of the base action class, doing
+        the filtering by action class name and cfg.allowed_actions.
+        """
+        may = self.request.user.may
+        return (self.__class__.__name__ in self.request.cfg.allowed_actions and
+                may.write(self.pagename) and may.delete(self.pagename))
+    
+    def render(self):
+        """ Render action
 
-            # check whether a page with the new name already exists
-            if newpage.exists():
-                msg = _('A page with the name "%s" already exists!') % (newpagename,)
+        This action return a wiki page with optional message, or
+        redirect to new page.
+        """
+        _ = self.request.getText
+        form = self.request.form
+        
+        if form.has_key('cancel'):
+            # User canceled
+            return self.page.send_page(self.request)
+
+        # Validate user rights and page state. If we get error here, we
+        # return an error message, without the rename form.
+        error = None
+        if not self.allowed():
+            error = _('You are not allowed to rename pages in this wiki!')
+        elif not self.page.exists():
+            error = _('This page is already deleted or was never created!')
+        if error:
+            # Send page with an error message
+            return self.page.send_page(self.request, msg=error)
+
+        # Try to rename. If we get an error here, we return the error
+        # message with a rename form.
+        elif (form.has_key('rename') and form.has_key('newpagename') and
+              form.has_key('ticket')):
+            # User replied to the rename form with all required items
+            self.rename()
+            if not self.error:
+                self.request.http_redirect(self.newpage.url(self.request))
+                return self.request.finish()    
+
+        # A new form request, or form has missing data, or rename
+        # failed. Return a new form with optional error.
+        return self.page.send_page(self.request, msg=self.makeform())
+
+    def rename(self):
+        """ Rename pagename and return the new page """
+        _ = self.request.getText
+        form = self.request.form
+        
+        # Require a valid ticket. Make outside attacks harder by
+        # requiring two full HTTP transactions
+        if not wikiutil.checkTicket(form['ticket'][0]):
+            self.error = _('Please use the interactive user interface to rename pages!')
+            return
+
+        # Get new name from form and normalize.
+        comment = form.get('comment', [u''])[0]
+        newpagename = form.get('newpagename')[0]
+        newpagename = self.request.normalizePagename(newpagename)
+
+        # Name might be empty after normalization. To save translation
+        # work for this extreme case, we just use "EmptyName".
+        if not newpagename:
+            newpagename = "EmptyName"
+
+        # Valid new name
+        newpage = PageEditor(newpagename, self.request)
+
+        # Check whether a page with the new name already exists
+        if newpage.exists(includeDeleted=1):
+            return self.pageExistsError(newpagename)
+        
+        # Get old page text
+        savetext = self.page.get_raw_body()
+
+        oldpath = self.page.getPagePath(check_create=0)
+        newpath = newpage.getPagePath(check_create=0)
+
+        # Rename page
+
+        # NOTE: might fail if another process created newpagename just
+        # NOW, while you read this comment. Rename is atomic for files -
+        # but for directories, rename will fail if the directory
+        # exists. We should have global edit-lock to avoid this.
+        # See http://docs.python.org/lib/os-file-dir.html
+        try:
+            os.rename(oldpath, newpath)
+            self.newpage = newpage
+            self.error = None
+            # Save page text with a comment about the old name
+            savetext = u"## page was renamed from %s\n%s" % (self.pagename, savetext)
+            newpage.saveText(savetext, 0, notify=1, comment=comment)
+        except OSError, err:
+            # Try to understand what happened. Maybe its better to check
+            # the error code, but I just reused the available code above...
+            if newpage.exists(includeDeleted=1):
+                return self.pageExistsError(newpagename)
             else:
-                # read content of old page and save in new page
-                savetext = page.get_raw_body()
-                datestamp = '0'
-                savemsg = newpage.saveText(savetext, datestamp, stripspaces=0, notify=1, comment=comment)
+                self.error = _('Could not rename page because of file system'
+                             ' error: %s.') % unicode(err)
+                        
+    def makeform(self):
+        """ Display a rename page form
 
-                # Delete the old page
-                page.deletePage(comment)
+        The form might contain an error that happened when trying to rename.
+        """
+        from MoinMoin.widget.dialog import Dialog
+        _ = self.request.getText
 
-                msg = _('Page "%s" was successfully renamed to "%s"!') % (pagename,newpagename)
+        error = ''
+        if self.error:
+            error = u'<p class="error">%s</p>\n' % self.error
 
-    else:
-        # send renamepage form
-        url = page.url(request)
-        ticket = _createTicket()
-        button = _('Rename')
-        newname_label = _("New name")
-        comment_label = _("Optional reason for the renaming")
-        msg = """
-<form method="GET" action="%(url)s">
-<input type="hidden" name="action" value="%(actname)s">
+        d = {
+            'error': error,
+            'action': self.__class__.__name__,
+            'ticket': wikiutil.createTicket(),
+            'pagename': self.pagename,
+            'rename': _('Rename Page'),
+            'cancel': _('Cancel'),
+            'newname_label': _("New name"),
+            'comment_label': _("Optional reason for the renaming"),
+        }
+        form = '''
+%(error)s
+<form method="post" action="">
+<input type="hidden" name="action" value="%(action)s">
 <input type="hidden" name="ticket" value="%(ticket)s">
-%(newname_label)s <input type="text" name="newpagename" size="20" value="%(pagename)s">
-<input type="submit" name="button" value="%(button)s">
-<p>
-%(comment_label)s<br>
-<input type="text" name="comment" size="60" maxlength="80">
-</p>
-</form>""" % locals()
+<table>
+    <tr>
+        <td class="label"><label>%(newname_label)s</label></td>
+        <td class="content">
+            <input type="text" name="newpagename" value="%(pagename)s">
+        </td>
+    </tr>
+    <tr>
+        <td class="label"><label>%(comment_label)s</label></td>
+        <td class="content">
+            <input type="text" name="comment" maxlength="80">
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="buttons">
+            <input type="submit" name="rename" value="%(rename)s">
+            <input type="submit" name="cancel" value="%(cancel)s">
+        </td>
+    </tr>
+</table>
+</form>''' % d
+        
+        return Dialog(self.request, content=form)        
+    
+    def pageExistsError(self, pagename):
+        _ = self.request.getText
+        self.error = _("""'''A page with the name {{{'%s'}}} already exists.'''
 
-    return page.send_page(request, msg)
+Try a different name.""") % (pagename,)    
 
-
-def _createTicket(tm = None):
-    """Create a ticket using a site-specific secret (the config)"""
-    import sha, time, types
-    ticket = tm or "%010x" % time.time()
-    digest = sha.new()
-    digest.update(ticket)
-
-    cfgvars = vars(config)
-    for var in cfgvars.values():
-        if type(var) is types.StringType:
-            digest.update(repr(var))
-
-    return "%s.%s" % (ticket, digest.hexdigest())
-
-
-def _checkTicket(ticket):
-    """Check validity of a previously created ticket"""
-    timestamp = ticket.split('.')[0]
-    ourticket = _createTicket(timestamp)
-    return ticket == ourticket
-
+    
+def execute(pagename, request):
+    """ Glue code for actions """
+    RenamePage(pagename, request).render()
+    

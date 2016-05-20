@@ -6,128 +6,228 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 from MoinMoin.formatter.base import FormatterBase
-
-#############################################################################
-### Plain Text Formatter
-#############################################################################
 
 class Formatter(FormatterBase):
     """
-        Send text data.
+        Send plain text data.
     """
 
-    hardspace = ' '
+    hardspace = u' '
 
     def __init__(self, request, **kw):
         apply(FormatterBase.__init__, (self, request), kw)
+        self._in_code_area = 0
+        self._in_code_line = 0
+        self._code_area_state = [0, -1, -1, 0]
+        self._in_list = 0
+        self._did_para = 0
+        self._url = None
+        self._text = None # XXX does not work with links in headings!!!!!
 
     def startDocument(self, pagename):
-        line = "*" * (len(pagename)+2) + '\n'
-        return "<pre>%s %s \n%s" % (line, pagename, line)
+        line = u"*" * (len(pagename)+2) + u'\n'
+        return u"%s %s \n%s" % (line, pagename, line)
 
     def endDocument(self):
-        return '\n'
+        return u'\n'
 
-    def sysmsg(self, text, **kw):
-        return '\n\n*** %s ***\n\n' % text
+    def sysmsg(self, on, **kw):
+        return (u'\n\n*** ', u' ***\n\n')[not on]
 
-    def pagelink(self, pagename, text=None, **kw):
-        apply(FormatterBase.pagelink, (self, pagename, text), kw)
-        return ">>%s<<" % (pagename,)
+    def pagelink(self, on, pagename='', **kw):
+        apply(FormatterBase.pagelink, (self, on, pagename), kw)
+        return (u">>", u"<<") [not on]
 
-    def url(self, url, text=None, css=None, **kw):
-        if text is None:
-            return url
+    def interwikilink(self, on, interwiki='', pagename='', **kw):
+        if on:
+            self._url = u"%s:%s" % (interwiki, pagename)
+            self._text = []
+            return u''
         else:
-            return '%s [%s]' % (text, url)
+            if "".join(self._text) == self._url:
+                self._url = None
+                self._text = None
+                return ''
+            else:
+                self._url = None
+                self._text = None
+                return u' [%s]' % (self._url)
+            
+
+    def url(self, on, url='', css=None, **kw):
+        if on:
+            self._url = url
+            self._text = []
+            return u''
+        else:
+            if "".join(self._text) == self._url:
+                self._url = None
+                self._text = None
+                return ''
+            else:
+                self._url = None
+                self._text = None
+                return u' [%s]' % (self._url)
 
     def text(self, text):
+        self._did_para = 0
+        if self._text is not None:
+            self._text.append(text)
         return text
 
     def rule(self, size=0):
         size = min(size, 10)
-        ch = "---~=*+#####"[size]
-        return (ch * 79) + '\n'
+        ch = u"---~=*+#####"[size]
+        return (ch * 79) + u'\n'
 
     def strong(self, on):
-        return '*'
+        return u'*'
 
     def emphasis(self, on):
-        return '/'
+        return u'/'
 
     def highlight(self, on):
-        return ''
+        return u''
 
     def number_list(self, on, type=None, start=None):
-        # !!! remember list state
-        return ''
+        if on:
+            self._in_list = 1
+            return [u'\n', u'\n\n'][not self._did_para]
+        else:
+            self._in_list = 0
+            if not self._did_para:
+                self._did_para = 1
+                return u'\n'
+        return u''
 
     def bullet_list(self, on):
-        # !!! remember list state
-        return ''
+        if on:
+            self._in_list = -1
+            return [u'\n', u'\n\n'][not self._did_para]
+        else:
+            self._in_list = 0
+            if not self._did_para:
+                self._did_para = 1
+                return u'\n'
+        return u''
 
     def listitem(self, on, **kw):
-        # !!! return number for ordered lists
-        return ' * '
-
+        if on:
+            if self._in_list>0:
+                self._in_list += 1
+                self._did_para = 1
+                return ' %d. ' % (self._in_list-1,)
+            elif self._in_list<0:
+                self._did_para = 1
+                return u' * '
+            else:
+                return u' * '
+        else:
+            self._did_para = 1
+            return u'\n'
+        
     def sup(self, on):
-        return '^'
+        return u'^'
 
     def sub(self, on):
-        return '_'
+        return u'_'
 
     def code(self, on):
-        return ['`', '´'][not on]
+        #return [unichr(0x60), unichr(0xb4)][not on]
+        return u"'" # avoid high-ascii
 
     def preformatted(self, on):
         FormatterBase.preformatted(self, on)
-        snip = '---%<'
-        snip = snip + ('-' * (78 - len(snip)))
+        snip = u'---%<'
+        snip = snip + (u'-' * (78 - len(snip)))
         if on:
-            return '\n' + snip
+            return u'\n' + snip + u'\n'
         else:
-            return snip + '\n'
+            return snip + u'\n'
+
+    def small(self, on):
+        return u''
+
+    def big(self, on):
+        return u''
+
+    def code_area(self, on, code_id, code_type='code', show=0, start=-1, step=-1):
+        snip = u'---CodeArea'
+        snip = snip + (u'-' * (78 - len(snip)))
+        if on:
+            self._in_code_area = 1
+            self._in_code_line = 0
+            self._code_area_state = [show, start, step, start]
+            return u'\n' + snip + u'\n'
+        else:
+            if self._in_code_line:
+                return self.code_line(0) + snip + u'\n'
+            return snip + u'\n'
+
+    def code_line(self, on):
+        res = u''
+        if not on or (on and self._in_code_line):
+            res += u'\n'
+        if on:
+            if self._code_area_state[0]>0:
+                res += u' %4d  ' % ( self._code_area_state[3] )
+                self._code_area_state[3] += self._code_area_state[2]
+        self._in_code_line = on != 0
+        return res
+
+    def code_token(self, on, tok_type):
+        return ""
 
     def paragraph(self, on):
         FormatterBase.paragraph(self, on)
-        return ['\n', ''][not on]
+        if self._did_para:
+            on = 0
+        return [u'\n', u''][not on]
 
     def linebreak(self, preformatted=1):
-        return '\n'
+        return u'\n'
 
-    def heading(self, depth, title, **kw):
-        return '\n%s\n%s\n%s\n\n' % ('=' * len(title), title, '=' * len(title))
+    def smiley(self, text):
+        return text
+
+    def heading(self, on, depth, **kw):
+        if on:
+            self._text = []
+            return '\n\n'
+        else:
+            result =  u'\n%s\n\n' % (u'=' * len("".join(self._text)))
+            self._text = None
+            return result
 
     def table(self, on, attrs={}):
-        return ''
+        return u''
 
     def table_row(self, on, attrs={}):
-        return ''
+        return u''
 
     def table_cell(self, on, attrs={}):
-        return ''
+        return u''
 
     def underline(self, on):
-        return '_'
+        return u'_'
 
     def definition_list(self, on):
-        return ''
+        return u''
 
     def definition_term(self, on, compact=0):
-        result = ''
-        if not compact: result = result + '\n'
-        if not on: result = result + ':\n'
+        result = u''
+        if not compact: result = result + u'\n'
+        if not on: result = result + u':\n'
         return result
 
     def definition_desc(self, on):
-        return ['    ', '\n'][not on]
+        return [u'    ', u'\n'][not on]
 
     def image(self, **kw):
-        if kw.has_key('alt'):
-            return kw['alt']
-        return ''
+        if kw.has_key(u'alt'):
+            return kw[u'alt']
+        return u''
 
-    def lang(self, lang_name, text):
-        return text  
+    def lang(self, on, lang_name):
+        return ''

@@ -1,0 +1,14 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language de
+##master-page:WordIndex
+##master-date:2001-11-30 14:40:08
+Hier ist ein Index aller Worte, die in Seitentiteln vorkommen.
+
+Siehe auch:
+ * TitelIndex -- ein kürzerer Index
+ * AktuelleÄnderungen
+
+----
+[[WordIndex]]

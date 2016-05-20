@@ -1,0 +1,6 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language es
+
+Un NombreWiki es una palabra formada por otras palabras con mayúscula y minúscula. Cada NombreWiki forma de manera automágica un enlace a la página del NombreWiki. Consulta también AyudaParaPrincipiantes, "Nombres de página arbitrarios".

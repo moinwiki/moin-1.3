@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Version Information
@@ -6,13 +7,15 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-project = "MoinMoin"
-#revision = '$Revision: 1.184 $'[11:-2]
-revision = '1.187'
-release  = '1.2.4'
+try:
+    from patchlevel import patchlevel
+except:
+    patchlevel = '1.3.0 release'
 
-if __name__ == "__main__":
-    # Bump own revision
-    import os
-    os.system('cvs ci -f -m "Bumped revision" version.py')
+project = "MoinMoin"
+release  = '1.3.0'
+revision = patchlevel
+
+if __name__ == '__main__':
+    print project, release, revision
 

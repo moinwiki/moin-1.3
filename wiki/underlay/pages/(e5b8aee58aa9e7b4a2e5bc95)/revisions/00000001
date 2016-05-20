@@ -1,0 +1,12 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh
+##master-page:HelpIndex
+##master-date:2004-11-19 00:04:55
+
+下面是自动生成的所有中文帮助网页的一个简单列表。参阅专门编写的["帮助目录"]. 如果您觉得中文翻译不如英文原文更清楚，请参阅HelpContents和HelpIndex 。
+[[PageList(regex:^帮助.*)]]
+
+下面是所有英文帮助的索引:
+[[PageList(regex:^Help.*)]]

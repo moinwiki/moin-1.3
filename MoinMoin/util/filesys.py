@@ -6,7 +6,7 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import os
+import sys, os, shutil
 from MoinMoin import config
 
 
@@ -29,11 +29,17 @@ def makeDirs(name, mode=0777):
 
 
 def rename(oldname, newname):
-    """ We need our own rename wrapper here because win32 rename sucks (it
-        doesn't behave POSIX compliant, removing target file if it exists).
+    ''' Multiplatform rename
 
-        Problem: this "rename" isn't atomic any more on win32. Oh well...
-    """
+    Needed because win32 rename is not POSIX compliant, and does not
+    remove target file if it exists.
+
+    Problem: this "rename" is not atomic any more on win32.
+
+    FIXME: What about rename locking? we can have a lock file in the
+    page directory, named: PageName.lock, and lock this file before we
+    rename, then unlock when finished.
+    '''
     if os.name == 'nt':
         if os.path.isfile(newname):
             try:
@@ -43,116 +49,71 @@ def rename(oldname, newname):
     return os.rename(oldname, newname)
 
 
-#############################################################################
-### File Locking
-#############################################################################
+def copystat(src, dst):
+    """Copy stat bits from src to dst
 
-# Code from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65203
+    This should be used when shutil.copystat would be used on directories
+    on win32 because win32 does not support utime() for directories.
 
-# portalocker.py - Cross-platform (posix/nt) API for flock-style file locking.
-
-#!!! need to move this docs to the functions, or the class interface
-"""Cross-platform (posix/nt) API for flock-style file locking.
-
-Synopsis:
-
-   import portalocker
-   file = open("somefile", "r+")
-   portalocker.lock(file, portalocker.LOCK_EX)
-   file.seek(12)
-   file.write("foo")
-   file.close()
-
-If you know what you're doing, you may choose to
-
-   portalocker.unlock(file)
-
-before closing the file, but why?
-
-Methods:
-
-   lock( file, flags )
-   unlock( file )
-
-Constants:
-
-   LOCK_EX
-   LOCK_SH
-   LOCK_NB
-
-I learned the win32 technique for locking files from sample code
-provided by John Nielsen <nielsenjf@my-deja.com> in the documentation
-that accompanies the win32 modules.
-
-Author: Jonathan Feinberg <jdf@pobox.com>
-"""
-
-try:
-    # give future python versions a chance (they might implement fcntl)
-    import fcntl
-except ImportError:
-    if os.name == 'nt':
-        import win32con
-        import win32file
-        import pywintypes
-
-        LOCK_EX = win32con.LOCKFILE_EXCLUSIVE_LOCK
-        LOCK_SH = 0 # the default
-        LOCK_NB = win32con.LOCKFILE_FAIL_IMMEDIATELY
-
-        # is there any reason not to reuse the following structure?
-        __overlapped = pywintypes.OVERLAPPED()
-        
-        __highbits = 0xffff0000  # XXX FIXME, gives Python2.3 warning.
-        
-        def lock(file, flags):
-            hfile = win32file._get_osfhandle(file.fileno())
-            
-            win32file.LockFileEx(hfile, flags, 0, __highbits, __overlapped)
-            #if you use Win9x, try this instead (no guarantee, untested!):
-            #win32file.LockFileEx(hfile, 0, 0, __highbits, 0)
-    
-        def unlock(file):
-            hfile = win32file._get_osfhandle(file.fileno())
-            
-            win32file.UnlockFileEx(hfile, 0, __highbits, __overlapped)
-            #if you use Win9x, try this instead (no guarantee, untested!):
-            #win32file.UnlockFileEx(hfile, 0, 0, __highbits, 0)
-
-                                                                    
+    According to the official docs written by Microsoft, it returns ENOACCES if the
+    supplied filename is a directory. Looks like a trainee implemented the function.
+    """
+    from stat import S_ISDIR, ST_MODE, S_IMODE
+    if sys.platform == 'win32' and S_ISDIR(os.stat(dst)[ST_MODE]):
+        if os.name == 'nt':
+            st = os.stat(src)
+            mode = S_IMODE(st[ST_MODE])
+            if hasattr(os, 'chmod'):
+                os.chmod(dst, mode)
+        #else: pass # we are on Win9x,ME - no chmod here
     else:
-        #!!! this will certainly break macs, before your scream, send code ;)
-        # macostools.mkalias might help (if it's atomic)
-        # similarly os.rename, if it behaves like the win32 one (i.e. 
-        # non-POSIX-conformant); if all else fails, we can use simple
-        # non-atomic flags files and live with race conditions.
-        raise ImportError("Locking only available for nt and posix platforms")
-else:
-    # implementation using fcntl
-    LOCK_EX = fcntl.LOCK_EX
-    LOCK_SH = fcntl.LOCK_SH
-    LOCK_NB = fcntl.LOCK_NB
+        shutil.copystat(src, dst)
 
-    def lock(file, flags):
-        fcntl.flock(file.fileno(), flags)
 
-    def unlock(file):
-        fcntl.flock(file.fileno(), fcntl.LOCK_UN)
+def copytree(src, dst, symlinks=False):
+    """Recursively copy a directory tree using copy2().
 
-#!!! move to unittests
-#~ if __name__ == '__main__':
-    #~ from time import time, strftime, localtime
-    #~ import sys
-    #~ import portalocker
+    The destination directory must not already exist.
+    If exception(s) occur, an Error is raised with a list of reasons.
 
-    #~ log = open('log.txt', "a+")
-    #~ portalocker.lock(log, portalocker.LOCK_EX)
+    If the optional symlinks flag is true, symbolic links in the
+    source tree result in symbolic links in the destination tree; if
+    it is false, the contents of the files pointed to by symbolic
+    links are copied.
 
-    #~ timestamp = strftime("%m/%d/%Y %H:%M:%S\n", localtime(time()))
-    #~ log.write( timestamp )
+    In contrary to shutil.copytree, this version also copies directory
+    stats, not only file stats.
 
-    #~ print "Wrote lines. Hit enter to release lock."
-    #~ dummy = sys.stdin.readline()
+    """
+    names = os.listdir(src)
+    os.mkdir(dst)
+    copystat(src,dst)
+    errors = []
+    for name in names:
+        srcname = os.path.join(src, name)
+        dstname = os.path.join(dst, name)
+        try:
+            if symlinks and os.path.islink(srcname):
+                linkto = os.readlink(srcname)
+                os.symlink(linkto, dstname)
+            elif os.path.isdir(srcname):
+                copytree(srcname, dstname, symlinks)
+            else:
+                shutil.copy2(srcname, dstname)
+            # XXX What about devices, sockets etc.?
+        except (IOError, os.error), why:
+            errors.append((srcname, dstname, why))
+    if errors:
+        raise Error, errors
 
-    #~ log.close()
+# Code could come from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65203
+
+# we currently do not support locking
+LOCK_EX = LOCK_SH = LOCK_NB = 0
+
+def lock(file, flags):
+    raise NotImplementedError
+
+def unlock(file):
+    raise NotImplementedError
 

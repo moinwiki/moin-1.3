@@ -1,0 +1,10 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:WantedPages
+##master-date:2004-05-16 22:32:24
+#language fr
+Une liste des pages qui n'existent pas sur ce wiki mais vers lesquelles d'autres pages font lien :
+[[WantedPages]]

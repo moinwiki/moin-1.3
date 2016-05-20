@@ -7,7 +7,7 @@
     from the base class 'Permissions', so that when new permissions
     are defined, you get the defaults.
 
-    Then assign your new class to "SecurityPolicy" in moin_config;
+    Then assign your new class to "SecurityPolicy" in wikiconfig;
     and I mean the class, not an instance of it!
 
     @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
@@ -34,60 +34,25 @@ class Permissions:
         self.name = user.name
         self.request = user._request
 
-    def read(self, pagename, **kw):
-        """ Check whether user may read this page.
-
-            `kw` allows passing more information without breaking user
-            policies and is not used currently.
-        """
-        return self.getACL(pagename).may(self.request, self.name, "read")
-
-    def edit(self, pagename, **kw):
-        """ Check whether user may edit this page.
-
-            `kw` allows passing more information without breaking user
-            policies and is not used currently.
-        """
-        return self.getACL(pagename).may(self.request, self.name, "write")
-
-    def save(self, editor, newtext, datestamp, **kw):
+    def save(self, editor, newtext, rev, **kw):
         """ Check whether user may save a page.
 
             `editor` is the PageEditor instance, the other arguments are
             those of the `PageEditor.saveText` method.
-
-            The current msg presented to the user ("You are not allowed
-            to edit any pages.") is a bit misleading, this will be fixed
-            if we add policy-specific msgs.
         """
-        return self.edit(editor.page_name)
+        return self.write(editor.page_name)
 
-    def delete(self, pagename, **kw):
-        """ Check whether user may delete this page.
-
-            `kw` allows passing more information without breaking user
-            policies and is not used currently.
+    def __getattr__(self, attr):
+        """ if attr is one of the rights in acl_rights_valid, then return a
+            checking function for it. Else use normal getattr().
         """
-        return self.getACL(pagename).may(self.request, self.name, "delete")
-
-    def revert(self, pagename, **kw):
-        """ Check whether user may revert this page.
-
-            `kw` allows passing more information without breaking user
-            policies and is not used currently.
-        """
-        return self.getACL(pagename).may(self.request, self.name, "revert")
-
-    def admin(self, pagename, **kw):
-        """ Check whether user may administrate this page.
-
-            `kw` allows passing more information without breaking user
-            policies and is not used currently.
-        """
-        return self.getACL(pagename).may(self.request, self.name, "admin")
-
-    def getACL(self, pagename, **kw):
-        return self.Page(pagename).getACL()
+        request = self.request
+        Page = self.Page
+        if attr in request.cfg.acl_rights_valid:
+            return lambda pagename, Page=Page, request=request, attr=attr: Page(request, pagename).getACL(request).may(request, self.name, attr)
+        else:
+            raise AttributeError, attr
+        
 
 # make an alias for the default policy
 Default = Permissions

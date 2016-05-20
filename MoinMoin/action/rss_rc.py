@@ -17,8 +17,10 @@ def execute(pagename, request):
     """ Send recent changes as an RSS document
     """
     if not wikixml.ok:
-        #XXXX send error message
+        #XXX send error message
         pass
+
+    cfg = request.cfg
 
     # get params
     items_limit = 100
@@ -48,14 +50,12 @@ def execute(pagename, request):
 
     # get data
     interwiki = request.getBaseURL()
-    if interwiki[-1] != "/":
-        interwiki += "/"
+    if interwiki[-1] != "/": interwiki = interwiki + "/"
 
-    logo = re.search(r'src="([^"]*)"', config.logo_string)
-    if logo:
-        logo = request.getQualifiedURL(logo.group(1))
+    logo = re.search(r'src="([^"]*)"', cfg.logo_string)
+    if logo: logo = request.getQualifiedURL(logo.group(1))
     
-    log = editlog.EditLog()
+    log = editlog.EditLog(request)
     logdata = []
     counter = 0
     pages = {}
@@ -63,17 +63,17 @@ def execute(pagename, request):
         if not request.user.may.read(line.pagename):
             continue
         if ((line.action[:4] != 'SAVE') or
-            (line.pagename in pages)): continue
+            ((line.pagename in pages) and unique)): continue
         #if log.dayChanged() and log.daycount > _MAX_DAYS: break
         line.editor = line.getEditorData(request)[1]
-        line.time = util.datetime.tmtuple(line.ed_time) # UTC
+        line.time = util.datetime.tmtuple(wikiutil.version2timestamp(line.ed_time_usecs)) # UTC
         logdata.append(line)
         pages[line.pagename] = None
         counter += 1
         if counter >= max_items:
             break
     del log
-            
+
     # start SAX stream
     handler.startDocument()
     handler._out.write(
@@ -87,28 +87,29 @@ def execute(pagename, request):
         '    Add "diffs=1" to add change diffs to the description of each items.\n'
         '    \n'
         '    Add "ddiffs=1" to link directly to the diff (good for FeedReader).\n'
-        '-->\n' % items_limit
+        '    Current settings: items=%i, unique=%i, diffs=%i, ddiffs=%i'
+        '-->\n' % (items_limit, max_items, unique, diffs, ddiffs)
         )
 
     # emit channel description
     handler.startNode('channel', {
         (handler.xmlns['rdf'], 'about'): request.getBaseURL(),
-    })
-    handler.simpleNode('title', config.sitename)
-    handler.simpleNode('link', interwiki + wikiutil.quoteWikiname(pagename))
-    handler.simpleNode('description', 'RecentChanges at %s' % config.sitename)
+        })
+    handler.simpleNode('title', cfg.sitename)
+    handler.simpleNode('link', interwiki + wikiutil.quoteWikinameURL(pagename))
+    handler.simpleNode('description', 'RecentChanges at %s' % cfg.sitename)
     if logo:
         handler.simpleNode('image', None, {
             (handler.xmlns['rdf'], 'resource'): logo,
-        })
-    if config.interwikiname:
-        handler.simpleNode(('wiki', 'interwiki'), config.interwikiname)
+            })
+    if cfg.interwikiname:
+        handler.simpleNode(('wiki', 'interwiki'), cfg.interwikiname)
 
     handler.startNode('items')
     handler.startNode(('rdf', 'Seq'))
     for item in logdata:
         link = "%s%s#%04d%02d%02d%02d%02d%02d" % ((interwiki,
-                wikiutil.quoteWikiname(item.pagename),) + item.time[:6])
+                wikiutil.quoteWikinameURL(item.pagename),) + item.time[:6])
         handler.simpleNode(('rdf', 'li'), None, attr={
             (handler.xmlns['rdf'], 'resource'): link,
         })
@@ -120,16 +121,16 @@ def execute(pagename, request):
     if logo:
         handler.startNode('image', attr={
             (handler.xmlns['rdf'], 'about'): logo,
-        })
-        handler.simpleNode('title', config.sitename)
+            })
+        handler.simpleNode('title', cfg.sitename)
         handler.simpleNode('link', interwiki)
         handler.simpleNode('url', logo)
         handler.endNode('image')
 
     # emit items
     for item in logdata:
-        page = Page(item.pagename)
-        link = interwiki + wikiutil.quoteWikiname(item.pagename)
+        page = Page(request, item.pagename)
+        link = interwiki + wikiutil.quoteWikinameURL(item.pagename)
         rdflink = "%s#%04d%02d%02d%02d%02d%02d" % ((link,) + item.time[:6])
         handler.startNode('item', attr={
             (handler.xmlns['rdf'], 'about'): rdflink,
@@ -147,32 +148,25 @@ def execute(pagename, request):
         # description
         desc_text = item.comment
         if diffs:
-            # !!! TODO: rewrite / extend wikiutil.pagediff
+            # TODO: rewrite / extend wikiutil.pagediff
             # searching for the matching pages doesn't really belong here
-            # also, we have a problem to get a diff between two backup versions
-            # so it's always a diff to the current version for now
-            oldversions = wikiutil.getBackupList(config.backup_dir, item.pagename)
+            revisions = page.getRevList()
 
-            for idx in range(len(oldversions)):
-                oldpage = oldversions[idx]
-                try:
-                    date = os.path.getmtime(os.path.join(config.backup_dir, oldpage))
-                except EnvironmentError:
-                    continue
-                if date <= item.ed_time:
-                    if idx+1 < len(oldversions):
-                        file1 = os.path.join(config.backup_dir, oldversions[idx+1])
-                        file2 = page._text_filename()
-                        rc, page_file, backup_file, lines = wikiutil.pagediff(file1, file2, ignorews=1)
-                        if len(lines) > 20: lines = lines[20:] + ['...\n']
-                        desc_text = desc_text + '<pre>\n' + ''.join(lines) + '</pre>'
+            rl = len(revisions)
+            for idx in range(rl):
+                rev = revisions[idx]
+                if rev <= item.rev:
+                    if idx+1 < rl:
+                        lines = wikiutil.pagediff(request, item.pagename, revisions[idx+1], item.pagename, 0, ignorews=1)
+                        if len(lines) > 20: lines = lines[:20] + ['...\n']
+                        desc_text = '%s\n<pre>\n%s\n</pre>\n' % (desc_text, '\n'.join(lines))
                     break
         if desc_text:
             handler.simpleNode('description', desc_text)
 
         # contributor
         edattr = {}
-        if config.show_hosts:
+        if cfg.show_hosts:
             edattr[(handler.xmlns['wiki'], 'host')] = item.hostname
         if isinstance(item.editor, Page):
             edname = item.editor.page_name
@@ -191,7 +185,7 @@ def execute(pagename, request):
         handler.endNode(('dc', 'contributor'))
 
         # wiki extensions
-        handler.simpleNode(('wiki', 'version'), "%04d-%02d-%02d %02d:%02d:%02d" % item.time[:6])
+        handler.simpleNode(('wiki', 'version'), "%i" % (item.ed_time_usecs))
         handler.simpleNode(('wiki', 'status'), ('deleted', 'updated')[page.exists()])
         handler.simpleNode(('wiki', 'diff'), link + "?action=diff")
         handler.simpleNode(('wiki', 'history'), link + "?action=info")
@@ -204,7 +198,7 @@ def execute(pagename, request):
     handler.endDocument()
 
     # send the generated XML document
-    request.http_headers(["Content-Type: text/xml"] + request.nocache)
+    request.http_headers(["Content-Type: text/xml; charset=%s" % config.charset] + request.nocache)
     request.write(out.getvalue())
     request.finish()
     request.no_closing_html_code = 1

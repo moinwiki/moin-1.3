@@ -1,6 +1,6 @@
 /*  print.css - MoinMoin Default Styles
 
-    Copyright (c) 2001, 2002, 2003 by Jürgen Hermann
+Copyright (c) 2001, 2002, 2003 by Juergen Hermann
 */
 
 /* content styles */
@@ -48,7 +48,7 @@ a.interwiki img, a.badinterwiki img {
 /* user interface styles */
 
 h1 {
-/*	padding: .2em 1em; */
+	/*	padding: .2em 1em; */
 }
 
 #logo {

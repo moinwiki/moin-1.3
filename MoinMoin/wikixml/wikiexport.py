@@ -4,14 +4,12 @@
 
     This module exports all data stored for a wiki.
 
-    @copyright: 2001, 2002 by Jürgen Hermann <jh@web.de>
+    @copyright: 2001-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-from MoinMoin import config, wikixml
+from MoinMoin import wikixml
 import MoinMoin.wikixml.util
-
 
 #############################################################################
 ### XML Generator
@@ -56,17 +54,6 @@ class WikiExport:
         """
         self.doc = ExportGenerator(self._out)
         self.doc.startDocument()
+        # TODO: pages, users, attachments
         self.doc.endDocument()
-
-    #
-    # Pages
-    #
-
-    #
-    # Users
-    #
-
-    #
-    # Attachments
-    #
 

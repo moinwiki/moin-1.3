@@ -8,15 +8,8 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-import cStringIO
-
+import StringIO
 from MoinMoin import caching, config, wikiutil, Page
-
-
-#############################################################################
-### XML Parser
-#############################################################################
 
 class Parser:
     """
@@ -34,15 +27,17 @@ class Parser:
         """ Send the text.
         """
         _ = self._
-        if not config.allow_xslt:
+        if not self.request.cfg.allow_xslt:
             from MoinMoin.parser import plain
-            self.request.write(formatter.sysmsg(_('XSLT option disabled!')))
+            self.request.write(formatter.sysmsg(1) +
+                               formatter.text(_('XSLT option disabled!'))+
+                               formatter.sysmsg(0))
             plain.Parser(self.raw, self.request).format(formatter)
             return
 
-        arena = "xslt"
-        key   = wikiutil.quoteFilename(formatter.page.page_name)
-        cache = caching.CacheEntry(arena, key)
+        arena = page
+        key   = 'xslt'
+        cache = caching.CacheEntry(self.request, arena, key)
         if not cache.needsUpdate(formatter.page._text_filename()):
             self.request.write(cache.content())
             self._add_refresh(formatter, cache, arena, key)
@@ -53,7 +48,9 @@ class Parser:
             from Ft.Xml import __version__ as ft_version
             assert ft_version.startswith('1.')
         except (ImportError, AssertionError):
-            self.request.write(self.request.formatter.sysmsg(_('XSLT processing is not available!')))
+            self.request.write(self.request.formatter.sysmsg(1) +
+                               self.request.formatter.text(_('XSLT processing is not available!')) +
+                               self.request.formatter.sysmsg(0))
         else:
             import xml.sax
             from Ft.Lib import Uri
@@ -93,7 +90,7 @@ class Parser:
                     if uri.startswith(base_uri):
                         page = Page.Page(uri[len(base_uri):].encode(config.charset))
                         if page.exists():
-                            return cStringIO.StringIO(page.get_raw_body())
+                            return StringIO.StringIO(page.get_raw_body())
                         else:
                             raise Uri.UriException(Uri.UriException.RESOURCE_ERROR, uri,
                                 'Page does not exist')
@@ -104,7 +101,7 @@ class Parser:
                 }
 
 
-                out_file = cStringIO.StringIO()
+                out_file = StringIO.StringIO()
                 input_factory = InputSource.InputSourceFactory(
                     resolver=wiki_resolver
                 )
@@ -142,7 +139,7 @@ class Parser:
         _ = self._
         refresh = wikiutil.link_tag(
             formatter.request,
-            wikiutil.quoteWikiname(formatter.page.page_name) + "?action=refresh&arena=%s&key=%s" % (arena, key),
+            wikiutil.quoteWikinameURL(formatter.page.page_name) + "?action=refresh&arena=%s&key=%s" % (arena, key),
             _("RefreshCache")
         ) + ' ' + _('for this page (cached %(date)s)') % {
             'date': formatter.request.user.getFormattedDateTime(cache.mtime()),

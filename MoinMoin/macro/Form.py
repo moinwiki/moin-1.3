@@ -24,10 +24,12 @@ def execute(macro, args):
     _ = macro.request.getText
     pagename = args
 
-    if not wikiutil.isFormPage(pagename):
-        return macro.formatter.sysmsg('Not a form page: %s' % args)
+    if not wikiutil.isFormPage(macro.request, pagename):
+        return (macro.formatter.sysmsg(1) +
+                macro.formatter.text('Not a form page: %s' % args) +
+                macro.formatter.sysmsg(0))
 
-    formpage = Page(pagename)
+    formpage = Page(macro.request, pagename)
     body = formpage.get_raw_body()
 
     pi_formtext = []

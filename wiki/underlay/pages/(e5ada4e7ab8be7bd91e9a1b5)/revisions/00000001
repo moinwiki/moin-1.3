@@ -1,0 +1,12 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh
+##master-page:OrphanedPages
+##master-date:2004-05-11 19:27:40
+
+这里列出了没有被其他网页链接过的网页：
+
+[[OrphanedPages]]
+
+此页的英文版本：OrphanedPages

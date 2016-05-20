@@ -1,0 +1,80 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:WikiSandBox
+##master-date:2004-10-07 10:03:07
+#language fr
+Sentez-vous libre d'expérimenter ici, après les quatre tirets ci-dessous... et merci de ne '''PAS''' créer de nouvelles pages sans contenu utile juste pour voir comment ça fait !
+
+'''Astuce :''' Ouvrez l'["AideDeL'Édition"] dans une deuxième fenêtre en cliquant avec le bouton droit sur le lien au début de cette ligne.
+----
+
+== Mise en forme ==
+
+''italique'' '''gras''' {{{chasse fixe}}}
+
+`chasse fixe au moyen de contre-apostrophes` (configurable)
+
+~+ plus gros +~ ~- plus petit -~
+
+{{{
+préformatté
+}}}
+
+{{{#!Colorisation python
+def syntax(highlight):
+    print "on"
+    return None
+}}}
+
+== Liens ==
+
+["AideDeL'Édition"] MoinMoin:InterWikiFr
+
+http://moinmoin.wikiwikiweb.de/ [http://www.python.org/ Python]
+
+someone@the.inter.net
+
+
+=== Lien vers une image ===
+http://c2.com/sig/wiki.gif
+
+== Listes ==
+
+ * première puce
+   1. imbriquée et numérotée
+   1. les lignes avec un numéro sont numérotées automatiquement
+ * deuxième puce
+ * troisième puce
+
+ citation
+   citation dans la citation
+
+=== Glossaire ===
+ Terme:: Définition
+
+=== Dessins ===
+drawing:mytest
+
+= Titre de niveau 1 =
+== Titre de niveau 2 ==
+=== Titre de niveau 3 ===
+==== Titre de niveau 4 ====
+
+= Test de log IRC =
+
+{{{#!Colorize irc
+(23:18) <     jroes> ah
+(23:19) <     jroes> hm, i like the way {{{ works, but i was hoping the lines would wrap
+(23:21) -!- gpciceri [~gpciceri@host181-130.pool8248.interbusiness.it] has quit [Read error: 110 (Connection timed out)]
+(23:36) < ThomasWal> you could also write a parser or processor
+(23:38) <     jroes> i could?
+(23:38) <     jroes> would that require modification on the moin end though?
+(23:38) <     jroes> i cant change the wiki myself :x
+(23:39) < ThomasWal> parsers and processors are plugable
+(23:39) < ThomasWal> so you dont need to change the core code
+(23:40) < ThomasWal> you need to copy it to the wiki data directory though
+(23:40) <     jroes> well, what i meant to say was that i dont have access to the box running the wiki
+(23:40) < ThomasWal> then this is no option awdsd asdasd sa asdasd sad asdadasds adasd asd asd asd asd asd a dadad ad adad ad asd asd adad asdasd asd adad as d
+(23:40) <     jroes> yeah :/
+}}}

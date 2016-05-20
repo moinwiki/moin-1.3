@@ -22,17 +22,17 @@ def execute(pagename, request):
     else:
         mimetype = "text/html"
 
-    request.http_headers(["Content-Type: " + mimetype])
+    request.http_headers(["Content-Type: %s; charset=%s" % (mimetype,config.charset)])
 
     if mimetype == "text/html":
-        wikiutil.send_title(request, _('Full Link List for "%s"') % config.sitename)
+        wikiutil.send_title(request,
+                            _('Full Link List for "%s"') % request.cfg.sitename)
         request.write('<pre>')
 
-    pages = wikiutil.getPageDict(config.text_dir)
-
+    # Get page dict readable by current user
+    pages = request.rootpage.getPageDict()
     pagelist = pages.keys()
     pagelist.sort()
-    pagelist = filter(request.user.may.read, pagelist)
 
     for name in pagelist:
         if mimetype == "text/html":
@@ -40,6 +40,7 @@ def execute(pagename, request):
         else:
             _emit(request, name)
         for link in pages[name].getPageLinks(request):
+            request.write(" ")
             if mimetype == "text/html":
                 if pages.has_key(link):
                     request.write(pages[link].link_to(request))
@@ -58,8 +59,5 @@ def execute(pagename, request):
 def _emit(request, pagename):
     """ Send pagename, encode it if it contains spaces
     """
-    if pagename.find(' ') >= 0:
-        request.write(wikiutil.quoteWikiname(pagename))
-    else:
-        request.write(pagename)
+    request.write(wikiutil.quoteWikinameURL(pagename))
 

@@ -1,0 +1,27 @@
+##master-page:FrontPage
+##master-date:2004-11-22 15:45:01
+#language fr
+#pragma section-numbers off
+
+= Wiki NomDuWiki =
+
+Quel est le sujet de ce wiki ?
+
+Poins de départ intéressants :
+ * ModificationsRécentes : voyez sur quoi les utilisateurs sont en train de travailler
+ * ["BacÀSable"] : n'hésitez pas à modifier cette page et à vous entraîner à l'édition de page
+ * RechercherUnePage : recherchez dans la base de données ou parcourez-la de diverses manières
+ * RésuméDeLaSyntaxe : accès rapide à la syntaxe du wiki
+ * ExplorerCeWiki : divers moyens d'explorer ce site
+
+== Comment utiliser ce site ==
+
+Un Wiki est un site collaboratif, n'importe qui peut contribuer et partager ses connaissances :
+ * Éditez n'importe quelle page en cliquant sur '''[[GetText(Edit)]]''' en haut ou en bas de la page
+ * Créez un lien vers une autre page en accolant des mots qui commencent par une majuscule (comme par exemple ModificationsRécentes), ou avec {{{["des mots entre crochets et guillemets"]}}}
+ * Rechercher des titres de page ou du texte dans les pages en utilisant le formulaire de recherche en haut de chaque page
+ * Consultez l'["AideAuxDébutants"] dans un premier temps ; le ["SommaireDeL'Aide"] liste toutes les pages d'aide.
+
+Pour en savoir plus sur ce qu'est un [:WikiWikiWebVF: WikiWikiWeb], lisez MoinMoin:WhyWikiWorks et MoinMoin:WikiNature. Vous pouvez également consulter la MoinMoin:WikiWikiWebFaq.
+
+Ce site fonctionne grâce à [:MoinMoinVF: MoinMoin].

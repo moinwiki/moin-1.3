@@ -10,29 +10,38 @@
 
 _debug = 0
 
-from MoinMoin import config, wikiutil
+from MoinMoin import wikiutil
 from MoinMoin.Page import Page
 from MoinMoin.util import MoinMoinNoFooter
 
 
 def linkto(pagename, request, params=''):
+    from MoinMoin.util import web
     _ = request.getText
 
-    if not config.chart_options:
-        return request.formatter.sysmsg(_('Charts are not available!'))
+    if not request.cfg.chart_options:
+        return (request.formatter.sysmsg(1) +
+                request.formatter.text(_('Charts are not available!')) +
+                request.formatter.sysmsg(0))
 
     if _debug:
         return draw(pagename, request)
 
-    page = Page(pagename)
-    result = []
-    data = {
-        'url': page.url(request, "action=chart&amp;type=pagesize"),
-    }
-    data.update(config.chart_options)
-    result.append('<img src="%(url)s" border="0" width="%(width)d" height="%(height)d">' % data)
+    page = Page(request, pagename)
 
-    return ''.join(result)
+    # Create escaped query string from dict and params
+    querystr = {'action': 'chart', 'type': 'pagesize'}
+    querystr = web.makeQueryString(querystr)
+    querystr = wikiutil.escape(querystr)
+    if params:
+        querystr += '&amp;' + params
+    
+    # TODO: remove escape=0 in 1.4
+    data = {'url': page.url(request, querystr, escape=0)}
+    data.update(request.cfg.chart_options)
+    result = ('<img src="%(url)s" width="%(width)d" height="%(height)d"'
+              ' alt="pagesize chart">') % data
+    return result
 
 
 def _slice(data, lo, hi):
@@ -44,15 +53,16 @@ def _slice(data, lo, hi):
 
 def draw(pagename, request):
     import bisect, shutil, cStringIO
-    from MoinMoin import config
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     _ = request.getText
     style = Chart.GDC_3DBAR
 
     # get data
-    pages = wikiutil.getPageDict(config.text_dir)
-    sizes = [(p.size(), name) for name, p in pages.items()]
+    pages = request.rootpage.getPageDict()
+    sizes = []
+    for name, page in pages.items():
+        sizes.append( (page.size(), name.encode('iso-8859-1', 'replace')) ) # gdchart does no utf-8
     sizes.sort()
 
     upper_bound = sizes[-1][0]
@@ -89,20 +99,20 @@ def draw(pagename, request):
     if upper_bound >= 65536:
         c.addData(ChartData(_slice(data, 21, 28), 'magenta'))
     title = ''
-    if config.sitename: title = "%s: " % config.sitename
+    if request.cfg.sitename: title = "%s: " % request.cfg.sitename
     title = title + _('Page Size Distribution')
     c.option(
         annotation = (bisect.bisect(bounds, upper_bound), Color('black'), "%d %s" % sizes[-1]),
-        title = title,
-        xtitle = _('page size upper bound [bytes]'),
-        ytitle = _('# of pages of this size'),
+        title = title.encode('iso-8859-1', 'replace'), # gdchart can't do utf-8
+        xtitle = _('page size upper bound [bytes]').encode('iso-8859-1', 'replace'),
+        ytitle = _('# of pages of this size').encode('iso-8859-1', 'replace'),
         title_font = c.GDC_GIANT,
         threed_depth = 2.0,
         requested_yinterval = 1.0,
         stack_type = c.GDC_STACK_LAYER
     )
     c.draw(style,
-        (config.chart_options['width'], config.chart_options['height']),
+        (request.cfg.chart_options['width'], request.cfg.chart_options['height']),
         image, labels)
 
     # send HTTP headers

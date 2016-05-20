@@ -13,13 +13,15 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-import re, cStringIO
-from MoinMoin import config, wikiutil
+import re, StringIO
+from MoinMoin import wikiutil
 from MoinMoin.Page import Page
 
 _sysmsg = '<p><strong class="%s">%s</strong></p>'
+
+## keep in sync with TableOfContents macro!
 _arg_heading = r'(?P<heading>,)\s*(|(?P<hquote>[\'"])(?P<htext>.+?)(?P=hquote))'
-_arg_level = r',\s*(?P<level>\d+)'
+_arg_level = r',\s*(?P<level>\d*)'
 _arg_from = r'(,\s*from=(?P<fquote>[\'"])(?P<from>.+?)(?P=fquote))?'
 _arg_to = r'(,\s*to=(?P<tquote>[\'"])(?P<to>.+?)(?P=tquote))?'
 _arg_sort = r'(,\s*sort=(?P<sort>(ascending|descending)))?'
@@ -30,11 +32,11 @@ _args_re_pattern = r'^(?P<name>[^,]+)(%s(%s)?%s%s%s%s%s%s)?$' % (
     _arg_heading, _arg_level, _arg_from, _arg_to, _arg_sort, _arg_items,
     _arg_skipitems, _arg_titlesonly)
 
-TITLERE = re.compile("^(?P<heading>\s*(?P<hmarker>=+)\s.*\s(?P=hmarker))$", 
-                     re.M)
-def extract_titles(body):
+_title_re = r"^(?P<heading>\s*(?P<hmarker>=+)\s.*\s(?P=hmarker))$"
+
+def extract_titles(body, title_re):
     titles = []
-    for title, _ in TITLERE.findall(body):
+    for title, _ in title_re.findall(body):
         h = title.strip()
         level = 1
         while h[level:level+1] == '=': level = level+1
@@ -45,11 +47,12 @@ def extract_titles(body):
 
 Dependencies = ["pages"] # included page
 
-def execute(macro, text, args_re=re.compile(_args_re_pattern)):
-    _ = macro.request.getText
+def execute(macro, text, args_re=re.compile(_args_re_pattern), title_re=re.compile(_title_re, re.M), called_by_toc=0):
+    request = macro.request
+    _ = request.getText
 
     # return immediately if getting links for the current page
-    if macro.request.mode_getpagelinks:
+    if request.mode_getpagelinks:
         return ''
 
     # parse and check arguments
@@ -65,7 +68,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         this_page._macroInclude_pagelist = {}
 
     # get list of pages to include
-    inc_name = wikiutil.AbsPageName(this_page.page_name, args.group('name'))
+    inc_name = wikiutil.AbsPageName(request, this_page.page_name, args.group('name'))
     pagelist = [inc_name]
     if inc_name.startswith("^"):
         try:
@@ -73,7 +76,8 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         except re.error:
             pass # treat as plain page name
         else:
-            pagelist = wikiutil.getPageList(config.text_dir)
+            # Get user readable page list
+            pagelist = request.rootpage.getPageList()
             pagelist = filter(inc_match.match, pagelist)
 
     # sort and limit page list
@@ -92,15 +96,17 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
 
     # iterate over pages
     for inc_name in pagelist:
-        if not macro.request.user.may.read(inc_name):
+        if not request.user.may.read(inc_name):
             continue
         if this_page._macroInclude_pagelist.has_key(inc_name):
-            result.append('<p><strong class="error">Recursive include of "%s" forbidden</strong></p>' % (inc_name,))
+            result.append(u'<p><strong class="error">Recursive include of "%s" forbidden</strong></p>' % (inc_name,))
             continue
         if skipitems:
             skipitems -= 1
             continue
-        inc_page = Page(inc_name, formatter=macro.formatter.__class__(macro.request))
+        fmt = macro.formatter.__class__(request, is_included=True)
+        fmt._base_depth = macro.formatter._base_depth
+        inc_page = Page(request, inc_name, formatter=fmt)
         inc_page._macroInclude_pagelist = this_page._macroInclude_pagelist
 
         # check for "from" and "to" arguments (allowing partial includes)
@@ -132,7 +138,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
         if titlesonly:
             newbody = []
             levelstack = []
-            for title, level in extract_titles(body[from_pos:to_pos]):
+            for title, level in extract_titles(body[from_pos:to_pos], title_re):
                 if levelstack:
                     if level > levelstack[-1]:
                         result.append(macro.formatter.bullet_list(1))
@@ -148,7 +154,7 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
                     result.append(macro.formatter.bullet_list(1))
                     levelstack.append(level)
                 result.append(macro.formatter.listitem(1))
-                result.append(inc_page.link_to(title))
+                result.append(inc_page.link_to(request, title))
                 result.append(macro.formatter.listitem(0))
             while levelstack:
                 result.append(macro.formatter.bullet_list(0))
@@ -156,43 +162,67 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
             continue
 
         if from_pos or to_pos != -1:
-            inc_page.set_raw_body(body[from_pos:to_pos])
+            inc_page.set_raw_body(body[from_pos:to_pos], modified=True)
         ##result.append("*** f=%s t=%s ***" % (from_re, to_re))
         ##result.append("*** f=%d t=%d ***" % (from_pos, to_pos))
 
+        if called_by_toc:
+            result.append(inc_page.get_raw_body())
+            continue
+
+        if not hasattr(request, "_Include_backto"):
+            request._Include_backto = this_page.page_name
         # edit icon
-        edit_icon = inc_page.link_to(macro.request,
-            macro.request.theme.make_icon("edit"),
-            css_class="include-edit-link",
-            querystr={'action': 'edit', 'backto': this_page.page_name})
-        edit_icon = edit_icon.replace('&amp;','&')
+        #edit_icon = inc_page.link_to(request,
+        #    request.theme.make_icon("edit"),
+        #    css_class="include-edit-link",
+        #    querystr={'action': 'edit', 'backto': request._Include_backto})
+        #edit_icon = edit_icon.replace('&amp;','&')
         
         # do headings
         level = None
         if args.group('heading'):
-            heading = args.group('htext') or inc_page.split_title(macro.request)
+            heading = args.group('htext') or inc_page.split_title(request)
             level = 1
             if args.group('level'):
                 level = int(args.group('level'))
             if print_mode:
-                result.append(macro.formatter.heading(level, heading))
+                result.append(macro.formatter.heading(1, level) +
+                              macro.formatter.text(heading) +
+                              macro.formatter.heading(0, level))
             else:
-                result.append(macro.formatter.heading(level,
-                    inc_page.link_to(macro.request, heading, css_class="include-heading-link"),
-                    icons=edit_icon.replace('<img ', '<img align="right" ')))
+                import sha
+                from MoinMoin import config
+                # this heading id might produce duplicate ids,
+                # if the same page is included multiple times
+                # Encode stuf we feed into sha module.
+                pntt = (inc_name + heading).encode(config.charset)
+                hid = "head-" + sha.new(pntt).hexdigest()
+                request._page_headings.setdefault(pntt, 0)
+                request._page_headings[pntt] += 1
+                if request._page_headings[pntt] > 1:
+                    hid += '-%d'%(request._page_headings[pntt],)
+                result.append(
+                    #macro.formatter.heading(1, level, hid,
+                    #    icons=edit_icon.replace('<img ', '<img align="right" ')) +
+                    macro.formatter.heading(1, level, hid) +
+                    inc_page.link_to(request, heading, css_class="include-heading-link") +
+                    macro.formatter.heading(0, level)
+                )
 
         # set or increment include marker
         this_page._macroInclude_pagelist[inc_name] = \
             this_page._macroInclude_pagelist.get(inc_name, 0) + 1
 
         # output the included page
-        strfile = cStringIO.StringIO()
-        macro.request.redirect(strfile)
+        strfile = StringIO.StringIO()
+        request.redirect(strfile)
         try:
-            inc_page.send_page(macro.request, content_only=1, content_id="Include_%s" % wikiutil.quoteWikiname(inc_page.page_name) )
+            cid = request.makeUniqueID("Include_%s" % wikiutil.quoteWikinameFS(inc_page.page_name))
+            inc_page.send_page(request, content_only=1, content_id=cid)
             result.append(strfile.getvalue())
         finally:
-            macro.request.redirect()
+            request.redirect()
 
         # decrement or remove include marker
         if this_page._macroInclude_pagelist[inc_name] > 1:
@@ -202,13 +232,14 @@ def execute(macro, text, args_re=re.compile(_args_re_pattern)):
             del this_page._macroInclude_pagelist[inc_name]
 
         # if no heading and not in print mode, then output a helper link
-        if not (level or print_mode):
-            result.extend([
-                '<div class="include-link">',
-                inc_page.link_to(macro.request, '[%s]' % (inc_name,), css_class="include-page-link"),
-                edit_icon,
-                '</div>',
-            ])
+        #if not (level or print_mode):
+        #    result.extend([
+        #        '<div class="include-link">',
+        #        inc_page.link_to(request, '[%s]' % (inc_name,), css_class="include-page-link"),
+        #        edit_icon,
+        #        '</div>',
+        #    ])
+        # XXX page.link_to is wrong now, it escapes the edit_icon html as it escapes normal text
 
     # return include text
     return ''.join(result)

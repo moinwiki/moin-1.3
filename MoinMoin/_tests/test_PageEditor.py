@@ -7,14 +7,28 @@
 """
 
 import unittest
+from MoinMoin._tests import request
 from MoinMoin import PageEditor, _tests
 
-class expand_variablesTestCase(unittest.TestCase):
-    def runTest(self):
-        pagename = 'OnlyAnIdiotWouldCreateSuchaPage'
-        pg = PageEditor.PageEditor(pagename, _tests.request)
-        self.failUnlessEqual(pg._expand_variables("@PAGE@"), pagename)
-        self.failUnlessEqual(pg._expand_variables("em@PAGE@bedded"), "em%sbedded" % pagename)
-        self.failUnlessEqual(pg._expand_variables("@NOVAR@"), "@NOVAR@")
-        self.failUnlessEqual(pg._expand_variables("case@Page@sensitive"), "case@Page@sensitive")
+class ExpandVarsTestCase(unittest.TestCase):
+    """PageEditor: testing page editor"""   
 
+    pagename = 'OnlyAnIdiotWouldCreateSuchaPage' 
+
+    _tests = (
+        # Variable,             Expanded
+        ("@PAGE@",              pagename),
+        ("em@PAGE@bedded",      "em%sbedded" % pagename),
+        ("@NOVAR@",             "@NOVAR@"),
+        ("case@Page@sensitive", "case@Page@sensitive"),
+        )
+
+    def setUp(self):
+        self.pg = PageEditor.PageEditor(self.pagename, request)
+        
+    def testExpandVariables(self):
+        """PageEditor: expanding variables"""
+        for var, expected in self._tests:
+            result = self.pg._expand_variables(var)
+            self.assertEqual(result, expected,
+                'Expected "%(expected)s" but got "%(result)s"' % locals())   

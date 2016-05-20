@@ -1,0 +1,12 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+== Your Name ==
+
+Email: [[MailTo(you AT SPAMFREE example DOT com)]]
+
+...
+
+----
+CategoryHomepage

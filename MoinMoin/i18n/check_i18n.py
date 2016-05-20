@@ -24,6 +24,8 @@ package.
 @license: GNU GPL, see COPYING for details.
 """
 
+output_encoding = 'utf-8'
+
 # These lead to crashes (MemoryError - due to missing codecs?)
 #blacklist_files = ["ja.py", "zh.py", "zh_tw.py"]
 #blacklist_langs = ["ja", "zh", "zh-tw"]
@@ -215,7 +217,7 @@ class Report:
     def summary(self):
         """Return summary dict"""
         summary = {
-            'name': i18n.languages[self.__lang][i18n.NAME],
+            'name': i18n.languages[self.__lang][i18n.ENAME].encode(output_encoding),
             'maintainer': i18n.languages[self.__lang][i18n.MAINTAINER],
             'total' : len(self.__langDict),
             'missing': len(self.__missing),

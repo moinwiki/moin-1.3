@@ -1,0 +1,18 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh
+##master-page:WikiWikiWeb
+##master-date:2004-10-30 23:15:11
+ 
+[wiki:Wiki:FrontPage 第一个维基网站]始建于1995年3月25日，用于Wiki:PortlandPatternRepository 的增补(参阅Wiki:WikiHistory). 这个网站立即受到了模式化设计圈的欢迎，主要是由于当时Internet还是一个新生事物，而且还有一群著名的应邀作者Wiki:InvitedAuthors. 这个网站当时就，而且现在还是，把网站的成功归功于这些Wiki:PeopleProjectsAndPatterns. 
+
+Wiki:WardCunningham 创建了那个网站和运行那个["维基网"](WikiWikiWeb)所需要的软硬件。由于网站的快捷性，他决定用wiki-wiki作为一个简单的别名，因而没有把它命名为quick-web. 一个更早一些的网页， Wiki:WikiWikiHyperCard ，认为维基的概念可追溯到80年代晚期他写的Wiki:HyperCard 。
+
+也请参阅下面这些链接:
+ * http://www.c2.com/cgi/wiki 或者 wiki:Wiki/FrontPage
+ * 好多问题可以在 Wiki:WikiWikiWebFaq 得到解答
+ * Wiki:WikiHistory 提供更多有关维基的历史
+ * [http://www.artima.com/intv/wiki.html Ward Cunningham 访谈]
+
+此页的英文版本：WikiWikiWeb

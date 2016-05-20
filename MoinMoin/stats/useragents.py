@@ -11,35 +11,44 @@
 
 _debug = 0
 
-from MoinMoin import config, wikiutil, caching
+from MoinMoin import wikiutil, caching
 from MoinMoin.logfile import eventlog
 from MoinMoin.Page import Page
 from MoinMoin.util import MoinMoinNoFooter
 
 
 def linkto(pagename, request, params=''):
+    from MoinMoin.util import web
     _ = request.getText
 
-    if not config.chart_options:
-        return request.formatter.sysmsg(_('Charts are not available!'))
+    if not request.cfg.chart_options:
+        return (request.formatter.sysmsg(1) +
+                request.formatter.text(_('Charts are not available!')) +
+                request.formatter.sysmsg(0))
 
     if _debug:
         return draw(pagename, request)
 
-    page = Page(pagename)
-    result = []
-    data = {
-        'url': page.url(request, "action=chart&amp;type=useragents"),
-    }
-    data.update(config.chart_options)
-    result.append('<img src="%(url)s" border="0" width="%(width)d" height="%(height)d">' % data)
+    page = Page(request, pagename)
 
-    return ''.join(result)
+    # Create escaped query string from dict and params
+    querystr = {'action': 'chart', 'type': 'useragents'}
+    querystr = web.makeQueryString(querystr)
+    querystr = wikiutil.escape(querystr)
+    if params:
+        querystr += '&amp;' + params
+    
+    # TODO: remove escape=0 in 1.4
+    data = {'url': page.url(request, querystr, escape=0)}
+    data.update(request.cfg.chart_options)
+    result = ('<img src="%(url)s" width="%(width)d" height="%(height)d"'
+              ' alt="useragents chart">') % data
+
+    return result
 
 
 def draw(pagename, request):
     import shutil, cStringIO, operator
-    from MoinMoin import config
     from MoinMoin.stats.chart import Chart, ChartData, Color
 
     _ = request.getText
@@ -52,27 +61,28 @@ def draw(pagename, request):
     colors = ([Color(c) for c in colors])
 
     # get results from cache
-    cache = caching.CacheEntry('charts', 'useragents')
+    cache = caching.CacheEntry(request, 'charts', 'useragents')
     if cache.exists():
         try:
             cache_date, data = eval(cache.content())
         except:
-            data = {}
-            cache_date = 0
+            cache_date, data = 0, {}
     else:
-        data = {}
-        cache_date = 0
+        cache_date, data = 0, {}
 
-    logfile = eventlog.EventLog()
+    logfile = eventlog.EventLog(request)
     logfile.set_filter(['VIEWPAGE', 'SAVEPAGE'])
     new_date = logfile.date()
     for event in logfile.reverse():
-        if event[0] <= cache_date: break
+        if event[0] <= cache_date:
+            break
         ua = event[2].get('HTTP_USER_AGENT')
         if ua:
             pos = ua.find(" (compatible; ")
-            if pos >= 0: ua = ua[pos:].split(';')[1].strip()
-            else: ua = ua.split()[0]
+            if pos >= 0:
+                ua = ua[pos:].split(';')[1].strip()
+            else:
+                ua = ua.split()[0]
             #ua = ua.replace(';', '\n')
             data[ua] = data.get(ua, 0) + 1
 
@@ -85,7 +95,7 @@ def draw(pagename, request):
     maxdata = len(colors) - 1
     if len(data) > maxdata:
         others = [x[0] for x in data[maxdata:]]
-        data = data[:maxdata] + [(reduce(operator.add, others, 0), _('Others'))]
+        data = data[:maxdata] + [(reduce(operator.add, others, 0), _('Others').encode('iso-8859-1', 'replace'))] # gdchart can't do utf-8
 
     # shift front to end if others is very small
     if data[-1][0] * 10 < data[0][0]:
@@ -105,7 +115,7 @@ def draw(pagename, request):
     c.addData(data)
 
     title = ''
-    if config.sitename: title = "%s: " % config.sitename
+    if request.cfg.sitename: title = "%s: " % request.cfg.sitename
     title = title + _('Distribution of User-Agent Types')
     c.option(
         pie_color = colors,
@@ -116,9 +126,10 @@ def draw(pagename, request):
         threed_angle = 225,
         percent_labels = Chart.GDCPIE_PCT_RIGHT,
         title_font = c.GDC_GIANT,
-        title = title)
+        title = title.encode('iso-8859-1', 'replace')) # gdchart can't do utf-8
+    labels = [label.encode('iso-8859-1', 'replace') for label in labels]
     c.draw(style,
-        (config.chart_options['width'], config.chart_options['height']),
+        (request.cfg.chart_options['width'], request.cfg.chart_options['height']),
         image, labels)
 
     # send HTTP headers

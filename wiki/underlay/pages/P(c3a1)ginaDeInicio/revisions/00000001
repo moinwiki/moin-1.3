@@ -1,0 +1,31 @@
+##master-page:FrontPage
+##master-date:2004-11-22 15:45:01
+#language es
+#pragma section-numbers off
+
+/!\ FIXME
+
+= Wiki NombreWiki =
+
+De qué trata este wiki?
+
+Puntos de partida interesantes:
+
+ * CambiosRecientes: revisa las páginas que han sido creadas, modificadas o editadas últimamente
+ * WikiSandBox: FIXME (usar un equivalente) experimenta y modifica los contenidos de esta página con toda libertad
+ * BuscarPágina: busca o navega por la base de datos en varias formas
+ * ReferenciaDeSintaxis: aceso rápido a la sintaxis wiki
+ * NavegaciónDelSitio: visualiza un resumen de este sitio y sus contenidos
+
+
+== Cómo usar este sitio ==
+
+Un Wiki es un sitio colaborativo en el cual todas las personas pueden contribuir y compartir:
+ * Edita cualquier página presionando '''[[GetText(Edit)]]''' al inicio o al final de la página
+ * Crea un enlace a otra página con palabras de letras mayúsculas unidas (como WikiSandBox) o con {{{["palabras entre comillas y entre paréntesis"]}}}
+ * Busca por títulos de páginas o por contenido de las páginas usando el cuadro de búqueda al final de cada página
+ * Revisa AyudaParaPrincipiantes para comenzar, AyudaDeContenidos
+
+Para aprender más sobre qué es WikiWikiWeb, lee MoinMoin:WhyWikiWorks y MoinMoin:WikiNature. Adicionalmente, consulta MoinMoin:WikiWikiWebFaq.
+
+Este wiki funciona con MoinMoin.

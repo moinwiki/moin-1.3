@@ -1,0 +1,26 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language de
+##master-page:HelpOnProcessionInstructions
+##master-date:2002-02-27 15:16:34
+== Verarbeitungsanweisungen ==
+Die Verarbeitungsanweisungen von MoinMoin haben die gleiche Semantik wie in XML: sie beeinflussen die Art und Weise, wie eine Seite verarbeitet wird. Die Verarbeitungsanweisungen sind Zeilen, die mit einem "{{{#}}}"-Zeichen anfangen, auf das ein Schlüsselwort und optional einige Argumente folgen; das Schlüsselwort wird immer unabhängig von Groß/Kleinschreibung behandelt. Zwei aufeinanderfolgende Rautezeichen am Anfang einer Zeile sind ein Kommentar, der nicht auf der verarbeiteten Seite auftaucht.
+
+Verarbeitungsanweisungen, die dieses Wiki kennt:
+ * {{{##}}} ''irgendein Text'': Kommentar
+ * {{{#FORMAT}}} ''Format-Angabe'': definiert das Eingabeformat für diese Seite, bekannte Formate sind:
+   * '''Wiki''': standard MoinMoin-Wiki-Formatierung
+   * '''Plain''': normaler einfacher Text
+   * '''Python''': eingefärbter Python-Quellcode
+   * '''HTML''' ( <!> nicht implementiert)
+   * '''StructuredText''' ( <!> nicht implementiert)
+ * {{{#REDIRECT}}} ''pagename'': Weiterleiten auf eine andere Seite (siehe MeatBall:PageRedirect)
+ * `#PRAGMA` ''modus'' ''argumente'': setzt den Verarbeitungsmodus für diese Seite; Modusnamen sind nicht case-sensitive, derzeit bekannte Modi sind:
+  * `#pragma section-numbers off` (oder "0") schaltet die automatische Numerierung der Abschnittsüberschriften aus und "on" oder "1" schaltet sie an (der Standard-Modus wird über die `show_section_numbers`-Konfigurationsoption bestimmt). `#pragma section-numbers 2` numeriert nur die Abschnittsüberschriften der Ebene 2 und höher (entsprechendes gilt für 3 bis 6).
+ * {{{#DEPRECATED}}}: markiert diese Seite als veraltet, d.h. bei weiteren Änderungen an der Seite werden keine Sicherungskopien erstellt und beim Anzeigen wird der aktuelle Inhalt (üblicherweise ein Grund, warum die Seite veraltet ist) und das letzte Backup angezeigt. Dies wirkt sich so aus, dass die letzte Version eingefroren wird, die Seite nicht mehr für die Suche verfügbar ist (keine Treffer auf veraltete Inhalte), der Inhalt kann aber weiterhin angeschaut werden.
+
+Alle Verarbeitungsanweisungen müssen ganz am Anfang der Seite stehen. Eine Ausnahme sind Kommentare, die überall in einer Wiki-Seite auftauchen dürfen (aber offensichtlich nicht in Seiten, die andere Formate benutzen).
+
+Weitere Informationen über mögliche Formatierungen finden Sie unter HilfeZumEditieren. 
+ 

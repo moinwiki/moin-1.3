@@ -1,0 +1,10 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:AbandonedPages
+##master-date:2004-03-11 20:13:25
+#language sr
+Ovo su stranice koje niko nije obrađivao od početka ovog vikija (bukvalno); to je u stvari listing najstarijih upisa u
+editlog-u.
+
+[[AbandonedPages]]

@@ -6,18 +6,18 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-from MoinMoin import wikiutil
-
-
-#############################################################################
-### Plain Text Parser
-#############################################################################
-
 class Parser:
     """
         Send plain text in a HTML <pre> element.
     """
+
+    ## specify extensions willing to handle (for inline:)
+    ## should be a list of extensions including the leading dot
+    ## TODO: remove the leading dot from the extension. This is stupid.
+    extensions = ['.txt']
+    ## use '*' instead of the list(!) to specify a default parser
+    ## which is used as fallback
+    # extensions = '*'
 
     def __init__(self, raw, request, **kw):
         self.raw = raw
@@ -26,13 +26,7 @@ class Parser:
         self._ = request.getText
 
     def format(self, formatter):
-        """ Send the text.
-        """
-
-        #!!! send each line via the usual formatter calls
-        text = wikiutil.escape(self.raw)
-        text = text.expandtabs()
-        text = text.replace('\n', '<br>\n')
-        text = text.replace(' ', '&nbsp;')
-        self.request.write(text)
-
+        """ Send the text. """
+        self.request.write(formatter.preformatted(1))
+        self.request.write(formatter.text(self.raw.expandtabs()))
+        self.request.write(formatter.preformatted(0))

@@ -1,0 +1,54 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+
+= User interface texts and default_lang =
+
+MoinMoin tries to adapt the user interface to the language the user prefers.
+
+If the user puts a specific language preference into moin UserPreferences setting, that language will be used for user interface. But the user doesn't even need to do that, if he already has configured his browser with his language preferences.
+
+If there is no specific `UserPreferences` language setting, moin tries to adapt to the languages the user configured in his browser. So if the browser tells moin, that its preference is Kannada, German, English and moin has German and English available (but not Kannada), the user will get a German user interface.
+
+If (and only if) there is no common language in user's browser and in moin (this is also the case if user's browser didn't specify any language), moin will fall back to using what's configured as default_lang.
+
+= System pages, including FrontPage =
+
+The MoinMoin distribution archive contains the system pages (like `RecentChanges`) in different languages (see SystemPagesGroup) and tries to use them in a similar way as the user interface texts.
+
+E.g. if it searches for `FrontPage` to build the navi_bar, it will first lookup a translation in the user's language. So if the user's language is german (de), it will get the german translation of `FrontPage` which results in `StartSeite` (it uses `MoinMoin/i18n/de.py` for that, which is automatically generated out of `de.po`). Then it will check, if that page really exists. If it exists, it will finally use `StartSeite`, if not, it will fall back to using `FrontPage`.
+
+This is fine if you want to have a FrontPage and translations of it. But what to do if you don't want that?
+
+Either delete any translated page of FrontPage - it will only use them '''if they exist'''. Or simply use `page_front_page` configuration variable to choose something different from `FrontPage` as your front page, e.g. `MyProject`. Moin will then try to lookup a translation for `MyProject`, but usually won't find any - and thus simply use `MyProject` no matter what language the user prefers.
+
+= Built-in vs. user specified translations =
+
+MoinMoin usually uses built-in translation (see `MoinMoin/i18n/*`) for translating user interface text and system page names in navi_bar.
+
+But there is the possibility to customize navi_bar with your own stuff. Moin has no built-in translation for that usually, so what to do if you want to have them translated the same way as `FrontPage` usually is?
+
+Simply create some pages like `GermanDict`, `FrenchDict`, etc. (use the english name of the language) and put a definition list on them, that defines the translations for the english terms, e.g. on page `GermanDict`:
+{{{
+ MyProject:: MeinProjekt
+ LatestNews:: NeuesteNachrichten
+}}}
+
+Moin then will use those dict pages if it can't find the text in its built-in translation dictionaries.
+
+= How to specify page language =
+
+It is highly recommended to specify page language in the page header like this:
+
+{{{
+#language he
+}}}
+
+The language name is the iso-639-1 name of the language. Languages that moin does not support are ignored.
+
+This is critical if the wiki contains content in different directions, like Hebrew pages which should display in right to left direction, and English pages, which should display in left to right direction.
+
+In the past, system pages had a language comment: {{{##language:en}}}. This comment has no effect, and should be change to the new {{{#langauge en}}} format. To repair old pages in your wiki, run {{{scripts.repair_language.py}}} in your wiki data directory. Have a backup of you wiki data directory before!
+
+ (!) New in 1.3

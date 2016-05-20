@@ -1,0 +1,5 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+A WikiName is a word that uses capitalized words. WikiName''''''s automagically become hyperlinks to the WikiName's page. See also HelpOnLinking, "Arbitrary Page Names".

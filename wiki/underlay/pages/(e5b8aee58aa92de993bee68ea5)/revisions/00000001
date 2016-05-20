@@ -1,0 +1,8 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh
+##master-page:HelpOnLinking
+##master-date:2004-10-23 12:43:54
+
+[[Include(HelpOnLinking)]]

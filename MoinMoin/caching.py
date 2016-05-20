@@ -6,29 +6,33 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import os, shutil
-
 from MoinMoin import config
 
 class CacheEntry:
-    def __init__(self, arena, key):
-        self.arena = arena
+    def __init__(self, request, arena, key):
+        """ init a cache entry
+            @param request: the request object
+            @param arena: either a string or a page object, when we want to use
+                          page local cache area
+            @param key: under which key we access the cache content
+        """
+        if isinstance(arena, str):
+            cache_dir = request.cfg.cache_dir
+            self.arena_dir = os.path.join(cache_dir, arena)
+            if not os.path.isdir(cache_dir):
+                os.mkdir(cache_dir, 0777 & config.umask)
+                os.chmod(cache_dir, 0777 & config.umask)
+            if not os.path.isdir(self.arena_dir):
+                os.mkdir(self.arena_dir, 0777 & config.umask)
+                os.chmod(self.arena_dir, 0777 & config.umask)
+        else: # arena is in fact a page object
+            cache_dir = None
+            self.arena_dir = arena.getPagePath('cache', check_create=1)
         self.key = key
 
-        # create cache if necessary
-        if not os.path.isdir(config.cache_dir):
-            os.mkdir(config.cache_dir, 0777 & config.umask)
-            os.chmod(config.cache_dir, 0777 & config.umask)
-
-        # create arena if necessary
-        arena_dir = os.path.join(config.cache_dir, arena)
-        if not os.path.isdir(arena_dir):
-            os.mkdir(arena_dir, 0777 & config.umask)
-            os.chmod(arena_dir, 0777 & config.umask)
-
     def _filename(self):
-        return os.path.join(config.cache_dir, self.arena, self.key)
+        return os.path.join(self.arena_dir, self.key)
 
     def exists(self):
         return os.path.exists(self._filename())
@@ -36,7 +40,7 @@ class CacheEntry:
     def mtime(self):
         try:
             return os.path.getmtime(self._filename())
-        except IOError:
+        except (IOError, OSError):
             return 0
 
     def needsUpdate(self, filename, attachdir=None):
@@ -68,7 +72,9 @@ class CacheEntry:
         except OSError:
             pass
 
-    def update(self, content):
+    def update(self, content, encode=False):
+        if encode:
+            content = content.encode(config.charset)
         open(self._filename(), 'wb').write(content)
 
         try:
@@ -82,6 +88,9 @@ class CacheEntry:
         except OSError:
             pass
 
-    def content(self):
-        return open(self._filename(), 'rb').read()
+    def content(self, decode=False):
+        data = open(self._filename(), 'rb').read()
+        if decode:
+            data = data.decode(config.charset)
+        return data
 

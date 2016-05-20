@@ -9,8 +9,9 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-import sha
+import sha, StringIO
+from MoinMoin import config
+from MoinMoin.parser import wiki
 
 Dependencies = ["time"] # footnote macro cannot be cached
 
@@ -24,11 +25,13 @@ def execute(macro, args):
     else:
         # store footnote and emit number
         idx = len(macro.request.footnotes)
-        fn_id = "-%s-%s" % (sha.new(args).hexdigest(), idx)
+        fn_id = "-%s-%s" % (sha.new(args.encode(config.charset)).hexdigest(), idx)
         macro.request.footnotes.append((args, fn_id))
-        return "%s%s%s" % (
+        return "%s%s%s%s%s" % (
             macro.formatter.sup(1),
-            macro.formatter.anchorlink('fndef' + fn_id, str(idx+1), id = 'fnref' + fn_id),
+            macro.formatter.anchorlink(1, 'fndef' + fn_id, id = 'fnref' + fn_id),
+            macro.formatter.text(str(idx+1)),
+            macro.formatter.anchorlink(0),
             macro.formatter.sup(0),)
 
     # nothing to do or emit
@@ -39,17 +42,42 @@ def emit_footnotes(request, formatter):
     # emit collected footnotes
     if request.footnotes:
         result = []
-        result.append('<div class="footnotes">')
-        result.append('<div></div><ul>')
-        for idx in range(len(request.footnotes)):
-            fn_id = request.footnotes[idx][1]
-            fn_no = formatter.anchorlink('fnref' + fn_id, str(idx+1), id = 'fndef' + fn_id)
 
-            result.append('<li><span>')
-            result.append(fn_no + '</span> ')
-            result.append(formatter.text(request.footnotes[idx][0]))
-            result.append('</li>')
-        result.append('</ul></div>')
+        # Start footnotes div. It is important to use formatter so open
+        # inline tags will be closed, and we get correct direction.
+        attr = formatter.langAttr()
+        attr['class'] = 'footnotes'
+        result.append(formatter.open('div', attr=attr))
+
+        # What is that empty div for???
+        result.append('<div></div>\n')
+
+        # Add footnotes list
+        result.append('<ul>\n')
+        for idx in range(len(request.footnotes)):
+            # Add item
+            fn_id = request.footnotes[idx][1]
+            fn_no = (formatter.anchorlink(1, 'fnref' + fn_id, id = 'fndef' + fn_id) +
+                     formatter.text(str(idx+1)) +
+                     formatter.anchorlink(0))
+
+            result.append('<li><span>%s</span>' % fn_no)
+                        
+            out=StringIO.StringIO()
+            request.redirect(out)
+            parser=wiki.Parser(request.footnotes[idx][0], request)
+            parser.format(formatter)
+            result.append(out.getvalue())
+            request.redirect()
+            del out
+            
+            result.append('</li>\n')
+            
+        result.append('</ul>\n')
+
+        # Finish div
+        result.append(formatter.close('div'))
+
         request.footnotes = []
         return ''.join(result)
 

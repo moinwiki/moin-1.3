@@ -1,0 +1,10 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:PageSize
+##master-date:2004-03-11 20:20:00
+#language sr
+[[StatsChart(pagesize)]]
+
+Lista svih stranica, sortiranih po veličini:
+[[PageSize]]

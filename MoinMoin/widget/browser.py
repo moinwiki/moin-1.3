@@ -17,6 +17,8 @@ class DataBrowserWidget(base.Widget):
 
     def setData(self, dataset):
         """ Sets the data for the browser (see MoinMoin.util.dataset).
+
+        @param dataset: dataset containg either ascii or unicode
         """
         self.data = dataset
 
@@ -45,7 +47,7 @@ class DataBrowserWidget(base.Widget):
             for idx in range(len(row)):
                 if self.data.columns[idx].hidden: continue
                 result.append(fmt.table_cell(1))
-                result.append(str(row[idx]))
+                result.append(unicode(row[idx]))
                 result.append(fmt.table_cell(0))
             result.append(fmt.table_row(0))
             row = self.data.next()

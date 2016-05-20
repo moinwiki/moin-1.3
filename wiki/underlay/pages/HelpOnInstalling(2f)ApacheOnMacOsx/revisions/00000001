@@ -1,0 +1,106 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+/!\ This is pre-1.3 stuff that still has to be adapted to 1.3.
+
+= Installing MoinMoin on OS X =
+
+You must not be afraid to use the terminal. It is possible but much harder to install without the using the terminal.
+
+There are 2 step in the installation:
+ 1. Install the MoinMoin engine - once
+ 2. Create wiki instance. You can create and serve as many wikis as you like.
+
+== Download ==
+
+Download the source on the Desktop. You should see a `moin-x.x.tar.gz` file. Extract this file on the desktop with Stuffit Expander, or from the terminal (faster and safer):
+{{{
+cd ~/Desktop
+tar -xzf moin-1.3.tar.gz
+}}}
+
+== Install ==
+
+Use these commands in the terminal to install the !MoinMoin wiki engine into the system.
+
+First, open a shell as root. You will need this to install MoinMoin and configure the wiki. When asked, enter your password.
+{{{
+sudo -s
+... password:
+}}}
+Now you have root privileges in this shell.
+
+Install:
+{{{
+cd moin-1.3
+python setup.py install --install-data='/usr'  --record=install.log 
+}}}
+
+ (!) The --install-data='/usr' will put the shared data in the convinient `'/usr/share/moin'` directory. If you don't use it, your shared data will be at `'/System/Library/Frameworks/Python.framework/Versions/2.3/share/moin'`.
+
+Now installation is finished. You will find a file `install.log` on the Desktop in the folder `moin-1.3`.
+
+== Creating a wiki ==
+
+After you installed the software, you create a wiki. You may create several wikis if you need.
+
+First check what is the user and group name of the web server. The wiki files will belong to the web server (not to you):
+{{{
+egrep "^User|^Group" /etc/httpd/httpd.conf
+User www
+Group www
+}}}
+You wil use these name soon...
+
+Now create a copy of the default wiki:
+{{{
+cd /usr/share/moin
+mkdir mywiki
+cp -r data mywiki
+cp cgi-bin/* mywiki
+chown -R www:www mywiki
+chmod a+rx mywiki/*.cgi
+}}}
+
+Configure Apache. We'll use the pico editor:
+{{{
+pico /etc/httpd/httpd.conf
+}}}
+
+Go the end of the Aliasess section and edit like the example below:
+{{{
+    Alias /wiki/ "/usr/share/moin/htdocs/"      
+    ScriptAlias /mywiki "/usr/share/moin/mywiki/moin.cgi"       
+}}}
+Use Control+O to save the file and Control+X to exit pico.
+
+Restart Apache - open System Preferences, go to the Sharing page, select "Personal Web Sharing" and click "Stop" then "Start". Or just type this instead:
+{{{
+apachectl graceful
+... /usr/sbin/apachectl graceful: httpd gracefully restarted
+}}}
+
+Installation finished - exit from the shell with the root privileges - working as root is dangerous.
+{{{
+exit
+}}}
+Now you are running again safely.
+
+
+== Testing ==
+
+In a web-browser surf to the site: http://localhost/mywiki
+
+You should see the !FrontPage of your new wiki.
+
+Now run the unit tests, to make sure everything is fine. Go to this address: http://localhost/mywiki?action=test
+
+You should see a report on the wiki and tests results for the MoinMoin engine. If some of the tests fail, please report the problem on [http://moinmoin.wikiwikiweb.de/MoinMoinBugs MoinMoinBugs].
+
+
+= Comments =
+
+Here are a couple of issues with my Mac OS X install I needed to fix:
+
+ 1. The RSS feed for your RecentChanges page may be broken.  You need to install the most recent version of [http://sourceforge.net/projects/pyxml/ PyXML].  Here's how I did so and the RSS feed was fixed.[[BR]]`curl -O http://aleron.dl.sourceforge.net/sourceforge/pyxml/PyXML-0.8.3.tar.gz`[[BR]]`tar xzvf PyXML-0.8.3.tar.gz`[[BR]]`cd PyXML-0.8.3`[[BR]]`sudo python setup.py --without-xpath build`[[BR]]`sudo python setup.py install`

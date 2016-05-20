@@ -1,0 +1,68 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language fr
+== Noms de pages arbitraires ==
+Si vous mettez une séquence de caractères entre crochets et entre guillemets {{{["comme ceci"]}}}, cela devient le nom d'une page. C'est utilisé pour certains besoins spécifiques de MoinMoin (comme pour organiser une liste d'objets par leurs noms naturels, par exemple une collection de CD) ou si vous voulez créer un wiki utilisant un encodage des caractères non européen.
+
+/!\ '''Cette fonctionnalité ne fonctionne que si on active `allow_extended_names`, donc cela peut ne pas marcher !'''
+
+== URL et images en ligne ==
+Il y a plusieurs façons d'insérer des références externes[[FootNote(Par opposition aux références internes comme les liens vers des WikiName.)]] dans le texte :
+ * insertion directe d'une URL; si l'URL se termine par une extension correspondant à une image ("{{{.gif}}}", "{{{.jpg}}}" ou "{{{.png}}}"), l'URL est convertie en une image.
+ * les URL entre crochets.
+ * les liens InterWiki.
+ * les adresses email.
+
+Si vous entrez des URL dans du texte normal, il peut y avoir des problèmes pour savoir ce qui appartient à l'URL ou non. Il y a quatre façons différentes de forcer la fin d'une URL :
+ * mettre un espace suite à l'URL.
+ * utiliser six apostrophes (Wiki:SixSingleQuotes)
+ * mettre l'URL entre guillemets.
+ * utiliser la syntaxe avec les crochets.
+
+Les protocoles supportés pour les URL sont : `http`, `https`, `ftp`, `nntp`, `news`, `mailto`, `telnet`, et `file`. L'administrateur de votre wiki peut en ajouter d'autres en utilisant la variable {{{config.url_schemas}}} (voir AideDeConfiguration).
+
+En plus de ces protocoles standards, il y en a quatre spécifiques à MoinMoin : `wiki`, `attachment`, `inline` et `drawing`. "`wiki`" indique un lien InterWiki, ainsi `MoinMoin:FrontPage` et `wiki:MoinMoin:FrontPage` sont équivalents ; vous devriez préférer la forme la plus courte : l'utilisation de "`wiki`" devient importante pour les liens entre crochets puisqu'il faut toujours préciser le protocole. Les trois autres sont liés à l'attachement de pièces jointes et sont expliqués sur
+HelpOnActions/AttachFile.
+
+Quand l'option de configuration `bang_meta` est placée à vrai, vous pouvez mettre un WikiName en surimpression en mettant un point d'exclamation (''bang'') devant le WikiName : `!WikiName`. Cette option est par défaut désactivée.
+
+Pour plus d'informations sur les marqueurs possibles, voyez ["AideDeL'Édition"]. Pour des détails sur comment lier vers des sous-pages, voyez HelpOnEditing/SubPages.
+
+[[FootNote]]
+
+=== Exemple ===
+{{{
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki page sur MeatBall]
+ * jh@web.de
+ * [#anchorname Lien vers une ancre de cette page]
+ * [wiki:Self:OtherPage#anchorname Lien vers une ancre d'une autre page wiki]
+}}} 
+
+=== Affichage ===
+ * http://moin.sourceforge.net/
+ * [http://moin.sourceforge.net/]
+ * [http://moin.sourceforge.net/ MoinMoin Sourceforge Homepage]
+ * http://moin.sourceforge.net/moinmoin.gif
+ * [http://moin.sourceforge.net/moinmoin.gif]
+ * [http://moin.sourceforge.net/moinmoin.gif moinmoin.gif]
+ * InterWiki
+  * Self:InterWiki
+  * MeatBall:InterWiki
+  * wiki:MeatBall/InterWiki
+  * [wiki:MeatBall/InterWiki]
+  * [wiki:MeatBall/InterWiki InterWiki page sur MeatBall]
+ * jh@web.de
+ * [#anchorname Lien vers une ancre de cette page]
+ * [wiki:Self:OtherPage#anchorname Lien vers une ancre d'une autre page wiki] * http://moin.sourceforge.net/

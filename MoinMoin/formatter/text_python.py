@@ -2,27 +2,21 @@
 """
     MoinMoin - "text/python" Formatter
 
-    @copyright: 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
+    Compiles pages to executable python code.
+
+    @copyright: 2000-2004 by Jürgen Hermann <jh@web.de>
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import time
-from MoinMoin.formatter.base import FormatterBase
-from MoinMoin import wikiutil, config, i18n
-from MoinMoin.Page import Page
-
-
-#############################################################################
-### Wiki to Pythoncode Formatter
-#############################################################################
+from MoinMoin import wikiutil
 
 class Formatter:
     """
         Inserts '<<<>>>' into the page and adds python code to
         self.code_fragments for dynamic parts of the page
         (as macros, wikinames...).
-        Static parts are formatted with an extrenal formatter.
+        Static parts are formatted with an external formatter.
         Page must be assembled after the parsing to get working python code.
     """
 
@@ -37,26 +31,23 @@ class Formatter:
         self.__formatter = "formatter"
         self.__parser = "parser"
         self.request = request
-        # XXX never used???
-        #self.__static_macros = ['BR', 'GoTo', 'TableOfContents', 'Anchor', 'Icon']
-        #self.__static_macros.extend(i18n.languages.keys())
         self.__in_p = 0
         self.__in_pre = 0
-        self.text_cmd_begin = '\nrequest.write("""'
-        self.text_cmd_end = '""")\n'
+        self.text_cmd_begin = '\nrequest.write('
+        self.text_cmd_end = ')\n'
 
     def assemble_code(self, text):
         """inserts the code into the generated text
         """
-        text = text.replace('\\', '\\\\')
-        text = text.replace('"', '\\"')
+        #text = text.replace('\\', '\\\\')
+        #text = text.replace('"', '\\"')
         text = text.split('<<<>>>', len(self.code_fragments))
-        source = self.text_cmd_begin + text[0]
+        source = self.text_cmd_begin + repr(text[0])
         i = 0
         for t in text[1:]:
             source = (source + self.text_cmd_end +
                       self.code_fragments[i] +
-                      self.text_cmd_begin + text[i+1])
+                      self.text_cmd_begin + repr(text[i+1]))
             i = i + 1
         source = source + self.text_cmd_end
         self.code_fragments = [] # clear code fragments to make
@@ -115,31 +106,44 @@ if moincode_timestamp > %d: raise "CacheNeedsUpdate"
             return self.__insert_code('%s%s.%s(*%r,**%r)' %
                         (adjust, self.__parser, callback, arg_list, arg_dict))
 
-    def pagelink(self, pagename, text=None, **kw):
+    def pagelink(self, on, pagename='', **kw):
         return self.__insert_code('request.write(%s.pagelink(%r, %r, **%r))' %
-                        (self.__formatter, pagename, text, kw))
+                                  (self.__formatter, on, pagename, kw))
 
-    def heading(self, depth, title, **kw):        
-        # check numbering, possibly changing the default
-        if self._show_section_numbers is None:
-            self._show_section_numbers = config.show_section_numbers
-            numbering = self.request.getPragma('section-numbers', '').lower()
-            if numbering in ['0', 'off']:
-                self._show_section_numbers = 0
-            elif numbering in ['1', 'on']:
-                self._show_section_numbers = 1
-            elif numbering in ['2', '3', '4', '5', '6']:
-                # explicit base level for section number display
-                self._show_section_numbers = int(numbering)
+    def attachment_link(self, on, url='', **kw):
+        return self.__insert_code(
+            'request.write(%s.attachment_link(%r, %r, **%r))' %
+            (self.__formatter, on, url, kw))
+    def attachment_image(self, url, **kw):
+        return self.__insert_code(
+            'request.write(%s.attachment_image(%r, **%r))' %
+            (self.__formatter, url, kw))
+    
+    def attachment_drawing(self, url, **kw):
+        return self.__insert_code(
+            'request.write(%s.attachment_drawing(%r, **%r))' %
+            (self.__formatter, url, kw))
+    
+    def attachment_inlined(self, url, **kw):
+        return self.__insert_code(
+            'request.write(%s.attachment_inlined(%r, **%r))' %
+            (self.__formatter, url, kw))
 
-        if self._show_section_numbers:
+    def heading(self, on, depth, **kw):        
+        if on:
             return self.__insert_code('request.write(%s.heading(%r, %r, **%r))' %
-                        (self.__formatter, depth, title, kw))
+                        (self.__formatter, on, depth, kw))
         else:
-            return self.formatter.heading(depth, title, **kw)
+            return self.formatter.heading(on, depth, **kw)
+
+    def icon(self, type):
+        if self.__is_static(['user']):
+            return self.formatter.icon(type)
+        else:
+            return self.__insert_code('request.write(%s.icon(%r))' %
+                                      (self.__formatter, type))
 
     def macro(self, macro_obj, name, args):
-        # call the macro
         if self.__is_static(macro_obj.get_dependencies(name)):
             return macro_obj.execute(name, args)
         else:
@@ -148,19 +152,26 @@ if moincode_timestamp > %d: raise "CacheNeedsUpdate"
                 (self.__adjust_formatter_state(),
                  self.__formatter, name, args))
             
-    def processor(self, processor_name, lines):
+    def processor(self, processor_name, lines, is_parser = 0):
         """ processor_name MUST be valid!
         prints out the result insted of returning it!
         """
-        Dependencies = wikiutil.importPlugin("processor",
-                                            processor_name, "Dependencies")
+        if not is_parser:
+            Dependencies = wikiutil.importPlugin("processor",
+                                                 processor_name, "Dependencies",
+                                                 self.request.cfg.data_dir)
+        else:
+            Dependencies = wikiutil.importPlugin("parser",
+                                                 processor_name, "Dependencies",
+                                                 self.request.cfg.data_dir)
+            
         if Dependencies == None:
             Dependencies = ["time"]
         if self.__is_static(Dependencies):
-            return self.formatter.processor(processor_name, lines)
+            return self.formatter.processor(processor_name, lines, is_parser)
         else:
-            return self.__insert_code('%s%s.processor(%r, %r)' %
+            return self.__insert_code('%s%s.processor(%r, %r, %r)' %
                                       (self.__adjust_formatter_state(),
                                        self.__formatter,
-                                       processor_name, lines))
+                                       processor_name, lines, is_parser))
 

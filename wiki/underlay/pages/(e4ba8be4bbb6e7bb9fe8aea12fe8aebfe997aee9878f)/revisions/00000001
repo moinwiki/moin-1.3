@@ -1,0 +1,10 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language zh
+##master-page:EventStats/HitCounts
+##master-date:2004-05-15 22:02:12
+
+[[StatsChart(hitcounts)]]
+
+此页的英文版本：EventStats/HitCounts

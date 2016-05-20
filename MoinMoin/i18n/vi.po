@@ -2,27 +2,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: MoinMoin 1.2\n"
+"Project-Id-Version: MoinMoin 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-04 22:09+0200\n"
-"PO-Revision-Date: 2004-01-25 18:57+0800\n"
+"POT-Creation-Date: 2004-11-30 01:16+0100\n"
+"PO-Revision-Date: 2004-11-19 21:03+0800\n"
 "Last-Translator: Nam T. Nguyen <nnt@nntsoft.com>\n"
 "Language-Team: Vietnamese <moin-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Direction: ltr\n"
-"X-Language: Vietnamese\n"
+"X-Language: Tiếng Việt\n"
 "X-Language-in-English: Vietnamese\n"
-
-# "X-Language: Tiếng Việt\n"
-#, python-format
-msgid "(last edited %(time)s by %(editor)s)"
-msgstr "(chỉnh sửa lần cuối lúc %(time)s bởi %(editor)s)"
-
-#, python-format
-msgid "(last modified %s)"
-msgstr "(thay đổi cuối lúc %s)"
+"X-HasWikiMarkup: True\n"
 
 msgid ""
 "The backupped content of this page is deprecated and will not be included in "
@@ -32,8 +24,8 @@ msgstr ""
 "quả tìm kiếm!"
 
 #, python-format
-msgid "Version as of %(date)s"
-msgstr "Phiên bản ngày %(date)s"
+msgid "Revision %(rev)d as of %(date)s"
+msgstr "Phiên bản %(rev)d ngày %(date)s"
 
 #, python-format
 msgid "Redirected from page \"%(page)s\""
@@ -45,17 +37,14 @@ msgstr "Trang này sẽ chuyển tới trang \"%(page)s\""
 
 #, python-format
 msgid ""
-"<p><small>If you submit this form, the submitted values will be displayed.\n"
+"~-If you submit this form, the submitted values will be displayed.\n"
 "To use this form on other pages, insert a\n"
-"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
-"strong><br><br>\n"
-"macro call.</small></p>\n"
+"[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
+"macro call.-~\n"
 msgstr ""
-"<p><small>Nếu bạn gửi form này, những gì bạn gửi sẽ được hiển thị.\n"
-"Để dùng form này ở trang khác, bạn cần chèn vào lệnh\n"
-"<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form(\"%(pagename)s\")]]</tt></"
-"strong><br><br>.\n"
-"</small></p>\n"
+"~-Nếu bạn gửi đơn này, những gì bạn gửi sẽ được hiển thị.\n"
+"Để dùng đơn này ở trang khác, chèn vào một câu lênh gọi\n"
+"[[BR]][[BR]]'''{{{    [[Form(\"%(pagename)s\")]]}}}'''[[BR]][[BR]]\n"
 
 msgid "You are not allowed to view this page."
 msgstr "Bạn không xem trang này được."
@@ -64,25 +53,8 @@ msgid "RefreshCache"
 msgstr "Làm mới cache"
 
 #, python-format
-msgid "for this page (cached %(date)s)"
-msgstr "cho trang này (cached vào ngày %(date)s)"
-
-msgid "Create this page"
-msgstr "Tạo trang này"
-
-msgid "Alternatively, use one of these templates:"
-msgstr "Ngoài ra, có thể dùng một trong những mẫu này:"
-
-#, python-format
-msgid ""
-"To create your own templates, add a page with a name matching the regex \"%"
-"(page_template_regex)s\"."
-msgstr ""
-"Để tự tạo mẫu riêng, thêm một trang có tên phù hợp với regex \"%"
-"(page_template_regex)s\"."
-
-msgid "The following pages with similar names already exist..."
-msgstr "Các trang hiện tại có tên gần giống..."
+msgid "(cached %s)"
+msgstr "(lưu %s)"
 
 msgid "You are not allowed to edit this page."
 msgstr "Bạn không thể sửa trang này."
@@ -95,8 +67,8 @@ msgstr "Không thể sửa phiên bản cũ!"
 
 msgid "The lock you held timed out, be prepared for editing conflicts!"
 msgstr ""
-"Thời gian chính thức đã hết, bạn có thể sẽ gặp sự cố trong việc chỉnh sửa "
-"trang!"
+"Thời gian dành riêng cho bạn đã hết, bạn có thể sẽ gặp sự cố trong việc "
+"chỉnh sửa trang!"
 
 #, python-format
 msgid "Edit \"%(pagename)s\""
@@ -145,14 +117,14 @@ msgstr "[Không tìm thấy mẫu %s]"
 
 #, python-format
 msgid "[You may not read %s]"
-msgstr ""
+msgstr "[Bạn không thể xem %s]"
 
 msgid "Skip to preview"
 msgstr "Xem qua"
 
 #, python-format
-msgid "[current page size <strong>%(size)d</strong> bytes]"
-msgstr "[kích thước trang hiện tại <strong>%(size)d</strong> bytes]"
+msgid "[current page size '''%(size)d''' bytes]"
+msgstr "[kích thước trang hiện tại '''%(size)d''' bytes]"
 
 #, python-format
 msgid "Describe %s here."
@@ -179,63 +151,58 @@ msgstr "Huỷ bỏ"
 
 #, python-format
 msgid ""
-"By hitting <strong>%(save_button_text)s</strong> you put your changes under "
-"the %(license_link)s.\n"
-"If you don't want that, hit <strong>%(cancel_button_text)s</strong> to "
-"cancel your changes."
+"By hitting '''%(save_button_text)s''' you put your changes under the %"
+"(license_link)s.\n"
+"If you don't want that, hit '''%(cancel_button_text)s''' to cancel your "
+"changes."
 msgstr ""
-"Thông qua việc nhấn nút <strong>%(save_button_text)s</strong>, bạn đồng ý "
-"phân phối các thay đổi của bạn theo giấy phép %(license_link)s.\n"
-"Nếu bạn không muốn vậy, nhấn <strong>%(cancel_button_text)s</strong> để huỷ "
-"bỏ các thay đổi."
+"Thông qua việc nhấn nút '''%(save_button_text)s''', bạn đồng ý phân phối các "
+"thay đổi của bạn theo giấy phép %(license_link)s.\n"
+"Nếu bạn không muốn vậy, nhấn '''%(cancel_button_text)s''' để huỷ bỏ các thay "
+"đổi."
 
 msgid "Preview"
 msgstr "Xem qua"
 
-msgid "Send mail notification"
-msgstr "Gửi thư thông báo"
+msgid "Trivial change"
+msgstr "Thay đổi nhỏ nhặt"
 
 msgid "Remove trailing whitespace from each line"
 msgstr "Xoá khoảng trắng ở cuối dòng"
 
 msgid ""
-"<dt>Emphasis:</dt>\n"
-"<dd>''<em>italics</em>''; '''<strong>bold</strong>'''; '''''<strong><em>bold "
-"italics</em></strong>''''';\n"
-"    ''<em>mixed '''<strong>bold</strong>''' and italics</em>''; ---- "
-"horizontal rule.</dd>\n"
-"<dt>Headings:</dt>\n"
-"<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;\n"
-"    ==== Title 4 ====; ===== Title 5 =====.</dd>\n"
-"<dt>Lists:</dt>\n"
-"<dd>space and one of * bullets; 1., a., A., i., I. numbered items;\n"
-"    1.#n start numbering at n; space alone indents.</dd>\n"
-"<dt>Links:</dt>\n"
-"<dd>JoinCapitalizedWords; [\"brackets and double quotes\"];\n"
-"    url; [url]; [url label].</dd>\n"
-"<dt>Tables:</dt>\n"
-"<dd>|| cell text |||| cell text spanning two columns ||;\n"
-"    no trailing white space allowed after tables or titles.</dd>\n"
+" Emphasis:: [[Verbatim('')]]''italics''[[Verbatim('')]]; [[Verbatim"
+"(''')]]'''bold'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''bold "
+"italics'''''[[Verbatim(''''')]]; [[Verbatim('')]]''mixed ''[[Verbatim"
+"(''')]]'''''bold'''[[Verbatim(''')]] and italics''[[Verbatim('')]]; "
+"[[Verbatim(----)]] horizontal rule.\n"
+" Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title "
+"2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim"
+"(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim"
+"(=====)]].\n"
+" Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1."
+"#n start numbering at n; space alone indents.\n"
+" Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim([\"brackets and "
+"double quotes\"])]]; url; [url]; [url label].\n"
+" Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing "
+"white space allowed after tables or titles."
 msgstr ""
-"<dt>Nhấn mạnh:</dt>\n"
-"<dd>''<em>nghiêng</em>''; '''<strong>đậm</strong>'''; '''''<strong><em>đậm "
-"nghiêng</em></strong>''''';\n"
-"    ''<em>pha trộn giữa '''<strong>đậm</strong>''' và nghiêng</em>''; ---- "
-"thanh ngang.</dd>\n"
-"<dt>Tiêu đề:</dt>\n"
-"<dd>= Tiêu đề 1 =; == Tiêu đề 2 ==; === Tiêu đề 3 ===;\n"
-"    ==== Tiêu đề 4 ====; ===== Tiêu đề 5 =====.</dd>\n"
-"<dt>Danh sách:</dt>\n"
-"<dd>khoảng trắng và một trong những điểm (bullet) *; 1., a., A., i., I. đánh "
-"số thứ tự;\n"
-"    1.#n bắt đầu đánh số từ n; khoảng trắng không thôi thụt vào.</dd>\n"
-"<dt>Liên kết:</dt>\n"
-"<dd>JoinCapitalizedWords (chỉ dùng cho tiếng Anh); [\"brackets and double "
-"quotes\"] (dùng cho cả tiếng Việt);\n"
-"    url; [url]; [url nhãn].</dd>\n"
-"<dt>Bảng biểu</dt>\n"
-"<dd>|| nội dung của ô |||| nội dung trải qua 2 ô ||;\n"
-"    không được có khoảng trắng sau bảng biểu hoặc tiêu đề.</dd>\n"
+" Nhấn mạnh:: [[Verbatim('')]]''nghiêng''[[Verbatim('')]]; [[Verbatim"
+"(''')]]'''đậm'''[[Verbatim(''')]]; [[Verbatim(''''')]]'''''nghiêng "
+"đậm'''''[[Verbatim(''''')]]; [[Verbatim('')]]''lẫn ''[[Verbatim"
+"(''')]]'''''đậm'''[[Verbatim(''')]] và nghiêng''[[Verbatim('')]]; [[Verbatim"
+"(----)]] thước ngang.\n"
+" Đầu đề:: [[Verbatim(=)]] Tiêu đề 1 [[Verbatim(=)]]; [[Verbatim(==)]] Tiêu "
+"đề 2 [[Verbatim(==]]; [[Verbatim(===)]] Tiêu đề 3 [[Verbatim(===)]]; "
+"[[Verbatim(====)]] Tiêu đề 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Tiêu đề "
+"5 [[Verbatim(=====)]].\n"
+" Danh sách:: khoảng trắng và: * cho điểm tròn; 1. hay a. hay A. hay i. hay "
+"I. cho các mục được đánh dấu; 1.#n để đánh số từ n; khoảng trắng để thụt "
+"vào.\n"
+" Liên kết:: [[Verbatim(CácChữHoaLiềnNhau)]]; [[Verbatim([\"ngoặc vuông và "
+"nháy kép\"])]]; URL; [URL]; [URL nhãn].\n"
+" Bảng:: || nội dung ô |||| nội dung ô trải qua 2 cột ||;    không được có "
+"khoảng trắng sau bảng hoặc tiêu đề."
 
 msgid "Edit was cancelled."
 msgstr "Các chỉnh sửa đã bị huỷ."
@@ -270,26 +237,18 @@ msgstr ""
 "%(comment)s\n"
 "\n"
 
-#, fuzzy
 msgid "New page:\n"
-msgstr "Tên mới"
+msgstr "Trang mới:\n"
 
 msgid "No differences found!\n"
 msgstr "Không có sự khác biệt!\n"
 
 #, python-format
-msgid "The diff function returned with error code %(rc)s!"
-msgstr "Lệnh diff trả về mã lỗi %(rc)s!"
-
-#, fuzzy, python-format
 msgid "[%(sitename)s] %(trivial)sUpdate of \"%(pagename)s\""
-msgstr "[%(sitename)s] Các thay đổi ở trang \"%(pagename)s\""
+msgstr "[%(sitename)s] Cập nhật %(trivial)scủa \"%(pagename)s\""
 
 msgid "Trivial "
-msgstr ""
-
-msgid "You will not be notified of your own changes!"
-msgstr "Bạn sẽ không được thông báo về những thay đổi của chính bạn!"
+msgstr "nhỏ nhặt "
 
 msgid "Status of sending notification mails:"
 msgstr "Tình trạng của các thư thông báo:"
@@ -297,9 +256,6 @@ msgstr "Tình trạng của các thư thông báo:"
 #, python-format
 msgid "[%(lang)s] %(recipients)s: %(status)s"
 msgstr "[%(lang)s] %(recipients)s: %(status)s"
-
-msgid "Nobody subscribed to this page, no mail sent."
-msgstr "Không ai đăng ký vào trang này, chưa có thư được gửi."
 
 #, python-format
 msgid "## backup of page \"%(pagename)s\" submitted %(date)s"
@@ -313,27 +269,28 @@ msgstr "Bạn không thể lưu trang trắng."
 
 msgid ""
 "Sorry, someone else saved the page while you edited it.\n"
-"<p>Please do the following: Use the back button of your browser, and "
-"cut&paste\n"
+"\n"
+"Please do the following: Use the back button of your browser, and cut&paste\n"
 "your changes from there. Then go forward to here, and click EditText again.\n"
-"Now re-add your changes to the current page contents.</p>\n"
-"<p><em>Do not just replace\n"
+"Now re-add your changes to the current page contents.\n"
+"\n"
+"''Do not just replace\n"
 "the content editbox with your version of the page, because that would\n"
-"delete the changes of the other person, which is excessively rude!</em></p>\n"
+"delete the changes of the other person, which is excessively rude!''\n"
 msgstr ""
 "Xin lỗi bạn, người khác đã lưu trang này trong khi bạn đang chỉnh sửa.\n"
-"<p>Xin vui lòng thực hiện các bước sau: Nhấn vào nút Back trên trình duyệt, "
-"và\n"
+"\n"
+"Xin vui lòng thực hiện các bước sau: Nhấn vào nút Back trên trình duyệt, và\n"
 "cắt đoạn văn bản ở đó. Sau đó bạn quay trở lại đây, rồi nhấn EditText lần "
 "nữa.\n"
-"Bây giờ bạn có thể thêm vào những chỉnh sửa bạn đã thực hiện.</p>\n"
-"<p><em>Mong bạn đừng thay đổi toàn bộ nội dung trang này với những gì\n"
+"Bây giờ bạn có thể thêm vào những chỉnh sửa bạn đã thực hiện.\n"
+"''Mong bạn đừng thay đổi toàn bộ nội dung trang này với những gì\n"
 "bạn đã cắt ở trang cũ bởi vì việc đó sẽ xoá toàn bộ những thay đổi\n"
-"của người khác, và được coi là một việc làm cực kỳ khiếm nhã!</em></p>\n"
+"của người khác, và được coi là một việc làm cực kỳ khiếm nhã!''\n"
 
 #, python-format
-msgid "A backup of your changes is <a href=\"%(backup_url)s\">here</a>."
-msgstr "Các thay đổi của bạn được lưu <a href=\"%(backup_url)s\">ở đây</a>."
+msgid "A backup of your changes is [%(backup_url)s here]."
+msgstr "Các thay đổi của bạn được lưu [%(backup_url)s ở đây]."
 
 msgid "You did not change the page content, not saved!"
 msgstr "Bạn chưa thay đổi nội dung trang nên không cần lưu lại!"
@@ -355,44 +312,41 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Other users will be <em>blocked</em> from editing this page until %(bumptime)"
-"s."
-msgstr ""
-"Người dùng khác sẽ <em>không</em> sửa trang này được cho đến lúc %(bumptime)"
-"s."
+"Other users will be ''blocked'' from editing this page until %(bumptime)s."
+msgstr "Người dùng khác sẽ ''không'' sửa trang này được cho đến %(bumptime)s."
 
 #, python-format
 msgid ""
-"Other users will be <em>warned</em> until %(bumptime)s that you are editing "
-"this page."
+"Other users will be ''warned'' until %(bumptime)s that you are editing this "
+"page."
 msgstr ""
-"Cho đến lúc %(bumptime)s, người dùng khác sẽ được <em>thông báo</em> rằng "
-"bạn đang sửa trang này."
+"Cho đến %(bumptime)s, người dùng khác sẽ được ''thông báo'' rằng bạn đang "
+"sửa trang này."
 
 msgid "Use the Preview button to extend the locking period."
 msgstr "Dùng nút Xem qua để gia hạn thời gian dành cho bạn."
 
 #, python-format
 msgid ""
-"This page is currently <em>locked</em> for editing by %(owner)s until %"
-"(timestamp)s, i.e. for %(mins_valid)d minute(s)."
+"This page is currently ''locked'' for editing by %(owner)s until %(timestamp)"
+"s, i.e. for %(mins_valid)d minute(s)."
 msgstr ""
-"Trang này đang được <em>dành riêng</em> cho %(owner)s cho đến lúc %"
-"(timestamp)s, hay trong vòng %(mins_valid)d phút."
+"Trang này đang được ''dành riêng'' cho %(owner)s cho đến %(timestamp)s, hay "
+"trong vòng %(mins_valid)d phút."
 
 #, python-format
 msgid ""
 "This page was opened for editing or last previewed at %(timestamp)s by %"
-"(owner)s.<br>\n"
-"<strong class=\"highlight\">You should <em>refrain from editing</em> this "
-"page for at least another %(mins_valid)d minute(s),\n"
-"to avoid editing conflicts.</strong><br>\n"
+"(owner)s.[[BR]]\n"
+"'''You should ''refrain from editing'' this page for at least another %"
+"(mins_valid)d minute(s),\n"
+"to avoid editing conflicts.'''[[BR]]\n"
 "To leave the editor, press the Cancel button."
 msgstr ""
-"Trang này đang được thay đổi, lần cuối cùng lúc %(timestamp)s bởi %(owner)s."
-"<br>\n"
-"<strong class=\"highlight\">Để tránh sự cố, bạn nên <em>chờ</em> ít nhất %"
-"(mins_valid)d phút nữa.</strong><br>\n"
+"Trang này đang được thay đổi, hoặc xem qua trước lần cuối cùng lúc %"
+"(timestamp)s bởi %(owner)s.[[BR]]\n"
+"'''Để tránh sự cố, bạn nên ''chờ'' ít nhất %(mins_valid)d phút "
+"nữa.'''[[BR]]\n"
 "Để thoát khung soạn thảo, nhấn nút Huỷ bỏ."
 
 msgid "<unknown>"
@@ -425,26 +379,52 @@ msgstr "In"
 msgid "View"
 msgstr "Xem"
 
-msgid "Home"
-msgstr "Trang nhà"
-
 msgid "Up"
 msgstr "Trên"
 
-msgid "Unknown action"
-msgstr "Việc không rõ"
+#, python-format
+msgid ""
+"Invalid user name {{{'%s'}}}.\n"
+"Name may contain any Unicode alpha numeric character, with optional one\n"
+"space between words. Group page name is not allowed."
+msgstr ""
+"Tên người dùng không hợp lệ {{{'%s'}}}.\n"
+"Tên có thể dùng mọi chữ số Unicode, với một khoảng trắng không bắt buộc ở "
+"giữa. Bạn không thể dùng tên cho nhóm."
+
+#, python-format
+msgid "You are not allowed to do %s on this page."
+msgstr "Bạn không thể %s vào trang này."
+
+msgid "Login"
+msgstr "Đăng nhập"
+
+#, python-format
+msgid " %s and try again."
+msgstr " %s và thử lại."
 
 msgid "Can't work out query"
 msgstr "Không thể thực hiện việc tìm kiếm"
+
+#, python-format
+msgid "%(hits)d results out of %(pages)d pages."
+msgstr "Tìm thấy %(hits)d trang trong tổng số %(pages)d trang."
+
+#, python-format
+msgid "%.2f seconds"
+msgstr "%.2f giây"
+
+msgid "match"
+msgstr "phù hợp"
+
+msgid "matches"
+msgstr "phù hợp"
 
 msgid "Open editor on double click"
 msgstr "Mở khung soạn thảo khi nhấp chuột 2 lần"
 
 msgid "Remember last page visited"
 msgstr "Nhớ trang cuối"
-
-msgid "Show emoticons"
-msgstr "Hiện các emoticons"
 
 msgid "Show fancy links"
 msgstr "Hiện liên kết đẹp"
@@ -467,11 +447,11 @@ msgstr "Hiện diff đẹp"
 msgid "Add spaces to displayed wiki names"
 msgstr "Thêm khoảng trống để hiển thị các tên wiki (Wiki Names)"
 
-msgid "Remember login information forever"
+msgid "Remember login information"
 msgstr "Nhớ thông tin đăng nhập"
 
 msgid "Subscribe to trivial changes"
-msgstr ""
+msgstr "Đăng ký vào các thay đổi nhỏ nhặt"
 
 msgid "Disable this account forever"
 msgstr "Huỷ bỏ account này"
@@ -480,11 +460,11 @@ msgid "Cookie deleted. You are now logged out."
 msgstr "Cookie đã được xoá. Bạn đã thoát ra khỏi hệ thống."
 
 msgid ""
-"This wiki is not enabled for mail processing. Contact the owner of the wiki, "
-"who can either enable email, or remove the \"Subscribe\" icon."
+"This wiki is not enabled for mail processing.\n"
+"Contact the owner of the wiki, who can enable email."
 msgstr ""
-"Wiki này không hỗ trợ việc soạn thư. Mong bạn thông báo cho chủ wiki, người "
-"mà có thể bật chức năng này lên, hay là bỏ đi biểu tượng \"Đăng ký\"."
+"Wiki này không hỗ trợ việc xử lý thư. Mong bạn thông báo cho chủ wiki, người "
+"có thể kích hoạt chức năng này."
 
 msgid "Please provide a valid email address!"
 msgstr "Vui lòng cho biết địa chỉ thư điện tử hợp lệ!"
@@ -493,41 +473,49 @@ msgstr "Vui lòng cho biết địa chỉ thư điện tử hợp lệ!"
 msgid "Found no account matching the given email address '%(email)s'!"
 msgstr "Không tìm thấy account có địa chỉ thư điện tử '%(email)s'!"
 
-msgid "Unknown user name or password."
-msgstr "Không rõ tên người dùng hay mật khẩu."
+#, python-format
+msgid "Unknown user name: {{{\"%s\"}}}. Please enter user name and password."
+msgstr ""
+"Không biết người dùng: {{{\"%s\"}}}. Vui lòng nhập tên người dùng và mật "
+"khẩu."
 
-msgid "Please enter a user name!"
-msgstr "Vui lòng nhập vào tên người dùng!"
+msgid "Missing password. Please enter user name and password."
+msgstr "Thiếu mật khẩu. Vui lòng nhập tên người dùng và mật khẩu."
 
-msgid "User name already exists!"
-msgstr "Tên người dùng đã có rồi!"
+msgid "Sorry, wrong password."
+msgstr "Xin lỗi, sai mật khẩu."
+
+msgid "Bad relogin URL."
+msgstr "URL đăng nhập lại không chính xác."
+
+msgid "Unknown user."
+msgstr "Không rõ người dùng."
+
+msgid "Empty user name. Please enter a user name."
+msgstr "Tên người dùng trống. Vui lòng nhập vào tên người dùng."
+
+msgid "This user name already belongs to somebody else."
+msgstr "Tên người dùng này đã được đăng ký."
 
 msgid "Passwords don't match!"
 msgstr "Mật khẩu không đúng!"
 
 msgid "Please specify a password!"
-msgstr ""
-
-msgid "Please enter your name like that: FirstnameLastname"
-msgstr ""
-"Vui lòng nhập tên bạn theo FirstnameLastname (tên tiếng Anh), hoặc HoDemTen "
-"(tên tiếng Việt)"
-
-msgid "You must not use a group name as your user name."
-msgstr ""
+msgstr "Vui lòng cho biết mật khẩu!"
 
 msgid ""
-"Please provide your email address - without that you could not get your "
-"login data via email just in case you lose it."
+"Please provide your email address. If you loose your login information, you "
+"can get it by email."
 msgstr ""
-"Vui lòng cho biết địa chỉ thư điện tử - không có nó, bạn không thể lấy thông "
-"tin đăng nhập nếu bạn lỡ quên."
-
-msgid "This user name already belongs to somebody else."
-msgstr "Tên người dùng này đã được đăng ký."
+"Vui lòng cho biết địa chỉ thư điện tử. Nếu bạn mất thông tin đăng nhập, bạn "
+"có thể lấy lại nó qua thư điện tử."
 
 msgid "This email already belongs to somebody else."
 msgstr "Địa chỉ thư điện tử này đã được đăng ký."
+
+#, python-format
+msgid "The theme '%(theme_name)s' could not be loaded!"
+msgstr "Kiểu '%(theme_name)s' không thể đuợc nạp!"
 
 msgid "User preferences saved!"
 msgstr "Sở thích của bạn đã được lưu!"
@@ -543,9 +531,6 @@ msgstr "Lưu"
 
 msgid "Logout"
 msgstr "Thoát"
-
-msgid "Login"
-msgstr "Đăng nhập"
 
 msgid "Create Profile"
 msgstr "Tạo Profile"
@@ -613,35 +598,6 @@ msgstr ""
 msgid "Subscribed wiki pages (one regex per line)"
 msgstr "Các trang đã đăng ký (một regex trong một dòng)"
 
-msgid "Action"
-msgstr "Công việc"
-
-#, python-format
-msgid "Please use a more selective search term instead of '%(needle)s'!"
-msgstr "Vui lòng dùng từ khoá tìm kiếm khác thay cho '%(needle)s'!"
-
-#, python-format
-msgid "Full text search for \"%s\""
-msgstr "Kết quả tìm kiếm cho chuỗi \"%s\""
-
-msgid "match"
-msgstr "phù hợp"
-
-msgid "matches"
-msgstr "phù hợp"
-
-#, python-format
-msgid "Title search for \"%s\""
-msgstr "Tìm theo đầu đề \"%s\""
-
-#, python-format
-msgid "%(hits)d hits out of %(pages)d pages searched."
-msgstr "Tìm thấy %(hits)d trang trong tổng số %(pages)d trang."
-
-#, python-format
-msgid "Needed %(timer).1f seconds."
-msgstr "Tốn %(timer).1f giây."
-
 msgid "No older revisions available!"
 msgstr "Không có phiên bản cũ hơn!"
 
@@ -650,8 +606,8 @@ msgid "Diff for \"%s\""
 msgstr "diff của \"%s\""
 
 #, python-format
-msgid "Differences between versions dated %s and %s"
-msgstr "Sự khác nhau giữa phiên bản ngày %s và ngày %s"
+msgid "Differences between revisions %d and %d"
+msgstr "Sự khác nhau giữa phiên bản %d và %d"
 
 #, python-format
 msgid "(spanning %d versions)"
@@ -683,9 +639,6 @@ msgstr "Những người dùng sau đã đăng ký vào trang này:"
 msgid "This page links to the following pages:"
 msgstr "Trang này liên kết tới các trang sau:"
 
-msgid "Revision History"
-msgstr "Danh sách các thay đổi"
-
 msgid "Date"
 msgstr "Ngày"
 
@@ -701,6 +654,9 @@ msgstr "Tác giả"
 msgid "Comment"
 msgstr "Chú thích"
 
+msgid "Action"
+msgstr "Công việc"
+
 msgid "view"
 msgstr "xem"
 
@@ -714,11 +670,26 @@ msgid "revert"
 msgstr "hoàn nguyên"
 
 #, python-format
-msgid "Revert to version dated %(datestamp)s."
-msgstr "Hoàn nguyên phiên bản ngày %(datestamp)s."
+msgid "Revert to revision %(rev)d."
+msgstr "Hoàn nguyên phiên bản %(rev)d."
+
+msgid "edit"
+msgstr "sửa"
+
+msgid "get"
+msgstr "lấy"
+
+msgid "del"
+msgstr "xoá"
 
 msgid "N/A"
-msgstr "không"
+msgstr "không rõ"
+
+msgid "Revision History"
+msgstr "Danh sách các thay đổi"
+
+msgid "No log entries found."
+msgstr "Không tìm thấy mục nào."
 
 #, python-format
 msgid "Info for \"%s\""
@@ -741,11 +712,15 @@ msgstr "Số lần xem và sửa"
 msgid "You are not allowed to revert this page!"
 msgstr "Bạn không thể hoàn nguyên phiên bản cũ của trang này!"
 
-msgid "An error occurred while reverting the page."
-msgstr "Xảy ra lỗi trong khi hoàn lại trang."
-
 msgid "You are not allowed to subscribe to a page you can't read."
 msgstr "Bạn không thể đăng ký vào trang mà bạn không thể xem."
+
+msgid ""
+"This wiki is not enabled for mail processing. Contact the owner of the wiki, "
+"who can either enable email, or remove the \"Subscribe\" icon."
+msgstr ""
+"Wiki này không hỗ trợ việc soạn thư. Mong bạn thông báo cho chủ wiki, người "
+"mà có thể bật chức năng này lên, hay là bỏ đi biểu tượng \"Đăng ký\"."
 
 msgid ""
 "You didn't create a user profile yet. Select UserPreferences in the upper "
@@ -761,8 +736,11 @@ msgstr ""
 "Bạn chưa nhập địa chỉ thư điện tử. Nhấn vào tên bạn (Sở thích cá nhân) ở góc "
 "phải trên để nhập vào một địa chỉ thư điện tử hợp lệ."
 
-msgid "You are already subscribed to this page."
-msgstr "Bạn đã đăng ký vào trang này rồi."
+msgid "Your subscribtion to this page has been removed."
+msgstr "Sự đăng ký của bạn đã được huỷ bỏ."
+
+msgid "Can't remove regular expression subscription!"
+msgstr "Không thể huỷ bỏ đăng ký biểu thức chính quy!"
 
 msgid ""
 "To unsubscribe, go to your profile and delete this page from the "
@@ -781,14 +759,20 @@ msgstr "Không tìm thấy thuộc tính \"%(attrname)s\""
 msgid "Submitted form data:"
 msgstr "Dữ liệu đã được nhập:"
 
+msgid "Search Titles"
+msgstr "Tìm tiêu đề"
+
 msgid "Display context of search results"
 msgstr "Hiển thị kết quả tìm kiếm"
 
 msgid "Case-sensitive searching"
 msgstr "Tìm kiếm phân biệt chữ hoa và chữ thường"
 
-msgid "Go"
-msgstr "Chuyển"
+msgid "Search Text"
+msgstr "Tìm nội dung"
+
+msgid "Go To Page"
+msgstr "Tới trang"
 
 msgid "Include system pages"
 msgstr "Bao gồm các trang hệ thống"
@@ -821,9 +805,6 @@ msgstr "Tổng số trang"
 msgid "Number of system pages"
 msgstr "Số trang hệ thống"
 
-msgid "Number of backup versions"
-msgstr "Số bản lưu"
-
 msgid "Accumulated page sizes"
 msgstr "Tổng kích thước"
 
@@ -849,8 +830,15 @@ msgstr "Action bổ trợ toàn cục"
 msgid "Local extension actions"
 msgstr "Action bổ trợ nội bộ"
 
-msgid "Installed processors"
-msgstr "Processor đã cài"
+msgid "Installed parsers"
+msgstr "Parser đã cài"
+
+msgid "Installed processors (DEPRECATED -- use Parsers instead)"
+msgstr "Processor đã cài (KHÔNG CÒN DÙNG -- dùng parser)"
+
+#, python-format
+msgid "Please use a more selective search term instead of {{{\"%s\"}}}"
+msgstr "Vui lòng dùng từ khoá tìm kiếm khác thay cho {{{\"%s\"}}}"
 
 #, python-format
 msgid "ERROR in regex '%s'"
@@ -893,26 +881,15 @@ msgid "Attachment '%(filename)s' does not exist!"
 msgstr "File gửi kèm '%(filename)s' không tồn tại!"
 
 msgid ""
-"<p>To refer to attachments on a page, use <strong><tt>attachment:filename</"
-"tt></strong>, \n"
+"To refer to attachments on a page, use '''{{{attachment:filename}}}''', \n"
 "as shown below in the list of files. \n"
-"Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, \n"
-"since this is subject to change and can break easily.</p>"
+"Do '''NOT''' use the URL of the {{{[get]}}} link, \n"
+"since this is subject to change and can break easily."
 msgstr ""
-"<p>Để chỉ tới file gửi kèm trong một trang, dùng <strong><tt>attachment:tên</"
-"tt></strong>,\n"
-"như xuất hiện bên dưới trong phần danh sách các file.\n"
-"Vui lòng <strong>KHÔNG</strong> sử dụng URL của liên kết <tt>[get]</tt>,\n"
-"vì rất có thể URL đó sẽ bị thay đổi.</p>"
-
-msgid "del"
-msgstr "xoá"
-
-msgid "get"
-msgstr "lấy"
-
-msgid "edit"
-msgstr "sửa"
+"Để chỉ tới file gửi kèm trong một trang, dùng '''{{{attachment:tên}}}''', \n"
+"như xuất hiện bên dưới trong phần danh sách các file. \n"
+"Vui lòng '''KHÔNG''' sử dụng URL của liên kết {{{[get]}}}, \n"
+"vì rất có thể URL đó sẽ bị thay đổi."
 
 #, python-format
 msgid "No attachments stored for %(pagename)s"
@@ -957,6 +934,12 @@ msgstr "Wiki này không cho phép gửi kèm file!"
 
 msgid "You are not allowed to save a drawing on this page."
 msgstr "Bạn không thể tạo một bản vẽ ở trang này."
+
+msgid ""
+"No file content. Delete non ASCII characters from the file name and try "
+"again."
+msgstr ""
+"Không có nội dung. Xóa các ký tự không nằm trong bảng mã ASCII và thử lại."
 
 msgid "You are not allowed to delete attachments on this page."
 msgstr "Bạn không thể xoá file gửi kèm."
@@ -1025,19 +1008,16 @@ msgid "Optional reason for the deletion"
 msgstr "Lý do xoá trang (nếu có)"
 
 #, python-format
-msgid "No pages match \"%s\"!"
-msgstr "Không tìm thấy \"%s\"!"
+msgid "No pages like \"%s\"!"
+msgstr "Không có trang giống \"%s\"!"
 
 #, python-format
-msgid "Exactly one matching page for \"%s\" found!"
-msgstr "Chỉ tìm thấy duy nhất một trang có chứa \"%s\"!"
+msgid "Exactly one page like \"%s\" found, redirecting to page."
+msgstr "Tìm thấy chính xác một trang tương tự \"%s\", đang tự chuyển tới."
 
 #, python-format
-msgid "Multiple matches for \"%s...%s\""
-msgstr "Nhiều phù hợp cho \"%s...%s\""
-
-msgid "You cannot use LikePages on an extended pagename!"
-msgstr "Bạn không thể dùng LikePages với tên trang mở rộng!"
+msgid "Pages like \"%s\""
+msgstr "Trang giống \"%s\""
 
 #, python-format
 msgid "%(matchcount)d %(matches)s for \"%(title)s\""
@@ -1054,21 +1034,27 @@ msgid "Please use the interactive user interface to rename pages!"
 msgstr "Vui lòng sử dụng giao diện người dùng để đổi tên trang!"
 
 #, python-format
-msgid "A page with the name \"%s\" already exists!"
-msgstr "Đã có trang \"%s\"!"
+msgid "Could not rename page because of file system error: %s."
+msgstr ""
 
-#, python-format
-msgid "Page \"%s\" was successfully renamed to \"%s\"!"
-msgstr "Trang \"%s\" đã được đổi tên thành \"%s\"!"
-
-msgid "Rename"
-msgstr "Đổi tên"
+msgid "Rename Page"
+msgstr "Đổi tên trang"
 
 msgid "New name"
 msgstr "Tên mới"
 
 msgid "Optional reason for the renaming"
 msgstr "Lý do đổi tên (nếu có)"
+
+#, python-format
+msgid ""
+"'''A page with the name {{{'%s'}}} already exists.'''\n"
+"\n"
+"Try a different name."
+msgstr ""
+"'''Đã có trang {{{'%s'}}}.'''\n"
+"\n"
+"Vui lòng dùng tên khác."
 
 #, python-format
 msgid "(including %(localwords)d %(pagelink)s)"
@@ -1091,6 +1077,14 @@ msgstr "Không có lỗi chính tả!"
 msgid "You can't check spelling on a page you can't read."
 msgstr ""
 "Bạn không thể kiểm tra lỗi chính tả trong một trang mà bạn không thể xem."
+
+#, python-format
+msgid "Title Search: \"%s\""
+msgstr "Tìm theo tiêu đề \"%s\""
+
+#, python-format
+msgid "Full Text Search: \"%s\""
+msgstr "Tìm nội dung: \"%s\""
 
 #, python-format
 msgid "Full Link List for \"%s\""
@@ -1140,8 +1134,8 @@ msgid "Drawing '%(filename)s' saved."
 msgstr "Bản vẽ '%(filename)s' đã được lưu."
 
 #, python-format
-msgid "%(hours)dh&nbsp;%(mins)dm&nbsp;ago"
-msgstr "[cách nay %(hours)d giờ %(mins)d phút]"
+msgid "%(hours)dh %(mins)dm ago"
+msgstr "cách nay %(hours)d giờ %(mins)d phút"
 
 msgid "(no bookmark set)"
 msgstr "(không có bookmark)"
@@ -1150,16 +1144,11 @@ msgstr "(không có bookmark)"
 msgid "(currently set to %s)"
 msgstr "(hiện tại đang là %s)"
 
-#, fuzzy
 msgid "Delete Bookmark"
-msgstr "đưa vào bookmark"
+msgstr "Xoá Bookmark"
 
-#, fuzzy
-msgid "Really delete bookmark?"
-msgstr "Thật sự xoá trang này?"
-
-msgid "Update my bookmark timestamp"
-msgstr "Cập nhập lại bookmark timestamp"
+msgid "Set bookmark"
+msgstr "Đưa vào bookmark"
 
 msgid "set bookmark"
 msgstr "đưa vào bookmark"
@@ -1228,6 +1217,10 @@ msgstr "XSLT không thể được thực hiện!"
 msgid "%(errortype)s processing error"
 msgstr "lỗi xử lý %(errortype)s"
 
+#, python-format
+msgid "for this page (cached %(date)s)"
+msgstr "cho trang này (cached vào ngày %(date)s)"
+
 msgid "Charts are not available!"
 msgstr "Biểu đồ không thể được thực hiện!"
 
@@ -1263,59 +1256,92 @@ msgstr "Các thứ khác"
 msgid "Distribution of User-Agent Types"
 msgstr "Thống kê theo User-Agent"
 
-msgid "Click here to do a full-text search for this title"
-msgstr "Nhấn vào đây để thực hiện tìm kiếm theo nội dung"
+msgid "Click to do a full-text search for this title"
+msgstr "Nhấn vào đây để thực hiện tìm kiếm theo nội dung với tiêu đề này"
 
 msgid "Clear message"
 msgstr "Xoá thông báo"
 
-msgid "ShowText"
-msgstr "Hiện nội dung"
+#, python-format
+msgid "last edited %(time)s by %(editor)s"
+msgstr "thay đổi lần cuối lúc %(time)s bởi %(editor)s"
 
-msgid "of this page"
-msgstr "của trang này"
+#, python-format
+msgid "last modified %(time)s"
+msgstr "thay đổi cuối lúc %(time)s"
+
+msgid "Search:"
+msgstr "Tìm:"
+
+msgid "Text"
+msgstr "Nội dung"
+
+msgid "Titles"
+msgstr "Tiêu đề"
+
+msgid "Unsubscribe"
+msgstr "Huỷ đăng ký"
+
+msgid "More Actions:"
+msgstr "Các hành động khác:"
+
+msgid "Show Raw Text"
+msgstr "Hiện trang nguồn"
+
+msgid "Show Print View"
+msgstr "Hiện bản in"
+
+msgid "Attach File"
+msgstr "Gửi kèm tập tin"
+
+msgid "Delete Page"
+msgstr "Xóa trang"
+
+msgid "Show Like Pages"
+msgstr "Hiện các trang tương tự"
+
+msgid "Show Local Site Map"
+msgstr "Hiện bản đồ liên kết"
+
+msgid "Do"
+msgstr "Làm"
+
+msgid "Show Parent"
+msgstr "Hiện trang trên"
+
+msgid "Immutable Page"
+msgstr "Trang không thể được thay đổi"
+
+msgid "Refresh"
+msgstr "Làm mới"
+
+msgid "Show Changes"
+msgstr "Hiện các thay đổi"
+
+msgid "Get Info"
+msgstr "Lấy thông tin"
+
+#, python-format
+msgid "Show %s days."
+msgstr "Hiện %s ngày."
 
 msgid "EditText"
 msgstr "Sửa nội dung"
 
 msgid "Immutable page"
-msgstr "Trang này không thể được thay đổi"
-
-msgid "FindPage"
-msgstr "Tìm trang"
-
-#, python-format
-msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
-msgstr "hoặc tìm theo đầu đề %(titlesearch)s, tìm nội dung %(textsearch)s hoặc"
+msgstr "Trang không thể được thay đổi"
 
 msgid "Or try one of these actions:"
-msgstr "Hoặc sử dụng các công cụ:"
+msgstr "Hoặc chọn các hành động sau:"
 
-#, python-format
-msgid "Show all changes in the last %s days."
-msgstr "Hiển thị tất cả các thay đổi trong %s ngày gần đây."
+msgid "Page"
+msgstr "Trang"
+
+msgid "Trail"
+msgstr "Vệt"
 
 msgid "User"
-msgstr ""
-
-#, fuzzy
-msgid "Site"
-msgstr "Kích thước"
-
-#, fuzzy
-msgid "Page"
-msgstr "Tìm trang"
-
-msgid "Search"
-msgstr ""
-
-#, fuzzy, python-format
-msgid "Title: %(titlesearch)s<br/>Text: %(textsearch)s"
-msgstr "hoặc tìm theo đầu đề %(titlesearch)s, tìm nội dung %(textsearch)s hoặc"
-
-#, fuzzy
-msgid "Actions"
-msgstr "Công việc"
+msgstr "Người dùng"
 
 msgid "Line"
 msgstr "Dòng"
@@ -1333,6 +1359,9 @@ msgstr "Kết nối tới mailserver '%(server)s' bị ngắt quảng vì lý do
 msgid "Mail sent OK"
 msgstr "Thư đã được gửi"
 
+msgid "[\"<html>\"]"
+msgstr "[\"<html>\"]"
+
 msgid "FrontPage"
 msgstr "Trang đầu"
 
@@ -1344,6 +1373,9 @@ msgstr "Tựa chỉ mục"
 
 msgid "WordIndex"
 msgstr "Từ chỉ mục"
+
+msgid "FindPage"
+msgstr "Tìm trang"
 
 msgid "SiteNavigation"
 msgstr "SiteNavigation"
@@ -1359,6 +1391,9 @@ msgstr "Sở thích cá nhân"
 
 msgid "WikiLicense"
 msgstr "Wiki License"
+
+msgid "MissingPage"
+msgstr "MissingPage"
 
 msgid "Mon"
 msgstr "Thứ Hai"
@@ -1381,12 +1416,137 @@ msgstr "Thứ Bảy"
 msgid "Sun"
 msgstr "Chủ Nhật"
 
-#~ msgid "Reduce editor size"
-#~ msgstr "Giảm kích thước khung soạn thảo"
+msgid "AttachFile"
+msgstr "AttachFile"
+
+msgid "DeletePage"
+msgstr "DeletePage"
+
+msgid "LikePages"
+msgstr "LikePages"
+
+msgid "LocalSiteMap"
+msgstr "LocalSiteMap"
+
+msgid "RenamePage"
+msgstr "RenamePage"
+
+msgid "SpellCheck"
+msgstr "SpellCheck"
+
+#~ msgid "Rename"
+#~ msgstr "Đổi tên"
+
+#~ msgid "(edit log entry is missing)"
+#~ msgstr "(thiếu mục trong edit log)"
+
+#~ msgid "Send mail notification"
+#~ msgstr "Gửi thư thông báo"
+
+#~ msgid "You will not be notified of your own changes!"
+#~ msgstr "Bạn sẽ không được thông báo về những thay đổi của chính bạn!"
+
+#~ msgid "Nobody subscribed to this page, no mail sent."
+#~ msgstr "Không ai đăng ký vào trang này, chưa có thư được gửi."
+
+#~ msgid "Home"
+#~ msgstr "Trang nhà"
+
+#~ msgid "Unknown action"
+#~ msgstr "Việc không rõ"
+
+#~ msgid "Needed %(timer).1f seconds."
+#~ msgstr "Tốn %(timer).1f giây."
+
+#~ msgid ""
+#~ "User names with group names are not allowed.\n"
+#~ "Please register a new account with a valid name."
+#~ msgstr ""
+#~ "Không cho phép tên người dùng với tên nhóm.\n"
+#~ "Vui lòng đăng ký với tên hợp lệ."
+
+#~ msgid "User name already exists!"
+#~ msgstr "Tên người dùng đã có rồi!"
+
+#~ msgid "Go"
+#~ msgstr "Chuyển"
+
+#~ msgid "Exactly one matching page for \"%s\" found!"
+#~ msgstr "Chỉ tìm thấy duy nhất một trang có chứa \"%s\"!"
+
+#~ msgid "Multiple matches for \"%s...%s\""
+#~ msgstr "Nhiều phù hợp cho \"%s...%s\""
+
+#~ msgid "You cannot use LikePages on an extended pagename!"
+#~ msgstr "Bạn không thể dùng LikePages với tên trang mở rộng!"
+
+#~ msgid "Page \"%s\" was successfully renamed to \"%s\"!"
+#~ msgstr "Trang \"%s\" đã được đổi tên thành \"%s\"!"
+
+#~ msgid "Really delete bookmark?"
+#~ msgstr "Thật sự xoá bookmark?"
+
+#~ msgid "Update my bookmark timestamp"
+#~ msgstr "Cập nhập lại bookmark timestamp"
+
+#~ msgid "of this page"
+#~ msgstr "của trang này"
+
+#~ msgid "or search titles %(titlesearch)s, full text %(textsearch)s or"
+#~ msgstr ""
+#~ "hoặc tìm theo đầu đề %(titlesearch)s, tìm nội dung %(textsearch)s hoặc"
+
+#~ msgid "Show all changes in the last %s days."
+#~ msgstr "Hiển thị tất cả các thay đổi trong %s ngày gần đây."
+
+#~ msgid "Site"
+#~ msgstr "Site"
+
+#~ msgid "Title: %(titlesearch)s[[BR]]Text: %(textsearch)s"
+#~ msgstr "Đầu đề: %(titlesearch)s[[BR]]Nội dung: %(textsearch)s"
 
 #~ msgid "No older revisions of the page stored, diff not available."
 #~ msgstr ""
 #~ "Không có phiên bản cũ hơn của trang này, diff không thể được thực hiện."
+
+#~ msgid "The diff function returned with error code %(rc)s!"
+#~ msgstr "Lệnh diff trả về mã lỗi %(rc)s!"
+
+#~ msgid "Show emoticons"
+#~ msgstr "Hiện các emoticons"
+
+#~ msgid "Please enter your name like that: FirstnameLastname"
+#~ msgstr ""
+#~ "Vui lòng nhập tên bạn theo FirstnameLastname (tên tiếng Anh), hoặc "
+#~ "HoDemTen (tên tiếng Việt)"
+
+#~ msgid "You are already subscribed to this page."
+#~ msgstr "Bạn đã đăng ký vào trang này rồi."
+
+#~ msgid "Number of backup versions"
+#~ msgstr "Số bản lưu"
+
+#~ msgid "Reduce editor size"
+#~ msgstr "Giảm kích thước khung soạn thảo"
+
+#~ msgid "An error occurred while reverting the page."
+#~ msgstr "Xảy ra lỗi trong khi hoàn lại trang."
+
+#~ msgid "Create this page"
+#~ msgstr "Tạo trang này"
+
+#~ msgid "Alternatively, use one of these templates:"
+#~ msgstr "Ngoài ra, có thể dùng một trong những mẫu này:"
+
+#~ msgid ""
+#~ "To create your own templates, add a page with a name matching the regex "
+#~ "\"%(page_template_regex)s\"."
+#~ msgstr ""
+#~ "Để tự tạo mẫu riêng, thêm một trang có tên phù hợp với regex \"%"
+#~ "(page_template_regex)s\"."
+
+#~ msgid "The following pages with similar names already exist..."
+#~ msgstr "Các trang hiện tại có tên gần giống..."
 
 #, fuzzy
 #~ msgid "Account"

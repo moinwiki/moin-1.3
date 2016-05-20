@@ -6,90 +6,131 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import os, re, urllib, difflib
-from MoinMoin import config, util, version
+from MoinMoin import util, version, config
 from MoinMoin.util import filesys, pysupport
+
+# Exceptions
+class InvalidFileNameError(Exception):
+    """ Called when we find an invalid file name """ 
+    pass
 
 # constants for page names
 PARENT_PREFIX = "../" # changing this might work, but it's not tested
 CHILD_PREFIX = "/" # changing this will not really work
 
-# Caching for precompiled page type regex
-_TEMPLATE_RE = None
-_FORM_RE = None
-_CATEGORY_RE = None
+#############################################################################
+### Getting data from user/Sending data to user
+#############################################################################
 
+def decodeUnknownInput(text):
+    """ Decode unknown input, like text attachments
 
-def getSmiley(text, formatter):
+    First we try utf-8 because it has special format, and it will decode
+    only utf-8 files. Then we try config.charset, then iso-8859-1 using
+    'replace'. We will never raise an exception, but may return junk
+    data.
+
+    WARNING: Use this function only for data that you view, not for data
+    that you save in the wiki.
+
+    @param text: the text to decode, string
+    @rtype: unicode
+    @return: decoded text (maybe wrong)
     """
-    Get a graphical smiley for a text smiley
+    # Shortcut for unicode input
+    if isinstance(text, unicode):
+        return text
     
-    @param text: the text smiley
-    @param formatter: the formatter to use
-    @rtype: string
-    @return: formatted output
+    try:
+        return unicode(text, 'utf-8')
+    except UnicodeError:
+        if config.charset not in ['utf-8', 'iso-8859-1']:
+            try:
+                return unicode(text, config.charset)
+            except UnicodeError:
+                pass
+        return unicode(text, 'iso-8859-1', 'replace')
+        
+
+def decodeUserInput(s, charsets=[config.charset]):
     """
-    req = formatter.request
-    if req.user.show_emoticons:
-        w, h, b, img = config.smileys[text.strip()]
-        href = img
-        if not href.startswith('/'):
-            href = req.theme.img_url(img)
-        return formatter.image(src=href, alt=text, width=w, height=h)
-    else:
-        return formatter.text(text)
+    Decodes input from the user.
+    
+    @param s: the string to unquote
+    @param charset: the charset to assume the string is in
+    @rtype: unicode
+    @return: the unquoted string as unicode
+    """
+    for charset in charsets:
+        try:
+            return s.decode(charset)
+        except UnicodeError:
+            pass
+    raise UnicodeError('The string "%s" cannot be decoded.' % s)
 
 
-#############################################################################
-### Quoting
-#############################################################################
-
-# XXX UNICODE - if we have 16bit unicode chars, %02x aren't enough !?
-def quoteFilename(filename):
+# FIXME: better name would be quoteURL, as this is useful for any
+# string, not only wiki names.
+def quoteWikinameURL(pagename, charset=config.charset):
     """
     Return a simple encoding of filename in plain ascii.
+
+    Warning: will raise UnicodeError if pagename can not be encoded
+    using charset. The default config.charset, 'utf-8', can encode any
+    character.
+
+    FIXME: isn't it better to use here urllib.quote instead of duplicating
+    the code? If we use cgi, urllib is already available. if we do
+    duplicate the code from urllib, why we don't use also fast_quote as
+    urllib does?
+
+    FIXME: If we don't use urllib.quote, maybe this is cleaner and faster
+    to use re, in the same way quoteWikinameFS works.
     
-    @param filename: the original filename, maybe containing non-ascii chars
+    @param pagename: the original pagename, maybe containing non-ascii chars
     @rtype: string
-    @return: the quoted filename, all special chars encoded in _XX
+    @return: the quoted filename, all special chars encoded in (xx)
     """
-    safe = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    safe = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/+-_,\'*'
+    pagename = pagename.replace(u' ', u'_') # " " -> "_"
+    filename = pagename.encode(charset)
+    
     res = list(filename)
+    c = None
     for i in range(len(res)):
+        prev = c
         c = res[i]
         if c not in safe:
-            res[i] = '_%02x' % ord(c)
+            # FIXME: why are we doing this?
+            if c == '.' and prev == '/':
+                res[i] = '(%02x)' % ord(c)
+            else:
+                res[i] = '%%%02x' % ord(c)
     return ''.join(res)
 
 
-def unquoteFilename(filename):
-    """
-    Return decoded original filename when given an encoded filename.
+def escape(s, quote=0):
+    """ Escape possible html tags
     
-    @param filename: encoded filename
-    @rtype: string
-    @return: decoded, original filename
-    """
-    return urllib.unquote(filename.replace('_', '%'))
-
-
-# XXX UNICODE - see above
-quoteWikiname = quoteFilename
-unquoteWikiname = unquoteFilename
-
-
-def escape(s, quote=None):
-    """
     Replace special characters '&', '<' and '>' by SGML entities.
-    (taken from cgi.escape so we don't have to include that, even if we don't use cgi at all)
+    (taken from cgi.escape so we don't have to include that, even if we
+    don't use cgi at all)
+
+    FIXME: should return string or unicode?
     
-    @param s: string to escape
-    @param quote: if given, transform '\"' to '&quot;'
-    @rtype: string
-    @return: escaped version of string
+    @param s: (unicode) string to escape
+    @param quote: bool, should transform '\"' to '&quot;'
+    @rtype: (unicode) string
+    @return: escaped version of s
     """
-    s = s.replace("&", "&amp;") # Must be done first!
+    if not isinstance(s, (str, unicode)):
+        s = str(s)
+
+    # Must first replace &
+    s = s.replace("&", "&amp;")
+
+    # Then other...
     s = s.replace("<", "&lt;")
     s = s.replace(">", "&gt;")
     if quote:
@@ -97,11 +138,133 @@ def escape(s, quote=None):
     return s
 
 
+########################################################################
+### Storage
+########################################################################
+
+# FIXME: These functions might be moved to storage module, when we have
+# one. Then they will be called transparently whenever a page is saved.
+
+# Precompiled patterns for file name [un]quoting
+UNSAFE = re.compile(r'[^a-zA-Z0-9_]+')
+QUOTED = re.compile(r'\(([a-fA-F0-9]+)\)')
+
+
+# FIXME: better name would be quoteWikiname
+def quoteWikinameFS(wikiname, charset=config.charset):
+    """ Return file system representation of a Unicode WikiName.
+            
+    Warning: will raise UnicodeError if wikiname can not be encoded using
+    charset. The default value of config.charset, 'utf-8' can encode any
+    character.
+        
+    @param wikiname: Unicode string possibly containing non-ascii characters
+    @param charset: charset to encode string
+    @rtype: string
+    @return: quoted name, safe for any file system
+    """
+    wikiname = wikiname.replace(u' ', u'_') # " " -> "_"
+    filename = wikiname.encode(charset)
+    
+    quoted = []    
+    location = 0
+    for needle in UNSAFE.finditer(filename):
+        # append leading safe stuff
+        quoted.append(filename[location:needle.start()])
+        location = needle.end()                    
+        # Quote and append unsafe stuff           
+        quoted.append('(')
+        for character in needle.group():
+            quoted.append('%02x' % ord(character))
+        quoted.append(')')
+    
+    # append rest of string
+    quoted.append(filename[location:])    
+    return ''.join(quoted)
+
+
+# FIXME: better name would be unquoteFilename
+def unquoteWikiname(filename, charsets=[config.charset]):
+    """ Return Unicode WikiName from quoted file name.
+    
+    We raise an InvalidFileNameError if we find an invalid name, so the
+    wiki could alarm the admin or suggest the user to rename a page.
+    Invalid file names should never happen in normal use, but are rather
+    cheap to find. 
+    
+    This function should be used only to unquote file names, not page
+    names we receive from the user. These are handled in request by
+    urllib.unquote, decodePagename and normalizePagename.
+    
+    Todo: search clients of unquoteWikiname and check for exceptions. 
+
+    @param filename: string using charset and possibly quoted parts
+    @param charset: charset used by string
+    @rtype: Unicode String
+    @return: WikiName
+    """
+    ### Temporary fix start ###
+    # From some places we get called with Unicode strings
+    if isinstance(filename, type(u'')):
+        filename = filename.encode(config.charset)
+    ### Temporary fix end ###
+        
+    parts = []    
+    start = 0
+    for needle in QUOTED.finditer(filename):  
+        # append leading unquoted stuff
+        parts.append(filename[start:needle.start()])
+        start = needle.end()            
+        # Append quoted stuff
+        group =  needle.group(1)
+        # Filter invalid filenames
+        if (len(group) % 2 != 0):
+            raise InvalidFileNameError(filename) 
+        try:
+            for i in range(0, len(group), 2):
+                byte = group[i:i+2]
+                character = chr(int(byte, 16))
+                parts.append(character)
+        except ValueError:
+            # byte not in hex, e.g 'xy'
+            raise InvalidFileNameError(filename)
+    
+    # append rest of string
+    if start == 0:
+        wikiname = filename
+    else:
+        parts.append(filename[start:len(filename)])   
+        wikiname = ''.join(parts)
+
+    # This looks wrong, because at this stage "()" can be both errors
+    # like open "(" without close ")", or unquoted valid characters in
+    # the file name. FIXME: check this.
+    # Filter invalid filenames. Any left (xx) must be invalid
+    #if '(' in wikiname or ')' in wikiname:
+    #    raise InvalidFileNameError(filename)
+    
+    wikiname = decodeUserInput(wikiname, charsets)
+    wikiname = wikiname.replace(u'_', u' ') # "_" -> " "
+    return wikiname
+
+# time scaling
+def timestamp2version(ts):
+    """ Convert UNIX timestamp (may be float or int) to our version
+        (long) int.
+        We don't want to use floats, so we just scale by 1e6 to get
+        an integer in usecs. 
+    """
+    return long(ts*1000000L) # has to be long for py 2.2.x
+
+def version2timestamp(v):
+    """ Convert version number to UNIX timestamp (float).
+        This must ONLY be used for display purposes.
+    """
+    return v/1000000.0
+    
 #############################################################################
 ### InterWiki
 #############################################################################
-
-_interwiki_list = None
 
 def split_wiki(wikiurl):
     """
@@ -149,18 +312,19 @@ def resolve_wiki(request, wikiurl):
     @return: (wikitag, wikiurl, wikitail)
     """
     # load map (once, and only on demand)
-    global _interwiki_list
-    if _interwiki_list is None:
+    try:
+        _interwiki_list = request.cfg._interwiki_list
+    except AttributeError:
         _interwiki_list = {}
         lines = []
-        
+ 
         # order is important here, the local intermap file takes
         # precedence over the shared one, and is thus read AFTER
         # the shared one
-        intermap_files = config.shared_intermap
+        intermap_files = request.cfg.shared_intermap
         if not isinstance(intermap_files, type([])):
             intermap_files = [intermap_files]
-        intermap_files.append(os.path.join(config.data_dir, "intermap.txt"))
+        intermap_files.append(os.path.join(request.cfg.data_dir, "intermap.txt"))
 
         for filename in intermap_files:
             if filename and os.path.isfile(filename):
@@ -182,8 +346,11 @@ def resolve_wiki(request, wikiurl):
 
         # add own wiki as "Self" and by its configured name
         _interwiki_list['Self'] = request.getScriptname() + '/'
-        if config.interwikiname:
-            _interwiki_list[config.interwikiname] = request.getScriptname() + '/'
+        if request.cfg.interwikiname:
+            _interwiki_list[request.cfg.interwikiname] = request.getScriptname() + '/'
+
+        # save for later
+        request.cfg._interwiki_list = _interwiki_list
 
     # split wiki url
     wikitag, tail = split_wiki(wikiurl)
@@ -209,10 +376,11 @@ def isSystemPage(request, pagename):
     @return: true if page is a system page
     """
     return (request.dicts.has_member('SystemPagesGroup', pagename) or
-        isTemplatePage(pagename) or isFormPage(pagename))
+        isTemplatePage(request, pagename) or
+        isFormPage(request, pagename))
 
 
-def isTemplatePage(pagename):
+def isTemplatePage(request, pagename):
     """
     Is this a template page?
     
@@ -220,13 +388,10 @@ def isTemplatePage(pagename):
     @rtype: bool
     @return: true if page is a template page
     """
-    global _TEMPLATE_RE
-    if _TEMPLATE_RE is None:
-        _TEMPLATE_RE = re.compile(config.page_template_regex)
-    return _TEMPLATE_RE.search(pagename) is not None
+    return re.search(request.cfg.page_template_regex, pagename, re.UNICODE) is not None
 
 
-def isFormPage(pagename):
+def isFormPage(request, pagename):
     """
     Is this a form page?
     
@@ -234,13 +399,19 @@ def isFormPage(pagename):
     @rtype: bool
     @return: true if page is a form page
     """
-    global _FORM_RE
-    if _FORM_RE is None:
-        _FORM_RE = re.compile(config.page_form_regex)
-    return _FORM_RE.search(pagename) is not None
+    return re.search(request.cfg.page_form_regex, pagename, re.UNICODE) is not None
+
+def isGroupPage(request, name):
+    """ Is this a name of group page?
+
+    @param pagename: the page name
+    @rtype: bool
+    @return: true if page is a form page
+    """
+    return re.search(request.cfg.page_group_regex, name, re.UNICODE) is not None
 
 
-def filterCategoryPages(pagelist):
+def filterCategoryPages(request, pagelist):
     """
     Return a copy of `pagelist` that only contains category pages.
 
@@ -252,101 +423,42 @@ def filterCategoryPages(pagelist):
     @rtype: list
     @return: only the category pages of pagelist
     """
-    global _CATEGORY_RE
-    if _CATEGORY_RE is None:
-        _CATEGORY_RE = re.compile(config.page_category_regex)
+    _CATEGORY_RE = re.compile(request.cfg.page_category_regex, re.UNICODE)
     return filter(_CATEGORY_RE.search, pagelist)
 
 
-#############################################################################
-### Page storage helpers
-#############################################################################
-
-def getPageList(text_dir):
-    """
-    List all pages, except for "CVS" directories,
-    hidden files (leading '.') and temp files (leading '#')
-    
-    @param text_dir: path to "text" directory
-    @rtype: list
-    @return: all (unquoted) wiki page names
-    """
-    pages = os.listdir(text_dir)
-    result = []
-    for file in pages:
-        if file[0] in ['.', '#'] or file in ['CVS']: continue
-        result.append(file)
-    return map(unquoteFilename, result)
-
-def getPageDict(text_dir):
-    """
-    Return a dictionary of page objects for all pages,
-    with the page name as the key.
-       
-    @param text_dir: path to "text" directory
-    @rtype: dict
-    @return: all pages {pagename: Page, ...}
-    """
-    from MoinMoin.Page import Page
-    pages = {}
-    pagenames = getPageList(text_dir)
-    for name in pagenames:
-        pages[name] = Page(name)
-    return pages
-
-
-def getBackupList(backup_dir, pagename=None):
-    """
-    Get a filename list of older versions of the page, sorted by date
-    in descending order (last change first).
-
-    @param backup_dir: the path of the "backup" directory
-    @param pagename: the (unquoted) page name or None, when all backup
-                     versions shall be returned
-    @rtype: list
-    @return: backup file names (quoted!)
-    """
-    if os.path.isdir(backup_dir):
-        if pagename:
-            pagename = quoteFilename(pagename)
-        else:
-            pagename = ".*?"
-        # XXX UNICODE - do we match pagenames in unicode?
-        backup_re = re.compile(r'^%s\.\d+(\.\d+)?$' % (pagename,))
-        oldversions = []
-        for file in os.listdir(backup_dir):
-            if not backup_re.match(file): continue
-            data = file.split('.', 1)
-            oldversions.append(((data[0], float(data[1])), file))
-        oldversions.sort()
-        oldversions.reverse()
-
-        oldversions = [x[1] for x in oldversions]
-    else:
-        oldversions = []
-
-    return oldversions
-
-
+# TODO: we may rename this to getLocalizedPage because it returns page
+# that have translations.
 def getSysPage(request, pagename):
     """
     Get a system page according to user settings and available translations.
     
     @param request: the request object
     @param pagename: the name of the page
-    @rtype: string
-    @return: the (possibly translated) name of that system page
+    @rtype: Page object
+    @return: the page object of that system page, using a translated page,
+             if it exists
     """
     from MoinMoin.Page import Page
-
-    i18n_name = request.getText(pagename)
+    i18n_name = request.getText(pagename, formatted=False)
     if i18n_name != pagename:
-        i18n_page = Page(i18n_name)
+        i18n_page = Page(request, i18n_name)
         if i18n_page.exists():
             return i18n_page
-    return Page(pagename)
+    return Page(request, pagename)
 
 
+def getFrontPage(request):
+    """ Convenience function to get localized front page
+
+    @param request: current request
+    @rtype: Page object
+    @return localized FrontPage
+    """
+    return getSysPage(request, request.cfg.page_front_page)
+    
+
+# FIXME - move to user class?
 def getHomePage(request, username=None):
     """
     Get a user's homepage, or return None for anon users and
@@ -357,47 +469,22 @@ def getHomePage(request, username=None):
     @rtype: Page
     @return: user's homepage object - or None
     """
+    from MoinMoin.Page import Page
     # default to current user
     if username is None and request.user.valid:
         username = request.user.name
 
     # known user?
     if username:
-        from MoinMoin.Page import Page
-
-        # plain homepage?
-        pg = Page(username)
-        if pg.exists(): return pg
-
-        # try without spaces
-        pg = Page(''.join(username.split()))
-        if pg.exists(): return pg
+        # Return home page
+        page = Page(request, username)
+        if page.exists():
+            return page
 
     return None
 
 
-def getPagePath(pagename, *args, **kw):
-    """
-    Get full path to a page-specific storage area. `args` can
-    contain additional path components that are added to the base path.
-
-    @param pagename: the page name
-    @param args: additional path components
-    @keyword check_create: ensures that the page storage area exists, excluding
-                           the additional path components (default is true).
-    @rtype: string
-    @return: the full path to the storage area
-    """
-    pagename = quoteFilename(pagename)
-
-    path = os.path.join(config.data_dir, "pages", pagename)
-    if kw.get('check_create', 1) and not os.path.exists(path): 
-        filesys.makeDirs(path)
-
-    return os.path.join(*((path,) + args))
-
-
-def AbsPageName(context, pagename):
+def AbsPageName(request, context, pagename):
     """
     Return the absolute pagename for a (possibly) relative pagename.
 
@@ -414,85 +501,11 @@ def AbsPageName(context, pagename):
 
     return pagename
 
-
-#############################################################################
-### Searching
-#############################################################################
-
-def searchPages(needle, **kw):
-    """
-    Search the text of all pages for "needle".
-
-    @param needle: the expression we want to search for
-    @keyword literal: 0: try to treat "needle" as a regex
-                      1: "needle" is definitely NOT a regex
-    @keyword case: 1: case-sensitive search
-    @keyword context: if != 0: provide `context` chars of text on each side of a hit.
-    @rtype: tuple
-    @return: (number of pages, hits).
-        `hits` is a list of tuples containing the number of hits on a page
-        and the pagename. When context>0, a list of triples with the text of
-        the hit and the text on each side of it is added; otherwise, the
-        third element is None.
-    """
-    from MoinMoin.Page import Page
-
-    literal = kw.get('literal', 0)
-    context = int(kw.get('context', 0))
-    ignorecase = int(kw.get('case', 0)) == 0 and re.IGNORECASE or 0
-
-    if literal and context:
-        needle_re = re.compile(re.escape(needle), ignorecase)
-    elif literal:
-        if ignorecase:
-            needle = needle.lower()
-    else:
-        try:
-            needle_re = re.compile(needle, ignorecase)
-        except re.error:
-            needle_re = re.compile(re.escape(needle), ignorecase)
-
-    hits = []
-    all_pages = getPageList(config.text_dir)
-    for page_name in all_pages:
-        body = Page(page_name).get_raw_body()
-        if context:
-            pos = 0
-            fragments = []
-            while 1:
-                match = needle_re.search(body, pos)
-                if not match: break
-                pos = match.end()
-                fragments.append((
-                    body[match.start()-context:match.start()],
-                    body[match.start():match.end()],
-                    body[match.end():match.end()+context],
-                ))
-            if fragments:
-                hits.append((len(fragments), page_name, fragments))
-        else:
-            if literal:
-                if ignorecase:
-                    body = body.lower()
-                count = body.count(needle)
-            else:
-                count = len(needle_re.findall(body))
-            if count:
-                hits.append((count, page_name, None))
-
-    # we sort:
-    # 1. by descending number of hits
-    # 2. by ascending name of page
-    hits.sort( lambda x,y: cmp((y[0], x[1]), (x[0], y[1])) )
-
-    return (len(all_pages), hits)
-
-
 #############################################################################
 ### Plugins
 #############################################################################
 
-def importPlugin(kind, name, function="execute"):
+def importPlugin(kind, name, function="execute", path=None):
     """
     Returns an object from a plugin module or None if module or 'function' is not found
     kind may be one of 'action', 'formatter', 'macro', 'processor', 'parser'
@@ -505,7 +518,9 @@ def importPlugin(kind, name, function="execute"):
     @return: "function" of module "name" of kind "kind"
     """
     # First try data/plugins
-    result = pysupport.importName("plugin." + kind + "." + name, function)
+    result = None
+    if path:
+        result = pysupport.importName("plugin." + kind + "." + name, function, path)
     if result == None:
         # then MoinMoin
         result = pysupport.importName("MoinMoin." + kind + "." + name, function)
@@ -525,7 +540,7 @@ def builtinPlugins(kind):
     else:
         return plugins
 
-def extensionPlugins(kind):
+def extensionPlugins(kind, path):
     """
     Gets a list of modules in data/plugin/'kind'
     
@@ -533,14 +548,14 @@ def extensionPlugins(kind):
     @rtype: list
     @return: module names
     """
-    plugins =  pysupport.importName("plugin." + kind, "modules")
+    plugins =  pysupport.importName("plugin." + kind, "modules", path=path)
     if plugins == None:
         return []
     else:
         return plugins
 
 
-def getPlugins(kind):
+def getPlugins(kind, path):
     """
     Gets a list of module names.
     
@@ -549,11 +564,52 @@ def getPlugins(kind):
     @return: module names
     """
     builtin_plugins = builtinPlugins(kind)
-    extension_plugins = extensionPlugins(kind)[:] # use a copy to not destroy the value
+    extension_plugins = extensionPlugins(kind, path)[:] # use a copy to not destroy the value
     for module in builtin_plugins:
         if module not in extension_plugins:
             extension_plugins.append(module)
     return extension_plugins
+
+
+#############################################################################
+### Parsers
+#############################################################################
+
+def getParserForExtension(cfg, extension):
+    """
+    Returns the Parser class of the parser fit to handle a file
+    with the given extension. The extension should be in the same
+    format as os.path.splitext returns it (i.e. with the dot).
+    Returns None if no parser willing to handle is found.
+    The dict of extensions is cached in the config object.
+
+    @param cfg: the Config class for the wiki in question
+    @param extension: the filename extension including the dot
+
+    @rtype: class, None
+    @returns: the parser class or None
+    """
+    ##
+    ## this is not a caching until cfg is persistent between requests!!!
+    ##
+    if not hasattr(cfg, '_EXT_TO_PARSER'):
+        import types
+        etp, etd = {}, None
+        for pname in getPlugins('parser', cfg.data_dir):
+            Parser = importPlugin('parser', pname, 'Parser', cfg.data_dir)
+            if Parser is not None:
+                if hasattr(Parser, 'extensions'):
+                    exts=Parser.extensions
+                    if type(exts) == types.ListType:
+                        for ext in Parser.extensions:
+                            etp[ext]=Parser
+                    elif str(exts) == '*':
+                        etd=Parser
+        # is this setitem thread save?
+        cfg._EXT_TO_PARSER=etp
+        cfg._EXT_TO_PARSER_DEFAULT=etd
+    return cfg._EXT_TO_PARSER.get(extension,cfg._EXT_TO_PARSER_DEFAULT)
+
 
 #############################################################################
 ### Misc
@@ -576,17 +632,21 @@ def parseAttributes(request, attrstring, endtoken=None, extension=None):
     @rtype: dict, msg
     @return: a dict plus a possible error message
     """
-    import shlex, cStringIO
+    import shlex, StringIO
 
     _ = request.getText
 
-    parser = shlex.shlex(cStringIO.StringIO(attrstring))
+    parser = shlex.shlex(StringIO.StringIO(attrstring))
     parser.commenters = ''
     msg = None
     attrs = {}
 
     while not msg:
-        key = parser.get_token()
+        try:
+            key = parser.get_token()
+        except ValueError, err:
+            msg = str(err)
+            break
         if not key: break
         if endtoken and key == endtoken: break
 
@@ -596,12 +656,20 @@ def parseAttributes(request, attrstring, endtoken=None, extension=None):
             if msg == '': continue
             if msg: break
 
-        eq = parser.get_token()
+        try:
+            eq = parser.get_token()
+        except ValueError, err:
+            msg = str(err)
+            break
         if eq != "=":
             msg = _('Expected "=" to follow "%(token)s"') % {'token': key}
             break
 
-        val = parser.get_token()
+        try:
+            val = parser.get_token()
+        except ValueError, err:
+            msg = str(err)
+            break
         if not val:
             msg = _('Expected a value for key "%(token)s"') % {'token': key}
             break
@@ -635,21 +703,21 @@ def taintfilename(basename):
     return basename
 
 
-def mapURL(url):
+def mapURL(request, url):
     """
-    Map URLs according to 'config.url_mappings'.
+    Map URLs according to 'cfg.url_mappings'.
     
     @param url: a URL
     @rtype: string
     @return: mapped URL
     """
     # check whether we have to map URLs
-    if config.url_mappings:
+    if request.cfg.url_mappings:
         # check URL for the configured prefixes
-        for prefix in config.url_mappings.keys():
+        for prefix in request.cfg.url_mappings.keys():
             if url.startswith(prefix):
                 # substitute prefix with replacement value
-                return config.url_mappings[prefix] + url[len(prefix):]
+                return request.cfg.url_mappings[prefix] + url[len(prefix):]
 
     # return unchanged url
     return url
@@ -664,30 +732,14 @@ def getUnicodeIndexGroup(name):
     @rtype: string
     @return: group letter or None
     """
-    if u'\uAC00' <= name[0] <= u'\uD7AF': # Hangul Syllables
-        return unichr(0xac00 + (int(ord(name[0]) - 0xac00) / 588) * 588)
+    c = name[0]
+    if u'\uAC00' <= c <= u'\uD7AF': # Hangul Syllables
+        return unichr(0xac00 + (int(ord(c) - 0xac00) / 588) * 588)
     else:
-        return None
+        return c
 
 
-def isUnicodeName(name):
-    """
-    Try to determine if the quoted wikiname is a special, pure unicode name.
-    
-    @param name: a string
-    @rtype: bool
-    @return: true if name is a pure unicode name
-    """
-    # escape name if not escaped
-    text = name
-    if not name.count('_'):
-        text = quoteWikiname(name)
-
-    # check if every character is escaped
-    return len(text.replace('_','')) == len(text) * 2/3
-    # XXX UNICODE 
-
-def isStrictWikiname(name, word_re=re.compile(r"^(?:[%(u)s][%(l)s]+){2,}$" % {'u':config.upperletters, 'l':config.lowerletters})):
+def isStrictWikiname(name, word_re=re.compile(ur"^(?:[%(u)s][%(l)s]+){2,}$" % {'u':config.chars_upper, 'l':config.chars_lower})):
     """
     Check whether this is NOT an extended name.
     
@@ -710,14 +762,15 @@ def isPicture(url):
     return extpos > 0 and url[extpos:].lower() in ['.gif', '.jpg', '.jpeg', '.png']
 
 
-def link_tag(request, params, text=None, formatter=None, **kw):
-    """
-    Create a link.
+def link_tag(request, params, text=None, formatter=None, on=None, **kw):
+    """ Create a link.
 
     @param request: the request object
     @param params: parameter string appended to the URL after the scriptname/
-    @param text: text / inner part of the <a>...</a> link
+    @param text: text / inner part of the <a>...</a> link - does NOT get
+                 escaped, so you can give HTML here and it will be used verbatim
     @param formatter: the formatter object to use
+    @keyword on: opening/closing tag only
     @keyword attrs: additional attrs (HTMLified string)
     @rtype: string
     @return: formatted link tag
@@ -726,13 +779,27 @@ def link_tag(request, params, text=None, formatter=None, **kw):
     if text is None:
         text = params # default
     if formatter:
-        return formatter.url("%s/%s" % (request.getScriptname(), params), text, css_class, **kw)
+        if on != None:
+            return formatter.url(on, "%s/%s" % (request.getScriptname(),
+                                                params),
+                                 css_class, **kw)
+        return (formatter.url(1, "%s/%s" % (request.getScriptname(), params),
+                              css_class, **kw) +
+                formatter.rawHTML(text) +
+                formatter.url(0))
+    if on != None and not on:
+        return '</a>'
+        
     attrs = ''
     if kw.has_key('attrs'):
         attrs += ' ' + kw['attrs']
     if css_class:
         attrs += ' class="%s"' % css_class
-    return ('<a%s href="%s/%s">%s</a>' % (attrs, request.getScriptname(), params, text))
+    result = '<a%s href="%s/%s">' % (attrs, request.getScriptname(), params)
+    if on:
+        return result
+    else:
+        return "%s%s</a>" % (result, text)
 
 
 def linediff(oldlines, newlines, **kw):
@@ -805,53 +872,46 @@ def linediff(oldlines, newlines, **kw):
     return lines
 
 
-def pagediff(page1, page2, **kw):
+def pagediff(request, pagename1, rev1, pagename2, rev2, **kw):
     """
-    Calculate the "diff" between `page1` and `page2`.
+    Calculate the "diff" between two page contents.
 
-    @param page1: first page
-    @param page2: second page
+    @param pagename1: name of first page
+    @param rev1: revision of first page
+    @param pagename2: name of second page
+    @param rev2: revision of second page
     @keyword ignorews: if 1: ignore pure-whitespace changes.
-    @rtype: tuple
-    @return: (diff return code, page file name,
-             backup page file name, list of lines of diff output)
+    @rtype: list
+    @return: lines of diff output
     """
-    lines1 = None
-    lines2 = None
-    # XXX UNICODE fix needed, decode from config.charset
-    try:
-        fd = open(page1)
-        lines1 = fd.readlines()
-        fd.close()
-    except IOError: # Page was deleted?
-        lines1 = None
-    try:
-        fd = open(page2)
-        lines2 = fd.readlines()
-        fd.close()
-    except IOError: # Page was deleted?
-        lines2 = None
-
-    if lines1 == None or lines2 == None:
-        return -1, page1, page2, []
+    from MoinMoin.Page import Page
+    lines1 = Page(request, pagename1, rev=rev1).getlines()
+    lines2 = Page(request, pagename2, rev=rev2).getlines()
     
-    lines = linediff(lines1,lines2,**kw)
-    return 0, page1, page2, lines
+    lines = linediff(lines1, lines2, **kw)
+    return lines
  
 
 #############################################################################
 ### Page header / footer
 #############################################################################
 
+# FIXME - this is theme code, move to theme
+# Could be simplified by using a template
+
 def send_title(request, text, **keywords):
     """
     Output the page header (and title).
+
+    TODO: check all code that call us and add page keyword for the
+    current page being rendered.
     
     @param request: the request object
     @param text: the title text
     @keyword link: URL for the title
     @keyword msg: additional message (after saving)
     @keyword pagename: 'PageName'
+    @keyword page: the page instance that called us.
     @keyword print_mode: 1 (or 0)
     @keyword media: css media type, defaults to 'screen'
     @keyword allow_doubleclick: 1 (or 0)
@@ -861,48 +921,49 @@ def send_title(request, text, **keywords):
     """
     from MoinMoin import i18n
     from MoinMoin.Page import Page
-
     _ = request.getText
-    pagename = keywords.get('pagename', None)
+    pagename = keywords.get('pagename', '')
+    page = keywords.get('page', Page(request, pagename))
 
     # get name of system pages
-    page_front_page = getSysPage(request, config.page_front_page).page_name
+    page_front_page = getFrontPage(request).page_name
     page_help_contents = getSysPage(request, 'HelpContents').page_name
     page_title_index = getSysPage(request, 'TitleIndex').page_name
     page_word_index = getSysPage(request, 'WordIndex').page_name
     page_user_prefs = getSysPage(request, 'UserPreferences').page_name
     page_help_formatting = getSysPage(request, 'HelpOnFormatting').page_name
     page_find_page = getSysPage(request, 'FindPage').page_name
-
-    # parent page?
-    page_parent_page = None
-    if pagename and config.allow_subpages:
-        pos = pagename.rfind('/')
-        if pos >= 0:
-            pp = Page(pagename[:pos])
-            if pp.exists():
-                page_parent_page = pp.page_name
-
+    page_home_page = getattr(getHomePage(request), 'page_name', None)
+    page_parent_page = getattr(page.getParentPage(), 'page_name', None)
+    
     # Print the HTML <head> element
-    user_head = config.html_head
+    user_head = request.cfg.html_head
+
+    # include charset information - needed for moin_dump or any other case
+    # when reading the html without a web server
+    user_head += '''<meta http-equiv="Content-Type" content="text/html;charset=%s">\n''' % config.charset
     
     # search engine precautions / optimization:
     # if it is an action or edit/search, send query headers (noindex,nofollow):
     if request.query_string:
-        user_head += config.html_head_queries
+        user_head += request.cfg.html_head_queries
     elif request.request_method == 'POST':
-        user_head += config.html_head_posts
-    # if it is a special page, index it and follow the links - we do it for
-    # the original, english pages as well as for (the possible modified) frontpage:
-    elif pagename in [page_front_page, config.page_front_page, page_title_index, ]:
-        user_head += config.html_head_index
+        user_head += request.cfg.html_head_posts
+    # if it is a special page, index it and follow the links - we do it
+    # for the original, English pages as well as for (the possibly
+    # modified) frontpage:
+    elif pagename in [page_front_page, request.cfg.page_front_page,
+                      page_title_index, ]:
+        user_head += request.cfg.html_head_index
     # if it is a normal page, index it, but do not follow the links, because
     # there are a lot of illegal links (like actions) or duplicates:
     else:
-        user_head += config.html_head_normal
-        
+        user_head += request.cfg.html_head_normal
+
     if keywords.has_key('pi_refresh') and keywords['pi_refresh']:
         user_head += '<meta http-equiv="refresh" content="%(delay)d;URL=%(url)s">' % keywords['pi_refresh']
+    
+    # later: <html xmlns=\"http://www.w3.org/1999/xhtml\">
     request.write("""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -914,20 +975,19 @@ def send_title(request, text, **keywords):
         keywords.get('html_head', ''),
         request.theme.html_head({
             'title': escape(text),
-            'sitename': escape(config.html_pagetitle or config.sitename),
+            'sitename': escape(request.cfg.html_pagetitle or request.cfg.sitename),
             'print_mode': keywords.get('print_mode', False),
             'media': keywords.get('media', 'screen'),
         })
     ))
-# later: <html xmlns=\"http://www.w3.org/1999/xhtml\">
 
     # Links
-    request.write('<link rel="Start" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(page_front_page)))
+    request.write('<link rel="Start" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_front_page)))
     if pagename:
         request.write('<link rel="Alternate" title="%s" href="%s/%s?action=raw">\n' % (
-            _('Wiki Markup'), request.getScriptname(), quoteWikiname(pagename),))
+            _('Wiki Markup'), request.getScriptname(), quoteWikinameURL(pagename),))
         request.write('<link rel="Alternate" media="print" title="%s" href="%s/%s?action=print">\n' % (
-            _('Print View'), request.getScriptname(), quoteWikiname(pagename),))
+            _('Print View'), request.getScriptname(), quoteWikinameURL(pagename),))
 
         # !!! currently disabled due to Mozilla link prefetching, see
         # http://www.mozilla.org/projects/netlib/Link_Prefetching_FAQ.html
@@ -939,24 +999,24 @@ def send_title(request, text, **keywords):
         #~         # this shopuld never happend in theory, but let's be sure
         #~         pass
         #~     else:
-        #~         request.write('<link rel="First" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(all_pages[0]))
+        #~         request.write('<link rel="First" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(all_pages[0]))
         #~         if pos > 0:
-        #~             request.write('<link rel="Previous" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(all_pages[pos-1])))
+        #~             request.write('<link rel="Previous" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(all_pages[pos-1])))
         #~         if pos+1 < len(all_pages):
-        #~             request.write('<link rel="Next" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(all_pages[pos+1])))
-        #~         request.write('<link rel="Last" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(all_pages[-1])))
+        #~             request.write('<link rel="Next" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(all_pages[pos+1])))
+        #~         request.write('<link rel="Last" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(all_pages[-1])))
 
         if page_parent_page:
-            request.write('<link rel="Up" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(page_parent_page)))
+            request.write('<link rel="Up" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_parent_page)))
 
         from MoinMoin.action import AttachFile
         AttachFile.send_link_rel(request, pagename)
 
     request.write(
-        '<link rel="Search" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(page_find_page)) +
-        '<link rel="Index" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(page_title_index)) +
-        '<link rel="Glossary" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(page_word_index)) +
-        '<link rel="Help" href="%s/%s">\n' % (request.getScriptname(), quoteWikiname(page_help_formatting))
+        '<link rel="Search" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_find_page)) +
+        '<link rel="Index" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_title_index)) +
+        '<link rel="Glossary" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_word_index)) +
+        '<link rel="Help" href="%s/%s">\n' % (request.getScriptname(), quoteWikinameURL(page_help_formatting))
     )
 
     request.write("</head>\n")
@@ -966,11 +1026,17 @@ def send_title(request, text, **keywords):
     bodyattr = ''
     if keywords.has_key('body_attr'):
         bodyattr += ' ' + keywords['body_attr']
-    if keywords.get('allow_doubleclick', 0) and not keywords.get('print_mode', 0) \
-            and pagename and request.user.may.edit(pagename) \
-            and request.user.edit_on_doubleclick:
-        bodyattr += ''' ondblclick="location.href='%s'"''' % (
-            Page(pagename).url(request, "action=edit"))
+
+    # Add doubleclick edit action
+    if (keywords.get('allow_doubleclick', 0) and
+        not keywords.get('print_mode', 0) and
+        pagename and request.user.may.write(pagename) and
+        request.user.edit_on_doubleclick):
+        querystr = util.web.makeQueryString({'action': 'edit'})
+        querystr = escape(querystr)
+        # TODO: remove escape=0 in 1.4
+        url = Page(request, pagename).url(request, querystr, escape=0)
+        bodyattr += ''' ondblclick="location.href='%s'"''' % url
 
     # Set body to the user interface language and direction
     bodyattr += ' %s' % request.theme.ui_lang_attr()
@@ -980,131 +1046,68 @@ def send_title(request, text, **keywords):
         bodyattr += ''' onload="%s"''' % body_onload
     request.write('\n<body%s>\n' % bodyattr)
 
-    # if in Print mode, emit the title and return immediately
+
+    # Output -----------------------------------------------------------
+
+    theme = request.theme
+    
+    # If in print mode, start page div and emit the title
     if keywords.get('print_mode', 0):
-        ## print '<h1>%s</h1><hr>\n' % (escape(text),)
-        return
+        d = {'title_text': text, 'title_link': None, 'page': page,}
+        request.themedict = d
+        request.write(theme.startPage())
+        request.write(theme.title(d))      
 
-    navibar = None
-    quicklinks = request.user.getQuickLinks()
-    if config.navi_bar or quicklinks:
-        # Print quicklinks
-        if not quicklinks:
-            for navi_link in config.navi_bar:
-                newwin = ''
-                if navi_link.startswith('^'):
-                    newwin = '^'
-                    navi_link = navi_link[1:]
-                if not navi_link.startswith('['):
-                    # copy real links verbatim, try to map system pages else
-                    navi_link = getSysPage(request, navi_link).page_name
-                quicklinks.append(newwin + navi_link)
-
-        navibar = []
-        for navi_link in quicklinks:
-            if navi_link.startswith('[^'):
-                navi_link = '[' + navi_link[2:]
-            elif navi_link.startswith('^'):
-                navi_link = navi_link[1:]
-
-            if navi_link.startswith('[') and navi_link.endswith(']'):
-                try:
-                    link, navi_link = navi_link[1:-1].split(' ', 1)
-                except (ValueError, TypeError):
-                    link = "#error"
-                    navi_link = "Broken link: " + escape(navi_link)
-                else:
-                    # escape untrusted input!                   
-                    link = escape(link, quote=1)
-                    navi_link = escape(navi_link)
-            else:
-                link =  "%s/%s" % (request.getScriptname(), quoteWikiname(navi_link))
-
-            navibar.append((link, navi_link,))
-
-    hp = getHomePage(request)
-    if hp:
-        page_home_page = hp.page_name
+    # In standard mode, emit theme.header
     else:
-        page_home_page = None
-
-    # list user actions that start with an uppercase letter
-    available_actions = []
-    if keywords.get('showactions', 1):
-        from MoinMoin.wikiaction import getPlugins
-        from MoinMoin.action import extension_actions
-        dummy, actions = getPlugins()
-        actions.extend(extension_actions)
-        actions.sort()
-         
-        for action in actions:
-            if action[0] != action[0].upper(): continue
-            if action in config.excluded_actions: continue
-            available_actions.append(action)
-
-    form = keywords.get('form', None)
-    icon = request.theme.get_icon('searchbutton')
-    searchfield = (
-        '<input type="text" name="text_%%(type)s" value="%%(value)s" size="15" maxlength="50">'
-        '<input type="image" src="%(src)s" name="button_%%(type)s" alt="%(alt)s">'
-        ) % {
-            'alt': icon[0],
-            'src': icon[1],
+        form = keywords.get('form', None)
+            
+        # prepare dict for theme code:
+        d = {
+            'theme': theme.name,
+            'script_name': request.getScriptname(),
+            'title_text': text,
+            'title_link': keywords.get('link', ''),
+            'logo_string': request.cfg.logo_string,
+            'site_name': request.cfg.sitename,
+            'page': page,
+            'pagesize': pagename and page.size() or 0,
+            'last_edit_info': pagename and page.lastEditInfo() or '',
+            'page_name': pagename or '',
+            'page_find_page': page_find_page,
+            'page_front_page': page_front_page,
+            'page_home_page': page_home_page,
+            'page_help_contents': page_help_contents,
+            'page_help_formatting': page_help_formatting,
+            'page_parent_page': page_parent_page,
+            'page_title_index': page_title_index,
+            'page_word_index': page_word_index,
+            'page_user_prefs': page_user_prefs,
+            'user_name': request.user.name,
+            'user_valid': request.user.valid,
+            'user_prefs': (page_user_prefs, request.user.name)[request.user.valid],
+            'msg': keywords.get('msg', ''),
+            'trail': keywords.get('trail', None),
+            # Discontinued keys, keep for a while for 3rd party theme developers
+            'titlesearch': 'use self.searchform(d)',
+            'textsearch': 'use self.searchform(d)',
+            'navibar': ['use self.navibar(d)'],
+            'available_actions': ['use self.request.availableActions(page)'],
         }
-    titlesearch = searchfield % {
-        'type': 'title',
-        'value': escape(form and form.get('text_title', [''])[0] or '', 1),
-    }
-    textsearch = searchfield %  {
-        'type': 'full',
-        'value': escape(form and form.get('text_full', [''])[0] or '', 1),
-    }
-    page = Page(pagename)    
-    # prepare dict for theme code:
-    d = {
-        'theme': request.theme.name,
-        'script_name': request.getScriptname(),
-        'title_text': text,
-        'title_link': keywords.get('link', ''),
-        'logo_string': config.logo_string,
-        'site_name': config.sitename,
-        'page': page,             # necessary???
-        'pagesize': pagename and page.size() or 0,
-        'last_edit_info': pagename and page._last_modified(request) or '',
-        'page_name': pagename or '',
-        'page_find_page': page_find_page,
-        'page_front_page': page_front_page,
-        'page_home_page': page_home_page,
-        'page_help_contents': page_help_contents,
-        'page_help_formatting': page_help_formatting,
-        'page_parent_page': page_parent_page,
-        'page_title_index': page_title_index,
-        'page_word_index': page_word_index,
-        'page_user_prefs': page_user_prefs,
-        'user_name': request.user.name,
-        'user_valid': request.user.valid,
-        'user_prefs': (page_user_prefs, request.user.name)[request.user.valid],
-        'msg': keywords.get('msg', ''),
-        'trail': keywords.get('trail', None),
-        'navibar': navibar,
-        'available_actions': available_actions,
-        'titlesearch': titlesearch,
-        'textsearch': textsearch,
-    }
-    # add quoted versions of pagenames
-    newdict = {}
-    for key in d:
-        if key.startswith('page_'):
-            if d[key]:
-                newdict['q_'+key] = quoteWikiname(d[key])
-            else:
-                newdict['q_'+key] = None
-    d.update(newdict)
 
-    request.themedict = d # remember it for footer
+        # add quoted versions of pagenames
+        newdict = {}
+        for key in d:
+            if key.startswith('page_'):
+                if not d[key] is None:
+                    newdict['q_'+key] = quoteWikinameURL(d[key])
+                else:
+                    newdict['q_'+key] = None
+        d.update(newdict)
+        request.themedict = d
 
-    # now call the theming code to do the rendering
-    request.write(request.theme.header(d))
+        # now call the theming code to do the rendering
+        request.write(theme.header(d))
     
     # emit it
     request.flush()
@@ -1120,11 +1123,42 @@ def send_footer(request, pagename, **keywords):
     @keyword showpage: true, when link back to page is wanted (default: false)
     @keyword print_mode: true, when page is displayed in Print mode
     """
-    d = request.themedict # prepared in send_header function
-    d.update({
-        'footer_fragments': request._footer_fragments,
-    })
+    d = request.themedict
+    theme = request.theme
 
-    request.write('\n\n') # the content does not always end with a newline
-    request.write(request.theme.footer(d, **keywords))
+    # Emit end of page in print mode, or complete footer in standard mode
+    if keywords.get('print_mode', 0):
+        request.write(theme.pageinfo(d['page']))
+        request.write(theme.endPage())
+    else:
+        # This is used only by classic now, kill soon
+        d['footer_fragments'] = request._footer_fragments
+        request.write(theme.footer(d, **keywords))
+
     
+########################################################################
+### Tickets - used by RenamePage and DeletePage
+########################################################################
+
+def createTicket(tm = None):
+    """Create a ticket using a site-specific secret (the config)"""
+    import sha, time, types
+    ticket = tm or "%010x" % time.time()
+    digest = sha.new()
+    digest.update(ticket)
+
+    cfgvars = vars(config)
+    for var in cfgvars.values():
+        if type(var) is types.StringType:
+            digest.update(repr(var))
+
+    return "%s.%s" % (ticket, digest.hexdigest())
+
+
+def checkTicket(ticket):
+    """Check validity of a previously created ticket"""
+    timestamp = ticket.split('.')[0]
+    ourticket = createTicket(timestamp)
+    return ticket == ourticket
+
+

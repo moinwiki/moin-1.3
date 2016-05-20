@@ -1,18 +1,13 @@
 # -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Utility Functions
-
-    Copyright (c) 2000, 2001, 2002 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
     General helper functions that are not directly wiki related.
 
-    $Id: __init__.py,v 1.8 2004/02/10 21:01:56 thomaswaldmann Exp $
+    @copyright: 2004 Juergen Hermann, Thomas Waldmann
+    @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import os, re, time
-
 
 #############################################################################
 ### XML helper functions
@@ -61,16 +56,6 @@ class MoinMoinNoFooter(Exception):
 #############################################################################
 ### Misc
 #############################################################################
-
-# popen (use win32 version if available)
-popen = os.popen
-if os.name == "nt":
-    try:
-        import win32pipe
-        popen = win32pipe.popen
-    except ImportError:
-        pass
-
 
 def rangelist(numbers):
     """ Convert a list of integers to a range string in the form

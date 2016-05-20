@@ -1,0 +1,26 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:SiteNavigation
+##master-date:2004-10-03 8:49:44
+#language it
+NavigaIlSito è il punto di ingresso all'esplorazione di questo wiki.
+MoinMoin supporta i seguenti sistemi di ricerca (vedi anche MeatBall:IndexingScheme):
+ * ModificheRecenti
+ * IndiceDeiTitoli
+ * IndicePerParola
+ * CercaPagina
+ * PagineAssenti
+ * PagineOrfane
+ * PagineAbbandonate
+ * PagineCasuali
+ * PaginePerDimensione
+
+In fondo ad ogni pagina ci sono delle "Azioni" che ti consentono di trovare altre pagine in qualche modo correlate alla pagina corrente:
+ * Like''''''Pages
+ * Local''''''Site''''''Map
+
+Inoltre, ci sono le macro
+{{{[[PageList]]}}}, {{{[[FullSearch('text')]]}}}
+e {{{[[TableOfContents]]}}}
+, che ti permettono di generare automaticamente degli indici di una serie di pagine del wiki.

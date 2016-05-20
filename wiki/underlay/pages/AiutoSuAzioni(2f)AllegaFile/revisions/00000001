@@ -1,0 +1,49 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language it
+== Abilitazione dell'azione AttachFile ==
+
+L'azione `AttachFile` ti consente di poter allegare dei file ad una
+pagina.  Dal momento che è possibile abusare di questa possibilità per
+tentare degli attacchi DoS (Denial of Service, "blocco" del servizio),
+questa azione deve essere esplicitamente abilitata dall'amministratore
+del wiki. Vedi [wiki:Self:AiutoSuConfigurazione#file-attachments Configurazione di MoinMoin] per i dettagli.
+
+== Creare un allegato ==
+
+Per creare un nuovo allegato, puoi sia aggiungere un link adeguato ad
+ogni pagina (vedi sotto come fare), o cliccare sul link `AttachFile`
+in fondo alla pagina. Nel primo caso, quando salvi la pagina avrai la
+possibilità di fare l'upload dell'allegato: cliccando su quel link
+sarai spostato nella pagina di upload, la stessa che ottieni quando
+clicchi direttamente sul link `AttachFile`.
+
+The upload form consist of three fields, in addition to the file input there are two optional fields, one to specify a MIME type for the file (which will be detected automatically otherwise), the second to store the file under a different name than on your own computer.
+
+An upload will never overwrite an existing file. If there is a name
+conflict, you have to rename the file that you want to upload.
+Otherwise, if "Rename to" is left blank, the original filename will be used.
+
+Any upload or deletion of attachments is reflected on RecentChanges and thus subject to peer review. Unlike page changes, there is no history though, so ''keep a local copy of files'' so you can revert possible vandalism.
+
+
+== Linking to attachments ==
+
+To refer to attachments on a page, use `attachment:filename.ext`; a link of this kind follows all the rules for normal links, i.e. pictures are automatically inlined.
+Do '''not''' use the URL of the `[get]` link you can see on the attachments upload page, 
+since these links are subject to change and can break easily on reconfigurations of the wiki.
+To refer to files attached to other pages, use `attachment:WikiName/filename.ext`.
+
+Instead of `attachment:`, you can also use `inline:`, which tries to inline the attachment's content. For pictures there is no difference. For Python sources (i.e. attachments with a `.py` extension), they are shown as syntax-highlighted source displays. For all other files, the behaviour is the same as for simple `attachment:` links.
+
+The third type of link is `drawing:`, explained in the next section.
+
+
+== Editing vector drawings ==
+
+A link looking like `drawing:picturename` will allow you to ''interactively'' edit vector diagrams via the built-in Java applet. The applet will then store two attachments, "`picturename.draw`" and "`picturename.png`". After you first saved a drawing, the generated PNG picture is displayed for the `drawing:` link. This means that you only need Java enabled for editing, while displaying the results works with any browser.
+
+To edit a drawing after the first save, click on `AttachFile` and use the `[edit]` link that is displayed instead of `[view]` for the `.draw` attachment. Saving a drawing is reflected in RecentChanges.
+
+For details on using the drawing applet, see TWiki:Plugins/TWikiDrawPlugin.

@@ -10,50 +10,85 @@ import unittest
 from MoinMoin.util import web
 from MoinMoin.widget import html
 
-class makeQueryStringTestCase(unittest.TestCase):
-    def runTest(self):
-        # keep string as string
-        val = 'a=b&amp;c=d'
-        self.failUnlessEqual(web.makeQueryString(val), val)
 
-        # single value
-        val = {'a': 'b'}
-        self.failUnlessEqual(web.makeQueryString(val), 'a=b')
+class MakeQueryStringTestCase(unittest.TestCase):
+    """util.web: making query string"""
 
-        # single integer value
-        val = {'a': 1}
-        self.failUnlessEqual(web.makeQueryString(val), 'a=1')
+    def testMakeQueryStringFromArgument(self):
+        """ util.web: make query sting from argument """
+        tests = (
+            # description,          arg,                expected
+            ('string unchanged',    'a=b',              'a=b'),
+            ('string value',        {'a': 'b'},         'a=b'),
+            ('integer value',       {'a': 1},           'a=1'),
+            ('multiply values',     {'a': 1, 'b': 2},   'a=1&b=2'),
+            )
 
-        # multiple values
-        val = {'a': 'b', 'c': 'd'}
-        qstr = web.makeQueryString(val)
-        self.failUnless(qstr == 'a=b&amp;c=d' or qstr == 'c=d&amp;a=b')
+        for description, arg, expected in tests:
+            result = web.makeQueryString(arg)
+            self.assertEqual(result, expected,
+                             ('%(description)s: expected "%(expected)s" '
+                              'but got "%(result)s"') % locals())
 
-        # keyword variant
-        self.failUnlessEqual(web.makeQueryString(a=1), 'a=1')
+    def testMakeQueryStringFromKeywords(self):
+        """ util.web: make query sting from keywords """
+        expected = 'a=1&b=string'
+        result = web.makeQueryString(a=1, b='string')
+        self.assertEqual(result, expected,
+                         'Expected "%(expected)s" but got "%(result)s"' % locals())
 
+    def testMakeQueryStringFromArgumentAndKeywords(self):
+        """ util.web: make query sting from argument and keywords """        
+        
+        tests = (
+            # description,      arg,                    expected
+            ('kw ignored',      'a=1',                  'a=1'),             
+            ('kw added to arg', {'a': 1},               'a=1&b=kw'),             
+            ('kw override arg',  {'a': 1, 'b': 'arg'},   'a=1&b=kw'),
+            )
+        
+        for description, arg, expected in tests:
+            # Call makeQueryString with both arg and keyword
+            result = web.makeQueryString(arg, b='kw')
+            self.assertEqual(result, expected,
+                             ('%(description)s: expected "%(expected)s" '
+                              'but got "%(result)s"') % locals())
+        
 
-class makeSelectionTestCase(unittest.TestCase):
-    def runTest(self):
+class MakeSelectionTestCase(unittest.TestCase):
+    """util.web: creating html select"""
+
+    values = ('one', 'two', 'simple', ('complex', 'A tuple & <escaped text>'))
+
+    def setUp(self):
         html._SORT_ATTRS = 1
-
-        expected = (
-            '<select name="test">'
-            '<option value="one">one</option>'
-            '<option value="two">two</option>'
-            '<option value="simple">simple</option>'
-            '<option value="complex">A tuple &amp; &lt;escaped text&gt;</option>'
-            '</select>'
+        self.expected = (
+        u'<select name="test">'
+        u'<option value="one">one</option>'
+        u'<option value="two">two</option>'
+        u'<option value="simple">simple</option>'
+        u'<option value="complex">A tuple &amp; &lt;escaped text&gt;</option>'
+        u'</select>'
         )
-        values = ['one', 'two', 'simple', ('complex', 'A tuple & <escaped text>')]
+        
+    def testMakeSelectNoSelection(self):
+        """util.web: creating html select with no selection"""
+        expected = self.expected
+        result = unicode(web.makeSelection('test', self.values))
+        self.assertEqual(result, expected,
+                         'Expected "%(expected)s" but got "%(result)s"' % locals())
 
-        sel = web.makeSelection('test', values)
-        self.failUnlessEqual(str(sel), expected)
-
-        sel = web.makeSelection('test', values, 'three')
-        self.failUnlessEqual(str(sel), expected)
-
-        expected = expected.replace('value="two"', 'selected value="two"')
-        sel = web.makeSelection('test', values, 'two')
-        self.failUnlessEqual(str(sel), expected)
+    def testMakeSelectNoSelection(self):
+        """util.web: creating html select with non existing selection"""
+        expected = self.expected
+        result = unicode(web.makeSelection('test', self.values, 'three'))
+        self.assertEqual(result, expected,
+                         'Expected "%(expected)s" but got "%(result)s"' % locals())
+        
+    def testMakeSelectWithSelectedItem(self):
+        """util.web: creating html select with selected item"""
+        expected = self.expected.replace('value="two"', 'selected value="two"')
+        result = unicode(web.makeSelection('test', self.values, 'two'))
+        self.assertEqual(result, expected,
+                         'Expected "%(expected)s" but got "%(result)s"' % locals())
 

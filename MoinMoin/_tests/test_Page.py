@@ -7,10 +7,21 @@
 """
 
 import unittest
+from MoinMoin._tests import request
 from MoinMoin import Page
 
 class existsTestCase(unittest.TestCase):
-    def runTest(self):
-        pg = Page.Page('OnlyAnIdiotWouldCreateSuchaPage')
-        self.failIf(pg.exists())
+    """Page: testing wiki page"""
+    
+    def testExists(self):
+        """ Page: page.exists() finds existing pages only """
+        tests = (
+            # Page name,                            expected
+            ('FrontPage',                           1),
+            ('OnlyAnIdiotWouldCreateSuchaPage',     0),
+            )
+        for name, expected in tests:
+            pg = Page.Page(request, name)
+            self.assertEqual(pg.exists(), expected,
+                             '%s should%s exist' % (name, (' not', '')[expected]))
 

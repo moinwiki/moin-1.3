@@ -5,10 +5,8 @@
     See "plain.py" for the most simple parser that also
     defines the parser interface.
 
-    Copyright (c) 2000 by Jürgen Hermann <jh@web.de>
-    All rights reserved, see COPYING for details.
-
-    $Id: __init__.py,v 1.3 2004/01/30 21:29:57 thomaswaldmann Exp $
+    @copyright: 2000 by Jürgen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
 """
 from MoinMoin.util import pysupport
 

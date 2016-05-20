@@ -21,14 +21,25 @@ class Column:
         ]
 
     def __init__(self, name, **kw):
+        """ Init a column
+
+        keys in kw that not in slots are ignored.
+        
+        @param name: column name, unicode or ascii
+        @param kw: column meta data, unicode or ascii
+        """
         self.name = name
         for slot, defval in self._SLOTS:
             setattr(self, slot, kw.get(slot, defval))
 
 
 class Dataset:
-    """ Holds a 2-dimensional data set (m rows of n columns)
-        and associated meta-data (column titles, etc.)
+    """ Base dataset.
+    
+    Holds a 2-dimensional data set (m rows of n columns) and associated
+    meta-data (column titles, etc.).
+
+    Note: Dataset rows and column must contain only ascii or Unicode values!  
     """
 
     def __init__(self):

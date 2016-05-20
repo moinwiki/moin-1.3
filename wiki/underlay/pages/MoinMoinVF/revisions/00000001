@@ -1,0 +1,51 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:MoinMoin
+##master-date:2004-10-24 16:32:34
+#language fr
+
+[:MoinMoinVF: MoinMoin] est un [wiki:Wiki:WikiClone clone de Wiki], basé sur Wiki:PikiPiki. Son nom provient d'une expression argotique allemande. Si vous faites tourner un Wiki avec [:MoinMoinVF: MoinMoin], merci de l'ajouter à la page MoinMoin:MoinMoinWikis. Du code contribué par les utilisateurs est disponible sur les pages MoinMoin:MacroMarket, MoinMoin:ActionMarket et MoinMoin:ParserMarket.
+
+Les pages suivantes traitent du développement de [:MoinMoinVF: MoinMoin] :
+ * MoinMoin:MoinMoinQuestions - Questions à propos de [:MoinMoinVF: MoinMoin] (installation, etc.)
+ * MoinMoin:MoinMoinTips - Trucs et astuces pour [:MoinMoinVF: MoinMoin]
+ * MoinMoin:MoinMoinTranslation - Discussion sur la traduction de [:MoinMoinVF: MoinMoin]
+ * MoinMoin:MoinMoinBugs - bogues dans le programme (voir également [http://sourceforge.net/tracker/?group_id=8482 le gestionnaire de bogues chez SourceForge])
+ * MoinMoin:MoinMoinDiscussion - discussions sur de nouvelles fonctionnalités
+ * MoinMoin:MoinMoinIdeas - nous vous invitons à ''ajouter'' vos souhaits et idées sur cette page
+ * MoinMoin:MoinMoinMailingLists - discuter de [:MoinMoinVF: MoinMoin] par courriel
+ * MoinMoin:MoinDev - information pour les développeurs de [:MoinMoinVF: MoinMoin]
+ * AideAuxDéveloppeurs - les règles qui gouvernent le développement de [:MoinMoinVF: MoinMoin]
+
+Ces pages fournissent des informations sur l'utilisation et l'installation de [:MoinMoinVF: MoinMoin] :
+ * ["AideD'Installation"] - comment installer [:MoinMoinVF: MoinMoin]
+ * /MiseEnForme - une page qui contient des échantillons de toutes les possibilités de mise en forme
+ * MoinMoin:MoinMoinSuccessStories - pour quoi [:MoinMoinVF: MoinMoin] est-il utilisé ?
+ * ["SommaireDeL'Aide"] - la page d'accueil de l'aide en ligne
+ * AidesDiverses/FoireAuxQuestions - les questions usuelles et leurs réponses (posez vos propres questions en anglais sur MoinMoin:MoinMoinQuestions)
+ * MoinMoin:MoinMoinMailingLists - discuter de [:MoinMoinVF: MoinMoin] par courriel
+ * MoinMoin:MoinMoinWikis - liste des wikis qui utilisent [:MoinMoinVF: MoinMoin]
+ * ["/DocumentationD'Installation"] - toutes les pages d'aide de l'installation, réunies en une seule
+ * MoinMoin:SecurityPolicy - explique comment restreindre l'accès de votre wiki, ou de certaines parties seulement
+ * MoinMoin:MoinMoinSyndication - support des sources RSS et autres fonctionnalités de collaboration inter-systèmes
+ * MoinMoin:MoinMoinExtensions - fonctionnalités supplémentaires qui peuvent être ajoutées à [:MoinMoinVF: MoinMoin]
+ * Présentation : LeçonDeWiki - Une introduction aux Wikis et à [:MoinMoinVF: MoinMoin]
+
+Autres pages traitant de [:MoinMoinVF: MoinMoin] :
+ * MoinMoin:MoinMoinEtymology - éthymologie du nom [:MoinMoinVF: MoinMoin]
+
+Liens externes :
+ * [http://sourceforge.net/projects/moin/ Page SourceForge d'information sur le projet]
+ * [http://moin.sourceforge.net/ Page d'accueil du projet chez SourceForge]
+ * [http://freshmeat.net/projects/moin Page FreshMeat d'information sur le projet]
+ * [http://www.oreillynet.com/pub/a/python/2000/11/29/pythonnews.html Article de PythonNews sur les wikis]
+
+Connectez-vous sur Foldoc:IRC pour rencontrer l'auteur et d'autres utilisateurs et développeurs de [:MoinMoinVF: MoinMoin] :
+ * canal `#moin` sur le serveur Free''''''Node `irc.freenode.net`
+ * voir également [http://freenode.net/ la page d'accueil de FreeNode] et en particulier la liste des [http://freenode.net/irc_servers.shtml serveurs IRC de FreeNode] pour plus d'information
+
+http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png
+[[BR]][http://www.opensource.org/docs/definition.php Open Source]

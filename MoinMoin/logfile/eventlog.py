@@ -5,44 +5,57 @@
 """
 
 from logfile import LogFile
-import MoinMoin.util.web
-from MoinMoin import config, util
+from MoinMoin import util, config, wikiutil
+from MoinMoin.util import web
 import os.path, urllib, time
 
 class EventLog(LogFile):
-    def __init__(self, filename=None, buffer_size=65536):
+    def __init__(self, request, filename=None, buffer_size=65536, **kw):
         if filename == None:
-            filename = os.path.join(config.data_dir, 'event.log')
+            rootpagename = kw.get('rootpagename', None)
+            if rootpagename:
+                from MoinMoin.Page import Page
+                filename = Page(request, rootpagename).getPagePath('event-log', isfile=1)
+            else:
+                filename = request.rootpage.getPagePath('event-log', isfile=1)
         LogFile.__init__(self, filename, buffer_size)
 
-    def add(self, request, eventtype, values={}, add_http_info=1):
+    def add(self, request, eventtype, values=None, add_http_info=1, mtime_usecs=None):
         """ Write an event of type `eventtype, with optional key/value
         pairs appended (i.e. you have to pass a dict).
         """
-        if MoinMoin.util.web.isSpiderAgent():
+        # Dont log spiders XXX TODO: does it make sense? 
+        if web.isSpiderAgent(request):
             return
         
-        kvlist = values.items()
+        if mtime_usecs is None:
+            mtime_usecs = wikiutil.timestamp2version(time.time())
+
+        if values is None:
+            values = {}
         if add_http_info:
+            # All these are ascii
             for key in ['remote_addr', 'http_user_agent', 'http_referer']:
-                val = request.__dict__.get(key, '')
-                if val:
-                    kvlist.append((key.upper(), val)) # HTTP stuff is UPPERCASE
-        kvpairs = ""
-        for key, val in kvlist:
-            if kvpairs: kvpairs = kvpairs + "&"
-            kvpairs = "%s%s=%s" % (kvpairs, urllib.quote(key), urllib.quote(val))
-        self._add("%s\t%s\t%s\n" % (time.time(), eventtype, kvpairs))
+                value = getattr(request, key, '')
+                if value:
+                    # Save those http headers in UPPERcase
+                    values[key.upper()] = value
+        # Encode values in a query string TODO: use more reaable format
+        values = web.makeQueryString(values)
+        self._add(u"%d\t%s\t%s\n" % (mtime_usecs, eventtype, values))
 
     def parser(self, line):
         try:
-            time, eventtype, kvpairs = line.rstrip().split('\t')
+            time_usecs, eventtype, kvpairs = line.rstrip().split('\t')
         except ValueError:
             # badly formatted line in file, skip it
             return None
-        return (float(time), eventtype, MoinMoin.util.web.parseQueryString(kvpairs))
+        return (int(time_usecs), eventtype, web.parseQueryString(kvpairs))
                                                                         
     def set_filter(self, event_types = None):
-        if event_types == None: self.filter = None
-        else: self.filter = lambda line: (line[1] in event_types)
-        
+        if event_types == None:
+            self.filter = None
+        else:
+            self.filter = lambda line: (line[1] in event_types)
+
+

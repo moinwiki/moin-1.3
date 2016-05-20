@@ -1,0 +1,33 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language sv
+##master-page:HelpOnNavigation
+##master-date:2002-03-05 10:00:33
+##translated-by:Karolina Lindqvist, Shakti Wiki
+== Navigering ==
+
+Navigationsraden högst upp på varje sida ger dig möjlighet att gå till:
+StartSidan,
+SenasteÄndringar (lista på ändrade sidor),
+TitelRegister (register över alla sidtitlar),
+OrdRegister (register över alla ord i sidtitlar),
+PlatsNavigering (lista på navigationshjälpmedel) och
+HjälpInnehåll (huvudsidan för hjälp).
+
+Uppe till höger finns det några ikoner som du kan klicka
+på för att nå de vanligaste funktionerna:
+  * [[Icon(up)]] hoppar till den överliggande sidan om du står på en underliggande sida (se ["HjälpMedÄndringar/UnderSidor"])
+  * [[Icon(view)]] uppdaterar den aktuella sidan
+  * [[Icon(print)]] visar sidan i ett format lämpligt för utskrivning utan sidhuvud och sidfot
+  * [[Icon(xml)]] skapar en XML-version av den aktuella sidan (fortfarande experimentellt, skapar MoinMoin:StyleBook, en MoinMoin:DocBook variant)
+  * [[Icon(subscribe)]]/[[Icon(unsubscribe)]] prenumerera på e-postunderrättelse när den aktuella sidan ändras. Den ljusare varianten betyder att du redan får sådana underrättelser för sidan.
+  * [[Icon(edit)]] säg något, dvs. redigera sidan
+  * [[Icon(info)]] visar metainformation om aktuell sida. Specifikt den fulla ändringshistoriken
+  * [[Icon(diff)]] visar skillnaderna mellan den nuvarande och förra versionen av den här sidan
+  * [[Icon(find)]] visar söksidan
+  * [[Icon(help)]] visar hjälpsidan
+  * [[Icon(home)]] länkar till användarens webbplats om användaren är inloggad och en sida där dennes inloggningsnamn finns.
+
+Klickar du på sidtiteln som finns i högst upp i sidhuvudet, så visas alla sidor som den här sidan refereras från. 
+Längs ner på sidan hittar du de traditionella redigerings- och söklänkarna från original-wikin. Dessutom finns det fält för snabbsökning bland titlar och sidtext och länkar för anpassningsbara kommandon som är installerade.

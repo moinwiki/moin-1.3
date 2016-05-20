@@ -11,10 +11,18 @@
     @license: GNU GPL, see COPYING for details.
 """
 
+from MoinMoin import wikiutil
+
 Dependencies = ["language"]
 
 def execute(macro, args):
-    return macro.formatter.text(
-        macro.request.getText(args).replace('<br>', '\n')
-    )
+    """ Return a translation of args, or args as is """
+    translation = macro.request.getText(args, formatted=False)
+
+    # If we got same text, it means there was no translation, and this
+    # is unsafe user text that must be escaped.
+    if translation == args:
+        translation = wikiutil.escape(args)
+        
+    return translation
 

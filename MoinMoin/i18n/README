@@ -5,28 +5,21 @@ The data flow for i18n stuff has completely changed, so please read this.
 Translators need to deal with the *.po files ONLY - do not touch anything else,
 especially do not update <lang>.py files as you used to in previous versions.
 
-And please use utf-8 or iso-8859-1 whereever possible, following these rules:
- * if your language can be encoded in iso-8859-1, then use this, NOT utf-8
-   (this has internal reasons in moin and will change as soon as we move to
-   utf-8 completely, but NOT NOW!)
- * if your language can not be encoded in iso-8859-1 then please use utf-8
-   (as we will move to using utf-8 in the future)
-   please use iso-8859-1 (or rather ASCII) for the X-Language header (just
-   simply write your language's name in english for now), as this gets
-   written to a file that still uses iso8859-1.
-   if you think it makes sense having 2 po files, one in utf-8 and one in
-   another encoding (like big5 e.g.), the non-utf-8 one will be placed in
-   the deprecated/ subdirectory so people still needing it can copy it from
-   there.
- * do not use anything else, if possible. Recode it to utf-8. Especially
+In moin 1.3 we switched the i18n system to use wiki markup instead html - you
+should change the header of your *.po file after adapting to wiki markup,
+see de.po for a sample.
+
+Encoding: please use utf-8 whereever possible, following these rules:
+ * Please use utf-8, if possible (moin uses utf-8 as default encoding now).
+   If you can't, please use iso-8859-1. 
+ * Do not use anything else, if possible. Recode it to utf-8. Especially
    far-east character sets like big5, euc-jp, gb2312 make lots of trouble on
    developer machines not having these codecs (you can't even import these
    modules then).
 
 For using the i18n build system, one needs to have "gettext" (e.g. from Debian
 unstable) installed. For simply translating text, you do not need it, you can
-use a text editor. Further, for successfully processing ja, zh and zh_tw, you
-need to have cjkcodecs installed (at least as long they do not use utf-8).
+use a text editor.
 
 Translators should search their *.po file for "fuzzy" - this marks places
 needing work. If you have reviewed these places, remove the "fuzzy" marker.
@@ -67,7 +60,7 @@ New Translation (no .po file exists yet)
 - copy MoinMoin.pot to <langcode>.po
 - edit the header of <langcode>.po (this is the first entry in the file, it
   starts with Project-Id-Version)
-  - Project-Id-Version: MoinMoin 1.2
+  - Project-Id-Version: MoinMoin 1.3
   - Content-Type: text/plain; charset=utf-8
   - Language-Team: LANGUAGE mailinglist
     LANGUAGE should be your language in english, in long form - e.g.:

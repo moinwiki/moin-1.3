@@ -6,7 +6,6 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import re
 from MoinMoin import config
 from MoinMoin.Page import Page
@@ -28,7 +27,8 @@ def _getParent(pagename):
 def _getPages(request, filter_regex=None):
     """ Return a (filtered) list of pages names.
     """
-    pages = request.getPageList()
+    # Get user readable page list
+    pages = request.rootpage.getPageList()
 
     if filter_regex:
         cond = re.compile(filter_regex).match
@@ -99,8 +99,11 @@ class Navigation:
         """
         _ = self._
         scheme = self.args[0]
-        return self.macro.formatter.sysmsg(
-            _("Unsupported navigation scheme '%(scheme)s'!") % {'scheme': scheme})
+        return (self.macro.formatter.sysmsg(1) +
+                self.macro.formatter.text(
+            _("Unsupported navigation scheme '%(scheme)s'!") %
+            {'scheme': scheme}) +
+                self.macro.formatter.sysmsg(0))
 
 
     def do_children(self):
@@ -117,7 +120,9 @@ class Navigation:
         # get parent page name
         parent = root or _getParent(self.pagename)
         if not parent:
-            return self.macro.formatter.sysmsg(_('No parent page found!'))
+            return (self.macro.formatter.sysmsg(1) +
+                    self.macro.formatter.text(_('No parent page found!'))+
+                    self.macro.formatter.sysmsg(0))
 
         try:
             depth = int(self.args[1])
@@ -130,7 +135,7 @@ class Navigation:
         for child in children:
             # display short page name, leaving out the parent path
             # (and make sure the name doesn't get wrapped)
-            shortname = child[len(parent):]   # .replace(' ', '\xA0') <- breaks utf-8 XXX
+            shortname = child[len(parent):]
 
             # possibly limit depth
             if depth and shortname.count('/') > depth:
@@ -141,7 +146,7 @@ class Navigation:
                 result.append(self.macro.formatter.text(shortname))
             else:
                 # link to sibling / child
-                result.append(Page(child).link_to(self.macro.request, text=shortname, querystr=self.querystr))
+                result.append(Page(self.macro.request, child).link_to(self.macro.request, text=shortname, querystr=self.querystr))
             result.append(' &nbsp; ')
 
         return ''.join(result)
@@ -161,7 +166,7 @@ class Navigation:
             # projection mode
             label = _('Wiki')
             toggle = ''
-            result.append(Page(curpage).link_to(self.macro.request, text=_('Edit'), querystr='action=edit'))
+            result.append(Page(self.macro.request, curpage).link_to(self.macro.request, text=_('Edit'), querystr='action=edit'))
             result.append(' &nbsp; ')
         else:
             # wiki mode
@@ -169,7 +174,7 @@ class Navigation:
             toggle = self.PROJECTION
 
         # add mode toggle link
-        result.append(Page(curpage).link_to(self.macro.request, text=label, querystr=toggle))
+        result.append(Page(self.macro.request, curpage).link_to(self.macro.request, text=label, querystr=toggle))
 
         # leave out the following on slide pages
         if focus is None:
@@ -177,7 +182,7 @@ class Navigation:
             if children:
                 # add link to first child if one exists
                 result.append(' &nbsp; ')
-                result.append(Page(children[0]).link_to(self.macro.request, text=_('Start'), querystr=self.querystr))
+                result.append(Page(self.macro.request, children[0]).link_to(self.macro.request, text=_('Start'), querystr=self.querystr))
 
         return ''.join(result)
 
@@ -188,7 +193,9 @@ class Navigation:
         _ = self._
         parent = root or _getParent(self.pagename)
         if not parent:
-            return self.macro.formatter.sysmsg(_('No parent page found!'))
+            return (self.macro.formatter.sysmsg(1) +
+                    self.macro.formatter.text(_('No parent page found!')) +
+                    self.macro.formatter.sysmsg(0))
 
         # prepare link generation
         result = []
@@ -203,7 +210,7 @@ class Navigation:
             result.append(' ')
             if name:
                 # active link
-                result.append(Page(name).link_to(self.macro.request, text=label, querystr=self.querystr))
+                result.append(Page(self.macro.request, name).link_to(self.macro.request, text=label, querystr=self.querystr))
             else:
                 # ghosted link
                 result.append(self.macro.formatter.text(label))

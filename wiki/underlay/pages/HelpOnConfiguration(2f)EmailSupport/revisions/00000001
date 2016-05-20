@@ -1,0 +1,27 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+== Enabling Email Support ==
+
+Setting both "`mail_smarthost`" and "`mail_from`" in the configuration activates features that are explained below. These features are otherwise not available, since there are no general defaults.
+
+ mail_from:: This value is used for the "`From:`" and "`To:`" headers in the emails sent (the "`To:`" has email address privacy reasons, email is not really sent to this address, but we don't want to disclose any real recipient address).
+ mail_smarthost:: This is the IP or domain name of an FOLDOC:SMTP enabled server. On a Unix host, you can try to use `localhost`; on a Windows machine this will normally be a machine in your LAN or some host of your ISP.
+ mail_login:: This is only needed when you use SMTP AUTH to send mail; in that case, set this to the username and password separated by a space, i.e. `"user pwd"`.
+
+/!\ If you set `mail_smarthost` then you '''must''' also set `mail_from`.
+
+See also HelpOnConfiguration.
+
+== Email Features ==
+
+MoinMoin currently offers two email-based services, which are explained in the following sections.
+
+=== Sending Login Data ===
+
+If emailing is available, the UserPreferences dialog is expanded with a field "[[GetText(Your email address)]]" and a button "[[GetText( Mail me my account data )]]". The user can enter the email address he provided at registration and then gets an email containing all necessary data to re-login, after clicking the button.
+
+=== Change Notification ===
+
+Any user can subscribe to changes of wiki pages by either clicking on the envelope icon [[Icon(subscribe)]], or by adding a regex to the "Subscribed wiki pages" field of his UserPreferences. The system then sends, whenever a page is changed and the author doesn't uncheck the "[[GetText(Send mail notification)]]" checkbox, an email with the author, a link to the page, and the diff of the change.

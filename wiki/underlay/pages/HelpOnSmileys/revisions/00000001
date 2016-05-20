@@ -1,0 +1,10 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+== Graphical Smileys ==
+To insert a smiley, just type in your favourite from the table below. They're only converted to an icon though if they are ''surrounded by whitespace''.
+
+[[ShowSmileys]]
+
+For more information on the possible markup, see HelpOnEditing. 

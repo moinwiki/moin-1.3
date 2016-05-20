@@ -6,32 +6,23 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
-import os, string, time, Cookie, sha, locale, pickle
-from MoinMoin import config
+import os, string, time, Cookie, sha, locale, pickle, codecs
+from MoinMoin import config, caching, wikiutil
 from MoinMoin.util import datetime
 
-#import sys
-
-#############################################################################
-### Helpers
-#############################################################################
-
-def getUserList():
+def getUserList(request):
     """
     Get a list of all (numerical) user IDs.
     
     @rtype: list
     @return: all user IDs
     """
-    import re
+    import re, dircache
 
     user_re = re.compile(r'^\d+\.\d+(\.\d+)?$')
-    return filter(user_re.match, os.listdir(config.user_dir))
+    return filter(user_re.match, dircache.listdir(request.cfg.user_dir))
 
-_name2id = None
-
-def getUserId(searchName):
+def getUserId(request, searchName):
     """
     Get the user ID for a specific user NAME.
 
@@ -39,26 +30,30 @@ def getUserId(searchName):
     @rtype: string
     @return: the corresponding user ID or None
     """
-    global _name2id
     if not searchName:
         return None
-    if not _name2id:
-        userdictpickle = os.path.join(config.user_dir, "userdict.pickle")
+    cfg = request.cfg
+    try:
+        _name2id = cfg._name2id
+    except AttributeError:
+        arena = 'user'
+        key = 'name2id'
+        cache = caching.CacheEntry(request, arena, key)
         try:
-            _name2id = pickle.load(open(userdictpickle))
-        except (pickle.UnpicklingError,IOError,EOFError,ValueError):
+            _name2id = pickle.loads(cache.content())
+        except (pickle.UnpicklingError, IOError, EOFError, ValueError):
             _name2id = {}
+        cfg._name2id = _name2id
     id = _name2id.get(searchName, None)
     if id is None:
-        for userid in getUserList():
-            name = User(None, id=userid).name
+        for userid in getUserList(request):
+            name = User(request, id=userid).name
             _name2id[name] = userid
-        userdictpickle = os.path.join(config.user_dir, "userdict.pickle")
-        pickle.dump(_name2id, open(userdictpickle,'w'))
-        try:
-            os.chmod(userdictpickle, 0666 & config.umask)
-        except OSError:
-            pass
+        cfg._name2id = _name2id
+        arena = 'user'
+        key = 'name2id'
+        cache = caching.CacheEntry(request, arena, key)
+        cache.update(pickle.dumps(_name2id))
         id = _name2id.get(searchName, None)
     return id
 
@@ -91,9 +86,76 @@ def encodePassword(pwd):
     return '{SHA}' + base64.encodestring(sha.new(pwd).digest()).rstrip()
 
 
-#############################################################################
-### User
-#############################################################################
+def normalizeName(name):
+    """ Make normalized user name
+
+    Prevent impersonating another user with names containg leading,
+    trailing or multiple whitespace, or using invisible unicode
+    characters.
+
+    Prevent creating user page as sub page, because '/' is not allowed
+    in user names.
+
+    Prevent using ':' and ',' which are resevred by acl.
+    
+    @param name: user name, unicode
+    @rtype: unicode
+    @return: user name that can be used in acl lines
+    """
+    # Strip non alpha numeric characters, keep white space
+    name = ''.join([c for c in name if c.isalnum() or c.isspace()])
+
+    # Normalize white space. Each name can contain multiple 
+    # words separated with only one space.
+    name = ' '.join(name.split())
+
+    return name
+    
+
+def isValidName(request, name):
+    """ Validate user name
+
+    @param name: user name, unicode
+    """
+    normalized = normalizeName(name)
+    return (name == normalized) and not wikiutil.isGroupPage(request, name)
+
+
+def encodeList(items):
+    """ Encode list of items in user data file
+
+    Items are separated by '\t' characters.
+    
+    @param items: list unicode strings
+    @rtype: unicode
+    @return: list encoded as unicode
+    """
+    line = []
+    for item in items:
+        item = item.strip()
+        if not item:
+            continue
+        line.append(item)
+        
+    line = '\t'.join(line)
+    return line
+
+
+def decodeList(line):
+    """ Decode list of items from user data file
+    
+    @param line: line containig list of items, encoded with encodeList
+    @rtype: list of unicode strings
+    @return: list of itmes in encoded in line
+    """
+    items = []
+    for item in line.split('\t'):
+        item = item.strip()
+        if not item:
+            continue
+        items.append(item)
+    return items
+    
 
 class User:
     """A MoinMoin User"""
@@ -101,7 +163,7 @@ class User:
     _checkbox_fields = [
          ('edit_on_doubleclick', lambda _: _('Open editor on double click')),
          ('remember_last_visit', lambda _: _('Remember last page visited')),
-         ('show_emoticons', lambda _: _('Show emoticons')),
+         #('show_emoticons', lambda _: _('Show emoticons')),
          ('show_fancy_links', lambda _: _('Show fancy links')),
          ('show_nonexist_qm', lambda _: _('Show question mark for non-existing pagelinks')),
          ('show_page_trail', lambda _: _('Show page trail')),
@@ -109,12 +171,11 @@ class User:
          ('show_topbottom', lambda _: _('Show top/bottom links in headings')),
          ('show_fancy_diff', lambda _: _('Show fancy diffs')),
          ('wikiname_add_spaces', lambda _: _('Add spaces to displayed wiki names')),
-         ('remember_me', lambda _: _('Remember login information forever')),
+         ('remember_me', lambda _: _('Remember login information')),
          ('want_trivial', lambda _: _('Subscribe to trivial changes')),
          ('disabled', lambda _: _('Disable this account forever')),
     ]
     _transient_fields =  ['id', 'valid', 'may', 'auth_username', 'trusted']
-    _MAX_TRAIL = config.trail_size
 
     def __init__(self, request, id=None, name="", password=None, auth_username=""):
         """
@@ -126,6 +187,7 @@ class User:
         @param password: (optional) user password
         @param auth_username: (optional) already authenticated user name (e.g. apache basic auth)
         """
+        self._cfg = request.cfg
         self.valid = 0
         self.id = id
         if auth_username:
@@ -144,16 +206,16 @@ class User:
                 self.enc_password = encodePassword(password)
         self.trusted = 0
         self.email = ""
-        self.edit_rows = config.edit_rows
+        self.edit_rows = self._cfg.edit_rows
         #self.edit_cols = 80
-        self.tz_offset = int(float(config.tz_offset) * 3600)
+        self.tz_offset = int(float(self._cfg.tz_offset) * 3600)
         self.last_saved = str(time.time())
         self.css_url = ""
         self.language = ""
-        self.quicklinks = ""
+        self.quicklinks = []
         self.datetime_fmt = ""
-        self.subscribed_pages = ""
-        self.theme_name = config.theme_default
+        self.subscribed_pages = []
+        self.theme_name = self._cfg.theme_default
         
         # if an account is disabled, it may be used for looking up
         # id -> username for page info and recent changes, but it
@@ -170,9 +232,9 @@ class User:
             setattr(self, key, 0)
         self.show_page_trail = 1
         self.show_fancy_links = 1
-        self.show_emoticons = 1
+        #self.show_emoticons = 1
         self.show_toolbar = 1
-        self.show_nonexist_qm = config.nonexist_qm
+        self.show_nonexist_qm = self._cfg.nonexist_qm
         self.show_fancy_diff = 1
         self.want_trivial = 0
         self.remember_me = 1
@@ -188,7 +250,7 @@ class User:
 
         # we got an already authenticated username:
         if not self.id and self.auth_username:
-            self.id = getUserId(self.auth_username)
+            self.id = getUserId(request, self.auth_username)
 
         if self.id:
             self.load_from_id()
@@ -203,9 +265,9 @@ class User:
             from random import randint
             self.id = "%s.%d" % (str(time.time()), randint(0,65535))
             
-        # "may" so we can say "if user.may.edit(pagename):"
-        if config.SecurityPolicy:
-            self.may = config.SecurityPolicy(self)
+        # "may" so we can say "if user.may.read(pagename):"
+        if self._cfg.SecurityPolicy:
+            self.may = self._cfg.SecurityPolicy(self)
         else:
             from security import Default
             self.may = Default(self)
@@ -217,7 +279,7 @@ class User:
         @rtype: string
         @return: full path and filename of user account file
         """
-        return os.path.join(config.user_dir, self.id or "...NONE...")
+        return os.path.join(self._cfg.user_dir, self.id or "...NONE...")
 
 
     def exists(self):
@@ -236,7 +298,7 @@ class User:
 
         Can load user data if the user name is known, but only if the password is set correctly.
         """
-        self.id = getUserId(self.name)
+        self.id = getUserId(self._request, self.name)
         if self.id:
             self.load_from_id(1)
         #print >>sys.stderr, "self.id: %s, self.name: %s" % (self.id, self.name)
@@ -255,8 +317,7 @@ class User:
         """
         if not self.exists(): return
 
-        # XXX UNICODE fix needed, we want to read utf-8 and decode to unicode
-        data = open(self.__filename(), "r").readlines()
+        data = codecs.open(self.__filename(), "r", config.charset).readlines()
         user_data = {'enc_password': ''}
         for line in data:
             if line[0] == '#': continue
@@ -264,6 +325,9 @@ class User:
             try:
                 key, val = line.strip().split('=', 1)
                 if key not in self._transient_fields and key[0] != '_':
+                    # Decode list values
+                    if key in ['quicklinks', 'subscribed_pages']:
+                        val = decodeList(val)
                     user_data[key] = val
             except ValueError:
                 pass
@@ -288,6 +352,9 @@ class User:
         # old passwords are untrusted
         if hasattr(self, 'password'): del self.password
         if hasattr(self, 'passwd'): del self.passwd
+        
+        # get rid of that smiley setting
+        if hasattr(self, 'show_emoticons'): del self.show_emoticons
 
         # make sure checkboxes are boolean
         for key, label in self._checkbox_fields:
@@ -315,26 +382,29 @@ class User:
         those starting with an underscore.
         """
         if not self.id: return
-
-        if not os.path.isdir(config.user_dir):
-            os.mkdir(config.user_dir, 0777 & config.umask)
-            os.chmod(config.user_dir, 0777 & config.umask)
+        user_dir = self._cfg.user_dir
+        if not os.path.isdir(user_dir):
+            os.mkdir(user_dir, 0777 & config.umask)
+            os.chmod(user_dir, 0777 & config.umask)
 
         self.last_saved = str(time.time())
 
         # !!! should write to a temp file here to avoid race conditions,
         # or even better, use locking
         
-        # XXX UNICODE fix needed, we want to write that file as utf-8
-        data = open(self.__filename(), "w")
+        data = codecs.open(self.__filename(), "w", config.charset)
         data.write("# Data saved '%s' for id '%s'\n" % (
-            time.strftime(config.datetime_fmt, time.localtime(time.time())),
+            time.strftime(self._cfg.datetime_fmt, time.localtime(time.time())),
             self.id))
         attrs = vars(self).items()
         attrs.sort()
         for key, value in attrs:
             if key not in self._transient_fields and key[0] != '_':
-                data.write("%s=%s\n" % (key, str(value)))
+                # Encode list values
+                if key in ['quicklinks', 'subscribed_pages']:
+                    value = encodeList(value)
+                line = "%s=%s\n" % (key, unicode(value))
+                data.write(line)
         data.close()
 
         try:
@@ -344,60 +414,6 @@ class User:
 
         if not self.disabled:
             self.valid = 1
-
-
-    def makeCookieHeader(self):
-        """
-        Make the Set-Cookie header for this user
-            
-        uses: config.cookie_lifetime (int) [hours]
-            == 0  --> cookie will live forever (no matter what user has configured!)
-            > 0   --> cookie will live for n hours (or forever when "remember_me")
-            < 0   --> cookie will live for -n hours (forced, ignore "remember_me"!)
-        """
-        lifetime = int(config.cookie_lifetime) * 3600
-        forever = 10*365*24*3600 # 10 years
-        now = time.time()
-        if not lifetime:
-            expire = now + forever
-        elif lifetime > 0:
-            if self.remember_me:
-                expire = now + forever
-            else:
-                expire = now + lifetime
-        elif lifetime < 0:
-            expire = now + (-lifetime)
-
-        # XXX maybe better make this a critical section for persistent environments!?
-        loc=locale.setlocale(locale.LC_TIME, 'C')
-        expirestr = time.strftime("%A, %d-%b-%Y %H:%M:%S GMT", time.gmtime(expire))
-        locale.setlocale(locale.LC_TIME, loc)
-
-        cookie = Cookie.SimpleCookie()
-        cookie['MOIN_ID'] = self.id
-        return "%s expires=%s; Path=%s" % (cookie.output(), expirestr, self._request.getScriptname())
-
-
-    def sendCookie(self, request):
-        """
-        Send the Set-Cookie header for this user.
-        
-        @param request: the request object
-        """
-        # prepare to send cookie
-        request.setHttpHeader(self.makeCookieHeader())
-
-        # create a "fake" cookie variable so the rest of the
-        # code works as expected
-        try:
-            cookie = Cookie.SimpleCookie(request.saved_cookie)
-        except Cookie.CookieError:
-            # ignore invalid cookies, else user can't relogin
-            request.saved_cookie = self.makeCookieHeader()
-        else:
-            if not cookie.has_key('MOIN_ID'):
-                request.saved_cookie = self.makeCookieHeader()
-
 
     def getTime(self, tm):
         """
@@ -416,9 +432,9 @@ class User:
 
         @param tm: time (UTC UNIX timestamp)
         @rtype: string
-        @return: formatted date, see config.date_fmt
+        @return: formatted date, see cfg.date_fmt
         """
-        return time.strftime(config.date_fmt, self.getTime(tm))
+        return time.strftime(self._cfg.date_fmt, self.getTime(tm))
 
 
     def getFormattedDateTime(self, tm):
@@ -427,20 +443,21 @@ class User:
 
         @param tm: time (UTC UNIX timestamp)
         @rtype: string
-        @return: formatted date and time, see config.datetime_fmt
+        @return: formatted date and time, see cfg.datetime_fmt
         """
-        datetime_fmt = self.datetime_fmt or config.datetime_fmt
+        datetime_fmt = self.datetime_fmt or self._cfg.datetime_fmt
         return time.strftime(datetime_fmt, self.getTime(tm))
 
 
-    def setBookmark(self, tm = None):
+    def setBookmark(self, tm=None):
         """
         Set bookmark timestamp.
         
         @param tm: time (UTC UNIX timestamp), default: current time
         """
         if self.valid:
-            if not tm: tm = time.time()
+            if tm is None:
+                tm = time.time()
             bmfile = open(self.__filename() + ".bookmark", "w")
             bmfile.write(str(tm)+"\n")
             bmfile.close()
@@ -448,10 +465,12 @@ class User:
                 os.chmod(self.__filename() + ".bookmark", 0666 & config.umask)
             except OSError:
                 pass
-            try:
-                os.utime(self.__filename() + ".bookmark", (tm, tm))
-            except OSError:
-                pass
+            
+            # XXX Do we need that???
+            #try:
+            #    os.utime(self.__filename() + ".bookmark", (tm, tm))
+            #except OSError:
+            #    pass
 
 
     def getBookmark(self):
@@ -486,35 +505,21 @@ class User:
         return 1
 
     def getQuickLinks(self):
-        """
-        Get list of pages this user wants in the page header.
+        """ Get list of pages this user wants in the navibar
 
         @rtype: list
         @return: quicklinks from user account
         """
-        if not self.quicklinks: return []
-
-        from MoinMoin import wikiutil
-        quicklinks = self.quicklinks.split(',')
-        quicklinks = map(string.strip, quicklinks)
-        quicklinks = filter(None, quicklinks)
-        quicklinks = map(wikiutil.unquoteWikiname, quicklinks)
-        return quicklinks
-
-
+        return self.quicklinks
+    
     def getSubscriptionList(self):
-        """
-        Get list of pages this user has subscribed to.
+        """ Get list of pages this user has subscribed to
         
         @rtype: list
         @return: pages this user has subscribed to
         """
-        subscrPages = self.subscribed_pages.split(",")
-        subscrPages = map(string.strip, subscrPages)
-        subscrPages = filter(None, subscrPages)
-        return subscrPages
-
-
+        return self.subscribed_pages
+    
     def isSubscribedTo(self, pagelist):
         """
         Check if user subscription matches any page in pagelist.
@@ -546,24 +551,25 @@ class User:
             return 0
 
 
-    def subscribePage(self, pagename):
-        """
-        Subscribe to a wiki page.
+    def subscribePage(self, pagename, remove=False):
+        """ Subscribe or unsubscribe to a wiki page.
 
         Note that you need to save the user data to make this stick!
 
         @param pagename: name of the page to subscribe
+        @param remove: unsubscribe pagename if set
+        @type remove: bool
         @rtype: bool
         @return: true, if page was NEWLY subscribed.
         """
-        subscrPages = self.getSubscriptionList()
-
-        # add page to subscribed pages property
-        if pagename not in subscrPages: 
-            subscrPages.append(pagename)
-            self.subscribed_pages = ','.join(subscrPages)
-            return 1
-
+        if remove:
+            if pagename in self.subscribed_pages:
+                self.subscribed_pages.remove(pagename)
+                return 1
+        else:
+            if pagename not in self.subscribed_pages:
+                self.subscribed_pages.append(pagename)
+                return 1
         return 0
 
 
@@ -580,15 +586,23 @@ class User:
             # don't append tail to trail ;)
             if self._trail and self._trail[-1] == pagename: return
 
+            # Add only existing pages that the user may read
+            if self._request:
+                from MoinMoin.Page import Page
+                page = Page(self._request, pagename)
+                if not (page.exists() and
+                        self._request.user.may.read(page.page_name)):
+                    return
+
             # append new page, limiting the length
             self._trail = filter(lambda p, pn=pagename: p != pn, self._trail)
-            self._trail = self._trail[-(self._MAX_TRAIL-1):]
+            self._trail = self._trail[-(self._cfg.trail_size-1):]
             self._trail.append(pagename)
 
             # save new trail
-            # XXX UNICODE fix needed, encode as utf-8
-            trailfile = open(self.__filename() + ".trail", "w")
-            trailfile.write('\n'.join(self._trail))
+            trailfile = codecs.open(self.__filename() + ".trail", "w", config.charset)
+            for t in self._trail:
+                trailfile.write('%s\n' % t)
             trailfile.close()
             try:
                 os.chmod(self.__filename() + ".trail", 0666 & config.umask)
@@ -607,13 +621,11 @@ class User:
                 and not self._trail \
                 and os.path.exists(self.__filename() + ".trail"):
             try:
-                # XXX UNICODE fix needed, decode from utf-8
-                self._trail = open(self.__filename() + ".trail", 'r').readlines()
+                self._trail = codecs.open(self.__filename() + ".trail", 'r', config.charset).readlines()
             except (OSError, ValueError):
                 self._trail = []
             else:
                 self._trail = filter(None, map(string.strip, self._trail))
-                self._trail = self._trail[-self._MAX_TRAIL:]
+                self._trail = self._trail[-self._cfg.trail_size:]
         return self._trail
-
 

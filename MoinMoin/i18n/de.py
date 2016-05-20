@@ -3,47 +3,37 @@
 # Automatically generated - DO NOT EDIT, edit de.po instead!
 meta = {
   'language': 'Deutsch',
+  'elanguage': 'German',
   'maintainer': 'Thomas Waldmann <tw-public@gmx.de>',
   'encoding': 'iso-8859-1',
   'direction': 'ltr',
+  'wikimarkup': True,
 }
 text = {
-'''(last edited %(time)s by %(editor)s)''':
-'''(zuletzt geändert am %(time)s durch %(editor)s)''',
-'''(last modified %s)''':
-'''(zuletzt geändert am %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
 '''Der Inhalt der letzten Sicherungskopie ist veraltet und wird von der Volltextsuche ignoriert!''',
-'''Version as of %(date)s''':
-'''Version vom %(date)s''',
+'''Revision %(rev)d as of %(date)s''':
+'''Revision %(rev)d vom %(date)s''',
 '''Redirected from page "%(page)s"''':
 '''Hierher umgeleitet von Seite "%(page)s"''',
 '''This page redirects to page "%(page)s"''':
 '''Diese Seite wird umgeleitet auf "%(page)s"''',
-'''<p><small>If you submit this form, the submitted values will be displayed.
+'''~-If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-macro call.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+macro call.-~
 ''':
-'''<p><small>Das Absenden dieses Formulars zeigt die eingegebenen Werte an.
+'''~-Das Absenden dieses Formulars zeigt die eingegebenen Werte an.
 Um das Formular auf anderen Seiten zu benutzen, muss folgender Makroaufruf
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-auf diesen Seiten platziert werden.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+auf diesen Seiten platziert werden.-~
 ''',
 '''You are not allowed to view this page.''':
 '''Sie dürfen diese Seite nicht ansehen.''',
 '''RefreshCache''':
 '''SeitenCache''',
-'''for this page (cached %(date)s)''':
-'''auffrischen (erstellt am %(date)s)''',
-'''Create this page''':
-'''Seite anlegen''',
-'''Alternatively, use one of these templates:''':
-'''Alternativ kann die Seite auf Basis einer dieser Vorlagen angelegt werden:''',
-'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
-'''Zum Anlegen eigener Vorlagen einfach eine Seite anlegen, deren Name dem regulären Ausdruck »%(page_template_regex)s« genügt.''',
-'''The following pages with similar names already exist...''':
-'''Die nachfolgenden Seiten mit ähnlichem Namen sind bereits angelegt worden...''',
+'''(cached %s)''':
+'''(gecached %s)''',
 '''You are not allowed to edit this page.''':
 '''Sie dürfen diese Seite nicht editieren.''',
 '''Page is immutable!''':
@@ -80,8 +70,8 @@ Schauen Sie sich auch die Differenz von %(difflink)s an, um zu sehen, was geände
 '''[Sie dürfen %s nicht lesen]''',
 '''Skip to preview''':
 '''Zur Vorschau springen''',
-'''[current page size <strong>%(size)d</strong> bytes]''':
-'''[aktuelle Seitengröße <strong>%(size)d</strong> Bytes]''',
+'''[current page size \'\'\'%(size)d\'\'\' bytes]''':
+'''[aktuelle Seitengröße \'\'\'%(size)d\'\'\' Bytes]''',
 '''Describe %s here.''':
 '''%s hier beschreiben...''',
 '''Optional comment about this change''':
@@ -96,48 +86,26 @@ Schauen Sie sich auch die Differenz von %(difflink)s an, um zu sehen, was geände
 '''Änderungen speichern''',
 '''Cancel''':
 '''Abbrechen''',
-'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
-'''Durch Anklicken von <strong>%(save_button_text)s</strong> stellen Sie Ihre Änderungen unter die %(license_link)s.
-Wenn Sie das nicht wollen, klicken Sie auf <strong>%(cancel_button_text)s</strong>, um Ihre Änderungen zu verwerfen.''',
+'''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
+If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
+'''Durch Anklicken von \'\'\'%(save_button_text)s\'\'\' stellen Sie Ihre Änderungen unter die %(license_link)s.
+Wenn Sie das nicht wollen, klicken Sie auf \'\'\'%(cancel_button_text)s\'\'\', um Ihre Änderungen zu verwerfen.''',
 '''Preview''':
 '''Vorschau anzeigen''',
-'''Send mail notification''':
-'''Änderungsnachricht per Email versenden''',
+'''Trivial change''':
+'''Triviale Änderung''',
 '''Remove trailing whitespace from each line''':
 '''Leerzeichen am Ende jeder Zeile entfernen''',
-'''<dt>Emphasis:</dt>
-<dd>\'\'<em>italics</em>\'\'; \'\'\'<strong>bold</strong>\'\'\'; \'\'\'\'\'<strong><em>bold italics</em></strong>\'\'\'\'\';
-    \'\'<em>mixed \'\'\'<strong>bold</strong>\'\'\' and italics</em>\'\'; ---- horizontal rule.</dd>
-<dt>Headings:</dt>
-<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.</dd>
-<dt>Lists:</dt>
-<dd>space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.</dd>
-<dt>Links:</dt>
-<dd>JoinCapitalizedWords; ["brackets and double quotes"];
-    url; [url]; [url label].</dd>
-<dt>Tables:</dt>
-<dd>|| cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.</dd>
-''':
-'''<dt>Betonung:</dt>
-<dd>\'\'<em>kursiv</em>\'\'; \'\'\'<strong>fett</strong>\'\'\'; \'\'\'\'\'<strong><em>fett und kursiv</em></strong>\'\'\'\'\';
-    \'\'<em>gemischt \'\'\'<strong>fett</strong>\'\'\' und kursiv</em>\'\'; ---- horizontaler Balken.</dd>
-<dt>Überschriften:</dt>
-<dd>= Überschrift 1 =; == Überschrift 2 ==; === Ü 3 ===;
-    ==== Ü 4 ====; ===== Ü 5 =====.</dd>
-<dt>Listen:</dt>
-<dd>Leerzeichen und eins von: * Punkte; 1., a., A., i., I. numerierte Punkte;
-    1.#n starte Numerierung bei n; nur Leerzeichen rückt ein.</dd>
-<dt>Links:</dt>
-<dd>ZusammenGeschriebeneGroßeWorte; ["Klammern und doppelte Anführungszeichen"];
-    url; [url]; [url label].</dd>
-<dt>Tabellen:</dt>
-<dd>|| Zellentext |||| Zellentext, 2 Zellen überspannend ||;
-    keine anhängenden Leerzeichen nach Überschriften oder Tabellen.</dd>
-''',
+''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
+ Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
+ Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
+ Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim(["brackets and double quotes"])]]; url; [url]; [url label].
+ Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
+''' Betonung:: [[Verbatim(\'\')]]\'\'kursiv\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'fett\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'fett und kursiv\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'gemischt \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'fett\'\'\'[[Verbatim(\'\'\')]] und kursiv\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontaler Balken.
+ Überschriften:: [[Verbatim(=)]] Überschrift 1 [[Verbatim(=)]]; [[Verbatim(==)]] Überschrift 2 [[Verbatim(==)]]; [[Verbatim(===)]] Ü 3 [[Verbatim(===)]];   [[Verbatim(====)]] Ü 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Ü 5 [[Verbatim(=====)]].
+ Listen:: Leerzeichen und eins von: * Punkte; 1., a., A., i., I. numerierte Punkte; 1.#n starte Numerierung bei n; nur Leerzeichen rückt ein.
+ Links:: [[Verbatim(ZusammenGeschriebeneGroßeWorte)]]; [[Verbatim(["Klammern und doppelte  Anführungszeichen"])]]; url; [url]; [url label].
+ Tabellen:: || Zellentext |||| Zellentext, 2 Zellen überspannend ||;    keine anhängenden Leerzeichen nach Überschriften oder Tabellen.''',
 '''Edit was cancelled.''':
 '''Editierung wurde abgebrochen.''',
 '''Dear Wiki user,
@@ -172,18 +140,14 @@ Die folgende Seite wurde durch %(editor)s verändert:
 ''':
 '''Es wurden keine Änderungen gefunden!
 ''',
-'''The diff function returned with error code %(rc)s!''':
-'''Die "diff"-Funktion lieferte den Fehlercode %(rc)s!''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
+'''[%(sitename)s] %(trivial)sÄnderung von "%(pagename)s"''',
 '''Trivial ''':
 '''Triviale ''',
-'''You will not be notified of your own changes!''':
-'''Sie erhalten keine Benachrichtigung über die eigenen Änderungen!''',
 '''Status of sending notification mails:''':
 '''Status des Versands der Änderungsnachrichten:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
-'''Nobody subscribed to this page, no mail sent.''':
-'''Keine Abonnements für diese Seite registriert, keine Email verschickt.''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## Sicherung der Seite "%(pagename)s" vom %(date)s''',
 '''You are not allowed to edit this page!''':
@@ -191,21 +155,26 @@ Die folgende Seite wurde durch %(editor)s verändert:
 '''You cannot save empty pages.''':
 '''Leere Seiten können nicht gespeichert werden!''',
 '''Sorry, someone else saved the page while you edited it.
-<p>Please do the following: Use the back button of your browser, and cut&paste
+
+Please do the following: Use the back button of your browser, and cut&paste
 your changes from there. Then go forward to here, and click EditText again.
-Now re-add your changes to the current page contents.</p>
-<p><em>Do not just replace
+Now re-add your changes to the current page contents.
+
+\'\'Do not just replace
 the content editbox with your version of the page, because that would
-delete the changes of the other person, which is excessively rude!</em></p>
+delete the changes of the other person, which is excessively rude!\'\'
 ''':
 '''Unglücklicherweise hat bereits jemand diese Seite verändert.
-<p>Bitte wie folgt vorgehen: Mit dem Knopf "Zurück" des Browsers zurück zum Editor gehen und die Änderungen in die Zwischenablage legen.
+
+Bitte wie folgt vorgehen: Mit dem Knopf "Zurück" des Browsers zurück zum Editor gehen und die Änderungen in die Zwischenablage legen.
 Dann wieder auf diese Seite "Vorwärts" gehen und nochmals "Editieren" anklicken.
-Schließlich die Änderungen zum aktuellen Stand der Seite wieder hinzufügen.</p>
-<p><em>Bitte nicht einfach die Änderungen des anderen Autoren durch Cut&Paste vollständig überschreiben, das ist sehr unhöflich!</em></p>
+
+Schließlich die Änderungen zum aktuellen Stand der Seite wieder hinzufügen.
+
+\'\'Bitte nicht einfach die Änderungen des anderen Autoren durch Cut&Paste vollständig überschreiben, das ist sehr unhöflich!\'\'
 ''',
-'''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
-'''Eine Sicherung Ihrer Änderungen befindet sich <a href="%(backup_url)s">hier</a>.''',
+'''A backup of your changes is [%(backup_url)s here].''':
+'''Eine Sicherung Ihrer Änderungen befindet sich [%(backup_url)s hier].''',
 '''You did not change the page content, not saved!''':
 '''Der Seiteninhalt wurde nicht verändert und folglich nicht gesichert!''',
 '''You can\'t change ACLs on this page since you have no admin rights on it!''':
@@ -214,21 +183,21 @@ Schließlich die Änderungen zum aktuellen Stand der Seite wieder hinzufügen.</p>
 '''Danke für die Änderung und die Sorgfalt beim Editieren.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
 '''Die Sperre von %(owner)s ist vor %(mins_ago)d Minute(n) abgelaufen und wurde an Sie übertragen.''',
-'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
-'''Anderen Benutzern wird die Editierung dieser Seite bis %(bumptime)s <em>verweigert</em>.''',
-'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
-'''Andere Benutzer erhalten bis %(bumptime)s eine <em>Warnung</em>, dass Sie diese Seite editieren.''',
+'''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
+'''Anderen Benutzern wird die Editierung dieser Seite bis %(bumptime)s \'\'verweigert\'\'.''',
+'''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
+'''Andere Benutzer erhalten bis %(bumptime)s eine \'\'Warnung\'\', dass Sie diese Seite editieren.''',
 '''Use the Preview button to extend the locking period.''':
 '''Mit "Vorschau anzeigen" können Sie diesen Zeitraum verlängern.''',
-'''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''Diese Seite ist derzeit zur Editierung durch %(owner)s gegen Änderungen <em>gesperrt</em> bis %(timestamp)s, also weitere %(mins_valid)d Minute(n).''',
-'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
-<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
-to avoid editing conflicts.</strong><br>
+'''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''Diese Seite ist derzeit zur Editierung durch %(owner)s gegen Änderungen \'\'gesperrt\'\' bis %(timestamp)s, also weitere %(mins_valid)d Minute(n).''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
+\'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
 '''Diese Seite wurde zum letzten Mal um %(timestamp)s durch %(owner)s zum Editieren geöffnet
-oder in der Vorschau angezeigt.<br>
-<strong class="highlight">Sie sollten diese Seite für mindestens weitere %(mins_valid)d Minute(n) <em>nicht editieren</em>, um Konflikte auszuschließen.</strong><br>
+oder in der Vorschau angezeigt.[[BR]]
+\'\'\'Sie sollten diese Seite für mindestens weitere %(mins_valid)d Minute(n) \'\'nicht editieren\'\', um Konflikte auszuschließen.\'\'\'[[BR]]
 Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''<unknown>''':
 '''<unbekannt>''',
@@ -250,20 +219,34 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Druckansicht''',
 '''View''':
 '''Anzeigen''',
-'''Home''':
-'''MeineSeite''',
 '''Up''':
 '''Hoch''',
-'''Unknown action''':
-'''Unbekannte Aktion''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''Ungültiger Benutzername {{{\'%s\'}}}.
+Der Name darf beliebige alphanumerische Unicode-Zeichen enthalten, mit optional einem
+Leerzeichen zwischen den Worten. Gruppennamen sind nicht erlaubt.''',
+'''You are not allowed to do %s on this page.''':
+'''Sie dürfen die Aktion %s nicht ausführen auf dieser Seite.''',
+'''Login''':
+'''Anmelden''',
+''' %s and try again.''':
+''' %s und probieren Sie es noch einmal.''',
 '''Can\'t work out query''':
 '''Anfrage macht keinen Sinn''',
+'''%(hits)d results out of %(pages)d pages.''':
+'''%(hits)d Treffer in %(pages)d durchsuchten Seiten.''',
+'''%.2f seconds''':
+'''%.2f Sekunden''',
+'''match''':
+'''Treffer''',
+'''matches''':
+'''Treffer''',
 '''Open editor on double click''':
 '''Editor per Doppelklick öffnen''',
 '''Remember last page visited''':
 '''Zuletzt besuchte Seite merken''',
-'''Show emoticons''':
-'''Bildsymbole anzeigen''',
 '''Show fancy links''':
 '''Verweisindikatoren anzeigen''',
 '''Show question mark for non-existing pagelinks''':
@@ -278,40 +261,46 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Unterschiede farbig markiert anzeigen''',
 '''Add spaces to displayed wiki names''':
 '''Angezeigte Wikinamen mit Leerzeichen trennen''',
-'''Remember login information forever''':
-'''Speichere Login-Informationen für immer''',
+'''Remember login information''':
+'''Speichere Login-Informationen''',
 '''Subscribe to trivial changes''':
-'''Triviale Änderungen erzeugen Benachrichtigungen''',
+'''Triviale Änderungen abonnieren''',
 '''Disable this account forever''':
 '''Dieses Benutzerkonto für immer deaktivieren''',
 '''Cookie deleted. You are now logged out.''':
 '''Das "Cookie" wurde gelöscht. Sie sind jetzt abgemeldet.''',
-'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''In diesem Wiki ist Mail-Verarbeitung nicht eingeschaltet. Bitte kontaktieren Sie den Eigentümer des Wiki, der dann entweder die Mailfunktionen einschalten oder das "Abonnieren"-Symbol entfernen kann.''',
+'''This wiki is not enabled for mail processing.
+Contact the owner of the wiki, who can enable email.''':
+'''In diesem Wiki ist Mail-Verarbeitung nicht eingeschaltet.
+Bitte kontaktieren Sie den Eigentümer des Wiki, der die Mailfunktionen einschalten kann.''',
 '''Please provide a valid email address!''':
 '''Bitte eine gültige E-Mail-Adresse angeben!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''Es wurde kein Benutzerkonto mit der E-Mail-Adresse \'%(email)s\' gefunden!''',
-'''Unknown user name or password.''':
-'''Unbekannter Benutzername oder unbekanntes Passwort.''',
-'''Please enter a user name!''':
-'''Bitte geben Sie einen Benutzernamen ein!''',
-'''User name already exists!''':
-'''Diesen Benutzernamen gibt es schon!''',
+'''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
+'''Unbekannter Benutzername: {{{"%s"}}}. Bitte geben Sie Benutzernamen und Passwort ein.''',
+'''Missing password. Please enter user name and password.''':
+'''Fehlendes Passwort. Bitte Benutzername und Passwort eingeben.''',
+'''Sorry, wrong password.''':
+'''Falsches Passwort.''',
+'''Bad relogin URL.''':
+'''Ungültige Relogin-URL.''',
+'''Unknown user.''':
+'''Unbekannter Benutzer.''',
+'''Empty user name. Please enter a user name.''':
+'''Leerer Benutzername, bitte geben Sie einen Benutzernamen ein.''',
+'''This user name already belongs to somebody else.''':
+'''Dieser Benutzername gehört bereits jemand anderem.''',
 '''Passwords don\'t match!''':
 '''Die Passworte sind nicht gleich!''',
 '''Please specify a password!''':
 '''Bitte geben Sie ein Passwort an!''',
-'''Please enter your name like that: FirstnameLastname''':
-'''Bitte schreiben Sie Ihren Namen auf folgende Art: VornameNachname''',
-'''You must not use a group name as your user name.''':
-'''Sie dürfen nicht einen Gruppennamen als Ihren Benutzernamen wählen.''',
-'''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
-'''Bitte geben Sie Ihre E-Mail-Adresse an - ohne diese Angabe könnten Sie Ihre Login-Daten nicht per E-Mail bekommen, falls Sie sie verlieren.''',
-'''This user name already belongs to somebody else.''':
-'''Dieser Benutzername gehört bereits jemand anderem.''',
+'''Please provide your email address. If you loose your login information, you can get it by email.''':
+'''Bitte geben Sie Ihre E-Mail-Adresse an. Wenn Sie Ihre Login-Informationen verlieren können Sie sie per E-Mail wieder bekommen.''',
 '''This email already belongs to somebody else.''':
 '''Diese E-Mail-Adresse gehört bereits jemand anderem.''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''Das Theme \'%(theme_name)s\' konnte nicht geladen werden!''',
 '''User preferences saved!''':
 '''Persönliche Einstellungen gespeichert!''',
 '''Default''':
@@ -322,8 +311,6 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Speichern''',
 '''Logout''':
 '''Abmelden''',
-'''Login''':
-'''Anmelden''',
 '''Create Profile''':
 '''Benutzer anlegen''',
 '''Mail me my account data''':
@@ -366,28 +353,12 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Änderungsnachrichten werden nur versandt, wenn eine gültige E-Mail-Adresse eingegeben wurde!''',
 '''Subscribed wiki pages (one regex per line)''':
 '''Abonnierte Wiki-Seiten (ein regulärer Ausdruck pro Zeile)''',
-'''Action''':
-'''Aktion''',
-'''Please use a more selective search term instead of \'%(needle)s\'!''':
-'''Bitte geben Sie anstatt \'%(needle)s\' einen genaueren Suchbegriff an!''',
-'''Full text search for "%s"''':
-'''Volltextsuche nach "%s"''',
-'''match''':
-'''Treffer''',
-'''matches''':
-'''Treffer''',
-'''Title search for "%s"''':
-'''Titelsuche nach "%s"''',
-'''%(hits)d hits out of %(pages)d pages searched.''':
-'''%(hits)d Treffer in %(pages)d durchsuchten Seiten.''',
-'''Needed %(timer).1f seconds.''':
-'''Die Suche benötigte %(timer).1f Sekunden.''',
 '''No older revisions available!''':
 '''Es sind keine älteren Versionen dieser Seite verfügbar!''',
 '''Diff for "%s"''':
 '''Änderungen von "%s"''',
-'''Differences between versions dated %s and %s''':
-'''Unterschiede zwischen den Versionen vom %s und vom %s''',
+'''Differences between revisions %d and %d''':
+'''Unterschiede zwischen den Revisionen %d und %d''',
 '''(spanning %d versions)''':
 '''(über %d Versionen hinweg)''',
 '''No differences found!''':
@@ -406,8 +377,6 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Nachfolgende Benutzer haben diese Seite abonniert:''',
 '''This page links to the following pages:''':
 '''Diese Seite verweist auf die folgenden Seiten:''',
-'''Revision History''':
-'''Versionshistorie''',
 '''Date''':
 '''Datum''',
 '''Size''':
@@ -418,6 +387,8 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Autor''',
 '''Comment''':
 '''Kommentar''',
+'''Action''':
+'''Aktion''',
 '''view''':
 '''anzeigen''',
 '''raw''':
@@ -426,10 +397,20 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''drucken''',
 '''revert''':
 '''restaurieren''',
-'''Revert to version dated %(datestamp)s.''':
-'''Version vom %(datestamp)s restauriert.''',
+'''Revert to revision %(rev)d.''':
+'''Revision %(rev)d restauriert.''',
+'''edit''':
+'''ändern''',
+'''get''':
+'''laden''',
+'''del''':
+'''löschen''',
 '''N/A''':
 '''k.A.''',
+'''Revision History''':
+'''Versionshistorie''',
+'''No log entries found.''':
+'''Keine Log-Einträge gefunden.''',
 '''Info for "%s"''':
 '''Info für "%s"''',
 '''Show "%(title)s"''':
@@ -442,16 +423,18 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Seitenzugriffe und Änderungen''',
 '''You are not allowed to revert this page!''':
 '''Sie dürfen diese Seite nicht restaurieren!''',
-'''An error occurred while reverting the page.''':
-'''Beim Wiederherstellen der Seite ist ein Fehler aufgetreten.''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
 '''Sie dürfen keine Seiten abonnieren, die Sie nicht lesen dürfen.''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''In diesem Wiki ist Mail-Verarbeitung nicht eingeschaltet. Bitte kontaktieren Sie den Eigentümer des Wiki, der dann entweder die Mailfunktionen einschalten oder das "Abonnieren"-Symbol entfernen kann.''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
 '''Sie haben noch kein Profil angelegt. Wählen Sie BenutzerEinstellungen in der oberen rechten Ecke, um ein Profil anzulegen.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''Sie haben keine E-Mail-Adresse in Ihrem Profil eingegeben. Wählen Sie Ihren Namen (BenutzerEinstellungen) in der rechten oberen Ecke an und geben Sie eine gültige E-Mail-Adresse ein.''',
-'''You are already subscribed to this page.''':
-'''Sie haben diese Seite bereits abonniert.''',
+'''Your subscribtion to this page has been removed.''':
+'''Ihr Abonnements für diese Seite wurde entfernt.''',
+'''Can\'t remove regular expression subscription!''':
+'''Kann nicht Abonnement mit regulärem Ausdruck entfernen.''',
 '''To unsubscribe, go to your profile and delete this page from the subscription list.''':
 '''Um das Abo zu kündigen, muss der Name der Seite aus der Abo-Liste der persönlichen Einstellungen entfernt werden.''',
 '''You have been subscribed to this page.''':
@@ -460,12 +443,16 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Benötigtes Attribut "%(attrname)s" fehlt''',
 '''Submitted form data:''':
 '''Gesendete Formulardaten:''',
+'''Search Titles''':
+'''Titel durchsuchen''',
 '''Display context of search results''':
 '''Umgebung der Treffer anzeigen''',
 '''Case-sensitive searching''':
 '''Groß-/Kleinschreibung beachten''',
-'''Go''':
-'''Los!''',
+'''Search Text''':
+'''Text durchsuchen''',
+'''Go To Page''':
+'''Gehe zu Seite''',
 '''Include system pages''':
 '''Systemseiten einschließen''',
 '''Exclude system pages''':
@@ -486,8 +473,6 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Seitenanzahl''',
 '''Number of system pages''':
 '''Anzahl der Systemseiten''',
-'''Number of backup versions''':
-'''Anzahl der Sicherungskopien''',
 '''Accumulated page sizes''':
 '''Kumulierte Seitengrößen''',
 '''Entries in edit log''':
@@ -504,8 +489,12 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Globale Erweiterungsaktionen''',
 '''Local extension actions''':
 '''Lokale Erweiterungsaktionen''',
-'''Installed processors''':
-'''Installierte Prozessoren''',
+'''Installed parsers''':
+'''Installierte Parser''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''Installierte Prozessoren (veraltet) -- benutzen Sie stattdessen Parser)''',
+'''Please use a more selective search term instead of {{{"%s"}}}''':
+'''Bitte verwenden Sie einen selektiveren Suchbegriff anstatt {{{"\'%s"}}}''',
 '''ERROR in regex \'%s\'''':
 '''FEHLER in regulärem Ausdruck \'%s\'''',
 '''Bad timestamp \'%s\'''':
@@ -526,21 +515,15 @@ Benutzen Sie "Abbrechen" zum Verlassen des Editors.''',
 '''Dateiname des Anhangs fehlt oder ist leer!''',
 '''Attachment \'%(filename)s\' does not exist!''':
 '''Dateianhang \'%(filename)s\' existiert nicht!''',
-'''<p>To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, 
+'''To refer to attachments on a page, use \'\'\'{{{attachment:filename}}}\'\'\', 
 as shown below in the list of files. 
-Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, 
-since this is subject to change and can break easily.</p>''':
-'''<p>Um Dateianhänge in eine Seite einzufügen, sollte unbedingt eine Angabe
-wie <strong><tt>attachment:filename</tt></strong> benutzt werden, 
+Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
+since this is subject to change and can break easily.''':
+'''Um Dateianhänge in eine Seite einzufügen, sollte unbedingt eine Angabe
+wie \'\'\'{{{attachment:filename}}}\'\'\' benutzt werden, 
 wie sie auch in der folgenden Liste der Dateien auftaucht. 
-Es sollte <strong>NIEMALS</strong> die URL des Verweises <tt>[get]</tt> kopiert werden, 
-da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.</p>''',
-'''del''':
-'''löschen''',
-'''get''':
-'''laden''',
-'''edit''':
-'''ändern''',
+Es sollte \'\'\'NIEMALS\'\'\' die URL des Verweises {{{[get]}}} kopiert werden, 
+da sich diese jederzeit ändern kann und damit der Verweis auf die Datei bricht.''',
 '''No attachments stored for %(pagename)s''':
 '''Es wurden keine Anhänge für die Seite %(pagename)s gespeichert.''',
 '''Edit drawing''':
@@ -569,6 +552,8 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''Dateianhänge sind in diesem Wiki nicht erlaubt!''',
 '''You are not allowed to save a drawing on this page.''':
 '''Sie dürfen auf dieser Seite keine Zeichnung speichern.''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''Kein Dateiinhalt. Löschen Sie nicht-ASCII-Zeichen aus dem Dateinamen und probieren Sie es noch einmal.''',
 '''You are not allowed to delete attachments on this page.''':
 '''Sie dürfen keine Anhänge dieser Seite löschen!''',
 '''You are not allowed to get attachments from this page.''':
@@ -590,7 +575,7 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''Unknown file type, cannot display this attachment inline.''':
 '''Dieser Anhang besitzt einen unbekannten Dateityp und kann deshalb nicht direkt angezeigt werden.''',
 '''attachment:%(filename)s of %(pagename)s''':
-'''attachment:%(filename)s für %(pagename)s''',
+'''[[Verbatim(attachment:)]]%(filename)s für %(pagename)s''',
 '''You are not allowed to delete this page.''':
 '''Sie dürfen diese Seite nicht löschen.''',
 '''This page is already deleted or was never created!''':
@@ -605,14 +590,12 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''Löschen''',
 '''Optional reason for the deletion''':
 '''Optionale Begründung für die Löschung''',
-'''No pages match "%s"!''':
-'''Keine Seite passt zu "%s"!''',
-'''Exactly one matching page for "%s" found!''':
-'''Genau eine zu "%s" passende Seite gefunden!''',
-'''Multiple matches for "%s...%s"''':
-'''Mehrfachtreffer für "%s...%s"''',
-'''You cannot use LikePages on an extended pagename!''':
-'''"LikePages" kann nicht für Seiten mit erweiterten Wikinamen aufgerufen werden!''',
+'''No pages like "%s"!''':
+'''Keine Seite ähnlich wie "%s"!''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''Genau eine Seite wie "%s" gefunden, leite dorthin weiter.''',
+'''Pages like "%s"''':
+'''Seiten ähnlich wie "%s"''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''%(matchcount)d %(matches)s passen zu "%(title)s"''',
 '''Local Site Map for "%s"''':
@@ -621,16 +604,19 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''Sie dürfen in diesem Wiki keine Seiten umbenennen!''',
 '''Please use the interactive user interface to rename pages!''':
 '''Zum Umbenennen von Seiten bitte nur die vorgesehenen Webseiten benutzen!''',
-'''A page with the name "%s" already exists!''':
-'''Es gibt bereits eine Seite mit dem Namen "%s"!''',
-'''Page "%s" was successfully renamed to "%s"!''':
-'''Seite "%s" wurde erfolgreich umbenannt auf "%s"!''',
-'''Rename''':
-'''Umbenennen''',
+'''Could not rename page because of file system error: %s.''':
+'''Konnte die Seite nicht umbenennen wegen eines Dateisystem-Fehlercodes: %s.''',
+'''Rename Page''':
+'''Seite umbenennen''',
 '''New name''':
-'''Neuer name''',
+'''Neuer Name''',
 '''Optional reason for the renaming''':
 '''Optionale Begründung für das Umbenennen''',
+'''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
+
+Try a different name.''':
+'''\'\'\'Es gibt bereits eine Seite mit dem Namen {{{\'%s\'}}}.\'\'\'
+Versuchen Sie es mit einem anderen Namen.''',
 '''(including %(localwords)d %(pagelink)s)''':
 '''(inklusive %(localwords)d %(pagelink)s)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
@@ -641,6 +627,10 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''Keine Rechtschreibfehler gefunden!''',
 '''You can\'t check spelling on a page you can\'t read.''':
 '''Sie dürfen keine Seite auf Rechtschreibung prüfen, die Sie nicht lesen können.''',
+'''Title Search: "%s"''':
+'''Titelsuche: "%s"''',
+'''Full Text Search: "%s"''':
+'''Volltextsuche: "%s"''',
 '''Full Link List for "%s"''':
 '''Liste aller Seitenverweise für "%s"''',
 '''Invalid include arguments "%s"!''':
@@ -667,20 +657,18 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''Dateianhang \'%(filename)s\' wurde angelegt.''',
 '''Drawing \'%(filename)s\' saved.''':
 '''Zeichnung \'%(filename)s\' wurde gesichert.''',
-'''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
-'''vor&nbsp;%(hours)02d:%(mins)02d''',
+'''%(hours)dh %(mins)dm ago''':
+'''vor %(hours)02d:%(mins)02d''',
 '''(no bookmark set)''':
 '''(kein Lesezeichen gesetzt)''',
 '''(currently set to %s)''':
 '''(derzeit %s)''',
 '''Delete Bookmark''':
 '''Lesezeichen löschen''',
-'''Really delete bookmark?''':
-'''Lesezeichen wirklich löschen?''',
-'''Update my bookmark timestamp''':
-'''Lesezeichen neu setzen''',
+'''Set bookmark''':
+'''Lesezeichen setzen''',
 '''set bookmark''':
-'''Lesezeichen''',
+'''Lesezeichen setzen''',
 '''[Bookmark reached]''':
 '''[Lesezeichen erreicht]''',
 '''Markup''':
@@ -717,6 +705,8 @@ Ansonsten kann das Feld "Speichern unter..." leer bleiben und es wird der origin
 '''Die Verarbeitung von XSLT-Stylesheets ist nicht verfügbar!''',
 '''%(errortype)s processing error''':
 '''Verarbeitungsfehler vom Typ "%(errortype)s"''',
+'''for this page (cached %(date)s)''':
+'''auffrischen (erstellt am %(date)s)''',
 '''Charts are not available!''':
 '''Die Diagrammoption ist nicht verfügbar!''',
 '''%(chart_title)s for %(filterpage)s''':
@@ -739,38 +729,62 @@ rot=Änderungen''',
 '''Sonstige''',
 '''Distribution of User-Agent Types''':
 '''Verteilung der Zugriffe auf Browsertypen''',
-'''Click here to do a full-text search for this title''':
+'''Click to do a full-text search for this title''':
 '''Hier klicken für eine Liste der Seiten, die auf diese verweisen''',
 '''Clear message''':
 '''Nachricht löschen''',
-'''ShowText''':
-'''Anzeigen''',
-'''of this page''':
-'''dieser Seite''',
+'''last edited %(time)s by %(editor)s''':
+'''zuletzt geändert am %(time)s durch %(editor)s''',
+'''last modified %(time)s''':
+'''zuletzt geändert %(time)s''',
+'''Search:''':
+'''Suchen:''',
+'''Text''':
+'''Text''',
+'''Titles''':
+'''Titel''',
+'''Unsubscribe''':
+'''Nicht abonnieren''',
+'''More Actions:''':
+'''Weitere Aktionen:''',
+'''Show Raw Text''':
+'''Rohform anzeigen''',
+'''Show Print View''':
+'''Druckansicht''',
+'''Attach File''':
+'''Dateianhänge''',
+'''Delete Page''':
+'''Seite löschen''',
+'''Show Like Pages''':
+'''Ähnliche Seiten''',
+'''Show Local Site Map''':
+'''Übersichtskarte''',
+'''Do''':
+'''Los!''',
+'''Show Parent''':
+'''Übergeordnete Seite anzeigen''',
+'''Immutable Page''':
+'''Geschützte Seite''',
+'''Refresh''':
+'''Auffrischen''',
+'''Show Changes''':
+'''Änderungen anzeigen''',
+'''Get Info''':
+'''Infos anzeigen''',
+'''Show %s days.''':
+'''%s Tage anzeigen.''',
 '''EditText''':
 '''Editieren''',
 '''Immutable page''':
 '''Geschützte Seite''',
-'''FindPage''':
-'''SeiteFinden''',
-'''or search titles %(titlesearch)s, full text %(textsearch)s or''':
-'''oder Titelsuche %(titlesearch)s, Volltextsuche %(textsearch)s oder''',
 '''Or try one of these actions:''':
 '''Oder benutze eine dieser Aktionen:''',
-'''Show all changes in the last %s days.''':
-'''Alle Änderungen der letzten %s Tage anzeigen.''',
-'''User''':
-'''Benutzer''',
-'''Site''':
-'''Site''',
 '''Page''':
 '''Seite''',
-'''Search''':
-'''Suche''',
-'''Title: %(titlesearch)s<br/>Text: %(textsearch)s''':
-'''Titel: %(titlesearch)s<br/>Text: %(textsearch)s''',
-'''Actions''':
-'''Aktionen''',
+'''Trail''':
+'''Trail''',
+'''User''':
+'''Benutzer''',
 '''Line''':
 '''Zeile''',
 '''Deletions are marked like this.''':
@@ -781,6 +795,8 @@ rot=Änderungen''',
 '''Verbindung zum Mailserver \'%(server)s\' gestört: %(reason)s''',
 '''Mail sent OK''':
 '''E-Mail wurde erfolgreich versandt''',
+'''["<html>"]''':
+'''["<html>"]''',
 '''FrontPage''':
 '''StartSeite''',
 '''RecentChanges''':
@@ -789,6 +805,8 @@ rot=Änderungen''',
 '''TitelIndex''',
 '''WordIndex''':
 '''WortIndex''',
+'''FindPage''':
+'''SeiteFinden''',
 '''SiteNavigation''':
 '''WegWeiser''',
 '''HelpContents''':
@@ -799,6 +817,8 @@ rot=Änderungen''',
 '''BenutzerEinstellungen''',
 '''WikiLicense''':
 '''WikiLizenz''',
+'''MissingPage''':
+'''FehlendeSeite''',
 '''Mon''':
 '''Mo''',
 '''Tue''':
@@ -813,4 +833,16 @@ rot=Änderungen''',
 '''Sa''',
 '''Sun''':
 '''So''',
+'''AttachFile''':
+'''DateiAnhänge''',
+'''DeletePage''':
+'''SeiteLöschen''',
+'''LikePages''':
+'''ÄhnlicheSeiten''',
+'''LocalSiteMap''':
+'''ÜbersichtsKarte''',
+'''RenamePage''':
+'''SeiteUmbenennen''',
+'''SpellCheck''':
+'''RechtSchreibung''',
 }

@@ -1,10 +1,384 @@
 MoinMoin Version History
 ========================
 
-Copyright (c) 2000-2004 by Jürgen Hermann <jh@web.de>
+Copyright (c) 2000-2004 by Juergen Hermann <jh@web.de>
 All rights reserved, see COPYING for details.
 
 -----------------------------------------------------------------------------
+
+
+Version 1.3.0 (2004-12-06, Revision moin--main--1.3--patch-400)
+
+    As you see from the length of the 1.3 changes below, 1.3 is a major(!)
+    upgrade. We could have also named it "2.0", but we decided against.
+    So take the time for reading the informations thoroughly and do the
+    migration exactly as we tell you - this is no 5 minutes upgrade!
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !!! We heavily changed configuration, data encoding, dir layout:    !!!
+    !!!  * the default encoding changed to utf-8.                       !!!
+    !!!  * also, we changed the escaping for special chars to %XX%YY in !!!
+    !!!    URL and (xxyy) in file system.                               !!!
+    !!!  * layout of data dir changed completely                        !!!
+    !!! If you upgrade an existing wiki, you must run the migration     !!!
+    !!! scripts or you will get data corruption or other problems.      !!!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    Upgrading your wiki - critical information
+
+      If you are NOT starting from scratch, you MUST convert your existing
+      data - see README.migration for details.
+
+      If you use ##language: xx comments on your OWN pages, you should also run
+      repair_language script. Not needed for help/system pages as we already
+      have done that for you.
+
+      MoinMoin uses Unicode internally now (UCS-2 with 16 bits or UCS-4 with
+      32 bits, depending on your Python installation). The encoding used
+      for page files and html output is set by config.charset.
+
+      Moin 1.3 uses utf-8 encoding only, there is NO SUPPORT for using a
+      charset different from utf-8 with 1.3. If you try, you are on your own.
+
+    Directory layout
+
+      Directory layout was heavily changed. Each page now is a directory,
+      containing page revisions, attachments, cache files and edit-log.
+      
+      You can delete a page or move a page from one wiki to another
+      easily. Look at the wiki/data directory to see.
+      
+      Example:
+        old: data/text/FrontPage
+        new: data/pages/FrontPage/revisions/00000042
+             data/pages/FrontPage/current (contains: 00000042)
+        old: data/backup/FrontPage.xxxxxxxx
+        new: data/pages/FrontPage/revisions/00000023
+
+      For cleaning up cache files, use MoinMoin/scripts/cachecleaner.py 
+      (see comments in script).
+
+   Python / Libs
+      
+      * For using RSS, you need to have PyXML installed:
+        Python 2.4*   -> PyXML 0.8.4 (cvs version)
+        Python 2.3.x  -> PyXML 0.8.3
+        Python 2.2.2+ -> ???
+        This will also make lifebookmarks of FireFox browser working.
+        New: if you don't have PyXML installed, the RSS icon on RecentChanges
+        will not be displayed any more. Python with no PyXML installed
+        generates invalid RSS XML.
+
+   Page names handling
+
+      * Handling of special characters in file names changed from _xx format
+        to (xx...) format.
+      * In URLs, moin now uses %xx%yy quoting, (because this is supported by 
+        browsers), and sub pages use "/" instead of the ugly "_2f".
+      * Underscore character "_" is used now as a space character " " both 
+        in file names and URLs. " " and "_" will be handled equivalent at most
+        places in the future (represented as "_", rendered as " ").
+      * To prevent wiki abuse and user typing errors, page names are normalized 
+        in URLs, query strings, the "go" box and when renaming pages. This 
+        include leading, trailing and multiple slashes and white space. Certain 
+        invisible unicode characters are removed from page names.
+      * Group page names are restricted even more, any non unicode alpha-numeric
+        character is removed. This is done to enable changing acl syntax in 
+        the future. The restriction might be loosen on future versions.
+      * You can edit config.page_invalid_chars_regex to control which characters
+        are allowed in page names (Changing it is not supported).
+      * When you enter page name, it is normalized and you are redirected to
+        the normalized page, or if nothing left (e.g '/////'), to FrontPage.
+      * When renaming a page to a names that normalized to empty string,
+        the string "EmptyName" is used instead of getting error message.
+       
+   Underlay directory
+
+     * Pages (especially system and help pages) are now located in an underlay
+       directory (data_underlay_dir). You will see the pages there if they are
+       NOT covered (overlayed) by a page in the normal pages directory
+       (as set using data_dir).
+       MAKE SURE THAT data_underlay_dir IS CORRECT OR YOU WILL SEE MANY EMPTY
+       PAGES ONLY IN A NEW WIKI.
+     * If you edit a page that is shown from underlay directory, it will be
+       copied to the normal page directory on save (copy-on-write).
+     * You can use one copy of the underlay directory shared by many
+       wiki instances. Each wiki will then have only your local, self-made
+       wiki pages in its data directory, and only system and help pages in the
+       single, shared underlay directory - this simplifies upgrades a lot.
+     * It is recommended to keep your underlay system and help pages immutable
+       using acl, so you can upgrade your wiki easily. The default help and
+       system pages already have those ACLs (using MoinPagesEditorGroup).
+     * Do not forget to remove your old help and system pages after migrating
+       your wiki. We don't provide a script for that as that would be
+       dangerous for edited pages. Just use some file manager (e.g. mc) to
+       clean the data/pages/ directory. As soon as you have removed the
+       system pages there, you will see the new pages in the underlay dir.
+       See the EditedSystemPages page for a list of pages that exist in both
+       data and underlay directory (use this page as admin!).
+
+    Multiple languages
+
+      * New file name quoting method allow 50% longer page names in languages
+        that use more than one byte per character, like Hebrew, Korean etc.
+      * Configuration file uses 'utf-8' encoding now. Certain values that are
+        marked with [Unicode] can use any character in your language. Examples 
+        are page names in navi_bar, page types regular expressions and site name.
+      * For configuration examples adopted to your language, check ConfigMarket 
+        in the MoinMoin wiki.
+      * The system and help pages that come with moin are now in utf-8.
+      * MissingPage system page localized, should display in your language.
+      * We did many i18n (translation) updates.
+      * CSS file use utf-8 encoding. User css is also expected to be utf-8.
+        This is relevant only if you use non-ASCII values in the CSS file.
+      * config.upperletters and config.lowerletters were removed.
+        We now use a pre-made ucs-2 spanning set and you usually don't have to
+        change it. See MoinMoin/util/chartypes.py if you're interested.
+      * ACL works with any user name or group name in any language, even names 
+        with spaces.
+      * Now you can use any charset in config.charset. Note: only utf-8 is 
+        a supported configuration!
+      * Improved url handling, now creating pages directly from the browser 
+        url box with non-ascii names works in most cases, even when 
+        config.charset is not utf-8.
+      * When using non-utf-8 config.charset, characters in URLs that does
+        fit in the charsets are replaced with "?" (instead of crashing).
+      * All themes and most macros and actions are Right to Left friendly.
+        Full RTL support planned for 1.3 release.
+      * If page language is specified with #language processing instruction
+        the page is displayed in the correct direction. Pages without
+        language are displayed using the wiki default_lang.
+
+    Multiple configurations
+
+      * You can run multiple wikis from the same wiki directory or server. 
+        For example, you can run one twisted server that serve multiple wikis, 
+        instead of running multiple servers. Samples of the new configuration
+        are supplied in wiki/config/*.
+      * You can't just use your old moin_config.py file. It is now called
+        wikiconfig.py and the config variables now have to be in a class
+        "Config" and that class must inherit from
+        MoinMoin.multiconfig.DefaultConfig - see the provided wikiconfig.py
+        sample for details.
+        This is very useful, e.g. you could derive a GermanConfig from
+        DefaultConfig. After that, you can derive configs for wikiA and wikiB
+        from that GermanConfig.
+      * farmconfig.py contains a mapping attribute called "wikis" with pairs of
+        wikiconfig module name and regular expression. The regular expression
+        is matched against the URL of the request and the first matching entry
+        determines the config module to be imported by MoinMoin.
+      * If you use farmconfig.py's "wikis" mapping, then any wiki has a private
+        config module, named after the wiki - e.g. wiki named moinmoin would
+        use moinmoin.py.
+      * If you only have a single wiki, you do not need farmconfig.py. just make 
+        a wikiconfig.py and it will be used no matter what URL is requested. 
+      * There is one common global "config" that holds sitewide settings (like
+        umask or charset) - you do not need to change settings there.
+        This file is located in the MoinMoin code: MoinMoin/config.py.
+      
+    General configuration
+
+      * SecurityPolicy now uses "write" instead of "edit" (so it is may.write
+        now). This is to get it in sync with ACLs.
+      * SecurityPolicy now automatically can use everything in acl_rights_valid.
+      * There is a new config option "config_check_enabled". It will warn about
+        any unknown variable name (probably typo) to stderr or error.log. 
+        If something doesn't work at all and changing the config does no 
+        difference, switch it on and look at the error message. 
+      * The sample config file comes with config_check_enabled = 1. If you 
+        introduce additional variables yourself, you definitely want to switch 
+        that check off or it will fill your log.
+      * If you define "page_front_page" variable, this name will show in the 
+        navigation bar now, instead of the default "FrontPage".
+
+    New search engine
+
+     * Full text and title search do support multiple search terms now - 
+       see HelpOnSearching for details.
+     * Regular expressions are still supported but have to be turned on per
+       search term. Search terms in macros using regular expressions will have
+       to be fixed.
+     * The URL interface of the search engine has also changed. Links that 
+       point directly to search actions may be broken.
+
+    User names
+
+      * User names can not use group names, even if ACLs are not enabled.
+        This will prevent error later, if you start to use acl in the future
+        (acl is going to be mandatory in 1.4).
+      * User names are not restricted any more to only CamelCase. 
+      * To prevent imposing as other users, leading, trailing and multiple 
+        whitespace in user names is not allowed. Only Unicode alpha numeric 
+        characters are allowed, with optional one space character between 
+        words.
+      * When a user name with a group name or "bad" name is trying to 
+        access the wiki, he is redirected to the UserPreferences page and 
+        asked to create a new account.
+      * When trying to login or create a new account with a bad name, 
+        correct error message is displayed in all cases.   
+
+    CGI
+
+      * You can not use your old moin.cgi file, as we removed cgimain.py 
+        (was deprecated since 1.2). Copy the new file from the server dir.     
+
+    Moin servers - twisted and standalone
+
+      * Configuration self checking on startup. Will raise an error in case
+        of bad configuration or non-accessible directories.
+      * Both use shorter and identical configuration options.
+      * Server scripts contain detailed comments and examples.
+      * Configuration defaults changed to fit most users.
+      * There is memory profiler option for debugging, switched off by default.
+      * If you perform a standard install, server scripts should run out
+        of the box or with minimal change.
+
+    Twisted server
+
+      * All code moved into the new server package, the server script
+        contains only configuration options.
+      * Listen to more than one interface with "interfaces" list.
+      * Code updated to new twisted API.
+      * Use mointwisted script to start and stop the server, using 
+        "mointwisted start" and "mointwisted stop".
+      * The twisted server runs as daemon by default.
+      * All moin twisted files are called now mointwisted instead of 
+        moin_twisted.
+      * fixed getting username from twisted request (http auth)
+
+    Standalone server
+
+      * Configuration moved from moin_config.py to moin.py.
+      * If run as root, you can set both user and group for the server.
+      * Can use logfile instead of logging to stderr.
+      * Fixed missing unquoting of query string (caused problems in rare cases).
+
+    mod_python server
+
+     * moin_modpy server files renamed to moinmodpy.
+
+    Wiki Markup
+
+     * '''strong''', ''em'' and __underline__ have now paragraph scope. You can
+       set these attributes on words level. For multiple paragraphs, wrap each 
+       with needed markup.
+     * If you leave unclosed ''', '' and __  markup, its is closed when the 
+       paragraph ends.
+
+    User interface
+
+     * Due to many changes in CSS files, the wiki may look "broken" until
+       your reload once or twice, or empty your browser cache.
+     * The "Send mail notification" checkbox is replaced by "Trivial change"
+       checkbox. The default behavior did not change - regular edit is not
+       a trivial change, and mail will be sent to subscribes. If you check
+       trivial change, mail will be sent only to users who selected to 
+       get trivial changes in their user preferences.
+     * New theme "modern" has been added, and used as default theme. 
+     * classic and rightsidebar improved.
+     * viewonly theme removed, as any theme can be use now as viewonly
+       by using #acl All:read in the wikiconfig.
+     * All themes use new navibar, displaying both wiki links, user links
+       and the current page.
+     * navibar and pagetrail use now shortened page names, so very long
+       names does not break the interface visually.
+     * All themes have improved search interface at the top of the window.
+     * Only avaiable actions are displayed, so most situations when a user
+       try to do something he can't do are prevented.
+     * When creating a new page, no action is available until the page 
+       is created. You can't attach files to non-existing page any more.
+     * Non registered users get a "login" link. Registered uses get
+       "username" link to their home page, and "user preferences" link.
+     * Messages more clear using bold type, designed by css.
+     * Few useless messages removed (but there are many more)
+     * Default wiki logo uses the wiki name instead of the MoinMoin troll 
+       logo.
+
+    Other fixes and changes
+    
+     * Most generated html code is valid "html 4 strict". There are still
+       some problems that still have to be fixed, mainly macros, table
+       attributes, and inline markup crossing (<a><b></a></b>).
+     * WantedPages can include and exclude system pages, which makes it 
+       much more useful.
+     * Fixed a bug in TitleIndex where not all system pages are excluded.    
+     * RenamePage action now renames everything, including backups, page
+       history, attachments. It does not change toplevel editlog, though.
+       After you rename a page, you are redirected to the new page.
+     * Syntax colorization supports more languages (Java, C++, Pascal)
+     * Inline: display of attachments was extended. A Parser now knows which
+       extensions it can handle.
+     * TableOfContents and Include macros now cooperate a bit better. There
+       are still problems with multiple Includes of the same page.
+     * Excluded actions at bottom of page are not displayed any more.   
+     * Editor: removed the columns size setting, just using 100% of browser
+       window width (it didn't work because of that anyway). Also removed that
+       "reduce editor size" link at top of editor as you would lose your
+       changes when using it.
+     * Removed the option to choose text smileys instead of images, this made
+       more trouble than it was worth. The text version is still given in ALT
+       attribute.
+     * Moved stuff from contribution/ to MacroMarket page on MoinMoin wiki
+     * Some nasty people try to use a running moin as a proxy (at least they
+       did on moinmaster.wikiwikiweb.de:8000, maybe due to the magic port
+       number). We changed the code to check for that and just return 403
+       in that case. Moin can not be used as a proxy anyway.
+     * moin.cgi?test was removed in favor of a new buildin test
+       action. It works for all deployments, just use ?action=test.
+     * Sending mail does use tls if server supports it.
+
+    3rd party developer notes
+
+     * Themes should be now sub class of MoinMoin.theme.ThemeBase. Sub
+       classes will get automatically all new improved user interface
+       elements for free.
+     * Theme authors should update their theme for 1.3. Some keys removed
+       from them dict. See ThemeBase class in MoinMoin/theme/__init__.py. 
+     * Actions writers should call request.setContentLangauge with the 
+       correct language used by the action. This enable themes and other
+       code to use correct direction.
+     * The Formatter interface was changed. Formatters and parsers using 
+       the formatter interface have to be adjusted.
+     * started deprecation of Processors: they are still recognized, but
+       implementors should start to rewrite their Processors as Parsers.
+       A processor with the same name as a parser in a pre #! section is
+       currently preferred. This will change in the next release.
+
+    Deprecation notes
+
+     * Processors are deprecated, see section above.
+
+     * Using the cookie (or the login url with ID) only and not setting (or
+       setting and not remembering) your email/password in UserPreferences
+       is DEPRECATED. Those quite unsecure methods will likely be dropped
+       in next moin version.
+
+     * Operating with acl_enabled = 0 is also DEPRECATED. Due to some other
+       improvements planned, we will have to operate with ACLs enabled ONLY
+       in a future moin version, so this setting will likely be dropped.
+       So clean up your user accounts (see moin_usercheck.py) and switch ACLs
+       on NOW.
+       There are no drawbacks, so you will like it. Having ACLs enabled
+       doesn't mean you really have to USE them on wiki pages...
+
+     * allow_extended_names = 0 is deprecated (default was/is 1).
+       Future versions will be able to use extended names (aka free links) in
+       any case and the config setting will be removed.
+
+     * allow_subpages = 0 is deprecated (default was/is 1).
+       Future versions will be able to use subpages in any case and the config
+       setting will be removed.
+
+     * attachments = {...} - we would like to remove that setting because of
+       several reasons:
+       * when not being extremely careful, this can easily lead to security
+         problems (like when uploading a .php exploit and then executing it
+         by accessing it directly via web server)
+       * makes code more complicated - code that we want to change completely
+         in next version
+       If you need that feature, speak up now and tell us your reasons WHY you
+       need it.
+
 
 Version 1.2.4 (2004-10-23, Revision 1.187)
 
@@ -45,7 +419,7 @@ Other changes:
         * html_head_index   = '''<meta name="robots" content="index,follow">\n'''
         * html_head_normal  = '''<meta name="robots" content="index,nofollow">\n'''
 
-    * i18n updates/fixes, new: nb
+    * i18n updates/fixes
 
     * New UserPreferences switch:
       you may subscribe to trivial changes (when you want to be notified about ALL
@@ -74,15 +448,6 @@ Fixes:
       page names
     * ACL security fix for PageEditor, thanks to Dr. Pleger for reporting
     * default options for new users are same as for anon users
-
-Other changes:
-    * do not show excluded actions at bottom of page
-    * i18n updated: ja, de, zh
-    * editor: removed the columns size setting, just using 100% of browser
-      window width (it didn't work because of that anyway). Also removed that
-      "reduce editor size" link at top of editor as you would lose your
-      changes when using it.
-
 
 Version 1.2.2 (2004-06-06, Revision 1.185)
 
@@ -117,7 +482,6 @@ Fixes:
      * fixed merging multiple lines indented by the same amount of blanks
      * ## comments don't break tables in two parts
      * added a "remove bookmark" link to RecentChanges
-     * fixed DeletePage / RenamePage / SpellCheck to work on subpages, too
      * fixed action=titleindex (added \n after each entry)
 
     * RSS fixes:
@@ -170,6 +534,11 @@ Other Changes:
       beginning of logging
 
 
+    * Full text and title search do now support multiple search terms - 
+      see HelpOnSearching for details
+ 
+    * The Formatter interface was changed. Formatter and parser using 
+      the formatter interface have to be adjusted.
 
 Version 1.2.1 (2004-03-08, Revision 1.184)
 
@@ -217,6 +586,10 @@ Other changes:
       checking stuff. removed some version control clutter from the dist
       archive, too.
 
+    * code colorization was refactored and some new languages (Java, C++,
+      Pascal) where added.
+    * inline: display of attachments was extended. A Parser now knows which
+      extensions it can handle.
 
 Version 1.2 (2004-02-20, Revision 1.183)
 
@@ -284,7 +657,7 @@ New features:
       [[GetVal(page,key)]]" - that will go to page "page" and return the
       value (right side) corresponding to "key".
       Implementation note: groups are a subset of the dictionary functionality.
-    * standalone server should work now (see cgi-bin/moin.py), so you don't
+    * standalone server should work now (see server/moin.py), so you don't
       need to setup apache or twisted for a local personal wiki, you only need
       python and moin for that now, no additional stuff any more!
     * if you run your wiki with charset = "utf-8" (the default is still

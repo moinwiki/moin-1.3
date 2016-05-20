@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# -*- coding: iso-8859-1 -*-
+"""
+    MoinMoin - FastCGI Driver Script
+
+    @copyright: 2004 by Oliver Graf <ograf@bitart.de>
+    @license: GNU GPL, see COPYING for details.
+"""
+
+# System path configuration
+
+# The path to MoinMoin package and configuration files. Note that the
+# path is the path of the directory where the item lives, not the path
+# to the item itself!
+# If you did a standard install, and you are not a developer, you
+# probably want to skip these settings.
+
+## import sys
+## sys.path.insert(0, '/path/to/MoinMoin/dir')
+## sys.path.insert(0, '/path/to/wikiconfig/dir')
+## sys.path.insert(0, '/path/to/farmconfig/dir')
+
+
+from MoinMoin.request import RequestFastCGI
+from MoinMoin.support import thfcgi
+
+def handle_request(req, env, form):
+    request = RequestFastCGI(req,env,form)
+    request.run()
+
+if __name__ == '__main__':
+    # this is a multi-threaded FastCGI
+    # use thfcgi.unTHFCGI for a single-threaded instance
+    fcg = thfcgi.THFCGI(handle_request)
+    fcg.run()

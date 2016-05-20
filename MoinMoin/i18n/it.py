@@ -1,43 +1,57 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Text translations for Italiano (it).
 # Automatically generated - DO NOT EDIT, edit it.po instead!
 meta = {
   'language': 'Italiano',
+  'elanguage': 'Italian',
   'maintainer': 'gian paolo ciceri <gp.ciceri@acm.org>',
-  'encoding': 'iso-8859-1',
+  'encoding': 'utf-8',
   'direction': 'ltr',
+  'wikimarkup': True,
 }
 text = {
-'''(last edited %(time)s by %(editor)s)''':
-'''(l\'ultima modifica Ë del %(time)s, fatta da %(editor)s)''',
-'''(last modified %s)''':
-'''(modificata l\'ultima volta il %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
-'''La copia di backup di questa pagina Ë deprecata e pertanto non verr‡ inclusa nella ricerca!''',
-'''Version as of %(date)s''':
-'''Versione del %(date)s''',
+'''La copia di backup di questa pagina √® deprecata e pertanto non verr√† inclusa nella ricerca!''',
+'''Revision %(rev)d as of %(date)s''':
+'''Versione %(rev)d del %(date)s''',
 '''Redirected from page "%(page)s"''':
 '''Redirezione dalla pagina "%(page)s"''',
 '''This page redirects to page "%(page)s"''':
-'''Questa pagina Ë rediretta alla pagina "%(page)s"''',
+'''Questa pagina √® rediretta alla pagina "%(page)s"''',
+'''~-If you submit this form, the submitted values will be displayed.
+To use this form on other pages, insert a
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+macro call.-~
+''':
+'''<p><small>Se confermi questa maschera, ne verranno visualizzati i dati.
+Per usare questa maschera su altre pagine, inserisci una chiamata alla macro
+<br><br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></b><br><br>
+.</b></small></p>
+''',
+'''You are not allowed to view this page.''':
+'''Non sei autorizzato a leggere questa pagina.''',
 '''RefreshCache''':
 '''AggiornaCache''',
-'''Create this page''':
-'''Crea questa pagina''',
-'''Alternatively, use one of these templates:''':
-'''In alternativa, puoi utilizzare uno di questi modelli:''',
-'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
-'''Per creare i tuoi modelli, aggiungi una pagina con il nome che corrisponda alla regex "%(page_template_regex)s".''',
+'''(cached %s)''':
+'''(%s in cache)''',
+'''You are not allowed to edit this page.''':
+'''Non ti √® consentito di modificare questa pagina.''',
+'''Page is immutable!''':
+'''La pagina non √® modificabile!''',
+'''Cannot edit old revisions!''':
+'''Non √® permesso modificare le versioni precedenti!''',
 '''The lock you held timed out, be prepared for editing conflicts!''':
-'''Il lock che detenevi Ë spirato, preparati per conflitti di modifiche!''',
+'''Il lock che detenevi √® spirato, preparati per conflitti di modifiche!''',
 '''Edit "%(pagename)s"''':
 '''Modifica "%(pagename)s"''',
 '''Preview of "%(pagename)s"''':
 '''Anteprima di "%(pagename)s"''',
+'''Your edit lock on %(lock_page)s has expired!''':
+'''Il tuo veto alle modifiche su %(lock_page)s √® scaduto!''',
 '''Your edit lock on %(lock_page)s will expire in # minutes.''':
-'''Il blocco alle modifiche sulla pagina %(lock_page)s verr‡ tolto in # minuti.''',
+'''Il blocco alle modifiche sulla pagina %(lock_page)s verr√† tolto in # minuti.''',
 '''Your edit lock on %(lock_page)s will expire in # seconds.''':
-'''Il blocco alle modifiche sulla pagina %(lock_page)s verr‡ tolto in # secondi.''',
+'''Il blocco alle modifiche sulla pagina %(lock_page)s verr√† tolto in # secondi.''',
 '''Someone else deleted this page while you were editing!''':
 '''Qualcun altro ha rimosso la pagina mentre la stavi modificando''',
 '''Someone else changed this page while you were editing!''':
@@ -45,14 +59,18 @@ text = {
 '''Someone else saved this page while you were editing!
 Please review the page and save then. Do not save this page as it is!
 Have a look at the diff of %(difflink)s to see what has been changed.''':
-'''Qualcun altro ha salvato la pagina mentre la stavi modificandoPer favore, rivedi la pagina e salvala. Non salvarla cosÏ come Ë!
-Dai un\'occhiata alle diff in %(difflink)s per vedere cosa Ë cambiato.''',
+'''Qualcun altro ha salvato la pagina mentre la stavi modificandoPer favore, rivedi la pagina e salvala. Non salvarla cos√¨ come √®
+Dai un\'occhiata alle diff in %(difflink)s per vedere cosa √® cambiato.''',
 '''[Content of new page loaded from %s]''':
 '''[Contenuto della nuova pagina caricato da %s]''',
 '''[Template %s not found]''':
-'''[Il modello %s non Ë stato trovato]''',
+'''[Il modello %s non √® stato trovato]''',
+'''[You may not read %s]''':
+'''[Potresti non aver letto %s]''',
 '''Skip to preview''':
 '''Salta all\'anteprima''',
+'''[current page size \'\'\'%(size)d\'\'\' bytes]''':
+'''[dimensione attuale:\'\'\'%(size)d\'\'\' byte]''',
 '''Describe %s here.''':
 '''Inserisci una descrizione per %s''',
 '''Optional comment about this change''':
@@ -67,45 +85,120 @@ Dai un\'occhiata alle diff in %(difflink)s per vedere cosa Ë cambiato.''',
 '''Salva le modifiche''',
 '''Cancel''':
 '''Annulla''',
-'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
-'''Dando il comando <strong>%(save_button_text)s</strong> tu rilasci le tue modifiche sotto la %(license_link)s.
-Se non vuoi questo, premi <strong>%(cancel_button_text)s</strong> per cancellare le tue modifiche.''',
+'''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
+If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
+'''Dando il comando \'\'\'%(save_button_text)s\'\'\' tu rilasci le tue modifiche sotto la %(license_link)s.
+Se non vuoi questo, premi \'\'\'%(cancel_button_text)s\'\'\' per cancellare le tue modifiche.''',
 '''Preview''':
 '''Anteprima''',
-'''Send mail notification''':
-'''Invia una mail di notifica''',
+'''Trivial change''':
+'''Cambiamento banale''',
 '''Remove trailing whitespace from each line''':
 '''Rimuovi gli spazi in fondo a ogni riga di testo''',
+''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
+ Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
+ Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
+ Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim(["brackets and double quotes"])]]; url; [url]; [url label].
+ Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
+''' Enfasi:: [[Verbatim(\'\')]]\'\'italico\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'grassetto\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'grassetto corsivo\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'misto \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'grassetto\'\'\'[[Verbatim(\'\'\')]] e corsivo\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] linea orizzontale.
+ Intestazioni:: [[Verbatim(=)]] Titolo 1 [[Verbatim(=)]]; [[Verbatim(==)]] Titolo 2 [[Verbatim(==)]]; [[Verbatim(===)]] Titolo 3 [[Verbatim(===)]];   [[Verbatim(====)]] Titolo 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Titolo 5 [[Verbatim(=====)]].
+ Liste:: spazio e uno di: * bullets; 1., a., A., i., I. per elementi numerati; 1.#n inizia la numerazione da n; lo spazio da solo indenta.
+ Collegamenti:: [[Verbatim(ParoleConLettereMaiuscole)]]; [[Verbatim(["parentesi quadre e doppie virgolette"])]]; url; [url]; [url label].
+ Tabelle:: || cela di testo |||| cella su due colonne ||;    non sono consentiti spazi dopo la tabella o il titolo.''',
 '''Edit was cancelled.''':
 '''Le modifiche sono state annullate.''',
+'''Dear Wiki user,
+
+You have subscribed to a wiki page or wiki category on "%(sitename)s" for change notification.
+
+The following page has been changed by %(editor)s:
+%(pagelink)s
+
+''':
+'''Caro utente Wiki,
+ti sei abbonato alla notifica in caso di modifiche a una pagina o a una
+categoria sul sito Wiki "%(sitename)s".
+Le pagine seguenti sono state moduiificate da %(editor)s:
+%(pagelink)s
+''',
+'''The comment on the change is:
+%(comment)s
+
+''':
+'''Descrizione delle modifiche:
+%(comment)s
+''',
+'''New page:
+''':
+'''Nuova pagina:
+''',
 '''No differences found!
 ''':
 '''Non ho riscontrato nessuna differenza!
 ''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
+'''[%(sitename)s] %(trivial)sCambiamenti della "%(pagename)s"''',
+'''Trivial ''':
+'''Banale ''',
 '''Status of sending notification mails:''':
 '''Risultato della spedizione delle email di notifica:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
-'''Nobody subscribed to this page, no mail sent.''':
-'''Nessuno risulta abbonato a questa pagina, non spedisco alcuna mail.''',
+'''## backup of page "%(pagename)s" submitted %(date)s''':
+'''## backup della pagina "%(pagename)s" inviato %(date)s''',
+'''You are not allowed to edit this page!''':
+'''Non sei autorizzato a modificare questa pagina!''',
+'''You cannot save empty pages.''':
+'''Non puoi salvare pagine vuote.''',
+'''Sorry, someone else saved the page while you edited it.
+
+Please do the following: Use the back button of your browser, and cut&paste
+your changes from there. Then go forward to here, and click EditText again.
+Now re-add your changes to the current page contents.
+
+\'\'Do not just replace
+the content editbox with your version of the page, because that would
+delete the changes of the other person, which is excessively rude!\'\'
+''':
+'''Mi dispiace, ma qualcun altro ha salvato la pagina mentre la stavi modificando
+
+Dovresti tornare alla pagina precedende e copiarti il
+testo che hai inserito, dopodich&eacute; tornare qui, premere ModificaIlTesto di nuovo
+Ora re-integra le tue modifiche nella pagina corrente.
+
+\'\'Non limitarti a sostituire il contenuto della pagina con le tue
+modifiche, perch√®; in tal modo cancelleresti le modifiche dell\'altra
+persona, che sarebbe eccessivamente sgarbato!\'\'
+''',
+'''A backup of your changes is [%(backup_url)s here].''':
+'''Una copia delle tue modifiche √® disponibile [%(backup_url)s qui].''',
+'''You did not change the page content, not saved!''':
+'''Dal momento che non ne hai modificato il contenuto, la pagina non √® stata salvata!''',
+'''You can\'t change ACLs on this page since you have no admin rights on it!''':
+'''Non puoi modificare i diritti di accesso (ACL) di questa pagina dal momento che non hai i permessi di amministrazione su di essa!''',
+'''Thank you for your changes. Your attention to detail is appreciated.''':
+'''Grazie per il tuo contributo. La tua attenzione ai dettagli √® apprezzata''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
-'''Il lock di %(owner)s Ë spirato %(mins_ago)d minute(s) fa, e ti Ë stato concesso il lock per questa pagina.''',
-'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
-'''Gli altri utenti saranno <em>bloccati</em> nelle modifiche a questa pagina fino a  %(bumptime)s.''',
-'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
-'''Gli altri utenti saranno <em>avvisati</em> fino a %(bumptime)s che stai modificando la paginas.''',
+'''Il lock di %(owner)s √® spirato %(mins_ago)d minute(s) fa, e ti √® stato concesso il lock per questa pagina.''',
+'''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
+'''Gli altri utenti saranno \'\'bloccati\'\' nelle modifiche a questa pagina fino a  %(bumptime)s.''',
+'''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
+'''Gli altri utenti saranno \'\'avvisati\'\' fino a %(bumptime)s che stai modificando la paginas.''',
 '''Use the Preview button to extend the locking period.''':
 '''Usa il bottone Anteprima per estendere il periodo di locking.''',
-'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
-<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
-to avoid editing conflicts.</strong><br>
+'''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''Questa pagina rimarr√†;\'\'bloccata\'\' fino alle %(timestamp)s, vale a dire ancora per %(mins_valid)d minuti, perch√® %(owner)s la sta modificando.''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
+\'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
-'''Questa pagina risulta in modifica dalle %(timestamp)s da parte di %(owner)s, o perlomeno ne ha richiesto un\'anteprima a quell\'ora.<br>
-<strong class="highlight">Dovresti <em>evitare di modificare</em> questa pagina per almeno altri %(mins_valid)d minuti per non incorrere in probabili conflitti.</strong><br>
-Premi il pulsante "Annulla" per lasciare l\'editor.''',
+'''Questa pagina risulta in modifica dalle %(timestamp)s da parte di %(owner)s o perlomeno ne ha richiesto un\'anteprima a quell\'ora.[[BR]]
+\'\'\'Dovresti \'\'evitare di modificare\'\' questa pagina per almeno altri %(mins_valid)d minuti per non incorrere in probabili conflitti.\'\'\'[[BR]]
+Premi il pulsante Annulla per lasciare l\'editor.''',
 '''<unknown>''':
 '''<informazione non disponibile>''',
+'''Diffs''':
+'''differenze''',
 '''Info''':
 '''Informazioni''',
 '''Edit''':
@@ -118,70 +211,130 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''Non formattato''',
 '''XML''':
 '''XML''',
-'''Home''':
-'''Home''',
+'''Print''':
+'''Versione stampabile''',
+'''View''':
+'''mostra''',
 '''Up''':
 '''Su''',
-'''Unknown action''':
-'''Azione sconosciuta''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''Nome utente non {{{\'%s\'}}}.
+Il nome pu√≤ contenere ogni carattere alfanumerico Unicode , con opzionale unospazio tra le parole. Non √® permesso raggruppare i nomi pagina.''',
+'''You are not allowed to do %s on this page.''':
+'''Non ti √® consentito di %s questa pagina.''',
+'''Login''':
+'''Login''',
+''' %s and try again.''':
+''' %s and prova ancora.''',
 '''Can\'t work out query''':
 '''Non riesco a impostare la query di ricerca''',
+'''%(hits)d results out of %(pages)d pages.''':
+'''Trovate %(hits)d corrispondenze nelle %(pages)d pagine consultate.''',
+'''%.2f seconds''':
+'''%.2f secondi''',
+'''match''':
+''' corrispondenza''',
+'''matches''':
+''' corrispondenze''',
 '''Open editor on double click''':
 '''Con un doppio click, apri l\'editor''',
 '''Remember last page visited''':
 '''Ricorda l\'ultima pagina visitata''',
-'''Show emoticons''':
-'''Mostra faccine''',
 '''Show fancy links''':
 '''Enfatizza i collegamenti esterni''',
 '''Show question mark for non-existing pagelinks''':
 '''Mostra un punto di domanda al posto dei collegamenti non esistenti''',
 '''Show page trail''':
-'''Mostra il piÈ di pagina''',
+'''Mostra il piÔøΩdi pagina''',
 '''Show icon toolbar''':
 '''Mostra la barra con le icone''',
 '''Show top/bottom links in headings''':
-'''Mostra i collegamenti all\'inizio e alla fine della pagina nelle intestazioni''',
+'''Mostra i link top/bottom nelle intstazioni''',
 '''Show fancy diffs''':
 '''Evidenzia le differenze''',
 '''Add spaces to displayed wiki names''':
 '''Aggiungi uno spazio tra le singole parole dei nomi wiki''',
-'''Remember login information forever''':
-'''Ricorda le mie informazioni di login per sempre''',
+'''Remember login information''':
+'''Ricorda le mie informazioni di login''',
+'''Subscribe to trivial changes''':
+'''Sottoscrivi per i cambiamenti banali''',
 '''Disable this account forever''':
 '''Disabilita questa utenza per sempre''',
-'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''questo wiki non Ë abilitato ad usare la mail. Contatta il gestore del wiki, o chi puÚ abilitare la mail, oppure togli l\'icona "Subscribe".''',
-'''Please enter a user name!''':
-'''Inserisci un nome utente''',
-'''User name already exists!''':
-'''Il nome utente esiste gia!''',
+'''Cookie deleted. You are now logged out.''':
+'''Il Cookie √® stato cancellato! Sei stato disconnesso.''',
+'''This wiki is not enabled for mail processing.
+Contact the owner of the wiki, who can enable email.''':
+'''Questo wiki non √® abilitato ad usare la mail. Contatta il gestore del wiki, o chi pu√≤ abilitare la mail.''',
+'''Please provide a valid email address!''':
+'''Per favore immetti un indirizzo email valido!''',
+'''Found no account matching the given email address \'%(email)s\'!''':
+'''Non ho trovato nessuna corrispondenza per l\'indirizzo email \'%(email)s\'!''',
+'''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
+'''Nome utente sconosciuto: {{{"%s"}}}. Inserisci nome utente e password''',
+'''Missing password. Please enter user name and password.''':
+'''Password mancante. Inserisci nome utente e password''',
+'''Sorry, wrong password.''':
+'''Spiacente, password errata.''',
+'''Bad relogin URL.''':
+'''Relogin URL non corretta.''',
+'''Unknown user.''':
+'''Nome utente non riconosciuto.''',
+'''Empty user name. Please enter a user name.''':
+'''Nome utente vuoto. Inserisci un nome utente''',
+'''This user name already belongs to somebody else.''':
+'''Questo nome utente √® gia utilizzato da qualcun altro.''',
 '''Passwords don\'t match!''':
 '''Le password non coincidono!''',
+'''Please specify a password!''':
+'''specifica una password!''',
+'''Please provide your email address. If you loose your login information, you can get it by email.''':
+'''Per favore, inserisci il tuo indirizzo email: senza di esso non potrai riottenere i tuoi dati personali nel caso smarrissi la password.''',
+'''This email already belongs to somebody else.''':
+'''Questo indirizzo email √® gia utilizzato da qualcun altro.''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''Il tema \'%(theme_name)s\' nno pu√≤ essere caricato''',
+'''User preferences saved!''':
+'''Le preferenze sono state memorizzate!''',
 '''Default''':
 '''Prestabilito''',
 '''<Browser setting>''':
 '''<Impostazioni del browser>''',
+'''Save''':
+''' Salva''',
 '''Logout''':
 '''Logout''',
+'''Create Profile''':
+'''Crea il Profilo''',
+'''Mail me my account data''':
+'''Spediscimi via email i miei dati''',
 '''Name''':
 '''Nome''',
 '''(Use FirstnameLastname)''':
 '''(Usa la forma NomeCognome)''',
+'''Password''':
+'''Password''',
 '''Password repeat''':
 '''Ripeti la password''',
 '''(Only when changing passwords)''':
 '''(Solo quando si modifica la password)''',
 '''Email''':
 '''Email''',
+'''Preferred theme''':
+'''Tema preferito''',
+'''User CSS URL''':
+'''URL del CSS''',
+'''(Leave it empty for disabling user CSS)''':
+'''(Lascia vuoto per disabilitare il CSS)''',
 '''Editor size''':
 '''Dimensione dell\'editor''',
 '''Time zone''':
 '''Fuso orario''',
 '''Your time is''':
-'''La tua ora locale Ë''',
+'''La tua ora locale √®''',
 '''Server time is''':
-'''L\'ora del server Ë''',
+'''L\'ora del server √®''',
 '''Date format''':
 '''Formato data''',
 '''Preferred language''':
@@ -192,36 +345,44 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''Collegamenti rapidi''',
 '''This list does not work, unless you have entered a valid email address!''':
 '''Per un corretto funzionamento della notifica, devi inserire un indirizzo email valido!''',
-'''Action''':
-'''Azione''',
-'''Full text search for "%s"''':
-'''Ricerca nel contenuto per "%s"''',
-'''Title search for "%s"''':
-'''Ricerca "%s" nei titoli''',
-'''%(hits)d hits out of %(pages)d pages searched.''':
-'''Trovate %(hits)d corrispondenze nelle %(pages)d pagine consultate.''',
-'''Needed %(timer).1f seconds.''':
-'''in %(timer).1f secondi.''',
+'''Subscribed wiki pages (one regex per line)''':
+'''Abbonato alle pagine (una espressione regolare per riga)''',
+'''No older revisions available!''':
+'''Non ci sono revisioni precedenti!''',
 '''Diff for "%s"''':
 '''Differenze per "%s"''',
+'''Differences between revisions %d and %d''':
+'''Differenze tra le versioni del %d e del %d''',
+'''(spanning %d versions)''':
+'''(in %d Versioni)''',
+'''No differences found!''':
+'''Non ho riscontrato nessuna differenza!''',
+'''The page was saved %(count)d times, though!''':
+'''La pagina √® stata comunque salvata %(count)d volte!''',
 '''Ignore changes in the amount of whitespace''':
 '''Ignora differenze nella spaziatura''',
 '''General Information''':
 '''Informazioni generali''',
 '''Page size: %d''':
 '''Dimensione pagina: %d''',
+'''SHA digest of this page\'s content is:''':
+'''Codice SHA del contenuto di questa pagina:''',
 '''The following users subscribed to this page:''':
 '''Elenco degli abbonati a questa pagina:''',
-'''Revision History''':
-'''Cronologia revisioni''',
+'''This page links to the following pages:''':
+'''Questa pagina contiene collegamenti alle seguenti pagine:''',
 '''Date''':
 '''Data''',
 '''Size''':
 '''Dimensione''',
+'''Diff''':
+'''Differenze''',
 '''Editor''':
 '''Autore''',
 '''Comment''':
 '''Commento''',
+'''Action''':
+'''Azione''',
 '''view''':
 '''mostra''',
 '''raw''':
@@ -230,36 +391,62 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''stampa''',
 '''revert''':
 '''ripristina''',
-'''Revert to version dated %(datestamp)s.''':
-'''Ripristinata la versione del %(datestamp)s.''',
+'''Revert to revision %(rev)d.''':
+'''Ripristinata la revisione %(rev)d.''',
+'''edit''':
+'''modifica''',
+'''get''':
+'''scarica''',
+'''del''':
+'''rimuovi''',
 '''N/A''':
 '''N/D''',
+'''Revision History''':
+'''Cronologia revisioni''',
+'''No log entries found.''':
+'''Non sono stati trovate informazioni nel log''',
 '''Info for "%s"''':
 '''Informazioni su "%s"''',
 '''Show "%(title)s"''':
 '''Mostra "%(title)s"''',
+'''General Page Infos''':
+'''Informazioni generali''',
 '''Show chart "%(title)s"''':
 '''Mostra il grafico "%(title)s"''',
 '''Page hits and edits''':
 '''Richieste e modifiche alla pagina''',
 '''You are not allowed to revert this page!''':
 '''Non sei autorizzato a ripristinare questa pagina!''',
-'''An error occurred while reverting the page.''':
-'''E\' avvenuto un errore nel ripristinare la pagina!''',
+'''You are not allowed to subscribe to a page you can\'t read.''':
+'''Non ti √® consentito abbonarti a pagine che non puoi leggere.''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''Questo wiki non √® abilitato ad usare la mail. Contatta il gestore del wiki, o chi pu√≤ abilitare la mail, oppure togli l\'icona "Subscribe".''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
 '''Non hai ancora creato un profilo utente. Seleziona UserPreferences nell\'angolo in alto a destra per creare un profilo.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''Non hai inserito un indirizzo email nel tuo profilo. Seleziona il tuo nome(PreferenzeUtente) nell\'angolo in alto a destra ed inserisci un indirizzo email valido.''',
+'''Your subscribtion to this page has been removed.''':
+'''La tua sottoscrizione a questa pagine √® stata rimossa.''',
+'''Can\'t remove regular expression subscription!''':
+'''Non posso rimuovere la sottoscrizione per espressione regolare''',
+'''To unsubscribe, go to your profile and delete this page from the subscription list.''':
+'''Per rimuoverti, vai nel tuo profilo e cancella questa pagina dalla listadelle pagine a cui sei abbonato.''',
+'''You have been subscribed to this page.''':
+'''Da questo momento sei abbonato a questa pagina.''',
 '''Required attribute "%(attrname)s" missing''':
 '''Manca l\'attributo obbligatorio "%(attrname)s" ''',
 '''Submitted form data:''':
 '''Dati inseriti:''',
+'''Search Titles''':
+'''Cerca per titolo''',
 '''Display context of search results''':
 '''Visualizza il contesto delle occorrenze trovate''',
 '''Case-sensitive searching''':
 '''Ricerca differenziando Maiuscolo-minuscolo''',
-'''Go''':
-'''Vai''',
+'''Search Text''':
+'''Cerca per testo''',
+'''Go To Page''':
+'''Vai alla pagina''',
 '''Include system pages''':
 '''Includi pagine di sistema''',
 '''Exclude system pages''':
@@ -280,8 +467,6 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''Numero di pagine''',
 '''Number of system pages''':
 '''Numero di pagine di sistema''',
-'''Number of backup versions''':
-'''Numero di versioni precedenti''',
 '''Accumulated page sizes''':
 '''Dimensione complessiva delle pagine''',
 '''Entries in edit log''':
@@ -298,8 +483,12 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''Azioni disponibili''',
 '''Local extension actions''':
 '''Azioni disponibili (in questo wiki)''',
-'''Installed processors''':
-'''Processori installati''',
+'''Installed parsers''':
+'''Parser installati''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''Processori installati (DEPRECATO -- usa i Parser)''',
+'''Please use a more selective search term instead of {{{"%s"}}}''':
+'''Per favore usa un termine di ricerca pi√π; selettivo di {{{"%s"}}}''',
 '''ERROR in regex \'%s\'''':
 '''Errore nell\'espressione regolare \'%s\'''',
 '''Bad timestamp \'%s\'''':
@@ -312,68 +501,147 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''Formattazione Wiki''',
 '''Print View''':
 '''Versione stampabile''',
+'''[%d attachments]''':
+'''[%d allegati]''',
 '''There are <a href="%(link)s">%(count)s attachment(s)</a> stored for this page.''':
 '''Ci sono <a href="%(link)s">%(count)s allegati</a> per questa pagina.''',
-'''del''':
-'''rimuovi''',
-'''get''':
-'''scarica''',
-'''edit''':
-'''modifica''',
+'''Filename of attachment not specified!''':
+'''Non √® stato specificato il nome del file dell\'allegato!''',
+'''Attachment \'%(filename)s\' does not exist!''':
+'''L\'allegato \'%(filename)s\' non esiste!''',
+'''To refer to attachments on a page, use \'\'\'{{{attachment:filename}}}\'\'\', 
+as shown below in the list of files. 
+Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
+since this is subject to change and can break easily.''':
+'''Per riferirti agli allegati di una pagina, usa \'\'\'{{{attachment:filename}}}\'\'\',
+come mostrato qui sotto nella lista degli allegati.
+\'\'\'NON\'\'\' usare l\'URL che trovi in corrispondenza del link {{{[get]}}},
+dal momento che potrebbe cambiare in futuro.''',
 '''No attachments stored for %(pagename)s''':
 '''Non ci sono allegati per la pagina %(pagename)s''',
+'''Edit drawing''':
+'''>Modifica il disegno''',
+'''Attached Files''':
+'''File allegati''',
+'''You are not allowed to attach a file to this page.''':
+'''Non sei autorizzato a ripristinare questa pagina!''',
 '''New Attachment''':
 '''Nuovo allegato''',
+'''An upload will never overwrite an existing file. If there is a name
+conflict, you have to rename the file that you want to upload.
+Otherwise, if "Rename to" is left blank, the original filename will be used.''':
+'''Non sar√† permessa la sovrascrittura di un file esistente. In
+caso di conflitto, dovrai cambiare il nome del file che vuoi caricare.
+Altrimenti, se "Rinomina come" viene lasciato in bianco, verr√†
+usato il nome originale del file.''',
 '''File to upload''':
 '''File da caricare''',
 '''MIME Type (optional)''':
 '''Tipo MIME (opzionale)''',
+'''Save as''':
+''' Salva come''',
+'''Upload''':
+'''Carica''',
+'''File attachments are not allowed in this wiki!''':
+'''File allegati non consentiti in questo wiki!''',
+'''You are not allowed to save a drawing on this page.''':
+'''Non sei autorizzato a salvare un disegno in questa pagina!''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''Nessun contenuto. Cancella i caratteri non ASCII dal nome file e prova ancora.''',
+'''You are not allowed to delete attachments on this page.''':
+'''Non sei autorizzato a cancellare i file allegati.''',
+'''You are not allowed to get attachments from this page.''':
+'''Non sei autorizzato ad accedere agli allegati.''',
+'''You are not allowed to view attachments of this page.''':
+'''Non sei autorizzato a vedere gli allegati.''',
+'''Unsupported upload action: %s''':
+'''Azione di caricamento non supportata: %s''',
 '''Attachments for "%(pagename)s"''':
 '''Allegati per "%(pagename)s"''',
+'''Attachment \'%(target)s\' (remote name \'%(filename)s\') already exists.''':
+'''L\'allegato \'%(target)s\' (nome originale \'%(filename)s\') esiste gia.''',
 '''Attachment \'%(target)s\' (remote name \'%(filename)s\') with %(bytes)d bytes saved.''':
-'''L\'allegato \'%(target)s\' (nome originale \'%(filename)s\') di %(bytes)d byte Ë stato memorizzato.''',
+'''L\'allegato \'%(target)s\' (nome originale \'%(filename)s\') di %(bytes)d byte √®stato memorizzato.''',
 '''Attachment \'%(filename)s\' deleted.''':
-'''L\'allegato \'%(filename)s\' Ë stato cancellato.''',
+'''L\'allegato \'%(filename)s\' √® stato cancellato.''',
+'''Attachment \'%(filename)s\'''':
+'''L\'allegato \'%(filename)s\'''',
+'''Unknown file type, cannot display this attachment inline.''':
+'''Tipo di file sconosciuto, non posso visualizzarlo direttamente nella pagina.''',
 '''attachment:%(filename)s of %(pagename)s''':
 '''attachment:%(filename)s di %(pagename)s''',
+'''You are not allowed to delete this page.''':
+'''Non ti √® consentito cancellare questa pagina.''',
 '''This page is already deleted or was never created!''':
-'''Questa pagina Ë gi‡ stata cancellata, o non Ë mai stata creata!''',
+'''Questa pagina √® gia stata cancellata, o non √® mai stata creata!''',
 '''Please use the interactive user interface to delete pages!''':
 '''Per favore usa l\'interfaccia interattiva per cancellare le pagine!''',
 '''Page "%s" was successfully deleted!''':
-'''La pagina "%s" Ë stata cancellata correttamente!''',
+'''La pagina "%s" ÔøΩstata cancellata correttamente!''',
 '''Really delete this page?''':
 '''Vuoi veramente cancellare questa pagina?''',
+'''Delete''':
+'''Cancella''',
 '''Optional reason for the deletion''':
 '''Ragione facoltativa per la cancellazione''',
-'''No pages match "%s"!''':
+'''No pages like "%s"!''':
 '''Nessuna pagina corrisponde a "%s"!''',
-'''Exactly one matching page for "%s" found!''':
-'''Trovata una sola pagina che corrisponde esattamente a "%s"!''',
-'''Multiple matches for "%s...%s"''':
-'''Corrispondenze multiple per "%s...%s"''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''Trovata esattamente una pagina per "%s", redirect alla pagina.''',
+'''Pages like "%s"''':
+'''Pagine come "%s"''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''%(matchcount)d %(matches)s per "%(title)s"''',
 '''Local Site Map for "%s"''':
 '''Mappa del sito per "%s"''',
+'''You are not allowed to rename pages in this wiki!''':
+'''Non sei autorizzato a rinominare pagine in questo wiki!''',
+'''Please use the interactive user interface to rename pages!''':
+'''Per favore usa l\'interfaccia interattiva per rinominare le pagine!''',
+'''Rename Page''':
+'''Rinomina Pagina''',
+'''New name''':
+'''Nuovo nome''',
+'''Optional reason for the renaming''':
+'''Ragione facoltativa per la rinuminazione''',
+'''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
+
+Try a different name.''':
+'''\'\'\'Una pagina con il nome {{{\'%s\'}}} esiste gia.\'\'\'
+
+Prova un nome differente.''',
+'''(including %(localwords)d %(pagelink)s)''':
+'''(includendo %(localwords)d %(pagelink)s)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
 '''Le seguenti %(badwords)d parole non sono state trovate nel dizionario di %(totalwords)d termini%(localwords)s e sono evidenziate qui sotto:''',
 '''Add checked words to dictionary''':
 '''Aggiungi le parole verificate al dizionario''',
+'''No spelling errors found!''':
+'''Non sono stati trovati errori di ortografia!''',
+'''You can\'t check spelling on a page you can\'t read.''':
+'''Non puoi effettuare il controllo ortografica sulle pagine che non puoi leggere.''',
+'''Title Search: "%s"''':
+'''Ricerca "%s" nei titoli''',
+'''Full Text Search: "%s"''':
+'''Ricerca nel contenuto per "%s"''',
 '''Full Link List for "%s"''':
 '''Elenco completo dei collegamenti per "%s"''',
 '''Invalid include arguments "%s"!''':
 '''Argomento per "Include" non valido: "%s"!''',
+'''Nothing found for "%s"!''':
+'''Non risulta nulla per "%s"''',
 '''Unsupported navigation scheme \'%(scheme)s\'!''':
 '''Schema di navigazione \'%(scheme)s\' non supportato1''',
 '''No parent page found!''':
-'''La pagina sovrastante non Ë stata trovata!''',
+'''La pagina sovrastante non ÔøΩstata trovata!''',
 '''Wiki''':
 '''wiki''',
 '''Slideshow''':
 '''Diapositive''',
 '''Start''':
 '''Inizia''',
+'''Slide %(pos)d of %(size)d''':
+'''Slide %(pos)d di %(size)d ''',
 '''No orphaned pages in this wiki.''':
 '''Non ci sono pagine orfane (non referenziate da qualche altra pagina) in questo wiki.''',
 '''No quotes on %(pagename)s.''':
@@ -381,21 +649,29 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''Upload of attachment \'%(filename)s\'.''':
 '''Allegato il file \'%(filename)s\'.''',
 '''Drawing \'%(filename)s\' saved.''':
-'''Il disegno \'%(filename)s\' Ë stato memorizzato.''',
+'''Il disegno \'%(filename)s\' √® stato memorizzato.''',
+'''%(hours)dh %(mins)dm ago''':
+'''%(hours)dore %(mins)dmin fa''',
 '''(no bookmark set)''':
 '''(nessun segnalibro impostato)''',
 '''(currently set to %s)''':
 '''(attualmente impostato a %s)''',
-'''Update my bookmark timestamp''':
-'''Sincronizza l\'ora del mio segnalibro''',
+'''Delete Bookmark''':
+'''Cancella segnalibro''',
+'''Set bookmark''':
+'''Imposta segnalibro''',
 '''set bookmark''':
 '''imposta segnalibro''',
 '''[Bookmark reached]''':
 '''[Limite indicato dal segnalibro]''',
+'''Markup''':
+'''Formattazione Wiki''',
 '''Display''':
 '''Mostra''',
 '''Filename''':
 '''Nome del file''',
+'''You need to provide a chart type!''':
+'''Devi specificare un tipo di grafico!''',
 '''Bad chart type "%s"!''':
 '''tipo di grafico "%s" non valido!''',
 '''Download XML export of this wiki''':
@@ -406,12 +682,24 @@ Premi il pulsante "Annulla" per lasciare l\'editor.''',
 '''Crea un nuovo disegno "%(filename)s"''',
 '''Upload new attachment "%(filename)s"''':
 '''Carica nuovo allegato "%(filename)s"''',
+'''Edit drawing %(filename)s''':
+'''Crea un nuovo disegno "%(filename)s"''',
+'''Expected "%(wanted)s" after "%(key)s", got "%(token)s"''':
+'''Atteso "%(wanted)s" per "%(key)s", trovato "%(token)s"''',
+'''Expected an integer "%(key)s" before "%(token)s"''':
+'''Atteso un intero "%(key)s" prima di "%(token)s"''',
+'''Expected an integer "%(arg)s" after "%(key)s"''':
+'''Atteso un intero "%(arg)s" prima di "%(key)s"''',
+'''Expected a color value "%(arg)s" after "%(key)s"''':
+'''Atteso un colore "%(arg)s" prima di "%(key)s"''',
 '''XSLT option disabled!''':
 '''Opzione XSLT disabilitata!''',
 '''XSLT processing is not available!''':
 '''Formattazione XSLT non disponibile''',
 '''%(errortype)s processing error''':
 '''Errore di elaborazione di tipo "%(errortype)s"''',
+'''for this page (cached %(date)s)''':
+'''per questa pagina (memorizzata il %(date)s)''',
 '''Charts are not available!''':
 '''Grafici non disponibili''',
 '''%(chart_title)s for %(filterpage)s''':
@@ -434,28 +722,74 @@ rosso=Mod''',
 '''Altre''',
 '''Distribution of User-Agent Types''':
 '''Distribuzione delle tipologie di User-Agent''',
-'''Click here to do a full-text search for this title''':
-'''Clicca qui per effettuare una ricerca per questo titolo''',
+'''Click to do a full-text search for this title''':
+'''Clicca qui per effettuare una ricerca full-text per questo titolo''',
 '''Clear message''':
 '''Nascondi questo messaggio''',
-'''ShowText''':
-'''MostraTesto''',
-'''of this page''':
-'''di questa pagina''',
+'''last edited %(time)s by %(editor)s''':
+'''l\'ultima modifica √® del %(time)s, fatta da %(editor)s''',
+'''last modified %(time)s''':
+'''modificata l\'ultima volta il %(time)s''',
+'''Search:''':
+'''Cerca:''',
+'''Text''':
+'''Testo''',
+'''Titles''':
+'''Titoli''',
+'''Unsubscribe''':
+'''Annulla sottoscrizione''',
+'''More Actions:''':
+'''Altre Azioni:''',
+'''Show Raw Text''':
+'''Mostra il testo grezzo''',
+'''Show Print View''':
+'''Versione stampabile''',
+'''Attach File''':
+'''File allegati''',
+'''Delete Page''':
+'''Cancella Pagina''',
+'''Show Like Pages''':
+'''Mostra pagine simili''',
+'''Show Local Site Map''':
+'''Mappa locale del sito''',
+'''Do''':
+'''Vai''',
+'''Show Parent''':
+'''Mostra la pagina padre''',
+'''Immutable Page''':
+'''Pagina non alterabile''',
+'''Refresh''':
+'''Aggiorna''',
+'''Show Changes''':
+'''Mostra le modifiche''',
+'''Get Info''':
+'''Informazioni''',
+'''Show %s days.''':
+'''Mostra %s giorni.''',
 '''EditText''':
 '''ModificaIlTesto''',
 '''Immutable page''':
 '''Pagina non alterabile''',
-'''FindPage''':
-'''CercaPagina''',
+'''Or try one of these actions:''':
+'''Oppure prova una di queste azioni:''',
+'''Page''':
+'''Pagina''',
+'''Trail''':
+'''Coda''',
+'''User''':
+'''Utente''',
+'''Line''':
+'''Linea''',
 '''Deletions are marked like this.''':
 '''Le cancellazioni sono marcate in questo modo.''',
 '''Additions are marked like this.''':
 '''Le aggiunte sono marcate in questo modo.''',
 '''Connection to mailserver \'%(server)s\' failed: %(reason)s''':
-'''La connessione al mailserver \'%(server)s\' Ë fallita: %(reason)s''',
+'''La connessione al mailserver \'%(server)s\' √® fallita: %(reason)s''',
 '''Mail sent OK''':
 '''Mail spedita correttamente''',
+'''["<html>"]''':
+'''["<html>"]''',
 '''FrontPage''':
 '''PaginaPrincipale''',
 '''RecentChanges''':
@@ -464,6 +798,8 @@ rosso=Mod''',
 '''IndiceDeiTitoli''',
 '''WordIndex''':
 '''IndicePerParola''',
+'''FindPage''':
+'''CercaPagina''',
 '''SiteNavigation''':
 '''NavigaIlSito''',
 '''HelpContents''':
@@ -474,6 +810,8 @@ rosso=Mod''',
 '''PreferenzeUtente''',
 '''WikiLicense''':
 '''LicenzaWiki''',
+'''MissingPage''':
+'''PaginaMancante''',
 '''Mon''':
 '''lun''',
 '''Tue''':
@@ -488,4 +826,16 @@ rosso=Mod''',
 '''sab''',
 '''Sun''':
 '''dom''',
+'''AttachFile''':
+'''File allegati''',
+'''DeletePage''':
+'''CancellaPagina''',
+'''LikePages''':
+'''PagineSimili''',
+'''LocalSiteMap''':
+'''MappaLocaleSito''',
+'''RenamePage''':
+'''RinominaPagina''',
+'''SpellCheck''':
+'''ControlloOrtografico''',
 }

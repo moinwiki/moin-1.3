@@ -6,12 +6,8 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 from MoinMoin import wikiutil
-
-#############################################################################
-### Formatter Base
-#############################################################################
+import re, types
 
 class FormatterBase:
     """ This defines the output interface used all over the rest of the code.
@@ -28,22 +24,35 @@ class FormatterBase:
         self._ = request.getText
 
         self._store_pagelinks = kw.get('store_pagelinks', 0)
+        self._terse = kw.get('terse', 0)
         self.pagelinks = []
         self.in_p = 0
         self.in_pre = 0
+        self._highlight_re = None
+        self._base_depth = 0
 
-    def lang(self, lang_name, text):
-        raise NotImplementedError
+    def set_highlight_re(self, hi_re=None):
+        if type(hi_re) in [types.StringType, types.UnicodeType]:
+            try:
+                self._highlight_re = re.compile(hi_re, re.U + re.IGNORECASE)
+            except re.error:
+                hi_re = re.escape(hi_re)
+                self._highlight_re = re.compile(hi_re, re.U + re.IGNORECASE)
+        else:
+            self._highlight_re = hi_re
+
+    def lang(self, on, lang_name):
+        return ""
 
     def setPage(self, page):
         self.page = page
 
-    def sysmsg(self, text, **kw):
+    def sysmsg(self, on, **kw):
         """ Emit a system message (embed it into the page).
 
             Normally used to indicate disabled options, or invalid markup.
         """
-        return text
+        return ""
 
     # Document Level #####################################################
     
@@ -53,37 +62,67 @@ class FormatterBase:
     def endDocument(self):
         return ""
 
+    def startContent(self, content_id="content", **kwargs):
+        return ""
+
+    def endContent(self):
+        return ""
+
     # Links ##############################################################
     
-    def pagelink(self, pagename, text=None, **kw):
-        if kw.get('generated', 0): return
+    def pagelink(self, on, pagename='', **kw):
+        if kw.get('generated', 0) or not on: return
         if self._store_pagelinks and pagename not in self.pagelinks:
             self.pagelinks.append(pagename)
 
-    def url(self, url, text=None, css=None, **kw):
+    def interwikilink(self, on, interwiki='', pagename='', **kw):
+        return ''
+            
+    def url(self, on, url=None, css=None, **kw):
         raise NotImplementedError
 
     def anchordef(self, name):
         return ""
 
-    def anchorlink(self, name, text, id=None):
-        return text
+    def anchorlink(self, on, name='', id=None):
+        return ""
 
     def image(self, **kw):
         """ Take HTML <IMG> tag attributes in `attr`.
 
-            Attribute names have to be lowercase!
+        Attribute names have to be lowercase!
         """
-        result = '<img'
+        attrstr = u''
         for attr, value in kw.items():
             if attr=='html_class':
                 attr='class'
-            result = result + ' %s="%s"' % (attr, wikiutil.escape(str(value)))
-        return result + '>'
+            attrstr = attrstr + u' %s="%s"' % (attr, wikiutil.escape(value))
+        return u'<img%s>' % attrstr
 
     # Text and Text Attributes ########################################### 
     
     def text(self, text):
+        if not self._highlight_re:
+            return self._text(text)
+            
+        result = []
+        lastpos = 0
+        match = self._highlight_re.search(text)
+        while match and lastpos < len(text):
+            # add the match we found
+            result.append(self._text(text[lastpos:match.start()]))
+            result.append(self.highlight(1))
+            result.append(self._text(match.group(0)))
+            result.append(self.highlight(0))
+
+            # search for the next one
+            lastpos = match.end() + (match.end() == lastpos)
+            match = self._highlight_re.search(text, lastpos)
+
+        result.append(self._text(text[lastpos:]))
+        return ''.join(result)
+
+    def _text(self, text):
         raise NotImplementedError
 
     def strong(self, on):
@@ -110,16 +149,36 @@ class FormatterBase:
     def preformatted(self, on):
         self.in_pre = on != 0
 
+    def small(self, on):
+        raise NotImplementedError
+
+    def big(self, on):
+        raise NotImplementedError
+
+    # special markup for syntax highlighting #############################
+
+    def code_area(self, on, code_id, **kwargs):
+        raise NotImplementedError
+
+    def code_line(self, on):
+        raise NotImplementedError
+
+    def code_token(self, tok_text, tok_type):
+        raise NotImplementedError
+
     # Paragraphs, Lines, Rules ###########################################
 
     def linebreak(self, preformatted=1):
         raise NotImplementedError
 
     def paragraph(self, on):
-        self.in_p = on != 0
+        self.in_p = (on != 0)
 
     def rule(self, size=0):
         raise NotImplementedError
+
+    def icon(self, type):
+        return type
 
     # Lists ##############################################################
 
@@ -141,7 +200,7 @@ class FormatterBase:
     def definition_desc(self, on):
         raise NotImplementedError
 
-    def heading(self, depth, title, **kw):
+    def heading(self, on, depth, **kw):
         raise NotImplementedError
 
     # Tables #############################################################
@@ -161,16 +220,35 @@ class FormatterBase:
         # call the macro
         return macro_obj.execute(name, args)    
 
-    def processor(self, processor_name, lines):
+    def _get_bang_args(self, line):
+        if line[:2]=='#!':
+            try:
+                name, args = line[2:].split(None, 1)
+            except ValueError:
+                return ''
+            else:
+                return args
+        return None
+
+    def processor(self, processor_name, lines, is_parser = 0):
         """ processor_name MUST be valid!
             writes out the result instead of returning it!
         """
-        processor = wikiutil.importPlugin("processor",
-                                          processor_name, "process")
-        if not processor and processor_name=="python":
-            from MoinMoin.processor.Colorize import process
-            processor = process
-        processor(self.request, self, lines)
+        if not is_parser:
+            processor = wikiutil.importPlugin("processor",
+                                              processor_name, "process",
+                                              self.request.cfg.data_dir)
+            processor(self.request, self, lines)
+        else:
+            parser = wikiutil.importPlugin("parser",
+                                           processor_name, "Parser",
+                                           self.request.cfg.data_dir)
+            args = self._get_bang_args(lines[0])
+            if args is not None:
+                lines=lines[1:]
+            p = parser('\n'.join(lines), self.request, format_args = args)
+            p.format(self)
+            del p
         return ''
 
     def dynamic_content(self, parser, callback, arg_list = [], arg_dict = {},
@@ -192,4 +270,11 @@ class FormatterBase:
             when output goes to XML formats.
         """
         return markup
+
+    def escapedText(self, on):
+        """ This allows emitting text as-is, anything special will
+            be escaped (at least in HTML, some text output format
+            would possibly do nothing here)
+        """
+        return ""
 

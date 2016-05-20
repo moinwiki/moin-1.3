@@ -1,0 +1,59 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+## Please edit system and help pages ONLY in the moinmaster wiki! For more 
+## Merci de n'éditer les pages systèmes et l'aide en ligne QUE sur MoinMaster !
+## Pour plus d'information, consultez MoinMaster:MoinPagesEditorGroup.
+##master-page:HelpOnInstalling
+##master-date:2004-11-17 16:08:00
+#language fr
+["SommaireDeL'Aide"] > ["AideD'Administration"] > [wiki:AideD'Installation AideD'Installation]
+
+[[TableOfContents]]
+
+= Comment installer votre propre wiki MoinMoin =
+Cette page explique la procédure d'installation de [wiki:MoinMoinVF MoinMoin]. La section suivante offre une liste de [#scenariosdinstallation scénarios d'installation] concrets qui vous permettront de comprendre comment appliquer ces instructions à différents contextes. Si votre wiki est déjà opérationnel et que vous désirez le mettre à jour, reportez-vous à la page ["AideDeMiseÀJour"].
+
+L'installation de Moin``Moin s'effectue en plusieurs étapes élémentaires :
+
+ * L'/InstallationDeBase explique d'une manière plus approfondie l'utilisation de « `setup.py` ». Cette étape permet d'installer le code de Moin``Moin et la maquette de wiki sur votre système. Cette étape s'appliquant à tous les scénarios, nous vous recommandons de la lire avant de tenter de réaliser une installation.
+ * /CréerUneInstance présente la fabrication d'une nouvelle instance de wiki (configuration et données). Cette étape est aussi commune à tous les scénarios.
+ * Paramétrer le serveur web afin qu'il offre les éléments statiques sous l'URL (i. e. le préfixe) « `/wiki` » - c'est utilisé par les feuilles de styles CSS et les images des thèmes, et cætera - cette étape diffère légèrement pour les différents serveurs web pouvant être utilisés - voir ci-dessous.
+ * Faire exécuter au serveur web le code de Moin``Moin lorsque vous accédez aux pages du wiki. Ce qui est possible via CGI, FastCGI, mod_python, Twisted ou le serveur web autonome incorporé - cette étape diffère légèrement pour les différents serveurs web pouvant être utilisés - voir ci-dessous.
+ * Après en avoir terminé avec l'installation, vous voudrez certainement en apprendre plus sur le paramétrage et les autres options que vous pourrez définir en tant qu'administrateur du wiki. ["AideD'Administration"] présente un recueil de liens vers les pages couvrant ces sujets. Les pages AideDeConfiguration et ["AideDeMiseÀJour"] notamment contiennent des informations complémentaires sur le paramétrage et la maintenance d'un wiki.
+ * ["/Dépannage"] vous aidera à corriger les problèmes classiques que vous pourriez rencontrer, quelque-soit la plateforme d'installation.
+
+[[Anchor(scenariosdinstallation)]]
+= Scénarios d'installation =
+
+Les sous-pages suivantes présentent des exemples concrets de sessions d'installation, détaillant les commandes utilisées et expliquant pourquoi elle sont utilisées. Vous ''devez'' lire les informations générales d'installation ci-dessus avant de passer aux étapes d'installation décrites dans les pages ci-dessous :
+
+== Wiki personnel ==
+
+Wiki destiné à une utilisation personnelle ou à un petit groupe. Ne nécessite que Python et [wiki:MoinMoinVF MoinMoin].
+
+ * /ServeurAutonome
+
+== Wiki public utilisant CGI ==
+
+CGI est une interface assez commune, bien testée, facile à configurer mais plutôt lente.
+
+ * /ApacheEtLinux
+ * /ApacheEtMacOsx
+ * /ApacheEtWin32
+ * /InternetInformationServer
+ * /WebLogic
+
+== Wiki public hautes performances ==
+
+Ces serveurs sont bien plus rapide que le CGI, mais peuvent être plus difficiles à installer et à paramétrer.
+
+ * /TwistedWeb 
+ * /ApacheAvecFastCgi
+ * /ApacheAvecModPython
+
+== Hébergement de masse ==
+
+Vous pouvez créer de multiples instances de wiki et les offrir en utilisant un serveur MoinMoin.
+
+ * /HébergementDeMasse

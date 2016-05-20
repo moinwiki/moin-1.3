@@ -11,8 +11,8 @@ from MoinMoin.Page import Page
 from MoinMoin.logfile import eventlog
 
 def execute(macro, args):
-    key = 'pagehits'
-    cache = caching.CacheEntry('charts', key)
+    request = macro.request
+    cache = caching.CacheEntry(request, 'charts', 'pagehits')
     if cache.exists():
         try:
             cache_date, pagehits = eval(cache.content())
@@ -21,7 +21,7 @@ def execute(macro, args):
     else:
         cache_date, pagehits = 0, {}
 
-    event_log = eventlog.EventLog()
+    event_log = eventlog.EventLog(request)
     event_log.set_filter(['VIEWPAGE'])
     new_date = event_log.date()
     
@@ -38,22 +38,24 @@ def execute(macro, args):
     
     # get hits and sort them
     hits = []
-    for pagehit in pagehits.items():
-        pagename = pagehit[0]
-        if Page(pagename).exists() and macro.request.user.may.read(pagename):
-            hits.append((pagehit[1],pagehit[0]))
+    for pagename, hit in pagehits.items():
+        if Page(request, pagename).exists() and request.user.may.read(pagename):
+            hits.append((hit, pagename))
     hits.sort()
     hits.reverse()
 
     # format list
     result = []
     result.append(macro.formatter.number_list(1))
-    for hit, page in hits:
-        result.extend([macro.formatter.listitem(1),
+    for hit, pagename in hits:
+        result.extend([
+            macro.formatter.listitem(1),
             macro.formatter.code(1),
             ("%6d" % hit).replace(" ", "&nbsp;"), " ",
             macro.formatter.code(0),
-            macro.formatter.pagelink(page),
+            macro.formatter.pagelink(1, pagename, generated=1),
+            macro.formatter.text(pagename),
+            macro.formatter.pagelink(0),
             macro.formatter.listitem(0),
         ])
     result.append(macro.formatter.number_list(0))

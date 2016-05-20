@@ -1,0 +1,11 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+
+'''This page does not exist yet. You can create a new empty page, or use one of the page templates. Before creating the page, please check if a similar page already exists.'''
+
+[[Action(edit,Create new empty page)]]
+
+|| '''Page templates:''' || '''Existing pages with similar names:''' ||
+||<^> [[EditTemplates]] ||<^> [[LikePages((none))]] ||

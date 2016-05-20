@@ -1,0 +1,30 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language en
+#pragma section-numbers on
+
+== Section Headings ==
+You can create headings by starting and ending a line with up to five equal signs. The heading text is between those markers, separated by a single space.
+
+Headings can be automatically numbered, you can enable or disable this for each page (see `#pragma section-numbers` on HelpOnProcessingInstructions) and for the whole site (see `show_section_numbers` on HelpOnConfiguration).
+
+For more information on the possible markup, see HelpOnEditing. 
+
+=== Example ===
+{{{
+= Heading =
+== Subheading ==
+=== Level 3 ===
+==== Level 4 ====
+===== Level 5 =====
+}}} 
+
+=== Display ===
+= Heading =
+== Subheading ==
+=== Level 3 ===
+==== Level 4 ====
+===== Level 5 =====
+
+Note that proper section numbering requires you to order sections according to a valid structure, i.e. correctly nested. Our sample doesn't do this, so you get a different numbering scheme than you might expect.

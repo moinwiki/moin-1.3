@@ -6,48 +6,57 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-# Imports
 import urllib
-from MoinMoin import config, user, wikiutil
-from MoinMoin.Page import Page
-
-_guard = 0
+from MoinMoin import config, wikiutil
 
 Dependencies = ["pages"]
 
 def execute(macro, args):
-    _ = macro.request.getText
+    request = macro.request
+    _ = request.getText
 
-    # prevent recursive calls
-    global _guard
-    if _guard: return ''
+    # prevent recursion
+    if request.mode_getpagelinks: 
+        return ''   
+
+    # Get allpages switch from the form
+    allpages = int(request.form.get('allpages', [0])[0]) != 0
+    
+    # Control bar - filter the list of pages
+    # TODO: we should make this a widget and use on all page listing pages
+    controlbar = '''<div class="controlbar">
+<a href="%(qpagename)s?allpages=%(allpages)d">%(label)s</a>
+</div>''' % {
+        'qpagename': wikiutil.quoteWikinameURL(macro.formatter.page.page_name),
+        'allpages': not allpages,
+        'label': (_('Include system pages'), _('Exclude system pages'))[allpages],
+    }
+
+    # Get page dict readable by current user
+    pages = request.rootpage.getPageDict()
 
     # build a dict of wanted pages
-    _guard = 1
-    wanted = {}
-    pages = wikiutil.getPageDict(config.text_dir)
-    for page in pages.values():
-        if not macro.request.user.may.read(page.page_name):
-            continue
-        # Regular users won't get /MoinEditorBackup pages shown anyway, but
-        # WikiAdmin(s)  would - because they have global read rights.
-        # Further, pages wanted from editor backup pages are irrelevant.
-        if page.page_name.endswith('/MoinEditorBackup'):
-            continue
-        links = page.getPageLinks(macro.request)
+    wanted = {}       
+    for name, page in pages.items():
+        # Skip system pages, because missing translations are not wanted pages,
+        # unless you are a translator and clicked "Include system pages"
+        if not allpages and wikiutil.isSystemPage(request, name):
+                continue
+        
+        # Add links to pages which does not exists in pages dict
+        links = page.getPageLinks(request)
         for link in links:
             if not pages.has_key(link):
                 if wanted.has_key(link):
-                    wanted[link][page.page_name] = 1
+                    wanted[link][name] = 1
                 else:
-                    wanted[link] = {page.page_name: 1}
-    _guard = 0
+                    wanted[link] = {name: 1}
 
-    # check for the extreme case
+    # Check for the extreme case when there are no wanted pages
     if not wanted:
-        return "<p>%s</p>" % _("No wanted pages in this wiki.")
+        return u"%s<p>%s</p>" % (controlbar ,_("No wanted pages in this wiki."))
 
-    # return a list of page links
+    # Return a list of page links
     wantednames = wanted.keys()
     wantednames.sort()
     result = []
@@ -55,17 +64,22 @@ def execute(macro, args):
     for name in wantednames:
         if not name: continue
         result.append(macro.formatter.listitem(1))
-        result.append(macro.formatter.pagelink(name, generated=1))
+        # Add link to the wanted page
+        result.append(macro.formatter.pagelink(1, name, generated=1))
+        result.append(macro.formatter.text(name))
+        result.append(macro.formatter.pagelink(0))
 
-        wherelink = lambda n, w=name, p=pages: \
-            p[n].link_to(macro.request, querystr='action=highlight&value=%s' % urllib.quote_plus(w))
+        # Add links to pages that want this page, highliting
+        # the link in those pages.
         where = wanted[name].keys()
         where.sort()
         if macro.formatter.page.page_name in where:
             where.remove(macro.formatter.page.page_name)
-        result.append(": " + ', '.join(map(wherelink, where)))
+        querystr='highlight=%s' % urllib.quote_plus(name.encode(config.charset))
+        wherelinks = [pages[pagename].link_to(request, querystr=querystr)
+                      for pagename in where]
+        result.append(": " + ', '.join(wherelinks))
         result.append(macro.formatter.listitem(0))
     result.append(macro.formatter.number_list(0))
 
-    return ''.join(result)
-
+    return u'%s%s' % (controlbar, u''.join(result))

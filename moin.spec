@@ -1,6 +1,24 @@
 %define name moin
-%define version 1.2.4
+%define version 1.3.0
 %define release 1
+#Upgrade Path Example:
+#     moin-1.3-0.1.beta1
+#         Patched
+#     moin-1.3-0.2.beta1
+#         Move to beta2
+#     moin-1.3-0.3.beta2
+#         Move to beta3 and simultaneously patch
+#     moin-1.3-0.4.beta3
+#         Patched again
+#     moin-1.3-0.5.beta3
+#         Move to rc1
+#     moin-1.3-0.6.rc1
+#         Move to rc2
+#     moin-1.3-0.7.rc2
+#         Move to "final"
+#     moin-1.3-1
+#         Patched
+#     moin-1.3-2
 
 Name: %{name}
 Version: %{version}

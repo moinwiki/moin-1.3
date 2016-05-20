@@ -1,0 +1,78 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:StructuredText
+##master-date:2004-03-17 21:10:24
+#language sr
+Sturkturisani tekst je tekst koji koristi "indent" tehniku i jednostavnu simboliku
+radi predstavljanja strukture dokumenta. Za sledeću generaciju strukturisanog teksta, pogledajte
+stranicu MoinMoin:ReStructuredText kao i
+[http://dev.zope.org/Members/jim/StructuredTextWiki/StructuredTextNG ovde].
+
+Strukturisani string se sadrži iz redosleda paragrafa koji su odvojeni
+sa jednom ili više blank linija. Svaki paragraf poseduje nivo koji se definiše
+kao minimalna indentacija paragrafa. Paragraf je podparagraf jednog paragrafa ako
+je taj jedan paragraf poslednji paragraf koji poseduje niži nivo.
+
+Specijalna simbolika se koristi da označi specijalne konstrukcije (Dalji opis je trenutno na engleskom jeziku):
+ 
+ * A single-line paragraph whose immediately succeeding paragraphs are lower level is treated as a header.
+
+ * A paragraph that begins with a '-', '*', or 'o' is treated as an unordered list (bullet) element.
+
+ * A paragraph that begins with a sequence of digits followed by a white-space character is treated as an ordered list element.
+
+ * A paragraph that begins with a sequence of sequences, where each sequence is a sequence of digits or a sequence of letters followed by a period, is treated as an ordered list element.
+
+ * A paragraph with a first line that contains some text, followed by some white-space and '--' is treated as a descriptive list element. The leading text is treated as the element title.
+
+ * Sub-paragraphs of a paragraph that ends in the word 'example' or the word 'examples', or '::' is treated as example code and is output as is.
+
+ * Text enclosed single quotes (with white-space to the left of the first quote and whitespace or puctuation to the right of the second quote) is treated as example code.
+
+ * Text surrounded by '*' characters (with white-space to the left of the first '*' and whitespace or puctuation to the right of the second '*') is emphasized.
+
+ * Text surrounded by '**' characters (with white-space to the left of the first '**' and whitespace or puctuation to the right of the second '**') is made strong.
+
+ * Text surrounded by '_' underscore characters (with whitespace to the left and whitespace or punctuation to the right) is made underlined.
+
+ * Text encloded by double quotes followed by a colon, a URL, and concluded by punctuation plus white space, *or* just white space, is treated as a hyper link. For example:
+
+    "Zope":http://www.zope.org/ is ...
+
+ Is interpreted as '<a href="http://www.zope.org/">Zope</a> is ....'
+
+ '''Note:''' This works for relative as well as absolute URLs.
+
+ * Text enclosed by double quotes followed by a comma, one or more spaces, an absolute URL and concluded by punctuation plus white space, or just white space, is treated as a hyper link. For example: 
+
+    "mail me", mailto:amos@digicool.com.
+
+ Is interpreted as '<a href="mailto:amos@digicool.com">mail me</a>.' 
+
+ * Text enclosed in brackets which consists only of letters, digits, underscores and dashes is treated as hyper links within the document. For example:
+    
+    As demonstrated by Smith [12] this technique is quite effective.
+
+ Is interpreted as '... by Smith <a href="#12">[12]</a> this ...'. Together with the next rule this allows easy coding of references or end notes.
+
+ * Text enclosed in brackets which is preceded by the start of a line, two periods and a space is treated as a named link. For example:
+
+    .. [12] "Effective Techniques" Smith, Joe ... 
+
+ Is interpreted as '<a name="12">[12]</a> "Effective Techniques" ...'. Together with the previous rule this allows easy coding of references or end notes. 
+
+
+ * A paragraph that has blocks of text enclosed in '||' is treated as a table. The text blocks correspond to table cells and table rows are denoted by newlines. By default the cells are center aligned. A cell can span more than one column by preceding a block of text with an equivalent number of cell separators '||'. Newlines and '|' cannot be a part of the cell text. For example:
+  {{{
+|||| **Ingredients** ||
+|| *Name* || *Amount* ||
+||Spam||10||
+||Eggs||3||
+}}}
+
+ renders like this:
+  |||| **Ingredients** ||
+  || *Name* || *Amount* ||
+  ||Spam||10||
+  ||Eggs||3||

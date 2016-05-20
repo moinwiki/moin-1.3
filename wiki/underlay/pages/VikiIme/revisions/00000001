@@ -1,0 +1,8 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+##master-page:WikiName
+##master-date:2004-03-17 20:45:00
+#language sr
+VikiIme je reč koja se sastoji iz više reči sa odlikom da su spojene i da se pišu sa velikim slovima. VikiIme''''''na
+automagično :) postaju hiperlinkovi koji vode na stranicu tog VikiIme'na. Vidite takođe PomoćZaPočetnike, "Proizvoljna Imena Stranica".

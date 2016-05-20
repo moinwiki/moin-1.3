@@ -38,34 +38,35 @@ class XmlRpcBase:
         """
         self.request = request
         self.version = None # this has to be defined in derived class
+        self.cfg = request.cfg
 
     #############################################################################
     ### Helper functions           
     #############################################################################
 
     def _instr(self, text):
-        """
-        Convert inbound string from utf-8.
+        """ Convert inbound string from utf-8.
+        
         @param text: the text to convert
-        @rtype: string
+        @rtype: str
         @return: string in config.charset
         """
         raise "NotImplementedError"
     
     def _outstr(self, text):
-        """
-        Convert outbound string to utf-8.
-        @param text: the text to convert
-        @rtype: string
+        """ Convert outbound string to utf-8.
+
+        @param text: the text to convert XXX unicode? str? both?
+        @rtype: str
         @return: string in utf-8
         """
         raise "NotImplementedError"
     
     def _inlob(self, text):
-        """
-        Convert inbound base64-encoded utf-8 to Large OBject.
+        """ Convert inbound base64-encoded utf-8 to Large OBject.
+        
         @param text: the text to convert
-        @rtype: string
+        @rtype: str
         @return: string in config.charset
         """
         text = text.data
@@ -74,10 +75,10 @@ class XmlRpcBase:
         return text
 
     def _outlob(self, text):
-        """
-        Convert outbound Large OBject to base64-encoded utf-8.
-        @param text: the text to convert
-        @rtype: string
+        """ Convert outbound Large OBject to base64-encoded utf-8.
+        
+        @param text: the text to convert XXX unicode? str? both?
+        @rtype: str
         @return: xmlrpc Binary object
         """
         if config.charset != 'utf-8':
@@ -85,9 +86,9 @@ class XmlRpcBase:
         return xmlrpclib.Binary(text)
                     
     def _dump_exc(self):
-        """ 
-        Convert an exception to a string.
-        @rtype: string
+        """ Convert an exception to a string.
+        
+        @rtype: str
         @return: traceback as string
         """
         import traceback
@@ -104,27 +105,25 @@ class XmlRpcBase:
     #############################################################################
 
     def xmlrpc_getRPCVersionSupported(self):
-        """
-        Returns version of the Wiki API.
+        """ Returns version of the Wiki API.
+
         @rtype: int
         @return: 1 or 2 (wikirpc version)
         """
         return self.version
 
     def xmlrpc_getAllPages(self):
-        """
-        get all pages
+        """ Get all pages readable by current user
+
         @rtype: list
         @return: a list of all pages. The result is a list of utf-8 strings.
         """
-        pagelist = wikiutil.getPageList(config.text_dir)
-        pagelist = filter(self.request.user.may.read, pagelist)
-
+        pagelist = self.request.rootpage.getPageList()
         return map(self._outstr, pagelist)
 
     def xmlrpc_getRecentChanges(self, date):
-        """
-        get RecentChanges (since date)
+        """ Get RecentChanges since date
+        
         @param date: date since when rc will be listed
         @rtype: list
         @return: a list of changed pages since date, which should be in
@@ -141,10 +140,10 @@ class XmlRpcBase:
         
         return_items = []
         
-        edit_log = editlog.EditLog()
+        edit_log = editlog.EditLog(self.request)
         for log in edit_log.reverse():
             # get last-modified UTC (DateTime) from log
-            gmtuple = tuple(time.gmtime(log.ed_time))
+            gmtuple = tuple(time.gmtime(wikiutil.version2timestamp(log.ed_time_usecs)))
             lastModified_date = xmlrpclib.DateTime(gmtuple)
 
             # skip if older than "date"
@@ -165,107 +164,135 @@ class XmlRpcBase:
                 if userdata.name:
                     author_str = userdata.name
             author_str = self._outstr(author_str)
-            
-            # get version# (int) from log
-            # moin uses unix time as the page version number
-            version_int = int(log.ed_time)
 
             return_item = { 'name':  pagename_str,
                             'lastModified': lastModified_date,
                             'author': author_str,
-                            'version': version_int }
+                            'version': int(log.rev) }
             return_items.append(return_item)
         
         return return_items
 
     def xmlrpc_getPageInfo(self, pagename):
-        """
-        get page information (latest version)
+        """ Invoke xmlrpc_getPageInfoVersion with rev=None """
+        return self.xmlrpc_getPageInfoVersion(pagename, rev=None)
+
+    def xmlrpc_getPageInfoVersion(self, pagename, rev):
+        """ Return page information for specific revision
+        
         @param pagename: the name of the page (utf-8)
-        @rtype: list
+        @param rev: revision to get info about (XXX int?)
+        @rtype: dict XXX ??
         @return: page information
             * name (string): the canonical page name, UTF-8.
             * lastModified (date): Last modification date, UTC.
             * author (string): author name, UTF-8.
             * version (int): current version
-        """
-        return self.xmlrpc_getPageInfoVersion(pagename, None)
 
-    def xmlrpc_getPageInfoVersion(self, pagename, version):
-        """ 
-        like getPageInfo(), but for a specific version.
-        @param version: timestamp for version to get info about
         """
         pn = self._instr(pagename)
+
+        # User may read this page?
         if not self.request.user.may.read(pn):
-            return xmlrpclib.Fault(1, "You are not allowed to read this page")
+            return self.notAllowedFault()
 
-        if version != None:
-            page = Page(pn, date=version)
+        if rev != None:
+            page = Page(self.request, pn, rev=rev)
         else:
-            page = Page(pn)
-        last_edit = page.last_edit(self.request)
-        gmtuple = tuple(time.gmtime(last_edit['timestamp']))
-        return { 'name': pagename,
-                 'lastModified' : xmlrpclib.DateTime(gmtuple),
-                 'author': self._outstr(str(last_edit['editor'])),
-                 'version': int(last_edit['timestamp']),       # the timestamp is our "version"!
-        }
+            page = Page(self.request, pn)
+            rev = page.current_rev()
 
+        # Non existing page?
+        if not page.exists():
+            return self.noSuchPageFault()
+
+        # Get page info
+        last_edit = page.last_edit(self.request)           
+        mtime = wikiutil.version2timestamp(int(last_edit['timestamp']))
+        gmtuple = tuple(time.gmtime(mtime))
+        
+        version = rev # our new rev numbers: 1,2,3,4,....
+
+        #######################################################################
+        # BACKWARDS COMPATIBILITY CODE - remove when 1.2.x is regarded stone age
+        # as we run a feed for BadContent on MoinMaster, we want to stay
+        # compatible here for a while with 1.2.x moins asking us for BadContent
+        # 1.3 uses the lastModified field for checking for updates, so it
+        # should be no problem putting the old UNIX timestamp style of version
+        # number in the version field
+        if self.request.cfg.sitename == 'MoinMaster' and pagename == 'BadContent':
+            version = int(mtime)
+        #######################################################################
+            
+        return {
+            'name': pagename,
+            'lastModified' : xmlrpclib.DateTime(gmtuple),
+            'author': self._outstr(last_edit['editor']),
+            'version': version,
+            }
 
     def xmlrpc_getPage(self, pagename):
-        """
-        Get the raw Wiki text of page (latest version)
+        """ Invoke xmlrpc_getPageVersion with rev=None """
+        return self.xmlrpc_getPageVersion(pagename, rev=None)
+
+    def xmlrpc_getPageVersion(self, pagename, rev):
+        """ Get raw text from specific revision of pagename
+        
         @param pagename: pagename (utf-8)
-        @rtype: string
+        @param rev: revision number (int)
+        @rtype: str
         @return: utf-8 encoded page data
         """    
-        return self.xmlrpc_getPageVersion(pagename, None)
-
-
-    def xmlrpc_getPageVersion(self, pagename, version):
-        """
-        same as getPage, but for specific version.
-        @param version: timestamp
-        """    
         pagename = self._instr(pagename)
+
+        # User may read page?
         if not self.request.user.may.read(pagename):
-            return xmlrpclib.Fault(1, "You are not allowed to read this page")
+            return self.notAllowedFault()
 
-        if version != None:
-            page = Page(pagename, date=version)
+        if rev != None:
+            page = Page(self.request, pagename, rev=rev)
         else:
-            page = Page(pagename)
+            page = Page(self.request, pagename)
 
+        # Non existing page?
+        if not page.exists():
+            return self.noSuchPageFault()
+
+        # Return page raw text
         if self.version == 2:
             return self._outstr(page.get_raw_body())
         elif self.version == 1:
             return self._outlob(page.get_raw_body())
 
     def xmlrpc_getPageHTML(self, pagename):
-        """
-        get HTML of a page (latest version)
+        """ Invoke xmlrpc_getPageHTMLVersion with rev=None """
+        return self.xmlrpc_getPageHTMLVersion(pagename, rev=None)
+
+    def xmlrpc_getPageHTMLVersion(self, pagename, rev):
+        """ Get HTML of from specific revision of pagename
+        
         @param pagename: the page name (utf-8)
-        @rtype: string
+        @param rev: revision number (int)
+        @rtype: str
         @return: page in rendered HTML (utf-8)
         """
-        return self.xmlrpc_getPageHTMLVersion(pagename, None)
-
-    def xmlrpc_getPageHTMLVersion(self, pagename, version):
-        """
-        same as getPageHTML, but for specific version
-        @param version: timestamp
-        """
         pagename = self._instr(pagename)
-        if not self.request.user.may.read(pagename):
-            return xmlrpclib.Fault(1, "You are not allowed to read this page")
-        
-        import StringIO
-        if version != None:
-            page = Page(pagename, date=version)
-        else:
-            page = Page(pagename)
 
+        # User may read page?
+        if not self.request.user.may.read(pagename):
+            return self.notAllowedFault()
+
+        if rev != None:
+            page = Page(self.request, pagename, rev=rev)
+        else:
+            page = Page(self.request, pagename)
+
+        # Non existing page?
+        if not page.exists():
+            return self.noSuchPageFault()
+        
+        # Render page into a buffer
+        import StringIO
         out = StringIO.StringIO()
         self.request.redirect(out)
         self.request.form = self.request.args = self.request.setup_args({})
@@ -273,6 +300,7 @@ class XmlRpcBase:
         result = out.getvalue()
         self.request.redirect()
 
+        # Return rendered page
         if self.version == 2:
             return self._outstr(result)
         elif self.version == 1:
@@ -289,16 +317,21 @@ class XmlRpcBase:
               link, one (1) for external link (URL - image link, whatever).
         """
         pagename = self._instr(pagename)
+
+        # User may read page?
         if not self.request.user.may.read(pagename):
-            return xmlrpclib.Fault(1, "You are not allowed to read this page")
+            return self.notAllowedFault()
 
-        page = Page(pagename)
+        page = Page(self.request, pagename)
 
+        # Non existing page?
+        if not page.exists():
+            return self.noSuchPageFault()
+        
         links_out = []
         for link in page.getPageLinks(self.request):
             links_out.append({ 'name': self._outstr(link), 'type': 0 })
         return links_out
-
 
     def xmlrpc_putPage(self, pagename, pagetext):
         """
@@ -311,12 +344,12 @@ class XmlRpcBase:
 
         # we use a test page instead of using the requested pagename until
         # we have authentication set up - so nobody will be able to raid the wiki
-        #pagename = _instr(pagename)
+        #pagename = self._instr(pagename)
         pagename = "PutPageTestPage"
 
         # only authenticated (trusted) users may use putPage!
         # TODO: maybe replace this with an ACL right 'rpcwrite'
-        if not (self.request.user.trusted and self.request.user.may.edit(pagename)):
+        if not (self.request.user.trusted and self.request.user.may.write(pagename)):
             return xmlrpclib.Fault(1, "You are not allowed to edit this page")
 
         page = PageEditor(pagename, self.request)
@@ -325,7 +358,7 @@ class XmlRpcBase:
                 newtext = self._instr(pagetext)
             elif self.version == 1:
                 newtext = self._inlob(pagetext)
-            msg = page.saveText(newtext, "0")
+            msg = page.saveText(newtext, 0)
         except page.SaveError, msg:
             pass
         if _debug and msg:
@@ -341,13 +374,8 @@ class XmlRpcBase:
 
         return xmlrpclib.Boolean(1)
 
-    def plugincall(self, *args):
-        return self.pluginfn(self, *args)
-
     def process(self):
-        """
-        xmlrpc v1 and v2 dispatcher
-        """
+        """ xmlrpc v1 and v2 dispatcher """
         # read request
         data = self.request.read()
 
@@ -361,10 +389,10 @@ class XmlRpcBase:
         try:
             try:
                 fn = getattr(self, 'xmlrpc_' + method)
+                response = fn(*params)
             except AttributeError:
-                self.pluginfn = wikiutil.importPlugin('xmlrpc', method, 'execute')
-                fn = getattr(self, 'plugincall')
-            response = fn(*params)
+                fn = wikiutil.importPlugin('xmlrpc', method, 'execute', self.request.cfg.data_dir)
+                response = fn(self, *params)
         except:
             # report exception back to server
             response = xmlrpclib.dumps(xmlrpclib.Fault(1, self._dump_exc()))
@@ -385,31 +413,67 @@ class XmlRpcBase:
             sys.stderr.write('- XMLRPC ' + '-' * 70 + '\n')
             sys.stderr.write(response + '\n\n')
 
+    # Common faults -----------------------------------------------------
+    
+    def notAllowedFault(self):
+        return xmlrpclib.Fault(1, "You are not allowed to read this page.")
+
+    def noSuchPageFault(self):
+        return xmlrpclib.Fault(1, "No such page was found.")        
+
 
 class XmlRpc1(XmlRpcBase):
+    
     def __init__(self, request):
         XmlRpcBase.__init__(self, request)
         self.version = 1
 
     def _instr(self, text):
+        """ Convert string we get from xmlrpc into internal representation
+
+        @param text: quoted text (str)
+        @rtype: str
+        @return: text encoded in config.charset
+        """
         text = urllib.unquote(text)
+
+        # Recode from utf-8 to config.charset
         if config.charset != 'utf-8':
             text = unicode(text, 'utf-8').encode(config.charset)
         return text
 
     def _outstr(self, text):
-        if config.charset != 'utf-8':
-            text = unicode(text, config.charset).encode('utf-8')
+        """ Convert string from internal representation to xmlrpc
+
+        @param text: XXX unicode or string? both?
+        @rtype: str
+        @return: text encoded in utf-8 and quoted
+        """
+        # Handle both unicode and string, as its not clear now what we
+        # should get here
+        if isinstance(text, unicode):
+            text = text.encode('utf-8')           
+        elif config.charset != 'utf-8':        
+            # Recode from config.charset to utf-8
+            text = unicode(text, config.charset).encode('utf-8')               
+        
         text = urllib.quote(text)
         return text
 
     
 class XmlRpc2(XmlRpcBase):
+    
     def __init__(self, request):
         XmlRpcBase.__init__(self, request)
         self.version = 2
 
     def _instr(self, text):
+        """ Convert string we get from xmlrpc into internal representation
+
+        @param text: XXX unicode?
+        @rtype: str
+        @return: text encoded in config.charset
+        """
         if config.charset != 'utf-8':
             text = text.encode(config.charset)
             #This is not text = unicode(text, 'UTF-8').encode(config.charset)
@@ -420,12 +484,25 @@ class XmlRpc2(XmlRpcBase):
         return text
 
     def _outstr(self, text):
-        if config.charset != 'utf-8':
-            text = unicode(text, config.charset).encode('utf-8')
+        """ Convert string from internal representation to xmlrpc
+
+        @param text: XXX unicode or string? both?
+        @rtype: str
+        @return: text encoded in utf-8
+        """
+        # Handle both unicode and string, as its not clear now what we
+        # should get here
+        if isinstance(text, unicode):
+            text = text.encode('utf-8')           
+        elif config.charset != 'utf-8':        
+            # Recode from config.charset
+            text = unicode(text, config.charset).encode('utf-8')               
         return text
+
 
 def xmlrpc(request):
     XmlRpc1(request).process()
+
 
 def xmlrpc2(request):
     XmlRpc2(request).process()

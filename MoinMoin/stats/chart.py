@@ -28,7 +28,7 @@ class ChartData:
         Create a data set.
         
         @param data: tuple / list of numbers
-        @param color: rendering color (triple, "#RRGGBB" or color name)
+        @param color: rendering color (triple, '#RRGGBB' or color name)
         """
         self.data = data
         self.color = color

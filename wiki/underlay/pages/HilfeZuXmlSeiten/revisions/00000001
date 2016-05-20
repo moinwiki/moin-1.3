@@ -1,0 +1,33 @@
+#acl MoinPagesEditorGroup:read,write,delete,revert All:read
+## Please edit (or translate) system/help pages on the moinmaster wiki ONLY.
+## For more information, please see MoinMaster:MoinPagesEditorGroup.
+#language de
+##master-page:HelpOnXmlPages
+##master-date:2002-02-27 15:16:34
+== XML-Seiten & XSLT-Verarbeitung ==
+Wenn Sie [http://4suite.org/ Python4Suite] auf Ihrem System installiert haben, ist es möglich, XML-Dokumente als Seiten abzuspeichern. Es ist wichtig, diese Seiten mit einer XML-Deklaration "{{{<?xml ...>}}}" in der ersten Zeile anzufangen. Außerdem müssen Sie das Stylesheet angeben, das benutzt werden soll, um das XML-Dokument zu HTML zu verarbeiten. Das wird realisiert, indem man eine [http://www.w3.org/TR/xml-stylesheet/ standard "xml-stylesheet" processing instruction] benutzt, mit einem "{{{href}}}"-Parameter mit dem Namen einer Seite, die das Stylesheet enthält.
+
+Das folgende Beispiel zeigt die praktische Anwendung an einem sehr einfachen Stylesheet, das auf der Seite XsltVersion gefunden werden kann.
+
+=== Beispiel ===
+{{{
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<?xml-stylesheet href="XsltVersion" type="text/xml"?>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+   <xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
+
+   <xsl:template match="/">
+     Dieses Wiki benutzt eine XSLT-Engine von
+     <xsl:value-of select="system-property('xsl:vendor')"/>
+     (<a href="{system-property('xsl:vendor-url')}"><xsl:value-of select="system-property('xsl:vendor-url')"/></a>)
+     die XSLT v<xsl:value-of select="system-property('xsl:version') implementiert."/>
+   </xsl:template>
+
+</xsl:stylesheet>
+}}} 
+
+=== Anzeige ===
+[[Include(XsltVersion)]]

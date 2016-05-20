@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 """
     MoinMoin - Dump a MoinMoin wiki to static pages
@@ -6,25 +7,25 @@
     @license: GNU GPL, see COPYING for details.
 """
 
-__version__ = "20031227"
+__version__ = "20040329"
 
-# you very likely have to adapt this:
+# use this if your moin installation is not in sys.path:
 import sys
-sys.path.append('/org/org.linuxwiki/cgi-bin') # moin_config
-sys.path.append('/org/wiki') # Farm config
 sys.path.append('/home/twaldmann/moincvs/moin--main/') # MoinMoin
 
-url_prefix = "."
-css_url = "./screen.css"
-logo_html = '<img src="linuxwiki.png">'
+logo_html = '<img src="moinmoin.png">'
 
+url_prefix = "."
 HTML_SUFFIX = ".html"
 
-# XXX UNICODE add encoding with config.charset
-page_template = '''<html>
+page_template = u'''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
+<meta http-equiv="content-type" content="text/html; charset=%(charset)s">
 <title>%(pagename)s</title>
-<link rel="stylesheet" type="text/css" href="%(css_url)s">
+<link rel="stylesheet" type="text/css" media="all" charset="utf-8" href="%(theme)s/css/common.css">
+<link rel="stylesheet" type="text/css" media="screen" charset="utf-8" href="%(theme)s/css/screen.css">
+<link rel="stylesheet" type="text/css" media="print" charset="utf-8" href="%(theme)s/css/print.css">
 </head>
 <body>
 <table>
@@ -45,8 +46,10 @@ page_template = '''<html>
 </html>
 '''
 
-import os, time, cStringIO
+import os, time, StringIO, codecs, shutil
+from MoinMoin import config, wikiutil, Page
 from MoinMoin.scripts import _util
+from MoinMoin.request import RequestCLI
 
 class MoinDump(_util.Script):
     def __init__(self):
@@ -55,15 +58,20 @@ class MoinDump(_util.Script):
         # --config=DIR            
         self.parser.add_option(
             "--config", metavar="DIR", dest="configdir",
-            help="Path to moin_config.py (or its directory)"
+            help="Path to wikiconfig.py (or its directory)"
         )
 
+        # --wiki=URL             
+        self.parser.add_option(
+            "--wiki", metavar="WIKIURL", dest="wiki_url",
+            help="URL of wiki to dump (e.g. moinmaster.wikiwikiweb.de)"
+        )
+        
         # --page=NAME             
         self.parser.add_option(
             "--page", metavar="NAME", dest="page",
             help="Dump a single page (with possibly broken links)"
         )
-        
 
     def mainloop(self):
         """ moin-dump's main code. """
@@ -71,9 +79,6 @@ class MoinDump(_util.Script):
         if len(sys.argv) == 1:
             self.parser.print_help()
             sys.exit(1)
-
-        if len(self.args) != 1:
-            self.parser.error("incorrect number of arguments")
 
         # Prepare output directory
         outputdir = self.args[0]
@@ -95,34 +100,21 @@ class MoinDump(_util.Script):
             sys.path[0:0] = [configdir]
             os.chdir(configdir)
 
-        from MoinMoin import config
-        if config.default_config:
-            _util.fatal("You have to be in the directory containing moin_config.py, "
-                "or use the --config option!")
-
-        # fix some values so we get relative paths in output html
-        config.url_prefix = url_prefix
-
-        # XXX check this, does this still exist?
-        config.css_url    = css_url
-        
-        # avoid spoiling the cache with url_prefix == "."
-        # we do not use nor update the cache because of that
-        config.caching_formats = []
-
         # Dump the wiki
-        from MoinMoin.request import RequestCGI
-        request = RequestCGI({'script_name': '.'})
+        request = RequestCLI(self.options.wiki_url)
         request.form = request.args = request.setup_args()
 
-        from MoinMoin import wikiutil, Page
+        # fix url_prefix so we get relative paths in output html
+        request.cfg.url_prefix = url_prefix
+
         if self.options.page:
             pages = [self.options.page]
         else:
-            pages = list(wikiutil.getPageList(config.text_dir))
+            # Get all pages in the wiki
+            pages = list(request.rootpage.getPageList(user=''))
         pages.sort()
 
-        wikiutil.quoteWikiname = lambda pagename, qfn=wikiutil.quoteWikiname: qfn(pagename) + HTML_SUFFIX
+        wikiutil.quoteWikinameURL = lambda pagename, qfn=wikiutil.quoteWikinameFS: (qfn(pagename) + HTML_SUFFIX)
 
         errfile = os.path.join(outputdir, 'error.log')
         errlog = open(errfile, 'w')
@@ -134,17 +126,17 @@ class MoinDump(_util.Script):
         
         navibar_html = ''
         for p in [page_front_page, page_title_index, page_word_index]:
-            navibar_html += '&nbsp;[<a href="%s">%s</a>]' % (wikiutil.quoteWikiname(p), wikiutil.escape(p))
+            navibar_html += '&nbsp;[<a href="%s">%s</a>]' % (wikiutil.quoteWikinameFS(p), wikiutil.escape(p))
 
         for pagename in pages:
-            file = wikiutil.quoteWikiname(pagename)
+            file = wikiutil.quoteWikinameURL(pagename) # we have the same name in URL and FS
             _util.log('Writing "%s"...' % file)
             try:
                 pagehtml = ''
-                page = Page.Page(pagename)
+                page = Page.Page(request, pagename)
                 try:
                     request.reset()
-                    out = cStringIO.StringIO()
+                    out = StringIO.StringIO()
                     request.redirect(out)
                     page.send_page(request, count_hit=0, content_only=1)
                     pagehtml = out.getvalue()
@@ -153,19 +145,21 @@ class MoinDump(_util.Script):
                     errcnt = errcnt + 1
                     print >>sys.stderr, "*** Caught exception while writing page!"
                     print >>errlog, "~" * 78
+                    print >>errlog, file # page filename
                     import traceback
                     traceback.print_exc(None, errlog)
             finally:
                 timestamp = time.strftime("%Y-%m-%d %H:%M")
                 filepath = os.path.join(outputdir, file)
-                fileout = open(filepath, 'w')
+                fileout = codecs.open(filepath, 'w', config.charset)
                 fileout.write(page_template % {
+                    'charset': config.charset,
                     'pagename': pagename,
-                    'css_url': config.css_url,
                     'pagehtml': pagehtml,
                     'logo_html': logo_html,
                     'navibar_html': navibar_html,
                     'timestamp': timestamp,
+                    'theme': request.cfg.theme_default,
                 })
                 fileout.close()
 
@@ -173,9 +167,8 @@ class MoinDump(_util.Script):
         indexpage = page_front_page
         if self.options.page:
             indexpage = self.options.page
-        import shutil
         shutil.copyfile(
-            os.path.join(outputdir, wikiutil.quoteFilename(indexpage) + HTML_SUFFIX),
+            os.path.join(outputdir, wikiutil.quoteWikinameFS(indexpage) + HTML_SUFFIX),
             os.path.join(outputdir, 'index' + HTML_SUFFIX)
         )
 

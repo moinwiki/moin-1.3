@@ -1,49 +1,39 @@
 # -*- coding: utf-8 -*-
-# Text translations for Korean (ko).
+# Text translations for 한국어 (ko).
 # Automatically generated - DO NOT EDIT, edit ko.po instead!
 meta = {
-  'language': 'Korean',
-  'maintainer': 'Hye-Shik Chang <perky@i18n.org>',
+  'language': '한국어',
+  'elanguage': 'Korean',
+  'maintainer': 'Hye-Shik Chang <perky@FreeBSD.org>',
   'encoding': 'utf-8',
   'direction': 'ltr',
+  'wikimarkup': False,
 }
 text = {
-'''(last edited %(time)s by %(editor)s)''':
-'''(%(time)s에 %(editor)s가 마지막 수정)''',
-'''(last modified %s)''':
-'''(마지막 변경 %s)''',
 '''The backupped content of this page is deprecated and will not be included in search results!''':
 '''이 글의 백업된 본문은 사용되지 않으며 검색 결과에 포함되지 않습니다!''',
-'''Version as of %(date)s''':
-'''%(date)s일자 버전''',
+'''Revision %(rev)d as of %(date)s''':
+'''%(date)s일에 수정된 %(rev)d 번째 판''',
 '''Redirected from page "%(page)s"''':
-'''"%(page)s"로 부터 리다이렉트 됨''',
+'''"%(page)s"로부터 옮겨 옴''',
 '''This page redirects to page "%(page)s"''':
-'''이 글은 "%(page)s"로 리다이렉트 됩니다''',
-'''<p><small>If you submit this form, the submitted values will be displayed.
+'''"%(page)s"로 이동합니다.''',
+'''~-If you submit this form, the submitted values will be displayed.
 To use this form on other pages, insert a
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-macro call.</small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+macro call.-~
 ''':
-'''<p><small>이 양식을 입력하면, 결과값들이 화면에 표시됩니다.
+'''~-이 양식을 입력하면, 결과값들이 화면에 표시됩니다.
 이 양식을 다른 글에서 사용하려면,
-<br><br><strong><tt>&nbsp;&nbsp;&nbsp;&nbsp;[[Form("%(pagename)s")]]</tt></strong><br><br>
-매크로 호출을 넣으세요</b></small></p>
+[[BR]][[BR]]\'\'\'{{{    [[Form("%(pagename)s")]]}}}\'\'\'[[BR]][[BR]]
+매크로 호출을 넣으세요.-~
 ''',
 '''You are not allowed to view this page.''':
 '''이 글을 볼 수 있는 권한이 없습니다.''',
 '''RefreshCache''':
-'''캐쉬 갱신''',
-'''for this page (cached %(date)s)''':
-''' (%(date)s에 캐쉬됨)''',
-'''Create this page''':
-'''새 글 쓰기''',
-'''Alternatively, use one of these templates:''':
-'''아니면, 이들 템플릿을 사용할 수도 있습니다:''',
-'''To create your own templates, add a page with a name matching the regex "%(page_template_regex)s".''':
-'''자기 템플릿을 만들려면, 정규식 "%(page_template_regex)s"에 맞는 이름으로 페이지를 만드세요.''',
-'''The following pages with similar names already exist...''':
-'''다음과 같은 비슷한 이름을 가진 글들이 이미 있습니다...''',
+'''캐시 갱신''',
+'''(cached %s)''':
+'''(%s에 캐시)''',
 '''You are not allowed to edit this page.''':
 '''이 글을 고칠 권한이 없습니다.''',
 '''Page is immutable!''':
@@ -75,11 +65,13 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''[Content of new page loaded from %s]''':
 '''[%s에서 옮겨온 새 글 내용]''',
 '''[Template %s not found]''':
-'''[템플릿 %s를 찾을 수 없음]''',
+'''[글틀 %s를 찾을 수 없음]''',
+'''[You may not read %s]''':
+'''[%s는 읽을 수 없음]''',
 '''Skip to preview''':
-'''미리보기로 건너뜀''',
-'''[current page size <strong>%(size)d</strong> bytes]''':
-'''[현재 글 크기 <strong>%(size)d</strong> 바이트]''',
+'''미리보기로 건너띔''',
+'''[current page size \'\'\'%(size)d\'\'\' bytes]''':
+'''[현재 글 크기 \'\'\'%(size)d\'\'\' 바이트]''',
 '''Describe %s here.''':
 '''%s에 대해 써주세요.''',
 '''Optional comment about this change''':
@@ -87,55 +79,33 @@ Have a look at the diff of %(difflink)s to see what has been changed.''':
 '''<No addition>''':
 '''<추가 않음>''',
 '''Make this page belong to category %(category)s''':
-'''카테고리 %(category)s에 분류''',
+'''%(category)s로 분류''',
 '''Check Spelling''':
 '''철자 검사''',
 '''Save Changes''':
 '''변경 사항 저장''',
 '''Cancel''':
 '''취소''',
-'''By hitting <strong>%(save_button_text)s</strong> you put your changes under the %(license_link)s.
-If you don\'t want that, hit <strong>%(cancel_button_text)s</strong> to cancel your changes.''':
-'''<strong>%(save_button_text)s</strong>을 눌러서 지금 변경사항이 %(license_link)s 를 적용한다는 것을 확인해 주십시오.
-동의하지 않는 경우에는 <strong>%(cancel_button_text)s</strong>을 눌러서 변경사항을 취소할 수 있습니다.''',
+'''By hitting \'\'\'%(save_button_text)s\'\'\' you put your changes under the %(license_link)s.
+If you don\'t want that, hit \'\'\'%(cancel_button_text)s\'\'\' to cancel your changes.''':
+'''\'\'\'%(save_button_text)s\'\'\'을 누르면 지금의 변경사항에 %(license_link)s 가 적용된다는 것을 확인해 주세요.
+동의하지 않는 경우에는 \'\'\'%(cancel_button_text)s\'\'\'을 눌러서 변경사항을 취소할 수 있습니다.''',
 '''Preview''':
 '''미리보기''',
-'''Send mail notification''':
-'''메일 알림을 보냄''',
+'''Trivial change''':
+'''사소한 변경''',
 '''Remove trailing whitespace from each line''':
 '''끝에 붙은 공백을 지움''',
-'''<dt>Emphasis:</dt>
-<dd>\'\'<em>italics</em>\'\'; \'\'\'<strong>bold</strong>\'\'\'; \'\'\'\'\'<strong><em>bold italics</em></strong>\'\'\'\'\';
-    \'\'<em>mixed \'\'\'<strong>bold</strong>\'\'\' and italics</em>\'\'; ---- horizontal rule.</dd>
-<dt>Headings:</dt>
-<dd>= Title 1 =; == Title 2 ==; === Title 3 ===;
-    ==== Title 4 ====; ===== Title 5 =====.</dd>
-<dt>Lists:</dt>
-<dd>space and one of * bullets; 1., a., A., i., I. numbered items;
-    1.#n start numbering at n; space alone indents.</dd>
-<dt>Links:</dt>
-<dd>JoinCapitalizedWords; ["brackets and double quotes"];
-    url; [url]; [url label].</dd>
-<dt>Tables:</dt>
-<dd>|| cell text |||| cell text spanning two columns ||;
-    no trailing white space allowed after tables or titles.</dd>
-''':
-'''<dt>강조:</dt>
-<dd>\'\'<em>뉘어쓰기</em>\'\';·\'\'\'<strong>굵게</strong>\'\'\';·\'\'\'\'\'<strong><em>굵게뉘어쓰기</em></strong>\'\'\'\'\';
-····\'\'<em>섞어쓰기·\'\'\'<strong>굵게</strong>\'\'\'·뉘어쓰기</em>\'\';·----·가로 줄.</dd>
-<dt>제목 줄:</dt>
-<dd>=·제목·1·=;·==·제목·2·==;·===·제목·3·===;
-····====·제목·4·====;·=====·제목·5·=====.</dd>
-<dt>리스트:</dt>
-<dd>공백 또는 * 한 개;·1.,·a.,·A.,·i.,·I.·번호매긴 목록;
-····1.#n·n부터 시작;·공백만 쓰면 들여씀.</dd>
-<dt>링크:</dt>
-<dd>JoinCapitalizedWords 처럼 대소문자 섞어쓰기;·["중괄호와 큰따옴표로 감싸기"];
-····URL;·[URL];·[URL 이름].</dd>
-<dt>표:</dt>
-<dd>||·칸 내용·||||·여러 칸에 걸친 내용·||;
-····표 뒤나 제목 뒤에는 공백이 있으면 안 됩니다.</dd>
-''',
+''' Emphasis:: [[Verbatim(\'\')]]\'\'italics\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'bold\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'bold italics\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'mixed \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'bold\'\'\'[[Verbatim(\'\'\')]] and italics\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] horizontal rule.
+ Headings:: [[Verbatim(=)]] Title 1 [[Verbatim(=)]]; [[Verbatim(==)]] Title 2 [[Verbatim(==)]]; [[Verbatim(===)]] Title 3 [[Verbatim(===)]];   [[Verbatim(====)]] Title 4 [[Verbatim(====)]]; [[Verbatim(=====)]] Title 5 [[Verbatim(=====)]].
+ Lists:: space and one of: * bullets; 1., a., A., i., I. numbered items; 1.#n start numbering at n; space alone indents.
+ Links:: [[Verbatim(JoinCapitalizedWords)]]; [[Verbatim(["brackets and double quotes"])]]; url; [url]; [url label].
+ Tables:: || cell text |||| cell text spanning 2 columns ||;    no trailing white space allowed after tables or titles.''':
+''' 강조:: [[Verbatim(\'\')]]\'\'뉘여쓰기\'\'[[Verbatim(\'\')]]; [[Verbatim(\'\'\')]]\'\'\'굵게\'\'\'[[Verbatim(\'\'\')]]; [[Verbatim(\'\'\'\'\')]]\'\'\'\'\'굵게 뉘여쓰기\'\'\'\'\'[[Verbatim(\'\'\'\'\')]]; [[Verbatim(\'\')]]\'\'혼합 \'\'[[Verbatim(\'\'\')]]\'\'\'\'\'굵게\'\'\'[[Verbatim(\'\'\')]] 뉘여쓰기\'\'[[Verbatim(\'\')]]; [[Verbatim(----)]] 가로 줄.
+ 제목:: [[Verbatim(=)]] 제목 1 [[Verbatim(=)]]; [[Verbatim(==)]] 제목 2 [[Verbatim(==)]]; [[Verbatim(===)]] 제목 3 [[Verbatim(===)]];   [[Verbatim(====)]] 제목 4 [[Verbatim(====)]]; [[Verbatim(=====)]] 제목 5 [[Verbatim(=====)]].
+ 목록:: 공백 이후에 다음 글자 중의 하나: * 순서표시; 1., a., A., i., I. 숫자표시; 1.#n 로 쓰면 n부터 시작; 공백만 앞에 쓰면 들여 씀.
+ 연결:: 대소문자 섞어 쓰기([[Verbatim(JoinCapitalizedWords)]]); [[Verbatim(["대괄호 안에 큰 따옴표"])]]; URL; [URL]; [URL 이름].
+ 표:: || 칸 내용 |||| 2칸을 차지하는 내용 ||;    절대로 제목이나 표 뒤에는 공백이 있으면 안 됩니다.''',
 '''Edit was cancelled.''':
 '''글 고침을 취소했습니다.''',
 '''Dear Wiki user,
@@ -162,20 +132,22 @@ The following page has been changed by %(editor)s:
 %(comment)s
 
 ''',
+'''New page:
+''':
+'''새 이름:
+''',
 '''No differences found!
 ''':
 '''차이점이 없습니다!
 ''',
-'''The diff function returned with error code %(rc)s!''':
-'''diff 함수가 에러 코드 %(rc)s를 반환하였습니다!''',
-'''You will not be notified of your own changes!''':
-'''본인이 고친 것에 대해서는 알림을 받지 않습니다.''',
+'''[%(sitename)s] %(trivial)sUpdate of "%(pagename)s"''':
+'''[%(sitename)s] "%(pagename)s"를 %(trivial)s수정''',
+'''Trivial ''':
+'''약간 ''',
 '''Status of sending notification mails:''':
 '''알림 편지 송신 상태:''',
 '''[%(lang)s] %(recipients)s: %(status)s''':
 '''[%(lang)s] %(recipients)s: %(status)s''',
-'''Nobody subscribed to this page, no mail sent.''':
-'''이 글에 대해서는 알림을 원하는 사람이 없습니다.''',
 '''## backup of page "%(pagename)s" submitted %(date)s''':
 '''## 글 "%(pagename)s"의 %(date)s 백업''',
 '''You are not allowed to edit this page!''':
@@ -183,22 +155,26 @@ The following page has been changed by %(editor)s:
 '''You cannot save empty pages.''':
 '''빈 글은 저장할 수 없습니다.''',
 '''Sorry, someone else saved the page while you edited it.
-<p>Please do the following: Use the back button of your browser, and cut&paste
+
+Please do the following: Use the back button of your browser, and cut&paste
 your changes from there. Then go forward to here, and click EditText again.
-Now re-add your changes to the current page contents.</p>
-<p><em>Do not just replace
+Now re-add your changes to the current page contents.
+
+\'\'Do not just replace
 the content editbox with your version of the page, because that would
-delete the changes of the other person, which is excessively rude!</em></p>
+delete the changes of the other person, which is excessively rude!\'\'
 ''':
 '''누군가 당신이 수정하는 동안에 고친 글을 저장했습니다.
-<p>다음 사항을 따라주세요: 브라우저의 "뒤로" 버튼을 눌러서, 수정한 부분을
+
+다음 사항을 따라주세요: 브라우저의 "뒤로" 버튼을 눌러서, 수정한 부분을
 복사해 온 후, 다시 글 수정으로 가서 다른 사람이 고친 내용을 피해
-방금 수정하려고 했던 내용을 다시 수정해서 저장해 주세요.</p>
-<p><em>절대 전체 내용을 복사해서 내용 전체를 덮어쓰기 하지 마세요.
+방금 수정하려고 했던 내용을 다시 수정해서 저장해 주세요.
+
+\'\'절대 전체 내용을 복사해서 내용 전체를 덮어쓰기 하지 마세요.
 그러면, 전에 수정한 사람이 하고 싶었던 것이 모두 취소되며,
-이 행위는 상당히 무례한 것입니다.</em></p>
+이런 행위는 일반적으로 아주 무례한 것으로 간주되고 있습니다.\'\'
 ''',
-'''A backup of your changes is <a href="%(backup_url)s">here</a>.''':
+'''A backup of your changes is [%(backup_url)s here].''':
 '''이번 바뀐점에 대한 백업은 <a href="%(backup_url)s">여기</a>에 있습니다.''',
 '''You did not change the page content, not saved!''':
 '''글 내용을 고치지 않았으므로 저장되지 않았습니다.''',
@@ -208,21 +184,21 @@ delete the changes of the other person, which is excessively rude!</em></p>
 '''글이 저장되었습니다.''',
 '''The lock of %(owner)s timed out %(mins_ago)d minute(s) ago, and you were granted the lock for this page.''':
 '''%(owner)s의 글 잠금이 %(mins_ago)d분 전에 풀렸습니다. 이제 이 글을 잠그고 고칠 수 있습니다.''',
-'''Other users will be <em>blocked</em> from editing this page until %(bumptime)s.''':
-'''%(bumptime)s 까지 다른 사람들은 이 글을 고칠 수 없습니다.''',
-'''Other users will be <em>warned</em> until %(bumptime)s that you are editing this page.''':
-'''%(bumptime)s 까지 다른 사람들이 글을 고치려고 시도하면 경고가 뜹니다.''',
+'''Other users will be \'\'blocked\'\' from editing this page until %(bumptime)s.''':
+'''%(bumptime)s 까지 다른 사람들은 이 글을 \'\'고칠 수 없습니다\'\'.''',
+'''Other users will be \'\'warned\'\' until %(bumptime)s that you are editing this page.''':
+'''%(bumptime)s 까지 다른 사람들이 글을 고치려고 시도하면 \'\'경고\'\'가 뜹니다.''',
 '''Use the Preview button to extend the locking period.''':
 '''잠금 기간을 연장하려면 미리보기 버튼을 누르세요.''',
-'''This page is currently <em>locked</em> for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
-'''이 글은 현재 %(owner)s가 %(timestamp)s(%(mins_valid)d 분 남음)까지 고칠 수 있도록 잠겨있습니다.''',
-'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.<br>
-<strong class="highlight">You should <em>refrain from editing</em> this page for at least another %(mins_valid)d minute(s),
-to avoid editing conflicts.</strong><br>
+'''This page is currently \'\'locked\'\' for editing by %(owner)s until %(timestamp)s, i.e. for %(mins_valid)d minute(s).''':
+'''이 글은 현재 %(owner)s가 %(timestamp)s(%(mins_valid)d 분 남음)까지 고칠 수 있도록 \'\'잠겨\'\'있습니다.''',
+'''This page was opened for editing or last previewed at %(timestamp)s by %(owner)s.[[BR]]
+\'\'\'You should \'\'refrain from editing\'\' this page for at least another %(mins_valid)d minute(s),
+to avoid editing conflicts.\'\'\'[[BR]]
 To leave the editor, press the Cancel button.''':
-'''%(owner)s가 %(timestamp)s에 글 고치기를 위한 잠시 잠금이 요청되었습니다.<br>
-<strong class="highlight">가급적이면 최소한 %(mins_valid)d 분 동안은 글 충돌을 막기 위해서 글을 <em>고치치 않는</em> 것이 좋습니다.<?strong><br>
-편집창을 닫으려면 취소 버튼을 누르세요.''',
+'''%(owner)s가 %(timestamp)s에 글 고치기를 위한 잠시 잠금을 요청하였습니다.[[BR]]
+\'\'\'가급적이면 최소한 %(mins_valid)d 분 동안은 글 충돌을 막기 위해서 글을 \'\'고치치 않는\'\' 것이 좋습니다.\'\'\'[[BR]]
+편집을 중단하려면 취소 버튼을 누르세요.''',
 '''<unknown>''':
 '''<알 수 없음>''',
 '''Diffs''':
@@ -243,20 +219,34 @@ To leave the editor, press the Cancel button.''':
 '''인쇄용 화면''',
 '''View''':
 '''보기''',
-'''Home''':
-'''홈페이지''',
 '''Up''':
 '''위로''',
-'''Unknown action''':
-'''알 수 없는 액션''',
+'''Invalid user name {{{\'%s\'}}}.
+Name may contain any Unicode alpha numeric character, with optional one
+space between words. Group page name is not allowed.''':
+'''{{{\'%s\'}}}는 잘못된 사용자 이름입니다.
+이름에는 유니코드 알파벳 또는 숫자가 포함될 수 있고, 필요하다면 1번
+띄어 쓸 수 있습니다. 묶음 글 이름도 또한 사용할 수 없습니다.''',
+'''You are not allowed to do %s on this page.''':
+'''이 글에 %s 작업을 할 권한이 없습니다.''',
+'''Login''':
+'''로그인''',
+''' %s and try again.''':
+''' %s 하고 다시 시도하세요.''',
 '''Can\'t work out query''':
-'''쿼리를 쓸 수 없습니다''',
+'''퀴어리를 쓸 수 없습니다''',
+'''%(hits)d results out of %(pages)d pages.''':
+'''전체 %(pages)d 글 중에 조건에 맞는 것이 %(hits)d개 발견되었습니다.''',
+'''%.2f seconds''':
+'''%.2f 초''',
+'''match''':
+''' 개 포함''',
+'''matches''':
+''' 개 포함''',
 '''Open editor on double click''':
 '''더블 클릭해서 글 고치기로 들어감''',
 '''Remember last page visited''':
 '''마지막 방문을 기억해둠''',
-'''Show emoticons''':
-'''이모티콘 사용''',
 '''Show fancy links''':
 '''꾸며진 링크 표시''',
 '''Show question mark for non-existing pagelinks''':
@@ -271,34 +261,46 @@ To leave the editor, press the Cancel button.''':
 '''꾸며진 diff 표시''',
 '''Add spaces to displayed wiki names''':
 '''위키네임에 스페이스를 넣어서 표시''',
-'''Remember login information forever''':
-'''로그인 정보를 영원히 기억함''',
+'''Remember login information''':
+'''로그인 정보를 기억함''',
+'''Subscribe to trivial changes''':
+'''사소한 변경사항도 감시''',
 '''Disable this account forever''':
 '''이 계정을 더 이상 사용하지 않음''',
 '''Cookie deleted. You are now logged out.''':
 '''쿠키가 지워졌습니다. 로그아웃 되었습니다.''',
-'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
-'''이 위키는 메일 처리를 할 수 없도록 되어 있습니다. 위키 관리자에게 연락하여 메일을 쓸 수 있도록 하거나, "Subscribe" 아이콘을 지워달라고 하세요.''',
+'''This wiki is not enabled for mail processing.
+Contact the owner of the wiki, who can enable email.''':
+'''이 위키는 메일 처리를 할 수 없도록 되어 있습니다. 
+위키 관리자에게 연락하여 메일을 쓸 수 있도록 요청하세요.''',
 '''Please provide a valid email address!''':
 '''사용가능한 메일 주소를 써 주세요!''',
 '''Found no account matching the given email address \'%(email)s\'!''':
 '''메일 주소가 \'%(email)s\'로 되어있는 계정이 없습니다!''',
-'''Unknown user name or password.''':
-'''등록되지 않은 이름이거나 비밀번호가 틀렸습니다.''',
-'''Please enter a user name!''':
+'''Unknown user name: {{{"%s"}}}. Please enter user name and password.''':
+'''{{{"%s"}}}는 등록되지 않은 사용자 이름입니다. 사용자 이름과 비밀번호를 다시 입력하세요.''',
+'''Missing password. Please enter user name and password.''':
+'''비밀번호가 없습니다. 사용자 이름과 비밀번호를 다시 입력하세요.''',
+'''Sorry, wrong password.''':
+'''비밀번호가 틀렸습니다.''',
+'''Bad relogin URL.''':
+'''잘못된 재접속 URL입니다.''',
+'''Unknown user.''':
+'''등록되지 않은 사용자입니다.''',
+'''Empty user name. Please enter a user name.''':
 '''이름을 입력하세요.''',
-'''User name already exists!''':
-'''그 이름의 다른 사용자가 이미 있습니다.''',
-'''Passwords don\'t match!''':
-'''패스워드가 맞지 않습니다.''',
-'''Please enter your name like that: FirstnameLastname''':
-'''이름을 이런식으로 써 주세요 (영문으로 쓸 경우): HongGildong''',
-'''Please provide your email address - without that you could not get your login data via email just in case you lose it.''':
-'''사용자명이나 비밀번호를 잊었을 때 쉽게 계정을 찾을 수 있도록 메일 주소를 반드시 입력해 주세요.''',
 '''This user name already belongs to somebody else.''':
 '''이 이름은 이미 다른 사람이 사용 중입니다.''',
+'''Passwords don\'t match!''':
+'''패스워드가 맞지 않습니다.''',
+'''Please specify a password!''':
+'''패스워드를 입력하세요!''',
+'''Please provide your email address. If you loose your login information, you can get it by email.''':
+'''사용자명이나 비밀번호를 잊었을 때 쉽게 계정을 찾을 수 있도록 메일 주소를 반드시 입력해 주세요.''',
 '''This email already belongs to somebody else.''':
 '''이 메일은 이미 다른 사람이 사용중입니다.''',
+'''The theme \'%(theme_name)s\' could not be loaded!''':
+'''"%(theme_name)s" 테마를 쓸 수 없습니다!''',
 '''User preferences saved!''':
 '''계정 환경설정이 저장되었습니다!''',
 '''Default''':
@@ -309,10 +311,8 @@ To leave the editor, press the Cancel button.''':
 '''저장''',
 '''Logout''':
 '''로그아웃''',
-'''Login''':
-'''로그인''',
 '''Create Profile''':
-'''새로운 사용자''',
+'''사용자 등록''',
 '''Mail me my account data''':
 '''비밀번호 되찾기''',
 '''Name''':
@@ -353,28 +353,12 @@ To leave the editor, press the Cancel button.''':
 '''메일 알림은 올바른 올바른 주소를 입력하지 않으면 동작하지 않습니다!''',
 '''Subscribed wiki pages (one regex per line)''':
 '''메일 알림을 받는 글들 (한 줄에 정규식 하나씩)''',
-'''Action''':
-'''액션''',
-'''Please use a more selective search term instead of \'%(needle)s\'!''':
-'''\'%(needle)s\' 대신 좀 더 드문 단어로 다시 찾아 주세요!''',
-'''Full text search for "%s"''':
-'''전체 본문에서 찾음 : "%s"''',
-'''match''':
-''' 개 포함''',
-'''matches''':
-''' 개 포함''',
-'''Title search for "%s"''':
-'''제목 "%s" 찾기''',
-'''%(hits)d hits out of %(pages)d pages searched.''':
-'''전체 %(pages)d 글 중에 조건에 맞는 것이 %(hits)d개 발견되었습니다.''',
-'''Needed %(timer).1f seconds.''':
-'''%(timer).1f초 걸림.''',
 '''No older revisions available!''':
 '''옛 버전이 저장되어 있지 않습니다!''',
 '''Diff for "%s"''':
 '''"%s" 글 변경사항''',
-'''Differences between versions dated %s and %s''':
-'''%s의 글과 %s의 글의 차이점''',
+'''Differences between revisions %d and %d''':
+'''개정판 %d과 %d 사이의 차이점''',
 '''(spanning %d versions)''':
 '''(%d번의 변경사항을 펼침)''',
 '''No differences found!''':
@@ -393,8 +377,6 @@ To leave the editor, press the Cancel button.''':
 '''다음 사용자들이 이 글을 구독합니다:''',
 '''This page links to the following pages:''':
 '''이 글은 다음 글들에 링크되어 있습니다.:''',
-'''Revision History''':
-'''리비젼 기록''',
 '''Date''':
 '''날짜''',
 '''Size''':
@@ -405,18 +387,30 @@ To leave the editor, press the Cancel button.''':
 '''수정한 사람''',
 '''Comment''':
 '''코멘트''',
+'''Action''':
+'''액션''',
 '''view''':
-'''view''',
+'''보기''',
 '''raw''':
-'''raw''',
+'''원문''',
 '''print''':
-'''print''',
+'''인쇄''',
 '''revert''':
-'''revert''',
-'''Revert to version dated %(datestamp)s.''':
-'''%(datestamp)s의 버전으로 돌아감.''',
+'''되돌림''',
+'''Revert to revision %(rev)d.''':
+'''%(rev)d번째 판으로 돌아감.''',
+'''edit''':
+'''수정''',
+'''get''':
+'''받기''',
+'''del''':
+'''지움''',
 '''N/A''':
 '''없음''',
+'''Revision History''':
+'''리비젼 기록''',
+'''No log entries found.''':
+'''기록이 없습니다!''',
 '''Info for "%s"''':
 '''"%s"글에 대한 정보''',
 '''Show "%(title)s"''':
@@ -429,16 +423,18 @@ To leave the editor, press the Cancel button.''':
 '''Page hits and edits''',
 '''You are not allowed to revert this page!''':
 '''이 글을 되돌릴 권한이 없습니다!''',
-'''An error occurred while reverting the page.''':
-'''글을 되돌리는 중에 에러가 발생했습니다.''',
 '''You are not allowed to subscribe to a page you can\'t read.''':
 '''글을 감시하기 위해서는 읽기 권한이 필요합니다.''',
+'''This wiki is not enabled for mail processing. Contact the owner of the wiki, who can either enable email, or remove the "Subscribe" icon.''':
+'''이 위키는 메일 처리를 할 수 없도록 되어 있습니다. 위키 관리자에게 연락하여 메일을 쓸 수 있도록 하거나, "Subscribe" 아이콘을 지워달라고 하세요.''',
 '''You didn\'t create a user profile yet. Select UserPreferences in the upper right corner to create a profile.''':
 '''사용자 계정을 아직 만들지 않았습니다. 오른쪽 위에 있는 UserPreferences를 눌러서 사용자 계정을 만들어 주세요.''',
 '''You didn\'t enter an email address in your profile. Select your name (UserPreferences) in the upper right corner and enter a valid email address.''':
 '''사용자 정보에 메일 주소를 입력하지 않았습니다. 화면 오른쪽 위의 UserPreferences에 들어가서 이름을 입력하고 메일 주소를 바르게 입력해 주세요.''',
-'''You are already subscribed to this page.''':
-'''이미 이 글의 메일 알림을 받고 있습니다.''',
+'''Your subscribtion to this page has been removed.''':
+'''이 글을 더 이상 감시하지 않습니다.''',
+'''Can\'t remove regular expression subscription!''':
+'''정규표현식으로 된 감시 목록은 지울 수 없습니다!''',
 '''To unsubscribe, go to your profile and delete this page from the subscription list.''':
 '''메일 알림을 해지하고 싶으면 계정 환경설정으로 가서 알림 목록에서 이 글을 지워 주세요.''',
 '''You have been subscribed to this page.''':
@@ -447,12 +443,16 @@ To leave the editor, press the Cancel button.''':
 '''필요한 속성인 "%(attrname)s"가 없습니다''',
 '''Submitted form data:''':
 '''폼 데이터 입력:''',
+'''Search Titles''':
+'''제목 찾기''',
 '''Display context of search results''':
 '''검색 결과의 본문을 보기''',
 '''Case-sensitive searching''':
 '''대소문자 구별''',
-'''Go''':
-'''Go''',
+'''Search Text''':
+'''내용에서 찾기''',
+'''Go To Page''':
+'''글 보기''',
 '''Include system pages''':
 '''시스템 글도 포함''',
 '''Exclude system pages''':
@@ -473,8 +473,6 @@ To leave the editor, press the Cancel button.''':
 '''글 개수''',
 '''Number of system pages''':
 '''시스템 글 개수''',
-'''Number of backup versions''':
-'''백업된 버전 개수''',
 '''Accumulated page sizes''':
 '''글 크기 총합''',
 '''Entries in edit log''':
@@ -491,8 +489,12 @@ To leave the editor, press the Cancel button.''':
 '''일반 확장 액션''',
 '''Local extension actions''':
 '''로컬 확장 액션''',
-'''Installed processors''':
-'''인스톨된 프로세서들''',
+'''Installed parsers''':
+'''설치된 파서''',
+'''Installed processors (DEPRECATED -- use Parsers instead)''':
+'''설치된 프로세서 (낡음 -- 대신 파서를 쓰세요)''',
+'''Please use a more selective search term instead of {{{"%s"}}}''':
+'''{{{"%s"}}} 대신 좀 더 드문 단어로 다시 찾아 주세요!''',
 '''ERROR in regex \'%s\'''':
 '''정규식 \'%s\'의 에러''',
 '''Bad timestamp \'%s\'''':
@@ -513,18 +515,12 @@ To leave the editor, press the Cancel button.''':
 '''첨부 파일 이름이 지정되지 않았습니다!''',
 '''Attachment \'%(filename)s\' does not exist!''':
 '''첨부 \'%(filename)s\'가 존재하지 않습니다!''',
-'''<p>To refer to attachments on a page, use <strong><tt>attachment:filename</tt></strong>, 
+'''To refer to attachments on a page, use \'\'\'{{{attachment:filename}}}\'\'\', 
 as shown below in the list of files. 
-Do <strong>NOT</strong> use the URL of the <tt>[get]</tt> link, 
-since this is subject to change and can break easily.</p>''':
-'''<p>이 글에서 첨부를 링크하려면, 아래의 파일 목록 옆에 있는 것 처럼 <strong><tt>attachment:파일이름</tt></strong> 형식으로 쓰십시오.
-URL은 자주 바뀔 수 있으므로 <tt>[받기]</tt> 링크의 URL을 직접 사용하지 마세요.''',
-'''del''':
-'''지움''',
-'''get''':
-'''받기''',
-'''edit''':
-'''수정''',
+Do \'\'\'NOT\'\'\' use the URL of the {{{[get]}}} link, 
+since this is subject to change and can break easily.''':
+'''이 글에서 첨부를 링크하려면, 아래의 파일 목록 옆에 있는 것 처럼 \'\'\'{{{attachment:파일이름}}}\'\'\' 형식으로 쓰십시오.
+URL은 자주 바뀔 수 있으므로 {{{[받기]}}} 링크의 URL을 직접 사용하지 마세요.''',
 '''No attachments stored for %(pagename)s''':
 '''%(pagename)s 에는 첨부가 없음.''',
 '''Edit drawing''':
@@ -553,6 +549,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''이 위키에서는 첨부를 할 수 없습니다.!''',
 '''You are not allowed to save a drawing on this page.''':
 '''이 글에 그림을 저장할 권한이 없습니다.''',
+'''No file content. Delete non ASCII characters from the file name and try again.''':
+'''파일 내용이 들어오지 않았습니다. 파일 이름에는 한글을 쓸 수 없습니다.''',
 '''You are not allowed to delete attachments on this page.''':
 '''이 글의 첨부를 지울 권한이 없습니다.''',
 '''You are not allowed to get attachments from this page.''':
@@ -589,14 +587,12 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''지움''',
 '''Optional reason for the deletion''':
 '''삭제하는 이유''',
-'''No pages match "%s"!''':
-'''"%s"를 포함한 글이 없습니다!''',
-'''Exactly one matching page for "%s" found!''':
-'''정확히 하나의 글 "%s"가 발견되었습니다!''',
-'''Multiple matches for "%s...%s"''':
-'''"%s...%s"에 대한 여러 개의 검색결과''',
-'''You cannot use LikePages on an extended pagename!''':
-'''"LikePages"는 글 이름으로 사용할 수 없습니다.''',
+'''No pages like "%s"!''':
+'''"%s"가 들어간 글이 없습니다.''',
+'''Exactly one page like "%s" found, redirecting to page.''':
+'''"%s"가 들어간 페이지가 딱 하나 발견되었습다. 그 글로 이동합니다.''',
+'''Pages like "%s"''':
+'''"%s"와 비슷한 글''',
 '''%(matchcount)d %(matches)s for "%(title)s"''':
 '''제목에 "%(title)s"를 포함하는 것이 %(matchcount)d %(matches)s개 발견되었습니다.''',
 '''Local Site Map for "%s"''':
@@ -605,16 +601,18 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''이 위키에서는 글 이름을 바꿀 수 없습니다.''',
 '''Please use the interactive user interface to rename pages!''':
 '''글 이름을 바꾸기 위해서는 명령행 프로그램을 사용해 주세요!''',
-'''A page with the name "%s" already exists!''':
-'''글 "%s"가 이미 있습니다.''',
-'''Page "%s" was successfully renamed to "%s"!''':
-'''글 "%s"을 "%s"로 이름을 바꾸었습니다.''',
-'''Rename''':
-'''이름 바꾸기''',
+'''Rename Page''':
+'''글 제목 바꾸기''',
 '''New name''':
 '''새 이름''',
 '''Optional reason for the renaming''':
 '''삭제하는 이유''',
+'''\'\'\'A page with the name {{{\'%s\'}}} already exists.\'\'\'
+
+Try a different name.''':
+'''\'\'\'글 {{{"%s"}}}가 이미 있습니다.\'\'\'
+
+다른 이름으로 다시 만들어 보세요.''',
 '''(including %(localwords)d %(pagelink)s)''':
 ''' (%(pagelink)s를 %(localwords)d개 포함)''',
 '''The following %(badwords)d words could not be found in the dictionary of %(totalwords)d words%(localwords)s and are highlighted below:''':
@@ -625,6 +623,10 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''철자 오류가 발견되지 않았습니다!''',
 '''You can\'t check spelling on a page you can\'t read.''':
 '''읽을 수 없는 글의 문법은 검사할 수 없습니다.''',
+'''Title Search: "%s"''':
+'''제목 "%s" 찾기''',
+'''Full Text Search: "%s"''':
+'''내용 전체에서 찾음 : "%s"''',
 '''Full Link List for "%s"''':
 '''"%s"에 연결된 모든 글 목록''',
 '''Invalid include arguments "%s"!''':
@@ -651,14 +653,16 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''첨부 \'%(filename)s\'를 업로드''',
 '''Drawing \'%(filename)s\' saved.''':
 '''그림 \'%(filename)s\'가 저장되었습니다.''',
-'''%(hours)dh&nbsp;%(mins)dm&nbsp;ago''':
-'''[%(hours)02d시간 %(mins)02d분]''',
+'''%(hours)dh %(mins)dm ago''':
+'''%(hours)02d시간 %(mins)02d분 전''',
 '''(no bookmark set)''':
 '''(책갈피가 없음)''',
 '''(currently set to %s)''':
 '''(현재값은 %s)''',
-'''Update my bookmark timestamp''':
-'''내 책갈피 갱신''',
+'''Delete Bookmark''':
+'''책갈피 제거''',
+'''Set bookmark''':
+'''여기에 책갈피 두기''',
 '''set bookmark''':
 '''여기에 책갈피 두기''',
 '''[Bookmark reached]''':
@@ -697,6 +701,8 @@ Otherwise, if "Rename to" is left blank, the original filename will be used.''':
 '''XSLT 처리가 지원되지 않습니다.''',
 '''%(errortype)s processing error''':
 '''처리중 에러: "%(errortype)s"''',
+'''for this page (cached %(date)s)''':
+''' (%(date)s에 캐쉬됨)''',
 '''Charts are not available!''':
 '''이 위키에서는 차트 그리기가 지원되지 않습니다.''',
 '''%(chart_title)s for %(filterpage)s''':
@@ -706,29 +712,75 @@ red=edit''':
 '''green=view
 red=edit''',
 '''date''':
-'''날짜''',
+'''date''',
+'''# of hits''':
+'''# of hits''',
+'''Page Size Distribution''':
+'''Page Size Distribution''',
 '''page size upper bound [bytes]''':
-'''글 크기 최대 [바이트]''',
+'''page size upper bound [bytes]''',
+'''# of pages of this size''':
+'''# of pages of this size''',
 '''Others''':
-'''다른 것들''',
-'''Click here to do a full-text search for this title''':
-'''이 제목으로 전체 본문에서 찾아보려면 여기를 클릭하세요''',
+'''Others''',
+'''Distribution of User-Agent Types''':
+'''Distribution of User-Agent Types''',
+'''Click to do a full-text search for this title''':
+'''이 제목을 내용 전체에서 찾아보려면 여기를 누르세요''',
 '''Clear message''':
 '''메시지 지움''',
-'''ShowText''':
-'''본문보기''',
-'''of this page''':
-''' ''',
+'''last edited %(time)s by %(editor)s''':
+'''%(time)s에 %(editor)s가 마지막으로 고침''',
+'''last modified %(time)s''':
+'''최근 수정 %(time)s''',
+'''Search:''':
+'''찾기:''',
+'''Text''':
+'''내용''',
+'''Titles''':
+'''제목''',
+'''Unsubscribe''':
+'''감시 해제''',
+'''More Actions:''':
+'''다른 작업:''',
+'''Show Raw Text''':
+'''본문 보기''',
+'''Show Print View''':
+'''인쇄용 화면보기''',
+'''Attach File''':
+'''첨부 파일''',
+'''Delete Page''':
+'''글 지우기''',
+'''Show Like Pages''':
+'''비슷한 글 보기''',
+'''Show Local Site Map''':
+'''사이트 맵 보기''',
+'''Do''':
+'''확인''',
+'''Show Parent''':
+'''상위 글 보기''',
+'''Immutable Page''':
+'''못 고치는 글''',
+'''Refresh''':
+'''새로 고침''',
+'''Show Changes''':
+'''변경내역 보기''',
+'''Get Info''':
+'''정보''',
+'''Show %s days.''':
+'''변경사항 표시 (일): %s''',
 '''EditText''':
 '''글 고치기''',
 '''Immutable page''':
 '''못 고치는 글''',
-'''or search titles %(titlesearch)s, full text %(textsearch)s or''':
-''' : 제목으로 %(titlesearch)s, 본문에서 %(textsearch)s, 또는''',
 '''Or try one of these actions:''':
-'''그 외에 다음 액션도 있습니다 : ''',
-'''Show all changes in the last %s days.''':
-'''최근 %s일 동안의 변경사항 보기.''',
+'''다른 작업을 할 수도 있습니다 : ''',
+'''Page''':
+'''글''',
+'''Trail''':
+'''흔적''',
+'''User''':
+'''사용자''',
 '''Line''':
 '''줄''',
 '''Deletions are marked like this.''':
@@ -739,6 +791,30 @@ red=edit''',
 '''메일 서버 \'%(server)s\'에 접속 실패: %(reason)s''',
 '''Mail sent OK''':
 '''메일이 보내졌습니다''',
+'''["<html>"]''':
+'''["<html>"]''',
+'''FrontPage''':
+'''대문''',
+'''RecentChanges''':
+'''바뀐글''',
+'''TitleIndex''':
+'''제목색인''',
+'''WordIndex''':
+'''단어색인''',
+'''FindPage''':
+'''글찾기''',
+'''SiteNavigation''':
+'''사이트안내도''',
+'''HelpContents''':
+'''도움말''',
+'''HelpOnFormatting''':
+'''글쓰기도움말''',
+'''UserPreferences''':
+'''사용자설정''',
+'''WikiLicense''':
+'''위키라이선스''',
+'''MissingPage''':
+'''없는글''',
 '''Mon''':
 '''월요일''',
 '''Tue''':
@@ -753,4 +829,16 @@ red=edit''',
 '''토요일''',
 '''Sun''':
 '''일요일''',
+'''AttachFile''':
+'''파일첨부''',
+'''DeletePage''':
+'''글지움''',
+'''LikePages''':
+'''비슷한페이지''',
+'''LocalSiteMap''':
+'''사이트맵''',
+'''RenamePage''':
+'''이름바꿈''',
+'''SpellCheck''':
+'''철자검사''',
 }
