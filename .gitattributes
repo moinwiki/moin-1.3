@@ -1,0 +1,4 @@
+wiki/data/intermap.txt -text
+wiki/data/pages/** -text
+wiki/underlay/pages/** -text
+
